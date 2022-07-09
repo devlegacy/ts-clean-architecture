@@ -43,7 +43,7 @@ async function* readModulesRecursively(
   }
 }
 
-const isInvalidEntity = (entity: Constructable<unknown>) =>
+const isInvalidConstructable = (entity: Constructable<unknown>) =>
   !entity?.name || !(typeof entity === 'function' && !!entity.prototype && entity.prototype.constructor === entity)
 
 const entityLoader = async (path = `../../../../../../`) => {
@@ -54,7 +54,7 @@ const entityLoader = async (path = `../../../../../../`) => {
     const keys = Object.keys(entityLoaded)
     for (const key of keys) {
       const entity = entityLoaded[key]
-      if (isInvalidEntity(entity)) continue
+      if (isInvalidConstructable(entity)) continue
 
       controllers.push(entity)
     }
@@ -101,20 +101,23 @@ const getParams = (params: Record<string, unknown>, req: any, res: any): any[] =
   return routeParams
 }
 
-const setSchemaComplement = (params: Record<string, any>, schema: any, method: any): any => {
+const setSchemaComplement = (params: Record<string, any>, schema: any, method: any, args: any[] = []): any => {
   const keyParams = Object.keys(params)
+  // console.log(args)
   for (const key of keyParams) {
-    const [_paramtype] = key.split(':')
+    const [_paramtype, _index] = key.split(':')
     const paramtype = parseInt(_paramtype, 10)
+    const index = parseInt(_index, 10)
+    if (!args.at(index) || isInvalidConstructable(args.at(index)) || args.at(index).name === 'Object') continue
 
     if (paramtype === RouteParamtypes.QUERY) {
-      schema.schema.querystring = params[key].pipes.at(0)
+      schema.schema.querystring = args.at(index)
     } else if (paramtype === RouteParamtypes.PARAM) {
-      schema.schema.params = params[key].pipes.at(0)
+      schema.schema.params = args.at(index)
     } else if (paramtype === RouteParamtypes.BODY) {
-      schema.schema.body = params[key].pipes.at(0)
+      schema.schema.body = args.at(index)
     } else if (paramtype === RouteParamtypes.HEADERS) {
-      schema.schema.headers = params[key].pipes.at(0)
+      schema.schema.headers = args.at(index)
     }
   }
 
@@ -129,7 +132,7 @@ const setSchemaComplement = (params: Record<string, any>, schema: any, method: a
  * @param config
  */
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line complexity, max-lines-per-function
 export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
   // const controllerContainer = container.createChildContainer()
 
@@ -162,7 +165,8 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
 
       const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instance.constructor, classMethod)
       if (params) {
-        setSchemaComplement(params, schema, requestMethod)
+        const args: any[] = Reflect.getMetadata('design:paramtypes', instance.constructor.prototype, classMethod) || []
+        setSchemaComplement(params, schema, requestMethod, args)
       }
       fastify.route({
         method: RequestMethod[requestMethod] as HTTPMethods,

@@ -7,8 +7,8 @@ import Joi from '@/shared/joi'
 })
 export class IndexHeadersDto {
   @JoiSchema(Joi.string().trim().objectId().required())
-  'x-dd-user'!: string
+  'x-context-user'!: string
 
   @JoiSchema(Joi.string().trim().objectId().required())
-  'x-dd-account'!: string
+  'x-context-account'!: string
 }
