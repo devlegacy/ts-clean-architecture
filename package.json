@@ -40,8 +40,8 @@
     "@fastify/rate-limit": "^6.0.1",
     "@graphql-tools/schema": "^8.5.0",
     "ajv": "^8.11.0",
-    "apollo-server-core": "^3.9.0",
-    "apollo-server-fastify": "^3.9.0",
+    "apollo-server-core": "^3.10.0",
+    "apollo-server-fastify": "^3.10.0",
     "convict": "^6.2.3",
     "dotenv": "^16.0.1",
     "dotenv-expand": "^8.0.3",
@@ -73,8 +73,8 @@
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^8.3.4",
     "@types/uuid-validate": "^0.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.30.5",
-    "@typescript-eslint/parser": "^5.30.5",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.19.0",
@@ -101,7 +101,7 @@
     "typescript": "^4.7.4"
   },
   "optionalDependencies": {
-    "npm-check-updates": "^15.2.1"
+    "npm-check-updates": "^15.2.6"
   },
   "engines": {
     "node": ">=16.15.0 <=18.1.0",
