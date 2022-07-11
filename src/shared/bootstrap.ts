@@ -5,8 +5,16 @@ import { ValidationError } from 'joi'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import { container, injectable, Lifecycle } from 'tsyringe'
+import type { Class, Constructor } from 'type-fest'
 
-import { getMethodGroup, getSchema, RequestMappingMetadata, RequestMethod, RouteParamtypes } from './common'
+import {
+  getMethodGroup,
+  getSchema,
+  RequestMappingMetadata,
+  RequestMethod,
+  RouteParamMetadata,
+  RouteParamtypes
+} from './common'
 import {
   HTTP_CODE_METADATA,
   METHOD_METADATA,
@@ -15,12 +23,8 @@ import {
   SCHEMA_METADATA
 } from './common/constants'
 
-type Constructable<T> = { new (): T } | { new (...args: any): T }
-
-async function* readModulesRecursively(
-  path: string,
-  filter: RegExp
-): AsyncIterable<Record<string, Constructable<unknown>>> {
+// Inspired: https://github.com/L2jLiga/fastify-decorators/blob/v4/lib/bootstrap/bootstrap.ts
+async function* readModulesRecursively(path: string, filter: RegExp): AsyncIterable<Record<string, Class<unknown>>> {
   const dir = opendirSync(path)
 
   try {
@@ -43,18 +47,18 @@ async function* readModulesRecursively(
   }
 }
 
-const isInvalidConstructable = (entity: Constructable<unknown>) =>
-  !entity?.name || !(typeof entity === 'function' && !!entity.prototype && entity.prototype.constructor === entity)
+const isValidConstructable = (entity: Class<unknown>) =>
+  !!entity?.name && typeof entity === 'function' && !!entity?.prototype && entity?.prototype?.constructor === entity
 
-const entityLoader = async (path = `../../../../../../`) => {
-  const controllers: Array<Constructable<unknown>> = []
-  path = resolve(cwd(), path)
+const entitiesRegister = async (path = './src') => {
+  const controllers: Class<unknown>[] = []
+  const dir = resolve(cwd(), path)
 
-  for await (const entityLoaded of readModulesRecursively(path, /\.(controller|entity)\.(ts|js)$/)) {
-    const keys = Object.keys(entityLoaded)
+  for await (const entities of readModulesRecursively(dir, /\.(controller|entity)\.(ts|js)$/)) {
+    const keys = Object.keys(entities)
     for (const key of keys) {
-      const entity = entityLoaded[key]
-      if (isInvalidConstructable(entity)) continue
+      const entity = entities[key]
+      if (!isValidConstructable(entity)) continue
 
       controllers.push(entity)
     }
@@ -63,7 +67,7 @@ const entityLoader = async (path = `../../../../../../`) => {
   return controllers
 }
 
-const getInstance = (config: { controller: string }, controller: Constructable<unknown>) => {
+const getInstance = (controller: Class<unknown>): Constructor<unknown> => {
   const { name } = controller
   if (!container.isRegistered(name)) {
     injectable()(controller)
@@ -71,13 +75,48 @@ const getInstance = (config: { controller: string }, controller: Constructable<u
     container.register(name, { useClass: controller }, { lifecycle: Lifecycle.Singleton })
   }
   // This is our instantiated class
-  const instance = (container.isRegistered(name) ? container.resolve(name) : new controller()) as any
+  const instance = container.isRegistered(name) ? container.resolve(name) : new controller()
 
-  return instance
+  return instance as Constructor<unknown>
 }
 
-const getParams = (params: Record<string, unknown>, req: any, res: any): any[] => {
+const getControllerMetadata = (method: () => unknown) => {
+  const routePath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
+  const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
+    Reflect.getMetadata(METHOD_METADATA, method) || RequestMethod.GET
+  const httpCode: number =
+    Reflect.getMetadata(HTTP_CODE_METADATA, method) ||
+    (requestMethod === RequestMethod.POST ? HttpStatus.CREATED : HttpStatus.OK)
+
+  // TODO: Delete
+  const schema: { schema: FastifySchema; code: number } = Reflect.getMetadata(SCHEMA_METADATA, method) || {
+    schema: {},
+    code: 400
+  }
+
+  return {
+    routePath,
+    requestMethod,
+    httpCode,
+    schema
+  }
+}
+
+const getFullPath = (controllerPath: string, routePath: RequestMappingMetadata['path']) => {
+  controllerPath = controllerPath.startsWith('/') ? controllerPath : `/${controllerPath}`
+  if (typeof routePath === 'string') {
+    routePath = routePath.startsWith('/') ? routePath : `/${routePath}`
+  } else {
+    throw new Error('[Router/Controller loader]: undefined error')
+  }
+
+  return `${controllerPath}${routePath}`.replace(/\/+/g, '/')
+}
+
+// eslint-disable-next-line complexity
+const getParams = (params: Record<string, RouteParamMetadata>, req: any, res: any): any[] => {
   const routeParams: any[] = []
+
   const keyParams = params ? Object.keys(params) : []
   for (const key of keyParams) {
     const [_paramtype, _index] = key.split(':')
@@ -88,27 +127,27 @@ const getParams = (params: Record<string, unknown>, req: any, res: any): any[] =
     } else if (paramtype === RouteParamtypes.RESPONSE) {
       routeParams[index] = res
     } else if (paramtype === RouteParamtypes.QUERY) {
-      routeParams[index] = req.query
+      routeParams[index] = params[key].data ? req.query[params[key].data as string] : req.query
     } else if (paramtype === RouteParamtypes.PARAM) {
       routeParams[index] = req.params
     } else if (paramtype === RouteParamtypes.BODY) {
       routeParams[index] = req.body
     } else if (paramtype === RouteParamtypes.HEADERS) {
-      routeParams[index] = req.headers
+      routeParams[index] = params[key].data ? req.headers[params[key].data as string] : req.headers
     }
   }
 
   return routeParams
 }
 
-const setSchemaComplement = (params: Record<string, any>, schema: any, method: any, args: any[] = []): any => {
+const buildSchemaWithParams = (params: Record<string, any>, schema: any, method: any, args: any[] = []): any => {
   const keyParams = Object.keys(params)
   // console.log(args)
   for (const key of keyParams) {
     const [_paramtype, _index] = key.split(':')
     const paramtype = parseInt(_paramtype, 10)
     const index = parseInt(_index, 10)
-    if (!args.at(index) || isInvalidConstructable(args.at(index)) || args.at(index).name === 'Object') continue
+    if (!args.at(index) || !isValidConstructable(args.at(index)) || args.at(index).name === 'Object') continue
 
     if (paramtype === RouteParamtypes.QUERY) {
       schema.schema.querystring = args.at(index)
@@ -136,45 +175,46 @@ const setSchemaComplement = (params: Record<string, any>, schema: any, method: a
 export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
   // const controllerContainer = container.createChildContainer()
 
-  const controllers = await entityLoader(config.controller)
+  const controllers = await entitiesRegister(config.controller)
   for (const controller of controllers) {
-    const instance = getInstance(config, controller)
+    const instance = getInstance(controller)
+    const instanceConstructor = instance.constructor
+    const instancePrototype = instanceConstructor.prototype
 
     // The prefix saved to our controller
-    const controllerPath: string = Reflect.getMetadata(PATH_METADATA, instance.constructor) // | controller
-    // Our `routes` array containing all our routes for this controller
-    // Access from Class w/o instance
-    const classMethods = Reflect.ownKeys(instance.__proto__) // | controller.prototye
+    // | controller
+    const controllerPath: string = Reflect.getMetadata(PATH_METADATA, instanceConstructor)
     // Access from instance
-    // console.log(Reflect.ownKeys(Object.getPrototypeOf(ctrlObj)))
-    for (const classMethod of classMethods) {
-      if (classMethod === 'constructor') continue // I don't remember purpose
+    // | controller.prototype | instance.__proto__
+    // | Reflect.ownKeys(Object.getPrototypeOf(instance))
+    const classMethodNames: (string | symbol)[] = Reflect.ownKeys(instancePrototype)
+    for (const methodName of classMethodNames) {
+      if (methodName === 'constructor') continue // constructor method ignore reflect metadata
 
-      const method = instance[classMethod]
+      const method: () => unknown = instancePrototype[methodName]
+      const { routePath, requestMethod, httpCode, schema } = getControllerMetadata(method)
 
-      const routePath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
-      const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
-        Reflect.getMetadata(METHOD_METADATA, method) || 0
-      const schema: { schema: FastifySchema; code: number } = Reflect.getMetadata(SCHEMA_METADATA, method) || {
-        schema: {},
-        code: 400
-      }
-      const statusCode: number =
-        Reflect.getMetadata(HTTP_CODE_METADATA, method) ||
-        (requestMethod === RequestMethod.POST ? HttpStatus.CREATED : HttpStatus.OK)
-
-      const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instance.constructor, classMethod)
+      const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instanceConstructor, methodName)
       if (params) {
-        const args: any[] = Reflect.getMetadata('design:paramtypes', instance.constructor.prototype, classMethod) || []
-        setSchemaComplement(params, schema, requestMethod, args)
+        const args: any[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
+        buildSchemaWithParams(params, schema, requestMethod, args)
       }
+
       fastify.route({
         method: RequestMethod[requestMethod] as HTTPMethods,
-        schema: !Object.keys(schema.schema) ? undefined : schema.schema,
+        schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
         attachValidation: true,
-        url: fullPath(controllerPath, routePath),
+        url: getFullPath(controllerPath, routePath),
+        preParsing: (req, res, payload, done) => {
+          // Some code
+          done(null, payload)
+        },
+        preValidation: (req, res, done) => {
+          // Some code
+          done()
+        },
         handler: (req, res) => {
-          res.code(statusCode)
+          res.status(httpCode)
           if (req.validationError) {
             const error = req.validationError
             // Is JOI
@@ -184,26 +224,14 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
             return res.status(500).send(new Error('Unhandled error'))
           }
           const routeParams = getParams(params, req, res)
-          // Reflect.getMetadata('__routeArguments__',instance.constructor,'params')
+          // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
           // const currentMethodFn = instance[method.name]
           // method() // por alguna razón pierde el bind
-          // instance[classMethod]() - Revisar que conserve el valor de this
-          return instance[classMethod].apply(instance, [...routeParams])
+          // instance[methodName]() - Revisar que conserve el valor de this
+          // instance[methodName]
+          return instancePrototype[methodName].apply(instance, routeParams)
         }
       })
     }
   }
 }
-
-const fullPath = (controllerPath: string, routePath: RequestMappingMetadata['path']) => {
-  controllerPath = controllerPath.startsWith('/') ? controllerPath : `/${controllerPath}`
-  if (typeof routePath === 'string') {
-    routePath = routePath.startsWith('/') ? routePath : `/${routePath}`
-  } else {
-    throw new Error('[Router/Controller loader]: undefined error')
-  }
-
-  return `${controllerPath}${routePath}`.replace(/\/+/g, '/')
-}
-
-// Notes: 💡 register as alterative to entityLoader

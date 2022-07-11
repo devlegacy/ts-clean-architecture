@@ -39,4 +39,16 @@ export class StatusController {
       headers
     }
   }
+
+  @HttpCode(HttpStatus.CREATED)
+  @Post('/helpers')
+  helpers(@Query('limit') limit: number, @Query('page') page: number, @Headers('x-context-account') account: string) {
+    // console.log(this)
+
+    return {
+      page,
+      limit,
+      account
+    }
+  }
 }

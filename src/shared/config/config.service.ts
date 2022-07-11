@@ -10,6 +10,15 @@ export interface ConfigServiceOptions {
   expandEnv?: boolean
 }
 
+const ajv = new Ajv({
+  allErrors: true,
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true,
+  allowUnionTypes: true
+  // addUsedSchema: false
+})
+
 export class ConfigService<K = Record<string, unknown>> {
   #env: K
 
@@ -19,15 +28,6 @@ export class ConfigService<K = Record<string, unknown>> {
     if (opts.expandEnv) {
       expand(config)
     }
-
-    const ajv = new Ajv({
-      allErrors: true,
-      removeAdditional: true,
-      useDefaults: true,
-      coerceTypes: true,
-      allowUnionTypes: true
-      // addUsedSchema: false
-    })
 
     const { schema } = opts
     schema.additionalProperties = false

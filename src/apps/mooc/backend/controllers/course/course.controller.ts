@@ -1,20 +1,27 @@
 import HttpStatus from 'http-status'
 
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
-import { Controller, HttpCode, Put, Req, Schema } from '@/shared/common'
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Put
+  // Req
+  //  Schema
+} from '@/shared/common'
 
-import { updateSchema } from './course.schema'
+// import { updateSchema } from './course.schema'
 import { CourseDto } from './dtos/course.dto'
 
 @Controller('/courses')
 export class CourseController {
   constructor(private courseCreator: CourseCreator) {}
 
+  // @Schema(updateSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
-  @Schema(updateSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @Put('/:course')
-  async update(@Req() req: HttpRequest<{ Body: CourseDto }>) {
-    const { id, name, duration } = req.body
+  async update(@Body() course: CourseDto) {
+    const { id, name, duration } = course
 
     await this.courseCreator.run({
       id,

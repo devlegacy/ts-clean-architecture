@@ -6,13 +6,12 @@ import util from 'util'
 
 const stream = pretty({
   colorize: true, // colorizes the log
+  destination: 1,
+  ignore: 'pid,hostname',
   levelFirst: true,
-  translateTime: 'yyyy-dd-mm, h:MM:ss TT',
-  ignore: 'pid,hostname'
+  translateTime: 'yyyy-dd-mm, h:MM:ss TT'
 })
 
-// const name = process.env.APP_NAME || 'Default microservice'
-// const level = process.env.LOG_LEVEL || 'info'
 const streams = [{ stream }, { stream: pino.destination(resolve(cwd(), './logger.log')) }]
 
 /**
@@ -21,8 +20,8 @@ const streams = [{ stream }, { stream: pino.destination(resolve(cwd(), './logger
 export let logger = () =>
   pino(
     {
-      name: process.env.APP_NAME,
-      level: process.env.LOG_LEVEL || 'info'
+      name: process?.env?.APP_NAME,
+      level: process?.env?.LOG_LEVEL || 'info'
     },
     pino.multistream(streams)
   )

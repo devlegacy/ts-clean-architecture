@@ -19,7 +19,7 @@ container.register<Promise<MongoClient>>('MongoClient', {
   useValue: MongoClientFactory.createClient('mooc', container.resolve<MongoConfig>('MongoConfig'))
 })
 
-// TODO: Define
+// TODO: Define test dependency injector
 // Test
 
 // Application
