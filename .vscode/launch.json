@@ -15,11 +15,13 @@
         "<node_internals>/internal/async_hooks.js",
         "<node_internals>/internal/inspector_async_hook.js"
       ],
-      "type": "pwa-node",
+      // https://github.com/pinojs/pino/issues/441
+      "outputCapture": "std",
+      "type": "node",
       "restart": true
     },
     {
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart",
       "name": "🚀 Launch Program",
       "program": "${file}",
@@ -30,13 +32,15 @@
         "--trace-deprecation",
         // "--abort-on-uncaught-exception",
         "-r",
-        "ts-node/register/transpile-only",
+        "${workspaceFolder}/functions/node_modules/ts-node/register",
         "-r",
-        "tsconfig-paths/register"
+        "${workspaceFolder}/functions/node_modules/tsconfig-paths/register"
       ],
+      "args": ["${workspaceFolder}/functions/src/index.ts"],
       "runtimeExecutable": "node",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
-      "type": "pwa-node",
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
       "env": {
         "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
@@ -71,6 +75,8 @@
           "//${relativeFile}" // the // is a hack for windows files
         ]
       },
+      // https://github.com/pinojs/pino/issues/441
+      "outputCapture": "std",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "skipFiles": [
@@ -100,7 +106,8 @@
         // "<node_internals>/internal/async_hooks.js",
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
-      "type": "pwa-node",
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
       // "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
@@ -121,7 +128,8 @@
         // "<node_internals>/internal/async_hooks.js",
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
-      "type": "pwa-node",
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
@@ -142,7 +150,8 @@
         // "<node_internals>/internal/async_hooks.js",
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
-      "type": "pwa-node",
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
@@ -163,8 +172,9 @@
         // "<node_internals>/internal/async_hooks.js",
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
-      "type": "pwa-node",
-      "outputCapture": "std",
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
+      // "outputCapture": "std",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     }
