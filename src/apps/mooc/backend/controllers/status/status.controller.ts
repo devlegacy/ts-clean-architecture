@@ -1,6 +1,8 @@
 import HttpStatus from 'http-status'
 
 import { Body, Controller, Get, Headers, HttpCode, Param, Post, Query, Req, Res } from '@/shared/common'
+import { MongoIdPipe } from '@/shared/mongo-id.pipe'
+import { PageNumberPipe } from '@/shared/page-number.pipe'
 
 import { IndexHeadersDto } from './dtos/index-headers.dto'
 import { IndexQueryDto } from './dtos/index-query.dto'
@@ -42,7 +44,11 @@ export class StatusController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('/helpers')
-  helpers(@Query('limit') limit: number, @Query('page') page: number, @Headers('x-context-account') account: string) {
+  helpers(
+    @Query('limit') limit: number,
+    @Query('page', PageNumberPipe) page: number,
+    @Headers('x-context-account', MongoIdPipe) account: string
+  ) {
     // console.log(this)
 
     return {

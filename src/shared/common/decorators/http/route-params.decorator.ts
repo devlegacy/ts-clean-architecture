@@ -1,12 +1,15 @@
+import { Constructor } from 'type-fest'
+
 import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants'
 import { RouteParamtypes } from '../../enums'
-import { PipeTransform, Type } from '../../interfaces'
+import { PipeTransform } from '../../interfaces'
 import { isNil, isString } from '../../utils'
 
 export interface ResponseDecoratorOptions {
   passthrough: boolean
 }
 
+// TODO: Why object (?)
 export type ParamData = object | string | number
 export interface RouteParamMetadata {
   index: number
@@ -18,7 +21,7 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
   paramtype: TParamtype,
   index: number,
   data?: ParamData,
-  ...pipes: (Type<PipeTransform> | PipeTransform)[]
+  ...pipes: (Constructor<PipeTransform> | PipeTransform)[]
 ) {
   return {
     ...args,
@@ -45,12 +48,16 @@ function createRouteParamDecorator(paramtype: RouteParamtypes) {
 
 const createPipesRouteParamDecorator =
   (paramtype: RouteParamtypes) =>
-  (data?: any, ...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
+  (data?: any, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
   (target, key, index) => {
     const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
     const hasParamData = isNil(data) || isString(data)
     const paramData = (hasParamData ? data : undefined) as string
     const paramPipes = hasParamData ? pipes : [data, ...pipes]
+
+    if (pipes.length) {
+      console.log(pipes)
+    }
 
     Reflect.defineMetadata(
       ROUTE_ARGS_METADATA,
@@ -72,38 +79,38 @@ export const Response: (options?: ResponseDecoratorOptions) => ParameterDecorato
 
 // export const Headers: (property?: string) => ParameterDecorator = createRouteParamDecorator(RouteParamtypes.HEADERS)
 export function Headers(
-  property?: string | (Type<PipeTransform> | PipeTransform),
-  ...pipes: (Type<PipeTransform> | PipeTransform)[]
+  property?: string | (Constructor<PipeTransform> | PipeTransform),
+  ...pipes: (Constructor<PipeTransform> | PipeTransform)[]
 ): ParameterDecorator {
   return createPipesRouteParamDecorator(RouteParamtypes.HEADERS)(property, ...pipes)
 }
 
 export function Query(): ParameterDecorator
-export function Query(...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator
-export function Query(property: string, ...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator
+export function Query(...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
+export function Query(property: string, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
 export function Query(
-  property?: string | (Type<PipeTransform> | PipeTransform),
-  ...pipes: (Type<PipeTransform> | PipeTransform)[]
+  property?: string | (Constructor<PipeTransform> | PipeTransform),
+  ...pipes: (Constructor<PipeTransform> | PipeTransform)[]
 ): ParameterDecorator {
   return createPipesRouteParamDecorator(RouteParamtypes.QUERY)(property, ...pipes)
 }
 
 export function Body(): ParameterDecorator
-export function Body(...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator
-export function Body(property: string, ...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator
+export function Body(...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
+export function Body(property: string, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
 export function Body(
-  property?: string | (Type<PipeTransform> | PipeTransform),
-  ...pipes: (Type<PipeTransform> | PipeTransform)[]
+  property?: string | (Constructor<PipeTransform> | PipeTransform),
+  ...pipes: (Constructor<PipeTransform> | PipeTransform)[]
 ): ParameterDecorator {
   return createPipesRouteParamDecorator(RouteParamtypes.BODY)(property, ...pipes)
 }
 
 export function Param(): ParameterDecorator
-export function Param(...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator
-export function Param(property: string, ...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator
+export function Param(...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
+export function Param(property: string, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
 export function Param(
-  property?: string | (Type<PipeTransform> | PipeTransform),
-  ...pipes: (Type<PipeTransform> | PipeTransform)[]
+  property?: string | (Constructor<PipeTransform> | PipeTransform),
+  ...pipes: (Constructor<PipeTransform> | PipeTransform)[]
 ): ParameterDecorator {
   return createPipesRouteParamDecorator(RouteParamtypes.PARAM)(property, ...pipes)
 }

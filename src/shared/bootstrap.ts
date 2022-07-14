@@ -22,6 +22,8 @@ import {
   ROUTE_ARGS_METADATA,
   SCHEMA_METADATA
 } from './common/constants'
+import { PipeTransform } from './common/interfaces'
+import { isConstructor, normalizePath } from './utils'
 
 // Inspired: https://github.com/L2jLiga/fastify-decorators/blob/v4/lib/bootstrap/bootstrap.ts
 async function* readModulesRecursively(path: string, filter: RegExp): AsyncIterable<Record<string, Class<unknown>>> {
@@ -47,9 +49,6 @@ async function* readModulesRecursively(path: string, filter: RegExp): AsyncItera
   }
 }
 
-const isValidConstructable = (entity: Class<unknown>) =>
-  !!entity?.name && typeof entity === 'function' && !!entity?.prototype && entity?.prototype?.constructor === entity
-
 const entitiesRegister = async (path = './src') => {
   const controllers: Class<unknown>[] = []
   const dir = resolve(cwd(), path)
@@ -58,7 +57,7 @@ const entitiesRegister = async (path = './src') => {
     const keys = Object.keys(entities)
     for (const key of keys) {
       const entity = entities[key]
-      if (!isValidConstructable(entity)) continue
+      if (!isConstructor(entity)) continue
 
       controllers.push(entity)
     }
@@ -103,51 +102,96 @@ const getControllerMetadata = (method: () => unknown) => {
 }
 
 const getFullPath = (controllerPath: string, routePath: RequestMappingMetadata['path']) => {
-  controllerPath = controllerPath.startsWith('/') ? controllerPath : `/${controllerPath}`
+  controllerPath = normalizePath(controllerPath)
   if (typeof routePath === 'string') {
-    routePath = routePath.startsWith('/') ? routePath : `/${routePath}`
+    routePath = normalizePath(routePath)
   } else {
-    throw new Error('[Router/Controller loader]: undefined error')
+    throw new Error('[Router/Controller loader]: typeof route path not defined')
   }
 
-  return `${controllerPath}${routePath}`.replace(/\/+/g, '/')
+  return `${controllerPath}${routePath}`
 }
 
-// eslint-disable-next-line complexity
-const getParams = (params: Record<string, RouteParamMetadata>, req: any, res: any): any[] => {
-  const routeParams: any[] = []
+const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, number, string][] =>
+  Object.keys(params).map((keyParam: string) => [
+    ...(keyParam.split(':').map((value) => parseInt(value, 10)) as [number, number]),
+    keyParam
+  ])
 
-  const keyParams = params ? Object.keys(params) : []
-  for (const key of keyParams) {
-    const [_paramtype, _index] = key.split(':')
-    const paramtype = parseInt(_paramtype, 10)
-    const index = parseInt(_index, 10)
+// eslint-disable-next-line complexity, max-lines-per-function
+const getParams = (
+  params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>,
+  req: HttpRequest,
+  res: HttpResponse
+): unknown[] => {
+  // HttpRequest | HttpResponse | unknown
+  const routeParams: unknown[] = []
+
+  const keyParams = params ? getKeyParam(params) : []
+  for (const keyParam of keyParams) {
+    const [paramtype, index, key] = keyParam
+    const { data, pipes } = params[key]
+
     if (paramtype === RouteParamtypes.REQUEST) {
       routeParams[index] = req
     } else if (paramtype === RouteParamtypes.RESPONSE) {
       routeParams[index] = res
     } else if (paramtype === RouteParamtypes.QUERY) {
-      routeParams[index] = params[key].data ? req.query[params[key].data as string] : req.query
+      if (data && pipes && Array.isArray(pipes)) {
+        // eslint-disable-next-line max-depth
+        for (const pipe of pipes) {
+          // eslint-disable-next-line max-depth
+          if (isConstructor(pipe)) {
+            req.query[data as string] = new (pipe as Constructor<PipeTransform>)().transform(
+              req.query[data as string],
+              {
+                type: 'query'
+              }
+            )
+          }
+        }
+      }
+      // Extract a part of query
+      routeParams[index] = data ? req.query[data as string] : req.query
     } else if (paramtype === RouteParamtypes.PARAM) {
       routeParams[index] = req.params
     } else if (paramtype === RouteParamtypes.BODY) {
       routeParams[index] = req.body
     } else if (paramtype === RouteParamtypes.HEADERS) {
-      routeParams[index] = params[key].data ? req.headers[params[key].data as string] : req.headers
+      if (data && pipes && Array.isArray(pipes)) {
+        // eslint-disable-next-line max-depth
+        for (const pipe of pipes) {
+          // eslint-disable-next-line max-depth
+          if (isConstructor(pipe)) {
+            req.query[data as string] = new (pipe as Constructor<PipeTransform>)().transform(
+              req.query[data as string],
+              {
+                type: 'custom'
+              }
+            )
+          }
+        }
+      }
+      // Extract a part of headers
+      routeParams[index] = data ? req.headers[data as string] : req.headers
     }
   }
 
   return routeParams
 }
 
-const buildSchemaWithParams = (params: Record<string, any>, schema: any, method: any, args: any[] = []): any => {
-  const keyParams = Object.keys(params)
+const buildSchemaWithParams = (
+  params: Record<string, RouteParamMetadata>,
+  schema: any,
+  method: any,
+  args: any[] = []
+): any => {
+  const keyParams = getKeyParam(params)
   // console.log(args)
-  for (const key of keyParams) {
-    const [_paramtype, _index] = key.split(':')
-    const paramtype = parseInt(_paramtype, 10)
-    const index = parseInt(_index, 10)
-    if (!args.at(index) || !isValidConstructable(args.at(index)) || args.at(index).name === 'Object') continue
+  for (const keyParam of keyParams) {
+    const [paramtype, index] = keyParam
+
+    if (!args.at(index) || !isConstructor(args.at(index)) || args.at(index).name === 'Object') continue
 
     if (paramtype === RouteParamtypes.QUERY) {
       schema.schema.querystring = args.at(index)
@@ -189,7 +233,7 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
     // | Reflect.ownKeys(Object.getPrototypeOf(instance))
     const classMethodNames: (string | symbol)[] = Reflect.ownKeys(instancePrototype)
     for (const methodName of classMethodNames) {
-      if (methodName === 'constructor') continue // constructor method ignore reflect metadata
+      if (methodName === 'constructor') continue // ignore constructor method reflect metadata
 
       const method: () => unknown = instancePrototype[methodName]
       const { routePath, requestMethod, httpCode, schema } = getControllerMetadata(method)
@@ -213,7 +257,7 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
           // Some code
           done()
         },
-        handler: (req, res) => {
+        handler: (req: HttpRequest, res: HttpResponse) => {
           res.status(httpCode)
           if (req.validationError) {
             const error = req.validationError

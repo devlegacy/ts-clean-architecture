@@ -15,7 +15,7 @@ export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySc
 
   for (const key of keys) {
     const objectSchema = schema[key] || {}
-    if (Joi.isSchema(objectSchema)) continue // No transform if is joi schema
+    if (Joi.isSchema(objectSchema)) continue // No transform if already is a joi schema
 
     if (typeof objectSchema === 'function' && Reflect.getMetadataKeys(objectSchema)?.length) {
       const buildSchema = getClassSchema(objectSchema as Constructor, group)
