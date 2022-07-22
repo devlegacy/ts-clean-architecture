@@ -32,11 +32,11 @@
         "--trace-deprecation",
         // "--abort-on-uncaught-exception",
         "-r",
-        "${workspaceFolder}/functions/node_modules/ts-node/register",
+        "${workspaceFolder}/node_modules/ts-node/register/transpile-only",
         "-r",
-        "${workspaceFolder}/functions/node_modules/tsconfig-paths/register"
+        "${workspaceFolder}/node_modules/tsconfig-paths/register"
       ],
-      "args": ["${workspaceFolder}/functions/src/index.ts"],
+      // "args": ["${workspaceFolder}/src/index.ts"],
       "runtimeExecutable": "node",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "type": "node",
@@ -65,7 +65,7 @@
         // "--config",
         // "${workspaceRoot}/jest.config.js",
         // "-t",
-        "//${relativeFile}"
+        "${file}"
       ],
       "windows": {
         "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
