@@ -9,8 +9,9 @@
 
 📂 `project-name/`     
 ├─ 📂 `.bin` Binary and helper files     
-├─ 📂 `.data`      
-├─ 📂 `.docker` Docker images     
+├─ 📂 `.cache/`     
+├─ 📂 `.data/`      
+├─ 📂 `.docker/` Docker images     
 ├─ 📂 `.git/`     
 ├─ 📂 `.github/`     
 ├─ 📂 `.husky/`     
@@ -18,7 +19,7 @@
 ├─ 📂 `.vscode` Visual studio code files     
 ├─ 📂 `coverage/`     
 ├─ 📂 `dist/`     
-├─ 📂 `src/` Código a producción y a transpilar     
+├─ 📂 `src/` Código a producción y a transpilar, ayuda a configurar tsconfig, simplicidad     
 │  ├─ 📂 `Context/`     
 │  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/`     
