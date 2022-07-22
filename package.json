@@ -57,6 +57,7 @@
     "pino": "^8.3.0",
     "pino-pretty": "^8.1.0",
     "reflect-metadata": "^0.1.13",
+    "ts-toolbelt": "^9.6.0",
     "tsyringe": "^4.7.0",
     "uuid": "^8.3.2",
     "uuid-validate": "^0.0.3"
