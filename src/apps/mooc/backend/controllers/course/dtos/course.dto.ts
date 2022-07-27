@@ -1,5 +1,9 @@
 import Joi from 'joi'
 import { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
+// import { isValidObjectId } from 'mongoose'
+// import { z } from 'zod'
+
+// import { createZodDto } from '@/shared/zod'
 
 /**
  * Note: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
@@ -24,3 +28,14 @@ export class CourseDto {
   @JoiSchema(Joi.string().optional())
   duration?: string
 }
+
+// export const Course = z.object({
+//   id: z
+//     .string()
+//     .min(400)
+//     .refine((value) => isValidObjectId(value)),
+//   name: z.number(),
+//   duration: z.number()
+// })
+
+// export class CourseDto extends createZodDto(Course) {}

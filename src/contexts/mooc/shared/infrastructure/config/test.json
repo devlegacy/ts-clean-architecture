@@ -1,5 +1,12 @@
 {
   "mongo": {
     "url": "mongodb://127.0.0.1:27017/mooc-test"
+  },
+  "typeorm": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "mooc"
   }
 }

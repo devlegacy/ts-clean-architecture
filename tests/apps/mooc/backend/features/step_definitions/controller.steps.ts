@@ -39,6 +39,8 @@ BeforeAll(
 
 AfterAll(() => {
   application.stop()
+
+  // TODO: exit process should be automatic
   setTimeout(() => {
     process.exit(0)
   }, 0)

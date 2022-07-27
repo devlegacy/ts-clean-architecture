@@ -14,6 +14,18 @@ import {
 } from '@/contexts/user/users'
 import { error, info } from '@/shared/logger'
 
+const userDto: User = {
+  age: 28,
+  id: '1',
+  name: 'Samuel',
+  username: 'jst.samuel'
+}
+
+const updateUserDto = {
+  id: '2',
+  name: 'Samuel updated'
+}
+
 const bootstrap = async () => {
   const config = dotenv.config()
   expand(config)
@@ -24,17 +36,12 @@ const bootstrap = async () => {
   const userRepository = new MongoDBUserRepository(database)
 
   const userCreatorUseCase = new UserCreatorUseCase(userRepository)
-  const user: User = {
-    age: 28,
-    id: '1',
-    name: 'Samuel',
-    username: 'jst.samuel'
-  }
-  await userCreatorUseCase.run(user)
-  info(user)
+
+  await userCreatorUseCase.run(userDto)
+  info(userDto)
 
   try {
-    await userCreatorUseCase.run(user)
+    await userCreatorUseCase.run(userDto)
   } catch (e) {
     if (e instanceof UserAlreadyExistsException) {
       error(e)
@@ -46,10 +53,7 @@ const bootstrap = async () => {
   info(users)
 
   const userUpdaterUseCase = new UserUpdaterUseCase(userRepository)
-  await userUpdaterUseCase.run({
-    id: '2',
-    name: 'Samuel updated'
-  })
+  await userUpdaterUseCase.run(updateUserDto)
 
   users = await userGetterUseCase.run()
   info(users)

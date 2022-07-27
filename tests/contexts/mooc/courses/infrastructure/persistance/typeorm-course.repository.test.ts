@@ -1,16 +1,16 @@
 import '@/apps/mooc/backend/dependency-injection/index'
 
-import { MongoClient } from 'mongodb'
 import { container } from 'tsyringe'
+import { DataSource } from 'typeorm'
 
 import { CourseRepository } from '@/contexts/mooc/courses/domain/course.repository'
 
 import { EnvironmentArranger } from '../../../../shared/infrastructure/arranger/environment-arranger'
-import { MongoEnvironmentArranger } from '../../../../shared/infrastructure/mongo/mongo-environment-arranger'
+import { TypeOrmEnvironmentArranger } from '../../../../shared/infrastructure/typeorm/typeorm-environment-arranger'
 import { CourseMother } from '../../domain/course.mother'
 
 container.register<EnvironmentArranger>('EnvironmentArranger', {
-  useValue: new MongoEnvironmentArranger(container.resolve<Promise<MongoClient>>('MongoClient'))
+  useValue: new TypeOrmEnvironmentArranger(container.resolve<Promise<DataSource>>('TypeOrmClient'))
 })
 
 const repository: CourseRepository = container.resolve<CourseRepository>('CourseRepository')

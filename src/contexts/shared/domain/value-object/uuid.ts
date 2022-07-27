@@ -2,14 +2,16 @@ import { v4 as uuid } from 'uuid'
 import validate from 'uuid-validate'
 
 import { InvalidArgumentError } from './invalid-argument.error'
+import { ValueObject } from './value-object'
 
-export class Uuid {
-  readonly value: string
+export class Uuid extends ValueObject<string> {
+  // readonly value: string
 
   constructor(value: string) {
+    // this.ensureIsValidUuid(value)
+    // this.value = value
+    super(value)
     this.ensureIsValidUuid(value)
-
-    this.value = value
   }
 
   static random(): Uuid {
@@ -22,7 +24,7 @@ export class Uuid {
     }
   }
 
-  toString() {
-    return this.value
-  }
+  // toString() {
+  //   return this.value
+  // }
 }

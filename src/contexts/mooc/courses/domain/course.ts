@@ -5,25 +5,31 @@ import { CourseId } from '../../shared/domain/courses/course-id'
 import { CourseName } from '../../shared/domain/courses/course-name'
 
 export class Course extends AggregateRoot {
-  readonly id!: CourseId
-  readonly name!: CourseName
+  readonly id: CourseId
+  readonly name: CourseName
   readonly duration?: CourseDuration
 
   // constructor({ id, name, duration }: { id: string; name: string; duration: string }) {
-  constructor(dto: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
-    // this.id = id
-    // this.name = name
-    // this.duration = duration
+  constructor(id: CourseId, name: CourseName, duration?: CourseDuration) {
+    // constructor(dto: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
     super()
-    Object.assign(this, dto)
+    this.id = id
+    this.name = name
+    this.duration = duration
+    // Object.assign(this, dto)
   }
 
   static fromPrimitives(plainData: { id: string; name: string; duration?: string }): Course {
-    return new Course({
-      id: new CourseId(plainData.id),
-      name: new CourseName(plainData.name),
-      duration: !plainData.duration ? undefined : new CourseDuration(plainData.duration)
-    })
+    // return new Course({
+    //   id: new CourseId(plainData.id),
+    //   name: new CourseName(plainData.name),
+    //   duration: !plainData.duration ? undefined : new CourseDuration(plainData.duration)
+    // })
+    return new Course(
+      new CourseId(plainData.id),
+      new CourseName(plainData.name),
+      !plainData.duration ? undefined : new CourseDuration(plainData.duration)
+    )
   }
 
   toPrimitives() {

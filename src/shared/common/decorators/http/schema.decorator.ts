@@ -24,6 +24,9 @@ export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySc
         schema[key] = buildSchema
         continue
       }
+    } else if ((objectSchema as any).isZodDto) {
+      schema[key] = (objectSchema as any).schema
+      continue
     }
 
     // Sanitize

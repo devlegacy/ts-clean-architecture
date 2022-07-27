@@ -214,7 +214,6 @@ const buildSchemaWithParams = (
  * @param fastify
  * @param config
  */
-
 // eslint-disable-next-line complexity, max-lines-per-function
 export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
   // const controllerContainer = container.createChildContainer()

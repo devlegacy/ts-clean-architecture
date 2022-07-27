@@ -15,6 +15,38 @@ const moocConfic = convict({
       env: 'MONGO_URL',
       default: 'mongodb://127.0.0.1:27017/mooc'
     }
+  },
+  typeorm: {
+    host: {
+      doc: 'The database host',
+      format: String,
+      env: 'TYPEORM_HOST',
+      default: '127.0.0.1'
+    },
+    port: {
+      doc: 'The database port',
+      format: Number,
+      env: 'TYPEORM_PORT',
+      default: 5432
+    },
+    username: {
+      doc: 'The database username',
+      format: String,
+      env: 'TYPEORM_USERNAME',
+      default: 'postgres'
+    },
+    password: {
+      doc: 'The database password',
+      format: String,
+      env: 'TYPEORM_PASSWORD',
+      default: 'postgres'
+    },
+    database: {
+      doc: 'The database name',
+      format: String,
+      env: 'TYPEORM_DATABASE',
+      default: 'mooc'
+    }
   }
 })
 

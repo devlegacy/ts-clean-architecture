@@ -5,6 +5,7 @@ import HttpStatus from 'http-status'
 import { ValidationError } from 'joi'
 import * as joi from 'joi'
 import { Types } from 'mongoose'
+import { ZodError, ZodObject } from 'zod'
 
 import { HttpError } from '@/contexts/shared/infrastructure/http/http-error'
 
@@ -59,6 +60,7 @@ class JoiModule implements ValidationModule {
 
     return (data: unknown) => {
       if (joi.isSchema(schema)) return schema.validate(data, validationOptions)
+      else if ((schema as any) instanceof ZodObject) return (schema as unknown as ZodObject<any>).parse(data)
       return true
     }
   }
@@ -76,6 +78,9 @@ class JoiModule implements ValidationModule {
       res.status(HttpStatus.UNPROCESSABLE_ENTITY)
       return res.send(error)
       // Is HTTP
+    } else if (error instanceof ZodError) {
+      res.status(HttpStatus.UNPROCESSABLE_ENTITY)
+      return res.send(error.issues)
     } else if ((error as unknown as HttpError)?.code) {
       return res.send(CreateHttpError(error.code, error.message))
     }

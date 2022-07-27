@@ -1,10 +1,10 @@
-import { StringValueObject } from '@/contexts/shared/domain/value-object/string-value-object'
+import { ValueObject } from '@/contexts/shared/domain/value-object/value-object'
 
 import { CourseNameLengthExceeded } from './course-name-length-exceeded.error'
 
 const MAX_CHARACTER_LIMIT = 30
 
-export class CourseName extends StringValueObject {
+export class CourseName extends ValueObject<string> {
   constructor(value: string) {
     super(value)
 
