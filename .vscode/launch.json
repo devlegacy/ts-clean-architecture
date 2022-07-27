@@ -23,7 +23,7 @@
     {
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart",
-      "name": "🚀 Launch Program",
+      "name": "🚀 TS: Launch Program",
       "program": "${file}",
       "request": "launch",
       // "runtimeArgs": ["--nolazy", "-r", "ts-node/register", "-r", "tsconfig-paths/register"],
@@ -49,10 +49,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "🐞 Debug test file",
+      "name": "🐞 Jest: Debug current file",
       "cwd": "${workspaceFolder}",
       "program": "${workspaceRoot}/node_modules/.bin/jest",
       "args": [
+        "${fileBasenameNoExtension}",
+        "--config",
+        "jest.config.ts",
         // "--inspect-brk",
         // "-r",
         // "ts-node/register/transpile-only",
@@ -61,19 +64,19 @@
         // "${workspaceRoot}/node_modules/.bin/jest",
         // "${workspaceRoot}/node_modules/jest/bin/jest.js",
         "--runInBand",
-        "--detectOpenHandles",
+        "--detectOpenHandles"
         // "--config",
         // "${workspaceRoot}/jest.config.js",
         // "-t",
-        "${file}"
+        // "${file}"
       ],
       "windows": {
-        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-        "args": [
-          "--runInBand",
-          "--detectOpenHandles",
-          "//${relativeFile}" // the // is a hack for windows files
-        ]
+        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js"
+        //   "args": [
+        //     "--runInBand",
+        //     "--detectOpenHandles",
+        //     "//${relativeFile}" // the // is a hack for windows files
+        //   ]
       },
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
