@@ -1,5 +1,5 @@
-import { ArgumentMetadata, PipeTransform } from './common/interfaces'
-import { Joi } from './joi'
+import { ArgumentMetadata, PipeTransform } from '../common/interfaces'
+import { Joi } from '../joi'
 
 export class MongoIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {

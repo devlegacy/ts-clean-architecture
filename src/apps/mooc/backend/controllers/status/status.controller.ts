@@ -1,8 +1,8 @@
 import HttpStatus from 'http-status'
 
 import { Body, Controller, Get, Headers, HttpCode, Param, Post, Query, Req, Res } from '@/shared/common'
-import { MongoIdPipe } from '@/shared/mongo-id.pipe'
-import { PageNumberPipe } from '@/shared/page-number.pipe'
+import { MongoIdPipe } from '@/shared/pipes/mongo-id.pipe'
+import { PageNumberPipe } from '@/shared/pipes/page-number.pipe'
 
 import { IndexHeadersDto } from './dtos/index-headers.dto'
 import { IndexQueryDto } from './dtos/index-query.dto'
@@ -26,12 +26,11 @@ export class StatusController {
     @Body() body: UserDto,
     @Headers() headers: IndexHeadersDto
   ) {
-    // console.log(this)
     const hostname = req.hostname ?? 'no hostname'
 
     res.status(HttpStatus.OK)
 
-    console.log(headers['x-context-account'])
+    req.log.info(headers['x-context-account'])
 
     return {
       hostname,
@@ -49,8 +48,6 @@ export class StatusController {
     @Query('page', PageNumberPipe) page: number,
     @Headers('x-context-account', MongoIdPipe) account: string
   ) {
-    // console.log(this)
-
     return {
       page,
       limit,
