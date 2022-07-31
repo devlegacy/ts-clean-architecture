@@ -50,7 +50,7 @@
     "dotenv": "16.0.1",
     "dotenv-expand": "8.0.3",
     "env-schema": "5.0.0",
-    "fastify": "3.29.0",
+    "fastify": "3.29.1",
     "graphql": "16.5.0",
     "http-errors": "2.0.0",
     "http-status": "1.5.2",
