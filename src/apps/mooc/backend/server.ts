@@ -20,9 +20,7 @@ export class Server {
   }
 
   async bootstrap() {
-    console.time('Bootstrap')
     await bootstrap(this.#app, { controller: resolve(__dirname, './controllers') })
-    console.timeEnd('Bootstrap')
   }
 
   async listen() {
