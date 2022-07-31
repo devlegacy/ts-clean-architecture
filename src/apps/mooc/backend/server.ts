@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify'
 import * as http from 'http'
 import { AddressInfo } from 'net'
+import { resolve } from 'path'
 
 import { bootstrap } from '@/shared/bootstrap'
 import { config } from '@/shared/config'
@@ -20,7 +21,7 @@ export class Server {
 
   async bootstrap() {
     console.time('Bootstrap')
-    await bootstrap(this.#app, { controller: './src/apps/mooc/backend/controllers' })
+    await bootstrap(this.#app, { controller: resolve(__dirname, './controllers') })
     console.timeEnd('Bootstrap')
   }
 

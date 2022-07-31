@@ -4,6 +4,7 @@ import HttpStatus from 'http-status'
 import { ValidationError } from 'joi'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
+import { Instance } from 'ts-toolbelt/out/Class/Instance'
 import { container, injectable, Lifecycle } from 'tsyringe'
 import type { Class, Constructor } from 'type-fest'
 
@@ -53,7 +54,7 @@ const entitiesRegister = async (path = './src') => {
   const controllers: Class<unknown>[] = []
   const dir = resolve(cwd(), path)
 
-  for await (const entities of readModulesRecursively(dir, /\.(controller|entity)\.(ts|js)$/)) {
+  for await (const entities of readModulesRecursively(dir, /\.(controller)\.(ts|js)$/)) {
     const keys = Object.keys(entities)
     for (const key of keys) {
       const entity = entities[key]
@@ -66,7 +67,7 @@ const entitiesRegister = async (path = './src') => {
   return controllers
 }
 
-const getInstance = (controller: Class<unknown>): Constructor<unknown> => {
+const getInstance = (controller: Class<any>): Instance<any> => {
   const { name } = controller
   if (!container.isRegistered(name)) {
     injectable()(controller)
@@ -76,10 +77,10 @@ const getInstance = (controller: Class<unknown>): Constructor<unknown> => {
   // This is our instantiated class
   const instance = container.isRegistered(name) ? container.resolve(name) : new controller()
 
-  return instance as Constructor<unknown>
+  return instance
 }
 
-const getControllerMetadata = (method: () => unknown) => {
+const getControllerMethodMetadata = (method: () => unknown) => {
   const routePath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
   const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
     Reflect.getMetadata(METHOD_METADATA, method) || RequestMethod.GET
@@ -102,12 +103,12 @@ const getControllerMetadata = (method: () => unknown) => {
 }
 
 const getFullPath = (controllerPath: string, routePath: RequestMappingMetadata['path']) => {
-  controllerPath = normalizePath(controllerPath)
-  if (typeof routePath === 'string') {
-    routePath = normalizePath(routePath)
-  } else {
-    throw new Error('[Router/Controller loader]: typeof route path not defined')
+  if (!(typeof routePath === 'string')) {
+    throw new Error('[Bootstrap]: typeof route path not defined')
   }
+
+  controllerPath = normalizePath(controllerPath)
+  routePath = normalizePath(routePath)
 
   return `${controllerPath}${routePath}`
 }
@@ -210,6 +211,7 @@ const buildSchemaWithParams = (
 }
 
 /**
+ * Registrar controladores, solo relacionado a capa de infraestructura HTTP
  * TODO: Should be a singleton because has a child container creation
  * @param fastify
  * @param config
@@ -221,7 +223,12 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
   const controllers = await entitiesRegister(config.controller)
   for (const controller of controllers) {
     const instance = getInstance(controller)
+    // has controller path by metadata
+    // has arguments by method name and metadata
     const instanceConstructor = instance.constructor
+    // has methods
+    // has design:paramtypes (parameter type in method) by metadata
+    // has callable method to be executed in route
     const instancePrototype = instanceConstructor.prototype
 
     // The prefix saved to our controller
@@ -234,8 +241,8 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
     for (const methodName of classMethodNames) {
       if (methodName === 'constructor') continue // ignore constructor method reflect metadata
 
-      const method: () => unknown = instancePrototype[methodName]
-      const { routePath, requestMethod, httpCode, schema } = getControllerMetadata(method)
+      const method: () => unknown = instance[methodName]
+      const { routePath, requestMethod, httpCode, schema } = getControllerMethodMetadata(method)
 
       const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instanceConstructor, methodName)
       if (params) {

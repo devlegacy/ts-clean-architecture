@@ -13,7 +13,7 @@ export class MongoDB {
       const {
         DB_USERNAME = '',
         DB_PORT = 27017,
-        DB_HOST = 'localhost',
+        DB_HOST = '127.0.0.1',
         DB_PASSWORD = '',
         DB_DATABASE = 'ts-clean-architecture'
       } = process.env
