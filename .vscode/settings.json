@@ -12,6 +12,7 @@
     ".husky": true,
     ".idea": true,
     ".lintstagedrc.json": true,
+    ".npmrc": true,
     ".nvmrc": true,
     ".php_cs": true,
     ".prettierignore": true,
