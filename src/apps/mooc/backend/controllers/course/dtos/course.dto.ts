@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
+import { JoiSchema } from 'joi-class-decorators'
 // import { isValidObjectId } from 'mongoose'
 // import { z } from 'zod'
 
@@ -15,9 +15,6 @@ import { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
  * Restricciones de integridad de dominio vs Validaciones capa de transporte/peticiones/protocolo de comunicación
  */
 
-@JoiSchemaOptions({
-  allowUnknown: false
-})
 export class CourseDto {
   @JoiSchema(Joi.string().required())
   id!: string

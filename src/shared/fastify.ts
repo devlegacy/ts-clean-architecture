@@ -2,8 +2,11 @@ import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
 import fastifyHelmet from '@fastify/helmet'
-import fastifyRateLimit from '@fastify/rate-limit'
-import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
+// import fastifyRateLimit from '@fastify/rate-limit'
+import Fastify, { FastifyHttp2SecureOptions, FastifyInstance, FastifyServerOptions } from 'fastify'
+import { readFileSync } from 'fs'
+import { Http2SecureServer } from 'http2'
+import { join } from 'path'
 
 import { ValidationModule } from './joi'
 import { logger } from './logger'
@@ -22,11 +25,18 @@ const ajv = {
   },
   plugins: []
 }
-const fastifyServerOptions: FastifyServerOptions = {
+
+const fastifyServerOptions: FastifyHttp2SecureOptions<Http2SecureServer> = {
   ajv,
   logger: logger(),
   // Read more on: https://www.fastify.io/docs/latest/Reference/HTTP2/#plain-or-insecure
-  // http2: true,
+  http2: true,
+  https: {
+    allowHTTP1: true, // fallback support for HTTP1
+    key: readFileSync(join(__dirname, './key.pem')),
+    cert: readFileSync(join(__dirname, './cert.pem'))
+  },
+  http2SessionTimeout: 60,
   ignoreTrailingSlash: true,
   forceCloseConnections: true // On Test or development
   // trustProxy: true
@@ -34,32 +44,32 @@ const fastifyServerOptions: FastifyServerOptions = {
 }
 
 export class FastifyAdapter {
-  #instance: FastifyInstance
+  #instance: FastifyInstance<Http2SecureServer>
 
   get instance() {
     return this.#instance
   }
 
-  constructor({ options }: { options?: FastifyServerOptions } = {}) {
+  constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
     this.#instance = Fastify({
       ...fastifyServerOptions,
       ...options
     })
 
-    this.#instance.register(fastifyHelmet).register(fastifyCompress).register(fastifyRateLimit).register(fastifyCookie)
+    this.#instance
+      .register(fastifyHelmet)
+      .register(fastifyCompress)
+      // .register(fastifyRateLimit)
+      .register(fastifyCookie)
   }
 
   enableCors(options: FastifyCorsOptions = {}) {
     this.#instance.register(fastifyCors, options)
-
-    return this
   }
 
   setValidationModule(validationModule: ValidationModule) {
     this.#instance.setValidatorCompiler(validationModule.validationCompiler)
 
-    this.#instance.setErrorHandler(validationModule.errorHandler)
-
-    return this
+    // this.#instance.setErrorHandler(validationModule.errorHandler)
   }
 }

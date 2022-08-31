@@ -1,12 +1,19 @@
+import cluster from 'cluster'
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
 import HttpStatus from 'http-status'
+import { Http2SecureServer } from 'http2'
 import { ValidationError } from 'joi'
+import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import { Instance } from 'ts-toolbelt/out/Class/Instance'
 import { container, injectable, Lifecycle } from 'tsyringe'
 import type { Class, Constructor } from 'type-fest'
+
+import { Primary } from '@/shared/cluster'
+import { config } from '@/shared/config'
+import { info } from '@/shared/logger'
 
 import {
   getMethodGroup,
@@ -25,6 +32,8 @@ import {
 } from './common/constants'
 import { PipeTransform } from './common/interfaces'
 import { isConstructor, normalizePath } from './utils'
+
+const availableCpus = cpus().length
 
 // Inspired: https://github.com/L2jLiga/fastify-decorators/blob/v4/lib/bootstrap/bootstrap.ts
 async function* readModulesRecursively(path: string, filter: RegExp): AsyncIterable<Record<string, Class<unknown>>> {
@@ -122,8 +131,8 @@ const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, numbe
 // eslint-disable-next-line complexity, max-lines-per-function
 const getParams = (
   params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>,
-  req: HttpRequest,
-  res: HttpResponse
+  req: any,
+  res: any
 ): unknown[] => {
   // HttpRequest | HttpResponse | unknown
   const routeParams: unknown[] = []
@@ -214,13 +223,13 @@ const buildSchemaWithParams = (
  * Registrar controladores, solo relacionado a capa de infraestructura HTTP
  * TODO: Should be a singleton because has a child container creation
  * @param fastify
- * @param config
+ * @param props
  */
 // eslint-disable-next-line complexity, max-lines-per-function
-export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
+export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
   // const controllerContainer = container.createChildContainer()
 
-  const controllers = await entitiesRegister(config.controller)
+  const controllers = await entitiesRegister(props.controller)
   for (const controller of controllers) {
     const instance = getInstance(controller)
     // has controller path by metadata
@@ -250,38 +259,52 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
         buildSchemaWithParams(params, schema, requestMethod, args)
       }
 
-      fastify.route({
-        method: RequestMethod[requestMethod] as HTTPMethods,
-        schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
-        attachValidation: true,
-        url: getFullPath(controllerPath, routePath),
-        preParsing: (req, res, payload, done) => {
-          // Some code
-          done(null, payload)
-        },
-        preValidation: (req, res, done) => {
-          // Some code
-          done()
-        },
-        handler: (req: HttpRequest, res: HttpResponse) => {
-          res.status(httpCode)
-          if (req.validationError) {
-            const error = req.validationError
-            // Is JOI
-            if (error instanceof ValidationError) {
-              return res.status(schema.code).send(error)
+      if (cluster.isPrimary && config.get<string>('APP_ENV', 'development') === 'production') {
+        const primary = new Primary({ cluster })
+        const limit = availableCpus
+        // const limit = availableCpus
+        // eslint-disable-next-line max-depth
+        for (let i = 0; i < limit; i++) primary.loadWorker()
+        cluster.on('exit', (worker) => {
+          info(`Cluster number: ${worker.id} stopped`)
+          primary.loadStoppedWorker()
+        })
+      } else {
+        info(`Cluster child`)
+
+        fastify.route({
+          method: RequestMethod[requestMethod] as HTTPMethods,
+          schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
+          attachValidation: true,
+          url: getFullPath(controllerPath, routePath),
+          preParsing: (req, res, payload, done) => {
+            // Some code
+            done(null, payload)
+          },
+          preValidation: (req, res, done) => {
+            // Some code
+            done()
+          },
+          handler: (req, res) => {
+            res.status(httpCode)
+            if (req.validationError) {
+              const err = req.validationError
+              // Is JOI
+              if (err instanceof ValidationError) {
+                return res.status(schema.code).send(err)
+              }
+              return res.status(500).send(new Error(`handler: Unhandled error ${err.message}`))
             }
-            return res.status(500).send(new Error('Unhandled error'))
+            const routeParams = getParams(params, req, res)
+            // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
+            // const currentMethodFn = instance[method.name]
+            // method() // por alguna razón pierde el bind
+            // instance[methodName]() - Revisar que conserve el valor de this
+            // instance[methodName]
+            return instancePrototype[methodName].apply(instance, routeParams)
           }
-          const routeParams = getParams(params, req, res)
-          // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
-          // const currentMethodFn = instance[method.name]
-          // method() // por alguna razón pierde el bind
-          // instance[methodName]() - Revisar que conserve el valor de this
-          // instance[methodName]
-          return instancePrototype[methodName].apply(instance, routeParams)
-        }
-      })
+        })
+      }
     }
   }
 }

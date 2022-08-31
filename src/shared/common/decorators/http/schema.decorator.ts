@@ -8,6 +8,11 @@ import { RequestMethod } from '../../enums'
 
 type MethodGroup = { group: JoiValidationGroup } | undefined
 
+const isJoiCandidate = (objectSchema: any) =>
+  typeof objectSchema === 'function' &&
+  Reflect.getMetadataKeys(objectSchema?.prototype)?.length &&
+  Reflect.getMetadataKeys(objectSchema.prototype)[0]?.description === 'JOI_CLASSDECORATORS_SCHEMA_PROTO_KEY'
+
 export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySchema | undefined => {
   let invalidSchemas = 0
   const keys = Object.keys(schema) as (keyof FastifySchema)[]
@@ -15,9 +20,9 @@ export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySc
 
   for (const key of keys) {
     const objectSchema = schema[key] || {}
-    if (Joi.isSchema(objectSchema)) continue // No transform if already is a joi schema
+    if (Joi.isSchema(objectSchema)) continue // Avoid transform if is already a joi schema
 
-    if (typeof objectSchema === 'function' && Reflect.getMetadataKeys(objectSchema)?.length) {
+    if (isJoiCandidate(objectSchema)) {
       const buildSchema = getClassSchema(objectSchema as Constructor, group)
 
       if (Joi.isSchema(buildSchema)) {

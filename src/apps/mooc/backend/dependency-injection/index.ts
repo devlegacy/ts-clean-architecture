@@ -16,30 +16,34 @@ import MongoConfig from '@/contexts/shared/infrastructure/persistance/mongo/mong
 import { config, ConfigService } from '@/shared/config'
 
 // TODO: Inject dependencies or create dependency injector
-// Bootstrap
+
+// Bootstrap global dependencies
+
 container.register<ConfigService>('config', { useValue: config })
 
+// Infrastructure
 container.register<MongoConfig>('MongoConfig', { useValue: MongoConfigFactory.createConfig() })
 container.register<Promise<MongoClient>>('MongoClient', {
   useValue: MongoClientFactory.createClient('mooc', container.resolve<MongoConfig>('MongoConfig'))
 })
 
+// Infrastructure
 // container.register<TypeOrmConfig>('TypeOrmConfig', { useValue: TypeOrmConfigFactory.createConfig() })
 // container.register<Promise<DataSource>>('TypeOrmClient', {
 //   useValue: TypeOrmClientFactory.createClient('mooc', container.resolve<TypeOrmConfig>('TypeOrmConfig'))
 // })
 
-// TODO: Define test dependency injector
-// Test
-
-// Application - MongoRepository
+// Domain - MongoRepository
 container.register<CourseRepository>('CourseRepository', {
   useValue: new MongoCourseRepository(container.resolve<Promise<MongoClient>>('MongoClient'))
 })
 
-// Application - TypeOrmRepository
+// Domain - TypeOrmRepository
 // container.register<CourseRepository>('CourseRepository', {
 //   useValue: new TypeOrmCourseRepository(container.resolve<Promise<DataSource>>('TypeOrmClient'))
 // })
+
+// TODO: Define test dependency injector
+// Test
 
 export default container

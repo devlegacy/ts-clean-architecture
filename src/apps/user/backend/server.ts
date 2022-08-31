@@ -2,7 +2,7 @@ import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 import fastifyHelmet from '@fastify/helmet'
-import fastifyRateLimit from '@fastify/rate-limit'
+// import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 import { FastifyRouteSchemaDef, FastifyValidationResult } from 'fastify/types/schema'
 import CreateError from 'http-errors'
@@ -55,7 +55,7 @@ export class Server {
     this._app
       .register(fastifyHelmet)
       .register(fastifyCompress)
-      .register(fastifyRateLimit)
+      // .register(fastifyRateLimit)
       .register(fastifyCookie)
       .register(fastifyCors)
   }

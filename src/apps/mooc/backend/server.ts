@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import * as http from 'http'
+import * as http2 from 'http2'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
@@ -10,13 +10,17 @@ import { JoiModule } from '@/shared/joi'
 
 export class Server {
   #port: number
-  #app: FastifyInstance
-  #httpServer?: http.Server
+  #app: FastifyInstance<http2.Http2SecureServer>
+  #httpServer?: http2.Http2SecureServer
 
   constructor(port = 8080) {
     this.#port = port
 
-    this.#app = new FastifyAdapter().enableCors().setValidationModule(new JoiModule()).instance
+    const adapter = new FastifyAdapter()
+    adapter.enableCors()
+    adapter.setValidationModule(new JoiModule())
+
+    this.#app = adapter.instance
   }
 
   async bootstrap() {
@@ -24,18 +28,19 @@ export class Server {
   }
 
   async listen() {
-    await this.bootstrap().then(() =>
-      this.#app.listen({
-        port: this.#port,
-        host: '0.0.0.0'
-      })
-    )
+    await this.bootstrap()
+
+    await this.#app.listen({
+      port: this.#port,
+      host: '0.0.0.0'
+    })
 
     this.#httpServer = this.#app.server
 
     const address: AddressInfo = this.#app.server.address() as AddressInfo
 
-    this.#app.log.info(`🚀 Server running on: http://localhost:${address.port}`)
+    this.#app.log.info(`🚀 Server running on:\thttp://localhost:${address.port}`)
+    this.#app.log.info(`\t\t\t\thttp://127.0.0.1:${address.port}`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
 
     const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)
