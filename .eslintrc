@@ -2,7 +2,8 @@
   "root": true,
   "env": {
     "es2020": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -14,7 +15,7 @@
   "plugins": ["@typescript-eslint", "prettier", "simple-import-sort", "import"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": "latest",
     "project": "./tsconfig.json",
     "sourceType": "module"
   },
