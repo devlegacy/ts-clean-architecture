@@ -10,13 +10,13 @@
 
 import { inject, injectable } from 'tsyringe'
 
-import { CourseDto } from '@/apps/mooc/backend/controllers/course/dtos/course.dto' // ?
 import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
 
 import { CourseDuration } from '../../shared/domain/courses/course-duration'
 import { CourseName } from '../../shared/domain/courses/course-name'
 import { Course } from '../domain/course'
 import { CourseRepository } from '../domain/course.repository'
+import { CourseDto } from '../infrastructure/dtos/course.dto'
 
 @injectable()
 export class CourseCreator {

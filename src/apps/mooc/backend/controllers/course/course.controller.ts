@@ -1,6 +1,8 @@
 import HttpStatus from 'http-status'
 
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
+// import { updateRequestSchema } from '@/contexts/mooc/courses/infrastructure/course.schema'
+import { CourseDto } from '@/contexts/mooc/courses/infrastructure/dtos/course.dto'
 import {
   Body,
   Controller,
@@ -10,14 +12,11 @@ import {
   //  Schema
 } from '@/shared/common'
 
-// import { updateSchema } from './course.schema'
-import { CourseDto } from './dtos/course.dto'
-
 @Controller('/courses')
 export class CourseController {
   constructor(private courseCreator: CourseCreator) {}
 
-  // @Schema(updateSchema, HttpStatus.UNPROCESSABLE_ENTITY)
+  // @Schema(updateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
   @Put('/:courseId')
   async update(@Body() course: CourseDto) {

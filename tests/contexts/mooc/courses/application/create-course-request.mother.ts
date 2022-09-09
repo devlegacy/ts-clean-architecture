@@ -1,4 +1,4 @@
-import { CourseDto } from '@/apps/mooc/backend/controllers/course/course.dto'
+import { CourseDto } from '@/contexts/mooc/courses/infrastructure/dtos/course.dto'
 import { CourseDuration } from '@/contexts/mooc/shared/domain/courses/course-duration'
 import { CourseId } from '@/contexts/mooc/shared/domain/courses/course-id'
 import { CourseName } from '@/contexts/mooc/shared/domain/courses/course-name'

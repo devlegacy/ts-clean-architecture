@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
 import { CourseNameLengthExceeded } from '@/contexts/mooc/shared/domain/courses/course-name-length-exceeded.error'
 
