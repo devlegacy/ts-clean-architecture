@@ -36,6 +36,7 @@
     "max-len": [1, 120], // .prettierrc helps, 1 = warning
     "max-lines-per-function": [1, { "max": 30, "skipBlankLines": true, "skipComments": true }], // 1 = warning
     "max-params": ["error", 6],
+    "no-console": "warn",
     "no-prototype-builtins": "off",
     "no-use-before-define": 0,
     "no-var": "error",
