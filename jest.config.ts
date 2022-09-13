@@ -21,6 +21,7 @@ export default {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: ['<rootDir>/src/***/*.ts'],
+
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
 
@@ -62,13 +63,13 @@ export default {
   // globalTeardown: undefined,
 
   // A set of global variables that need to be available in all test environments
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-      isolatedModules: true
-      // useESM: true,
-    }
-  },
+  // globals: {
+  //   'ts-jest': {
+  //     tsconfig: 'tsconfig.json',
+  //     isolatedModules: true
+  //     // useESM: true,
+  //   }
+  // },
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   // maxWorkers: "50%",
@@ -149,7 +150,7 @@ export default {
 
   // The test environment that will be used for testing
   // testEnvironment: "jest-environment-node",
-  testEnvironment: 'node',
+  // testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -164,6 +165,7 @@ export default {
   // ],
   // (ts|tsx|js)
   testMatch: ['**/__tests__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|test).+(ts|tsx|js)'],
+
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\'],
 
@@ -180,6 +182,7 @@ export default {
   transform: {
     '^.+\\.(ts|tsx|js)$': 'ts-jest'
   },
+
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\', '\\.pnp\\.[^\\\\]+$']
 

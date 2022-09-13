@@ -40,6 +40,7 @@
     "dist": true,
     "docs": true,
     "jest.config.[j|t]s": true,
+    "jest.setup.[j|t]s": true,
     "license": true,
     "LICENSE": true,
     "nbproject": true,
