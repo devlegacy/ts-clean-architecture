@@ -10,11 +10,16 @@ import {
   UserUpdaterUseCase
 } from '@/contexts/user'
 
+let mongoDbUserRepository!: MongoDBUserRepository
+
+// eslint-disable-next-line max-lines-per-function
 export const UserController = (fastify: FastifyInstance, opts: unknown, done: HookHandlerDoneFunction) => {
   fastify
-    .get('/users', async (req: Request, res: Response) => {
+    .addHook('preHandler', async () => {
       const database = await MongoDB.getInstance()
-      const mongoDbUserRepository = new MongoDBUserRepository(database)
+      mongoDbUserRepository = new MongoDBUserRepository(database)
+    })
+    .get('/users', async (req: Request, res: Response) => {
       const userGetterUseCase = new UserGetterUseCase(mongoDbUserRepository)
       const users = await userGetterUseCase.run()
       res.code(HttpStatus.OK)
@@ -26,8 +31,6 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
       return {}
     })
     .post('/users', async (req: Request<{ Body: { username: string; age: number; name: string } }>, res: Response) => {
-      const database = await MongoDB.getInstance()
-      const mongoDbUserRepository = new MongoDBUserRepository(database)
       const userCreatorUseCase = new UserCreatorUseCase(mongoDbUserRepository)
 
       const { username, age, name } = req.body
@@ -51,8 +54,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
         res: Response
       ) => {
         const { username, age, name } = req.body
-        const database = await MongoDB.getInstance()
-        const mongoDbUserRepository = new MongoDBUserRepository(database)
+
         const userUpdaterUseCase = new UserUpdaterUseCase(mongoDbUserRepository)
 
         const userId = req.params.user
@@ -70,8 +72,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
     )
     .delete('/users/:user', async (req: Request<{ Params: { user: string } }>, res: Response) => {
       const userId = req.params.user
-      const database = await MongoDB.getInstance()
-      const mongoDbUserRepository = new MongoDBUserRepository(database)
+
       const userDeleteUseCase = new UserDeleteUseCase(mongoDbUserRepository)
 
       res.code(HttpStatus.OK)
