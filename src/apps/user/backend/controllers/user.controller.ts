@@ -12,7 +12,7 @@ import {
 
 export const UserController = (fastify: FastifyInstance, opts: unknown, done: HookHandlerDoneFunction) => {
   fastify
-    .get('/users', async (req: HttpRequest, res: HttpResponse) => {
+    .get('/users', async (req: Request, res: Response) => {
       const database = await MongoDB.getInstance()
       const mongoDbUserRepository = new MongoDBUserRepository(database)
       const userGetterUseCase = new UserGetterUseCase(mongoDbUserRepository)
@@ -21,37 +21,34 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
 
       return users
     })
-    .get('/users/:user', async (req: HttpRequest, res: HttpResponse) => {
+    .get('/users/:user', async (req: Request, res: Response) => {
       res.code(200)
       return {}
     })
-    .post(
-      '/users',
-      async (req: HttpRequest<{ Body: { username: string; age: number; name: string } }>, res: HttpResponse) => {
-        const database = await MongoDB.getInstance()
-        const mongoDbUserRepository = new MongoDBUserRepository(database)
-        const userCreatorUseCase = new UserCreatorUseCase(mongoDbUserRepository)
+    .post('/users', async (req: Request<{ Body: { username: string; age: number; name: string } }>, res: Response) => {
+      const database = await MongoDB.getInstance()
+      const mongoDbUserRepository = new MongoDBUserRepository(database)
+      const userCreatorUseCase = new UserCreatorUseCase(mongoDbUserRepository)
 
-        const { username, age, name } = req.body
-        const user = {
-          username,
-          age,
-          name
-        }
-
-        res.code(HttpStatus.CREATED)
-
-        return await userCreatorUseCase.run(user)
+      const { username, age, name } = req.body
+      const user = {
+        username,
+        age,
+        name
       }
-    )
+
+      res.code(HttpStatus.CREATED)
+
+      return await userCreatorUseCase.run(user)
+    })
     .put(
       '/users/:user',
       async (
-        req: HttpRequest<{
+        req: Request<{
           Body: { username: string; age: number; name: string }
           Params: { user: string }
         }>,
-        res: HttpResponse
+        res: Response
       ) => {
         const { username, age, name } = req.body
         const database = await MongoDB.getInstance()
@@ -71,7 +68,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
         return await userUpdaterUseCase.run(user)
       }
     )
-    .delete('/users/:user', async (req: HttpRequest<{ Params: { user: string } }>, res: HttpResponse) => {
+    .delete('/users/:user', async (req: Request<{ Params: { user: string } }>, res: Response) => {
       const userId = req.params.user
       const database = await MongoDB.getInstance()
       const mongoDbUserRepository = new MongoDBUserRepository(database)
