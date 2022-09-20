@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import * as http2 from 'http2'
+import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
@@ -10,8 +10,10 @@ import { JoiModule } from '@/shared/joi'
 
 export class Server {
   #port: number
-  #app: FastifyInstance<http2.Http2SecureServer>
-  #httpServer?: http2.Http2SecureServer
+  // #app: FastifyInstance<http2.Http2SecureServer>
+  // #httpServer?: http2.Http2SecureServer
+  #app: FastifyInstance
+  #httpServer?: http.Server
 
   constructor(port = 8080) {
     this.#port = port
@@ -40,7 +42,7 @@ export class Server {
     const address: AddressInfo = this.#app.server.address() as AddressInfo
 
     this.#app.log.info(`🚀 Server running on:\thttp://localhost:${address.port}`)
-    this.#app.log.info(`\t\t\t\thttp://127.0.0.1:${address.port}`)
+    this.#app.log.info(`\t\t\t\thttp://localhost:${address.port}`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
 
     const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)

@@ -3,10 +3,7 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
 import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
-import Fastify, { FastifyHttp2SecureOptions, FastifyInstance, FastifyServerOptions } from 'fastify'
-import { readFileSync } from 'fs'
-import { Http2SecureServer } from 'http2'
-import { join } from 'path'
+import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 
 import { ValidationModule } from './joi'
 import { logger } from './logger'
@@ -26,17 +23,21 @@ const ajv = {
   plugins: []
 }
 
-const fastifyServerOptions: FastifyHttp2SecureOptions<Http2SecureServer> = {
+// const http2Options = {
+// Read more on: https://www.fastify.io/docs/latest/Reference/HTTP2/#plain-or-insecure
+//   http2: true,
+//   https: {
+//     allowHTTP1: true, // fallback support for HTTP1
+//     key: readFileSync(join(__dirname, './key.pem')),
+//     cert: readFileSync(join(__dirname, './cert.pem'))
+//   },
+//   http2SessionTimeout: 60
+// }
+
+// const fastifyServerOptions: FastifyHttp2SecureOptions<Http2SecureServer> = {
+const fastifyServerOptions: FastifyServerOptions = {
   ajv,
   logger: logger(),
-  // Read more on: https://www.fastify.io/docs/latest/Reference/HTTP2/#plain-or-insecure
-  http2: true,
-  https: {
-    allowHTTP1: true, // fallback support for HTTP1
-    key: readFileSync(join(__dirname, './key.pem')),
-    cert: readFileSync(join(__dirname, './cert.pem'))
-  },
-  http2SessionTimeout: 60,
   ignoreTrailingSlash: true,
   forceCloseConnections: true // On Test or development
   // trustProxy: true
@@ -44,13 +45,14 @@ const fastifyServerOptions: FastifyHttp2SecureOptions<Http2SecureServer> = {
 }
 
 export class FastifyAdapter {
-  #instance: FastifyInstance<Http2SecureServer>
-
+  // #instance: FastifyInstance
+  #instance: FastifyInstance
   get instance() {
     return this.#instance
   }
 
-  constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
+  // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
+  constructor({ options }: { options?: FastifyServerOptions } = {}) {
     this.#instance = Fastify({
       ...fastifyServerOptions,
       ...options

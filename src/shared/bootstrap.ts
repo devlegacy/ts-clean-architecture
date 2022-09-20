@@ -2,7 +2,6 @@ import cluster from 'cluster'
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
 import HttpStatus from 'http-status'
-import { Http2SecureServer } from 'http2'
 import { ValidationError } from 'joi'
 import { cpus } from 'os'
 import { join, resolve } from 'path'
@@ -225,8 +224,9 @@ const buildSchemaWithParams = (
  * @param fastify
  * @param props
  */
+// export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
 // eslint-disable-next-line complexity, max-lines-per-function
-export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
+export const bootstrap = async (fastify: FastifyInstance, props: { controller: string }) => {
   // const controllerContainer = container.createChildContainer()
 
   const controllers = await entitiesRegister(props.controller)

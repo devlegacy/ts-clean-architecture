@@ -1,12 +1,11 @@
 import HttpStatus from 'http-status'
 
+import { IndexHeadersDto } from '@/contexts/mooc/status/infrastructure/dtos/index-headers.dto'
+import { IndexQueryDto } from '@/contexts/mooc/status/infrastructure/dtos/index-query.dto'
+import { UserDto } from '@/contexts/mooc/status/infrastructure/dtos/user.dto'
 import { Body, Controller, Get, Headers, HttpCode, Param, Post, Query, Req, Res } from '@/shared/common'
 import { MongoIdPipe } from '@/shared/pipes/mongo-id.pipe'
 import { PageNumberPipe } from '@/shared/pipes/page-number.pipe'
-
-import { IndexHeadersDto } from './dtos/index-headers.dto'
-import { IndexQueryDto } from './dtos/index-query.dto'
-import { UserDto } from './dtos/user.dto'
 
 @Controller('/status')
 export class StatusController {
@@ -19,8 +18,8 @@ export class StatusController {
   @HttpCode(HttpStatus.CREATED)
   @Post('/params/:any/:any/:other')
   params(
-    @Req() req: HttpRequest,
-    @Res() res: HttpResponse,
+    @Req() req: Request,
+    @Res() res: Response,
     @Query() query: IndexQueryDto,
     @Param() params: Record<string, unknown>,
     @Body() body: UserDto,

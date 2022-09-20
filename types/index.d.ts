@@ -3,15 +3,8 @@
 // Type {Request} presenta problemas con superTest y express
 
 // Temp typing - only for dev purposes
-type HttpRequest<
+type Request<
   RouteGeneric = { Params: Record<string, any>; Querystring: Record<string, any>; Body: Record<string, any> }
-> = import('fastify').FastifyRequest<
-  RouteGeneric,
-  import('http2').Http2SecureServer,
-  import('http2').Http2ServerRequest,
-  unknown,
-  import('fastify').FastifyLoggerInstance
->
-
+> = import('fastify').FastifyRequest<RouteGeneric>
 // Temp typing - only for dev purposes
-type HttpResponse = import('fastify').FastifyReply
+type Response = import('fastify').FastifyReply
