@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from './invalid-argument.error'
+import { InvalidArgumentError } from './InvalidArgumentError'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Primitives = String | string | number | Boolean | boolean | Date

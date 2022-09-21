@@ -1,8 +1,8 @@
 import { AggregateRoot } from '@/contexts/shared/domain/aggregate-root'
 
-import { CourseDuration } from '../../shared/domain/courses/course-duration'
-import { CourseId } from '../../shared/domain/courses/course-id'
-import { CourseName } from '../../shared/domain/courses/course-name'
+import { CourseDuration } from '../../shared/domain/courses/CourseDuration'
+import { CourseId } from '../../shared/domain/courses/CourseId'
+import { CourseName } from '../../shared/domain/courses/CourseName'
 
 export class Course extends AggregateRoot {
   readonly id: CourseId

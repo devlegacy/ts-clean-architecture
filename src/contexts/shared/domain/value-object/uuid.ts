@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid'
 import validate from 'uuid-validate'
 
-import { InvalidArgumentError } from './invalid-argument.error'
-import { ValueObject } from './value-object'
+import { InvalidArgumentError } from './InvalidArgumentError'
+import { ValueObject } from './ValueObject'
 
 export class Uuid extends ValueObject<string> {
   // readonly value: string

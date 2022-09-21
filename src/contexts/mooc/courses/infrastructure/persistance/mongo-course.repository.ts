@@ -1,4 +1,4 @@
-import { CourseId } from '@/contexts/mooc/shared/domain/courses/course-id'
+import { CourseId } from '@/contexts/mooc/shared/domain/courses/CourseId'
 import { Nullable } from '@/contexts/shared/domain/nullable'
 import { MongoRepository } from '@/contexts/shared/infrastructure/persistance/mongo/mongo.repository'
 

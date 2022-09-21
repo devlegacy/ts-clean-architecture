@@ -1,6 +1,6 @@
-import { ValueObject } from '@/contexts/shared/domain/value-object/value-object'
+import { ValueObject } from '@/contexts/shared/domain/value-object/ValueObject'
 
-import { CourseNameLengthExceeded } from './course-name-length-exceeded.error'
+import { CourseNameLengthExceeded } from './CourseNameLengthExceeded'
 
 const MAX_CHARACTER_LIMIT = 30
 

@@ -2,7 +2,7 @@ import { EntitySchema } from 'typeorm'
 
 import { Course } from '@/contexts/mooc/courses/domain/course'
 import { CourseRepository } from '@/contexts/mooc/courses/domain/course.repository'
-import { CourseId } from '@/contexts/mooc/shared/domain/courses/course-id'
+import { CourseId } from '@/contexts/mooc/shared/domain/courses/CourseId'
 import { Nullable } from '@/contexts/shared/domain/nullable'
 import { TypeOrmRepository } from '@/contexts/shared/infrastructure/persistance/typeorm/typeorm.repository'
 
