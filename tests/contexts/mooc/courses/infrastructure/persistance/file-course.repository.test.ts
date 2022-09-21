@@ -1,9 +1,9 @@
-import { Course } from '@/contexts/mooc/courses/domain/course'
-import { FileCourseRepository } from '@/contexts/mooc/courses/infrastructure/persistance/file-course.repository'
-import { CourseDuration } from '@/contexts/mooc/shared/domain/courses/CourseDuration'
-import { CourseId } from '@/contexts/mooc/shared/domain/courses/CourseId'
-import { CourseName } from '@/contexts/mooc/shared/domain/courses/CourseName'
-// import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
+import { Course } from '@/Contexts/Mooc/Courses/domain/course'
+import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/persistance/file-course.repository'
+import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/courses/CourseDuration'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/courses/CourseId'
+import { CourseName } from '@/Contexts/Mooc/Shared/domain/courses/CourseName'
+// import { Uuid } from '@/Contexts/Shared/domain/value-object/uuid'
 
 describe('File Course Repository', () => {
   it('should save a course', async () => {

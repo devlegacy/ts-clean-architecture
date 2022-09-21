@@ -3,7 +3,7 @@ import '@/apps/mooc/backend/dependency-injection/index'
 import { container } from 'tsyringe'
 import { DataSource } from 'typeorm'
 
-import { CourseRepository } from '@/contexts/mooc/courses/domain/course.repository'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/course.repository'
 
 import { EnvironmentArranger } from '../../../../shared/infrastructure/arranger/environment-arranger'
 import { TypeOrmEnvironmentArranger } from '../../../../shared/infrastructure/typeorm/typeorm-environment-arranger'

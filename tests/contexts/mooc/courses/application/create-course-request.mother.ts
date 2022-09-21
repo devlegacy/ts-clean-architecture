@@ -1,7 +1,7 @@
-import { CourseDto } from '@/contexts/mooc/courses/infrastructure/dtos/course.dto'
-import { CourseDuration } from '@/contexts/mooc/shared/domain/courses/CourseDuration'
-import { CourseId } from '@/contexts/mooc/shared/domain/courses/CourseId'
-import { CourseName } from '@/contexts/mooc/shared/domain/courses/CourseName'
+import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/course.dto'
+import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/courses/CourseDuration'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/courses/CourseId'
+import { CourseName } from '@/Contexts/Mooc/Shared/domain/courses/CourseName'
 
 import { CourseDurationMother } from '../domain/course-duration.mother'
 import { CourseIdMother } from '../domain/course-id.mother'
