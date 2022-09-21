@@ -1,13 +1,13 @@
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { MongoDB } from '@/contexts/shared/infrastructure/persistance/mongo/mongodb'
-import { UserAlreadyExistsException } from '@/contexts/user'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
+import { UserAlreadyExistsException } from '@/Contexts/User'
 import {
   MongoDBUserRepository,
   // InMemoryUserRepository,
   User
-} from '@/contexts/user/users'
+} from '@/Contexts/User/Users'
 import { error, info } from '@/shared/logger'
 
 const userDto: User = {

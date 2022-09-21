@@ -9,7 +9,7 @@ import CreateError from 'http-errors'
 import Joi, { AnySchema, ValidationError, ValidationOptions } from 'joi'
 import { AddressInfo } from 'net'
 
-import { HttpError } from '@/contexts/shared/infrastructure/http/http-error'
+import { HttpError } from '@/Contexts/Shared/infrastructure/http/http-error'
 import { config } from '@/shared/config'
 import { logger } from '@/shared/logger'
 

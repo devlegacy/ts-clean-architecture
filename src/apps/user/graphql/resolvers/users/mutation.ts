@@ -1,5 +1,5 @@
-import { MongoDB } from '@/contexts/shared/infrastructure/persistance/mongo/mongodb'
-import { MongoDBUserRepository } from '@/contexts/user'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
+import { MongoDBUserRepository } from '@/Contexts/User'
 
 const userMutations = {
   createUser: async (_: any, args: any) => {

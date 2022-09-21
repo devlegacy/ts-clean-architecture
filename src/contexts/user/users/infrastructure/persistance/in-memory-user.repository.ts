@@ -1,5 +1,5 @@
-import { User } from '@/contexts/user/users/domain/user'
-import { UserRepository } from '@/contexts/user/users/domain/user.repository'
+import { User } from '@/Contexts/User/Users/domain/user'
+import { UserRepository } from '@/Contexts/User/Users/domain/user.repository'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []

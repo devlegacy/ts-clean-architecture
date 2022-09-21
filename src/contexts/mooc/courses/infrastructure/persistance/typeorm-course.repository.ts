@@ -1,10 +1,10 @@
 import { EntitySchema } from 'typeorm'
 
-import { Course } from '@/contexts/mooc/courses/domain/course'
-import { CourseRepository } from '@/contexts/mooc/courses/domain/course.repository'
-import { CourseId } from '@/contexts/mooc/shared/domain/courses/CourseId'
-import { Nullable } from '@/contexts/shared/domain/nullable'
-import { TypeOrmRepository } from '@/contexts/shared/infrastructure/persistance/typeorm/typeorm.repository'
+import { Course } from '@/Contexts/Mooc/Courses/domain/course'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/course.repository'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/courses/CourseId'
+import { Nullable } from '@/Contexts/Shared/domain/nullable'
+import { TypeOrmRepository } from '@/Contexts/Shared/infrastructure/persistance/typeorm/typeorm.repository'
 
 import { CourseEntity } from './typeorm/course.entity'
 

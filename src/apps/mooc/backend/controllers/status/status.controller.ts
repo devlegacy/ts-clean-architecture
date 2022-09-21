@@ -1,8 +1,8 @@
 import HttpStatus from 'http-status'
 
-import { IndexHeadersDto } from '@/contexts/mooc/status/infrastructure/dtos/index-headers.dto'
-import { IndexQueryDto } from '@/contexts/mooc/status/infrastructure/dtos/index-query.dto'
-import { UserDto } from '@/contexts/mooc/status/infrastructure/dtos/user.dto'
+import { IndexHeadersDto } from '@/Contexts/Mooc/Status/infrastructure/dtos/index-headers.dto'
+import { IndexQueryDto } from '@/Contexts/Mooc/Status/infrastructure/dtos/index-query.dto'
+import { UserDto } from '@/Contexts/Mooc/Status/infrastructure/dtos/user.dto'
 import { Body, Controller, Get, Headers, HttpCode, Param, Post, Query, Req, Res } from '@/shared/common'
 import { MongoIdPipe } from '@/shared/pipes/mongo-id.pipe'
 import { PageNumberPipe } from '@/shared/pipes/page-number.pipe'

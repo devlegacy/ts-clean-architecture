@@ -1,3 +1,3 @@
-import { Uuid } from '@/contexts/shared/domain/value-object/Uuid'
+import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
 
 export class CourseId extends Uuid {}

@@ -1,4 +1,4 @@
-import { Uuid } from '@/contexts/shared/domain/value-object/Uuid'
+import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
 
 import { UserAlreadyExistsException, UserBadEntityException } from '../../shared'
 import { User, UserRepository } from '../domain'

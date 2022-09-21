@@ -9,7 +9,7 @@ import * as joi from 'joi'
 import { Types } from 'mongoose'
 import { ZodError, ZodObject } from 'zod'
 
-import { HttpError } from '@/contexts/shared/infrastructure/http/http-error'
+import { HttpError } from '@/Contexts/Shared/infrastructure/http/http-error'
 
 interface ExtendedStringSchema extends joi.StringSchema {
   objectId(): this

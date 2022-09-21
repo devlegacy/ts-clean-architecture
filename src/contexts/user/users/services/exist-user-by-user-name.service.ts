@@ -1,4 +1,4 @@
-import { UserRepository } from '@/contexts/user/users/domain/user.repository'
+import { UserRepository } from '@/Contexts/User/Users/domain/user.repository'
 
 export class ExistUserByUserName {
   constructor(private readonly userRepository: UserRepository) {}

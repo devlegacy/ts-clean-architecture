@@ -1,8 +1,8 @@
 import HttpStatus from 'http-status'
 
-import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
-// import { updateRequestSchema } from '@/contexts/mooc/courses/infrastructure/course.schema'
-import { CourseDto } from '@/contexts/mooc/courses/infrastructure/dtos/course.dto'
+import { CourseCreator } from '@/Contexts/Mooc/Courses/application/course.creator'
+// import { updateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/course.schema'
+import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/course.dto'
 import {
   Body,
   Controller,

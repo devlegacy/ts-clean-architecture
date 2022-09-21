@@ -10,7 +10,7 @@
 
 import { inject, injectable } from 'tsyringe'
 
-import { Uuid } from '@/contexts/shared/domain/value-object/Uuid'
+import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
 
 import { CourseDuration } from '../../shared/domain/courses/CourseDuration'
 import { CourseName } from '../../shared/domain/courses/CourseName'

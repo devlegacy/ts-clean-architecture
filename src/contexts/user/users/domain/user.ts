@@ -6,7 +6,7 @@
 // }
 // Note: No acoplar a un modelo
 
-import { AggregateRoot } from '@/contexts/shared/domain/aggregate-root'
+import { AggregateRoot } from '@/Contexts/Shared/domain/aggregate-root'
 
 // export interface UserUpdateDto extends Omit<Partial<User>, 'id'> {
 //   id: User['id']

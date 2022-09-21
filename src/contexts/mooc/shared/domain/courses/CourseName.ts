@@ -1,4 +1,4 @@
-import { ValueObject } from '@/contexts/shared/domain/value-object/ValueObject'
+import { ValueObject } from '@/Contexts/Shared/domain/value-object/ValueObject'
 
 import { CourseNameLengthExceeded } from './CourseNameLengthExceeded'
 
