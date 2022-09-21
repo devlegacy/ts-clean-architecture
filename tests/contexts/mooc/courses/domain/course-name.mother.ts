@@ -1,4 +1,4 @@
-import { CourseName } from '@/contexts/mooc/shared/domain/courses/course-name'
+import { CourseName } from '@/contexts/mooc/shared/domain/courses/CourseName'
 
 import { WordMother } from '../../../shared/domain/word.mother'
 

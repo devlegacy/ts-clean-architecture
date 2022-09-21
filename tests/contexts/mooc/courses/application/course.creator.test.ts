@@ -1,5 +1,5 @@
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
-import { CourseNameLengthExceeded } from '@/contexts/mooc/shared/domain/courses/course-name-length-exceeded.error'
+import { CourseNameLengthExceeded } from '@/contexts/mooc/shared/domain/courses/CourseNameLengthExceeded'
 
 import { CourseRepositoryMock } from '../__mocks__/course.repository.mock'
 import { CourseMother } from '../domain/course.mother'

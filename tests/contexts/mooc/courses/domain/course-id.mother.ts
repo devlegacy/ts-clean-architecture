@@ -1,4 +1,4 @@
-import { CourseId } from '@/contexts/mooc/shared/domain/courses/course-id'
+import { CourseId } from '@/contexts/mooc/shared/domain/courses/CourseId'
 
 import { UuidMother } from '../../../shared/domain/uuid.mother'
 
