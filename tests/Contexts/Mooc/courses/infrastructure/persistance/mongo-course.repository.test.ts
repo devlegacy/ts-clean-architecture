@@ -6,8 +6,8 @@ import { container } from 'tsyringe'
 
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/course.repository'
 
-import { EnvironmentArranger } from '../../../../shared/infrastructure/arranger/environment-arranger'
-import { MongoEnvironmentArranger } from '../../../../shared/infrastructure/mongo/mongo-environment-arranger'
+import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/environment-arranger'
+import { MongoEnvironmentArranger } from '../../../../Shared/infrastructure/mongo/mongo-environment-arranger'
 import { CourseMother } from '../../domain/course.mother'
 
 container.register<EnvironmentArranger>('EnvironmentArranger', {

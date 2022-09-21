@@ -1,8 +1,8 @@
 import { Course } from '@/Contexts/Mooc/Courses/domain/course'
 import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/persistance/file-course.repository'
-import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/courses/CourseDuration'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/courses/CourseId'
-import { CourseName } from '@/Contexts/Mooc/Shared/domain/courses/CourseName'
+import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/Courses/CourseDuration'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
+import { CourseName } from '@/Contexts/Mooc/Shared/domain/Courses/CourseName'
 // import { Uuid } from '@/Contexts/Shared/domain/value-object/uuid'
 
 describe('File Course Repository', () => {

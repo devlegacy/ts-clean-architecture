@@ -1,6 +1,6 @@
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/courses/CourseId'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
 
-import { UuidMother } from '../../../shared/domain/uuid.mother'
+import { UuidMother } from '../../../Shared/domain/uuid.mother'
 
 export class CourseIdMother {
   static create(value: string): CourseId {

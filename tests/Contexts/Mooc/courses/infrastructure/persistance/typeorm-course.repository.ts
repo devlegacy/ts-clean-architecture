@@ -5,8 +5,8 @@ import { DataSource } from 'typeorm'
 
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/course.repository'
 
-import { EnvironmentArranger } from '../../../../shared/infrastructure/arranger/environment-arranger'
-import { TypeOrmEnvironmentArranger } from '../../../../shared/infrastructure/typeorm/typeorm-environment-arranger'
+import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/environment-arranger'
+import { TypeOrmEnvironmentArranger } from '../../../../Shared/infrastructure/typeorm/typeorm-environment-arranger'
 import { CourseMother } from '../../domain/course.mother'
 
 container.register<EnvironmentArranger>('EnvironmentArranger', {

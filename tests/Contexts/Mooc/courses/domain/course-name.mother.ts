@@ -1,6 +1,6 @@
-import { CourseName } from '@/Contexts/Mooc/Shared/domain/courses/CourseName'
+import { CourseName } from '@/Contexts/Mooc/Shared/domain/Courses/CourseName'
 
-import { WordMother } from '../../../shared/domain/word.mother'
+import { WordMother } from '../../../Shared/domain/word.mother'
 
 export class CourseNameMother {
   static create(value: string): CourseName {
