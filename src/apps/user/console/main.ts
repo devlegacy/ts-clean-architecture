@@ -6,11 +6,7 @@ import { UserAlreadyExistsException } from '@/contexts/user'
 import {
   MongoDBUserRepository,
   // InMemoryUserRepository,
-  User,
-  UserCreatorUseCase,
-  UserDeleteUseCase,
-  UserGetterUseCase,
-  UserUpdaterUseCase
+  User
 } from '@/contexts/user/users'
 import { error, info } from '@/shared/logger'
 
@@ -35,33 +31,33 @@ const bootstrap = async () => {
   const database = await MongoDB.getInstance()
   const userRepository = new MongoDBUserRepository(database)
 
-  const userCreatorUseCase = new UserCreatorUseCase(userRepository)
+  const UserCreator = new UserCreator(userRepository)
 
-  await userCreatorUseCase.run(userDto)
+  await UserCreator.run(userDto)
   info(userDto)
 
   try {
-    await userCreatorUseCase.run(userDto)
+    await UserCreator.run(userDto)
   } catch (e) {
     if (e instanceof UserAlreadyExistsException) {
       error(e)
     }
   }
 
-  const userGetterUseCase = new UserGetterUseCase(userRepository)
-  let users = await userGetterUseCase.run()
+  const UserGetter = new UserGetter(userRepository)
+  let users = await UserGetter.run()
   info(users)
 
-  const userUpdaterUseCase = new UserUpdaterUseCase(userRepository)
-  await userUpdaterUseCase.run(updateUserDto)
+  const UserUpdater = new UserUpdater(userRepository)
+  await UserUpdater.run(updateUserDto)
 
-  users = await userGetterUseCase.run()
+  users = await UserGetter.run()
   info(users)
 
-  const userDeleteUseCase = new UserDeleteUseCase(userRepository)
-  await userDeleteUseCase.run(users[users.length - 1].id)
+  const UserDeleter = new UserDeleter(userRepository)
+  await UserDeleter.run(users[users.length - 1].id)
 
-  users = await userGetterUseCase.run()
+  users = await UserGetter.run()
   info(users)
 
   await MongoDB?.client?.close()

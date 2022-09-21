@@ -5,7 +5,8 @@ import { User, UserRepository } from '../domain'
 import { ExistUserByUserName } from '../services'
 import { UserCreatorRequest } from './user.creator.request'
 
-export class UserCreatorUseCase {
+/** UserCreatorUseCase */
+export class UserCreator {
   private readonly existUserByUserName: ExistUserByUserName
 
   constructor(private readonly userRepository: UserRepository) {

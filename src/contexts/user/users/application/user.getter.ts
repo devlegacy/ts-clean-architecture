@@ -1,6 +1,7 @@
 import { User, UserRepository } from '../domain'
 
-export class UserGetterUseCase {
+/** UserGetterUseCase */
+export class UserGetter {
   constructor(private readonly userRepository: UserRepository) {}
 
   async run(): Promise<User[]> {

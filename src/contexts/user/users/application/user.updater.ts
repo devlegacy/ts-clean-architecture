@@ -1,7 +1,8 @@
 import { User, UserRepository, UserUpdateDto } from '../domain'
 import { UserGetterById } from '../services'
 
-export class UserUpdaterUseCase {
+/** UserUpdaterUseCase */
+export class UserUpdater {
   private readonly _userGetterById: UserGetterById
 
   constructor(private readonly userRepository: UserRepository) {
