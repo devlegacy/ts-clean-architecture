@@ -3,7 +3,7 @@ import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/per
 import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/Courses/CourseDuration'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
 import { CourseName } from '@/Contexts/Mooc/Shared/domain/Courses/CourseName'
-// import { Uuid } from '@/Contexts/Shared/domain/value-object/uuid'
+// import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
 
 describe('File Course Repository', () => {
   it('should save a course', async () => {

@@ -12,8 +12,8 @@ import { inject, injectable } from 'tsyringe'
 
 import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
 
-import { CourseDuration } from '../../shared/domain/courses/CourseDuration'
-import { CourseName } from '../../shared/domain/courses/CourseName'
+import { CourseDuration } from '../../Shared/domain/Courses/CourseDuration'
+import { CourseName } from '../../Shared/domain/Courses/CourseName'
 import { Course } from '../domain/course'
 import { CourseRepository } from '../domain/course.repository'
 import { CourseDto } from '../infrastructure/dtos/course.dto'

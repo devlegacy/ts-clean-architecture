@@ -1,8 +1,8 @@
 import { EntitySchema } from 'typeorm'
 
-import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/courses/CourseDuration'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/courses/CourseId'
-import { CourseName } from '@/Contexts/Mooc/Shared/domain/courses/CourseName'
+import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/Courses/CourseDuration'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
+import { CourseName } from '@/Contexts/Mooc/Shared/domain/Courses/CourseName'
 import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistance/typeorm/value-object.transformer'
 
 import { Course } from '../../../domain/course'
