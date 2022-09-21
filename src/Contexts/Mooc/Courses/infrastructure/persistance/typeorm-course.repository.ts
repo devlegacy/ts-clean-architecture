@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm'
 
-import { Course } from '@/Contexts/Mooc/Courses/domain/course'
+import { Course } from '@/Contexts/Mooc/Courses/domain/Course'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/course.repository'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
 import { Nullable } from '@/Contexts/Shared/domain/nullable'

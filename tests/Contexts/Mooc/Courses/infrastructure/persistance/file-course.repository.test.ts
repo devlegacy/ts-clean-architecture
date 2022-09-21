@@ -1,4 +1,4 @@
-import { Course } from '@/Contexts/Mooc/Courses/domain/course'
+import { Course } from '@/Contexts/Mooc/Courses/domain/Course'
 import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/persistance/file-course.repository'
 import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/Courses/CourseDuration'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'

@@ -5,7 +5,7 @@ import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
 import { CourseName } from '@/Contexts/Mooc/Shared/domain/Courses/CourseName'
 import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistance/typeorm/value-object.transformer'
 
-import { Course } from '../../../domain/course'
+import { Course } from '../../../domain/Course'
 
 export const CourseEntity = new EntitySchema<Course>({
   name: 'Course',

@@ -1,4 +1,4 @@
-import { User } from '@/Contexts/User/Users/domain/user'
+import { User } from '@/Contexts/User/Users/domain/User'
 import { UserRepository } from '@/Contexts/User/Users/domain/user.repository'
 
 export class InMemoryUserRepository implements UserRepository {

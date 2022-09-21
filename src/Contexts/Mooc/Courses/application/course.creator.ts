@@ -14,7 +14,7 @@ import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
 
 import { CourseDuration } from '../../Shared/domain/Courses/CourseDuration'
 import { CourseName } from '../../Shared/domain/Courses/CourseName'
-import { Course } from '../domain/course'
+import { Course } from '../domain/Course'
 import { CourseRepository } from '../domain/course.repository'
 import { CourseDto } from '../infrastructure/dtos/course.dto'
 

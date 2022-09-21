@@ -1,4 +1,4 @@
-import { Course } from '@/Contexts/Mooc/Courses/domain/course'
+import { Course } from '@/Contexts/Mooc/Courses/domain/Course'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/course.repository'
 
 export class CourseRepositoryMock implements CourseRepository {

@@ -1,4 +1,4 @@
-import { Course } from './course'
+import { Course } from './Course'
 
 // TODO: Define
 export const COURSE_REPOSITORY_TOKEN = 'CourseRepository'

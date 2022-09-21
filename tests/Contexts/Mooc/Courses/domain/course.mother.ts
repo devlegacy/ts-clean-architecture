@@ -1,4 +1,4 @@
-import { Course } from '@/Contexts/Mooc/Courses/domain/course'
+import { Course } from '@/Contexts/Mooc/Courses/domain/Course'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/course.dto'
 import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/Courses/CourseDuration'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'

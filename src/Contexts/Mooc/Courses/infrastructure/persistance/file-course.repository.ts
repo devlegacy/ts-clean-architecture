@@ -1,11 +1,11 @@
 import { deserialize, serialize } from 'bson'
 import fs from 'fs'
 
-import { Course } from '../../domain/course'
+import { Course } from '../../domain/Course'
 import { CourseRepository } from '../../domain/course.repository'
 
 export class FileCourseRepository implements CourseRepository {
-  private FILE_PATH = `${__dirname}/courses`
+  private FILE_PATH = `${__dirname}/Courses`
 
   async save(course: Course) {
     fs.promises.writeFile(this.filePath(course.id.value), serialize(course))

@@ -2,7 +2,7 @@ import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
 import { Nullable } from '@/Contexts/Shared/domain/nullable'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongo.repository'
 
-import { Course } from '../../domain/course'
+import { Course } from '../../domain/Course'
 import { CourseRepository } from '../../domain/course.repository'
 
 export interface CourseDocument {
