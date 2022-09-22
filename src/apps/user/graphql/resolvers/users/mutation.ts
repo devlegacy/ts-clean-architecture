@@ -1,11 +1,11 @@
 import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
-import { MongoDBUserRepository } from '@/Contexts/User'
+import { MongoDBUserRepository, UserCreator } from '@/Contexts/User'
 
 const userMutations = {
   createUser: async (_: any, args: any) => {
     const database = await MongoDB.getInstance()
     const mongoDbUserRepository = new MongoDBUserRepository(database)
-    const UserCreator = new UserCreator(mongoDbUserRepository)
+    const userCreator = new UserCreator(mongoDbUserRepository)
 
     const {
       user: { username, age, name }
@@ -17,7 +17,7 @@ const userMutations = {
       name
     }
 
-    return await UserCreator.run(user)
+    return await userCreator.run(user)
   }
 }
 

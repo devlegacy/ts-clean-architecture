@@ -1,7 +1,7 @@
 import { inject } from 'tsyringe'
 import { DataSource, EntitySchema, Repository } from 'typeorm'
 
-import { AggregateRoot } from '@/Contexts/Shared/domain/aggregate-root'
+import { AggregateRoot } from '@/Contexts/Shared/domain/AggregateRoot'
 
 // Template method
 

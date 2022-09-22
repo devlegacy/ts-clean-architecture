@@ -1,3 +1,3 @@
-export * from './domain/Users/user-already-exists.exception'
-export * from './domain/Users/user-bad-entity.exception'
-export * from './domain/Users/user-not-found.exception'
+export * from './domain/Users/UserAlreadyExistsException'
+export * from './domain/Users/UserBadEntityException'
+export * from './domain/Users/UserNotFoundException'

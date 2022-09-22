@@ -1,7 +1,7 @@
 import { Collection, MongoClient } from 'mongodb'
 import { inject } from 'tsyringe'
 
-import { AggregateRoot } from '@/Contexts/Shared/domain/aggregate-root'
+import { AggregateRoot } from '@/Contexts/Shared/domain/AggregateRoot'
 
 export abstract class MongoRepository<T extends AggregateRoot> {
   constructor(@inject('MongoClient') private readonly _client: Promise<MongoClient>) {}
@@ -26,7 +26,7 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     }
 
     /**
-     * Note: Mongo interpreta undefined como null
+     * NOTE: Mongo interpreta undefined como null
      * al menos que se configure en la configuración para descartar al insertar
      */
     await collection.updateOne({ _id: id }, { $set: document }, { upsert: true })

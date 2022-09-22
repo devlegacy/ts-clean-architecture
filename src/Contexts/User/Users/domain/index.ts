@@ -1,2 +1,4 @@
+export * from './ExistUserByUserName'
 export * from './User'
-export * from './user.repository'
+export * from './UserGetterById'
+export * from './UserRepository'

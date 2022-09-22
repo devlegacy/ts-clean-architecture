@@ -1,2 +1,2 @@
-export * from './shared/index'
-export * from './users/index'
+export * from './Shared/index'
+export * from './Users/index'

@@ -2,19 +2,19 @@ import { FastifyInstance, HookHandlerDoneFunction } from 'fastify'
 import HttpStatus from 'http-status'
 
 import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
-import { MongoDBUserRepository, UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User'
+import { MongoUserRepository, UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User'
 
-let mongoDbUserRepository!: MongoDBUserRepository
+let userRepository!: MongoUserRepository
 
 // eslint-disable-next-line max-lines-per-function
 export const UserController = (fastify: FastifyInstance, opts: unknown, done: HookHandlerDoneFunction) => {
   fastify
     .addHook('preHandler', async () => {
       const database = await MongoDB.getInstance()
-      mongoDbUserRepository = new MongoDBUserRepository(database)
+      userRepository = new MongoUserRepository(database)
     })
     .get('/users', async (req: Request, res: Response) => {
-      const userGetter = new UserGetter(mongoDbUserRepository)
+      const userGetter = new UserGetter(userRepository)
       const users = await userGetter.run()
       res.code(HttpStatus.OK)
 
@@ -25,7 +25,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
       return {}
     })
     .post('/users', async (req: Request<{ Body: { username: string; age: number; name: string } }>, res: Response) => {
-      const userCreator = new UserCreator(mongoDbUserRepository)
+      const userCreator = new UserCreator(userRepository)
 
       const { username, age, name } = req.body
       const user = {
@@ -49,7 +49,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
       ) => {
         const { username, age, name } = req.body
 
-        const userUpdater = new UserUpdater(mongoDbUserRepository)
+        const userUpdater = new UserUpdater(userRepository)
 
         const userId = req.params.user
         const user = {
@@ -67,7 +67,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
     .delete('/users/:user', async (req: Request<{ Params: { user: string } }>, res: Response) => {
       const userId = req.params.user
 
-      const userDeleter = new UserDeleter(mongoDbUserRepository)
+      const userDeleter = new UserDeleter(userRepository)
 
       res.code(HttpStatus.OK)
 
