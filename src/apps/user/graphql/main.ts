@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { fatalErrorHandler } from '@/shared/logger'
 
-import { UserGraphQLApp } from './user-graphql-app'
+import { UserGraphQLApp } from './UserGraphQLApp'
 
 process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
 

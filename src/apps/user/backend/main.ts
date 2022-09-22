@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { fatalErrorHandler } from '@/shared/logger'
 
-import { UserBackendApp } from './user-backend-app'
+import { UserBackendApp } from './UserBackendApp'
 
 // import { MongoDB } from '@/infrastructure/driven-adapters/mongodb'
 

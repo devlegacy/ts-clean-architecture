@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { fatalErrorHandler } from '@/shared/logger'
 
-import { MoocBackendApp } from './mooc-backend-app'
+import { MoocBackendApp } from './MoocBackendApp'
 
 process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
 

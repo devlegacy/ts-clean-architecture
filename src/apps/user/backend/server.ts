@@ -13,7 +13,7 @@ import { HttpError } from '@/Contexts/Shared/infrastructure/http/http-error'
 import { config } from '@/shared/config'
 import { logger } from '@/shared/logger'
 
-import { UserController } from './controllers/user.controller'
+import { UserController } from './controllers/UserController'
 
 const ajv = {
   customOptions: {

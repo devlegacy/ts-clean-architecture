@@ -3,14 +3,10 @@ import { expand } from 'dotenv-expand'
 
 import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
 import { UserAlreadyExistsException } from '@/Contexts/User'
-import {
-  MongoDBUserRepository,
-  // InMemoryUserRepository,
-  User
-} from '@/Contexts/User/Users'
+import { MongoUserRepository, UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users'
 import { error, info } from '@/shared/logger'
 
-const userDto: User = {
+const userDto = {
   age: 28,
   id: '1',
   name: 'Samuel',
@@ -29,35 +25,35 @@ const bootstrap = async () => {
   // const userRepository = new InMemoryUserRepository()
 
   const database = await MongoDB.getInstance()
-  const userRepository = new MongoDBUserRepository(database)
+  const userRepository = new MongoUserRepository(database)
 
-  const UserCreator = new UserCreator(userRepository)
+  const userCreator = new UserCreator(userRepository)
 
-  await UserCreator.run(userDto)
+  await userCreator.run(userDto)
   info(userDto)
 
   try {
-    await UserCreator.run(userDto)
+    await userCreator.run(userDto)
   } catch (e) {
     if (e instanceof UserAlreadyExistsException) {
       error(e)
     }
   }
 
-  const UserGetter = new UserGetter(userRepository)
-  let users = await UserGetter.run()
+  const userGetter = new UserGetter(userRepository)
+  let users = await userGetter.run()
   info(users)
 
-  const UserUpdater = new UserUpdater(userRepository)
-  await UserUpdater.run(updateUserDto)
+  const userUpdater = new UserUpdater(userRepository)
+  await userUpdater.run(updateUserDto)
 
-  users = await UserGetter.run()
+  users = await userGetter.run()
   info(users)
 
-  const UserDeleter = new UserDeleter(userRepository)
-  await UserDeleter.run(users[users.length - 1].id)
+  const userDeleter = new UserDeleter(userRepository)
+  await userDeleter.run(users[users.length - 1].id)
 
-  users = await UserGetter.run()
+  users = await userGetter.run()
   info(users)
 
   await MongoDB?.client?.close()

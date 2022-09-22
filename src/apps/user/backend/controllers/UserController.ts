@@ -15,57 +15,48 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
     })
     .get('/users', async (req: Request, res: Response) => {
       const userGetter = new UserGetter(userRepository)
-      const users = await userGetter.run()
+      const users = (await userGetter.run()).map((user) => user.toPrimitives())
       res.code(HttpStatus.OK)
 
       return users
     })
-    .get('/users/:user', async (req: Request, res: Response) => {
+    .get('/users/:userId', async (req: Request, res: Response) => {
       res.code(200)
       return {}
     })
     .post('/users', async (req: Request<{ Body: { username: string; age: number; name: string } }>, res: Response) => {
       const userCreator = new UserCreator(userRepository)
 
-      const { username, age, name } = req.body
-      const user = {
-        username,
-        age,
-        name
-      }
-
       res.code(HttpStatus.CREATED)
 
-      return await userCreator.run(user)
+      const user = (await userCreator.run(req.body)).toPrimitives()
+
+      return user
     })
     .put(
-      '/users/:user',
+      '/users/:userId',
       async (
         req: Request<{
           Body: { username: string; age: number; name: string }
-          Params: { user: string }
+          Params: { userId: string }
         }>,
         res: Response
       ) => {
-        const { username, age, name } = req.body
-
         const userUpdater = new UserUpdater(userRepository)
-
-        const userId = req.params.user
-        const user = {
-          id: userId,
-          username,
-          age,
-          name
-        }
-
+        const { userId } = req.params
         res.code(HttpStatus.OK)
+        const user = (
+          await userUpdater.run({
+            id: userId,
+            ...req.body
+          })
+        ).toPrimitives()
 
-        return await userUpdater.run(user)
+        return user
       }
     )
-    .delete('/users/:user', async (req: Request<{ Params: { user: string } }>, res: Response) => {
-      const userId = req.params.user
+    .delete('/users/:userId', async (req: Request<{ Params: { userId: string } }>, res: Response) => {
+      const { userId } = req.params
 
       const userDeleter = new UserDeleter(userRepository)
 
