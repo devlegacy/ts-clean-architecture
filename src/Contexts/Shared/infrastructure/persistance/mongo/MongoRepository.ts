@@ -1,7 +1,7 @@
 import { Collection, MongoClient } from 'mongodb'
 import { inject } from 'tsyringe'
 
-import { AggregateRoot } from '@/Contexts/Shared/domain/AggregateRoot'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 export abstract class MongoRepository<T extends AggregateRoot> {
   constructor(@inject('MongoClient') private readonly _client: Promise<MongoClient>) {}

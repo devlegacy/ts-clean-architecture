@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-import MongoConfig from './MongoConfig'
+import { MongoConfig } from './MongoConfig'
 
 export class MongoClientFactory {
   private static clients: Record<string, MongoClient> = {}

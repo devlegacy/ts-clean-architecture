@@ -1,8 +1,6 @@
 import HttpStatus from 'http-status'
 
-import { IndexHeadersDto } from '@/Contexts/Mooc/Status/infrastructure/dtos/IndexHeadersDto'
-import { IndexQueryDto } from '@/Contexts/Mooc/Status/infrastructure/dtos/IndexQueryDto'
-import { UserDto } from '@/Contexts/Mooc/Status/infrastructure/dtos/UserDto'
+import { IndexHeadersDto, IndexQueryDto, UserDto } from '@/Contexts/Mooc/Status/infrastructure'
 import { Body, Controller, Get, Headers, HttpCode, Param, Post, Query, Req, Res } from '@/shared/common'
 import { MongoIdPipe } from '@/shared/pipes/mongo-id.pipe'
 import { PageNumberPipe } from '@/shared/pipes/page-number.pipe'

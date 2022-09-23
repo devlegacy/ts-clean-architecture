@@ -99,7 +99,7 @@ const getControllerMethodMetadata = (method: () => unknown) => {
   // TODO: Delete
   const schema: { schema: FastifySchema; code: number } = Reflect.getMetadata(SCHEMA_METADATA, method) || {
     schema: {},
-    code: 400
+    code: HttpStatus.UNPROCESSABLE_ENTITY
   }
 
   return {

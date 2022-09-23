@@ -1,11 +1,7 @@
-import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/CourseDto'
-import { CourseDuration } from '@/Contexts/Mooc/Shared/domain/Courses/CourseDuration'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
-import { CourseName } from '@/Contexts/Mooc/Shared/domain/Courses/CourseName'
+import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
+import { CourseDuration, CourseId, CourseName } from '@/Contexts/Mooc/Shared/domain'
 
-import { CourseDurationMother } from '../domain/CourseDurationMother'
-import { CourseIdMother } from '../domain/CourseIdMother'
-import { CourseNameMother } from '../domain/CourseNameMother'
+import { CourseDurationMother, CourseIdMother, CourseNameMother } from '../domain'
 
 export class CreateCourseRequestMother {
   static create(id: CourseId, name: CourseName, duration: CourseDuration): CourseDto {

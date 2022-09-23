@@ -1,4 +1,4 @@
-import TypeOrmConfig from '@/Contexts/Shared/infrastructure/persistance/typeorm/TypeOrmConfig'
+import { TypeOrmConfig } from '@/Contexts/Shared/infrastructure'
 
 import config from '../../config'
 

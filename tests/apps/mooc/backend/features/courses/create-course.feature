@@ -24,4 +24,4 @@ Feature: Create a new course
       "duration": "5 hours"
     }
     """
-    Then the response status code should be 400
+    Then the response status code should be 422

@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 
-import TypeOrmConfig from './TypeOrmConfig'
+import { TypeOrmConfig } from './TypeOrmConfig'
 
 export class TypeOrmClientFactory {
   static async createClient(contextName: string, config: TypeOrmConfig): Promise<DataSource> {

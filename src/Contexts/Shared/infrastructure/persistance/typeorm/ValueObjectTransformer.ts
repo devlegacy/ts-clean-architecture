@@ -1,5 +1,4 @@
-import { NewableClass } from '@/Contexts/Shared/domain/NewableClass'
-import { ValueObject } from '@/Contexts/Shared/domain/value-object/ValueObject'
+import { NewableClass, ValueObject } from '@/Contexts/Shared/domain'
 
 export const ValueObjectTransformer = (ValueObject: NewableClass<ValueObject<any>>) => {
   return {
