@@ -5,24 +5,30 @@ import { container } from 'tsyringe'
 
 // import { DataSource } from 'typeorm'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
-import { MongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
-import { MongoConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
-import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure'
+import {
+  MongoCourseRepository
+  //  TypeOrmCourseRepository
+} from '@/Contexts/Mooc/Courses/infrastructure'
+import {
+  MongoConfigFactory
+  //  TypeOrmConfigFactory
+} from '@/Contexts/Mooc/Shared/infrastructure'
+import {
+  MongoClientFactory,
+  MongoConfig
+  // TypeOrmClientFactory,
+  // TypeOrmConfig
+} from '@/Contexts/Shared/infrastructure'
 import { config, ConfigService } from '@/shared/config'
 
 import { TYPES } from './types'
 
-// import { TypeOrmCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/persistance/typeorm-course.repository'
-// import { TypeOrmConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure/persistence/postgresql/typeorm-config.factory'
-// import { TypeOrmClientFactory } from '@/Contexts/shared/infrastructure/persistance/typeorm/typeorm-client.factory'
-// import TypeOrmConfig from '@/Contexts/shared/infrastructure/persistance/typeorm/typeorm-config'
+// TODO: Inject dependencies or create dependency injector
 
 // import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger'
 // import { MongoEnvironmentArranger } from '../../../../Shared/infrastructure/mongo/MongoEnvironmentArranger'
 // import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/arranger/EnvironmentArranger'
 // import { MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger'
-
-// TODO: Inject dependencies or create dependency injector
 
 // Bootstrap global dependencies
 container.register<ConfigService>(TYPES.config, { useValue: config })

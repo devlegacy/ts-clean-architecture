@@ -63,13 +63,7 @@ export default {
   // globalTeardown: undefined,
 
   // A set of global variables that need to be available in all test environments
-  // globals: {
-  //   'ts-jest': {
-  //     tsconfig: 'tsconfig.json',
-  //     isolatedModules: true
-  //     // useESM: true,
-  //   }
-  // },
+  // globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   // maxWorkers: "50%",
@@ -110,7 +104,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -153,7 +147,7 @@ export default {
 
   // The test environment that will be used for testing
   // testEnvironment: "jest-environment-node",
-  // testEnvironment: 'node',
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -183,7 +177,14 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(ts|tsx|js)$': 'ts-jest'
+    '^.+\\.(ts|tsx|js)$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.json',
+        isolatedModules: true
+        // useESM: true,
+      }
+    ]
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
