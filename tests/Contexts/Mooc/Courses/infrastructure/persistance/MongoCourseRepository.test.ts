@@ -6,10 +6,7 @@ import { container } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/CourseRepository'
-// import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger'
-// import { MongoEnvironmentArranger } from '../../../../Shared/infrastructure/mongo/MongoEnvironmentArranger'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/arranger/EnvironmentArranger'
-import { MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger'
+import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { CourseMother } from '../../domain/CourseMother'
 

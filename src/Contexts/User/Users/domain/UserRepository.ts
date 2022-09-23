@@ -1,4 +1,4 @@
-import { Nullable } from '@/Contexts/Shared/domain/Nullable'
+import { Nullable } from '@/Contexts/Shared/domain'
 
 import { User } from './User'
 

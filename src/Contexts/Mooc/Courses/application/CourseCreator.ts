@@ -8,14 +8,14 @@
  *  - Si cambiamos algo de infraestructura (no hay que modificar) no se afecta el comportamiento del dominio
  */
 
-import { inject, singleton } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 
 import { Course, CourseRepository } from '../domain'
 import { CourseDto } from '../infrastructure'
 
-@singleton()
+@injectable()
 export class CourseCreator {
   constructor(@inject(TYPES.CourseRepository) private readonly courseRepository: CourseRepository) {}
 
