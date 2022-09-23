@@ -20,34 +20,40 @@
 ├─ 📂 `coverage/`     
 ├─ 📂 `dist/`     
 ├─ 📂 `src/` Código a producción y a transpilar, ayuda a configurar tsconfig, simplicidad     
-│  ├─ 📂 `context/`     
-│  │  ├─ 📂 `mooc/`     
+│  ├─ 📂 `Contexts/`     
+│  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
 │  │  │  │  ├─ 📂 `domain/` - ¿De qué tipo? (UserId, User, UserRepository)   
 │  │  │  │  ├─ 📂 `infrastructure/` - ¿De qué tipo? (UserPostController, MySQLUserRepository)    
-│  │  │  ├─ 📂 `shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
-│  │  ├─ 📂 `shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus     
+│  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
+│  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus     
 │  ├─ 📂 `apps/`     
 │  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     
+│  │  │  ├─ 📂 `console/`     
 │  │  │  ├─ 📂 `frontend/`     
+│  │  │  ├─ 📂 `graphql/`     
 ├─ 📂 `tests/` Código de pruebas     
-│  ├─ 📂 `context/` Unitarios | Integración - Infraestructura (repositorio con base de datos)     
-│  │  ├─ 📂 `mooc/`     
+│  ├─ 📂 `Contexts/` Unitarios | Integración - Infraestructura (repositorio con base de datos)     
+│  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/`     
 │  │  │  │  ├─ 📂 `__mocks__/`     
 │  │  │  │  ├─ 📂 `application/`     
 │  │  │  │  ├─ 📂 `domain/`     
 │  │  │  │  ├─ 📂 `infrastructure/`     
-│  │  │  ├─ 📂 `shared/`     
-│  │  ├─ 📂 `shared/`     
+│  │  │  ├─ 📂 `Shared/`     
+│  │  ├─ 📂 `Shared/`     
 │  ├─ 📂 `apps/` Aceptación | Caja negra | End to end - Probar una funcionalidad desde el punto más externo sin conocer la implementación que hay por dentro
 │  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     
 │  │  │  │  ├─ 📂 `features/`     
 │  │  │  ├─ 📂 `frontend/`     
 ├─ 📂 `types/`      
+
+Note:
+
+- Los nombres de las carpetas que representan un módulo o contexto deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 
 ## Test
 
