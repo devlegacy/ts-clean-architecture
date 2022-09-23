@@ -46,8 +46,8 @@
     "@fastify/helmet": "8.1.0",
     "@fastify/rate-limit": "6.0.1",
     "@graphql-tools/schema": "9.0.4",
-    "@sentry/node": "^7.13.0",
-    "@sentry/tracing": "^7.13.0",
+    "@sentry/node": "7.13.0",
+    "@sentry/tracing": "7.13.0",
     "ajv": "8.11.0",
     "apollo-server-core": "3.10.2",
     "apollo-server-fastify": "3.10.2",
@@ -83,13 +83,13 @@
     "@types/convict": "6.1.1",
     "@types/http-errors": "1.8.2",
     "@types/jest": "29.0.3",
-    "@types/node": "18.7.18",
+    "@types/node": "18.7.19",
     "@types/supertest": "2.0.12",
     "@types/uuid": "8.3.4",
     "@types/uuid-validate": "0.0.1",
     "@typescript-eslint/eslint-plugin": "5.38.0",
     "@typescript-eslint/parser": "5.38.0",
-    "autocannon": "7.9.0",
+    "autocannon": "7.10.0",
     "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.23.1",
@@ -99,7 +99,7 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "27.0.4",
     "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-security": "^1.5.0",
+    "eslint-plugin-security": "1.5.0",
     "eslint-plugin-simple-import-sort": "8.0.0",
     "eslint-plugin-unused-imports": "2.0.0",
     "husky": "8.0.1",
@@ -120,7 +120,7 @@
     "typescript": "4.8.3"
   },
   "optionalDependencies": {
-    "npm-check-updates": "16.2.1"
+    "npm-check-updates": "16.3.2"
   },
   "engines": {
     "node": ">=16.15.0 <=18.8.0",
