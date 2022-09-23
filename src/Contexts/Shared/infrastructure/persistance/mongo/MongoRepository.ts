@@ -18,10 +18,10 @@ export abstract class MongoRepository<T extends AggregateRoot> {
 
   protected async persist(id: string, aggregateRoot: T): Promise<void> {
     const collection = await this.collection()
-
+    const _id = id
     const document = {
       ...aggregateRoot.toPrimitives(),
-      _id: id,
+      _id,
       id: undefined
     }
 
@@ -29,6 +29,16 @@ export abstract class MongoRepository<T extends AggregateRoot> {
      * NOTE: Mongo interpreta undefined como null
      * al menos que se configure en la configuración para descartar al insertar
      */
-    await collection.updateOne({ _id: id }, { $set: document }, { upsert: true })
+    await collection.updateOne(
+      { _id },
+      {
+        $setOnInsert: {
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        $set: document
+      },
+      { upsert: true }
+    )
   }
 }

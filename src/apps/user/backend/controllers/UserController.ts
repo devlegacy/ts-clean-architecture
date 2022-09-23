@@ -1,7 +1,7 @@
 import { FastifyInstance, HookHandlerDoneFunction } from 'fastify'
 import HttpStatus from 'http-status'
 
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoDB'
 import { MongoUserRepository, UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User'
 
 let userRepository!: MongoUserRepository

@@ -1,5 +1,5 @@
+import { InvalidArgumentException } from '../exceptions'
 import { EnumValueObject } from '../value-object/EnumValueObject'
-import { InvalidArgumentError } from '../value-object/InvalidArgumentError'
 
 export enum OrderTypes {
   ASC = 'asc',
@@ -19,7 +19,7 @@ export class OrderType extends EnumValueObject<OrderTypes> {
       case OrderTypes.DESC:
         return new OrderType(OrderTypes.DESC)
       default:
-        throw new InvalidArgumentError(`The order type ${value} is invalid`)
+        throw new InvalidArgumentException(`The order type ${value} is invalid`)
     }
   }
 
@@ -32,6 +32,6 @@ export class OrderType extends EnumValueObject<OrderTypes> {
   }
 
   protected throwErrorForInvalidValue(value: OrderTypes): void {
-    throw new InvalidArgumentError(`The order type ${value} is invalid`)
+    throw new InvalidArgumentException(`The order type ${value} is invalid`)
   }
 }

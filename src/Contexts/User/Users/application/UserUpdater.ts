@@ -1,15 +1,15 @@
-import { User, UserGetterById, UserRepository } from '../domain'
+import { User, UserFinder, UserRepository } from '../domain'
 
 /** UserUpdaterUseCase */
 export class UserUpdater {
-  private readonly _userGetterById: UserGetterById
+  private readonly userFinder: UserFinder
 
   constructor(private readonly userRepository: UserRepository) {
-    this._userGetterById = new UserGetterById(userRepository)
+    this.userFinder = new UserFinder(userRepository)
   }
 
   async run(data: { id: string; username: string; age: number; name: string }): Promise<User> {
-    const user = await this._userGetterById.run(data.id)
+    const user = await this.userFinder.run(data.id)
     const userToUpdate: User = User.fromPrimitives({
       ...user.toPrimitives(),
       ...data

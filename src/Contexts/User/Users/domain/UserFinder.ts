@@ -3,8 +3,9 @@ import { User, UserRepository } from '.'
 
 /**
  * Domain service
+ * Reuse logic
  */
-export class UserGetterById {
+export class UserFinder {
   constructor(private readonly userRepository: UserRepository) {}
 
   async run(id: string): Promise<User> {

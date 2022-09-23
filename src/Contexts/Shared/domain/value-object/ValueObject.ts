@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from './InvalidArgumentError'
+import { InvalidArgumentException } from '../exceptions'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Primitives = String | string | number | Boolean | boolean | Date
@@ -13,7 +13,7 @@ export abstract class ValueObject<T extends Primitives> {
 
   private ensureValueIsDefined(value: T): void {
     if (value === null || value === undefined) {
-      throw new InvalidArgumentError('Value must be defined')
+      throw new InvalidArgumentException('Value must be defined')
     }
   }
 

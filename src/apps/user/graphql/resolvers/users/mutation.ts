@@ -1,4 +1,4 @@
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoDB'
 import { MongoUserRepository, UserCreator } from '@/Contexts/User'
 
 const userMutations = {

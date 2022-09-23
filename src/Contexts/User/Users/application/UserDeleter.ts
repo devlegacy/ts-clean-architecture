@@ -1,15 +1,15 @@
-import { User, UserGetterById, UserRepository } from '../domain'
+import { User, UserFinder, UserRepository } from '../domain'
 
 /** UserDeleterUseCase */
 export class UserDeleter {
-  private readonly userGetterById: UserGetterById
+  private readonly userFinder: UserFinder
 
   constructor(private readonly userRepository: UserRepository) {
-    this.userGetterById = new UserGetterById(userRepository)
+    this.userFinder = new UserFinder(userRepository)
   }
 
   async run(userId: string): Promise<User> {
-    const userToDelete = await this.userGetterById.run(userId)
+    const userToDelete = await this.userFinder.run(userId)
     await this.userRepository.delete(userToDelete)
 
     return userToDelete

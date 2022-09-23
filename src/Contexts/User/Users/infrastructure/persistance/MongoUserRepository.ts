@@ -42,12 +42,14 @@ export class MongoUserRepository implements UserRepository {
 
   async getByUserName(username: string): Promise<Nullable<User>> {
     const user = await this.user.findOne({ username })
-    return User.fromPrimitives({
-      id: user?.id,
-      name: user?.name ?? '',
-      username: user?.username ?? '',
-      age: user?.age
-    })
+    return user
+      ? User.fromPrimitives({
+          id: user?.id,
+          name: user?.name ?? '',
+          username: user?.username ?? '',
+          age: user?.age
+        })
+      : null
   }
 
   async update(userDto: User): Promise<User> {
@@ -75,11 +77,13 @@ export class MongoUserRepository implements UserRepository {
 
   async getById(id: string): Promise<Nullable<User>> {
     const user = await this.user.findOne({ id })
-    return User.fromPrimitives({
-      id: user?.id,
-      name: user?.name ?? '',
-      username: user?.username ?? '',
-      age: user?.age
-    })
+    return user
+      ? User.fromPrimitives({
+          id: user?.id,
+          name: user?.name ?? '',
+          username: user?.username ?? '',
+          age: user?.age
+        })
+      : null
   }
 }

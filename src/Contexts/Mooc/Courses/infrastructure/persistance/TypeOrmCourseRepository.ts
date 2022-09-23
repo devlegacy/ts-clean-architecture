@@ -4,7 +4,7 @@ import { Course } from '@/Contexts/Mooc/Courses/domain/Course'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/CourseRepository'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
 import { Nullable } from '@/Contexts/Shared/domain/Nullable'
-import { TypeOrmRepository } from '@/Contexts/Shared/infrastructure/persistance/typeorm/typeorm.repository'
+import { TypeOrmRepository } from '@/Contexts/Shared/infrastructure/persistance/typeorm/TypeOrmRepository'
 
 import { CourseEntity } from './typeorm/CourseEntity'
 

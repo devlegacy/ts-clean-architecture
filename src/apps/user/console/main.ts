@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/mongodb'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoDB'
 import { UserAlreadyExistsException } from '@/Contexts/User'
 import { MongoUserRepository, UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users'
 import { error, info } from '@/shared/logger'

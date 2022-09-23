@@ -62,7 +62,7 @@ const entitiesRegister = async (path = './src') => {
   const controllers: Class<unknown>[] = []
   const dir = resolve(cwd(), path)
 
-  for await (const entities of readModulesRecursively(dir, /\.(controller)\.(ts|js)$/)) {
+  for await (const entities of readModulesRecursively(dir, /Controller\.(ts|js)$/)) {
     const keys = Object.keys(entities)
     for (const key of keys) {
       const entity = entities[key]

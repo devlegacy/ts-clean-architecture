@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from '../value-object/InvalidArgumentError'
+import { InvalidArgumentException } from '../exceptions'
 import { FilterField } from './FilterField'
 import { FilterOperator } from './FilterOperator'
 import { FilterValue } from './FilterValue'
@@ -20,7 +20,7 @@ export class Filter {
     const value = values.get('value')
 
     if (!field || !operator || !value) {
-      throw new InvalidArgumentError(`The filter is invalid`)
+      throw new InvalidArgumentException(`The filter is invalid`)
     }
 
     return new Filter(new FilterField(field), FilterOperator.fromValue(operator), new FilterValue(value))
