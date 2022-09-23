@@ -3,10 +3,10 @@ export abstract class EnumValueObject<T> {
 
   constructor(value: T, readonly validValues: T[]) {
     this.value = value
-    this.checkValueIsValid(value)
+    this.isValid(value)
   }
 
-  checkValueIsValid(value: T): void {
+  isValid(value: T): void {
     if (!this.validValues.includes(value)) {
       this.throwErrorForInvalidValue(value)
     }

@@ -6,6 +6,7 @@ export const TYPES = {
   TypeOrmConfig: Symbol.for('TypeOrmConfig'),
   TypeOrmClient: Symbol.for('TypeOrmClient'),
   CourseRepository: Symbol.for('CourseRepository'),
+  DataSource: Symbol.for('DataSource'),
 
   // Test
   EnvironmentArranger: Symbol.for('EnvironmentArranger')

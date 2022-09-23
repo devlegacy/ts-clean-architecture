@@ -3,32 +3,27 @@ import 'reflect-metadata'
 import { MongoClient } from 'mongodb'
 import { container } from 'tsyringe'
 
-// import { DataSource } from 'typeorm'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
   MongoCourseRepository
-  //  TypeOrmCourseRepository
+  // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
 import {
   MongoConfigFactory
-  //  TypeOrmConfigFactory
+  // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
 import {
   MongoClientFactory,
   MongoConfig
-  // TypeOrmClientFactory,
-  // TypeOrmConfig
+  // , TypeOrmClientFactory
+  // , TypeOrmConfig
 } from '@/Contexts/Shared/infrastructure'
 import { config, ConfigService } from '@/shared/config'
+import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { TYPES } from './types'
 
 // TODO: Inject dependencies or create dependency injector
-
-// import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger'
-// import { MongoEnvironmentArranger } from '../../../../Shared/infrastructure/mongo/MongoEnvironmentArranger'
-// import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/arranger/EnvironmentArranger'
-// import { MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger'
 
 // Bootstrap global dependencies
 container.register<ConfigService>(TYPES.config, { useValue: config })
@@ -44,14 +39,7 @@ container.register<Promise<MongoClient>>(TYPES.MongoClient, {
 //   useValue: TypeOrmClientFactory.createClient('mooc', container.resolve<TypeOrmConfig>(TYPES.TypeOrmConfig))
 // })
 
-// if (!String(process.env.npm_lifecycle_event).includes('tests')) {
-//   //
-// } else {
-//   // Test
-//   container.register<EnvironmentArranger>(TYPES.EnvironmentArranger, {
-//     useValue: new MongoEnvironmentArranger(container.resolve<Promise<MongoClient>>(TYPES.MongoClient))
-//   })
-// }
+// !String(process.env.npm_lifecycle_event).includes('tests')
 
 // Domain - MongoRepository
 container.register<CourseRepository>(TYPES.CourseRepository, {
@@ -62,5 +50,10 @@ container.register<CourseRepository>(TYPES.CourseRepository, {
 // container.register<CourseRepository>(TYPES.CourseRepository, {
 //   useValue: new TypeOrmCourseRepository(container.resolve<Promise<DataSource>>(TYPES.TypeOrmClient))
 // })
+
+// Test
+container.register<EnvironmentArranger>(TYPES.EnvironmentArranger, {
+  useValue: new MongoEnvironmentArranger(container.resolve<Promise<MongoClient>>(TYPES.MongoClient))
+})
 
 export default container

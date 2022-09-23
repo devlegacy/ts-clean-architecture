@@ -1,11 +1,10 @@
 import { EntitySchema } from 'typeorm'
 
-import { Course } from '@/Contexts/Mooc/Courses/domain/Course'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/CourseRepository'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
-import { Nullable } from '@/Contexts/Shared/domain/Nullable'
-import { TypeOrmRepository } from '@/Contexts/Shared/infrastructure/persistance/typeorm/TypeOrmRepository'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain'
+import { Nullable } from '@/Contexts/Shared/domain'
+import { TypeOrmRepository } from '@/Contexts/Shared/infrastructure'
 
+import { Course, CourseRepository } from '../../domain'
 import { CourseEntity } from './typeorm/CourseEntity'
 
 export class TypeOrmCourseRepository extends TypeOrmRepository<Course> implements CourseRepository {
@@ -21,6 +20,8 @@ export class TypeOrmCourseRepository extends TypeOrmRepository<Course> implement
       // @ts-expect-error
       where: { id }
     })
+
+    // const course = await repository.findOne({ id })
 
     return course
   }

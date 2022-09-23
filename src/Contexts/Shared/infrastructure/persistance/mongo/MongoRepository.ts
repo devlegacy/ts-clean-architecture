@@ -1,10 +1,13 @@
-import { Collection, MongoClient } from 'mongodb'
+import { Collection, MongoClient, ObjectId } from 'mongodb'
 import { inject } from 'tsyringe'
 
+import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 import { AggregateRoot } from '@/Contexts/Shared/domain'
 
+type EntityId = string | ObjectId
+
 export abstract class MongoRepository<T extends AggregateRoot> {
-  constructor(@inject('MongoClient') private readonly _client: Promise<MongoClient>) {}
+  constructor(@inject(TYPES.MongoClient) private readonly _client: Promise<MongoClient>) {}
 
   protected abstract collectionName(): string
 
@@ -16,11 +19,12 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     return (await this._client).db().collection(this.collectionName())
   }
 
-  protected async persist(id: string, aggregateRoot: T): Promise<void> {
+  protected async persist(id: EntityId, aggregateRoot: T, transform?: (obj: any) => any): Promise<void> {
     const collection = await this.collection()
-    const _id = id
+    const _id = ObjectId.isValid(id) ? new ObjectId(id) : id
+    const primitives = transform ? transform(aggregateRoot.toPrimitives()) : aggregateRoot.toPrimitives()
     const document = {
-      ...aggregateRoot.toPrimitives(),
+      ...primitives,
       _id,
       id: undefined
     }

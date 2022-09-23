@@ -1,4 +1,6 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, MongoClientOptions } from 'mongodb'
+
+import { logger } from '@/shared/logger'
 
 import { MongoConfig } from './MongoConfig'
 
@@ -21,10 +23,19 @@ export class MongoClientFactory {
   }
 
   private static async createAndConnectClient(config: MongoConfig): Promise<MongoClient> {
-    const client = new MongoClient(config.url, {
-      ignoreUndefined: true
-    })
+    const options: MongoClientOptions = {
+      monitorCommands: true,
+      ignoreUndefined: true,
+      loggerLevel: 'debug'
+    }
+    const client = new MongoClient(config.url, options)
     await client.connect()
+
+    // TODO: Review
+    // Read more on: https://www.mongodb.com/docs/drivers/node/current/fundamentals/logging/
+    client.on('commandStarted', (event) => logger().info(event))
+    client.on('commandSucceeded', (event) => logger().info(event))
+    client.on('commandFailed', (event) => logger().info(event))
 
     return client
   }

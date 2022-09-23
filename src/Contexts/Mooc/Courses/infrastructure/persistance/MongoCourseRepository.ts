@@ -12,21 +12,23 @@ export interface CourseDocument {
 }
 
 export class MongoCourseRepository extends MongoRepository<Course> implements CourseRepository {
-  public save(course: Course): Promise<void> {
+  save(course: Course): Promise<void> {
     return this.persist(course.id.value, course)
   }
 
-  public async search(id: CourseId): Promise<Nullable<Course>> {
+  async search(id: CourseId): Promise<Nullable<Course>> {
     const collection = await this.collection()
     const document = await collection.findOne<CourseDocument>({ _id: id.value })
 
-    return document
+    const course = document
       ? Course.fromPrimitives({
           name: document.name,
           duration: document.duration,
           id: id.value
         })
       : null
+
+    return course
   }
 
   protected collectionName(): string {

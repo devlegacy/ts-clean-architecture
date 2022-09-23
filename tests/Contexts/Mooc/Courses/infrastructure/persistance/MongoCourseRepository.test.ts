@@ -1,18 +1,13 @@
 // .test.ts
-import '@/apps/mooc/backend/dependency-injection/index'
+import '@/apps/mooc/backend/dependency-injection'
 
-import { MongoClient } from 'mongodb'
 import { container } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
-import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { CourseMother } from '../../domain/CourseMother'
-
-container.register<EnvironmentArranger>(TYPES.EnvironmentArranger, {
-  useValue: new MongoEnvironmentArranger(container.resolve<Promise<MongoClient>>(TYPES.MongoClient))
-})
 
 const repository: CourseRepository = container.resolve<CourseRepository>(TYPES.CourseRepository)
 const environmentArrange: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)

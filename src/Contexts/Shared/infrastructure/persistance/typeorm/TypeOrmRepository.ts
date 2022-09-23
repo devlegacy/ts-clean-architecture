@@ -1,12 +1,13 @@
 import { inject } from 'tsyringe'
 import { DataSource, EntitySchema, Repository } from 'typeorm'
 
+import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 // Template method
 
 export abstract class TypeOrmRepository<T extends AggregateRoot> {
-  constructor(@inject('DataSource') private _client: Promise<DataSource>) {}
+  constructor(@inject(TYPES.DataSource) private _client: Promise<DataSource>) {}
 
   protected abstract entitySchema(): EntitySchema<T>
 

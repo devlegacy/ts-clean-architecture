@@ -1,4 +1,6 @@
-// import { StringValueObject } from '@/Contexts/Shared/domain/value-object/string-value-object'
-import { ValueObject } from '@/Contexts/Shared/domain/value-object/ValueObject'
+import {
+  StringValueObject
+  // ValueObject
+} from '@/Contexts/Shared/domain'
 
-export class CourseDuration extends ValueObject<string> {}
+export class CourseDuration extends StringValueObject {}
