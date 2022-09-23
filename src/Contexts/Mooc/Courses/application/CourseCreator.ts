@@ -12,9 +12,8 @@ import { inject, singleton } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 
-import { Course } from '../domain/Course'
-import { CourseRepository } from '../domain/CourseRepository'
-import { CourseDto } from '../infrastructure/dtos/CourseDto'
+import { Course, CourseRepository } from '../domain'
+import { CourseDto } from '../infrastructure'
 
 @singleton()
 export class CourseCreator {
