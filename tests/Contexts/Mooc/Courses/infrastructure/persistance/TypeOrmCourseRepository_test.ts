@@ -3,11 +3,10 @@ import '@/apps/mooc/backend/dependency-injection/index'
 import { container } from 'tsyringe'
 import { DataSource } from 'typeorm'
 
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/CourseRepository'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
+import { EnvironmentArranger, TypeOrmEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
-import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger'
-import { TypeOrmEnvironmentArranger } from '../../../../Shared/infrastructure/typeorm/TypeOrmEnvironmentArranger'
-import { CourseMother } from '../../domain/CourseMother'
+import { CourseMother } from '../../domain'
 
 container.register<EnvironmentArranger>('EnvironmentArranger', {
   useValue: new TypeOrmEnvironmentArranger(container.resolve<Promise<DataSource>>('TypeOrmClient'))

@@ -5,7 +5,7 @@ import { MongoClient } from 'mongodb'
 import { container } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/CourseRepository'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { CourseMother } from '../../domain/CourseMother'

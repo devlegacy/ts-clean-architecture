@@ -1,8 +1,8 @@
-import { CourseCreator } from '@/Contexts/Mooc/Courses/application/CourseCreator'
-import { CourseNameLengthExceeded } from '@/Contexts/Mooc/Shared/domain/Courses/CourseNameLengthExceeded'
+import { CourseCreator } from '@/Contexts/Mooc/Courses/application'
+import { CourseNameLengthExceeded } from '@/Contexts/Mooc/Shared/domain'
 
 import { CourseRepositoryMock } from '../__mocks__/CourseRepositoryMock'
-import { CourseMother } from '../domain/CourseMother'
+import { CourseMother } from '../domain'
 import { CreateCourseRequestMother } from './CreateCourseRequestMother'
 
 let repository: CourseRepositoryMock
