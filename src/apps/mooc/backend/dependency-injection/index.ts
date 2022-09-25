@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
-import { MongoClient } from 'mongodb'
+import { MikroORM } from '@mikro-orm/core'
+import { MongoDriver } from '@mikro-orm/mongodb'
 import { container } from 'tsyringe'
 
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
@@ -30,7 +31,7 @@ container.register<ConfigService>(TYPES.config, { useValue: config })
 
 // Infrastructure
 container.register<MongoConfig>(TYPES.MongoConfig, { useValue: MongoConfigFactory.createConfig() })
-container.register<Promise<MongoClient>>(TYPES.MongoClient, {
+container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, {
   useValue: MongoClientFactory.createClient('mooc', container.resolve<MongoConfig>(TYPES.MongoConfig))
 })
 // Infrastructure
@@ -43,7 +44,7 @@ container.register<Promise<MongoClient>>(TYPES.MongoClient, {
 
 // Domain - MongoRepository
 container.register<CourseRepository>(TYPES.CourseRepository, {
-  useValue: new MongoCourseRepository(container.resolve<Promise<MongoClient>>(TYPES.MongoClient))
+  useValue: new MongoCourseRepository(container.resolve<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient))
 })
 
 // Domain - TypeOrmRepository
@@ -53,7 +54,7 @@ container.register<CourseRepository>(TYPES.CourseRepository, {
 
 // Test
 container.register<EnvironmentArranger>(TYPES.EnvironmentArranger, {
-  useValue: new MongoEnvironmentArranger(container.resolve<Promise<MongoClient>>(TYPES.MongoClient))
+  useValue: new MongoEnvironmentArranger(container.resolve<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient))
 })
 
 export default container

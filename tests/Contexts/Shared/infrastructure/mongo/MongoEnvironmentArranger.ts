@@ -1,11 +1,13 @@
-import { MongoClient } from 'mongodb'
+import { MikroORM } from '@mikro-orm/core'
+import { MongoDriver } from '@mikro-orm/mongodb'
 
 import { EnvironmentArranger } from '../arranger/EnvironmentArranger'
 
 export class MongoEnvironmentArranger extends EnvironmentArranger {
-  constructor(private _client: Promise<MongoClient>) {
+  constructor(private _client: Promise<MikroORM<MongoDriver>>) {
     super()
   }
+
   async arrange(): Promise<void> {
     await this.cleanDatabase()
   }
@@ -13,15 +15,20 @@ export class MongoEnvironmentArranger extends EnvironmentArranger {
   protected async cleanDatabase() {
     const collections = await this.collections()
     const client = await this.client()
-
     for (const collection of collections) {
-      await client.db().collection(collection).deleteMany({})
+      await client.config.getDriver().getConnection().getDb().collection(collection).deleteMany({})
     }
   }
 
   private async collections() {
     const client = await this.client()
-    const collections = await client.db().listCollections(undefined, { nameOnly: true }).toArray()
+
+    const collections = await client.config
+      .getDriver()
+      .getConnection()
+      .getDb()
+      .listCollections(undefined, { nameOnly: true })
+      .toArray()
 
     return collections.map((collection) => collection.name)
   }

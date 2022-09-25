@@ -1,9 +1,11 @@
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/Courses/CourseId'
+import { EntitySchema } from '@mikro-orm/core'
+
 import { Nullable } from '@/Contexts/Shared/domain/Nullable'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoRepository'
 
 import { Course } from '../../domain/Course'
 import { CourseRepository } from '../../domain/CourseRepository'
+import { CourseEntity } from './mongo/CourseEntity'
 
 export interface CourseDocument {
   _id: string
@@ -13,25 +15,18 @@ export interface CourseDocument {
 
 export class MongoCourseRepository extends MongoRepository<Course> implements CourseRepository {
   save(course: Course): Promise<void> {
-    return this.persist(course.id.value, course)
+    return this.persist(course)
   }
 
-  async search(id: CourseId): Promise<Nullable<Course>> {
-    const collection = await this.collection()
-    const document = await collection.findOne<CourseDocument>({ _id: id.value })
-
-    const course = document
-      ? Course.fromPrimitives({
-          name: document.name,
-          duration: document.duration,
-          id: id.value
-        })
-      : null
+  // async search(id: CourseId): Promise<Nullable<Course>> {
+  async search(): Promise<Nullable<Course>> {
+    const repository = await this.repository()
+    const course = await repository.findOne({})
 
     return course
   }
 
-  protected collectionName(): string {
-    return 'courses'
+  protected entitySchema(): EntitySchema<Course> {
+    return CourseEntity
   }
 }

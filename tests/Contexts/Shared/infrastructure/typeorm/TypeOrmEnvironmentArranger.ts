@@ -10,6 +10,7 @@ export class TypeOrmEnvironmentArranger extends EnvironmentArranger {
   async arrange(): Promise<void> {
     this.cleanDatabase()
   }
+
   protected async cleanDatabase() {
     const entities = await this.entities()
     try {
