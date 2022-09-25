@@ -47,6 +47,7 @@
     "@fastify/rate-limit": "6.0.1",
     "@graphql-tools/schema": "9.0.4",
     "@mikro-orm/core": "5.4.2",
+    "@mikro-orm/mongo-highlighter": "1.0.0",
     "@mikro-orm/mongodb": "5.4.2",
     "@sentry/node": "7.13.0",
     "@sentry/tracing": "7.13.0",
@@ -85,7 +86,7 @@
     "@types/convict": "6.1.1",
     "@types/http-errors": "1.8.2",
     "@types/jest": "29.0.3",
-    "@types/node": "18.7.19",
+    "@types/node": "18.7.20",
     "@types/supertest": "2.0.12",
     "@types/uuid": "8.3.4",
     "@types/uuid-validate": "0.0.1",
@@ -110,7 +111,7 @@
     "prettier": "2.7.1",
     "resolve-tspaths": "0.8.0",
     "supertest": "6.2.4",
-    "ts-jest": "29.0.1",
+    "ts-jest": "29.0.2",
     "ts-node": "10.9.1",
     "ts-node-dev": "2.0.0",
     "ts-prune": "0.10.3",
@@ -125,7 +126,7 @@
     "npm-check-updates": "16.3.2"
   },
   "engines": {
-    "node": ">=16.15.0 <=18.8.0",
+    "node": ">=16.15.0 <=18.9.1",
     "npm": ">=8.12.1"
   }
 }
