@@ -66,7 +66,7 @@ export default {
   // globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  // maxWorkers: "50%",
+  maxWorkers: '50%',
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -186,6 +186,34 @@ export default {
       }
     ]
   },
+
+  // TODO: Read about @swc/jest and MikroORM
+  // TODO: Read about jest-junit
+  // transform: {
+  //   '^.+\\.(ts|tsx|js)$': [
+  //     '@swc/jest',
+  //     {
+  //       jsc: {
+  //         parser: {
+  //           syntax: 'typescript',
+  //           tsx: false,
+  //           decorators: true,
+  //           decoratorsBeforeExport: true,
+  //           dynamicImport: true,
+  //           importMeta: true,
+  //           functionBind: true
+  //         },
+  //         transform: {
+  //           legacyDecorator: true,
+  //           decoratorMetadata: true
+  //         },
+  //         target: 'es2022',
+  //         // externalHelpers: true,
+  //         keepClassNames: true
+  //       }
+  //     }
+  //   ]
+  // },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\', '\\.pnp\\.[^\\\\]+$']
