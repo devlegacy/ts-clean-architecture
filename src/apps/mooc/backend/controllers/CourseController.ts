@@ -2,7 +2,7 @@ import HttpStatus from 'http-status'
 
 import { CourseCreator } from '@/Contexts/Mooc/Courses/application/CourseCreator'
 // import { UpdateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/CourseSchema'
-import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/CourseDto'
+import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import {
   Body,
   Controller,
@@ -20,13 +20,15 @@ export class CourseController {
   @HttpCode(HttpStatus.CREATED)
   @Put('/:courseId')
   async update(@Body() course: CourseDto) {
-    const { id, name, duration } = course
+    // const { id, name, duration } = course
 
-    await this.courseCreator.run({
-      id,
-      name,
-      duration
-    })
+    // await this.courseCreator.run({
+    //   id,
+    //   name,
+    //   duration
+    // })
+
+    await this.courseCreator.run(course)
 
     return {}
   }

@@ -20,7 +20,7 @@ export class Server {
 
     const adapter = new FastifyAdapter()
     adapter.enableCors()
-    adapter.setValidationModule(new JoiModule())
+    adapter.setValidationModule(new JoiModule()) // TODO: One or more - plug | module
 
     this.#app = adapter.instance
   }

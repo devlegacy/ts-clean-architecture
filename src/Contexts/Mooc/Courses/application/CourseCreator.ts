@@ -10,16 +10,17 @@
 
 import { inject, injectable } from 'tsyringe'
 
+// NOTE: Complejidad asumida
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 
 import { Course, CourseRepository } from '../domain'
-import { CourseDto } from '../infrastructure'
+import { CourseCreatorRequest } from './CourseCreatorRequest'
 
 @injectable()
 export class CourseCreator {
   constructor(@inject(TYPES.CourseRepository) private readonly courseRepository: CourseRepository) {}
 
-  async run(request: CourseDto) {
+  async run(request: CourseCreatorRequest) {
     const course = Course.fromPrimitives(request)
 
     return this.courseRepository.save(course)

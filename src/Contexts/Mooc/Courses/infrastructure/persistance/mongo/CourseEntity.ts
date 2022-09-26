@@ -1,10 +1,10 @@
 import { EntitySchema, EventArgs } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
-import { CourseDuration, CourseId, CourseName } from '@/Contexts/Mooc/Shared/domain'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistance/mongo/ValueObjectTransformer'
 
-import { Course } from '../../../domain'
+import { Course, CourseDuration, CourseName } from '../../../domain'
 
 const beforeCreate = (args: EventArgs<any>) => {
   // TODO: Validate type on value

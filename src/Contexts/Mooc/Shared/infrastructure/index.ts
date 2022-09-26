@@ -1,2 +1,2 @@
 export * from './persistence/mongo/MongoConfigFactory'
-export * from './persistence/postgresql/TypeOrmConfigFactory'
+// export * from './persistence/postgresql/TypeOrmConfigFactory'

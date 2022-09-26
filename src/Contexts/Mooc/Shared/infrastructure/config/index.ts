@@ -1,7 +1,7 @@
 import convict from 'convict'
 import { resolve } from 'path'
 
-const moocConfic = convict({
+const moocConfig = convict({
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'staging', 'test'],
@@ -50,6 +50,6 @@ const moocConfic = convict({
   }
 })
 
-moocConfic.loadFile([resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${moocConfic.get('env')}.json`)])
+moocConfig.loadFile([resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${moocConfig.get('env')}.json`)])
 
-export default moocConfic
+export default moocConfig

@@ -1,10 +1,9 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { Nullable } from '@/Contexts/Shared/domain/Nullable'
+import { Nullable } from '@/Contexts/Shared/domain'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoRepository'
 
-import { Course } from '../../domain/Course'
-import { CourseRepository } from '../../domain/CourseRepository'
+import { Course, CourseRepository } from '../../domain'
 import { CourseEntity } from './mongo/CourseEntity'
 
 export interface CourseDocument {
@@ -14,7 +13,7 @@ export interface CourseDocument {
 }
 
 export class MongoCourseRepository extends MongoRepository<Course> implements CourseRepository {
-  save(course: Course): Promise<void> {
+  async save(course: Course): Promise<void> {
     return this.persist(course)
   }
 
