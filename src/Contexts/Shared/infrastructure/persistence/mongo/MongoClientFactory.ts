@@ -55,7 +55,7 @@ export class MongoClientFactory {
       dbName: contextName,
       clientUrl: config.url,
       type: 'mongo',
-      entities: [`${__dirname}/../../../../**/**/infrastructure/persistance/mongo/*Entity{.js,.ts}`],
+      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mongo/*Entity{.js,.ts}`],
       forceUndefined: true,
       highlighter: new MongoHighlighter(),
       debug: true,
@@ -75,8 +75,8 @@ export class MongoClientFactory {
 
 // MongoClientFactory.createClient('mooc', {
 //   url: 'mongodb://127.0.0.1:27017/mooc'
-// }).then(async (em) => {
-//   const r = em.fork().getRepository(CourseEntity)
+// }).then(async (orm) => {
+//   const r = orm.em.fork().getRepository(CourseEntity)
 //   console.log(r)
 
 //   const q = await r.find({}, { convertCustomTypes: true })

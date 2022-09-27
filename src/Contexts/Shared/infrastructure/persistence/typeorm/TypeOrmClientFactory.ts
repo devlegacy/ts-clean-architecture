@@ -15,7 +15,7 @@ export class TypeOrmClientFactory {
       database: config.database,
       synchronize: true,
       logging: true,
-      entities: [`${__dirname}/../../../../**/**/infrastructure/persistance/typeorm/*{.js,.ts}`]
+      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`]
       // subscribers: [],
       // migrations: []
     })

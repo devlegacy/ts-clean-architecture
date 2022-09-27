@@ -2,7 +2,7 @@ import { EntitySchema, EventArgs } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistance/mongo/ValueObjectTransformer'
+import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mongo/ValueObjectTransformer'
 
 import { Course, CourseDuration, CourseName } from '../../../domain'
 

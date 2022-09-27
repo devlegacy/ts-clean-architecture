@@ -2,9 +2,9 @@
 
 import { ObjectId } from 'mongodb'
 
-import { Course } from '@/Contexts/Mooc/Courses/domain'
+import { Course, CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/domain'
 import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
-import { CourseDuration, CourseId, CourseName } from '@/Contexts/Mooc/Shared/domain'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
 describe('File Course Repository', () => {
   it('should save a course', async () => {

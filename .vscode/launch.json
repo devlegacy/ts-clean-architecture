@@ -94,7 +94,7 @@
       }
     },
     {
-      "name": "👥 Run user console app",
+      "name": "👥 Run User console app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,
@@ -116,7 +116,7 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "👥 Run user server app",
+      "name": "👥 Run User app server",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,
@@ -138,7 +138,7 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "👥 Run user graphql app",
+      "name": "👥 Run User graphql app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,
@@ -160,7 +160,7 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "🎓 Run mooc server app",
+      "name": "🎓 Run Mooc server app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,

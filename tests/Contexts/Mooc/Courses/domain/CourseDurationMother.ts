@@ -1,4 +1,4 @@
-import { CourseDuration } from '@/Contexts/Mooc/Shared/domain'
+import { CourseDuration } from '@/Contexts/Mooc/Courses/domain'
 import { WordMother } from '@/tests/Contexts/Shared/domain'
 
 export class CourseDurationMother {
