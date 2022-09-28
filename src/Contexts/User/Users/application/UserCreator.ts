@@ -1,7 +1,4 @@
-import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
-
-import { UserAlreadyExistsException } from '../../Shared'
-import { ExistUserByUserName, User, UserRepository } from '../domain'
+import { ExistUserByUserName, User, UserAlreadyExistsException, UserRepository } from '../domain'
 import { UserCreatorRequest } from './UserCreatorRequest'
 
 /** UserCreatorUseCase */
@@ -12,19 +9,12 @@ export class UserCreator {
     this.existUserByUserName = new ExistUserByUserName(userRepository)
   }
 
-  async run(body: UserCreatorRequest): Promise<User> {
-    const user: User = User.fromPrimitives({
-      id: Uuid.random().toString(),
-      age: body.age,
-      name: body.name,
-      username: body.username
-    })
+  async run(request: UserCreatorRequest) {
+    const user: User = User.fromPrimitives(request)
 
-    const existUser: boolean = await this.existUserByUserName.run(user.username.value)
+    const existUser = await this.existUserByUserName.run(user.username)
     if (existUser) throw new UserAlreadyExistsException()
 
-    const userCreated: User = await this.userRepository.save(user)
-
-    return userCreated
+    return this.userRepository.save(user)
   }
 }

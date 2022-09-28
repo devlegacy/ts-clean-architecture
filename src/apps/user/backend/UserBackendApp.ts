@@ -1,6 +1,6 @@
 // import './dependency-injection'
 
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoDB'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoDB'
 
 import { Server } from './server'
 

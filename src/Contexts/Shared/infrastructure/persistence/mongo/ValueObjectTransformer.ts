@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ObjectId } from 'mongodb'
+
 import { NewableClass, ValueObject } from '@/Contexts/Shared/domain'
 
 export class ValueObjectTransformer {
   constructor(private readonly ValueObject: NewableClass<ValueObject<any>>, private readonly type: string) {}
   convertToDatabaseValue(value: ValueObject<any>) {
+    if (this.type === 'ObjectId') {
+      return new ObjectId(value.value)
+    }
     return value.value
   }
 

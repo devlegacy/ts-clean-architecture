@@ -8,9 +8,9 @@ export class UserUpdater {
     this.userFinder = new UserFinder(userRepository)
   }
 
-  async run(data: { id: string; username: string; age: number; name: string }): Promise<User> {
+  async run(data: { id: string; username?: string; age?: number; name?: string }): Promise<User> {
     const user = await this.userFinder.run(data.id)
-    const userToUpdate: User = User.fromPrimitives({
+    const userUpdated: User = User.fromPrimitives({
       ...user.toPrimitives(),
       ...data
     })
@@ -23,7 +23,7 @@ export class UserUpdater {
     //   username: data.username ?? user.username
     // }
 
-    await this.userRepository.update(userToUpdate)
+    await this.userRepository.update(user, userUpdated)
     return user
   }
 }

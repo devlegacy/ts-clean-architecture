@@ -1,1 +1,1 @@
-export * from './persistance'
+export * from './persistence'

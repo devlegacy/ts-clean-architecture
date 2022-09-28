@@ -1,4 +1,4 @@
-import { StringValueObject } from '@/Contexts/Shared/domain/value-object/StringValueObject'
+import { StringValueObject } from '@/Contexts/Shared/domain'
 
 import { UserBadEntityException } from './UserBadEntityException'
 

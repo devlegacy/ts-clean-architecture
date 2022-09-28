@@ -4,9 +4,11 @@ import { User } from './User'
 
 export interface UserRepository {
   getAll: () => Promise<User[]>
-  save: (user: User) => Promise<User>
-  getByUserName: (username: string) => Promise<Nullable<User>> // TODO: Criteria pattern
-  update: (user: User) => Promise<User>
-  delete: (user: User) => Promise<void>
-  getById: (id: string) => Promise<Nullable<User>> // TODO: Criteria pattern
+  save: (user: User) => Promise<void>
+  findByUserName: (username: User['username']) => Promise<Nullable<User>> // TODO: Criteria pattern
+  findById: (id: string) => Promise<Nullable<User>> // TODO: Criteria pattern
+  update: (user: User, userUpdate: User) => Promise<User>
+  delete: (id: string) => Promise<void>
+  softDelete: (id: string) => Promise<void>
+  // async findByMatching(): Promise<User[]> {
 }

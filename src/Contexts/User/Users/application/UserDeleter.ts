@@ -9,9 +9,9 @@ export class UserDeleter {
   }
 
   async run(userId: string): Promise<User> {
-    const userToDelete = await this.userFinder.run(userId)
-    await this.userRepository.delete(userToDelete)
+    const user = await this.userFinder.run(userId)
+    await this.userRepository.delete(user.id.value)
 
-    return userToDelete
+    return user
   }
 }

@@ -1,4 +1,4 @@
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistance/mongo/MongoDB'
+import { MongoDB } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoDB'
 
 import { GraphQL } from './graphql'
 

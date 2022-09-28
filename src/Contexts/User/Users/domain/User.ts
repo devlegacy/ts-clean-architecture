@@ -1,3 +1,10 @@
+import { AggregateRoot } from '@/Contexts/Shared/domain'
+
+import { UserId } from '../../Shared/domain'
+import { UserAge } from './UserAge'
+import { UserName } from './UserName'
+import { UserUsername } from './UserUsername'
+
 // export interface User {
 //   id: string
 //   name: string
@@ -5,13 +12,6 @@
 //   age: number
 // }
 // Note: No acoplar a un modelo
-
-import { AggregateRoot } from '@/Contexts/Shared/domain/AggregateRoot'
-
-import { UserAge } from '../../Shared/domain/Users/UserAge'
-import { UserId } from '../../Shared/domain/Users/UserId'
-import { UserName } from '../../Shared/domain/Users/UserName'
-import { UserUsername } from '../../Shared/domain/Users/UserUsername'
 
 // export interface UserUpdateDto extends Omit<Partial<User>, 'id'> {
 //   id: User['id']
