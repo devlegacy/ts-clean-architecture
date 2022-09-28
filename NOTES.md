@@ -216,3 +216,5 @@ Apache benchmark
   # https://github.com/FiloSottile/mkcert
   mkcert
 ```
+
+git commit -m "" --no-verify
