@@ -56,14 +56,14 @@
     "apollo-server-fastify": "3.10.2",
     "convict": "6.2.3",
     "cpy-cli": "4.2.0",
-    "dotenv": "16.0.2",
+    "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
     "env-schema": "5.1.0",
     "fastify": "3.29.2",
     "graphql": "16.6.0",
     "http-errors": "2.0.0",
     "http-status": "1.5.3",
-    "joi": "17.6.1",
+    "joi": "17.6.2",
     "joi-class-decorators": "1.1.0",
     "mongodb": "4.10.0",
     "mongoose": "6.6.2",
@@ -87,7 +87,7 @@
     "@swc/jest": "0.2.23",
     "@types/convict": "6.1.1",
     "@types/http-errors": "1.8.2",
-    "@types/jest": "29.1.0",
+    "@types/jest": "29.1.1",
     "@types/node": "18.7.23",
     "@types/supertest": "2.0.12",
     "@types/uuid": "8.3.4",
@@ -125,7 +125,7 @@
     "typescript": "4.8.4"
   },
   "optionalDependencies": {
-    "npm-check-updates": "16.3.3"
+    "npm-check-updates": "16.3.4"
   },
   "engines": {
     "node": ">=16.15.0 <=18.9.1",
