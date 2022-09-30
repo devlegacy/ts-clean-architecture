@@ -1,5 +1,5 @@
 export * from './Course'
-export * from './CourseDuration'
-export * from './CourseName'
 export * from './CourseNameLengthExceeded'
 export * from './CourseRepository'
+export * from './value-object/CourseDuration'
+export * from './value-object/CourseName'

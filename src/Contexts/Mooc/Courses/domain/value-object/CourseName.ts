@@ -3,7 +3,7 @@ import {
   // ValueObject
 } from '@/Contexts/Shared/domain'
 
-import { CourseNameLengthExceeded } from './CourseNameLengthExceeded'
+import { CourseNameLengthExceeded } from '../CourseNameLengthExceeded'
 
 const MAX_CHARACTER_LIMIT = 30
 

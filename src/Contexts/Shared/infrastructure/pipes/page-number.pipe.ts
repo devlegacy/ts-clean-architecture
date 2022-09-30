@@ -1,5 +1,5 @@
 import { ArgumentMetadata, PipeTransform } from '../common/interfaces'
-import { Joi } from '../joi'
+import { Joi } from '../joi/joi'
 
 export class PageNumberPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {

@@ -6,11 +6,11 @@ export abstract class EnumValueObject<T> {
     this.isValid(value)
   }
 
-  isValid(value: T): void {
+  isValid(value: T) {
     if (!this.validValues.includes(value)) {
-      this.throwErrorForInvalidValue(value)
+      this.throwInvalidValueException(value)
     }
   }
 
-  protected abstract throwErrorForInvalidValue(value: T): void
+  protected abstract throwInvalidValueException(value: T): void
 }

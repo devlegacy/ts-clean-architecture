@@ -10,9 +10,7 @@ import { Instance } from 'ts-toolbelt/out/Class/Instance'
 import { container, injectable, Lifecycle } from 'tsyringe'
 import type { Class, Constructor } from 'type-fest'
 
-import { Primary } from '@/shared/cluster'
-import { config } from '@/shared/config'
-import { info } from '@/shared/logger'
+import { config, info, isConstructor, normalizePath, Primary } from '@/Contexts/Shared/infrastructure'
 
 import {
   getMethodGroup,
@@ -30,7 +28,6 @@ import {
   SCHEMA_METADATA
 } from './common/constants'
 import { PipeTransform } from './common/interfaces'
-import { isConstructor, normalizePath } from './utils'
 
 const availableCpus = cpus().length
 

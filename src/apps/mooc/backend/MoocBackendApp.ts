@@ -1,6 +1,6 @@
 import './dependency-injection'
 
-import { config } from '@/shared/config'
+import { config } from '@/Contexts/Shared/infrastructure'
 
 import { Server } from './server'
 

@@ -1,6 +1,6 @@
 import HttpStatus from 'http-status'
 
-import { CourseCreator } from '@/Contexts/Mooc/Courses/application/CourseCreator'
+import { CourseCreator } from '@/Contexts/Mooc/Courses/application'
 // import { UpdateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/CourseSchema'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import {
@@ -10,7 +10,7 @@ import {
   Put
   // Req
   //  Schema
-} from '@/shared/common'
+} from '@/Contexts/Shared/infrastructure'
 
 @Controller('/courses')
 export class CourseController {

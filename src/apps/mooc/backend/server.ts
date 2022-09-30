@@ -3,10 +3,7 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import { bootstrap } from '@/shared/bootstrap'
-import { config } from '@/shared/config'
-import { FastifyAdapter } from '@/shared/fastify'
-import { JoiModule } from '@/shared/joi'
+import { bootstrap, config, FastifyAdapter, JoiModule } from '@/Contexts/Shared/infrastructure'
 
 export class Server {
   #port: number

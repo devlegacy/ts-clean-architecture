@@ -5,8 +5,8 @@ import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 
-import { ValidationModule } from './joi'
-import { logger } from './logger'
+import { ValidationModule } from '../joi/joi'
+import { logger } from '../logger'
 
 const ajv = {
   customOptions: {

@@ -17,7 +17,7 @@ import { MongoConfig } from './MongoConfig'
 //     if (!client) {
 //       client = await MongoClientFactory.createAndConnectClient(config)
 
-//       MongoClientFactory.registerClient(client, contextName)
+//       MongoClientFactory.registerClient(contextName, client)
 //     }
 
 //     return client
@@ -45,7 +45,7 @@ import { MongoConfig } from './MongoConfig'
 //     return client
 //   }
 
-//   private static registerClient(client: MongoClient, contextName: string): void {
+//   private static registerClient(contextName: string, client: MongoClient): void {
 //     MongoClientFactory.clients[contextName] = client
 //   }
 // }

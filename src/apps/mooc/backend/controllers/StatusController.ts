@@ -1,9 +1,20 @@
 import HttpStatus from 'http-status'
 
 import { IndexHeadersDto, IndexQueryDto, UserDto } from '@/Contexts/Mooc/Status/infrastructure'
-import { Body, Controller, Get, Headers, HttpCode, Param, Post, Query, Req, Res } from '@/shared/common'
-import { MongoIdPipe } from '@/shared/pipes/mongo-id.pipe'
-import { PageNumberPipe } from '@/shared/pipes/page-number.pipe'
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  HttpCode,
+  MongoIdPipe,
+  PageNumberPipe,
+  Param,
+  Post,
+  Query,
+  Req,
+  Res
+} from '@/Contexts/Shared/infrastructure'
 
 @Controller('/status')
 export class StatusController {

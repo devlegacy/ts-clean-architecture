@@ -38,7 +38,7 @@ export class FilterOperator extends EnumValueObject<Operator> {
     return this.value !== Operator.NOT_EQUAL && this.value !== Operator.NOT_CONTAINS
   }
 
-  protected throwErrorForInvalidValue(value: Operator): void {
+  protected throwInvalidValueException(value: Operator): void {
     throw new InvalidArgumentException(`The filter operator ${value} is invalid`)
   }
 

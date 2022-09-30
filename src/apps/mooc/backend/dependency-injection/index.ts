@@ -14,12 +14,13 @@ import {
   // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
 import {
+  config,
+  ConfigService,
   MongoClientFactory,
   MongoConfig
   // , TypeOrmClientFactory
   // , TypeOrmConfig
 } from '@/Contexts/Shared/infrastructure'
-import { config, ConfigService } from '@/shared/config'
 import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { TYPES } from './types'
