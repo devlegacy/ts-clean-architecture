@@ -1,16 +1,14 @@
 import { faker } from '@faker-js/faker'
+import { MikroORM } from '@mikro-orm/core'
+import { MongoDriver } from '@mikro-orm/mongodb'
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { MongoClientFactory } from '@/Contexts/Shared/infrastructure'
-import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure'
+import { error, info } from '@/Contexts/Shared/infrastructure'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
-import { UserAlreadyExistsException } from '@/Contexts/User/Users/domain'
-import { MongoUserRepository } from '@/Contexts/User/Users/infrastructure'
-import { error, info } from '@/shared/logger'
+import { UserAlreadyExistsException, UserRepository } from '@/Contexts/User/Users/domain'
 
-const MongoConfig = MongoConfigFactory.createConfig()
-const MongoClient = MongoClientFactory.createClient('user', MongoConfig)
+import { container } from './dependency-injection'
 
 const userDto = {
   age: 28,
@@ -32,7 +30,7 @@ const bootstrap = async () => {
 
   // const userRepository = new InMemoryUserRepository()
 
-  const userRepository = new MongoUserRepository(MongoClient)
+  const userRepository = container.get(UserRepository)
   const userCreator = new UserCreator(userRepository)
 
   await userCreator.run(userDto)
@@ -61,6 +59,8 @@ const bootstrap = async () => {
 
   users = await userGetter.run()
   info(users)
+
+  const MongoClient = container.get(Promise<MikroORM<MongoDriver>>)
 
   await (await MongoClient).close()
 }
