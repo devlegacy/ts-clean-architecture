@@ -21,6 +21,7 @@
       "restart": true
     },
     {
+      // NOTE: avoid use with dist folder
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart",
       "name": "🚀 TS: Launch Program",
