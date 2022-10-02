@@ -1,5 +1,5 @@
 // .test.ts
-import '@/apps/mooc/backend/dependency-injection'
+import '@/tests/apps/mooc/backend/dependency-injection'
 
 import { container } from 'tsyringe'
 
