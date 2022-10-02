@@ -10,9 +10,9 @@
 
 import { inject, injectable } from 'tsyringe'
 
-// NOTE: Complejidad asumida
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 
+// NOTE: Complejidad asumida
 import { Course, CourseRepository } from '../domain'
 import { CourseCreatorRequest } from './CourseCreatorRequest'
 

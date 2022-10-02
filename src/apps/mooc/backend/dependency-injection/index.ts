@@ -21,20 +21,17 @@ import {
   // , TypeOrmClientFactory
   // , TypeOrmConfig
 } from '@/Contexts/Shared/infrastructure'
-import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { TYPES } from './types'
-
-// TODO: Inject dependencies or create dependency injector
 
 // Bootstrap global dependencies
 container.register<ConfigService>(TYPES.config, { useValue: config })
 
 // Infrastructure
-container.register<MongoConfig>(TYPES.MongoConfig, { useValue: MongoConfigFactory.createConfig() })
-container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, {
-  useValue: MongoClientFactory.createClient('mooc', container.resolve<MongoConfig>(TYPES.MongoConfig))
-})
+const mongoConfig = MongoConfigFactory.createConfig()
+const mongoClient = MongoClientFactory.createClient('mooc', mongoConfig)
+container.register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
+container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
 // Infrastructure
 // container.register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
 // container.register<Promise<DataSource>>(TYPES.TypeOrmClient, {
@@ -44,18 +41,12 @@ container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, {
 // !String(process.env.npm_lifecycle_event).includes('tests')
 
 // Domain - MongoRepository
-container.register<CourseRepository>(TYPES.CourseRepository, {
-  useValue: new MongoCourseRepository(container.resolve<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient))
-})
+container.register<CourseRepository>(TYPES.CourseRepository, MongoCourseRepository)
+// container.register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
 
 // Domain - TypeOrmRepository
 // container.register<CourseRepository>(TYPES.CourseRepository, {
 //   useValue: new TypeOrmCourseRepository(container.resolve<Promise<DataSource>>(TYPES.TypeOrmClient))
 // })
 
-// Test
-container.register<EnvironmentArranger>(TYPES.EnvironmentArranger, {
-  useValue: new MongoEnvironmentArranger(container.resolve<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient))
-})
-
-export default container
+export { container }

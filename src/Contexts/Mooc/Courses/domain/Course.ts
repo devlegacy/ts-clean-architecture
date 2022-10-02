@@ -1,8 +1,10 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot, NonFunctionProperties, PrimitiveProperties } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
-import { CourseDuration } from './value-object/CourseDuration'
-import { CourseName } from './value-object/CourseName'
+import { CourseDuration, CourseName } from './value-object'
+
+type CourseProps = NonFunctionProperties<Course>
+type CoursePrimitiveProps = PrimitiveProperties<CourseProps>
 
 export class Course extends AggregateRoot {
   readonly id: CourseId
@@ -19,20 +21,20 @@ export class Course extends AggregateRoot {
     // Object.assign(this, dto)
   }
 
-  static fromPrimitives(plainData: { id: string; name: string; duration?: string }): Course {
+  static fromPrimitives(primitive: CoursePrimitiveProps): Course {
     // return new Course({
-    //   id: new CourseId(plainData.id),
-    //   name: new CourseName(plainData.name),
-    //   duration: !plainData.duration ? undefined : new CourseDuration(plainData.duration)
+    //   id: new CourseId(primitive.id),
+    //   name: new CourseName(primitive.name),
+    //   duration: !primitive.duration ? undefined : new CourseDuration(primitive.duration)
     // })
     return new Course(
-      new CourseId(plainData.id),
-      new CourseName(plainData.name),
-      !plainData.duration ? undefined : new CourseDuration(plainData.duration)
+      new CourseId(primitive.id),
+      new CourseName(primitive.name),
+      !primitive.duration ? undefined : new CourseDuration(primitive.duration)
     )
   }
 
-  toPrimitives() {
+  toPrimitives(): CoursePrimitiveProps {
     return {
       id: this.id.value,
       name: this.name.value,

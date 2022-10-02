@@ -7,5 +7,9 @@ export const Controller = (prefix = ''): ClassDecorator => {
 
   return (target: object): any => {
     Reflect.defineMetadata(PATH_METADATA, path, target)
+
+    // Note: helper for custom diod decorator
+    // https://github.com/artberri/diod/blob/main/docs/custom-decorator.md
+    return target
   }
 }

@@ -49,13 +49,17 @@
 
 import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
-import { inject } from 'tsyringe'
+import { container } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
 import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 export abstract class MongoRepository<T extends AggregateRoot> {
-  constructor(@inject(TYPES.MongoClient) private readonly _client: Promise<MikroORM<MongoDriver>>) {}
+  // Diod
+  // constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {}
+  // tsyringe
+  private readonly _client: Promise<MikroORM<MongoDriver>> = container.resolve(TYPES.MongoClient)
+  // constructor(@inject(TYPES.MongoClient) private readonly _client: Promise<MikroORM<MongoDriver>>) {}
 
   protected abstract entitySchema(): EntitySchema<T>
 

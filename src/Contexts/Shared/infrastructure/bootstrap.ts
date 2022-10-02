@@ -6,8 +6,6 @@ import { ValidationError } from 'joi'
 import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
-import { Instance } from 'ts-toolbelt/out/Class/Instance'
-import { container, injectable, Lifecycle } from 'tsyringe'
 import type { Class, Constructor } from 'type-fest'
 
 import { config, info, isConstructor, normalizePath, Primary } from '@/Contexts/Shared/infrastructure'
@@ -27,6 +25,7 @@ import {
   ROUTE_ARGS_METADATA,
   SCHEMA_METADATA
 } from './common/constants'
+import { ControllerResolver, TsyringeControllerResolver } from './common/dependency-injection'
 import { PipeTransform } from './common/interfaces'
 
 const availableCpus = cpus().length
@@ -70,19 +69,6 @@ const entitiesRegister = async (path = './src') => {
   }
 
   return controllers
-}
-
-const getInstance = (controller: Class<any>): Instance<any> => {
-  const { name } = controller
-  if (!container.isRegistered(name)) {
-    injectable()(controller)
-
-    container.register(name, { useClass: controller }, { lifecycle: Lifecycle.Singleton })
-  }
-  // This is our instantiated class
-  const instance = container.isRegistered(name) ? container.resolve(name) : new controller()
-
-  return instance
 }
 
 const getControllerMethodMetadata = (method: () => unknown) => {
@@ -223,12 +209,15 @@ const buildSchemaWithParams = (
  */
 // export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
 // eslint-disable-next-line complexity, max-lines-per-function
-export const bootstrap = async (fastify: FastifyInstance, props: { controller: string }) => {
+export const bootstrap = async (
+  fastify: FastifyInstance,
+  props: { controller: string; resolver?: ControllerResolver }
+) => {
   // const controllerContainer = container.createChildContainer()
 
   const controllers = await entitiesRegister(props.controller)
   for (const controller of controllers) {
-    const instance = getInstance(controller)
+    const instance = TsyringeControllerResolver(controller)
     // has controller path by metadata
     // has arguments by method name and metadata
     const instanceConstructor = instance.constructor

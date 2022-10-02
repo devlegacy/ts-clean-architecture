@@ -3,7 +3,13 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import { bootstrap, config, FastifyAdapter, JoiModule } from '@/Contexts/Shared/infrastructure'
+import {
+  bootstrap,
+  config,
+  FastifyAdapter,
+  JoiModule,
+  TsyringeControllerResolver
+} from '@/Contexts/Shared/infrastructure'
 
 export class Server {
   #port: number
@@ -23,7 +29,10 @@ export class Server {
   }
 
   async bootstrap() {
-    await bootstrap(this.#app, { controller: resolve(__dirname, './controllers') })
+    await bootstrap(this.#app, {
+      controller: resolve(__dirname, './controllers'),
+      resolver: TsyringeControllerResolver
+    })
   }
 
   async listen() {
