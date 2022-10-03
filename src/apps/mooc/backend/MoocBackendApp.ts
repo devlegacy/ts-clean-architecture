@@ -1,4 +1,4 @@
-import './dependency-injection'
+import '../dependency-injection'
 
 import { config } from '@/Contexts/Shared/infrastructure'
 

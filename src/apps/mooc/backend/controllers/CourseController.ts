@@ -14,7 +14,7 @@ import {
 
 @Controller('/courses')
 export class CourseController {
-  constructor(private courseCreator: CourseCreator) {}
+  constructor(private readonly courseCreator: CourseCreator) {}
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
