@@ -1,7 +1,7 @@
 import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
-import fastifyHelmet from '@fastify/helmet'
+// import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 
@@ -59,7 +59,7 @@ export class FastifyAdapter {
     })
 
     this.#instance
-      .register(fastifyHelmet)
+      // .register(fastifyHelmet) // Note: cause conflict with GraphQL
       .register(fastifyCompress)
       // .register(fastifyRateLimit)
       .register(fastifyCookie)
