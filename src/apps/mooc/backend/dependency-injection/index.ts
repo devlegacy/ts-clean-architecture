@@ -48,5 +48,6 @@ container.register<CourseRepository>(TYPES.CourseRepository, MongoCourseReposito
 // container.register<CourseRepository>(TYPES.CourseRepository, {
 //   useValue: new TypeOrmCourseRepository(container.resolve<Promise<DataSource>>(TYPES.TypeOrmClient))
 // })
+// container.dispose()
 
-export { container }
+// export { container }
