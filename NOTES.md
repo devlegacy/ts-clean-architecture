@@ -71,6 +71,9 @@ Note:
 
 - [ ] errors vs exceptions
 - [ ] CreateCourseRequest (?)
+- [ ] No injectable elements
+  - [ ] Logger
+  - [ ] Config - Env
 
 ## Complement
 
