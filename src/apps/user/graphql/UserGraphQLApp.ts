@@ -1,4 +1,4 @@
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoDB'
+import '../dependency-injection'
 
 import { GraphQL } from './graphql'
 
@@ -6,9 +6,9 @@ export class UserGraphQLApp {
   graphQL?: GraphQL
 
   async start() {
-    const APP_PORT = 2427
-    this.graphQL = new GraphQL(APP_PORT)
-    await MongoDB.getInstance()
+    const port = 2427
+    this.graphQL = new GraphQL(port)
+
     return await this.graphQL.listen()
   }
 

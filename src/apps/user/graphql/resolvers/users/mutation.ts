@@ -1,23 +1,28 @@
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoDB'
-import { MongoUserRepository, UserCreator } from '@/Contexts/User'
+import { ObjectId } from 'mongodb'
+import { container } from 'tsyringe'
+
+import { UserCreator } from '@/Contexts/User/Users/application'
 
 const userMutations = {
   createUser: async (_: any, args: any) => {
-    const database = await MongoDB.getInstance()
-    const userRepository = new MongoUserRepository(database)
-    const userCreator = new UserCreator(userRepository)
+    // const database = await MongoDB.getInstance()
+    // const userRepository = new MongoUserRepository(database)
+    const userCreator = container.resolve(UserCreator)
 
     const {
       user: { username, age, name }
     } = args
 
     const user = {
+      id: new ObjectId().toString(),
       username,
       age,
       name
     }
 
-    return await userCreator.run(user)
+    await userCreator.run(user)
+
+    return user
   }
 }
 
