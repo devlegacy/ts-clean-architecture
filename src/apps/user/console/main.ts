@@ -1,4 +1,4 @@
-import './dependency-injection'
+import '../dependency-injection'
 
 import { faker } from '@faker-js/faker'
 import { MikroORM } from '@mikro-orm/core'
@@ -9,7 +9,7 @@ import { error, info } from '@/Contexts/Shared/infrastructure'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
 import { UserAlreadyExistsException, UserRepository } from '@/Contexts/User/Users/domain'
 
-import { TYPES } from './dependency-injection/types'
+import { TYPES } from '../dependency-injection/types'
 
 const userDto = {
   age: 28,

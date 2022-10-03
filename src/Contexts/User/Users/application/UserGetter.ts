@@ -1,11 +1,13 @@
-import { Service } from 'diod'
+import { inject, injectable } from 'tsyringe'
+
+import { TYPES } from '@/apps/user/dependency-injection/types'
 
 import { User, UserRepository } from '../domain'
 
 /** UserGetterUseCase */
-@Service()
+@injectable()
 export class UserGetter {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {}
 
   async run(): Promise<User[]> {
     const users = await this.userRepository.getAll()

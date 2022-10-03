@@ -31,17 +31,17 @@ export class User extends AggregateRoot {
     this.age = age
   }
 
-  static fromPrimitives(plainData: { id: string; name: string; username: string; age?: number }): User {
+  static fromPrimitives(primitive: { id: string; name: string; username: string; age?: number }): User {
     // return new Course({
-    //   id: new CourseId(plainData.id),
-    //   name: new CourseName(plainData.name),
-    //   duration: !plainData.duration ? undefined : new CourseDuration(plainData.duration)
+    //   id: new CourseId(primitive.id),
+    //   name: new CourseName(primitive.name),
+    //   duration: !primitive.duration ? undefined : new CourseDuration(primitive.duration)
     // })
     return new User(
-      new UserId(plainData.id),
-      new UserName(plainData.name),
-      new UserUsername(plainData.username),
-      !plainData.age ? undefined : new UserAge(plainData.age)
+      new UserId(primitive.id),
+      new UserName(primitive.name),
+      new UserUsername(primitive.username),
+      !primitive.age ? undefined : new UserAge(primitive.age)
     )
   }
 

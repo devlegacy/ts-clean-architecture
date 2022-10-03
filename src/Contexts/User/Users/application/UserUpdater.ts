@@ -1,13 +1,15 @@
-import { Service } from 'diod'
+import { inject, injectable } from 'tsyringe'
+
+import { TYPES } from '@/apps/user/dependency-injection/types'
 
 import { User, UserFinder, UserRepository } from '../domain'
 
 /** UserUpdaterUseCase */
-@Service()
+@injectable()
 export class UserUpdater {
   private readonly userFinder: UserFinder
 
-  constructor(private readonly userRepository: UserRepository) {
+  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {
     this.userFinder = new UserFinder(userRepository)
   }
 

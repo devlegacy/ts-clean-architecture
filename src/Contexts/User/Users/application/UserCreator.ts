@@ -1,14 +1,16 @@
-import { Service } from 'diod'
+import { inject, injectable } from 'tsyringe'
+
+import { TYPES } from '@/apps/user/dependency-injection/types'
 
 import { ExistUserByUserName, User, UserAlreadyExistsException, UserRepository } from '../domain'
 import { UserCreatorRequest } from './UserCreatorRequest'
 
 /** UserCreatorUseCase */
-@Service()
+@injectable()
 export class UserCreator {
   private readonly existUserByUserName: ExistUserByUserName
 
-  constructor(private readonly userRepository: UserRepository) {
+  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {
     this.existUserByUserName = new ExistUserByUserName(userRepository)
   }
 

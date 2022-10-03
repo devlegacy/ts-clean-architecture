@@ -1,68 +1,81 @@
-import { FastifyInstance, HookHandlerDoneFunction } from 'fastify'
 import HttpStatus from 'http-status'
+import { ObjectId } from 'mongodb'
 
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoDB'
-import { MongoUserRepository, UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User'
+import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/infrastructure'
+import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
 
-let userRepository!: MongoUserRepository
+@Controller('/users')
+export class UserController {
+  constructor(
+    private readonly userGetter: UserGetter,
+    private readonly userCreator: UserCreator,
+    private readonly userUpdater: UserUpdater,
+    private readonly userDeleter: UserDeleter
+  ) {}
 
-// eslint-disable-next-line max-lines-per-function
-export const UserController = (fastify: FastifyInstance, opts: unknown, done: HookHandlerDoneFunction) => {
-  fastify
-    .addHook('preHandler', async () => {
-      const database = await MongoDB.getInstance()
-      userRepository = new MongoUserRepository(database)
-    })
-    .get('/users', async (req: Request, res: Response) => {
-      const userGetter = new UserGetter(userRepository)
-      const users = (await userGetter.run()).map((user) => user.toPrimitives())
-      res.code(HttpStatus.OK)
+  @Get('/')
+  async index(@Req() req: Request, @Res() res: Response) {
+    // const userGetter = new UserGetter(userRepository)
+    const users = (await this.userGetter.run()).map((user) => user.toPrimitives())
+    res.code(HttpStatus.OK)
 
-      return users
-    })
-    .get('/users/:userId', async (req: Request, res: Response) => {
-      res.code(200)
-      return {}
-    })
-    .post('/users', async (req: Request<{ Body: { username: string; age: number; name: string } }>, res: Response) => {
-      const userCreator = new UserCreator(userRepository)
+    return users
+  }
 
-      res.code(HttpStatus.CREATED)
+  @Get('/:userId')
+  async show(@Req() req: Request, @Res() res: Response) {
+    res.code(200)
+    return {}
+  }
 
-      const user = (await userCreator.run(req.body)).toPrimitives()
+  @Post('/')
+  async create(
+    @Req() req: Request<{ Body: { id: string; username: string; age: number; name: string } }>,
+    @Res() res: Response
+  ) {
+    // const userCreator = new UserCreator(userRepository)
+    req.body.id ??= new ObjectId().toString()
+    res.code(HttpStatus.CREATED)
 
-      return user
-    })
-    .put(
-      '/users/:userId',
-      async (
-        req: Request<{
-          Body: { username: string; age: number; name: string }
-          Params: { userId: string }
-        }>,
-        res: Response
-      ) => {
-        const userUpdater = new UserUpdater(userRepository)
-        const { userId } = req.params
-        res.code(HttpStatus.OK)
-        const user = (
-          await userUpdater.run({
-            id: userId,
-            ...req.body
-          })
-        ).toPrimitives()
+    await this.userCreator.run(req.body as any)
 
-        return user
-      }
-    )
-    .delete('/users/:userId', async (req: Request<{ Params: { userId: string } }>, res: Response) => {
-      const { userId } = req.params
+    return req.body
+  }
 
-      const userDeleter = new UserDeleter(userRepository)
+  @Put('/:userId')
+  async update(
+    @Req()
+    req: Request<{
+      Body: { id?: string; username: string; age: number; name: string }
+      Params: { userId: string }
+    }>,
+    @Res() res: Response
+  ) {
+    // const userUpdater = new UserUpdater(userRepository)
+    const { userId } = req.params
 
-      res.code(HttpStatus.OK)
+    res.code(HttpStatus.OK)
 
-      return await userDeleter.run(userId)
-    })
-  done()
+    const user = (
+      await this.userUpdater.run({
+        id: userId,
+        ...req.body
+      })
+    ).toPrimitives()
+
+    return user
+  }
+
+  @Delete('/:userId')
+  async delete(@Req() req: Request<{ Params: { userId: string } }>, @Res() res: Response) {
+    const { userId } = req.params
+
+    // const userDeleter = new UserDeleter(userRepository)
+
+    res.code(HttpStatus.OK)
+
+    const user = (await this.userDeleter.run(userId)).toPrimitives()
+
+    return user
+  }
 }

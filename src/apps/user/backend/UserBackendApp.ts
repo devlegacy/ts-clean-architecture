@@ -1,24 +1,21 @@
-// import './dependency-injection'
-
-import { MongoDB } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoDB'
+import '../dependency-injection'
 
 import { Server } from './server'
 
 export class UserBackendApp {
-  server?: Server
+  #server?: Server
 
   get httpServer() {
-    return this.server?.getHttpServer()
+    return this.#server?.getHttpServer()
   }
 
   async start() {
-    const APP_PORT = 8081
-    this.server = new Server(APP_PORT)
-    await MongoDB.getInstance()
-    return await this.server.listen()
+    const port = 8081
+    this.#server = new Server(port)
+    return await this.#server.listen()
   }
 
   stop() {
-    this.server?.stop()
+    this.#server?.stop()
   }
 }
