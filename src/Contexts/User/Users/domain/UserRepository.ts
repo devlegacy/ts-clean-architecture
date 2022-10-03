@@ -6,9 +6,9 @@ export interface UserRepository {
   getAll: () => Promise<User[]>
   save: (user: User) => Promise<void>
   findByUserName: (username: User['username']) => Promise<Nullable<User>> // TODO: Criteria pattern
-  findById: (id: string) => Promise<Nullable<User>> // TODO: Criteria pattern
+  findById: (userId: string) => Promise<Nullable<User>> // TODO: Criteria pattern
   update: (user: User, userUpdate: User) => Promise<User>
-  delete: (id: string) => Promise<void>
-  softDelete: (id: string) => Promise<void>
-  // async findByMatching(): Promise<User[]> {
+  delete: (userId: string) => Promise<void>
+  softDelete: (userId: string) => Promise<void>
+  // async findByMatching(): Promise<User[]>
 }

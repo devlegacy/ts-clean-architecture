@@ -1,7 +1,10 @@
+import { Service } from 'diod'
+
 import { ExistUserByUserName, User, UserAlreadyExistsException, UserRepository } from '../domain'
 import { UserCreatorRequest } from './UserCreatorRequest'
 
 /** UserCreatorUseCase */
+@Service()
 export class UserCreator {
   private readonly existUserByUserName: ExistUserByUserName
 

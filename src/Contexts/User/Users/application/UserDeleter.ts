@@ -1,6 +1,9 @@
+import { Service } from 'diod'
+
 import { User, UserFinder, UserRepository } from '../domain'
 
 /** UserDeleterUseCase */
+@Service()
 export class UserDeleter {
   private readonly userFinder: UserFinder
 

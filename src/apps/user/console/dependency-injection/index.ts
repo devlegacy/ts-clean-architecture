@@ -2,19 +2,23 @@ import 'reflect-metadata'
 
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
-import { ContainerBuilder } from 'diod'
+import { container } from 'tsyringe'
 
-import { MongoClientFactory } from '@/Contexts/Shared/infrastructure'
+import { config, ConfigService, MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure'
 import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure'
 import { UserRepository } from '@/Contexts/User/Users/domain'
 import { MongoUserRepository } from '@/Contexts/User/Users/infrastructure'
 
-const builder = new ContainerBuilder()
-const MongoConfig = MongoConfigFactory.createConfig()
-const MongoClient = MongoClientFactory.createClient('user', MongoConfig)
-builder.register(Promise<MikroORM<MongoDriver>>).useInstance(MongoClient)
-builder.register(UserRepository).use(MongoUserRepository)
+import { TYPES } from './types'
 
-// builder.registerAndUse(UserCreator)
+// Bootstrap global dependencies
+container.register<ConfigService>(TYPES.config, { useValue: config })
 
-export const container = builder.build()
+// Infrastructure
+const mongoConfig = MongoConfigFactory.createConfig()
+const mongoClient = MongoClientFactory.createClient('user', mongoConfig)
+container.register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
+container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
+
+// Domain - MongoRepository
+container.register<UserRepository>(TYPES.UserRepository, MongoUserRepository)

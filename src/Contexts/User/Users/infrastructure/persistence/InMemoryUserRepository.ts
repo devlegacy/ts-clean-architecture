@@ -1,18 +1,32 @@
 import { Nullable } from '@/Contexts/Shared/domain/Nullable'
-import { User } from '@/Contexts/User/Users/domain/User'
-import { UserRepository } from '@/Contexts/User/Users/domain/UserRepository'
+import { User, UserRepository, UserUsername } from '@/Contexts/User/Users/domain'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
+
+  async findByUserName(username: UserUsername): Promise<Nullable<User>> {
+    const idx = this.users.findIndex((user) => user.username.value === username.value)
+
+    return this.users[idx]
+  }
+
+  async findById(userId: string): Promise<Nullable<User>> {
+    const idx = this.users.findIndex(({ id }) => id.value === userId)
+
+    return this.users[idx]
+  }
+
+  async softDelete(userId: string): Promise<void> {
+    const users = this.users.filter(({ id }) => id.value !== userId)
+    this.users = users
+  }
 
   async getAll(): Promise<User[]> {
     return this.users
   }
 
-  async save(user: User): Promise<User> {
+  async save(user: User): Promise<void> {
     this.users.push(user)
-
-    return user
   }
 
   async getByUserName(username: string): Promise<Nullable<User>> {
@@ -29,13 +43,13 @@ export class InMemoryUserRepository implements UserRepository {
     return user
   }
 
-  async delete(user: User): Promise<void> {
-    const users = this.users.filter(({ id }) => id.value !== user.id.value)
+  async delete(userId: string): Promise<void> {
+    const users = this.users.filter(({ id }) => id.value !== userId)
     this.users = users
   }
 
-  async getById(id: string): Promise<Nullable<User>> {
-    const user = this.users.find((user) => user.id.value === id)
+  async getById(userId: string): Promise<Nullable<User>> {
+    const user = this.users.find((user) => user.id.value === userId)
     return user || null
   }
 }
