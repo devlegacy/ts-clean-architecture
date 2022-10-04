@@ -1,6 +1,4 @@
-import { UserRepository } from '@/Contexts/User/Users/domain/UserRepository'
-
-import { User } from './User'
+import { UserRepository } from '@/Contexts/User/Users/domain'
 
 /**
  * Domain service
@@ -8,7 +6,7 @@ import { User } from './User'
 export class ExistUserByUserName {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async run(username: User['username']): Promise<boolean> {
+  async run(username: string): Promise<boolean> {
     const user = await this.userRepository.findByUserName(username)
 
     if (!user) return false

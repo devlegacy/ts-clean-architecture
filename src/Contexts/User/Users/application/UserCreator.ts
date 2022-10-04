@@ -17,7 +17,7 @@ export class UserCreator {
   async run(request: UserCreatorRequest) {
     const user: User = User.fromPrimitives(request)
 
-    const existUser = await this.existUserByUserName.run(user.username)
+    const existUser = await this.existUserByUserName.run(user.username.value)
     if (existUser) throw new UserAlreadyExistsException()
 
     return this.userRepository.save(user)

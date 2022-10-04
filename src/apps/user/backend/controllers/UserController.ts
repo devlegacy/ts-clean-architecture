@@ -1,8 +1,9 @@
 import HttpStatus from 'http-status'
-import { ObjectId } from 'mongodb'
 
 import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/infrastructure'
+import { UserId } from '@/Contexts/User/Shared/domain'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
+import { UserFinder } from '@/Contexts/User/Users/domain'
 
 @Controller('/users')
 export class UserController {
@@ -10,32 +11,35 @@ export class UserController {
     private readonly userGetter: UserGetter,
     private readonly userCreator: UserCreator,
     private readonly userUpdater: UserUpdater,
-    private readonly userDeleter: UserDeleter
+    private readonly userDeleter: UserDeleter,
+    private readonly userFinder: UserFinder
   ) {}
 
   @Get('/')
-  async index(@Req() req: Request, @Res() res: Response) {
+  async index() {
     // const userGetter = new UserGetter(userRepository)
-    const users = (await this.userGetter.run()).map((user) => user.toPrimitives())
-    res.code(HttpStatus.OK)
+    const users = await this.userGetter.run()
+    // res.code(HttpStatus.OK)
 
-    return users
+    return users.map((user) => user.toPrimitives())
   }
 
   @Get('/:userId')
-  async show(@Req() req: Request, @Res() res: Response) {
-    res.code(200)
-    return {}
+  async show(@Req() req: Request<{ Params: { userId: string } }>) {
+    const { userId } = req.params
+    const user = await this.userFinder.run(userId)
+    // res.code(200)
+    return user.toPrimitives()
   }
 
   @Post('/')
   async create(
-    @Req() req: Request<{ Body: { id: string; username: string; age: number; name: string } }>,
-    @Res() res: Response
+    @Req() req: Request<{ Body: { id: string; username: string; age: number; name: string } }>
+    // @Res() res: Response
   ) {
     // const userCreator = new UserCreator(userRepository)
-    req.body.id ??= new ObjectId().toString()
-    res.code(HttpStatus.CREATED)
+    req.body.id ??= UserId.random().toString()
+    // res.code(HttpStatus.CREATED)
 
     await this.userCreator.run(req.body as any)
 
@@ -48,13 +52,12 @@ export class UserController {
     req: Request<{
       Body: { id?: string; username: string; age: number; name: string }
       Params: { userId: string }
-    }>,
-    @Res() res: Response
+    }>
   ) {
     // const userUpdater = new UserUpdater(userRepository)
     const { userId } = req.params
 
-    res.code(HttpStatus.OK)
+    // res.code(HttpStatus.OK)
 
     const user = (
       await this.userUpdater.run({

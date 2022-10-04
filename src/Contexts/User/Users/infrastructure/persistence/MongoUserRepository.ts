@@ -8,22 +8,6 @@ import { User, UserRepository } from '../../domain'
 import { UserEntity } from './mongo/UserEntity'
 
 export class MongoUserRepository extends MongoRepository<User> implements UserRepository {
-  async delete(id: string): Promise<void> {
-    const repository = await this.repository()
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    await repository.nativeDelete({ id: new ObjectId(id) })
-  }
-
-  async softDelete(id: string): Promise<void> {
-    const repository = await this.repository()
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    await repository.nativeDelete({ id: new ObjectId(id) })
-  }
-
   async getAll(): Promise<User[]> {
     const repository = await this.repository()
 
@@ -49,9 +33,20 @@ export class MongoUserRepository extends MongoRepository<User> implements UserRe
     return this.persist(user)
   }
 
-  async findByUserName(username: User['username']): Promise<Nullable<User>> {
+  async findById(id: string): Promise<Nullable<User>> {
     const repository = await this.repository()
-    const user = await repository.findOne({ username })
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const user = await repository.findOne({ id: new ObjectId(id) })
+    return user
+  }
+
+  async findByUserName(username: string): Promise<Nullable<User>> {
+    const repository = await this.repository()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const user = await repository.findOne({ username }, { convertCustomTypes: false })
     return user
   }
 
@@ -89,13 +84,20 @@ export class MongoUserRepository extends MongoRepository<User> implements UserRe
     return userUpdated
   }
 
-  async findById(id: string): Promise<Nullable<User>> {
+  async delete(id: string): Promise<void> {
     const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    const user = await repository.findOne({ id: new ObjectId(id) })
-    return user
+    await repository.nativeDelete({ id: new ObjectId(id) })
+  }
+
+  async softDelete(id: string): Promise<void> {
+    const repository = await this.repository()
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    await repository.nativeDelete({ id: new ObjectId(id) })
   }
 
   protected entitySchema(): EntitySchema<User> {

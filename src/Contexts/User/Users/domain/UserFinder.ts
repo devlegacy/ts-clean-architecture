@@ -1,12 +1,16 @@
-import { User, UserRepository } from '.'
-import { UserNotFoundException } from './UserNotFoundException'
+import { inject, injectable } from 'tsyringe'
+
+import { TYPES } from '@/apps/user/dependency-injection/types'
+
+import { User, UserNotFoundException, UserRepository } from '.'
 
 /**
  * Domain service
  * Reuse logic
  */
+@injectable()
 export class UserFinder {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {}
 
   async run(userId: string): Promise<User> {
     const user = await this.userRepository.findById(userId)

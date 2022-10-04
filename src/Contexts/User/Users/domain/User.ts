@@ -1,9 +1,9 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot, NonFunctionProperties, PrimitiveProperties } from '@/Contexts/Shared/domain'
 
 import { UserId } from '../../Shared/domain'
-import { UserAge } from './UserAge'
-import { UserName } from './UserName'
-import { UserUsername } from './UserUsername'
+import { UserAge, UserName, UserUsername } from './value-object'
+
+// Note: No acoplar a un modelo
 
 // export interface User {
 //   id: string
@@ -11,11 +11,13 @@ import { UserUsername } from './UserUsername'
 //   username: string
 //   age: number
 // }
-// Note: No acoplar a un modelo
 
 // export interface UserUpdateDto extends Omit<Partial<User>, 'id'> {
 //   id: User['id']
 // }
+
+type UserProps = NonFunctionProperties<User>
+export type UserPrimitiveProps = PrimitiveProperties<UserProps>
 
 export class User extends AggregateRoot {
   readonly id: UserId
@@ -31,7 +33,7 @@ export class User extends AggregateRoot {
     this.age = age
   }
 
-  static fromPrimitives(primitive: { id: string; name: string; username: string; age?: number }): User {
+  static fromPrimitives(primitive: UserPrimitiveProps): User {
     // return new Course({
     //   id: new CourseId(primitive.id),
     //   name: new CourseName(primitive.name),
@@ -45,7 +47,7 @@ export class User extends AggregateRoot {
     )
   }
 
-  toPrimitives() {
+  toPrimitives(): UserPrimitiveProps {
     return {
       id: this.id.value,
       name: this.name.value,
