@@ -1,6 +1,6 @@
-import Joi from 'joi'
 import { JoiSchema } from 'joi-class-decorators'
-// import { isValidObjectId } from 'mongoose'
+
+import { Joi } from '@/Contexts/Shared/infrastructure/joi/joi'
 // import { z } from 'zod'
 
 // import { createZodDto } from '@/shared/zod'

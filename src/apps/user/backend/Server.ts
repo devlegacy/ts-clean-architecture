@@ -3,18 +3,10 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import {
-  bootstrap,
-  config,
-  FastifyAdapter,
-  JoiModule,
-  TsyringeControllerResolver
-} from '@/Contexts/Shared/infrastructure'
+import { bootstrap, config, FastifyAdapter, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
 
 export class Server {
   #port: number
-  // #app: FastifyInstance<http2.Http2SecureServer>
-  // #httpServer?: http2.Http2SecureServer
   #app: FastifyInstance
   #httpServer?: http.Server
 
@@ -22,8 +14,6 @@ export class Server {
     this.#port = port
 
     const adapter = new FastifyAdapter()
-    adapter.enableCors()
-    adapter.setValidationModule(new JoiModule()) // TODO: One or more - plug | module
 
     this.#app = adapter.instance
   }
@@ -32,6 +22,7 @@ export class Server {
     await bootstrap(this.#app, {
       controller: resolve(__dirname, './controllers'),
       resolver: TsyringeControllerResolver
+      // prefix: '/api/'
     })
   }
 

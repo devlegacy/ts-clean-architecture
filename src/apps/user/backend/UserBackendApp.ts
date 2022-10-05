@@ -1,6 +1,6 @@
 import '../dependency-injection'
 
-import { Server } from './server'
+import { Server } from './Server'
 
 export class UserBackendApp {
   #server?: Server

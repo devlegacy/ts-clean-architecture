@@ -1,8 +1,8 @@
 import { Db, MongoClient } from 'mongodb'
 
 export class MongoDB {
-  private static instance: Db | null = null
   static client: MongoClient | null = null
+  private static instance: Db | null = null
 
   private constructor() {
     // Private constructor

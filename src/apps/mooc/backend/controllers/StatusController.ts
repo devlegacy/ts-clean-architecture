@@ -16,16 +16,16 @@ import {
   Res
 } from '@/Contexts/Shared/infrastructure'
 
-@Controller('/status')
+@Controller('status')
 export class StatusController {
   @HttpCode(HttpStatus.OK)
-  @Get('/')
+  @Get()
   index() {
     return {}
   }
 
   @HttpCode(HttpStatus.CREATED)
-  @Post('/params/:any/:any/:other')
+  @Post('params/:any/:any/:other')
   params(
     @Req() req: Request,
     @Res() res: Response,
@@ -50,7 +50,7 @@ export class StatusController {
   }
 
   @HttpCode(HttpStatus.CREATED)
-  @Post('/helpers')
+  @Post('helpers')
   helpers(
     @Query('limit') limit: number,
     @Query('page', PageNumberPipe) page: number,

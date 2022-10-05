@@ -5,7 +5,7 @@ import { UserId } from '@/Contexts/User/Shared/domain'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
 import { UserFinder } from '@/Contexts/User/Users/domain'
 
-@Controller('/users')
+@Controller('users')
 export class UserController {
   constructor(
     private readonly userGetter: UserGetter,
@@ -15,7 +15,7 @@ export class UserController {
     private readonly userFinder: UserFinder
   ) {}
 
-  @Get('/')
+  @Get()
   async index() {
     // const userGetter = new UserGetter(userRepository)
     const users = await this.userGetter.run()
@@ -32,7 +32,7 @@ export class UserController {
     return user.toPrimitives()
   }
 
-  @Post('/')
+  @Post()
   async create(
     @Req() req: Request<{ Body: { id: string; username: string; age: number; name: string } }>
     // @Res() res: Response
@@ -46,7 +46,7 @@ export class UserController {
     return req.body
   }
 
-  @Put('/:userId')
+  @Put(':userId')
   async update(
     @Req()
     req: Request<{
@@ -69,7 +69,7 @@ export class UserController {
     return user
   }
 
-  @Delete('/:userId')
+  @Delete(':userId')
   async delete(@Req() req: Request<{ Params: { userId: string } }>, @Res() res: Response) {
     const { userId } = req.params
 

@@ -12,13 +12,13 @@ import {
   //  Schema
 } from '@/Contexts/Shared/infrastructure'
 
-@Controller('/courses')
+@Controller('courses')
 export class CourseController {
   constructor(private readonly courseCreator: CourseCreator) {}
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
-  @Put('/:courseId')
+  @Put(':courseId')
   async update(@Body() course: CourseDto) {
     // const { id, name, duration } = course
 

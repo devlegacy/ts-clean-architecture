@@ -11,7 +11,13 @@ export class MongoUserRepository extends MongoRepository<User> implements UserRe
   async getAll(): Promise<User[]> {
     const repository = await this.repository()
 
-    const users = await repository.findAll()
+    const users = await repository.findAll({
+      orderBy: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        _id: -1
+      }
+    })
 
     return users
   }

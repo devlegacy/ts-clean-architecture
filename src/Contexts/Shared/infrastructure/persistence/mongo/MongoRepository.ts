@@ -58,15 +58,15 @@ import { SHARED_TYPES } from '../../common'
 export abstract class MongoRepository<T extends AggregateRoot> {
   // Diod
   // constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {}
+
   // tsyringe
   private readonly _client: Promise<MikroORM<MongoDriver>> = container.resolve(SHARED_TYPES.MongoClient)
+
   // constructor(@inject(SHARED_TYPES.MongoClient) client: Promise<MikroORM<MongoDriver>>) {
   // if (!client) {
   // this._client = client
   // }
   // }
-
-  protected abstract entitySchema(): EntitySchema<T>
 
   protected client(): Promise<MikroORM<MongoDriver>> {
     return this._client
@@ -91,4 +91,6 @@ export abstract class MongoRepository<T extends AggregateRoot> {
 
     await repository.flush()
   }
+
+  protected abstract entitySchema(): EntitySchema<T>
 }

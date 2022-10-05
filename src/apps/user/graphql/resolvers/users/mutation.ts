@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongodb'
 import { container } from 'tsyringe'
 
+import { Uuid } from '@/Contexts/Shared/domain'
 import { UserCreator } from '@/Contexts/User/Users/application'
 
 const userMutations = {
@@ -14,7 +14,7 @@ const userMutations = {
     } = args
 
     const user = {
-      id: new ObjectId().toString(),
+      id: Uuid.random().toString(),
       username,
       age,
       name

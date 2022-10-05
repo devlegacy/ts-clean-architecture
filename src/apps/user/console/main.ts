@@ -47,7 +47,7 @@ const bootstrap = async () => {
   info(users)
 
   const userUpdater = new UserUpdater(userRepository)
-  await userUpdater.run(updateUserDto)
+  await userUpdater.run(updateUserDto as any)
 
   users = await userGetter.run()
   info(users)

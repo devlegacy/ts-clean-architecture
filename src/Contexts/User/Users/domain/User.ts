@@ -33,17 +33,17 @@ export class User extends AggregateRoot {
     this.age = age
   }
 
-  static fromPrimitives(primitive: UserPrimitiveProps): User {
+  static fromPrimitives(props: UserPrimitiveProps): User {
     // return new Course({
-    //   id: new CourseId(primitive.id),
-    //   name: new CourseName(primitive.name),
-    //   duration: !primitive.duration ? undefined : new CourseDuration(primitive.duration)
+    //   id: new CourseId(props.id),
+    //   name: new CourseName(props.name),
+    //   duration: !props.duration ? undefined : new CourseDuration(props.duration)
     // })
     return new User(
-      new UserId(primitive.id),
-      new UserName(primitive.name),
-      new UserUsername(primitive.username),
-      !primitive.age ? undefined : new UserAge(primitive.age)
+      new UserId(props.id),
+      new UserName(props.name),
+      new UserUsername(props.username),
+      !props.age ? undefined : new UserAge(props.age)
     )
   }
 
@@ -55,4 +55,10 @@ export class User extends AggregateRoot {
       age: this.age?.value
     }
   }
+
+  // Tell don't ask
+  // isAdult() {}
+
+  // Tell don't ask
+  // isBirthday() {}
 }

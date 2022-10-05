@@ -11,17 +11,17 @@ export abstract class ValueObject<T extends Primitives> {
     this.isValueDefined(value)
   }
 
-  private isValueDefined(value: T): void {
-    if (value === null || value === undefined) {
-      throw new InvalidArgumentException('Value must be defined')
-    }
-  }
-
   equals(other: ValueObject<T>): boolean {
     return other.constructor.name === this.constructor.name && other.value === this.value
   }
 
   toString() {
     return this.value.toString()
+  }
+
+  private isValueDefined(value: T): void {
+    if (value === null || value === undefined) {
+      throw new InvalidArgumentException('Value must be defined')
+    }
   }
 }

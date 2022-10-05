@@ -2,7 +2,7 @@ import '../dependency-injection'
 
 import { config } from '@/Contexts/Shared/infrastructure'
 
-import { Server } from './server'
+import { Server } from './Server'
 
 export class MoocBackendApp {
   #server?: Server

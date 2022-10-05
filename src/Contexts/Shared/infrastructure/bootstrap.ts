@@ -93,15 +93,17 @@ const getControllerMethodMetadata = (method: () => unknown) => {
   }
 }
 
-const getFullPath = (controllerPath: string, routePath: RequestMappingMetadata['path']) => {
+// TODO: Improve prefixing
+const getRouteUrl = (prefix: string, controllerPath: string, routePath: RequestMappingMetadata['path']) => {
   if (!(typeof routePath === 'string')) {
     throw new Error('[Bootstrap]: typeof route path not defined')
   }
 
+  prefix = prefix ?? normalizePath(prefix)
   controllerPath = normalizePath(controllerPath)
   routePath = normalizePath(routePath)
 
-  return `${controllerPath}${routePath}`
+  return `${prefix}${controllerPath}${routePath}`
 }
 
 const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, number, string][] =>
@@ -211,7 +213,7 @@ const buildSchemaWithParams = (
 // eslint-disable-next-line complexity, max-lines-per-function
 export const bootstrap = async (
   fastify: FastifyInstance,
-  props: { controller: string; resolver?: ControllerResolver }
+  props: { controller: string; prefix?: string; resolver?: ControllerResolver }
 ) => {
   // const controllerContainer = container.createChildContainer()
 
@@ -262,7 +264,7 @@ export const bootstrap = async (
           method: RequestMethod[requestMethod] as HTTPMethods,
           schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
           attachValidation: true,
-          url: getFullPath(controllerPath, routePath),
+          url: getRouteUrl(props.prefix ?? '', controllerPath, routePath),
           preParsing: (req, res, payload, done) => {
             // Some code
             done(null, payload)

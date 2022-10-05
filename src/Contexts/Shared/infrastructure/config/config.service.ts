@@ -58,7 +58,8 @@ export class ConfigService<K = Record<string, unknown>> {
 
   private getFromProcessEnv<T = any>(propertyPath: KeyOf<K>, defaultValue: any): T | undefined {
     // TODO: as K error - check why
-    return ((this.#env as any)[`${String(propertyPath)}`] as T | undefined) || defaultValue
+    const property = (this.#env as any)[`${String(propertyPath)}`] as unknown as T | undefined
+    return property || defaultValue
   }
 
   get env(): K {

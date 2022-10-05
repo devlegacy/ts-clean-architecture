@@ -1,6 +1,6 @@
 import '../dependency-injection'
 
-import { GraphQL } from './graphql'
+import { GraphQL } from './GraphQL'
 
 export class UserGraphQLApp {
   graphQL?: GraphQL

@@ -47,9 +47,6 @@ const fastifyServerOptions: FastifyServerOptions = {
 export class FastifyAdapter {
   // #instance: FastifyInstance
   #instance: FastifyInstance
-  get instance() {
-    return this.#instance
-  }
 
   // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
   constructor({ options }: { options?: FastifyServerOptions } = {}) {
@@ -63,6 +60,10 @@ export class FastifyAdapter {
       .register(fastifyCompress)
       // .register(fastifyRateLimit)
       .register(fastifyCookie)
+  }
+
+  get instance() {
+    return this.#instance
   }
 
   enableCors(options: FastifyCorsOptions = {}) {

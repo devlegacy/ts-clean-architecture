@@ -1,13 +1,13 @@
-import * as Sentry from '@sentry/node'
-import * as Tracing from '@sentry/tracing'
+// import * as Sentry from '@sentry/node'
+// import * as Tracing from '@sentry/tracing'
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef, FastifyValidationResult } from 'fastify/types/schema'
 import CreateHttpError from 'http-errors'
 import HttpStatus from 'http-status'
 import { ValidationError } from 'joi'
 import * as joi from 'joi'
-import { Types } from 'mongoose'
-import { ZodError, ZodObject } from 'zod'
+import { DEFAULT } from 'joi-class-decorators'
+import { ObjectId } from 'mongodb'
 
 import { HttpError } from '@/Contexts/Shared/infrastructure/http/http-error'
 
@@ -15,11 +15,11 @@ interface ExtendedStringSchema extends joi.StringSchema {
   objectId(): this
 }
 
-export interface ExtendedJoi extends joi.Root {
+interface ExtendedJoi extends joi.Root {
   string(): ExtendedStringSchema
 }
 
-export const stringObjectExtension: joi.Extension = {
+const stringObjectExtension: joi.Extension = {
   type: 'string',
   base: joi.string(),
   messages: {
@@ -28,7 +28,7 @@ export const stringObjectExtension: joi.Extension = {
   rules: {
     objectId: {
       validate: (value: any, helpers) => {
-        if (!Types.ObjectId.isValid(value)) {
+        if (!ObjectId.isValid(value)) {
           return helpers.error('string.objectId')
         }
 
@@ -38,9 +38,7 @@ export const stringObjectExtension: joi.Extension = {
   }
 }
 
-export const StringObjectExtension: ExtendedJoi = joi.extend(stringObjectExtension)
-
-const Joi = joi.extend(stringObjectExtension) as ExtendedJoi
+// const StringObjectExtension: ExtendedJoi = joi.extend(stringObjectExtension)
 
 const validationOptions: joi.ValidationOptions = {
   cache: true,
@@ -50,24 +48,25 @@ const validationOptions: joi.ValidationOptions = {
   stripUnknown: true
 }
 
-const options: Sentry.NodeOptions = {
-  debug: true,
-  environment: 'development',
-  dsn: 'https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751',
-  release: '',
-  integrations: [
-    // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-    new Tracing.Integrations.Mongo({
-      useMongoose: true // Default: false
-    })
-  ],
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0
-}
-Sentry.init(options)
+// const options: Sentry.NodeOptions = {
+//   debug: true,
+//   environment: 'development',
+//   dsn: 'https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751',
+//   release: '',
+//   integrations: [
+//     // enable HTTP calls tracing
+//     new Sentry.Integrations.Http({ tracing: true }),
+//     new Tracing.Integrations.Mongo({
+//       useMongoose: true // Default: false
+//     })
+//   ],
+//   // Set tracesSampleRate to 1.0 to capture 100%
+//   // of transactions for performance monitoring.
+//   // We recommend adjusting this value in production
+//   tracesSampleRate: 1.0
+// }
+
+// Sentry.init(options)
 
 export interface ValidationModule {
   validationCompiler: (schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>) => FastifyValidationResult
@@ -81,7 +80,7 @@ class JoiModule implements ValidationModule {
 
     return (data: unknown) => {
       if (joi.isSchema(schema)) return schema.validate(data, validationOptions)
-      else if ((schema as any) instanceof ZodObject) return (schema as unknown as ZodObject<any>).parse(data)
+      // else if ((schema as any) instanceof ZodObject) return (schema as unknown as ZodObject<any>).parse(data)
       return true
     }
   }
@@ -94,25 +93,39 @@ class JoiModule implements ValidationModule {
 
   // TODO: Create as Fastify JOI Schema Error Handler
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
-    Sentry.setUser({
-      ip_address: req.ip
-    })
-    Sentry.setTag('path', req.raw.url)
-    Sentry.captureException(err)
+    // Sentry.setUser({
+    //   ip_address: req.ip
+    // })
+    // Sentry.setTag('path', req.raw.url)
+    // Sentry.captureException(err)
 
     // Is JOI
     if (err instanceof ValidationError) {
       res.status(HttpStatus.UNPROCESSABLE_ENTITY)
       return res.send(err)
       // Is HTTP
-    } else if (err instanceof ZodError) {
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY)
-      return res.send(err.issues)
-    } else if ((err as unknown as HttpError)?.code) {
+    }
+    // else if (err instanceof ZodError) {
+    //   res.status(HttpStatus.UNPROCESSABLE_ENTITY)
+    //   return res.send(err.issues)
+    // }
+    else if ((err as unknown as HttpError)?.code) {
       return res.send(CreateHttpError(err.code, err.message))
     }
     return res.status(500).send(new Error(`errorHandler: Unhandled error ${err.message}`))
   }
 }
 
-export { Joi, JoiModule }
+export const JoiValidationGroups = {
+  DEFAULT,
+  CREATE: Symbol('CREATE'),
+  UPDATE: Symbol('UPDATE')
+}
+
+// Convenient & consistency export
+export { DEFAULT }
+export const { CREATE } = JoiValidationGroups
+export const { UPDATE } = JoiValidationGroups
+
+export const Joi = joi.extend(stringObjectExtension) as ExtendedJoi
+export { JoiModule }

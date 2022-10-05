@@ -31,7 +31,7 @@ export const fatalErrorHandler = (err: Error, ..._args: Array<unknown>) => {
   process.exit(1)
 }
 
-export const deepLogger = (data: object) =>
+export const deepLog = (data: object) =>
   logger().info(
     util.inspect(data, {
       showHidden: false,
