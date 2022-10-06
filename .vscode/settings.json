@@ -1,4 +1,5 @@
 {
+  "files.eol": "\n",
   "files.exclude": {
     ".cache": true,
     ".commitlintrc.js": true,
@@ -52,9 +53,13 @@
     "types": true,
     "yarn-error.log": true
   },
+  "prettier.requireConfig": true,
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC"],
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },
-  "files.eol": "\n",
-  "prettier.requireConfig": true
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+
 }

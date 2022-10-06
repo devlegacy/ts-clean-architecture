@@ -22,6 +22,6 @@ fi
 # npm test
 
 # Run lint files on staged files
-echo "Start lint"
+echo "Starting lint, please wait :)"
 npx --no -- lint-staged --quiet --config ./.lintstagedrc.json
-echo "End lint"
+echo "Lint task end, you can do your push 🚀"
