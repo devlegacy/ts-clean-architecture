@@ -1,6 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# TODO: improve CLI util on windows or gitbash
 # exec < /dev/tty && git cz --hook || true
 
 is_commit_available="$(git rev-list -n 1 --all)"
@@ -21,4 +22,4 @@ fi
 # npm test
 
 # Run lint files on staged files
-npx --no -- lint-staged --quiet --config ./.lintstagedrc.json
+npx --no -- lint-staged --config ./.lintstagedrc.json
