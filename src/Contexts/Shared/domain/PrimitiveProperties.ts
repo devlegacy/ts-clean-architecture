@@ -1,5 +1,6 @@
 import { InvariantOf, Writable } from 'type-fest'
 
+import { EnumValueObject } from './value-object'
 import { NumberValueObject } from './value-object/NumberValueObject'
 import { StringValueObject } from './value-object/StringValueObject'
 import { Primitives } from './value-object/ValueObject'
@@ -13,5 +14,7 @@ export type PrimitiveProperties<Type> = Writable<{
     ? number
     : InvariantOf<Type[Property]> extends StringValueObject
     ? string
+    : InvariantOf<Type[Property]> extends EnumValueObject<unknown>
+    ? string | number
     : Type[Property]
 }>
