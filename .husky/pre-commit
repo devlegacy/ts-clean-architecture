@@ -22,4 +22,6 @@ fi
 # npm test
 
 # Run lint files on staged files
-npx --no -- lint-staged --config ./.lintstagedrc.json
+echo "Start lint"
+npx --no -- lint-staged --quiet --config ./.lintstagedrc.json
+echo "End lint"
