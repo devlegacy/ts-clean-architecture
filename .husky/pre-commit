@@ -1,6 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# exec < /dev/tty && git cz --hook || true
+
 is_commit_available="$(git rev-list -n 1 --all)"
 if [[ "$is_commit_available" ]]; then
   # Validate branch name

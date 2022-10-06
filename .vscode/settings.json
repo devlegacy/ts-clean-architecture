@@ -37,6 +37,7 @@
     "CHANGELOG.md": true,
     "coverage": true,
     "cucumber.js": true,
+    "cz.js": true,
     "dist": true,
     "docs": true,
     "jest.config.[j|t]s": true,

@@ -8,12 +8,12 @@
   },
   "exclude": [
     "**/*.js",
-    "jest.config.ts",
-    "jest.setup.ts",
     "**/*.test.ts",
     "**/*spec.ts",
     "dist",
-    "tests",
-    "node_modules"
+    "jest.config.ts",
+    "jest.setup.ts",
+    "node_modules",
+    "tests"
   ]
 }
