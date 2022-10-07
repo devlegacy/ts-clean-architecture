@@ -72,6 +72,9 @@
         // "${file}"
       ],
       "windows": {
+        "type": "node",
+        "request": "launch",
+        "name": "🐞 Jest: Debug current file",
         "program": "${workspaceRoot}/node_modules/jest/bin/jest.js"
         //   "args": [
         //     "--runInBand",
