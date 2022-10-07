@@ -1,12 +1,12 @@
 export const SHARED_TYPES = {
   // Infrastructure
   // Config
-  config: Symbol.for('config'),
+  config: Symbol('config'),
   // Mongo
-  MongoConfig: Symbol.for('MongoConfig'),
-  MongoClient: Symbol.for('MongoClient'),
+  MongoConfig: Symbol('MongoConfig'),
+  MongoClient: Symbol('MongoClient'),
   // TypeORM
-  TypeOrmConfig: Symbol.for('TypeOrmConfig'),
-  TypeOrmClient: Symbol.for('TypeOrmClient'),
-  DataSource: Symbol.for('DataSource')
+  TypeOrmConfig: Symbol('TypeOrmConfig'),
+  TypeOrmClient: Symbol('TypeOrmClient'),
+  DataSource: Symbol('DataSource')
 }

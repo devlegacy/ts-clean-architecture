@@ -2,7 +2,7 @@ import { SHARED_TYPES } from '@/Contexts/Shared/infrastructure'
 
 export const TYPES = {
   ...SHARED_TYPES,
-  CourseRepository: Symbol.for('CourseRepository'),
+  CourseRepository: Symbol('CourseRepository'),
   // Test
-  EnvironmentArranger: Symbol.for('EnvironmentArranger')
+  EnvironmentArranger: Symbol('EnvironmentArranger')
 }
