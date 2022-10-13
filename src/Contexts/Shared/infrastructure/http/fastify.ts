@@ -1,12 +1,12 @@
 import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
+import { logger } from '@qualy/logger'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
-import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
+import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, FastifyServerOptions } from 'fastify'
 
 import { ValidationModule } from '../joi/joi'
-import { logger } from '../logger'
 
 const ajv = {
   customOptions: {
@@ -47,6 +47,7 @@ const fastifyServerOptions: FastifyServerOptions = {
 export class FastifyAdapter {
   // #instance: FastifyInstance
   #instance: FastifyInstance
+  #validations: ValidationModule<any>[] = []
 
   // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
   constructor({ options }: { options?: FastifyServerOptions } = {}) {
@@ -63,6 +64,19 @@ export class FastifyAdapter {
   }
 
   get instance() {
+    this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
+      for (const m of this.#validations) {
+        if (m.validationCompiler(schemaDefinition)) {
+          return m.validationCompiler(schemaDefinition)
+        }
+      }
+    })
+    this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
+      for (const m of this.#validations) {
+        m.errorHandler(error, req, res)
+      }
+    })
+
     return this.#instance
   }
 
@@ -70,9 +84,9 @@ export class FastifyAdapter {
     this.#instance.register(fastifyCors, options)
   }
 
-  setValidationModule(validationModule: ValidationModule) {
-    this.#instance.setValidatorCompiler(validationModule.validationCompiler)
+  setValidationModule<T = unknown>(validationModule: ValidationModule<T>) {
+    this.#validations.push(validationModule)
 
-    // this.#instance.setErrorHandler(validationModule.errorHandler)
+    return this
   }
 }

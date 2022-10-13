@@ -1,22 +1,23 @@
 // import * as Sentry from '@sentry/node'
 // import * as Tracing from '@sentry/tracing'
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef, FastifyValidationResult } from 'fastify/types/schema'
+import { FastifyRouteSchemaDef } from 'fastify/types/schema'
 import CreateHttpError from 'http-errors'
 import HttpStatus from 'http-status'
 import { ValidationError } from 'joi'
 import * as joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
+import { ZodError, ZodObject } from 'zod'
 
-import { HttpError } from '@/Contexts/Shared/infrastructure/http/http-error'
+import { HttpError } from '../http/http-error'
 
-interface ExtendedStringSchema extends joi.StringSchema {
+interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
 }
 
 interface ExtendedJoi extends joi.Root {
-  string(): ExtendedStringSchema
+  string<T = string>(): ExtendedStringSchema<T>
 }
 
 const stringObjectExtension: joi.Extension = {
@@ -27,7 +28,8 @@ const stringObjectExtension: joi.Extension = {
   },
   rules: {
     objectId: {
-      validate: (value: any, helpers) => {
+      validate: (value: string, helpers) => {
+        value = value.trim()
         if (!ObjectId.isValid(value)) {
           return helpers.error('string.objectId')
         }
@@ -37,8 +39,6 @@ const stringObjectExtension: joi.Extension = {
     }
   }
 }
-
-// const StringObjectExtension: ExtendedJoi = joi.extend(stringObjectExtension)
 
 const validationOptions: joi.ValidationOptions = {
   cache: true,
@@ -68,22 +68,21 @@ const validationOptions: joi.ValidationOptions = {
 
 // Sentry.init(options)
 
-export interface ValidationModule {
-  validationCompiler: (schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>) => FastifyValidationResult
+export interface ValidationModule<T> {
+  validationCompiler: (schemaDefinition: FastifyRouteSchemaDef<T>) => any
   errorHandler: (error: FastifyError, req: FastifyRequest, res: FastifyReply) => void
 }
 
-class JoiModule implements ValidationModule {
-  // TODO: Create as Fastify JOI validation Compiler
-  validationCompiler(schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>): FastifyValidationResult {
+class JoiModule implements ValidationModule<joi.AnySchema> {
+  validationCompiler(schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>) {
     const { schema } = schemaDefinition
 
-    return (data: unknown) => {
-      if (joi.isSchema(schema)) return schema.validate(data, validationOptions)
-      // else if ((schema as any) instanceof ZodObject) return (schema as unknown as ZodObject<any>).parse(data)
-      return true
-    }
+    if (joi.isSchema(schema))
+      return (data: unknown) => {
+        return schema.validate(data, validationOptions)
+      }
   }
+
   // TODO: Create as Fastify JOI Schema Error Formatter
   // this._app.setSchemaErrorFormatter((errors) => {
   //   this._app.log.error({ err: errors }, 'Validation failed')
@@ -91,7 +90,6 @@ class JoiModule implements ValidationModule {
   //   return new Error('Error!')
   // })
 
-  // TODO: Create as Fastify JOI Schema Error Handler
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
     // Sentry.setUser({
     //   ip_address: req.ip
@@ -103,16 +101,47 @@ class JoiModule implements ValidationModule {
     if (err instanceof ValidationError) {
       res.status(HttpStatus.UNPROCESSABLE_ENTITY)
       return res.send(err)
-      // Is HTTP
     }
-    // else if (err instanceof ZodError) {
-    //   res.status(HttpStatus.UNPROCESSABLE_ENTITY)
-    //   return res.send(err.issues)
-    // }
-    else if ((err as unknown as HttpError)?.code) {
+  }
+}
+
+class ZodModule implements ValidationModule<ZodObject<any>> {
+  validationCompiler(schemaDefinition: FastifyRouteSchemaDef<ZodObject<any>>) {
+    const { schema } = schemaDefinition
+
+    if (schema instanceof ZodObject)
+      return (data: unknown) => {
+        return schema.parse(data)
+      }
+  }
+
+  // TODO: Create as Fastify JOI Schema Error Formatter
+  // this._app.setSchemaErrorFormatter((errors) => {
+  //   this._app.log.error({ err: errors }, 'Validation failed')
+
+  //   return new Error('Error!')
+  // })
+
+  errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
+    // Is Zod
+    if (err instanceof ZodError) {
+      res.status(HttpStatus.UNPROCESSABLE_ENTITY)
+      return res.send(err.issues)
+    }
+  }
+}
+
+class GeneralValidationModule implements ValidationModule<unknown> {
+  validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): any {
+    //
+  }
+
+  errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
+    // Is our HTTP
+    if ((err as unknown as HttpError)?.code) {
       return res.send(CreateHttpError(err.code, err.message))
     }
-    return res.status(500).send(new Error(`errorHandler: Unhandled error ${err.message}`))
+    return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
   }
 }
 
@@ -128,4 +157,4 @@ export const { CREATE } = JoiValidationGroups
 export const { UPDATE } = JoiValidationGroups
 
 export const Joi = joi.extend(stringObjectExtension) as ExtendedJoi
-export { JoiModule }
+export { GeneralValidationModule, JoiModule, ZodModule }

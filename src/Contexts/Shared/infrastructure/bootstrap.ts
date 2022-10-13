@@ -1,14 +1,14 @@
+import { info } from '@qualy/logger'
 import cluster from 'cluster'
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
 import HttpStatus from 'http-status'
-import { ValidationError } from 'joi'
 import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
 
-import { config, info, isConstructor, normalizePath, Primary } from '@/Contexts/Shared/infrastructure'
+import { isConstructor, normalizePath, Primary } from '@/Contexts/Shared/infrastructure'
 
 import {
   getMethodGroup,
@@ -213,7 +213,7 @@ const buildSchemaWithParams = (
 // eslint-disable-next-line complexity, max-lines-per-function
 export const bootstrap = async (
   fastify: FastifyInstance,
-  props: { controller: string; prefix?: string; resolver?: ControllerResolver }
+  props: { controller: string; isProduction: boolean; prefix?: string; resolver?: ControllerResolver }
 ) => {
   // const controllerContainer = container.createChildContainer()
 
@@ -247,7 +247,7 @@ export const bootstrap = async (
         buildSchemaWithParams(params, schema, requestMethod, args)
       }
 
-      if (cluster.isPrimary && config.get<string>('APP_ENV', 'development') === 'production') {
+      if (cluster.isPrimary && props.isProduction) {
         const primary = new Primary({ cluster })
         const limit = availableCpus
         // const limit = availableCpus
@@ -263,26 +263,26 @@ export const bootstrap = async (
         fastify.route({
           method: RequestMethod[requestMethod] as HTTPMethods,
           schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
-          attachValidation: true,
+          // attachValidation: true,
           url: getRouteUrl(props.prefix ?? '', controllerPath, routePath),
-          preParsing: (req, res, payload, done) => {
-            // Some code
-            done(null, payload)
-          },
-          preValidation: (req, res, done) => {
-            // Some code
-            done()
-          },
+          // preParsing: (req, res, payload, done) => {
+          //   // Some code
+          //   done(null, payload)
+          // },
+          // preValidation: (req, res, done) => {
+          //   // Some code
+          //   done()
+          // },
           handler: (req, res) => {
             res.status(httpCode)
-            if (req.validationError) {
-              const err = req.validationError
-              // Is JOI
-              if (err instanceof ValidationError) {
-                return res.status(schema.code).send(err)
-              }
-              return res.status(500).send(new Error(`handler: Unhandled error ${err.message}`))
-            }
+            // if (req.validationError) {
+            //   const err = req.validationError
+            //   // Is JOI
+            //   if (err instanceof ValidationError) {
+            //     return res.status(schema.code).send(err)
+            //   }
+            //   return res.status(500).send(new Error(`handler: Unhandled error ${err.message}`))
+            // }
             const routeParams = getParams(params, req, res)
             // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
             // const currentMethodFn = instance[method.name]

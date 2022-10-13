@@ -9,6 +9,8 @@ export class ValueObjectTransformer {
   convertToDatabaseValue(value: ValueObject<any>) {
     if (this.type === 'ObjectId') {
       return new ObjectId(value.value)
+    } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
+      return value.map((v) => new ObjectId(v.value))
     }
     return value.value
   }

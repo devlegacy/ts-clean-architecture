@@ -1,6 +1,5 @@
+import { info } from '@qualy/logger'
 import { Cluster } from 'cluster'
-
-import { info } from './logger'
 
 export class Primary {
   private cluster: Cluster
