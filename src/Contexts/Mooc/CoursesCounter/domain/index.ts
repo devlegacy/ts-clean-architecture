@@ -1,0 +1,5 @@
+export * from './CoursesCounter'
+export * from './CoursesCounterIncrementedDomainEvent'
+export * from './CoursesCounterNotExists'
+export * from './CoursesCounterRepository'
+export * from './value-object'
