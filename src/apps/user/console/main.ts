@@ -3,9 +3,9 @@ import '../dependency-injection'
 import { faker } from '@faker-js/faker'
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
+import { error, info } from '@qualy/logger'
 import { container } from 'tsyringe'
 
-import { error, info } from '@/Contexts/Shared/infrastructure'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
 import { UserAlreadyExistsException, UserRepository } from '@/Contexts/User/Users/domain'
 
