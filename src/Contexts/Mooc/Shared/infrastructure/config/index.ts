@@ -8,6 +8,33 @@ const moocConfig = convict({
     default: 'default',
     env: 'NODE_ENV'
   },
+  app: {
+    port: {
+      doc: 'The port to bind.',
+      format: 'port',
+      default: 8080,
+      env: 'APP_PORT',
+      arg: 'port'
+    },
+    debug: {
+      doc: 'The application debug mode.',
+      format: [true, false],
+      default: true,
+      env: 'APP_DEBUG'
+    },
+    name: {
+      doc: 'The application name.',
+      format: String,
+      default: 'TS clean architecture',
+      env: 'APP_NAME'
+    },
+    env: {
+      doc: 'The application environment.',
+      format: ['production', 'development', 'staging', 'test'],
+      default: 'development',
+      env: 'APP_ENV'
+    }
+  },
   mongo: {
     url: {
       doc: 'The MongoDB connection URL.',
@@ -49,7 +76,12 @@ const moocConfig = convict({
     }
   }
 })
-
+// env: {
+//   doc: undefined,
+//   format: undefined,
+//   default: undefined,
+//   env: undefined
+// }
 moocConfig.loadFile([resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${moocConfig.get('env')}.json`)])
 
 export default moocConfig
