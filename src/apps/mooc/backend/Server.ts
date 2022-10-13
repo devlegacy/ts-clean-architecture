@@ -3,8 +3,9 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import { bootstrap, config, FastifyAdapter, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/joi/joi'
+import config from '@/Contexts/Mooc/Shared/infrastructure/config'
+import { bootstrap, FastifyAdapter, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
+import { GeneralValidationModule, JoiModule, ZodModule } from '@/Contexts/Shared/infrastructure/joi/joi'
 
 export class Server {
   #port: number
@@ -18,7 +19,11 @@ export class Server {
 
     const adapter = new FastifyAdapter()
     adapter.enableCors()
-    adapter.setValidationModule(new JoiModule()) // TODO: One or more - plug | module
+    // TODO: One or more - plug | module
+    adapter
+      .setValidationModule(new JoiModule())
+      .setValidationModule(new ZodModule())
+      .setValidationModule(new GeneralValidationModule())
 
     this.#app = adapter.instance
   }
@@ -26,7 +31,8 @@ export class Server {
   async bootstrap() {
     await bootstrap(this.#app, {
       controller: resolve(__dirname, './controllers'),
-      resolver: TsyringeControllerResolver
+      resolver: TsyringeControllerResolver,
+      isProduction: config.get('app.env') === 'production'
     })
   }
 
@@ -46,8 +52,7 @@ export class Server {
     this.#app.log.info(`\t\t\t\thttp://localhost:${address.port}`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
 
-    const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)
-    if (APP_DEBUG) {
+    if (config.get('app.debug')) {
       this.#app.log.info(this.#app.printRoutes())
     }
   }

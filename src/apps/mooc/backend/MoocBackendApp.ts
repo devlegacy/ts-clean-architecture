@@ -1,7 +1,12 @@
 import '../dependency-injection'
 
-import { config } from '@/Contexts/Shared/infrastructure'
+import { container } from 'tsyringe'
 
+import config from '@/Contexts/Mooc/Shared/infrastructure/config'
+import { EventBus } from '@/Contexts/Shared/domain'
+import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure'
+
+import { TYPES } from '../dependency-injection/types'
 import { Server } from './Server'
 
 export class MoocBackendApp {
@@ -12,9 +17,29 @@ export class MoocBackendApp {
   }
 
   async start() {
-    const port = config.get<number>('APP_PORT', 8080)
+    // containerBuilder()
+    await this.starHttp()
+    await this.startSubscribers()
+  }
+
+  async starHttp() {
+    const port = config.get('app.port')
     this.#server = new Server(port)
-    return await this.#server.listen()
+    await this.#server.listen()
+  }
+
+  async startSubscribers() {
+    await this.configureEventBus()
+  }
+
+  async configureEventBus() {
+    const eventBus = container.resolve<EventBus>(TYPES.EventBus)
+    eventBus.addSubscribers(
+      DomainEventSubscribers
+        .from
+        // containerBuilder()
+        ()
+    )
   }
 
   stop() {
