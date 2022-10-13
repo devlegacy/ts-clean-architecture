@@ -1,7 +1,8 @@
 import { AggregateRoot, NonFunctionProperties, PrimitiveProperties } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
-import { CourseDuration, CourseName, CourseType } from './value-object'
+import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
+import { CourseDuration, CourseName, CourseTag, CourseType } from './value-object'
 
 type CourseProps = NonFunctionProperties<Course>
 type CoursePrimitiveProps = PrimitiveProperties<CourseProps>
@@ -11,15 +12,32 @@ export class Course extends AggregateRoot {
   readonly name: CourseName
   readonly duration?: CourseDuration
   readonly type?: CourseType
+  readonly tag?: CourseTag
 
   // constructor({ id, name, duration }: { id: string; name: string; duration: string }) {
-  constructor(id: CourseId, name: CourseName, duration?: CourseDuration) {
+  constructor(id: CourseId, name: CourseName, duration?: CourseDuration, type?: CourseType, tag?: CourseTag) {
     // constructor(dto: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
     super()
     this.id = id
     this.name = name
     this.duration = duration
+    this.type = type
+    this.tag = tag
     // Object.assign(this, dto)
+  }
+
+  static create(id: CourseId, name: CourseName, duration?: CourseDuration) {
+    const course = new Course(id, name, duration)
+
+    course.record(
+      new CourseCreatedDomainEvent({
+        aggregateId: course.id.value,
+        duration: course.duration?.value,
+        name: course.name.value
+      })
+    )
+
+    return course
   }
 
   static fromPrimitives(props: CoursePrimitiveProps): Course {
@@ -31,7 +49,9 @@ export class Course extends AggregateRoot {
     return new Course(
       new CourseId(props.id),
       new CourseName(props.name),
-      !props.duration ? undefined : new CourseDuration(props.duration)
+      !props.duration ? undefined : new CourseDuration(props.duration),
+      !props.type ? undefined : CourseType.fromValue(props.type),
+      !props.tag ? undefined : CourseTag.fromValue(props.tag as string)
     )
   }
 
@@ -39,7 +59,9 @@ export class Course extends AggregateRoot {
     return {
       id: this.id.value,
       name: this.name.value,
-      duration: this.duration?.value
+      duration: this.duration?.value,
+      type: this.type?.value,
+      tag: this.tag?.value
     }
   }
 }

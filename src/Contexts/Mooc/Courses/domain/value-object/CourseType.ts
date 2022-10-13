@@ -7,16 +7,21 @@ export enum Type {
 
 export class CourseType extends EnumValueObject<Type> {
   constructor(value: Type) {
-    // NOTE: Se asume
+    // NOTE: Se asume casting de datos
+    // Object.values(Type).filter((t) => !isNaN(t as number)) as Type[]
     super(value, Object.values(Type) as Type[])
   }
 
-  static fromValue(value: number): CourseType {
+  static fromValue(value: string | number): CourseType {
     switch (value) {
       case Type.FREE:
         return new CourseType(Type.FREE)
       case Type.PREMIUM:
         return new CourseType(Type.PREMIUM)
+      case 'PREMIUM':
+        return new CourseType(Type['PREMIUM'])
+      case 'FREE':
+        return new CourseType(Type['FREE'])
       default:
         throw new InvalidArgumentException(`The course type ${value} is invalid`)
     }
