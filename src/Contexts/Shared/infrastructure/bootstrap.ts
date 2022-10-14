@@ -1,4 +1,3 @@
-import { info } from '@qualy/logger'
 import cluster from 'cluster'
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
@@ -9,6 +8,7 @@ import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
 
 import { isConstructor, normalizePath, Primary } from '@/Contexts/Shared/infrastructure'
+import { info } from '@/Contexts/Shared/infrastructure/logger'
 
 import {
   getMethodGroup,

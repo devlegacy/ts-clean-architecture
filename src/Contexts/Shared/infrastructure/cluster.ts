@@ -1,5 +1,6 @@
-import { info } from '@qualy/logger'
 import { Cluster } from 'cluster'
+
+import { info } from '@/Contexts/Shared/infrastructure/logger'
 
 export class Primary {
   private cluster: Cluster

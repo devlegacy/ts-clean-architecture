@@ -1,10 +1,11 @@
 import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
-import { logger } from '@qualy/logger'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, FastifyServerOptions } from 'fastify'
+
+import { logger } from '@/Contexts/Shared/infrastructure/logger'
 
 import { ValidationModule } from '../joi/joi'
 

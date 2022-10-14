@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { fatalErrorHandler } from '@qualy/logger'
+import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/logger'
 
 import { MoocBackendApp } from './MoocBackendApp'
 

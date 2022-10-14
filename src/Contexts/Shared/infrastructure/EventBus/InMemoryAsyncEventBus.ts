@@ -1,5 +1,6 @@
-import { info } from '@qualy/logger'
 import { EventEmitter } from 'events'
+
+import { info } from '@/Contexts/Shared/infrastructure/logger'
 
 import { DomainEvent, EventBus } from '../../domain'
 import { DomainEventSubscribers } from './DomainEventSubscribers'
