@@ -1,8 +1,9 @@
-import { ApolloServer } from 'apollo-server-fastify'
+import { ApolloServer, BaseContext } from '@apollo/server'
+import fastifyApollo, { fastifyApolloDrainPlugin } from '@as-integrations/fastify'
 import { FastifyInstance } from 'fastify'
 import { AddressInfo } from 'net'
 
-import { config, FastifyAdapter } from '@/Contexts/Shared/infrastructure'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure'
 
 import schema from './schema'
 
@@ -19,14 +20,15 @@ export class GraphQL {
 
     this.#app = adapter.instance
 
-    this.#apolloServer = new ApolloServer({
-      schema
+    this.#apolloServer = new ApolloServer<BaseContext>({
+      schema,
+      plugins: [fastifyApolloDrainPlugin(this.#app)]
     })
   }
 
   async listen() {
     await this.#apolloServer.start()
-    this.#app.register(this.#apolloServer.createHandler())
+    this.#app.register(fastifyApollo(this.#apolloServer))
 
     await this.#app.listen({
       port: this.#port,
@@ -35,12 +37,10 @@ export class GraphQL {
 
     const address: AddressInfo = this.#app.server.address() as AddressInfo
 
-    this.#app.log.info(
-      `🚀 GraphQl Server running on: http://localhost:${address.port}${this.#apolloServer.graphqlPath}`
-    )
+    this.#app.log.info(`🚀 GraphQl Server running on: http://localhost:${address.port}/graphql`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
 
-    const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)
+    const APP_DEBUG = true
     if (APP_DEBUG) {
       this.#app.log.info(this.#app.printRoutes())
     }

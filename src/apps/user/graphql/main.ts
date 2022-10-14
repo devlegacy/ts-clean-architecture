@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure'
+import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/logger'
 
 import { UserGraphQLApp } from './UserGraphQLApp'
 
