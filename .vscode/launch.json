@@ -72,15 +72,15 @@
         // "${file}"
       ],
       "windows": {
-        "type": "node",
-        "request": "launch",
-        "name": "🐞 Jest: Debug current file",
-        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js"
-        //   "args": [
-        //     "--runInBand",
-        //     "--detectOpenHandles",
-        //     "//${relativeFile}" // the // is a hack for windows files
-        //   ]
+        // "type": "node",
+        // "request": "launch",
+        // "name": "🐞 Jest: Debug current file",
+        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "args": [
+          "--runInBand",
+          "--detectOpenHandles",
+          "//${relativeFile}" // the // is a hack for windows files
+        ]
       },
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
@@ -181,9 +181,9 @@
       ],
       "type": "node",
       // https://github.com/pinojs/pino/issues/441
-      // "outputCapture": "std",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "outputCapture": "std"
+      // "console": "integratedTerminal",
+      // "internalConsoleOptions": "neverOpen"
     }
   ]
 }
