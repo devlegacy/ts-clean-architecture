@@ -1,4 +1,5 @@
 import { FastifySchema } from 'fastify'
+import HttpStatus from 'http-status'
 import Joi from 'joi'
 import { getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
 import { Constructor } from 'joi-class-decorators/internal/defs'
@@ -55,7 +56,7 @@ export const getMethodGroup = (group: RequestMethod): MethodGroup => {
   return undefined
 }
 
-export const Schema = (schema: FastifySchema, code = 400): MethodDecorator => {
+export const Schema = (schema: FastifySchema, code = HttpStatus.UNPROCESSABLE_ENTITY): MethodDecorator => {
   return (target: object, key: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const method = Reflect.getMetadata(METHOD_METADATA, descriptor.value)
 

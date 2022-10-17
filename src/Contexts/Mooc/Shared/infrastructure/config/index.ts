@@ -9,6 +9,12 @@ const moocConfig = convict({
     env: 'NODE_ENV'
   },
   app: {
+    ip: {
+      doc: 'The IP address to bind.',
+      format: 'ipaddress',
+      default: '0.0.0.0',
+      env: 'APP_IP_ADDRESS'
+    },
     port: {
       doc: 'The port to bind.',
       format: 'port',

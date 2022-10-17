@@ -99,8 +99,8 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
 
     // Is JOI
     if (err instanceof ValidationError) {
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY)
-      return res.send(err)
+      err.statusCode = HttpStatus.UNPROCESSABLE_ENTITY
+      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send(err)
     }
   }
 }
@@ -141,7 +141,8 @@ class GeneralValidationModule implements ValidationModule<unknown> {
     if ((err as unknown as HttpError)?.code) {
       return res.send(CreateHttpError(err.code, err.message))
     }
-    return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
+    // TODO: Improve general error handler to catch unknown errors
+    // return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
   }
 }
 
