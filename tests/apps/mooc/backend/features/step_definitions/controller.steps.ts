@@ -35,6 +35,10 @@ Then('the response should be empty', () => {
   assert.deepStrictEqual(_response.body, {})
 })
 
+Then('the response content should be:', (response) => {
+  assert.deepStrictEqual(_response.body, JSON.parse(response))
+})
+
 BeforeAll(
   {
     timeout: 2 * 5000

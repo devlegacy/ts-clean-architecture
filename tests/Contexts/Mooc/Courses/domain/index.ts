@@ -1,3 +1,4 @@
+export * from './CourseCreatedDomainEventMother'
 export * from './CourseDurationMother'
 export * from './CourseIdMother'
 export * from './CourseMother'
