@@ -1,3 +1,5 @@
+import { container } from 'tsyringe'
+
 import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
 
 import { DomainEvent, DomainEventSubscriber } from '../../domain'
@@ -10,9 +12,9 @@ export class DomainEventSubscribers {
     const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
     const subscribers: DomainEventSubscriber<DomainEvent>[] = []
 
-    subscriberDefinitions.forEach((_key) => {
-      //   const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(key)
-      //   subscribers.push(domainEventSubscriber)
+    subscriberDefinitions.forEach((key) => {
+      const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(key)
+      subscribers.push(domainEventSubscriber)
     })
 
     return new DomainEventSubscribers(subscribers)

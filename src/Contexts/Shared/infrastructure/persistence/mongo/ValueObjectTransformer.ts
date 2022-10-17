@@ -16,6 +16,12 @@ export class ValueObjectTransformer {
   }
 
   convertToJSValue(value: any) {
+    if (this.type === 'ObjectId') {
+      return new this.ValueObject(value.toString())
+    } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
+      return value.map((v) => new this.ValueObject(v.toString()))
+    }
+
     return new this.ValueObject(value)
   }
 

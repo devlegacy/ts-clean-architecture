@@ -1,9 +1,13 @@
+import { CoursesCounterFinder } from '@/Contexts/Mooc/CoursesCounter/application'
 import { Controller, Get } from '@/Contexts/Shared/infrastructure'
 
 @Controller('courses-counter')
 export class CoursesCounterController {
+  constructor(private coursesCounterFinder: CoursesCounterFinder) {}
+
   @Get()
-  show() {
-    return {}
+  async show() {
+    const total = await this.coursesCounterFinder.run()
+    return { total }
   }
 }

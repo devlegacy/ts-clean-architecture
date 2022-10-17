@@ -11,7 +11,7 @@ const moocConfig = convict({
   app: {
     ip: {
       doc: 'The IP address to bind.',
-      format: 'ipaddress',
+      // format: 'ipaddress',
       default: '0.0.0.0',
       env: 'APP_IP_ADDRESS'
     },

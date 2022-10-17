@@ -17,8 +17,12 @@ export class CoursesCounter extends AggregateRoot {
     this.existingCourses = existingCourses || []
   }
 
-  public get total(): CoursesCounterTotal {
+  get total(): CoursesCounterTotal {
     return this._total
+  }
+
+  private set total(total: CoursesCounterTotal) {
+    this._total = total
   }
 
   static initialize(id: Uuid): CoursesCounter {
@@ -34,12 +38,15 @@ export class CoursesCounter extends AggregateRoot {
   }
 
   increment(courseId: CourseId) {
+    // NOTE: Try to fix values when are returned by database or ORM
     this._total = this.total.increment()
+    this.total = this._total
+
     this.existingCourses.push(courseId)
     this.record(
       new CoursesCounterIncrementedDomainEvent({
         aggregateId: this.id.value,
-        total: this.total.value
+        total: this._total.value
       })
     )
   }

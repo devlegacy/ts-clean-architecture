@@ -34,7 +34,7 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
       serializedPrimaryKey: true
     },
     total: {
-      customType: new ValueObjectTransformer(CoursesCounterTotal, 'string')
+      customType: new ValueObjectTransformer(CoursesCounterTotal, 'number')
     },
     existingCourses: {
       customType: new ValueObjectTransformer(CourseId, 'ObjectId[]')

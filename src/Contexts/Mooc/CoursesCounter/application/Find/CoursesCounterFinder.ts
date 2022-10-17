@@ -1,10 +1,12 @@
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
+
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
 
 import { CoursesCounterNotExist, CoursesCounterRepository } from '../../domain'
 
 @injectable()
 export class CoursesCounterFinder {
-  constructor(private repository: CoursesCounterRepository) {}
+  constructor(@inject(TYPES?.CoursesCounterRepository) private repository: CoursesCounterRepository) {}
 
   async run() {
     const counter = await this.repository.search()

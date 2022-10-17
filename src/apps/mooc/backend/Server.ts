@@ -19,7 +19,6 @@ export class Server {
 
     const adapter = new FastifyAdapter()
     adapter.enableCors()
-    // TODO: One or more - plug | module
     adapter
       .setValidationModule(new JoiModule())
       .setValidationModule(new ZodModule())
@@ -41,7 +40,7 @@ export class Server {
 
     await this.#app.listen({
       port: this.#port,
-      host: '0.0.0.0'
+      host: config.get('app.ip')
     })
 
     this.#httpServer = this.#app.server

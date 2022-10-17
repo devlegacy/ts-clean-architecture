@@ -8,7 +8,12 @@ import { CoursesCounterEntity } from './mongo/CoursesCounterEntity'
 
 export class MongoCoursesCounterRepository extends MongoRepository<CoursesCounter> implements CoursesCounterRepository {
   async search(): Promise<Nullable<CoursesCounter>> {
-    return null
+    const repository = await this.repository()
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const courseCounter = await repository.findOne({ total: { $exists: true } }, { convertCustomTypes: false })
+    return courseCounter
   }
 
   async save(counter: CoursesCounter): Promise<void> {
