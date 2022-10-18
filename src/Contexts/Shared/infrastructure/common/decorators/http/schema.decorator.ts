@@ -2,19 +2,19 @@ import { FastifySchema } from 'fastify'
 import HttpStatus from 'http-status'
 import Joi from 'joi'
 import { getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
-import { Constructor } from 'joi-class-decorators/internal/defs'
+import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 
 import { METHOD_METADATA, SCHEMA_METADATA } from '../../constants'
 import { RequestMethod } from '../../enums'
 
-type MethodGroup = { group: JoiValidationGroup } | undefined
+type SchemaMethodGroup = { group: JoiValidationGroup } | undefined
 
-const isJoiCandidate = (objectSchema: any) =>
+const isSchemaJoiCandidate = (objectSchema: unknown) =>
   typeof objectSchema === 'function' &&
-  Reflect.getMetadataKeys(objectSchema?.prototype)?.length &&
-  Reflect.getMetadataKeys(objectSchema.prototype)[0]?.description === 'JOI_CLASSDECORATORS_SCHEMA_PROTO_KEY'
+  Array.isArray(Reflect.getMetadataKeys(objectSchema?.prototype)) &&
+  Reflect.getMetadataKeys(objectSchema.prototype)[0] === SCHEMA_PROTO_KEY
 
-export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySchema | undefined => {
+export const getSchema = (schema: FastifySchema, group?: SchemaMethodGroup): FastifySchema | undefined => {
   let invalidSchemas = 0
   const keys = Object.keys(schema) as (keyof FastifySchema)[]
   if (!keys.length) return undefined
@@ -23,9 +23,8 @@ export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySc
     const objectSchema = schema[key] || {}
     if (Joi.isSchema(objectSchema)) continue // Avoid transform if is already a joi schema
 
-    if (isJoiCandidate(objectSchema)) {
+    if (isSchemaJoiCandidate(objectSchema)) {
       const buildSchema = getClassSchema(objectSchema as Constructor, group)
-
       if (Joi.isSchema(buildSchema)) {
         schema[key] = buildSchema
         continue
@@ -45,7 +44,7 @@ export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySc
   return schema
 }
 
-export const getMethodGroup = (group: RequestMethod): MethodGroup => {
+export const getMethodGroup = (group: RequestMethod): SchemaMethodGroup => {
   if (group === RequestMethod.POST) {
     return { group: 'CREATE' }
   } else if ([RequestMethod.PUT, RequestMethod.PATCH].includes(group)) {

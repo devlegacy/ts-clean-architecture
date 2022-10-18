@@ -25,7 +25,7 @@ import {
   ROUTE_ARGS_METADATA,
   SCHEMA_METADATA
 } from './common/constants'
-import { ControllerResolver, TsyringeControllerResolver } from './common/dependency-injection'
+import { ControllerResolver } from './common/dependency-injection'
 import { PipeTransform } from './common/interfaces'
 
 const availableCpus = cpus().length
@@ -219,7 +219,7 @@ export const bootstrap = async (
 
   const controllers = await entitiesRegister(props.controller)
   for (const controller of controllers) {
-    const instance = TsyringeControllerResolver(controller)
+    const instance = props.resolver ? props.resolver(controller) : new controller()
     // has controller path by metadata
     // has arguments by method name and metadata
     const instanceConstructor = instance.constructor
