@@ -1,9 +1,11 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
-import { ZodError, ZodObject } from 'zod'
+import { ZodError, ZodObject, ZodSchema, ZodTypeDef } from 'zod'
 
 import { ValidationModule } from '../platform-fastify'
+
+// Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts
 
 export class ZodModule implements ValidationModule<ZodObject<any>> {
   validationCompiler(schemaDefinition: FastifyRouteSchemaDef<ZodObject<any>>) {
@@ -29,4 +31,30 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
       return res.send(err.issues)
     }
   }
+}
+
+export interface ZodDto<TOutput = any, TDef extends ZodTypeDef = ZodTypeDef, TInput = TOutput> {
+  new (): TOutput
+  isZodDto: true
+  schema: ZodSchema<TOutput, TDef, TInput>
+  create(input: unknown): TOutput
+}
+
+export function createZodDto<TOutput = any, TDef extends ZodTypeDef = ZodTypeDef, TInput = TOutput>(
+  schema: ZodSchema<TOutput, TDef, TInput>
+) {
+  class AugmentedZodDto {
+    static isZodDto = true
+    static schema = schema
+
+    static create(input: unknown) {
+      return this.schema.parse(input)
+    }
+  }
+
+  return AugmentedZodDto as unknown as ZodDto<TOutput, TDef, TInput>
+}
+
+export function isZodDto(metatype: any): metatype is ZodDto<unknown> {
+  return metatype?.isZodDto
 }
