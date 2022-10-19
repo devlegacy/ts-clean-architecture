@@ -24,8 +24,16 @@
 │  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
+│  │  │  │  │  ├─ 📄 `CourseUseCase.ts`    
+│  │  │  │  │  ├─ 📄 `Course[UseCase].ts`   
+│  │  │  │  │  ├─ 📄 `CoursesResponse.ts `   
 │  │  │  │  ├─ 📂 `domain/` - ¿De qué tipo? (UserId, User, UserRepository)   
+│  │  │  │  │  ├─ 📂 `exceptions/`   
+│  │  │  │  │  ├─ 📂 `value-objects/`   
 │  │  │  │  ├─ 📂 `infrastructure/` - ¿De qué tipo? (UserPostController, MySQLUserRepository)    
+│  │  │  │  │  ├─ 📂 `persistence/`    
+│  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
+│  │  │  │  │  │  ├─ 📂 `typeorm/` - ORM/Data mapper que permite manejar multiples drivers   
 │  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
 │  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus     
 │  ├─ 📂 `apps/`     
