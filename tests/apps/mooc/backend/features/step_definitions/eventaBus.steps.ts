@@ -5,7 +5,7 @@ import { container } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/dependency-injection/types'
 import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventDeserializer, DomainEventSubscribers } from '@/Contexts/Shared/infrastructure'
+import { DomainEventDeserializer, DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
 
 const eventBus = container.resolve<EventBus>(TYPES.EventBus)
 const deserializer = buildDeserializer()

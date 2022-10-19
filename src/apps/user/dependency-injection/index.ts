@@ -4,7 +4,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container } from 'tsyringe'
 
-import { config, ConfigService, MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure'
+import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure'
 import { UserRepository } from '@/Contexts/User/Users/domain'
 import { MongoUserRepository } from '@/Contexts/User/Users/infrastructure'
@@ -12,7 +12,7 @@ import { MongoUserRepository } from '@/Contexts/User/Users/infrastructure'
 import { TYPES } from './types'
 
 // Bootstrap global dependencies
-container.register<ConfigService>(TYPES.config, { useValue: config })
+// container.register<ConfigService>(TYPES.config, { useValue: config })
 
 // Infrastructure
 const mongoConfig = MongoConfigFactory.createConfig()

@@ -1,5 +1,5 @@
 import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure'
+import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
 
 export class EventBusMock implements EventBus {
   private publishSpy = jest.fn()
