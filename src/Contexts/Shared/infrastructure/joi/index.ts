@@ -140,9 +140,10 @@ class GeneralValidationModule implements ValidationModule<unknown> {
     // Is our HTTP
     if ((err as unknown as HttpError)?.code) {
       return res.send(CreateHttpError(err.code, err.message))
+    } else if (!res.sent) {
+      // TODO: Improve general error handler to catch unknown errors
+      return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
     }
-    // TODO: Improve general error handler to catch unknown errors
-    // return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
   }
 }
 

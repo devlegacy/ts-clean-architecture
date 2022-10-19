@@ -5,7 +5,7 @@ import { resolve } from 'path'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { bootstrap, FastifyAdapter, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
-import { GeneralValidationModule, JoiModule, ZodModule } from '@/Contexts/Shared/infrastructure/joi/joi'
+import { GeneralValidationModule, JoiModule, ZodModule } from '@/Contexts/Shared/infrastructure/joi'
 
 export class Server {
   #port: number

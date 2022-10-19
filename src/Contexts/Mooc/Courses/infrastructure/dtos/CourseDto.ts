@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/joi/joi'
+import { Joi } from '@/Contexts/Shared/infrastructure/joi'
 // import { z } from 'zod'
 
 // import { createZodDto } from '@/Contexts/Shared/infrastructure'

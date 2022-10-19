@@ -1,9 +1,10 @@
 import { ArgumentMetadata, PipeTransform } from '../common/interfaces'
-import { Joi } from '../joi/joi'
+import { Joi } from '../joi'
+import { info } from '../logger'
 
 export class PageNumberPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
-    console.log(value, metadata)
+    info(`${value} ${metadata}`)
     const schema = Joi.object({
       value: Joi.number().min(0).required()
     })

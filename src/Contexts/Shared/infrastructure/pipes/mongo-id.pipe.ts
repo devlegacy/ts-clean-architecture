@@ -1,10 +1,11 @@
 import { ArgumentMetadata, PipeTransform } from '../common/interfaces'
-import { Joi } from '../joi/joi'
+import { Joi } from '../joi'
+import { info } from '../logger'
 
 export class MongoIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     // metadata key: value
-    console.log(value, metadata)
+    info(`${value} ${metadata}`)
     const schema = Joi.object({
       // metadata key: value
       value: Joi.string().trim().objectId().required()
