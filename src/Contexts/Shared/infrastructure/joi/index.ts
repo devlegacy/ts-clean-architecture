@@ -8,9 +8,8 @@ import { ValidationError } from 'joi'
 import * as joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
-import { ZodError, ZodObject } from 'zod'
 
-import { HttpError } from '../http/http-error'
+import { HttpError, ValidationModule } from '../platform-fastify'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
@@ -68,11 +67,6 @@ const validationOptions: joi.ValidationOptions = {
 
 // Sentry.init(options)
 
-export interface ValidationModule<T> {
-  validationCompiler: (schemaDefinition: FastifyRouteSchemaDef<T>) => any
-  errorHandler: (error: FastifyError, req: FastifyRequest, res: FastifyReply) => void
-}
-
 class JoiModule implements ValidationModule<joi.AnySchema> {
   validationCompiler(schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>) {
     const { schema } = schemaDefinition
@@ -105,32 +99,6 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
   }
 }
 
-class ZodModule implements ValidationModule<ZodObject<any>> {
-  validationCompiler(schemaDefinition: FastifyRouteSchemaDef<ZodObject<any>>) {
-    const { schema } = schemaDefinition
-
-    if (schema instanceof ZodObject)
-      return (data: unknown) => {
-        return schema.parse(data)
-      }
-  }
-
-  // TODO: Create as Fastify JOI Schema Error Formatter
-  // this._app.setSchemaErrorFormatter((errors) => {
-  //   this._app.log.error({ err: errors }, 'Validation failed')
-
-  //   return new Error('Error!')
-  // })
-
-  errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
-    // Is Zod
-    if (err instanceof ZodError) {
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY)
-      return res.send(err.issues)
-    }
-  }
-}
-
 class GeneralValidationModule implements ValidationModule<unknown> {
   validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): any {
     //
@@ -159,4 +127,4 @@ export const { CREATE } = JoiValidationGroups
 export const { UPDATE } = JoiValidationGroups
 
 export const Joi = joi.extend(stringObjectExtension) as ExtendedJoi
-export { GeneralValidationModule, JoiModule, ZodModule }
+export { GeneralValidationModule, JoiModule }

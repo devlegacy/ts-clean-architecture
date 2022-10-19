@@ -3,7 +3,7 @@ import fastifyApollo, { fastifyApolloDrainPlugin } from '@as-integrations/fastif
 import { FastifyInstance } from 'fastify'
 import { AddressInfo } from 'net'
 
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 
 import schema from './schema'
 

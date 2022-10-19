@@ -4,8 +4,10 @@ import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
-import { bootstrap, FastifyAdapter, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
-import { GeneralValidationModule, JoiModule, ZodModule } from '@/Contexts/Shared/infrastructure/joi'
+import { bootstrap, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
+import { GeneralValidationModule, JoiModule } from '@/Contexts/Shared/infrastructure/joi'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { ZodModule } from '@/Contexts/Shared/infrastructure/zod/zod'
 
 export class Server {
   #port: number

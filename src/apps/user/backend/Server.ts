@@ -3,7 +3,8 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import { bootstrap, config, FastifyAdapter, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
+import { bootstrap, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 
 export class Server {
   #port: number
@@ -21,7 +22,8 @@ export class Server {
   async bootstrap() {
     await bootstrap(this.#app, {
       controller: resolve(__dirname, './controllers'),
-      resolver: TsyringeControllerResolver
+      resolver: TsyringeControllerResolver,
+      isProduction: false
       // prefix: '/api/'
     })
   }
@@ -42,7 +44,7 @@ export class Server {
     this.#app.log.info(`\t\t\t\thttp://localhost:${address.port}`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
 
-    const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)
+    const APP_DEBUG = true
     if (APP_DEBUG) {
       this.#app.log.info(this.#app.printRoutes())
     }

@@ -7,7 +7,7 @@ import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, F
 
 import { logger } from '@/Contexts/Shared/infrastructure/logger'
 
-import { ValidationModule } from '../joi'
+import { ValidationModule } from './interfaces'
 
 const ajv = {
   customOptions: {
