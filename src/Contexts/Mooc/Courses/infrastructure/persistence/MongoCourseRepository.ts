@@ -1,6 +1,6 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { Nullable } from '@/Contexts/Shared/domain'
+import { Criteria, Nullable } from '@/Contexts/Shared/domain'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoRepository'
 
 import { Course, CourseRepository } from '../../domain'
@@ -13,6 +13,12 @@ export interface CourseDocument {
 }
 
 export class MongoCourseRepository extends MongoRepository<Course> implements CourseRepository {
+  async findBy(criteria: Criteria): Promise<Course[]> {
+    const documents = await this.findByCriteria(criteria)
+
+    return documents
+  }
+
   async save(course: Course): Promise<void> {
     return this.persist(course)
   }

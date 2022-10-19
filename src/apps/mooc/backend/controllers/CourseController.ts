@@ -1,11 +1,13 @@
 import HttpStatus from 'http-status'
 
-import { CourseCreator } from '@/Contexts/Mooc/Courses/application'
+import { CourseCreator, CoursesByCriteriaFinder } from '@/Contexts/Mooc/Courses/application'
 // import { UpdateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/CourseSchema'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
+import { Filters, Order } from '@/Contexts/Shared/domain'
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   Put
   // Req
@@ -14,7 +16,30 @@ import {
 
 @Controller('courses')
 export class CourseController {
-  constructor(private readonly courseCreator: CourseCreator) {}
+  constructor(
+    private readonly courseCreator: CourseCreator,
+    private readonly coursesByCriteria: CoursesByCriteriaFinder
+  ) {}
+
+  @Get()
+  async index() {
+    const filterName: Map<string, string> = new Map([
+      ['field', 'name'],
+      ['operator', 'CONTAINS'],
+      ['value', 'ability']
+    ])
+    // const filterDuration: Map<string, string> = new Map([
+    //   ['field', 'duration'],
+    //   ['operator', 'CONTAINS'],
+    //   ['value', 'minutes']
+    // ])
+
+    const filters = Filters.fromValues([filterName] as Map<string, string>[])
+
+    const order = Order.fromValues('id')
+    const courses = await this.coursesByCriteria.run(filters, order, 6, 0)
+    return courses.map((course) => course.toPrimitives())
+  }
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)

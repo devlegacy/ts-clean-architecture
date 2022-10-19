@@ -51,11 +51,13 @@ import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container } from 'tsyringe'
 
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain'
 
 import { SHARED_TYPES } from '../../common'
+import { MongoCriteriaConverter } from './MongoCriteriaConverter'
 
 export abstract class MongoRepository<T extends AggregateRoot> {
+  private criteriaConverter: MongoCriteriaConverter
   // Diod
   // constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {}
 
@@ -67,6 +69,10 @@ export abstract class MongoRepository<T extends AggregateRoot> {
   // this._client = client
   // }
   // }
+
+  constructor() {
+    this.criteriaConverter = new MongoCriteriaConverter()
+  }
 
   protected client(): Promise<MikroORM<MongoDriver>> {
     return this._client
@@ -90,6 +96,24 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     repository.persist(aggregateRoot)
 
     await repository.flush()
+  }
+
+  protected async findByCriteria(criteria: Criteria): Promise<T[]> {
+    const query = this.criteriaConverter.convert(criteria)
+
+    const collection = await this.repository()
+
+    const documents = await collection.find(
+      { ...(query.filter as any) },
+      {
+        convertCustomTypes: false,
+        orderBy: query.sort as any,
+        limit: query.limit,
+        offset: query.skip
+      }
+    )
+
+    return documents
   }
 
   protected abstract entitySchema(): EntitySchema<T>

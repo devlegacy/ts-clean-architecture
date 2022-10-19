@@ -1,7 +1,7 @@
 import { EntitySchema } from '@mikro-orm/core'
 
 import { Nullable } from '@/Contexts/Shared/domain'
-import { MongoRepository } from '@/Contexts/Shared/infrastructure'
+import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { CoursesCounter, CoursesCounterRepository } from '../../domain'
 import { CoursesCounterEntity } from './mongo/CoursesCounterEntity'

@@ -1,9 +1,14 @@
 import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain'
+import { Criteria } from '@/Contexts/Shared/domain'
 
 export class CourseRepositoryMock implements CourseRepository {
   mockSave: jest.Mock
   constructor() {
     this.mockSave = jest.fn()
+  }
+
+  async findBy(_criteria: Criteria): Promise<Course[]> {
+    return []
   }
 
   async save(course: Course): Promise<void> {

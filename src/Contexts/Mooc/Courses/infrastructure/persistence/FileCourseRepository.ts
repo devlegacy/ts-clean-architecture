@@ -1,10 +1,16 @@
 import { deserialize, serialize } from 'bson'
 import fs from 'fs'
 
+import { Criteria } from '@/Contexts/Shared/domain'
+
 import { Course, CourseRepository } from '../../domain'
 
 export class FileCourseRepository implements CourseRepository {
   private FILE_PATH = `${__dirname}/Courses`
+
+  async findBy(_criteria: Criteria): Promise<Course[]> {
+    return []
+  }
 
   async save(course: Course) {
     fs.promises.writeFile(this.filePath(course.id.value), serialize(course))
