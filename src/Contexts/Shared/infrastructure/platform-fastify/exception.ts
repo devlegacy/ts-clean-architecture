@@ -1,4 +1,4 @@
-import { HttpError } from './platform-fastify/http-error'
+import { HttpError } from './interfaces'
 
 export class Exception extends Error {
   constructor(message?: string) {

@@ -1,6 +1,3 @@
 export * from './bootstrap'
 export * from './cluster'
-export * from './exception'
-export * from './pipes/mongo-id.pipe'
-export * from './pipes/page-number.pipe'
 export * from './shared.utils'
