@@ -16,15 +16,8 @@ import {
   // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
 import { EventBus } from '@/Contexts/Shared/domain'
-import {
-  // config,
-  // ConfigService,
-  InMemoryAsyncEventBus,
-  MongoClientFactory,
-  MongoConfig
-  // , TypeOrmClientFactory
-  // , TypeOrmConfig
-} from '@/Contexts/Shared/infrastructure'
+import { InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure/EventBus'
+import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { TYPES } from './types'
 
