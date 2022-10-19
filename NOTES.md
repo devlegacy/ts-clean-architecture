@@ -52,7 +52,7 @@
 │  │  │  │  ├─ 📂 `infrastructure/`     
 │  │  │  ├─ 📂 `Shared/`     
 │  │  ├─ 📂 `Shared/`     
-│  ├─ 📂 `apps/` Aceptación | Caja negra | End to end - Probar una funcionalidad desde el punto más externo sin conocer la implementación que hay por dentro
+│  ├─ 📂 `apps/` Aceptación | Caja negra | End to end - Probar una funcionalidad desde el punto más externo sin conocer la implementación que hay por dentro    
 │  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     
 │  │  │  │  ├─ 📂 `features/`     
