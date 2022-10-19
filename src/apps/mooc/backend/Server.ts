@@ -4,9 +4,9 @@ import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
-import { bootstrap, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure'
+import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
 import { GeneralValidationModule, JoiModule } from '@/Contexts/Shared/infrastructure/joi'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { bootstrap, FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 import { ZodModule } from '@/Contexts/Shared/infrastructure/zod/zod'
 
 export class Server {

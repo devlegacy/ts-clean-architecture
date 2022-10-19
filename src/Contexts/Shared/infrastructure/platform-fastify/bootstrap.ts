@@ -7,7 +7,6 @@ import { join, resolve } from 'path'
 import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
 
-import { isConstructor, normalizePath, Primary } from '@/Contexts/Shared/infrastructure'
 import { info } from '@/Contexts/Shared/infrastructure/logger'
 
 import {
@@ -17,16 +16,18 @@ import {
   RequestMethod,
   RouteParamMetadata,
   RouteParamtypes
-} from './common'
+} from '../common'
 import {
   HTTP_CODE_METADATA,
   METHOD_METADATA,
   PATH_METADATA,
   ROUTE_ARGS_METADATA,
   SCHEMA_METADATA
-} from './common/constants'
-import { ControllerResolver } from './common/dependency-injection'
-import { PipeTransform } from './common/interfaces'
+} from '../common/constants'
+import { ControllerResolver } from '../common/dependency-injection'
+import { PipeTransform } from '../common/interfaces'
+import { Primary } from './cluster'
+import { isConstructor, normalizePath } from './shared.utils'
 
 const availableCpus = cpus().length
 
