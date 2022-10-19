@@ -12,7 +12,7 @@ import {
   Put
   // Req
   //  Schema
-} from '@/Contexts/Shared/infrastructure'
+} from '@/Contexts/Shared/infrastructure/common'
 
 @Controller('courses')
 export class CourseController {

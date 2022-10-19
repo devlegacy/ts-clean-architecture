@@ -1,5 +1,5 @@
 import { CoursesCounterFinder } from '@/Contexts/Mooc/CoursesCounter/application'
-import { Controller, Get } from '@/Contexts/Shared/infrastructure'
+import { Controller, Get } from '@/Contexts/Shared/infrastructure/common'
 
 @Controller('courses-counter')
 export class CoursesCounterController {
