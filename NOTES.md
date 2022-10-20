@@ -36,6 +36,18 @@
 │  │  │  │  │  │  ├─ 📂 `typeorm/` - ORM/Data mapper que permite manejar multiples drivers   
 │  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
 │  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus     
+│  │  │  ├─ 📂 `domain/`     
+│  │  │  ├─ 📂 `infrastructure/`    
+│  │  │  │  ├─ 📂 `EventBus/`    
+│  │  │  │  ├─ 📂 `persistence/`    
+│  │  │  │  ├─ 📂 `logger/`     
+│  │  │  │  ├─ 📂 `common/`  own modules and config to improve other infrastructures modules   
+│  │  │  │  ├─ 📂 `platform-fastify/`     
+│  │  │  │  ├─ 📂 `joi/`     
+│  │  │  │  ├─ 📂 `zod/`     
+│  │  │  │  ├─ 📂 `pipes/`     
+│  │  │  │  ├─ 📂 `sentry/`     
+│  │  │  │  ├─ 📂 `swagger/`     
 │  ├─ 📂 `apps/`     
 │  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     

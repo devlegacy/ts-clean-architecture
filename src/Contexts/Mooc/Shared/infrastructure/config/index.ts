@@ -1,4 +1,5 @@
 import convict from 'convict'
+import { existsSync } from 'fs'
 import { resolve } from 'path'
 
 const moocConfig = convict({
@@ -80,14 +81,28 @@ const moocConfig = convict({
       env: 'TYPEORM_DATABASE',
       default: 'mooc'
     }
+  },
+  sentry: {
+    dsn: {
+      doc: 'The Sentry connection DSN.',
+      format: String,
+      env: 'SENTRY_DSN'
+    }
   }
 })
+
 // env: {
 //   doc: undefined,
 //   format: undefined,
 //   default: undefined,
 //   env: undefined
 // }
-moocConfig.loadFile([resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${moocConfig.get('env')}.json`)])
+
+const filePaths = [
+  resolve(`${__dirname}/default.json`),
+  resolve(`${__dirname}/${moocConfig.get('app.env')}.json`)
+].filter((path) => existsSync(path))
+
+moocConfig.loadFile(filePaths)
 
 export default moocConfig

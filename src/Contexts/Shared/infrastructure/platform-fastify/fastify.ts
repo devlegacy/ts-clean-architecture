@@ -7,6 +7,7 @@ import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, F
 
 import { logger } from '@/Contexts/Shared/infrastructure/logger'
 
+import { SentryModule } from '../sentry'
 import { ValidationModule } from './interfaces'
 
 const ajv = {
@@ -65,6 +66,7 @@ export class FastifyAdapter {
   }
 
   get instance() {
+    const sentry = new SentryModule()
     this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
       for (const m of this.#validations) {
         if (m.validationCompiler(schemaDefinition)) {
@@ -73,6 +75,9 @@ export class FastifyAdapter {
       }
     })
     this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
+      // TODO: Improve
+      sentry.capture(req, error)
+
       for (const m of this.#validations) {
         m.errorHandler(error, req, res)
       }

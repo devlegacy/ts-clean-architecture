@@ -17,13 +17,13 @@ import { Joi } from '@/Contexts/Shared/infrastructure/joi'
 
 export class CourseDto {
   @JoiSchema(Joi.string().required())
-  id!: string
+  readonly id!: string
 
   @JoiSchema(Joi.string().required())
-  name!: string
+  readonly name!: string
 
   @JoiSchema(Joi.string().optional())
-  duration?: string
+  readonly duration?: string
 }
 
 // export const Course = z.object({

@@ -1,1 +1,5 @@
-{}
+{
+  "sentry": {
+    "dsn": "https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751"
+  }
+}
