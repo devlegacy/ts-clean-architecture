@@ -52,8 +52,8 @@
     "@mikro-orm/core": "5.4.2",
     "@mikro-orm/mongo-highlighter": "1.0.0",
     "@mikro-orm/mongodb": "5.4.2",
-    "@sentry/node": "7.15.0",
-    "@sentry/tracing": "7.15.0",
+    "@sentry/node": "7.16.0",
+    "@sentry/tracing": "7.16.0",
     "ajv": "8.11.0",
     "apollo-server-core": "3.10.3",
     "apollo-server-fastify": "3.10.3",
@@ -68,7 +68,7 @@
     "http-status": "1.5.3",
     "joi": "17.6.3",
     "joi-class-decorators": "1.1.0",
-    "mongodb": "4.10.0",
+    "mongodb": "4.11.0",
     "mongoose": "6.6.5",
     "pg": "8.8.0",
     "pino": "8.6.1",
@@ -129,7 +129,7 @@
     "typescript": "4.8.4"
   },
   "optionalDependencies": {
-    "npm-check-updates": "16.3.13"
+    "npm-check-updates": "16.3.14"
   },
   "engines": {
     "node": ">=16.15.0 <=18.9.1",
