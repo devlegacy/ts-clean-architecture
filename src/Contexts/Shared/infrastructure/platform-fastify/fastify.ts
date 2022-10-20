@@ -7,7 +7,9 @@ import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, F
 
 import { logger } from '@/Contexts/Shared/infrastructure/logger'
 
+import { ControllerResolver } from '../common'
 import { SentryModule } from '../sentry'
+import { bootstrap } from './bootstrap'
 import { ValidationModule } from './interfaces'
 
 const ajv = {
@@ -74,11 +76,22 @@ export class FastifyAdapter {
         }
       }
     })
+
+    this.#instance.setSchemaErrorFormatter((_errors) => {
+      // for (const m of this.#validations) {
+      //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //   // @ts-expect-error
+      //   m?.schemaErrorFormatter(errors)
+      // }
+      return new Error('')
+    })
+
     this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
       // TODO: Improve
       sentry.capture(req, error)
 
       for (const m of this.#validations) {
+        if (res.sent) break
         m.errorHandler(error, req, res)
       }
     })
@@ -94,5 +107,14 @@ export class FastifyAdapter {
     this.#validations.push(validationModule)
 
     return this
+  }
+
+  async bootstrap(props: {
+    controller: string
+    isProduction: boolean
+    prefix?: string
+    resolver?: ControllerResolver
+  }) {
+    await bootstrap(this.#instance, props)
   }
 }

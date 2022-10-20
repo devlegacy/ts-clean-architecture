@@ -5,40 +5,37 @@ import { resolve } from 'path'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
-import { GeneralValidationModule, JoiModule } from '@/Contexts/Shared/infrastructure/joi'
-import { bootstrap, FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { ZodModule } from '@/Contexts/Shared/infrastructure/zod/zod'
+import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { ZodModule } from '@/Contexts/Shared/infrastructure/zod'
 
 export class Server {
   #port: number
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
-  #app: FastifyInstance
+  #adapter: FastifyAdapter = new FastifyAdapter()
+  #app?: FastifyInstance
   #httpServer?: http.Server
 
   constructor(port = 8080) {
     this.#port = port
 
-    const adapter = new FastifyAdapter()
-    adapter.enableCors()
-    adapter
+    this.#adapter.enableCors()
+    this.#adapter
       .setValidationModule(new JoiModule())
       .setValidationModule(new ZodModule())
       .setValidationModule(new GeneralValidationModule())
-
-    this.#app = adapter.instance
   }
 
-  async bootstrap() {
-    await bootstrap(this.#app, {
+  async listen() {
+    await this.#adapter.bootstrap({
       controller: resolve(__dirname, './controllers'),
       resolver: TsyringeControllerResolver,
       isProduction: config.get('app.env') === 'production'
     })
-  }
 
-  async listen() {
-    await this.bootstrap()
+    this.#app = this.#adapter.instance
 
     await this.#app.listen({
       port: this.#port,
@@ -66,7 +63,7 @@ export class Server {
     try {
       this.#httpServer?.close()
     } catch (e) {
-      this.#app.log.error(e)
+      this.#app?.log?.error(e)
     }
   }
 }

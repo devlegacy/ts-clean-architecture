@@ -1,4 +1,4 @@
-import { MongoConfig } from '@/Contexts/Shared/infrastructure'
+import { MongoConfig } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
 
 import config from '../../config'
 

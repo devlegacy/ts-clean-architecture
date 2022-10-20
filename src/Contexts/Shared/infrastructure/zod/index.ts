@@ -34,9 +34,9 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
 }
 
 export interface ZodDto<TOutput = any, TDef extends ZodTypeDef = ZodTypeDef, TInput = TOutput> {
-  new (): TOutput
   isZodDto: true
   schema: ZodSchema<TOutput, TDef, TInput>
+  new (): TOutput
   create(input: unknown): TOutput
 }
 

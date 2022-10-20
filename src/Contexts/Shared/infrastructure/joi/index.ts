@@ -1,13 +1,12 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef } from 'fastify/types/schema'
-import CreateHttpError from 'http-errors'
 import HttpStatus from 'http-status'
 import { ValidationError } from 'joi'
 import * as joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
 
-import { HttpError, ValidationModule } from '../platform-fastify'
+import { ValidationModule } from '../platform-fastify'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
@@ -55,34 +54,44 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
       }
   }
 
-  // TODO: Create as Fastify JOI Schema Error Formatter
-  // this._app.setSchemaErrorFormatter((errors) => {
-  //   this._app.log.error({ err: errors }, 'Validation failed')
+  schemaErrorFormatter(validationError: ValidationError) {
+    const errors = new Map<string, Array<Record<string, unknown>>>()
 
-  //   return new Error('Error!')
-  // })
+    return Object.fromEntries(
+      validationError.details.reduce(
+        (error: Map<string, Array<Record<string, unknown>>>, next: joi.ValidationErrorItem) => {
+          const key = next?.context?.key
+
+          if (!key) return errors
+
+          if (!error.has(key)) error.set(key, [])
+
+          error.get(key)?.push({
+            message: next.message,
+            field: key,
+            type: next.type
+          })
+
+          return error
+        },
+        errors
+      )
+    )
+  }
 
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
     // Is JOI
     if (err instanceof ValidationError) {
       err.statusCode = HttpStatus.UNPROCESSABLE_ENTITY
-      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send(err)
-    }
-  }
-}
-
-class GeneralValidationModule implements ValidationModule<unknown> {
-  validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): any {
-    //
-  }
-
-  errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
-    // Is our HTTP
-    if ((err as unknown as HttpError)?.code) {
-      return res.send(CreateHttpError(err.code, err.message))
-    } else if (!res.sent) {
-      // TODO: Improve general error handler to catch unknown errors
-      return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
+      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
+        error: HttpStatus[err.statusCode],
+        statusCode: err.statusCode,
+        message: err.message,
+        path: req.raw.url,
+        code: err.code,
+        stack: err.stack,
+        errors: this.schemaErrorFormatter(err)
+      })
     }
   }
 }
@@ -99,4 +108,4 @@ export const { CREATE } = JoiValidationGroups
 export const { UPDATE } = JoiValidationGroups
 
 export const Joi = joi.extend(stringObjectExtension) as ExtendedJoi
-export { GeneralValidationModule, JoiModule }
+export { JoiModule }
