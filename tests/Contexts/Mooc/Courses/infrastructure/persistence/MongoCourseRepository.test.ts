@@ -13,11 +13,7 @@ const repository: CourseRepository = container.resolve<CourseRepository>(TYPES.C
 const environmentArrange: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)
 
 beforeEach(async () => {
-  try {
-    await (await environmentArrange).arrange()
-  } catch (e) {
-    console.log(e)
-  }
+  await (await environmentArrange).arrange()
 })
 
 afterAll(async () => {
@@ -28,12 +24,8 @@ afterAll(async () => {
 describe('CourseRepository', () => {
   describe('#save', () => {
     it('should have a course', async () => {
-      try {
-        const course = CourseMother.random()
-        await repository.save(course)
-      } catch (e) {
-        console.log(e)
-      }
+      const course = CourseMother.random()
+      await repository.save(course)
     })
   })
 })
