@@ -10,15 +10,15 @@ import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 import { CourseMother } from '../../domain'
 
 const repository: CourseRepository = container.resolve<CourseRepository>(TYPES.CourseRepository)
-const environmentArrange: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)
+const environmentArranger: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)
 
 beforeEach(async () => {
-  await (await environmentArrange).arrange()
+  await (await environmentArranger).arrange()
 })
 
 afterAll(async () => {
-  await (await environmentArrange).arrange()
-  await (await environmentArrange).close()
+  await (await environmentArranger).arrange()
+  await (await environmentArranger).close()
 })
 
 describe('CourseRepository', () => {

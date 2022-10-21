@@ -1,3 +1,5 @@
+export * from './IntegerMother'
 export * from './MotherCreator'
+export * from './Repeater'
 export * from './UuidMother'
 export * from './WordMother'

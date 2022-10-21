@@ -2,8 +2,8 @@ import { Course, CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/doma
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
+import { CourseIdMother } from '../../Shared/domain/Courses/CourseIdMother'
 import { CourseDurationMother } from './CourseDurationMother'
-import { CourseIdMother } from './CourseIdMother'
 import { CourseNameMother } from './CourseNameMother'
 
 export class CourseMother {

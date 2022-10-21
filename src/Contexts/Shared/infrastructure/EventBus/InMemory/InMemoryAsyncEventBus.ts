@@ -2,8 +2,8 @@ import { EventEmitter } from 'events'
 
 import { info } from '@/Contexts/Shared/infrastructure/logger'
 
-import { DomainEvent, EventBus } from '../../domain'
-import { DomainEventSubscribers } from './DomainEventSubscribers'
+import { DomainEvent, EventBus } from '../../../domain'
+import { DomainEventSubscribers } from '../DomainEventSubscribers'
 
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   async publish(events: DomainEvent[]): Promise<void> {
