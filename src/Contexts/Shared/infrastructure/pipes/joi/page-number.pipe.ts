@@ -1,6 +1,6 @@
-import { ArgumentMetadata, PipeTransform } from '../common/interfaces'
-import { Joi } from '../joi'
-import { info } from '../logger'
+import { ArgumentMetadata, PipeTransform } from '../../common/interfaces'
+import { Joi } from '../../joi'
+import { info } from '../../logger'
 
 export class PageNumberPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {

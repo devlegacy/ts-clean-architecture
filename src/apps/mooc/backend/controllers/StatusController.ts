@@ -12,7 +12,7 @@ import {
   Req,
   Res
 } from '@/Contexts/Shared/infrastructure/common'
-import { MongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes'
+import { MongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 
 @Controller('status')
 export class StatusController {

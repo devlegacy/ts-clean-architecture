@@ -1,6 +1,6 @@
 import HttpStatus from 'http-status'
 
-import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
+import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/infrastructure/common'
 import { UserId } from '@/Contexts/User/Shared/domain'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
 import { UserFinder } from '@/Contexts/User/Users/domain'
