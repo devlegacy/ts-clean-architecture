@@ -27,7 +27,7 @@ describe('CourseCreator', () => {
     eventBus.assertLastPublishedEventIs(domainEvent)
   })
 
-  it('should throw error if course name length is exceeded', async () => {
+  it('should throw error if course name length is exceeded', () => {
     expect(async () => {
       const request = CreateCourseRequestMother.invalidRequest()
       const course = CourseMother.fromRequest(request)
