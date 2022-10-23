@@ -18,6 +18,29 @@ export class RabbitMQConnection {
     this.channel = await this.amqpChannel()
   }
 
+  async exchange(params: { name: string }) {
+    return await this.channel?.assertExchange(params.name, 'topic', { durable: true })
+  }
+
+  async queue(params: { exchange: string; name: string; routingKeys: string[] }) {
+    const durable = true
+    const exclusive = false
+    const autoDelete = false
+
+    await this.channel?.assertQueue(params.name, {
+      exclusive,
+      durable,
+      autoDelete
+    })
+    for (const routingKey of params.routingKeys) {
+      await this.channel!.bindQueue(params.name, params.exchange, routingKey)
+    }
+  }
+
+  async deleteQueue(queue: string) {
+    return await this.channel!.deleteQueue(queue)
+  }
+
   async publish(params: {
     exchange: string
     routingKey: string

@@ -35,6 +35,35 @@ container.register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
 container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
 
 container.register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
+// const config = {
+//   connectionSettings: {
+//     username: 'inrfebcy',
+//     password: 'fW-2oZftiwGmxyznJLP-pF2k01m7_DXw',
+//     vhost: 'inrfebcy',
+//     connection: {
+//       secure: false,
+//       hostname: 'beaver.rmq.cloudamqp.com',
+//       port: 5672
+//     }
+//   },
+//   exchangeSettings: { name: '' }
+// }
+// container.register<EventBus>(
+//   TYPES.EventBus,
+//   {
+//     useValue: new RabbitMQEventBus({
+//       connection: new RabbitMQConnection(config),
+//       exchange: 'x',
+//       failoverPublisher: new DomainEventFailoverPublisher(
+//         container.resolve<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient),
+//         {} as any
+//       )
+//     })
+//   }
+//   // {
+//   //   lifecycle: Lifecycle.Singleton
+//   // }
+// )
 
 // Infrastructure
 // container.register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })

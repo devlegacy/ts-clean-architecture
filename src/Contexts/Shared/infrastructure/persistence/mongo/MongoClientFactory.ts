@@ -50,8 +50,21 @@ import { MongoConfig } from './MongoConfig'
 //   }
 // }
 export class MongoClientFactory {
+  private static clients: Record<string, MikroORM<MongoDriver>> = {}
   static async createClient(contextName: string, config: MongoConfig) {
-    const orm = await MikroORM.init<MongoDriver>({
+    let client = MongoClientFactory.getClient(contextName)
+    if (!client) {
+      client = await this.createAndConnectClient(contextName, config)
+      this.registerClient(contextName, client)
+    }
+    return client
+  }
+
+  private static async createAndConnectClient(
+    contextName: string,
+    config: MongoConfig
+  ): Promise<MikroORM<MongoDriver>> {
+    const client = await MikroORM.init<MongoDriver>({
       dbName: contextName,
       clientUrl: config.url,
       type: 'mongo',
@@ -66,8 +79,15 @@ export class MongoClientFactory {
         //   loggerLevel: 'debug'
       }
     })
+    return client
+  }
 
-    return orm
+  private static getClient(contextName: string): MikroORM<MongoDriver> {
+    return MongoClientFactory.clients[contextName]
+  }
+
+  private static registerClient(contextName: string, client: MikroORM<MongoDriver>): void {
+    MongoClientFactory.clients[contextName] = client
   }
 }
 
