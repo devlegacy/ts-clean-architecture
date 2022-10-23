@@ -18,11 +18,11 @@ export class MoocBackendApp {
 
   async start() {
     // containerBuilder()
-    await this.starHttp()
+    await this.startHttp()
     await this.startSubscribers()
   }
 
-  async starHttp() {
+  async startHttp() {
     const port = config.get('app.port')
     this.#server = new Server(port)
     await this.#server.listen()

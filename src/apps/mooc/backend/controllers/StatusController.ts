@@ -1,5 +1,3 @@
-import HttpStatus from 'http-status'
-
 import { IndexHeadersDto, IndexQueryDto, UserDto } from '@/Contexts/Mooc/Status/infrastructure'
 import {
   Body,
@@ -7,6 +5,7 @@ import {
   Get,
   Headers,
   HttpCode,
+  HttpStatus,
   Param,
   Post,
   Query,

@@ -11,7 +11,7 @@ import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastif
 import { ZodModule } from '@/Contexts/Shared/infrastructure/zod'
 
 export class Server {
-  #port: number
+  readonly #port: number
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
   #adapter: FastifyAdapter = new FastifyAdapter()

@@ -1,5 +1,3 @@
-import HttpStatus from 'http-status'
-
 import { CourseCreator, CoursesByCriteriaFinder } from '@/Contexts/Mooc/Courses/application'
 // import { UpdateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/CourseSchema'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
@@ -9,6 +7,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpStatus,
   Put
   // Req
   //  Schema

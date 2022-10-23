@@ -50,7 +50,7 @@ const fastifyServerOptions: FastifyServerOptions = {
 
 export class FastifyAdapter {
   // #instance: FastifyInstance
-  #instance: FastifyInstance
+  readonly #instance: FastifyInstance
   #validations: ValidationModule<any>[] = []
 
   // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {

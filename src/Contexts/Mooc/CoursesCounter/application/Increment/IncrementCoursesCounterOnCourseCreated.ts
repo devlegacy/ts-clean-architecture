@@ -6,7 +6,7 @@ import { DomainEventClass, DomainEventSubscriber } from '@/Contexts/Shared/domai
 
 import { CoursesCounterIncrementer } from './CoursesCounterIncrementer'
 
-// domainEventSubscriber
+// DomainEventSubscriber
 @injectable()
 export class IncrementCoursesCounterOnCourseCreated implements DomainEventSubscriber<CourseCreatedDomainEvent> {
   constructor(private incrementer: CoursesCounterIncrementer) {}
