@@ -15,6 +15,7 @@
     "start:user:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/user/backend/main.ts",
     "start:user:graph:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/user/graphql/main.ts",
     "start:mooc:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/mooc/backend/main.ts",
+    "start:backoffice:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/backoffice/backend/main.ts",
     "command:mooc:rabbitmq": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register -r ts-node/register/transpile-only -- ./src/apps/mooc/backend/command/runConfigureRabbitMQCommand",
     "prune:mooc": "ts-prune --project tsconfig.build.json && ts-unused-exports tsconfig.build.json",
     "prune:mooc:filter": "ts-prune --project tsconfig.build.json | grep -v '(used in module)'",

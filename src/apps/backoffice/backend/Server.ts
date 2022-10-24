@@ -3,17 +3,14 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import config from '@/Contexts/Mooc/Shared/infrastructure/config'
+import config from '@/Contexts/Backoffice/Shared/infrastructure/config'
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
 import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { ZodModule } from '@/Contexts/Shared/infrastructure/zod'
 
 export class Server {
   readonly #port: number
-  // #app: FastifyInstance<http2.Http2SecureServer>
-  // #httpServer?: http2.Http2SecureServer
   #adapter: FastifyAdapter = new FastifyAdapter()
   #app?: FastifyInstance
   #httpServer?: http.Server
@@ -22,10 +19,7 @@ export class Server {
     this.#port = port
 
     this.#adapter.enableCors()
-    this.#adapter
-      .setValidationModule(new JoiModule())
-      .setValidationModule(new ZodModule())
-      .setValidationModule(new GeneralValidationModule())
+    this.#adapter.setValidationModule(new JoiModule()).setValidationModule(new GeneralValidationModule())
   }
 
   async listen() {
@@ -47,7 +41,7 @@ export class Server {
     const address: AddressInfo = this.#app.server.address() as AddressInfo
 
     this.#app.log.info(
-      `🚀 Mock Backend App is running on:\thttp://localhost:${address.port} in:\t${config.get('app.env')} mode`
+      `🚀 Backoffice Backend App is running on:\thttp://localhost:${address.port} in:\t${config.get('app.env')} mode`
     )
     this.#app.log.info(`\t\t\t\thttp://localhost:${address.port}`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
