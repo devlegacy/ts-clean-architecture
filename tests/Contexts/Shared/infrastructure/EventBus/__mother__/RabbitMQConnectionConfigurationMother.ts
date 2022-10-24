@@ -2,12 +2,12 @@ export class RabbitMQConnectionConfigurationMother {
   static create() {
     return {
       connectionSettings: {
-        username: 'inrfebcy',
-        password: 'fW-2oZftiwGmxyznJLP-pF2k01m7_DXw',
-        vhost: 'inrfebcy',
+        username: 'guest',
+        password: 'guest',
+        vhost: '/',
         connection: {
           secure: false,
-          hostname: 'beaver.rmq.cloudamqp.com',
+          hostname: 'localhost',
           port: 5672
         }
       },

@@ -5,6 +5,8 @@ import { DomainEventDummyMother } from './__mocks__'
 import { DomainEventDeserializerMother } from './__mother__/DomainEventDeserializerMother'
 import { RabbitMQMongoClientMother } from './__mother__/RabbitMQMongoClientMother'
 
+jest.setTimeout(5000 + 60000)
+
 describe('DomainEventFailoverPublisher test', () => {
   let arranger: MongoEnvironmentArranger
   const mongoClient = RabbitMQMongoClientMother.create()

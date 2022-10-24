@@ -88,6 +88,68 @@ const moocConfig = convict({
       format: String,
       env: 'SENTRY_DSN'
     }
+  },
+  rabbitmq: {
+    connectionSettings: {
+      username: {
+        doc: 'RabbitMQ username',
+        format: String,
+        env: 'RABBITMQ_USERNAME',
+        default: 'guest'
+      },
+      password: {
+        doc: 'RabbitMQ password',
+        format: String,
+        env: 'RABBITMQ_PASSWORD',
+        default: 'guest'
+      },
+      vhost: {
+        doc: 'RabbitMQ virtual host',
+        format: String,
+        env: 'RABBITMQ_VHOST',
+        default: '/'
+      },
+      connection: {
+        secure: {
+          doc: 'RabbitMQ secure protocol',
+          format: Boolean,
+          env: 'RABBITMQ_SECURE',
+          default: false
+        },
+        hostname: {
+          doc: 'RabbitMQ hostname',
+          format: String,
+          env: 'RABBITMQ_HOSTNAME',
+          default: '127.0.0.1'
+        },
+        port: {
+          doc: 'RabbitMQ amqp port',
+          format: Number,
+          env: 'RABBITMQ_PORT',
+          default: 5672
+        }
+      }
+    },
+    exchangeSettings: {
+      name: {
+        doc: 'RabbitMQ exchange name',
+        format: String,
+        env: 'RABBITMQ_EXCHANGE_NAME',
+        default: 'domain_events'
+      }
+    },
+    maxRetries: {
+      doc: 'Max number of retries for each message',
+      format: Number,
+      env: 'RABBITMQ_MAX_RETRIES',
+      default: 3
+    },
+    retryTtl: {
+      doc: 'Ttl for messages in the retry queue',
+      format: Number,
+      env: 'RABBITMQ_RETRY_TTL',
+      default: 1000
+    }
   }
 })
 

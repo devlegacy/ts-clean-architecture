@@ -17,7 +17,7 @@ export class DomainEventDummy extends DomainEvent {
 
   static fromPrimitives(params: {
     aggregateId: string
-    attributes: Record<string, unknown>
+    attributes: Record<string, any>
     eventId: string
     occurredOn: Date
   }) {

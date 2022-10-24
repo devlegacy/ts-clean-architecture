@@ -46,6 +46,6 @@ export class DomainEventFailoverPublisher {
       .getConnection()
       .getDb()
       .collection(DomainEventFailoverPublisher.collectionName)
-    return collection as Collection
+    return collection
   }
 }
