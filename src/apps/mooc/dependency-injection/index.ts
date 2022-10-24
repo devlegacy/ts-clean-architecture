@@ -10,6 +10,7 @@ import {
   MongoCourseRepository
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
+import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application/Find'
 import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { MongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
 import {
@@ -18,7 +19,7 @@ import {
   RabbitMQConfigFactory
   // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
-import { CommandBus, EventBus } from '@/Contexts/Shared/domain'
+import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import { CommandHandlers, InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
 import {
   InMemoryAsyncEventBus,
@@ -27,6 +28,7 @@ import {
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
 import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
+import { InMemoryQueryBus, QueryHandlers } from '@/Contexts/Shared/infrastructure/QueryBus'
 
 import { TYPES } from './types'
 
@@ -88,3 +90,8 @@ container.register(TYPES.CommandHandler, {
   useValue: new CommandHandlers([container.resolve(CreateCourseCommandHandler)])
 })
 container.register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
+
+container.register(TYPES.QueryHandler, {
+  useValue: new QueryHandlers([container.resolve(FindCoursesCounterQueryHandler)])
+})
+container.register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)

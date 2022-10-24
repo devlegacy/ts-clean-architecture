@@ -12,6 +12,8 @@ export const TYPES = {
   // Command
   CommandHandler: Symbol('CommandHandler'),
   CommandBus: Symbol('CommandBus'),
+  QueryBus: Symbol('QueryBus'),
+  QueryHandler: Symbol('QueryHandler'),
   // Test
   EnvironmentArranger: Symbol('EnvironmentArranger')
 }
