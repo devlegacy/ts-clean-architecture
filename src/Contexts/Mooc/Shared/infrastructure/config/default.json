@@ -1,5 +1,22 @@
 {
   "sentry": {
     "dsn": "https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751"
+  },
+  "rabbitmq": {
+    "connectionSettings": {
+      "username": "guest",
+      "password": "guest",
+      "vhost": "/",
+      "connection": {
+        "secure": false,
+        "hostname": "localhost",
+        "port": 5672
+      }
+    },
+    "exchangeSettings": {
+      "name": ""
+    },
+    "maxRetries": 2,
+    "retryTtl": 1000
   }
 }
