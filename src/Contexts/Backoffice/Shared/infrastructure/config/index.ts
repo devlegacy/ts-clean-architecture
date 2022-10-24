@@ -47,7 +47,7 @@ const backOfficeConfig = convict({
       doc: 'The MongoDB connection URL.',
       format: String,
       env: 'MONGO_URL',
-      default: 'mongodb://127.0.0.1:27017/mooc'
+      default: 'mongodb://127.0.0.1:27017/backoffice'
     }
   },
   sentry: {
