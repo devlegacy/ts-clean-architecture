@@ -19,8 +19,17 @@ import {
   RabbitMQConfigFactory
   // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
-import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
-import { CommandHandlers, InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
+import {
+  Command,
+  CommandBus,
+  CommandHandler,
+  EventBus,
+  Query,
+  QueryBus,
+  QueryHandler,
+  Response
+} from '@/Contexts/Shared/domain'
+import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
 import {
   InMemoryAsyncEventBus,
   RabbitMQConfigurer,
@@ -40,25 +49,30 @@ import { TYPES } from './types'
 // container.register<ConfigService>(TYPES.config, { useValue: config })
 
 // Infrastructure
+// MongoClient
 const mongoConfig = MongoConfigFactory.createConfig()
 const mongoClient = MongoClientFactory.createClient('mooc', mongoConfig)
-container.register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
-container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
+container
+  .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
+  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
 
+// InMemory - EventBus
 container.register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
 
+// RabbitMQ - EventBus
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
-container.register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
-container.register<RabbitMQConnection>(TYPES.RabbitMQConnection, {
-  useValue: new RabbitMQConnection(rabbitConfig)
-})
-container.register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
-  useValue: new RabbitMQConfigurer(
-    container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection),
-    new RabbitMQQueueFormatter('mooc'),
-    50
-  )
-})
+container
+  .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
+  .register<RabbitMQConnection>(TYPES.RabbitMQConnection, {
+    useValue: new RabbitMQConnection(rabbitConfig)
+  })
+  .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
+    useValue: new RabbitMQConfigurer(
+      container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection),
+      new RabbitMQQueueFormatter('mooc'),
+      50
+    )
+  })
 
 // Infrastructure
 // container.register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
@@ -68,9 +82,10 @@ container.register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
 
 // !String(process.env.npm_lifecycle_event).includes('tests')
 
-// Domain - MongoRepository
-container.register<CourseRepository>(TYPES.CourseRepository, MongoCourseRepository)
-container.register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MongoCoursesCounterRepository)
+// Domain - MongoRepositories
+container
+  .register<CourseRepository>(TYPES.CourseRepository, MongoCourseRepository)
+  .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MongoCoursesCounterRepository)
 
 // container.register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
 
@@ -86,12 +101,12 @@ container.register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, Mon
 // export { containerBuilder }
 // tagged commandHandler
 
-container.register(TYPES.CommandHandler, {
-  useValue: new CommandHandlers([container.resolve(CreateCourseCommandHandler)])
-})
-container.register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
+// QueryHandler
+container
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
+  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
 
-container.register(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
-// container.register<QueryHandlers>('QueryHandlers', QueryHandlers, { lifecycle: Lifecycle.Singleton })
-
-container.register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)
+// QueryBus
+container
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
+  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)

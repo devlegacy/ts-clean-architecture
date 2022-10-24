@@ -6,7 +6,7 @@ import { Query, QueryHandler, QueryNotRegisteredError, Response } from '../../do
 
 @singleton()
 export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
-  constructor(@injectAll(TYPES.QueryHandler) queryHandlers: Array<QueryHandler<Query, Response>>) {
+  constructor(@injectAll(TYPES.QueryHandler) queryHandlers: QueryHandler<Query, Response>[]) {
     super()
     queryHandlers.forEach((queryHandler) => {
       this.set(queryHandler.subscribedTo(), queryHandler)

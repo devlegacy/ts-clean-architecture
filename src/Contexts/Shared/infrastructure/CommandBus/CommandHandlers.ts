@@ -1,7 +1,12 @@
+import { injectAll, singleton } from 'tsyringe'
+
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
+
 import { Command, CommandHandler, CommandNotRegisteredError } from '../../domain'
 
+@singleton()
 export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
-  constructor(commandHandlers: CommandHandler<Command>[]) {
+  constructor(@injectAll(TYPES.CommandHandler) commandHandlers: CommandHandler<Command>[]) {
     super()
 
     commandHandlers.forEach((commandHandler) => {
