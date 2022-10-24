@@ -9,6 +9,9 @@ export const TYPES = {
   RabbitMQConfig: Symbol('RabbitMQConfig'),
   RabbitMQConnection: Symbol('RabbitMQConnection'),
   RabbitMQConfigurer: Symbol('RabbitMQConfigurer'),
+  // Command
+  CommandHandler: Symbol('CommandHandler'),
+  CommandBus: Symbol('CommandBus'),
   // Test
   EnvironmentArranger: Symbol('EnvironmentArranger')
 }

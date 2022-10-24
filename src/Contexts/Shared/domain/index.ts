@@ -1,4 +1,7 @@
 export * from './AggregateRoot'
+export * from './Command'
+export * from './CommandBus'
+export * from './CommandHandler'
 export * from './criteria'
 export * from './DomainEvent'
 export * from './DomainEventSubscriber'

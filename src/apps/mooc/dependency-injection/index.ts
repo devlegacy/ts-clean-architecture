@@ -17,7 +17,8 @@ import {
   RabbitMQConfigFactory
   // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
-import { EventBus } from '@/Contexts/Shared/domain'
+import { CommandBus, EventBus } from '@/Contexts/Shared/domain'
+import { CommandHandlers, InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
 import {
   InMemoryAsyncEventBus,
   RabbitMQConfigurer,
@@ -55,6 +56,9 @@ container.register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
     50
   )
 })
+
+container.register(TYPES.CommandHandler, CommandHandlers) // tagged commandHandler
+container.register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
 
 // Infrastructure
 // container.register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
