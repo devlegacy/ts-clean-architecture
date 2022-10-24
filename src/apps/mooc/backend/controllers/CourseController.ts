@@ -1,7 +1,10 @@
-import { CourseCreator, CoursesByCriteriaFinder } from '@/Contexts/Mooc/Courses/application'
+import { inject } from 'tsyringe'
+
+import { CoursesByCriteriaFinder } from '@/Contexts/Mooc/Courses/application'
+import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 // import { UpdateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/CourseSchema'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
-import { Filters, Order } from '@/Contexts/Shared/domain'
+import { CommandBus, Filters, Order } from '@/Contexts/Shared/domain'
 import {
   Body,
   Controller,
@@ -13,10 +16,12 @@ import {
   //  Schema
 } from '@/Contexts/Shared/infrastructure/common'
 
+import { TYPES } from '../../dependency-injection/types'
+
 @Controller('courses')
 export class CourseController {
   constructor(
-    private readonly courseCreator: CourseCreator,
+    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus,
     private readonly coursesByCriteria: CoursesByCriteriaFinder
   ) {}
 
@@ -52,7 +57,7 @@ export class CourseController {
     //   duration
     // })
 
-    await this.courseCreator.run(course)
+    await this.commandBus.dispatch(new CreateCourseCommand(course))
 
     return {}
   }

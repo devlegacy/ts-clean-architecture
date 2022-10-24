@@ -4,6 +4,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
+import { CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
   MongoCourseRepository
@@ -57,9 +58,6 @@ container.register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
   )
 })
 
-container.register(TYPES.CommandHandler, CommandHandlers) // tagged commandHandler
-container.register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
-
 // Infrastructure
 // container.register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
 // container.register<Promise<DataSource>>(TYPES.TypeOrmClient, {
@@ -84,3 +82,9 @@ container.register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, Mon
 // return containerInstance
 // }
 // export { containerBuilder }
+// tagged commandHandler
+
+container.register(TYPES.CommandHandler, {
+  useValue: new CommandHandlers([container.resolve(CreateCourseCommandHandler)])
+})
+container.register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)

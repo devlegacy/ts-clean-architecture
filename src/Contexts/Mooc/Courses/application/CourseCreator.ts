@@ -15,7 +15,6 @@ import { EventBus } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { Course, CourseDuration, CourseName, CourseRepository } from '../domain'
-import { CourseCreatorRequest } from './CourseCreatorRequest'
 
 // NOTE: Complejidad asumida
 @injectable()
@@ -25,12 +24,8 @@ export class CourseCreator {
     @inject(TYPES.EventBus) private readonly bus: EventBus
   ) {}
 
-  async run(request: CourseCreatorRequest) {
-    const course = Course.create(
-      new CourseId(request.id),
-      new CourseName(request.name),
-      !request.duration ? undefined : new CourseDuration(request.duration)
-    )
+  async run(request: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
+    const course = Course.create(request.id, request.name, !request.duration ? undefined : request.duration)
 
     await this.repository.save(course)
     await this.bus.publish(course.pullDomainEvents())
