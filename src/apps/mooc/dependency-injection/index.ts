@@ -28,7 +28,7 @@ import {
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
 import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
-import { InMemoryQueryBus, QueryHandlers } from '@/Contexts/Shared/infrastructure/QueryBus'
+import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
 
 import { TYPES } from './types'
 
@@ -91,7 +91,7 @@ container.register(TYPES.CommandHandler, {
 })
 container.register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
 
-container.register(TYPES.QueryHandler, {
-  useValue: new QueryHandlers([container.resolve(FindCoursesCounterQueryHandler)])
-})
+container.register(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
+// container.register<QueryHandlers>('QueryHandlers', QueryHandlers, { lifecycle: Lifecycle.Singleton })
+
 container.register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)
