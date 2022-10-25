@@ -1,11 +1,16 @@
 import * as Sentry from '@sentry/node'
 import * as Tracing from '@sentry/tracing'
+import { resolve } from 'path'
+import { cwd } from 'process'
+
+// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
+const packageJson: Record<string, string> = require(resolve(cwd(), './package.json'))
 
 const options: Sentry.NodeOptions = {
   debug: true,
   environment: 'development',
   dsn: 'https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751',
-  release: '',
+  release: packageJson.version,
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
@@ -20,20 +25,28 @@ const options: Sentry.NodeOptions = {
 }
 
 export class SentryModule {
+  #options: Sentry.NodeOptions
   constructor(config?: { options: Sentry.NodeOptions }) {
-    Sentry.init({
+    this.#options = {
       ...options,
       ...config?.options
-    })
+    }
+
+    Sentry.init(this.#options)
   }
 
   capture(req: any, err: Error) {
     Sentry.withScope((scope) => {
+      const transaction = Sentry.startTransaction({
+        name: `Transaction ${Date.now()}`,
+        op: this.#options.environment
+      })
       scope.setUser({
         ip_address: req.ip
       })
       scope.setTag('path', req?.raw?.url)
       Sentry.captureException(err)
+      transaction.finish()
     })
   }
 }

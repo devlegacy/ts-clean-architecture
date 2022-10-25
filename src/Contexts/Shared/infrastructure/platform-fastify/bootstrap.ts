@@ -149,6 +149,20 @@ const getParams = (
       // Extract a part of query
       routeParams[index] = data ? req.query[data as string] : req.query
     } else if (paramtype === RouteParamtypes.PARAM) {
+      if (data && pipes && Array.isArray(pipes)) {
+        // eslint-disable-next-line max-depth
+        for (const pipe of pipes) {
+          // eslint-disable-next-line max-depth
+          if (isConstructor(pipe)) {
+            req.params[data as string] = new (pipe as Constructor<PipeTransform>)().transform(
+              req.params[data as string],
+              {
+                type: 'param'
+              }
+            )
+          }
+        }
+      }
       routeParams[index] = req.params
     } else if (paramtype === RouteParamtypes.BODY) {
       routeParams[index] = req.body
@@ -273,6 +287,9 @@ export const bootstrap = async (
           // preValidation: (req, res, done) => {
           //   // Some code
           //   done()
+          // },
+          // errorHandler: (error, request, response) => {
+          //   fastify.errorHandler(error, request, response)
           // },
           handler: (req, res) => {
             res.status(httpCode)

@@ -68,34 +68,6 @@ export class FastifyAdapter {
   }
 
   get instance() {
-    const sentry = new SentryModule()
-    this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
-      for (const m of this.#validations) {
-        if (m.validationCompiler(schemaDefinition)) {
-          return m.validationCompiler(schemaDefinition)
-        }
-      }
-    })
-
-    this.#instance.setSchemaErrorFormatter((_errors) => {
-      // for (const m of this.#validations) {
-      //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //   // @ts-expect-error
-      //   m?.schemaErrorFormatter(errors)
-      // }
-      return new Error('')
-    })
-
-    this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-      // TODO: Improve
-      sentry.capture(req, error)
-
-      for (const m of this.#validations) {
-        if (res.sent) break
-        m.errorHandler(error, req, res)
-      }
-    })
-
     return this.#instance
   }
 
@@ -115,6 +87,33 @@ export class FastifyAdapter {
     prefix?: string
     resolver?: ControllerResolver
   }) {
+    const sentry = new SentryModule()
+    this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
+      for (const m of this.#validations) {
+        if (m.validationCompiler(schemaDefinition)) {
+          return m.validationCompiler(schemaDefinition)
+        }
+      }
+    })
+    this.#instance.setSchemaErrorFormatter((_errors) => {
+      // for (const m of this.#validations) {
+      //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //   // @ts-expect-error
+      //   m?.schemaErrorFormatter(errors)
+      // }
+      return new Error('')
+    })
+
+    this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
+      // TODO: Improve
+      sentry.capture(req, error)
+
+      for (const m of this.#validations) {
+        if (res.sent) break
+        m.errorHandler(error, req, res)
+      }
+    })
+
     await bootstrap(this.#instance, props)
   }
 }

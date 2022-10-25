@@ -41,7 +41,10 @@ const validationOptions: joi.ValidationOptions = {
   abortEarly: false,
   debug: true,
   nonEnumerables: true,
-  stripUnknown: true
+  stripUnknown: true,
+  errors: {
+    stack: true
+  }
 }
 
 class JoiModule implements ValidationModule<joi.AnySchema> {

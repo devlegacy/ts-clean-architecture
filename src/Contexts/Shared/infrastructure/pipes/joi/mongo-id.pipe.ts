@@ -8,7 +8,7 @@ export class MongoIdPipe implements PipeTransform {
     info(`${value} ${metadata}`)
     const schema = Joi.object({
       // metadata key: value
-      value: Joi.string().trim().objectId().required()
+      value: Joi.string().objectId().required()
     })
 
     const {

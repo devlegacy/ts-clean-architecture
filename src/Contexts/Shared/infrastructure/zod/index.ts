@@ -27,8 +27,15 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
     // Is Zod
     if (err instanceof ZodError) {
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY)
-      return res.send(err.issues)
+      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
+        error: HttpStatus[err.statusCode ?? HttpStatus.UNPROCESSABLE_ENTITY],
+        statusCode: err.statusCode,
+        message: err.message,
+        path: req.raw.url,
+        code: err.code,
+        stack: err.stack,
+        errors: err.issues
+      })
     }
   }
 }

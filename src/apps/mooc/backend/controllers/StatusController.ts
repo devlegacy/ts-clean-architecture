@@ -1,3 +1,5 @@
+import { JoiCourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/JoiCourseDto'
+import { ZodCourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/ZodCourseDto'
 import { IndexHeadersDto, IndexQueryDto, UserDto } from '@/Contexts/Mooc/Status/infrastructure'
 import {
   Body,
@@ -12,7 +14,8 @@ import {
   Req,
   Res
 } from '@/Contexts/Shared/infrastructure/common'
-import { MongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
+import { MongoIdPipe as JoiMongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
+import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/zod'
 
 @Controller('status')
 export class StatusController {
@@ -20,6 +23,26 @@ export class StatusController {
   @Get()
   index() {
     return {}
+  }
+
+  @Post('joi/pipe/:mongoId')
+  mongoPipe(@Param('mongoId', JoiMongoIdPipe) mongoId: string) {
+    return { mongoId }
+  }
+
+  @Post('zod/pipe/:mongoId')
+  zodPipe(@Param('mongoId', ZodMongoIdPipe) mongoId: string) {
+    return { mongoId }
+  }
+
+  @Post('joi')
+  joi(@Body() course: JoiCourseDto) {
+    return course
+  }
+
+  @Post('zod')
+  zod(@Body() course: ZodCourseDto) {
+    return course
   }
 
   @HttpCode(HttpStatus.CREATED)
@@ -52,7 +75,7 @@ export class StatusController {
   helpers(
     @Query('limit') limit: number,
     @Query('page', PageNumberPipe) page: number,
-    @Headers('x-context-account', MongoIdPipe) account: string
+    @Headers('x-context-account', JoiMongoIdPipe) account: string
   ) {
     return {
       page,
