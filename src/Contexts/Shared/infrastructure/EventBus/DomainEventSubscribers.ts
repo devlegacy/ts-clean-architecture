@@ -16,6 +16,9 @@ export class DomainEventSubscribers {
   constructor(public items: DomainEventSubscriber<DomainEvent>[]) {}
 
   // static from(container: DependencyContainer): DomainEventSubscribers {
+  /**
+   * HACK: To retrieve and resolve DomainEvent subscribers tokens from container
+   */
   static from(): DomainEventSubscribers {
     // const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
     const subscribers: DomainEventSubscriber<DomainEvent>[] = container.resolveAll<DomainEventSubscriber<DomainEvent>>(

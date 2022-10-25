@@ -54,7 +54,7 @@
     "yarn-error.log": true
   },
   "prettier.requireConfig": true,
-  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC"],
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT"],
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },
