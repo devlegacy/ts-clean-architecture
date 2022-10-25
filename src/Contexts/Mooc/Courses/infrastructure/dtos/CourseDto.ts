@@ -3,7 +3,7 @@ import { JoiSchema } from 'joi-class-decorators'
 import { Joi } from '@/Contexts/Shared/infrastructure/joi'
 
 /**
- * Note: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
+ * NOTE: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
  * No validaciones de dominio
  *
  * Se asume solapamiento

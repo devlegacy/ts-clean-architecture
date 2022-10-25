@@ -61,7 +61,7 @@ export class FastifyAdapter {
     })
 
     this.#instance
-      // .register(fastifyHelmet) // Note: cause conflict with GraphQL
+      // .register(fastifyHelmet) // NOTE: cause conflict with GraphQL
       .register(fastifyCompress)
       // .register(fastifyRateLimit)
       .register(fastifyCookie)

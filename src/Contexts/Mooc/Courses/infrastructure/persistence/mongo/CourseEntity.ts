@@ -8,7 +8,7 @@ import { Course, CourseDuration, CourseName } from '../../../domain'
 
 const beforeCreate = (args: EventArgs<any>) => {
   // TODO: Validate type on value
-  // Note: El dominio esta separado de la base de datos :D, eso incluye el como se esta guardo e interpretando el ObjectId
+  // NOTE: El dominio esta separado de la base de datos :D, eso incluye el como se esta guardo e interpretando el ObjectId
   args.entity._id = args.entity.id
   args.entity._id.value = new ObjectId(args.entity._id.value)
 

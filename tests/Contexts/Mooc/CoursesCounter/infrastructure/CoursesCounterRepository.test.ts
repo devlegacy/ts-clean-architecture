@@ -36,7 +36,7 @@ describe('CoursesCounterRepository', () => {
       const expectedCounter = CoursesCounterMother.random()
       const savedPreMutation = CoursesCounter.fromPrimitives(expectedCounter.toPrimitives())
 
-      // Note: There is a mutation idkw why?
+      // NOTE: There is a mutation idkw why?
       await repository.save(expectedCounter)
 
       const counter = await repository.search()

@@ -6,7 +6,7 @@ export class MotherCreator {
   }
 }
 
-// Note: without expose more methods
+// NOTE: without expose more methods
 // export default class MotherCreator {
 //   static positiveNumber(max?: number): number {
 //     return faker.datatype.number({

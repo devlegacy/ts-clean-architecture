@@ -1,5 +1,5 @@
 /**
- * Note: Always import of domain never *Infrastructure*
+ * NOTE: Always import of domain never *Infrastructure*
  *
  * Todas las capas de nuestra arquitectura más externas solo deberían depender de las capas más internas
  *  - (infraestructura -> application -> domain)

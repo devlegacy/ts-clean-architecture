@@ -8,7 +8,7 @@ import { DomainEventDeserializer } from '../DomainEventDeserializer'
 import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
 
 /**
- * Note: Infrastructure to Infrastructure coupling
+ * NOTE: Infrastructure to Infrastructure coupling
  */
 export class DomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'

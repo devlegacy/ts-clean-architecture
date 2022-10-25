@@ -3,7 +3,7 @@ import { AggregateRoot, NonFunctionProperties, PrimitiveProperties } from '@/Con
 import { UserId } from '../../Shared/domain'
 import { UserAge, UserName, UserUsername } from './value-object'
 
-// Note: No acoplar a un modelo
+// NOTE: No acoplar a un modelo
 
 // export interface User {
 //   id: string

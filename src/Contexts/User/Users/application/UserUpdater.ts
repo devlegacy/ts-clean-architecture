@@ -20,7 +20,7 @@ export class UserUpdater {
       ...data
     })
 
-    // Note: Alternative sample code:
+    // NOTE: Alternative sample code:
     //  {
     //   age: data.age ?? user.age,
     //   name: data.name ?? user.name,
