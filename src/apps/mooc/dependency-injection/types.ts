@@ -11,6 +11,8 @@ export const TYPES = {
   CommandBus: Symbol('CommandBus'),
   QueryBus: Symbol('QueryBus'),
   // Application
+  // Subscribers
+  DomainEventSubscriber: Symbol('DomainEventSubscriber'),
   // Command - application tag
   CommandHandler: Symbol('CommandHandler'),
   // Query - application tag

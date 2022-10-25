@@ -10,6 +10,7 @@ import {
   MongoCourseRepository
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
+import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
 import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application/Find'
 import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { MongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
@@ -79,6 +80,9 @@ container
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
   // Bus - Infrastructure
   .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)
+
+// Events
+container.register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
 
 // QueryHandler
 container

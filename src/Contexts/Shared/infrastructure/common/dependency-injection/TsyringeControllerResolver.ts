@@ -11,6 +11,7 @@ export const TsyringeControllerResolver: ControllerResolver = (controller) => {
   }
   // This is our instantiated class
   const instance = container.isRegistered(name) ? container.resolve(name) : new controller()
+  // const instance = container.isRegistered(name) ? container.resolve(delay(() => controller)) : new controller()
 
   return instance
 }

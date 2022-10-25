@@ -1,22 +1,41 @@
-import { container } from 'tsyringe'
+import { container, delay } from 'tsyringe'
 
-import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
 
 import { DomainEvent, DomainEventSubscriber } from '../../domain'
+
+// class DomainEventSubscriberTransform implements Transform<any, any> {
+//   public transform(items: DomainEventSubscriber<DomainEvent>[]): DomainEventSubscriber<DomainEvent>[] {
+//     return items.map((item) => {
+//       return container.resolve<DomainEventSubscriber<DomainEvent>>(item as any)
+//     })
+//   }
+// }
 
 export class DomainEventSubscribers {
   constructor(public items: DomainEventSubscriber<DomainEvent>[]) {}
 
   // static from(container: DependencyContainer): DomainEventSubscribers {
   static from(): DomainEventSubscribers {
-    const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
-    const subscribers: DomainEventSubscriber<DomainEvent>[] = []
+    // const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
+    const subscribers: DomainEventSubscriber<DomainEvent>[] = container.resolveAll<DomainEventSubscriber<DomainEvent>>(
+      TYPES.DomainEventSubscriber
+    )
 
-    subscriberDefinitions.forEach((key) => {
-      const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(key)
-      subscribers.push(domainEventSubscriber)
-    })
+    // subscriberDefinitions.forEach((key) => {
+    //   const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(key)
+    //   subscribers.push(domainEventSubscriber)
+    // })
 
     return new DomainEventSubscribers(subscribers)
+  }
+
+  resolveFromContainer() {
+    this.items = this.items.map((key) => {
+      const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(delay(() => key as any))
+      return domainEventSubscriber
+    })
+
+    return this
   }
 }
