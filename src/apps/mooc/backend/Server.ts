@@ -46,14 +46,19 @@ export class Server {
 
     const address: AddressInfo = this.#app.server.address() as AddressInfo
 
-    this.#app.log.info(
-      `🚀 Mock Backend App is running on:\thttp://localhost:${address.port} in:\t${config.get('app.env')} mode`
-    )
+    this.#app.log.info(`🚀 Mock Backend App is running on: http://localhost:${address.port}`)
+    this.#app.log.info(`on mode:\t${config.get('app.env')}`)
     this.#app.log.info(`\t\t\t\thttp://localhost:${address.port}`)
     this.#app.log.info('    Press CTRL-C to stop 🛑')
 
     if (config.get('app.debug')) {
-      this.#app.log.info(this.#app.printRoutes())
+      this.#app.log.info(
+        this.#app.printRoutes({
+          commonPrefix: false,
+          includeHooks: true,
+          includeMeta: true // ['metaProperty']
+        })
+      )
     }
   }
 
