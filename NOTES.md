@@ -155,6 +155,13 @@
 - 📏 Code conventions
   - eslint
   - prettier
+- External services and integrations
+  - Sentry
+  - AWS (Bucket | S3 | Mailer)
+  - Cloudinary
+  - Google authenticator
+  - GitLab
+  - Grafana
 
 ## Fastify
 
