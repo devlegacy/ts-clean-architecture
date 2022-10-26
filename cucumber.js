@@ -1,7 +1,7 @@
 const common = [
-  // 'cross-env TS_NODE_PROJECT=tsconfig.json',
+  'npx cross-env TS_NODE_PROJECT=tsconfig.json',
   '--require-module tsconfig-paths/register', // Load TS Config Paths module
-  '--require-module ts-node/register',    // Load TypeScript module
+  '--require-module ts-node/register/transpile-only',    // Load TypeScript module
 ];
 
 const mooc_backend = [
