@@ -1,9 +1,9 @@
 import { injectable } from 'tsyringe'
 
+import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { Command, CommandHandler } from '@/Contexts/Shared/domain'
 
-import { CourseId } from '../../Shared/domain'
-import { CourseDuration, CourseName, CreateCourseCommand } from '../domain'
+import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain'
 import { CourseCreator } from './CourseCreator'
 
 @injectable()
