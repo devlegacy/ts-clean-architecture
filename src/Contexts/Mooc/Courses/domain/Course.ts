@@ -5,7 +5,7 @@ import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
 import { CourseDuration, CourseName, CourseTag, CourseType } from './value-object'
 
 type CourseProps = NonFunctionProperties<Course>
-type CoursePrimitiveProps = PrimitiveProperties<CourseProps>
+export type CoursePrimitiveProps = PrimitiveProperties<CourseProps>
 
 export class Course extends AggregateRoot {
   readonly id: CourseId

@@ -5,6 +5,7 @@ import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
 import { CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
+import { SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application/SearchAll'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
   MongoCourseRepository
@@ -62,7 +63,7 @@ container
   // .register<Promise<DataSource>>(TYPES.TypeOrmClient, {
   //   useValue: TypeOrmClientFactory.createClient('mooc', container.resolve<TypeOrmConfig>(TYPES.TypeOrmConfig))
   // })
-  // InMemory - EventBus
+  // EventBus - InMemory - Infrastructure
   .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
   // RabbitMQ - EventBus
   .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
@@ -76,9 +77,9 @@ container
       50
     )
   })
-  // Bus - Infrastructure
+  // CommandBus - InMemory - Infrastructure
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
-  // Bus - Infrastructure
+  // QueryBus - InMemory - Infrastructure
   .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)
 
 // Events
@@ -93,6 +94,7 @@ container
 container
   // Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
 
 // Domain - TypeOrmRepositories
 // container.register<CourseRepository>(TYPES.CourseRepository, {

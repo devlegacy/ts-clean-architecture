@@ -34,15 +34,15 @@ export class FilterOperator extends EnumValueObject<Operator> {
     }
   }
 
+  static equal() {
+    return this.fromValue(Operator.EQUAL)
+  }
+
   isPositive(): boolean {
     return this.value !== Operator.NOT_EQUAL && this.value !== Operator.NOT_CONTAINS
   }
 
   protected throwInvalidValueException(value: Operator): void {
     throw new InvalidArgumentException(`The filter operator ${value} is invalid`)
-  }
-
-  static equal() {
-    return this.fromValue(Operator.EQUAL)
   }
 }

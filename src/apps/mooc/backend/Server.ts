@@ -1,7 +1,12 @@
-import { FastifyInstance } from 'fastify'
+import fastifyFormBody from '@fastify/formbody'
+import fastifyHelmet from '@fastify/helmet'
+import fastifyRateLimit from '@fastify/rate-limit'
+import { FastifyInstance, PrintRoutesOptions } from 'fastify'
+import fastifyQs from 'fastify-qs'
 import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
+import qs from 'qs'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
@@ -34,31 +39,28 @@ export class Server {
       resolver: TsyringeControllerResolver,
       isProduction: config.get('app.env') === 'production'
     })
-
     this.#app = this.#adapter.instance
-
+      .register(fastifyFormBody, { parser: (str) => qs.parse(str) })
+      .register(fastifyQs)
+      .register(fastifyHelmet)
+      .register(fastifyRateLimit)
     await this.#app.listen({
       port: this.#port,
       host: config.get('app.ip')
     })
-
     this.#httpServer = this.#app.server
-
     const address: AddressInfo = this.#app.server.address() as AddressInfo
-
     this.#app.log.info(`🚀 Mock Backend App is running on: http://localhost:${address.port}`)
-    this.#app.log.info(`on mode:\t${config.get('app.env')}`)
-    this.#app.log.info(`\t\t\t\thttp://localhost:${address.port}`)
-    this.#app.log.info('    Press CTRL-C to stop 🛑')
-
+    this.#app.log.info(`\ton mode: ${config.get('app.env')}`)
+    this.#app.log.info(`\thttp://localhost:${address.port}`)
+    this.#app.log.info('\tPress CTRL-C to stop 🛑')
     if (config.get('app.debug')) {
-      this.#app.log.info(
-        this.#app.printRoutes({
-          commonPrefix: false,
-          includeHooks: true,
-          includeMeta: true // ['metaProperty']
-        })
-      )
+      const printConfig: PrintRoutesOptions = {
+        commonPrefix: false,
+        includeHooks: true,
+        includeMeta: true // ['metaProperty']
+      }
+      this.#app.log.info(this.#app.printRoutes(printConfig))
     }
   }
 

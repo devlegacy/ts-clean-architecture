@@ -307,7 +307,7 @@ export const bootstrap = async (
             // method() // por alguna razón pierde el bind
             // instance[methodName]() - Revisar que conserve el valor de this
             // instance[methodName]
-            return instancePrototype[methodName].apply(instance, routeParams)
+            return instancePrototype[methodName].apply(instance, routeParams.length ? routeParams : [req, res])
           }
         })
       }

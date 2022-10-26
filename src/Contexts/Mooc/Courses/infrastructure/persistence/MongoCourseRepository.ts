@@ -13,6 +13,13 @@ export interface CourseDocument {
 }
 
 export class MongoCourseRepository extends MongoRepository<Course> implements CourseRepository {
+  async all(): Promise<Course[]> {
+    const repository = await this.repository()
+    const courses = await repository.find({})
+
+    return courses
+  }
+
   async findBy(criteria: Criteria): Promise<Course[]> {
     const documents = await this.findByCriteria(criteria)
 
