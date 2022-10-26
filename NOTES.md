@@ -98,6 +98,64 @@
   - [ ] Logger
   - [ ] Config - Env
 
+## Commit convention
+
+```sh
+  git cz
+```
+
+```md
+  chore(deps): bump dependencies
+  chore(deps-dev): bump dependencies
+```
+
+### First commit message sample
+
+```md
+  chore(project): start project   
+    - create scaffolding
+    - add config files
+    - setting project/ide/editor files   
+```
+
+### Bump dependencies
+
+```md
+  chore(packages): bump dependencies   
+    - update dependencies
+    - update dev dependencies
+```
+
+### No verify | Skip hooks
+
+```sh
+  git commit -m "" --no-verify
+```
+
+### Empty commit
+
+```sh
+  git commit --allow-empty -m "build(empty): trigger build"
+```
+
+## 🛠 Tools
+
+- ⚙ Environment
+  - cross env as a command helper
+  - convict (powerful documentation) | json
+  - env + env expand | .env
+- 🧪 Testing
+  - Jest
+  - Cucumber
+- 🚀 Automatization
+  - Husky
+- 📑 Version control
+  - Comittizen (conventional changelog)
+  - Lint staged
+- 📏 Code conventions
+  - eslint
+  - prettier
+
 ## Fastify
 
 - https://github.com/fastify/fastify/blob/main/docs/Reference/Lifecycle.md
@@ -201,40 +259,7 @@ npm install -S "mongodb@3.6.0 || 4.9.0"
 - https://docs.npmjs.com/cli/v8/commands/npm-ci#description
 
 ```sh
-npm ci
-```
-## Commit convention
-
-chore(deps): bump dependencies
-chore(deps-dev): bump dependencies
-
-### First commit message sample
-
-```md
-  chore(project): start project   
-    - create scaffolding
-    - add config files
-    - setting project/ide/editor files   
-```
-
-### Bump dependencies
-
-```md
-  chore(packages): bump dependencies   
-    - update dependencies
-    - update dev dependencies
-```
-
-### No verify | Skip hooks
-
-```sh
-  git commit -m "" --no-verify
-```
-
-### Empty commit
-
-```sh
-  git commit --allow-empty -m "build(empty): trigger build"
+  npm ci
 ```
 
 ## Load/Stress testing
