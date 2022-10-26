@@ -71,31 +71,38 @@
 │  │  │  ├─ 📂 `frontend/`     
 ├─ 📂 `types/`      
 
-Note:
+### Notes
 
-- Los nombres de las carpetas que representan un módulo o contexto deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
+- Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 
-## Test
+## Scaffold samples
 
-- Apps
+- https://github.com/bancolombia/scaffold-clean-architecture
+- https://github.com/CodelyTV/typescript-ddd-example
+- https://github.com/CodelyTV/typescript-ddd-course
+
+## 🧪 Test
+
+- 📲 Apps
   - Comportamiento visible con cucumber sin dependencia a infraestructura - inputs y outputs
 
-- Test unitarios: Capa de Aplicación y Dominio
-- Test de integración: Capa de Infraestructura
-- Test de Aceptación: Todas las capas
-
-## Fastify
-- https://github.com/fastify/fastify/blob/main/docs/Reference/Lifecycle.md
+- ⚛ Test unitarios: Capa de Aplicación y Dominio
+- 💊 Test de integración: Capa de Infraestructura
+- ✅ Test de Aceptación: Todas las capas
 
 ## Define
 
 - [ ] errors vs exceptions
-- [ ] CreateCourseRequest (?)
+- [ ] CreateCourseRequest - primitives creation (?)
 - [ ] No injectable elements
   - [ ] Logger
   - [ ] Config - Env
 
-## Complement
+## Fastify
+
+- https://github.com/fastify/fastify/blob/main/docs/Reference/Lifecycle.md
+
+## 📦 Packages
 
 ```sh
 
@@ -165,10 +172,10 @@ docker-compose -f ./docker-compose.yml up -d --build
 ## Package update
 
 ```sh
-ncu --target=minor -u
+  ncu --target=minor -u
 ```
 
-## Packages Node.js
+## Node.js package management
 
 - **peerDependencies**: A peer dependency is a specific version or set of versions of a third-party software library that a module is designed to work with. They're similar in concept to the relationship between a browser extension and a browser.
 - https://stackoverflow.com/questions/66239691/what-does-npm-install-legacy-peer-deps-do-exactly-when-is-it-recommended-wh
@@ -196,21 +203,39 @@ npm install -S "mongodb@3.6.0 || 4.9.0"
 ```sh
 npm ci
 ```
-
-## First commit message sample
-
-chore: project   
-start project   
-create scaffolding, add config files, setting config files   
-
-## Scaffold samples
-
-- https://github.com/bancolombia/scaffold-clean-architecture
-
 ## Commit convention
 
 chore(deps): bump dependencies
 chore(deps-dev): bump dependencies
+
+### First commit message sample
+
+```md
+  chore(project): start project   
+    - create scaffolding
+    - add config files
+    - setting project/ide/editor files   
+```
+
+### Bump dependencies
+
+```md
+  chore(packages): bump dependencies   
+    - update dependencies
+    - update dev dependencies
+```
+
+### No verify | Skip hooks
+
+```sh
+  git commit -m "" --no-verify
+```
+
+### Empty commit
+
+```sh
+  git commit --allow-empty -m "build(empty): trigger build"
+```
 
 ## Load/Stress testing
 
@@ -240,4 +265,4 @@ Apache benchmark
   mkcert
 ```
 
-git commit -m "" --no-verify
+
