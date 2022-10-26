@@ -18,8 +18,8 @@
 ├─ 📂 `.tmp/`     
 ├─ 📂 `.vscode` Visual studio code files     
 ├─ 📂 `coverage/`     
-├─ 📂 `dist/`     
-├─ 📂 `src/` Código a producción y a transpilar, ayuda a configurar tsconfig, simplicidad     
+├─ 📂 `dist/` Código para producción (debería ser lo único en el contenedor)     
+├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
 │  ├─ 📂 `Contexts/`     
 │  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
@@ -48,17 +48,26 @@
 │  │  │  │  ├─ 📂 `pipes/`     
 │  │  │  │  ├─ 📂 `sentry/`     
 │  │  │  │  ├─ 📂 `swagger/`     
+│  │  ├─ 📂 `Backoffice/`     
+│  │  ├─ 📂 `Blog/`     
 │  ├─ 📂 `apps/`     
 │  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     
 │  │  │  ├─ 📂 `console/`     
 │  │  │  ├─ 📂 `frontend/`     
 │  │  │  ├─ 📂 `graphql/`     
+│  │  ├─ 📂 `backoffice/`     
+│  │  │  ├─ 📂 `backend/`     
+│  │  │  ├─ 📂 `frontend/`     
+│  │  ├─ 📂 `blog/`     
+│  │  │  ├─ 📂 `backend/`     
+│  │  │  ├─ 📂 `frontend/`     
 ├─ 📂 `tests/` Código de pruebas     
 │  ├─ 📂 `Contexts/` Unitarios | Integración - Infraestructura (repositorio con base de datos)     
 │  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/`     
-│  │  │  │  ├─ 📂 `__mocks__/`     
+│  │  │  │  ├─ 📂 `__mocks__/` Elementos de infraestructura, estrategía para no acoplarnos a una implementación en concreto     
+│  │  │  │  ├─ 📂 `__mother__/`     
 │  │  │  │  ├─ 📂 `application/`     
 │  │  │  │  ├─ 📂 `domain/`     
 │  │  │  │  ├─ 📂 `infrastructure/`     
@@ -74,12 +83,6 @@
 ### Notes
 
 - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
-
-## Scaffold samples
-
-- https://github.com/bancolombia/scaffold-clean-architecture
-- https://github.com/CodelyTV/typescript-ddd-example
-- https://github.com/CodelyTV/typescript-ddd-course
 
 ## 🧪 Test
 
@@ -141,12 +144,17 @@
 ## 🛠 Tools
 
 - ⚙ Environment
-  - cross env as a command helper
-  - convict (powerful documentation) | json
+  - cross-env as a command helper
+  - convict (documentation) | json
   - env + env expand | .env
+- 💉 IoC Container
+  - tsyringe
+  - Lab: Diod, node-dependency-injection, inversify
 - 🧪 Testing
   - Jest
   - Cucumber
+  - Supertest
+  - Lab: Cypress, SWC (Speedy Web Compiler)
 - 🚀 Automatization
   - Husky
 - 📑 Version control
@@ -155,13 +163,24 @@
 - 📏 Code conventions
   - eslint
   - prettier
+- Message broker
+  - RabbitMQ
 - External services and integrations
   - Sentry
+  - Postman
   - AWS (Bucket | S3 | Mailer)
   - Cloudinary
   - Google authenticator
   - GitLab
   - Grafana
+- Load/Stress testing
+  - Apache benchmark
+  - Autocannon
+  
+## Costos asumidos
+
+- Contaminación y complejidad de la implementación contenedor de dependencias (tsyringe) en capas de aplicación y dominio.
+- Desarrollo y mantenimiento de la capa de infraestructura
 
 ## Fastify
 
@@ -249,6 +268,7 @@ docker-compose -f ./docker-compose.yml up -d --build
 npm i --legacy-peer-deps
 npm info [typeorm] peerDependencies
 
+# Expected output
 npm ls mongodb
 ├── mongodb@4.9.0
 ├─┬ mongoose@6.5.2
@@ -259,9 +279,13 @@ npm ls mongodb
 npm install -S "mongodb@3.6.0 || 4.9.0"
 
 ```
- "peerDependencies": {
+
+```json
+  "peerDependencies": {
     "mongodb": "3.6.0 || >=4.9.0"
   },
+```
+
 - clean install
 - https://docs.npmjs.com/cli/v8/commands/npm-ci#description
 
