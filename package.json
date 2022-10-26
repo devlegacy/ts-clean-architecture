@@ -27,7 +27,7 @@
     "test:mooc:backend:features": "cucumber-js -p mooc_backend",
     "test:mooc:backend:load": "autocannon http://127.0.0.1:8080/status/",
     "test:mooc:backend:load:https": "autocannon https://127.0.0.1:8080/status/",
-    "posttest": "find ./src/ -name '*.repo' -delete",
+    "posttest": "find ./src/ -name '*.repo' -delete && rm -Rf ./dist/*",
     "package:clean": "rm -Rf ./node_modules && rm -f ./package-lock.json && rm -f ./yarn.lock",
     "package:install": "npm install && npm audit fix",
     "package:install:legacy": "npm install --legacy-peer-deps && npm audit fix --legacy-peer-deps",
