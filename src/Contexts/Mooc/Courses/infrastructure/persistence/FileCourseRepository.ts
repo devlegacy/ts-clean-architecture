@@ -8,6 +8,10 @@ import { Course, CourseRepository } from '../../domain'
 export class FileCourseRepository implements CourseRepository {
   private FILE_PATH = `${__dirname}/Courses`
 
+  async all(): Promise<Course[]> {
+    return []
+  }
+
   async findBy(_criteria: Criteria): Promise<Course[]> {
     return []
   }

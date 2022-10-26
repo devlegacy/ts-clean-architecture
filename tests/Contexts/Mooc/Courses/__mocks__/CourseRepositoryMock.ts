@@ -3,8 +3,13 @@ import { Criteria } from '@/Contexts/Shared/domain'
 
 export class CourseRepositoryMock implements CourseRepository {
   mockSave: jest.Mock
+
   constructor() {
     this.mockSave = jest.fn()
+  }
+
+  async all(): Promise<Course[]> {
+    return []
   }
 
   async findBy(_criteria: Criteria): Promise<Course[]> {
