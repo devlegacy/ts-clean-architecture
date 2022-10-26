@@ -4,7 +4,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container } from 'tsyringe'
 
-import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroORMMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure'
 import { UserRepository } from '@/Contexts/User/Users/domain'
 import { MongoUserRepository } from '@/Contexts/User/Users/infrastructure'
@@ -16,7 +16,7 @@ import { TYPES } from './types'
 
 // Infrastructure
 const mongoConfig = MongoConfigFactory.createConfig()
-const mongoClient = MongoClientFactory.createClient('user', mongoConfig)
+const mongoClient = MikroORMMongoClientFactory.createClient('user', mongoConfig)
 container.register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
 container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
 

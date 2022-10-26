@@ -4,6 +4,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
+import { SearchCoursesByCriteriaQueryHandler } from '@/Contexts/Backoffice/Courses/application'
 import { CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
 import { SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application/SearchAll'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
@@ -38,7 +39,7 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
-import { MongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroORMMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
 
 import { TYPES } from './types'
@@ -49,7 +50,7 @@ import { TYPES } from './types'
 //   if (containerInstance) return containerInstance
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const mongoClient = MongoClientFactory.createClient('mooc', mongoConfig)
+const mongoClient = MikroORMMongoClientFactory.createClient('mooc', mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 
 // Infrastructure
@@ -85,16 +86,17 @@ container
 // Events
 container.register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
 
-// QueryHandler
+// CommandBus <-> CommandHandlers
 container
   // Tags - Application
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
 
-// QueryBus
+// QueryBus <-> QueryHandlers
 container
   // Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchCoursesByCriteriaQueryHandler)
 
 // Domain - TypeOrmRepositories
 // container.register<CourseRepository>(TYPES.CourseRepository, {

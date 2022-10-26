@@ -1,4 +1,4 @@
-export * from './mongo/MongoClientFactory'
+export * from './mongo/MikroORMMongoClientFactory'
 export * from './mongo/MongoConfig'
 
 // export * from './mongo/MongoDB'
