@@ -60,7 +60,7 @@ module.exports = {
         ignoreComments: true
       }
     ], // .prettierrc helps, 1 = warning
-    'max-lines-per-function': [1, { max: 30, skipBlankLines: true, skipComments: true }], // 1 = warning
+    'max-lines-per-function': [1, { 'max': 50, 'skipBlankLines': true, 'skipComments': true }], // 1 = warning
     'max-params': ['error', 6],
     'no-console': 'warn',
     'no-prototype-builtins': 'off',
