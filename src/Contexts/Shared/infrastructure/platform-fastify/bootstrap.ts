@@ -255,6 +255,7 @@ export const bootstrap = async (
 
       const method: () => unknown = instance[methodName]
       const { routePath, requestMethod, httpCode, schema } = getControllerMethodMetadata(method)
+      if (!routePath) continue // is not a route in controller
 
       const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instanceConstructor, methodName)
       if (params) {
