@@ -53,11 +53,11 @@ const mongoConfig = MongoConfigFactory.createConfig()
 const mongoClient = MikroORMMongoClientFactory.createClient('mooc', mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 
-// Infrastructure
+// Infrastructure layer
 container
   // Bootstrap global dependencies
   // .register<ConfigService>(TYPES.config, { useValue: config })
-  // MongoClient
+  // Database - MongoClient
   .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
   .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
   // .register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
@@ -79,20 +79,19 @@ container
     )
   })
   // CommandBus - InMemory - Infrastructure
-  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus)
+  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
   // QueryBus - InMemory - Infrastructure
-  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus)
+  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
 
-// Events
-container.register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
-
-// CommandBus <-> CommandHandlers
+// Application layer
 container
+  // EventBus <-> EventSubscribers
+  // Tags - Application
+  .register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
+  // CommandBus <-> CommandHandlers
   // Tags - Application
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
-
-// QueryBus <-> QueryHandlers
-container
+  // QueryBus <-> QueryHandlers
   // Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
@@ -103,8 +102,9 @@ container
 //   useValue: new TypeOrmCourseRepository(container.resolve<Promise<DataSource>>(TYPES.TypeOrmClient))
 // })
 
-// Domain - MongoRepositories
+// Domain layer
 container
+  // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
   .register<CourseRepository>(TYPES.CourseRepository, MongoCourseRepository)
   .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MongoCoursesCounterRepository)
