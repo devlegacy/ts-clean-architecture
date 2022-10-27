@@ -1,7 +1,6 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
-import { ValidationError } from 'joi'
 import * as joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
@@ -57,7 +56,7 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
       }
   }
 
-  schemaErrorFormatter(validationError: ValidationError) {
+  schemaErrorFormatter(validationError: joi.ValidationError) {
     const errors = new Map<string, Array<Record<string, unknown>>>()
 
     return Object.fromEntries(
@@ -84,7 +83,7 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
 
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
     // Is JOI
-    if (err instanceof ValidationError) {
+    if (err instanceof joi.ValidationError) {
       err.statusCode = HttpStatus.UNPROCESSABLE_ENTITY
       return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
         error: HttpStatus[err.statusCode],
