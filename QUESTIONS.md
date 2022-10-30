@@ -14,5 +14,6 @@
 
 ## Aportes
 
-- [ ] La capa de Shared requiere mayor conocimiento de TypeScript
-- [ ] La capa de Context requiere menos conocimiento de TypeScript
+- [Estructura de carpetas: DDD en TypeScript](https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/path/step/147601236/)
+  - La capa de Shared requiere mayor conocimiento de TypeScript
+  - La capa de Context requiere menos conocimiento de TypeScript

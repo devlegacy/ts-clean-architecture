@@ -151,13 +151,14 @@
   - tsyringe
   - Lab: Diod, node-dependency-injection, inversify
 - 🧪 Testing
-  - Jest
-  - Cucumber
+  - Jest (unit)
+  - Cucumber (e2e)
   - Supertest
   - Lab: Cypress, SWC (Speedy Web Compiler)
 - 🚀 Automatization
   - 🐶 Husky
     - pre-commit
+    - commit-msg
 - 📑 Version control
   - Comittizen (conventional changelog)
   - Lint staged
