@@ -20,7 +20,7 @@
 ├─ 📂 `coverage/`     
 ├─ 📂 `dist/` Código para producción (debería ser lo único en el contenedor)     
 ├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
-│  ├─ 📂 `Contexts/`     
+│  ├─ 📂 `Contexts/` Mínimo conocimiento de TypeScript    
 │  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
@@ -35,7 +35,7 @@
 │  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
 │  │  │  │  │  │  ├─ 📂 `typeorm/` - ORM/Data mapper que permite manejar multiples drivers   
 │  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
-│  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus     
+│  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
 │  │  │  ├─ 📂 `domain/`     
 │  │  │  ├─ 📂 `infrastructure/`    
 │  │  │  │  ├─ 📂 `EventBus/`    
@@ -156,7 +156,8 @@
   - Supertest
   - Lab: Cypress, SWC (Speedy Web Compiler)
 - 🚀 Automatization
-  - Husky
+  - 🐶 Husky
+    - pre-commit
 - 📑 Version control
   - Comittizen (conventional changelog)
   - Lint staged
@@ -179,7 +180,8 @@
   
 ## Costos asumidos
 
-- Contaminación y complejidad de la implementación contenedor de dependencias (tsyringe) en capas de aplicación y dominio.
+- Contaminación y complejidad de la implementación del contenedor de dependencias (tsyringe) en capas de aplicación y dominio.
+- Contaminación y complejidad de la implementación de type-fest para obtener los valores primitivos en las capas de dominio 
 - Desarrollo y mantenimiento de la capa de infraestructura
 
 ## Fastify
