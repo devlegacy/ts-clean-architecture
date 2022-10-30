@@ -2,43 +2,72 @@
 module.exports = {
   root: true,
   env: {
-    es2020: true,
+    // es2020: true,
     node: true,
     jest: true
   },
-  extends: [
-    'eslint:recommended',
-    // "plugin:@typescript-eslint/eslint-recommended",
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'plugin:security/recommended'
-    // "plugin:editorconfig/all",
-    // "plugin:editorconfig/noconflict"
-  ],
-  overrides: [
-    {
-      files: ['tests/**'],
-      plugins: ['jest'],
-      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
-      rules: { 'jest/prefer-expect-assertions': 'off' }
-    }
-  ],
+  // Read more on: https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser#configuration
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    // ecmaVersion: 'latest',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module'
+  },
   plugins: [
     '@typescript-eslint',
     // "editorconfig",
     'folders',
     'import',
-    'prettier',
+    // 'prettier',
     'simple-import-sort',
     'unused-imports'
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    project: './tsconfig.json',
-    sourceType: 'module'
-  },
+  extends: [
+    'eslint:recommended',
+    // 'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'plugin:security/recommended',
+    // "plugin:editorconfig/all",
+    // "plugin:editorconfig/noconflict"
+  ],
+  // Read more on: https://eslint.org/docs/latest/rules/
   rules: {
+    'array-element-newline': 'off',
+    complexity: ['error', 10],
+    eqeqeq: 'error',
+    'max-depth': ['error', 3],
+    // 'max-len': [
+    //   'warn',
+    //   {
+    //     code: 80,
+    //     ignoreComments: true
+    //   }
+    // ], // .prettierrc helps, 1 = warning
+    'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }], // 1 = warning
+    'max-params': ['error', 6],
+    'no-console': 'warn',
+    'no-prototype-builtins': 'off',
+    'no-use-before-define': 'off',
+    'no-var': 'error',
+    'object-property-newline': 'error',
+    'object-shorthand': 'error',
+    // Hide conflict with prettier
+    // "operator-linebreak": [
+    //   "error",
+    //   "after",
+    //   { "overrides": { "?": "before", ":": "before", "&&": "before", "||": "before" } }
+    // ],
+    // quotes: ['error', 'single'],
+    'prefer-const': 'error',
+    'prefer-destructuring': 'warn',
+    'prefer-rest-params': 'warn',
+    'prefer-spread': 'warn',
+    'prefer-template': 'error',
+    // semi: ['error', 'never'],
+    yoda: 'error',
+    // Plugins
     '@typescript-eslint/member-ordering': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',
@@ -49,37 +78,7 @@ module.exports = {
         ignoreRestSiblings: true
       }
     ],
-    'array-element-newline': 0,
-    complexity: ['error', 10],
-    eqeqeq: 'error',
-    'max-depth': ['error', 3],
-    'max-len': [
-      1,
-      {
-        code: 120,
-        ignoreComments: true
-      }
-    ], // .prettierrc helps, 1 = warning
-    'max-lines-per-function': [1, { 'max': 50, 'skipBlankLines': true, 'skipComments': true }], // 1 = warning
-    'max-params': ['error', 6],
-    'no-console': 'warn',
-    'no-prototype-builtins': 'off',
-    'no-use-before-define': 0,
-    'no-var': 'error',
-    'object-property-newline': 'error',
-    'object-shorthand': 'error',
-    // Hide conflict with prettier
-    // "operator-linebreak": [
-    //   "error",
-    //   "after",
-    //   { "overrides": { "?": "before", ":": "before", "&&": "before", "||": "before" } }
-    // ],
-    'prefer-const': 'error',
-    'prefer-destructuring': 'warn',
-    'prefer-rest-params': 'warn',
-    'prefer-spread': 'warn',
-    'prefer-template': 'error',
-    yoda: 'error',
+    // 'prettier/prettier': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'import/first': 'error',
@@ -97,5 +96,13 @@ module.exports = {
     ],
     // kebab-case
     'folders/match-regex': ['error', '^[a-z-]+$', '/src/']
-  }
+  },
+  overrides: [
+    {
+      files: ['tests/**'],
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
+      rules: { 'jest/prefer-expect-assertions': 'off' }
+    }
+  ]
 }
