@@ -1,6 +1,6 @@
 import { injectAll, singleton } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 
 import { Query, QueryHandler, QueryNotRegisteredError, Response } from '../../domain'
 

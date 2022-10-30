@@ -1,14 +1,22 @@
-import { SHARED_TYPES } from '@/Contexts/Shared/infrastructure/common'
-
 export const TYPES = {
-  ...SHARED_TYPES,
   // Infrastructure
+  // Config
+  config: Symbol('config'),
+  // Mongo
+  MongoConfig: Symbol('MongoConfig'),
+  MongoClient: Symbol('MongoClient'),
+  // TypeORM
+  TypeOrmConfig: Symbol('TypeOrmConfig'),
+  TypeOrmClient: Symbol('TypeOrmClient'),
+  DataSource: Symbol('DataSource'),
+  // EvenBus
   EventBus: Symbol('EventBus'),
   // Rabbit
   RabbitMQConfig: Symbol('RabbitMQConfig'),
   RabbitMQConnection: Symbol('RabbitMQConnection'),
   RabbitMQConfigurer: Symbol('RabbitMQConfigurer'),
   CommandBus: Symbol('CommandBus'),
+  // QueryBus
   QueryBus: Symbol('QueryBus'),
   // Application
   // Subscribers

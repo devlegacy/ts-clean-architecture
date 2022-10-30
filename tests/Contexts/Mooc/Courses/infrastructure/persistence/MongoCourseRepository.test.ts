@@ -1,9 +1,7 @@
 // .test.ts
-import '@/tests/apps/mooc/dependency-injection'
-
 import { container } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 

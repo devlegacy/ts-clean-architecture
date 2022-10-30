@@ -1,10 +1,8 @@
-import '@/tests/apps/mooc/dependency-injection'
-
 import { AfterAll, BeforeAll } from '@cucumber/cucumber'
 import { container } from 'tsyringe'
 
 import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 

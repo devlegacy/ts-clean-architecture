@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 
 import { CourseRepository } from '../../domain'
 import { CoursesResponse } from './CoursesResponse'

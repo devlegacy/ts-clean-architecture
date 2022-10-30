@@ -1,7 +1,7 @@
 import { inject } from 'tsyringe'
 import { DataSource, EntitySchema, Repository } from 'typeorm'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 // Template method

@@ -1,6 +1,6 @@
 import { container, delay } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 
 import { DomainEvent, DomainEventSubscriber } from '../../domain'
 

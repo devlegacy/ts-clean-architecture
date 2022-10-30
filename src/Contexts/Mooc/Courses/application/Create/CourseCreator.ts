@@ -10,7 +10,7 @@
 
 import { inject, injectable } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/dependency-injection'
 import { EventBus } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../../Shared/domain'

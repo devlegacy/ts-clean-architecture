@@ -1,12 +1,10 @@
-import '../dependency-injection'
-
 import { container } from 'tsyringe'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
 
-import { TYPES } from '../dependency-injection/types'
+import { TYPES } from '../dependency-injection'
 import { Server } from './Server'
 
 export class MoocBackendApp {
