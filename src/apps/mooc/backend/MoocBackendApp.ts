@@ -4,7 +4,7 @@ import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
 
-import { TYPES } from '../dependency-injection'
+import containerBuilder, { TYPES } from '../dependency-injection'
 import { Server } from './Server'
 
 export class MoocBackendApp {
@@ -15,7 +15,7 @@ export class MoocBackendApp {
   }
 
   async start() {
-    // containerBuilder()
+    await containerBuilder()
     await this.startHttp()
     await this.startSubscribers()
   }

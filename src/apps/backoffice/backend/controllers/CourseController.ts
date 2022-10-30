@@ -7,7 +7,7 @@ import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req } from '@/Contexts/Shared/infrastructure/common'
 
-import { TYPES } from '../../dependency-injection/types'
+import { TYPES } from '../../dependency-injection'
 
 type FilterType = { value: string; operator: string; field: string }
 

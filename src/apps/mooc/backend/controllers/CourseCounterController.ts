@@ -4,7 +4,7 @@ import { FindCoursesCounterQuery, FindCoursesCounterResponse } from '@/Contexts/
 import { QueryBus } from '@/Contexts/Shared/domain'
 import { Controller, Get } from '@/Contexts/Shared/infrastructure/common'
 
-import { TYPES } from '../../dependency-injection/types'
+import { TYPES } from '../../dependency-injection'
 
 @Controller('courses-counter')
 export class CoursesCounterController {

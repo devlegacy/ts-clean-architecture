@@ -7,7 +7,7 @@ import {
   RabbitMQConnection
 } from '@/Contexts/Shared/infrastructure/EventBus'
 
-import { TYPES } from '../../dependency-injection/types'
+import { TYPES } from '../../dependency-injection'
 
 export class ConfigureRabbitMQCommand {
   static async run() {

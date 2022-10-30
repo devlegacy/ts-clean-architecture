@@ -1,7 +1,7 @@
 // import { Collection, MongoClient, ObjectId } from 'mongodb'
 // import { inject } from 'tsyringe'
 
-// import { TYPES } from '@/apps/mooc/backend/dependency-injection/types'
+// import { TYPES } from '@/apps/mooc/backend/dependency-injection'
 // import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 // type EntityId = string | ObjectId

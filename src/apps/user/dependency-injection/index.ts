@@ -22,3 +22,5 @@ container.register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue
 
 // Domain - MongoRepository
 container.register<UserRepository>(TYPES.UserRepository, MongoUserRepository)
+
+export { TYPES }
