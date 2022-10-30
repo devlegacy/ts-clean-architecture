@@ -1,19 +1,18 @@
-import 'reflect-metadata'
-
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
 import { SearchCoursesByCriteriaQueryHandler } from '@/Contexts/Backoffice/Courses/application'
-import { CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
-import { SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application/SearchAll'
+import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
   MongoCourseRepository
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
-import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
-import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application/Find'
+import {
+  FindCoursesCounterQueryHandler,
+  IncrementCoursesCounterOnCourseCreated
+} from '@/Contexts/Mooc/CoursesCounter/application'
 import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { MongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
 import {
@@ -52,6 +51,8 @@ import { TYPES } from './types'
 const mongoConfig = MongoConfigFactory.createConfig()
 const mongoClient = MikroORMMongoClientFactory.createClient('mooc', mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
+const rabbitConnection = new RabbitMQConnection(rabbitConfig)
+const rabbitConfigure = new RabbitMQConfigurer(rabbitConnection, new RabbitMQQueueFormatter('mooc'), 50)
 
 // Infrastructure layer
 container
@@ -68,16 +69,8 @@ container
   .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
   // RabbitMQ - EventBus
   .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
-  .register<RabbitMQConnection>(TYPES.RabbitMQConnection, {
-    useValue: new RabbitMQConnection(rabbitConfig)
-  })
-  .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
-    useValue: new RabbitMQConfigurer(
-      container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection),
-      new RabbitMQQueueFormatter('mooc'),
-      50
-    )
-  })
+  .register<RabbitMQConnection>(TYPES.RabbitMQConnection, { useValue: rabbitConnection })
+  .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, { useValue: rabbitConfigure })
   // CommandBus - InMemory - Infrastructure
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
   // QueryBus - InMemory - Infrastructure
@@ -116,3 +109,5 @@ container
 // return containerInstance
 // }
 // export { containerBuilder }
+
+export { TYPES }
