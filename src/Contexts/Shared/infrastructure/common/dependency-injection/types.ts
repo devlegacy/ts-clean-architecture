@@ -1,28 +1,28 @@
 export const SHARED_TYPES = {
   // Infrastructure
   // Config
-  config: Symbol.for('config'),
+  config: Symbol('config'),
   // Mongo
-  MongoConfig: Symbol.for('MongoConfig'),
-  MongoClient: Symbol.for('MongoClient'),
+  MongoConfig: Symbol('MongoConfig'),
+  MongoClient: Symbol('MongoClient'),
   // TypeORM
-  TypeOrmConfig: Symbol.for('TypeOrmConfig'),
-  TypeOrmClient: Symbol.for('TypeOrmClient'),
-  DataSource: Symbol.for('DataSource'),
+  TypeOrmConfig: Symbol('TypeOrmConfig'),
+  TypeOrmClient: Symbol('TypeOrmClient'),
+  DataSource: Symbol('DataSource'),
   // EvenBus
-  EventBus: Symbol.for('EventBus'),
+  EventBus: Symbol('EventBus'),
   // Rabbit
-  RabbitMQConfig: Symbol.for('RabbitMQConfig'),
-  RabbitMQConnection: Symbol.for('RabbitMQConnection'),
-  RabbitMQConfigurer: Symbol.for('RabbitMQConfigurer'),
-  CommandBus: Symbol.for('CommandBus'),
+  RabbitMQConfig: Symbol('RabbitMQConfig'),
+  RabbitMQConnection: Symbol('RabbitMQConnection'),
+  RabbitMQConfigurer: Symbol('RabbitMQConfigurer'),
+  CommandBus: Symbol('CommandBus'),
   // QueryBus
-  QueryBus: Symbol.for('QueryBus'),
+  QueryBus: Symbol('QueryBus'),
   // Application
   // Subscribers
-  DomainEventSubscriber: Symbol.for('DomainEventSubscriber'),
+  DomainEventSubscriber: Symbol('DomainEventSubscriber'),
   // Command - application tag
-  CommandHandler: Symbol.for('CommandHandler'),
+  CommandHandler: Symbol('CommandHandler'),
   // Query - application tag
-  QueryHandler: Symbol.for('QueryHandler')
+  QueryHandler: Symbol('QueryHandler')
 }
