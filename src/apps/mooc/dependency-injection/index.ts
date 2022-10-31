@@ -2,23 +2,21 @@
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 
-let isContainerInstanceLoaded = false
-const containerBuilder = async () => {
-  if (isContainerInstanceLoaded) return
+// let isContainerInstanceLoaded = false
+const containerBuilder = () => {
+  // if (isContainerInstanceLoaded) return
   // !String(process.env.npm_lifecycle_event).includes('tests')
 
-  isContainerInstanceLoaded = true
+  // isContainerInstanceLoaded = true
   // eslint-disable-next-line security/detect-non-literal-require
-  await import(`./container/${config.get('app.env')}.ts`)
+  require(`./container/${config.get('app.env')}.ts`)
 
   // container.dispose()
   // containerInstance = container
   // return containerInstance
 }
 
-const moocContainer = await containerBuilder()
-
-export default moocContainer
+export default containerBuilder()
 
 // Shared
 // const mongoConfig = MongoConfigFactory.createConfig()
