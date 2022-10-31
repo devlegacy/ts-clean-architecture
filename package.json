@@ -22,7 +22,7 @@
     "lint": "eslint --color ./src/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
     "nibble": "eslint-nibble ./src/",
-    "test": "npm run test:unit && npm run test:features",
+    "test": "cross-env APP_ENV=test npm run test:unit && npm run test:features",
     "test:unit": "jest --runInBand --detectOpenHandles",
     "test:features": "npm run test:mooc:backend:features",
     "test:mooc:backend:features": "cucumber-js -p mooc_backend",
