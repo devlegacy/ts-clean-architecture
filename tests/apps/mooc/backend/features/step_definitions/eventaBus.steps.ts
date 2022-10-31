@@ -3,7 +3,7 @@ import './hooks.steps'
 import { Given } from '@cucumber/cucumber'
 import { container } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection'
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventDeserializer, DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
 

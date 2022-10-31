@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { TYPES } from '@/apps/user/dependency-injection'
+import { TYPES } from '@/apps/user/dependency-injection/types'
 
 import { User, UserFinder, UserPrimitiveProps, UserRepository } from '../domain'
 

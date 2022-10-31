@@ -7,6 +7,7 @@ import {
   MongoCourseRepository
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
+import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
 import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
 
 import { TYPES } from './types'
@@ -21,6 +22,7 @@ container
   // Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchCoursesByCriteriaQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
 
 // Domain layer
 container

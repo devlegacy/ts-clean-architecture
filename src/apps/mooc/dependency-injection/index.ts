@@ -1,21 +1,125 @@
-import config from '@/Contexts/Mooc/Shared/infrastructure/config'
+import { MikroORM } from '@mikro-orm/core'
+import { MongoDriver } from '@mikro-orm/mongodb'
+import { container, Lifecycle } from 'tsyringe'
+
+import { SearchCoursesByCriteriaQueryHandler } from '@/Contexts/Backoffice/Courses/application'
+import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
+import { MongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
+import {
+  FindCoursesCounterQueryHandler,
+  IncrementCoursesCounterOnCourseCreated
+} from '@/Contexts/Mooc/CoursesCounter/application'
+import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
+import { MongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
+import { MongoConfigFactory, RabbitMQConfig, RabbitMQConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure'
+import {
+  Command,
+  CommandBus,
+  CommandHandler,
+  EventBus,
+  Query,
+  QueryBus,
+  QueryHandler,
+  Response
+} from '@/Contexts/Shared/domain'
+import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
+import {
+  InMemoryAsyncEventBus,
+  RabbitMQConfigurer,
+  RabbitMQConnection,
+  RabbitMQQueueFormatter
+} from '@/Contexts/Shared/infrastructure/EventBus'
+import { MikroORMMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
+import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
+import { EnvironmentArranger, MongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { TYPES } from './types'
 
 // let containerInstance: DependencyContainer | null = null
 
-const containerBuilder = async () => {
-  //   if (containerInstance) return containerInstance
-  // !String(process.env.npm_lifecycle_event).includes('tests')
-  await import(`./container/${config.get('app.env')}.ts`)
-  // container.dispose()
-  // containerInstance = container
-  // return containerInstance
-}
+// const containerBuilder = () => {
+//   if (containerInstance) return containerInstance
+// !String(process.env.npm_lifecycle_event).includes('tests')
+// require(`./container/${config.get('app.env')}.ts`)
+// container.dispose()
+// containerInstance = container
+// return containerInstance
+// }
 
-export default containerBuilder
+// export default containerBuilder()
 
-export {
-  // containerBuilder
-  TYPES
-}
+// Shared
+const mongoConfig = MongoConfigFactory.createConfig()
+const mongoClient = MikroORMMongoClientFactory.createClient('mooc', mongoConfig)
+const rabbitConfig = RabbitMQConfigFactory.createConfig()
+const rabbitConnection = new RabbitMQConnection(rabbitConfig)
+const rabbitConfigure = new RabbitMQConfigurer(rabbitConnection, new RabbitMQQueueFormatter('mooc'), 50)
+
+// Infrastructure layer
+container
+  // Bootstrap global dependencies
+  // .register<ConfigService>(TYPES.config, { useValue: config })
+  // Database - MongoClient
+  .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
+  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
+  // .register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
+  // .register<Promise<DataSource>>(TYPES.TypeOrmClient, {
+  //   useValue: TypeOrmClientFactory.createClient('mooc', container.resolve<TypeOrmConfig>(TYPES.TypeOrmConfig))
+  // })
+  // EventBus - InMemory - Infrastructure
+  .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
+  // RabbitMQ - EventBus
+  .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
+  .register<RabbitMQConnection>(TYPES.RabbitMQConnection, { useValue: rabbitConnection })
+  .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, { useValue: rabbitConfigure })
+  // CommandBus - InMemory - Infrastructure
+  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
+  // QueryBus - InMemory - Infrastructure
+  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
+
+// Courses
+// Application layer
+container
+  // EventBus <-> EventSubscribers
+  // CommandBus <-> CommandHandlers
+  // Tags - Application
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
+  // QueryBus <-> QueryHandlers
+  // Tags - Application
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchCoursesByCriteriaQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
+
+// Domain layer
+container
+  // Repositories - Mongo
+  // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
+  .register<CourseRepository>(TYPES.CourseRepository, MongoCourseRepository)
+
+// CoursesCounter
+// Application layer
+container
+  // EventBus <-> EventSubscribers
+  // Tags - Application
+  .register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
+// CommandBus <-> CommandHandlers
+// Tags - Application
+// QueryBus <-> QueryHandlers
+// Tags - Application
+
+// Domain layer
+container
+  // Repositories - Mongo
+  .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MongoCoursesCounterRepository)
+
+// Test
+container.register<EnvironmentArranger>(TYPES.EnvironmentArranger, MongoEnvironmentArranger)
+
+// export default container
+// export default containerBuilder()
+
+// export {
+// containerBuilder
+// TYPES
+// }

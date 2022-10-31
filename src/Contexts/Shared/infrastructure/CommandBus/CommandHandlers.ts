@@ -1,6 +1,6 @@
 import { injectAll, singleton } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection'
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
 
 import { Command, CommandHandler, CommandNotRegisteredError } from '../../domain'
 

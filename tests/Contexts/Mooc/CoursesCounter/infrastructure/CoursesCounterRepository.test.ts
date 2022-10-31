@@ -1,6 +1,8 @@
+import '@/apps/mooc/dependency-injection'
+
 import { container } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection'
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
 import { CoursesCounter, CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
