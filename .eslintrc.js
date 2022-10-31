@@ -28,7 +28,7 @@ module.exports = {
     // 'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'plugin:security/recommended',
+    'plugin:security/recommended'
     // "plugin:editorconfig/all",
     // "plugin:editorconfig/noconflict"
   ],
@@ -38,13 +38,14 @@ module.exports = {
     complexity: ['error', 10],
     eqeqeq: 'error',
     'max-depth': ['error', 3],
-    // 'max-len': [
-    //   'warn',
-    //   {
-    //     code: 80,
-    //     ignoreComments: true
-    //   }
-    // ], // .prettierrc helps, 1 = warning
+    'max-len': [
+      'warn',
+      {
+        code: 120,
+        ignoreComments: true,
+        ignorePattern: '^import .*'
+      }
+    ], // .prettierrc helps, 1 = warning
     'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }], // 1 = warning
     'max-params': ['error', 6],
     'no-console': 'warn',

@@ -10,6 +10,7 @@
     "**/*.js",
     "**/*.test.ts",
     "**/*spec.ts",
+    "**/*test.ts", // especial container test files
     "dist",
     "jest.config.ts",
     "jest.setup.ts",
