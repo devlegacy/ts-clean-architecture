@@ -45,8 +45,8 @@ module.exports = {
         ignoreComments: true,
         ignorePattern: '^import .*'
       }
-    ], // .prettierrc helps, 1 = warning
-    'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }], // 1 = warning
+    ], // .prettierrc helps
+    'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }],
     'max-params': ['error', 6],
     'no-console': 'warn',
     'no-prototype-builtins': 'off',
