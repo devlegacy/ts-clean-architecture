@@ -1,8 +1,13 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
 import { MongoDriver } from '@mikro-orm/mongodb'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 import { MongoConfig } from './MongoConfig'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export class MikroORMMongoClientFactory {
   private static clients: Record<string, MikroORM<MongoDriver>> = {}

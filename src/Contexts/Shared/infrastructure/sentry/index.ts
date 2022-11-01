@@ -2,9 +2,11 @@ import * as Sentry from '@sentry/node'
 import * as Tracing from '@sentry/tracing'
 import { resolve } from 'path'
 import { cwd } from 'process'
+import { pathToFileURL } from 'url'
 
-// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
-const packageJson: Record<string, string> = require(resolve(cwd(), './package.json'))
+const packageJson: Record<string, string> = await import(pathToFileURL(resolve(cwd(), './package.json')).href, {
+  assert: { type: 'json' }
+})
 
 const options: Sentry.NodeOptions = {
   debug: true,

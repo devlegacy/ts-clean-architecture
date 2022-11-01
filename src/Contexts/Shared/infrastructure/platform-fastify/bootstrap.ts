@@ -6,6 +6,7 @@ import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
+import { pathToFileURL } from 'url'
 
 import { info } from '@/Contexts/Shared/infrastructure/logger'
 
@@ -45,7 +46,7 @@ async function* readModulesRecursively(path: string, filter: RegExp): AsyncItera
       if (dirent.isDirectory()) {
         yield* readModulesRecursively(fullFilePath, filter)
       } else if (filter.test(dirent.name)) {
-        yield import(fullFilePath.toString()).then((m) => {
+        yield import(pathToFileURL(fullFilePath.toString()).href).then((m) => {
           return m
         })
       }

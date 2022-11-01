@@ -5,8 +5,9 @@ import { FastifyInstance, PrintRoutesOptions } from 'fastify'
 import fastifyQs from 'fastify-qs'
 import http from 'http'
 import { AddressInfo } from 'net'
-import { resolve } from 'path'
+import { dirname, resolve } from 'path'
 import qs from 'qs'
+import { fileURLToPath } from 'url'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
@@ -14,6 +15,9 @@ import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/Genera
 import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 import { ZodModule } from '@/Contexts/Shared/infrastructure/zod'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export class Server {
   readonly #port: number

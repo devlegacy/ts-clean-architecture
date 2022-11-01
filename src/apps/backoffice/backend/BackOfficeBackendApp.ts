@@ -1,3 +1,5 @@
+import '../dependency-injection'
+
 import { container } from 'tsyringe'
 
 import config from '@/Contexts/Backoffice/Shared/infrastructure/config'

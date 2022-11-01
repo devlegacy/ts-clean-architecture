@@ -15,9 +15,9 @@ import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 // containerInstance = container
 // return containerInstance
 // }
+const container = await import(`./container/${config.get('app.env')}`)
 
-// eslint-disable-next-line security/detect-non-literal-require
-export default require(`./container/${config.get('app.env')}.ts`)
+export default container
 
 // Shared
 // const mongoConfig = MongoConfigFactory.createConfig()

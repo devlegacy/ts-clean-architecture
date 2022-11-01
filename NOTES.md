@@ -185,6 +185,12 @@
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
 - Desarrollo y mantenimiento de la capa de infraestructura
 
+## ESM
+
+- https://alinalihassan.com/blog/top-level-await-typescript
+- https://bobbyhadz.com/blog/javascript-dirname-is-not-defined-in-es-module-scope
+- https://flaviocopes.com/fix-dirname-not-defined-es-module-scope/
+
 ## Fastify
 
 - https://github.com/fastify/fastify/blob/main/docs/Reference/Lifecycle.md
