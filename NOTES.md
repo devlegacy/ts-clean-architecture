@@ -181,8 +181,8 @@
   
 ## Costos asumidos
 
-- Contaminación y complejidad de la implementación del contenedor de dependencias (tsyringe) en capas de aplicación y dominio.
-- Contaminación y complejidad de la implementación de type-fest para obtener los valores primitivos en las capas de dominio 
+- Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
+- Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
 - Desarrollo y mantenimiento de la capa de infraestructura
 
 ## Fastify
