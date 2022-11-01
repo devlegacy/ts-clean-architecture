@@ -20,7 +20,7 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
     return courses
   }
 
-  async findBy(criteria: Criteria): Promise<Course[]> {
+  async searchBy(criteria: Criteria): Promise<Course[]> {
     const documents = await this.findByCriteria(criteria)
 
     return documents

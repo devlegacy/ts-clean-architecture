@@ -13,7 +13,7 @@ export class CoursesByCriteriaSearcher {
   async run(filters: Filters, order: Order, limit?: number, offset?: number): Promise<CoursesResponse> {
     const criteria = new Criteria(filters, order, limit, offset)
 
-    const courses = await this.repository.findBy(criteria)
+    const courses = await this.repository.searchBy(criteria)
 
     return new CoursesResponse(courses)
   }

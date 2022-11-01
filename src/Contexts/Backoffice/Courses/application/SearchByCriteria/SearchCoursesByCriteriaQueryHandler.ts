@@ -6,7 +6,7 @@ import { CoursesResponse } from '../CoursesResponse'
 import { CoursesByCriteriaSearcher } from './CoursesByCriteriaSearcher'
 import { SearchCoursesByCriteriaQuery } from './SearchCoursesByCriteriaQuery'
 
-// Injectable and Tagable TYPES.QueryHandler
+// Injectable and Taggable TYPES.QueryHandler
 @injectable()
 export class SearchCoursesByCriteriaQueryHandler
   implements QueryHandler<SearchCoursesByCriteriaQuery, CoursesResponse>

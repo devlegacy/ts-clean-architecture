@@ -1,1 +1,1 @@
-import '@/apps/mooc/dependency-injection/index'
+export * from '@/apps/mooc/dependency-injection'

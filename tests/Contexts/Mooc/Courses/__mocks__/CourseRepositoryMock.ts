@@ -12,7 +12,7 @@ export class CourseRepositoryMock implements CourseRepository {
     return []
   }
 
-  async findBy(_criteria: Criteria): Promise<Course[]> {
+  async searchBy(_criteria: Criteria): Promise<Course[]> {
     return []
   }
 
