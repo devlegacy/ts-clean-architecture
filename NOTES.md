@@ -22,9 +22,12 @@
 ├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
 │  ├─ 📂 `Contexts/` Mínimo conocimiento de TypeScript    
 │  │  ├─ 📂 `Mooc/`     
+│  │  │  ├─ 📂 `Videos/` Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
-│  │  │  │  │  ├─ 📄 `CourseUseCase.ts`    
+│  │  │  │  │  ├─ 📂 `Creator/` - Module   
+│  │  │  │  │  ├─ 📂 `SearchByCriteria/` - Module   
+│  │  │  │  │  ├─ 📄 `CoursesUseCase.ts`    
 │  │  │  │  │  ├─ 📄 `Course[UseCase].ts`   
 │  │  │  │  │  ├─ 📄 `CoursesResponse.ts `   
 │  │  │  │  ├─ 📂 `domain/` - ¿De qué tipo? (UserId, User, UserRepository)   
@@ -34,7 +37,19 @@
 │  │  │  │  │  ├─ 📂 `persistence/`    
 │  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
 │  │  │  │  │  │  ├─ 📂 `typeorm/` - ORM/Data mapper que permite manejar multiples drivers   
+│  │  │  ├─ 📂 `Paths/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Students/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Retention/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Payments/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Ratings/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `.../` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Roadmap/` Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
+│  │  ├─ 📂 `Backoffice/`     
+│  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Tickets/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `.../` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Students/` Module - ¿Quién eres y qué tipo?    
 │  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
 │  │  │  ├─ 📂 `domain/`     
 │  │  │  ├─ 📂 `infrastructure/`    
@@ -182,6 +197,7 @@
 ## Costos asumidos
 
 - Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
+  - `@injectable()` | `@inject()` | `@singleton()`
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
 - Desarrollo y mantenimiento de la capa de infraestructura
 
