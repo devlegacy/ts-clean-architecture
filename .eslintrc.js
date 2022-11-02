@@ -69,6 +69,7 @@ module.exports = {
     // semi: ['error', 'never'],
     yoda: 'error',
     // Plugins
+    '@typescript-eslint/array-type': 'warn',
     '@typescript-eslint/member-ordering': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',
@@ -103,7 +104,12 @@ module.exports = {
       files: ['tests/**'],
       plugins: ['jest'],
       extends: ['plugin:jest/recommended', 'plugin:jest/style'],
-      rules: { 'jest/prefer-expect-assertions': 'off' }
+      rules: {
+        '@typescript-eslint/no-empty-function': 'off',
+        'jest/prefer-expect-assertions': 'off',
+        'jest/no-standalone-expect': 'off',
+        'jest/no-mocks-import': 'off'
+      }
     }
   ]
 }
