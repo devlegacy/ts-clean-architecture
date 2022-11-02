@@ -14,12 +14,13 @@ import { TYPES } from './types'
 
 // Application layer
 container
-  // EventBus <-> EventSubscribers
-  // CommandBus <-> CommandHandlers
-  // Tags - Application
+  // 🚌 EventBus <-> EventSubscribers
+  // 🏷 Tags - Application
+  // 🚌 CommandBus <-> CommandHandlers
+  // 🏷 Tags - Application
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
-  // QueryBus <-> QueryHandlers
-  // Tags - Application
+  // 🚌 QueryBus <-> QueryHandlers
+  // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchCoursesByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)

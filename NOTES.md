@@ -27,10 +27,11 @@
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
 │  │  │  │  │  ├─ 📂 `Creator/` - Module   
 │  │  │  │  │  ├─ 📂 `SearchByCriteria/` - Module   
-│  │  │  │  │  ├─ 📄 `CoursesUseCase.ts`    
+│  │  │  │  │  ├─ 📄 `CoursesUseCase.ts` Servicio | Servicio de aplicación | Caso de uso    
 │  │  │  │  │  ├─ 📄 `Course[UseCase].ts`   
 │  │  │  │  │  ├─ 📄 `CoursesResponse.ts `   
 │  │  │  │  ├─ 📂 `domain/` - ¿De qué tipo? (UserId, User, UserRepository)   
+│  │  │  │  │  ├─ 📄 `CourseFinder.ts` Servicio | Servicio de dominio | Caso de uso    
 │  │  │  │  │  ├─ 📂 `exceptions/`   
 │  │  │  │  │  ├─ 📂 `value-objects/`   
 │  │  │  │  ├─ 📂 `infrastructure/` - ¿De qué tipo? (UserPostController, MySQLUserRepository)    

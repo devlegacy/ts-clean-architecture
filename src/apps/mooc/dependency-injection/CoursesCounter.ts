@@ -8,13 +8,13 @@ import { TYPES } from './types'
 
 // Application layer
 container
-  // EventBus <-> EventSubscribers
-  // Tags - Application
+  // 🚌 EventBus <-> EventSubscribers
+  // 🏷 Tags - Application
   .register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
-// CommandBus <-> CommandHandlers
-// Tags - Application
-// QueryBus <-> QueryHandlers
-// Tags - Application
+// 🚌 CommandBus <-> CommandHandlers
+// 🏷 Tags - Application
+// 🚌 QueryBus <-> QueryHandlers
+// 🏷 Tags - Application
 
 // Domain layer
 container
