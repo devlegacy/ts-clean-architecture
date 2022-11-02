@@ -7,6 +7,10 @@
 
 ## Scaffold
 
+```sh
+  tree -L 4 src
+```
+
 📂 `project-root/`     
 ├─ 📂 `.bin` Binary and helper files     
 ├─ 📂 `.cache/`     
@@ -20,13 +24,13 @@
 ├─ 📂 `coverage/`     
 ├─ 📂 `dist/` Código para producción (debería ser lo único en el contenedor)     
 ├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
-│  ├─ 📂 `Contexts/` Mínimo conocimiento de TypeScript    
-│  │  ├─ 📂 `Mooc/`     
-│  │  │  ├─ 📂 `Videos/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
+│  ├─ 📂 `Contexts/` Bounded Contexts 🗃 - Mínimo conocimiento de TypeScript     
+│  │  ├─ 📂 `Mooc/` 🚀    
+│  │  │  ├─ 📂 `Videos/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Courses/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
-│  │  │  │  │  ├─ 📂 `Creator/` - Module   
-│  │  │  │  │  ├─ 📂 `SearchByCriteria/` - Module   
+│  │  │  │  │  ├─ 📂 `Creator/` - 📥 Module   
+│  │  │  │  │  ├─ 📂 `SearchByCriteria/` - 📥 Module   
 │  │  │  │  │  ├─ 📄 `CoursesUseCase.ts` Servicio | Servicio de aplicación | Caso de uso    
 │  │  │  │  │  ├─ 📄 `Course[UseCase].ts`   
 │  │  │  │  │  ├─ 📄 `CoursesResponse.ts `   
@@ -38,19 +42,19 @@
 │  │  │  │  │  ├─ 📂 `persistence/`    
 │  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
 │  │  │  │  │  │  ├─ 📂 `typeorm/` - ORM/Data mapper que permite manejar multiples drivers   
-│  │  │  ├─ 📂 `Paths/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Students/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Retention/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Payments/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Ratings/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `.../` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Roadmap/` Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Paths/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Students/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Retention/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Payments/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Ratings/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `.../` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Roadmap/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
-│  │  ├─ 📂 `Backoffice/`     
-│  │  │  ├─ 📂 `Courses/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Tickets/` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `.../` Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Students/` Module - ¿Quién eres y qué tipo?    
+│  │  ├─ 📂 `Backoffice/` 🚀    
+│  │  │  ├─ 📂 `Courses/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Tickets/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `.../` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Students/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
 │  │  │  ├─ 📂 `domain/`     
 │  │  │  ├─ 📂 `infrastructure/`    
@@ -66,18 +70,18 @@
 │  │  │  │  ├─ 📂 `swagger/`     
 │  │  ├─ 📂 `Backoffice/`     
 │  │  ├─ 📂 `Blog/`     
-│  ├─ 📂 `apps/`     
-│  │  ├─ 📂 `mooc/`     
-│  │  │  ├─ 📂 `backend/`     
+│  ├─ 📂 `apps/` 📱      
+│  │  ├─ 📂 `mooc/` 📱    
+│  │  │  ├─ 📂 `backend/` 👨🏾‍💻🔙     
 │  │  │  ├─ 📂 `console/`     
-│  │  │  ├─ 📂 `frontend/`     
+│  │  │  ├─ 📂 `frontend/` 👨🏾‍💻🦄    
 │  │  │  ├─ 📂 `graphql/`     
-│  │  ├─ 📂 `backoffice/`     
+│  │  ├─ 📂 `backoffice/` 📱     
 │  │  │  ├─ 📂 `backend/`     
 │  │  │  ├─ 📂 `frontend/`     
-│  │  ├─ 📂 `blog/`     
-│  │  │  ├─ 📂 `backend/`     
-│  │  │  ├─ 📂 `frontend/`     
+│  │  ├─ 📂 `blog/` 📱     
+│  │  │  ├─ 📂 `backend/` 👨🏾‍💻🔙    
+│  │  │  ├─ 📂 `frontend/` 👨🏾‍💻🦄    
 ├─ 📂 `tests/` Código de pruebas     
 │  ├─ 📂 `Contexts/` Unitarios | Integración - Infraestructura (repositorio con base de datos)     
 │  │  ├─ 📂 `Mooc/`     
