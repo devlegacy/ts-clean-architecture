@@ -2,14 +2,22 @@ import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import { Criteria } from '@/Contexts/Shared/domain'
 
 export class CourseRepositoryMock implements CourseRepository {
-  mockSave: jest.Mock
+  private saveMock: jest.Mock
+  private searchAllMock: jest.Mock
+  private courses: Course[] = []
 
   constructor() {
-    this.mockSave = jest.fn()
+    this.saveMock = jest.fn()
+    this.searchAllMock = jest.fn()
+  }
+
+  returnOnAll(courses: Course[]) {
+    this.courses = courses
   }
 
   async all(): Promise<Course[]> {
-    return []
+    this.searchAllMock()
+    return this.courses
   }
 
   async searchBy(_criteria: Criteria): Promise<Course[]> {
@@ -17,17 +25,21 @@ export class CourseRepositoryMock implements CourseRepository {
   }
 
   async save(course: Course): Promise<void> {
-    this.mockSave(course)
+    this.saveMock(course)
   }
 
   assertLastSavedCourseIs(expected: Course): void {
-    const { mock } = this.mockSave
+    const { mock } = this.saveMock
     const lastSavedCourse = mock.calls[mock.calls.length - 1][0] as Course
     expect(lastSavedCourse).toBeInstanceOf(Course)
     expect(lastSavedCourse.toPrimitives()).toEqual(expected.toPrimitives())
   }
 
   assertSaveHaveBeenCalledWith(expected: Course): void {
-    expect(this.mockSave).toHaveBeenCalledWith(expected)
+    expect(this.saveMock).toHaveBeenCalledWith(expected)
+  }
+
+  assertAll() {
+    expect(this.searchAllMock).toHaveBeenCalled()
   }
 }

@@ -2,6 +2,8 @@ import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef } from 'fastify/types/schema'
 import CreateHttpError from 'http-errors'
 
+import { EntityNotFoundException, InvalidArgumentException } from '../domain'
+import { HttpStatus } from './common'
 import { HttpError, ValidationModule } from './platform-fastify'
 
 export class GeneralValidationModule implements ValidationModule<unknown> {
@@ -13,6 +15,14 @@ export class GeneralValidationModule implements ValidationModule<unknown> {
     // Is our HTTP
     if ((err as unknown as HttpError)?.code) {
       return res.send(CreateHttpError(err.code, err.message))
+    }
+    if (err instanceof InvalidArgumentException) {
+      return res
+        .status(HttpStatus.UNPROCESSABLE_ENTITY)
+        .send(CreateHttpError(HttpStatus.UNPROCESSABLE_ENTITY, err.message))
+    }
+    if (err instanceof EntityNotFoundException) {
+      return res.status(HttpStatus.NOT_FOUND).send(CreateHttpError(HttpStatus.NOT_FOUND, err.message))
     }
     // TODO: Improve general error handler to catch unknown errors
     return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))

@@ -1,5 +1,5 @@
 /**
- * NOTE: Always import of domain never *Infrastructure*
+ * NOTE: Always import from *📂 domain* or *📂 application* never *📂 infrastructure*
  *
  * Todas las capas de nuestra arquitectura más externas solo deberían depender de las capas más internas
  *  - (infraestructura -> application -> domain)
@@ -11,9 +11,9 @@
 import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { EventBus } from '@/Contexts/Shared/domain'
 
-import { CourseId } from '../../../Shared/domain'
 import { Course, CourseDuration, CourseName, CourseRepository } from '../../domain'
 
 // NOTE: Complejidad asumida
@@ -25,7 +25,7 @@ export class CourseCreator {
   ) {}
 
   async run(request: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
-    const course = Course.create(request.id, request.name, !request.duration ? undefined : request.duration)
+    const course = Course.create(request.id, request.name, request.duration ?? request.duration)
 
     await this.repository.save(course)
     await this.eventBus.publish(course.pullDomainEvents())

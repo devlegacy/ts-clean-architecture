@@ -1,6 +1,11 @@
-const { MongoConfigFactory, RabbitMQConfigFactory } = require("@/Contexts/Mooc/Shared/infrastructure")
-const { RabbitMQConnection, RabbitMQConfigurer, RabbitMQQueueFormatter } = require("@/Contexts/Shared/infrastructure/EventBus")
-const { MikroORMMongoClientFactory } = require("@/Contexts/Shared/infrastructure/persistence")
+const { MongoConfigFactory, RabbitMQConfigFactory } = require('@/Contexts/Mooc/Shared/infrastructure')
+const {
+  RabbitMQConnection,
+  RabbitMQConfigurer,
+  RabbitMQQueueFormatter
+} = require('@/Contexts/Shared/infrastructure/EventBus')
+const { MikroORMMongoClientFactory } = require('@/Contexts/Shared/infrastructure/persistence')
+const { TYPES } = require('./types')
 
 const mongoConfig = MongoConfigFactory.createConfig()
 const mongoClient = MikroORMMongoClientFactory.createClient('mooc', mongoConfig)
@@ -10,11 +15,11 @@ const rabbitConfigure = new RabbitMQConfigurer(rabbitConnection, new RabbitMQQue
 
 module.exports = {
   services: {
-      mailer: {class: "./Mailer", arguments: ["sendmail"]},
-      newsletter_manager: {
-        class: "./NewsletterManager",
-        arguments: ["%fs-extra"],
-        calls: [{ method: 'setMailer', arguments: ['@mailer'] }]
+    [`${TYPES.MongoConfig}`]: {
+      factory: {
+        class: MongoConfigFactory,
+        method: 'createConfig'
       }
+    }
   }
 }

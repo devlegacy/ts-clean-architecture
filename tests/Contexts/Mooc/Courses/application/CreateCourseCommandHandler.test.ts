@@ -19,6 +19,8 @@ beforeEach(() => {
 
 describe('CreateCourseCommandHandler', () => {
   it('should create a valid course', async () => {
+    expect.assertions(3)
+
     const command = CreateCourseCommandMother.random()
     const course = CourseMother.from(command)
     const domainEvent = CourseCreatedDomainEventMother.fromCourse(course)
@@ -30,12 +32,12 @@ describe('CreateCourseCommandHandler', () => {
   })
 
   it('should throw error if course name length is exceeded', async () => {
-    expect(async () => {
+    await expect(async () => {
       const command = CreateCourseCommandMother.invalid()
 
       const course = CourseMother.from(command)
 
-      handler.handle(command)
+      await handler.handle(command)
 
       repository.assertSaveHaveBeenCalledWith(course)
     }).rejects.toThrow(CourseNameLengthExceeded)

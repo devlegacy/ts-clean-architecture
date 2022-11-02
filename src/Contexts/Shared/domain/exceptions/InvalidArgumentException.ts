@@ -2,6 +2,6 @@
 export class InvalidArgumentException extends Error {
   constructor(message: string) {
     super(message)
-    this.name = 'InvalidArgumentException'
+    this.name = this.constructor.name
   }
 }

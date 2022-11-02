@@ -32,6 +32,7 @@ export class CourseController {
       ['operator', 'CONTAINS'],
       ['value', 'ability']
     ])
+
     // const filterDuration: Map<string, string> = new Map([
     //   ['field', 'duration'],
     //   ['operator', 'CONTAINS'],

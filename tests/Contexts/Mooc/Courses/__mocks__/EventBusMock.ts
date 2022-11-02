@@ -8,8 +8,7 @@ export class EventBusMock implements EventBus {
     this.publishSpy(events)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  addSubscribers(subscribers: DomainEventSubscribers): void {}
+  addSubscribers(_subscribers: DomainEventSubscribers): void {}
 
   assertLastPublishedEventIs(expectedEvent: DomainEvent) {
     const publishSpyCalls = this.publishSpy.mock.calls
@@ -26,7 +25,7 @@ export class EventBusMock implements EventBus {
   }
 
   private getDataFromDomainEvent(event: DomainEvent) {
-    const { eventId, occurredOn, ...attributes } = event
+    const { eventId: _eventId, occurredOn: _occurredOn, ...attributes } = event
 
     return attributes
   }

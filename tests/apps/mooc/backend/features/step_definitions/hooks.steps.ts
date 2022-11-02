@@ -13,7 +13,7 @@ let eventBus: EventBus
 BeforeAll(async () => {
   // await ConfigureRabbitMQCommand.run()
 
-  environmentArranger = await container.resolve<Promise<EnvironmentArranger>>(TYPES.EnvironmentArranger)
+  environmentArranger = container.resolve<EnvironmentArranger>(TYPES.EnvironmentArranger)
   eventBus = container.resolve<EventBus>(TYPES.EventBus)
   await environmentArranger.arrange()
 

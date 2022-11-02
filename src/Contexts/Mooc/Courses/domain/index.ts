@@ -1,6 +1,6 @@
 export * from './Course'
 export * from './CourseCreatedDomainEvent'
-export * from './CourseNameLengthExceeded'
 export * from './CourseRepository'
 export * from './CreateCourseCommand'
+export * from './exceptions'
 export * from './value-object'
