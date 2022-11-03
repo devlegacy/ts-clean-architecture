@@ -1,13 +1,13 @@
 import { EntitySchema } from '@mikro-orm/core'
 
 import { Nullable } from '@/Contexts/Shared/domain'
-import { MikroORMMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { CoursesCounter, CoursesCounterRepository } from '../../domain'
 import { CoursesCounterEntity } from './mongo/CoursesCounterEntity'
 
 export class MongoCoursesCounterRepository
-  extends MikroORMMongoRepository<CoursesCounter>
+  extends MikroOrmMongoRepository<CoursesCounter>
   implements CoursesCounterRepository
 {
   async search(): Promise<Nullable<CoursesCounter>> {

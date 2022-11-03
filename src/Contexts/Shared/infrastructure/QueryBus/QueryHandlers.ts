@@ -2,7 +2,7 @@ import { injectAll, singleton } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/dependency-injection/types'
 
-import { Query, QueryHandler, QueryNotRegisteredError, Response } from '../../domain'
+import { Query, QueryHandler, QueryNotRegisteredException, Response } from '../../domain'
 
 @singleton()
 export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
@@ -17,7 +17,7 @@ export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
     const queryHandler = super.get(query.constructor)
 
     if (!queryHandler) {
-      throw new QueryNotRegisteredError(query)
+      throw new QueryNotRegisteredException(query)
     }
 
     return queryHandler

@@ -1,4 +1,4 @@
-export * from './CommandNotRegisteredError'
+export * from './CommandNotRegisteredException'
 export * from './EntityNotFoundException'
 export * from './InvalidArgumentException'
-export * from './QueryNotRegisteredError'
+export * from './QueryNotRegisteredException'

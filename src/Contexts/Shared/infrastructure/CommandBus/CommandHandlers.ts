@@ -2,7 +2,7 @@ import { injectAll, singleton } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/dependency-injection/types'
 
-import { Command, CommandHandler, CommandNotRegisteredError } from '../../domain'
+import { Command, CommandHandler, CommandNotRegisteredException } from '../../domain'
 
 @singleton()
 export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
@@ -18,7 +18,7 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
     const commandHandler = super.get(command.constructor)
 
     if (!commandHandler) {
-      throw new CommandNotRegisteredError(command)
+      throw new CommandNotRegisteredException(command)
     }
 
     return commandHandler

@@ -4,10 +4,10 @@ import { MongoDriver } from '@mikro-orm/mongodb'
 
 import { MongoConfig } from '../mongo/MongoConfig'
 
-export abstract class MikroORMMongoClientFactory {
+export abstract class MikroOrmMongoClientFactory {
   private static clients: Record<string, MikroORM<MongoDriver>> = {}
   static async createClient(contextName: string, config: MongoConfig) {
-    let client = MikroORMMongoClientFactory.getClient(contextName)
+    let client = MikroOrmMongoClientFactory.getClient(contextName)
     if (!client) {
       client = await this.createAndConnectClient(config)
       this.registerClient(contextName, client)
@@ -34,11 +34,11 @@ export abstract class MikroORMMongoClientFactory {
   }
 
   private static getClient(contextName: string): MikroORM<MongoDriver> {
-    return MikroORMMongoClientFactory.clients[contextName]
+    return MikroOrmMongoClientFactory.clients[contextName]
   }
 
   private static registerClient(contextName: string, client: MikroORM<MongoDriver>): void {
-    MikroORMMongoClientFactory.clients[contextName] = client
+    MikroOrmMongoClientFactory.clients[contextName] = client
   }
 }
 

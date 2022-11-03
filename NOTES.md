@@ -218,12 +218,12 @@
 
 ## Excepciones de dominio
 
-Generalizar
+Generalizar para después filtrar
 
-- `InvalidArgumentException`
-- `EntityNotFoundException`
-- `CommandNotRegisteredException`
-- `QueryNotRegisteredException`
+- `InvalidArgumentException`: 422
+- `EntityNotFoundException`: 404
+- `CommandNotRegisteredException`: ?
+- `QueryNotRegisteredException`: ?
 
 ## Fastify
 

@@ -16,14 +16,14 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
-import { MikroORMMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
 
 import { TYPES } from './types'
 
 const context = 'mooc'
 const mongoConfig = MongoConfigFactory.createConfig()
-const mongoClient = MikroORMMongoClientFactory.createClient(context, mongoConfig)
+const mongoClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)

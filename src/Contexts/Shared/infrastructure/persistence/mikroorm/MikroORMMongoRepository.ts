@@ -7,7 +7,7 @@ import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain'
 import { SHARED_TYPES } from '../../common'
 import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter'
 
-export abstract class MikroORMMongoRepository<T extends AggregateRoot> {
+export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   private criteriaConverter: MongoCriteriaConverter
   // Diod
   // constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {}
