@@ -49,13 +49,13 @@
 │  │  │  ├─ 📂 `Ratings/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `.../` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Roadmap/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
+│  │  │  ├─ 📂 `Shared/` Shared Kernel | Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
 │  │  ├─ 📂 `Backoffice/` 🚀    
 │  │  │  ├─ 📂 `Courses/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Tickets/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `.../` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Students/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
+│  │  ├─ 📂 `Shared/` Shared Kernel | Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
 │  │  │  ├─ 📂 `domain/`     
 │  │  │  ├─ 📂 `infrastructure/`    
 │  │  │  │  ├─ 📂 `EventBus/`    
@@ -70,16 +70,16 @@
 │  │  │  │  ├─ 📂 `swagger/`     
 │  │  ├─ 📂 `Backoffice/`     
 │  │  ├─ 📂 `Blog/`     
-│  ├─ 📂 `apps/` 📱      
+│  ├─ 📂 `apps/` 📲 entry points      
 │  │  ├─ 📂 `mooc/` 📱    
 │  │  │  ├─ 📂 `backend/` 👨🏾‍💻🔙     
 │  │  │  ├─ 📂 `console/`     
 │  │  │  ├─ 📂 `frontend/` 👨🏾‍💻🦄    
 │  │  │  ├─ 📂 `graphql/`     
-│  │  ├─ 📂 `backoffice/` 📱     
+│  │  ├─ 📂 `backoffice/` 📲     
 │  │  │  ├─ 📂 `backend/`     
 │  │  │  ├─ 📂 `frontend/`     
-│  │  ├─ 📂 `blog/` 📱     
+│  │  ├─ 📂 `blog/` 📲     
 │  │  │  ├─ 📂 `backend/` 👨🏾‍💻🔙    
 │  │  │  ├─ 📂 `frontend/` 👨🏾‍💻🦄    
 ├─ 📂 `tests/` Código de pruebas     
@@ -96,7 +96,7 @@
 │  ├─ 📂 `apps/` Aceptación | Caja negra | End to end - Probar una funcionalidad desde el punto más externo sin conocer la implementación que hay por dentro    
 │  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     
-│  │  │  │  ├─ 📂 `features/`     
+│  │  │  │  ├─ 📂 `features/` Comportamiento visible para el cliente    
 │  │  │  ├─ 📂 `frontend/`     
 ├─ 📂 `types/`      
 
@@ -205,6 +205,25 @@
   - `@injectable()` | `@inject()` | `@singleton()`
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
 - Desarrollo y mantenimiento de la capa de infraestructura
+
+## Comments conventions
+
+- BUG
+- HACK
+- FIXME
+- TODO
+- NOTE
+- DOC
+- DEBT
+
+## Excepciones de dominio
+
+Generalizar
+
+- `InvalidArgumentException`
+- `EntityNotFoundException`
+- `CommandNotRegisteredException`
+- `QueryNotRegisteredException`
 
 ## Fastify
 
@@ -315,6 +334,12 @@ npm install -S "mongodb@3.6.0 || 4.9.0"
 
 ```sh
   npm ci
+```
+
+## VSCode
+
+```sh
+  --inspect=127.0.0.1:30000
 ```
 
 ## Load/Stress testing

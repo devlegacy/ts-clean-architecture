@@ -16,7 +16,7 @@
         "<node_internals>/internal/inspector_async_hook.js"
       ],
       // https://github.com/pinojs/pino/issues/441
-      "outputCapture": "std",
+      // "outputCapture": "std",
       "type": "node",
       "restart": true
     },
