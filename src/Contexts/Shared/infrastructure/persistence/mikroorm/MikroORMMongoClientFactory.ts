@@ -2,25 +2,21 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
 import { MongoDriver } from '@mikro-orm/mongodb'
 
-import { MongoConfig } from './MongoConfig'
+import { MongoConfig } from '../mongo/MongoConfig'
 
-export class MikroORMMongoClientFactory {
+export abstract class MikroORMMongoClientFactory {
   private static clients: Record<string, MikroORM<MongoDriver>> = {}
   static async createClient(contextName: string, config: MongoConfig) {
     let client = MikroORMMongoClientFactory.getClient(contextName)
     if (!client) {
-      client = await this.createAndConnectClient(contextName, config)
+      client = await this.createAndConnectClient(config)
       this.registerClient(contextName, client)
     }
     return client
   }
 
-  private static async createAndConnectClient(
-    contextName: string,
-    config: MongoConfig
-  ): Promise<MikroORM<MongoDriver>> {
+  private static async createAndConnectClient(config: MongoConfig): Promise<MikroORM<MongoDriver>> {
     const client = await MikroORM.init<MongoDriver>({
-      dbName: contextName,
       clientUrl: config.url,
       type: 'mongo',
       entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mongo/*Entity{.js,.ts}`],

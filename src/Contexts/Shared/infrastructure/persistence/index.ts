@@ -1,7 +1,8 @@
-export * from './mongo/MikroORMMongoClientFactory'
+export * from './mikroorm/MikroORMMongoClientFactory'
 export * from './mongo/MongoConfig'
 
 // export * from './mongo/MongoDB'
+export * from './mikroorm/MikroORMMongoRepository'
 export * from './mongo/MongoRepository'
 // export * from './mongo/ValueObjectTransformer'
 // export * from './typeorm/TypeOrmClientFactory'

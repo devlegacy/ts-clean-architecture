@@ -4,6 +4,7 @@ import { TYPES } from '@/apps/mooc/dependency-injection/types'
 import { EventBus, Uuid } from '@/Contexts/Shared/domain'
 
 import { Course, CourseDuration, CourseName, CourseRepository } from '../domain'
+import { CourseCreatorRequest } from './CourseCreatorRequest'
 
 @injectable()
 export class CourseCreator {
@@ -12,7 +13,7 @@ export class CourseCreator {
     @inject(TYPES.EventBus) private readonly eventBus: EventBus
   ) {}
 
-  async run(request: any) {
+  async run(request: CourseCreatorRequest) {
     const course = Course.create(
       new Uuid(request.id),
       new CourseName(request.name),

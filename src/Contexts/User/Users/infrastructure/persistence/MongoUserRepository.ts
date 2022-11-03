@@ -2,12 +2,12 @@ import { EntitySchema, wrap } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
 import { Nullable } from '@/Contexts/Shared/domain'
-import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoRepository'
+import { MikroORMMongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mikroorm/MikroORMMongoRepository'
 
 import { User, UserRepository } from '../../domain'
 import { UserEntity } from './mongo/UserEntity'
 
-export class MongoUserRepository extends MongoRepository<User> implements UserRepository {
+export class MongoUserRepository extends MikroORMMongoRepository<User> implements UserRepository {
   async getAll(): Promise<User[]> {
     const repository = await this.repository()
 

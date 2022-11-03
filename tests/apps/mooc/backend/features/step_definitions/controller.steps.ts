@@ -2,17 +2,17 @@
 
 import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber'
 import assert from 'assert'
-import request from 'supertest'
+import supertest, { Response, SuperTest, Test } from 'supertest'
 
 import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
 
-let _request: request.Test
-let _response: request.Response
+let request: Test
+let response: Response
 let application: MoocBackendApp
-let api: request.SuperTest<request.Test>
+let api: SuperTest<Test>
 
 Given('I send a GET request to {string}', (route: string) => {
-  _request = api.get(route)
+  request = api.get(route)
   // .key('../../../../../shared/key.pem')
   // .cert('../../../../../shared/cert.pem')
   // .trustLocalhost()
@@ -20,23 +20,23 @@ Given('I send a GET request to {string}', (route: string) => {
 })
 
 Then('the response status code should be {int}', async (status: number) => {
-  _response = await _request.expect(status)
+  response = await request.expect(status)
 })
 
 Given('I send a PUT request to {string} with body:', (route: string, body: string) => {
-  _request = api.put(route)
+  request = api.put(route)
   // .trustLocalhost()
   // _request.url = _request.url.replace('http', 'https')
 
-  _request.send(JSON.parse(body))
+  request.send(JSON.parse(body))
 })
 
 Then('the response should be empty', () => {
-  assert.deepStrictEqual(_response.body, {})
+  assert.deepStrictEqual(response.body, {})
 })
 
-Then('the response content should be:', (response) => {
-  assert.deepStrictEqual(_response.body, JSON.parse(response))
+Then('the response content should be:', (res) => {
+  assert.deepStrictEqual(response.body, JSON.parse(res))
 })
 
 BeforeAll(
@@ -50,7 +50,7 @@ BeforeAll(
 
     await application.start()
 
-    api = request(application.httpServer)
+    api = supertest(application.httpServer)
     // api = request('https://127.0.0.1:8080')
   }
 )

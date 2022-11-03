@@ -57,27 +57,24 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
   }
 
   schemaErrorFormatter(validationError: joi.ValidationError) {
-    const errors = new Map<string, Array<Record<string, unknown>>>()
+    const errors = new Map<string, Record<string, unknown>[]>()
 
     return Object.fromEntries(
-      validationError.details.reduce(
-        (error: Map<string, Array<Record<string, unknown>>>, next: joi.ValidationErrorItem) => {
-          const key = next?.context?.key
+      validationError.details.reduce((error: Map<string, Record<string, unknown>[]>, next: joi.ValidationErrorItem) => {
+        const key = next?.context?.key
 
-          if (!key) return errors
+        if (!key) return errors
 
-          if (!error.has(key)) error.set(key, [])
+        if (!error.has(key)) error.set(key, [])
 
-          error.get(key)?.push({
-            message: next.message,
-            field: key,
-            type: next.type
-          })
+        error.get(key)?.push({
+          message: next.message,
+          field: key,
+          type: next.type
+        })
 
-          return error
-        },
-        errors
-      )
+        return error
+      }, errors)
     )
   }
 
@@ -100,8 +97,8 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
 
 export const JoiValidationGroups = {
   DEFAULT,
-  CREATE: Symbol('CREATE'),
-  UPDATE: Symbol('UPDATE')
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE'
 }
 
 // Convenient & consistency export
