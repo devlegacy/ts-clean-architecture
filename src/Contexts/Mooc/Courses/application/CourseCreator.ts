@@ -1,8 +1,9 @@
 import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/dependency-injection/types'
-import { EventBus, Uuid } from '@/Contexts/Shared/domain'
+import { EventBus } from '@/Contexts/Shared/domain'
 
+import { CourseId } from '../../Shared/domain'
 import { Course, CourseDuration, CourseName, CourseRepository } from '../domain'
 import { CourseCreatorRequest } from './CourseCreatorRequest'
 
@@ -15,7 +16,7 @@ export class CourseCreator {
 
   async run(request: CourseCreatorRequest) {
     const course = Course.create(
-      new Uuid(request.id),
+      new CourseId(request.id),
       new CourseName(request.name),
       request.duration ? new CourseDuration(request.duration) : undefined
     )

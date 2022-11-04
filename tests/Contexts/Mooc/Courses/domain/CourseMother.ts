@@ -2,7 +2,7 @@ import { Course, CourseDuration, CourseName, CreateCourseCommand } from '@/Conte
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
-import { CourseIdMother } from '../../Shared/domain/Courses/CourseIdMother'
+import { CourseIdMother } from '../../Shared/domain/Courses'
 import { CourseDurationMother } from './CourseDurationMother'
 import { CourseNameMother } from './CourseNameMother'
 
@@ -23,7 +23,7 @@ export class CourseMother {
     return this.create(
       new CourseId(request.id),
       new CourseName(request.name),
-      !request.duration ? undefined : new CourseDuration(request?.duration)
+      request.duration ? new CourseDuration(request.duration) : undefined
     )
   }
 

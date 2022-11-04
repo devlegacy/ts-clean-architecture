@@ -4,7 +4,7 @@ import { Course, CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/doma
 import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
-describe('File Course Repository', () => {
+describe('FileCourseRepository', () => {
   it('should save a course', async () => {
     // const id = new CourseId('be1a2a91-d1cc-4793-b691-fb92ba7fb1cf')
     const id = CourseId.random()

@@ -1,3 +1,3 @@
-import { Uuid } from '@/Contexts/Shared/domain'
+import { Id } from '@/Contexts/Shared/domain'
 
-export class UserId extends Uuid {}
+export class UserId extends Id {}

@@ -4,7 +4,7 @@ import { SearchCoursesByCriteriaQuery } from '@/Contexts/Backoffice/Courses/appl
 import { CourseCreator } from '@/Contexts/Mooc/Courses/application/CourseCreator'
 import { CoursesResponse } from '@/Contexts/Mooc/Courses/application/SearchAll'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
-import { CommandBus, FilterPrimitiveProps, Filters, QueryBus } from '@/Contexts/Shared/domain'
+import { FilterPrimitiveProps, Filters, QueryBus } from '@/Contexts/Shared/domain'
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req } from '@/Contexts/Shared/infrastructure/common'
 
 import { TYPES } from '../../dependency-injection/types'
@@ -12,7 +12,6 @@ import { TYPES } from '../../dependency-injection/types'
 @Controller('courses')
 export class CourseController {
   constructor(
-    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus,
     @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
     private readonly courseCreator: CourseCreator
   ) {}

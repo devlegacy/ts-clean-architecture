@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 
-import { Uuid } from '@/Contexts/Shared/domain'
+import { Id } from '@/Contexts/Shared/domain'
 import { UserCreator } from '@/Contexts/User/Users/application'
 
 const userMutations = {
@@ -14,7 +14,7 @@ const userMutations = {
     } = args
 
     const user = {
-      id: Uuid.random().toString(),
+      id: Id.random().toString(),
       username,
       age,
       name

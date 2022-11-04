@@ -1,11 +1,12 @@
-import { v4 } from 'uuid'
-import validate from 'uuid-validate'
+// import { v4 } from 'uuid'
+// import validate from 'uuid-validate'
 
-// import { ObjectId } from 'mongodb'
+import { ObjectId } from 'mongodb'
+
 import { InvalidArgumentException } from '../exceptions'
 import { ValueObject } from './ValueObject'
 
-export class Uuid extends ValueObject<string> {
+export class Id extends ValueObject<string> {
   // Inherited
   // readonly value: string
 
@@ -17,14 +18,14 @@ export class Uuid extends ValueObject<string> {
   }
 
   // Debería devolver valores en string
-  static random(): Uuid {
-    // return new Uuid(new ObjectId().toString())
-    return new Uuid(v4())
+  static random(): Id {
+    return new Id(new ObjectId().toString())
+    // return new Uuid(v4())
   }
 
   private isValid(id: string) {
-    // if (!ObjectId.isValid(id)) {
-    if (!validate(id)) {
+    if (!ObjectId.isValid(id)) {
+      // if (!validate(id)) {
       throw new InvalidArgumentException(`<${this.constructor.name}> does not allow the value <${id}>`)
     }
   }

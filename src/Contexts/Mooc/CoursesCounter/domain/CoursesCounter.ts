@@ -1,4 +1,4 @@
-import { AggregateRoot, Uuid } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Id } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent'
@@ -25,7 +25,7 @@ export class CoursesCounter extends AggregateRoot {
     this._total = total
   }
 
-  static initialize(id: Uuid): CoursesCounter {
+  static initialize(id: Id): CoursesCounter {
     return new CoursesCounter(id, CoursesCounterTotal.initialize())
   }
 

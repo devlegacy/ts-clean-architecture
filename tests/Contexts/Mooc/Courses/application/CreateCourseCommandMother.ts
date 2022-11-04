@@ -1,7 +1,7 @@
 import { CourseDuration, CourseName, CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
-import { CourseIdMother } from '../../Shared/domain/Courses/CourseIdMother'
+import { CourseIdMother } from '../../Shared/domain/Courses'
 import { CourseDurationMother, CourseNameMother } from '../domain'
 
 export class CreateCourseCommandMother {

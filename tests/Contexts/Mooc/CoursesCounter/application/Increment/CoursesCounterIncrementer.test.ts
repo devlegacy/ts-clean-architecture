@@ -1,7 +1,7 @@
 import { CoursesCounterIncrementer } from '@/Contexts/Mooc/CoursesCounter/application'
 import { CoursesCounter } from '@/Contexts/Mooc/CoursesCounter/domain'
 
-import { CourseIdMother } from '../../../Shared/domain/Courses/CourseIdMother'
+import { CourseIdMother } from '../../../Shared/domain/Courses'
 import EventBusMock from '../../../Shared/EventBusMock'
 import { CoursesCounterRepositoryMock } from '../../__mocks__'
 import { CoursesCounterIncrementedDomainEventMother, CoursesCounterMother } from '../../domain'

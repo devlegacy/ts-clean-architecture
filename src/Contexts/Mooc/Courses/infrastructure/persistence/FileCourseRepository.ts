@@ -1,5 +1,5 @@
 import { deserialize, serialize } from 'bson'
-import fs from 'fs'
+import { readFile, writeFile } from 'fs/promises'
 
 import { Criteria } from '@/Contexts/Shared/domain'
 
@@ -17,17 +17,17 @@ export class FileCourseRepository implements CourseRepository {
   }
 
   async save(course: Course) {
-    fs.promises.writeFile(this.filePath(course.id.value), serialize(course))
+    writeFile(this.path(course.id.value), serialize(course))
   }
 
   async search(courseId: string): Promise<Course> {
-    const courseData = await fs.promises.readFile(this.filePath(courseId))
+    const courseData = await readFile(this.path(courseId))
     const { id, name, duration } = deserialize(courseData)
 
     return new Course(id, name, duration)
   }
 
-  private filePath(id: string) {
+  private path(id: string) {
     return `${this.FILE_PATH}.${id}.repo`
   }
 }

@@ -11,8 +11,8 @@ export abstract class ValueObject<T extends Primitives> {
     this.isValueDefined(value)
   }
 
-  equals(other: ValueObject<T>): boolean {
-    return other.constructor.name === this.constructor.name && other.value === this.value
+  equals(value: ValueObject<T>): boolean {
+    return value.constructor.name === this.constructor.name && value.value === this.value
   }
 
   toString() {

@@ -2,7 +2,7 @@ import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '@/Context
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { Repeater } from '@/tests/Contexts/Shared/domain'
 
-import { CourseIdMother } from '../../Shared/domain/Courses/CourseIdMother'
+import { CourseIdMother } from '../../Shared/domain/Courses'
 import { CoursesCounterTotalMother } from './CoursesCounterTotalMother'
 
 export class CoursesCounterMother {

@@ -1,4 +1,4 @@
-import { Uuid } from './value-object'
+import { Id } from './value-object'
 
 export abstract class DomainEvent {
   static EVENT_NAME: string
@@ -17,7 +17,7 @@ export abstract class DomainEvent {
   constructor(props: { eventName: string; aggregateId: string; eventId?: string; occurredOn?: Date }) {
     const { aggregateId, eventName, eventId, occurredOn } = props
     this.aggregateId = aggregateId
-    this.eventId = eventId || Uuid.random().value
+    this.eventId = eventId || Id.random().value
     this.occurredOn = occurredOn || new Date()
     this.eventName = eventName
   }
