@@ -17,6 +17,7 @@ beforeEach(() => {
 
 describe('CourseCreator', () => {
   it('should create a valid course', async () => {
+    expect.assertions(4)
     const request = CreateCourseRequestMother.random()
     const course = CourseMother.fromRequest(request)
     const domainEvent = CourseCreatedDomainEventMother.fromCourse(course)
@@ -27,8 +28,8 @@ describe('CourseCreator', () => {
     eventBus.assertLastPublishedEventIs(domainEvent)
   })
 
-  it('should throw error if course name length is exceeded', () => {
-    expect(async () => {
+  it('should throw error if course name length is exceeded', async () => {
+    await expect(async () => {
       const request = CreateCourseRequestMother.invalidRequest()
       const course = CourseMother.fromRequest(request)
       await creator.run(request)

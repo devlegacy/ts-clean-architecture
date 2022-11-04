@@ -1,7 +1,11 @@
 import { InvalidArgumentException } from '../exceptions'
+import { NonFunctionProperties } from '../NonFunctionProperties'
+import { PrimitiveProperties } from '../PrimitiveProperties'
 import { FilterField } from './FilterField'
 import { FilterOperator } from './FilterOperator'
 import { FilterValue } from './FilterValue'
+
+export type FilterPrimitiveProps = PrimitiveProperties<NonFunctionProperties<Filter>>
 
 export class Filter {
   readonly field: FilterField

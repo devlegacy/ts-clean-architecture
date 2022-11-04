@@ -49,9 +49,9 @@ export class Course extends AggregateRoot {
     return new Course(
       new CourseId(props.id),
       new CourseName(props.name),
-      !props.duration ? undefined : new CourseDuration(props.duration),
-      !props.type ? undefined : CourseType.fromValue(props.type),
-      !props.tag ? undefined : CourseTag.fromValue(props.tag as string)
+      props.duration ? new CourseDuration(props.duration) : undefined,
+      props.type ? CourseType.fromValue(props.type) : undefined,
+      props.tag ? CourseTag.fromValue(props.tag as string) : undefined
     )
   }
 

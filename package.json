@@ -44,7 +44,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@apollo/server": "4.1.0",
+    "@apollo/server": "4.1.1",
     "@as-integrations/fastify": "1.1.0",
     "@fastify/compress": "6.1.1",
     "@fastify/cookie": "8.3.0",
@@ -98,6 +98,7 @@
     "@swc/jest": "0.2.23",
     "@types/amqplib": "0.8.2",
     "@types/convict": "6.1.1",
+    "@types/eslint": "8.4.9",
     "@types/http-errors": "2.0.1",
     "@types/jest": "29.2.1",
     "@types/node": "18.11.9",

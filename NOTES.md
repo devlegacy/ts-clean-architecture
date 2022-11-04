@@ -204,6 +204,7 @@
 - Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
   - `@injectable()` | `@inject()` | `@singleton()`
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
+  - Complejidad: Los enums son interpretados como `number` | `string`, debe evaluarse el uso por criterio
 - Desarrollo y mantenimiento de la capa de infraestructura
 
 ## Comments conventions
