@@ -95,7 +95,7 @@ export default {
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  // modulePathIgnorePatterns: [],
+  modulePathIgnorePatterns: ['<rootDir>/.*/__mocks__'],
 
   // Activates notifications for test results
   // notify: false,
@@ -167,7 +167,7 @@ export default {
   testMatch: ['**/__tests__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|test).+(ts|tsx|js)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  testPathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\'],
+  testPathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\'], // '\\\\__mocks__\\\\'
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
