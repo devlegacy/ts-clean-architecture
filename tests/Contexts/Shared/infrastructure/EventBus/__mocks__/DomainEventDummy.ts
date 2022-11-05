@@ -1,6 +1,6 @@
 import { DomainEvent } from '@/Contexts/Shared/domain'
 
-import { UuidMother } from '../../../domain'
+import { IdMother } from '../../../domain'
 
 export class DomainEventDummy extends DomainEvent {
   static readonly EVENT_NAME = 'dummy'
@@ -37,8 +37,8 @@ export class DomainEventDummy extends DomainEvent {
 export class DomainEventDummyMother {
   static random() {
     return new DomainEventDummy({
-      aggregateId: UuidMother.random(),
-      eventId: UuidMother.random(),
+      aggregateId: IdMother.random(),
+      eventId: IdMother.random(),
       occurredOn: new Date()
     })
   }

@@ -2,7 +2,7 @@ import { DataSource, EntityMetadata } from 'typeorm'
 
 import { EnvironmentArranger } from '../arranger/EnvironmentArranger'
 
-export class TypeOrmEnvironmentArranger extends EnvironmentArranger {
+export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
   constructor(private _client: Promise<DataSource>) {
     super()
   }

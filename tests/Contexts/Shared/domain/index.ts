@@ -1,3 +1,4 @@
+export * from './IdMother'
 export * from './IntegerMother'
 export * from './MotherCreator'
 export * from './Repeater'
