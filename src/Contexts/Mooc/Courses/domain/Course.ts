@@ -2,7 +2,7 @@ import { AggregateRoot, NonFunctionProperties, PrimitiveProperties } from '@/Con
 
 import { CourseId } from '../../Shared/domain'
 import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
-import { CourseDuration, CourseName, CourseTag, CourseType } from './value-object'
+import { CourseDuration, CourseName } from './value-object'
 
 type CourseProps = NonFunctionProperties<Course>
 export type CoursePrimitiveProps = PrimitiveProperties<CourseProps>
@@ -11,18 +11,14 @@ export class Course extends AggregateRoot {
   readonly id: CourseId
   readonly name: CourseName
   readonly duration?: CourseDuration
-  readonly type?: CourseType
-  readonly tag?: CourseTag
 
   // constructor({ id, name, duration }: { id: string; name: string; duration: string }) {
-  constructor(id: CourseId, name: CourseName, duration?: CourseDuration, type?: CourseType, tag?: CourseTag) {
+  constructor(id: CourseId, name: CourseName, duration?: CourseDuration) {
     // constructor(dto: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
     super()
     this.id = id
     this.name = name
     this.duration = duration
-    this.type = type
-    this.tag = tag
     // Object.assign(this, dto)
   }
 
@@ -49,9 +45,7 @@ export class Course extends AggregateRoot {
     return new Course(
       new CourseId(props.id),
       new CourseName(props.name),
-      props.duration ? new CourseDuration(props.duration) : undefined,
-      props.type ? CourseType.fromValue(props.type) : undefined,
-      props.tag ? CourseTag.fromValue(props.tag as string) : undefined
+      props.duration ? new CourseDuration(props.duration) : undefined
     )
   }
 
@@ -59,9 +53,7 @@ export class Course extends AggregateRoot {
     return {
       id: this.id.value,
       name: this.name.value,
-      duration: this.duration?.value,
-      type: this.type?.value,
-      tag: this.tag?.value
+      duration: this.duration?.value
     }
   }
 }

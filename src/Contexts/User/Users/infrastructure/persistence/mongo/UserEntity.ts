@@ -2,7 +2,7 @@
 import { EntitySchema, EventArgs } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mongo/ValueObjectTransformer'
+import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm/ValueObjectTransformer'
 import { UserId } from '@/Contexts/User/Shared/domain'
 
 import { User, UserAge, UserName, UserUsername } from '../../../domain'

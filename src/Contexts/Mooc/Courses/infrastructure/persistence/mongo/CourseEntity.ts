@@ -1,20 +1,9 @@
-import { EntitySchema, EventArgs } from '@mikro-orm/core'
-import { ObjectId } from 'mongodb'
+import { EntitySchema } from '@mikro-orm/core'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mongo/ValueObjectTransformer'
+import { beforeCreate, ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
 import { Course, CourseDuration, CourseName } from '../../../domain'
-
-const beforeCreate = (args: EventArgs<any>) => {
-  // TODO: Validate type on value
-  // NOTE: El dominio esta separado de la base de datos :D, eso incluye el como se esta guardo e interpretando el ObjectId
-  args.entity._id = args.entity.id
-  args.entity._id.value = new ObjectId(args.entity._id.value)
-
-  // console.log(args)
-  // console.log(args.entity._id)
-}
 
 export const CourseEntity = new EntitySchema<Course>({
   name: 'Course',

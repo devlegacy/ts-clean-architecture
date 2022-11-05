@@ -2,7 +2,7 @@ import { EntitySchema, wrap } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
 import { Nullable } from '@/Contexts/Shared/domain'
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mikroorm/MikroOrmMongoRepository'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { User, UserRepository } from '../../domain'
 import { UserEntity } from './mongo/UserEntity'

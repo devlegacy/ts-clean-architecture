@@ -1,7 +1,7 @@
 import { EntitySchema } from '@mikro-orm/core'
 
 import { Criteria, Nullable } from '@/Contexts/Shared/domain'
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mikroorm/MikroOrmMongoRepository'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { Course, CourseRepository } from '../../domain'
 import { CourseEntity } from './mongo/CourseEntity'
@@ -12,7 +12,7 @@ export interface CourseDocument {
   duration: string
 }
 
-export class MikroORMMongoCourseRepository extends MikroOrmMongoRepository<Course> implements CourseRepository {
+export class MikroOrmMongoCourseRepository extends MikroOrmMongoRepository<Course> implements CourseRepository {
   async all(): Promise<Course[]> {
     const repository = await this.repository()
     const courses = await repository.find({})

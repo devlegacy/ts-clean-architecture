@@ -4,7 +4,7 @@ import { SearchCoursesByCriteriaQueryHandler } from '@/Contexts/Backoffice/Cours
 import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
-  MikroORMMongoCourseRepository
+  MikroOrmMongoCourseRepository
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
 import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
@@ -29,4 +29,4 @@ container
 container
   // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
-  .register<CourseRepository>(TYPES.CourseRepository, MikroORMMongoCourseRepository)
+  .register<CourseRepository>(TYPES.CourseRepository, MikroOrmMongoCourseRepository)

@@ -1,6 +1,6 @@
 export * from './CourseSchema'
 export * from './dtos/CourseDto'
 export * from './persistence/FileCourseRepository'
-export * from './persistence/MikroORMMongoCourseRepository'
+export * from './persistence/MikroOrmMongoCourseRepository'
 // export * from './persistence/typeorm/CourseEntity'
 // export * from './persistence/TypeOrmCourseRepository'
