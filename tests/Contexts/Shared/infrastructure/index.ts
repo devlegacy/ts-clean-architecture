@@ -1,3 +1,4 @@
 export * from './arranger/EnvironmentArranger'
-export * from './mongo/MongoEnvironmentArranger'
+export * from './mikroorm/MikroOrmMongoEnvironmentArranger'
 // export * from './typeorm/TypeOrmEnvironmentArranger'
+export * from './mongo/MongoEnvironmentArranger'

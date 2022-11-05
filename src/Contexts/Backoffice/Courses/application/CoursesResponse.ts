@@ -7,7 +7,7 @@ interface CourseResponse {
 }
 
 export class CoursesResponse {
-  public readonly courses: CourseResponse[]
+  readonly courses: CourseResponse[]
 
   constructor(courses: Course[]) {
     this.courses = courses.map((course) => course.toPrimitives())

@@ -8,7 +8,7 @@ export class MongoDB {
     // Private constructor
   }
 
-  public static async getInstance(): Promise<Db> {
+  static async getInstance(): Promise<Db> {
     if (!MongoDB.instance) {
       const {
         DB_USERNAME = '',

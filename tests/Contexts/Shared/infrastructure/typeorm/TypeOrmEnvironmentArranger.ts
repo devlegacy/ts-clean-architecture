@@ -11,6 +11,10 @@ export class TypeOrmEnvironmentArranger extends EnvironmentArranger {
     this.cleanDatabase()
   }
 
+  async close(): Promise<void> {
+    return (await this.client()).destroy()
+  }
+
   protected async cleanDatabase() {
     const entities = await this.entities()
     try {
@@ -23,15 +27,11 @@ export class TypeOrmEnvironmentArranger extends EnvironmentArranger {
     }
   }
 
-  private async entities(): Promise<EntityMetadata[]> {
-    return (await this._client).entityMetadatas
-  }
-
   protected client(): Promise<DataSource> {
     return this._client
   }
 
-  async close(): Promise<void> {
-    return (await this.client()).destroy()
+  private async entities(): Promise<EntityMetadata[]> {
+    return (await this._client).entityMetadatas
   }
 }

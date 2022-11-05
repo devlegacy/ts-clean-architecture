@@ -14,7 +14,7 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
     })
   }
 
-  public get(command: Command): CommandHandler<Command> {
+  get(command: Command): CommandHandler<Command> {
     const commandHandler = super.get(command.constructor)
 
     if (!commandHandler) {

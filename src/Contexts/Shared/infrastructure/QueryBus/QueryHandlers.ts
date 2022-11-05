@@ -13,7 +13,7 @@ export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
     })
   }
 
-  public get(query: Query): QueryHandler<Query, Response> {
+  get(query: Query): QueryHandler<Query, Response> {
     const queryHandler = super.get(query.constructor)
 
     if (!queryHandler) {

@@ -8,7 +8,7 @@ import {
 import { DomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 import { CoursesCounterIncrementedDomainEventMother } from '@/tests/Contexts/Mooc/CoursesCounter/domain'
 
-import { MongoEnvironmentArranger } from '../mongo/MongoEnvironmentArranger'
+import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger'
 import { DomainEventDummyMother, DomainEventSubscriberDummy } from './__mocks__'
 import { DomainEventFailoverPublisherMother, RabbitMQConnectionMother, RabbitMQMongoClientMother } from './__mother__'
 
@@ -19,12 +19,12 @@ jest.setTimeout(5000 + 60000)
 describe('RabbitMQEventBus test', () => {
   const exchange = 'test_domain_events'
 
-  let arranger: MongoEnvironmentArranger
+  let arranger: MikroOrmMongoEnvironmentArranger
   const mongoClient = RabbitMQMongoClientMother.create()
   const queueNameFormatter = new RabbitMQQueueFormatter('mooc')
 
   beforeAll(async () => {
-    arranger = new MongoEnvironmentArranger(mongoClient)
+    arranger = new MikroOrmMongoEnvironmentArranger(mongoClient)
   })
 
   beforeEach(async () => {
