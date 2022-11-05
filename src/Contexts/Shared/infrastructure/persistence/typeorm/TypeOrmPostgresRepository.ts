@@ -1,15 +1,13 @@
 import { inject } from 'tsyringe'
 import { DataSource, EntitySchema, Repository } from 'typeorm'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
 import { AggregateRoot } from '@/Contexts/Shared/domain'
 
+import { SHARED_TYPES } from '../../common'
+
 // Template method
-
-export abstract class TypeOrmRepository<T extends AggregateRoot> {
-  constructor(@inject(TYPES.DataSource) private _client: Promise<DataSource>) {}
-
-  protected abstract entitySchema(): EntitySchema<T>
+export abstract class TypeOrmPostgresRepository<T extends AggregateRoot> {
+  constructor(@inject(SHARED_TYPES.DataSource) private _client: Promise<DataSource>) {}
 
   protected client(): Promise<DataSource> {
     return this._client
@@ -23,4 +21,6 @@ export abstract class TypeOrmRepository<T extends AggregateRoot> {
     const repository = await this.repository()
     await repository.save(aggregateRoot)
   }
+
+  protected abstract entitySchema(): EntitySchema<T>
 }

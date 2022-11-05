@@ -1,4 +1,4 @@
-export interface TypeOrmConfig {
+export interface PostgresConfig {
   host: string
   port: number
   username: string

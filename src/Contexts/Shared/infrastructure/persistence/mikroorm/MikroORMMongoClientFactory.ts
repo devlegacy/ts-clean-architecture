@@ -1,6 +1,6 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
-import { MongoDriver } from '@mikro-orm/mongodb'
+import { MongoDriver, Options } from '@mikro-orm/mongodb'
 
 import { info } from '../../logger'
 import { MongoConfig } from '../mongo/MongoConfig'
@@ -11,9 +11,9 @@ export abstract class MikroOrmMongoClientFactory {
   static async createClient(contextName: string, config: MongoConfig) {
     let client = MikroOrmMongoClientFactory.getClient(contextName)
     if (!client) {
-      client = await this.createAndConnectClient(config)
+      client = await MikroOrmMongoClientFactory.createAndConnectClient(config)
 
-      this.registerClient(contextName, client)
+      MikroOrmMongoClientFactory.registerClient(contextName, client)
     }
     return client
   }
@@ -23,24 +23,22 @@ export abstract class MikroOrmMongoClientFactory {
   }
 
   private static async createAndConnectClient(config: MongoConfig): Promise<MikroORM<MongoDriver>> {
-    const client = await MikroORM.init<MongoDriver>(
-      {
-        clientUrl: config.url,
-        entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mongo/*Entity{.js,.ts}`],
-        logger: info,
-        type: 'mongo',
-        forceUndefined: true,
-        highlighter: new MongoHighlighter(),
-        debug: true,
-        validate: true
-        // driverOptions: {
-        //   monitorCommands: true,
-        // ignoreUndefined: true
-        //   loggerLevel: 'debug'
-        // }
-      },
-      true
-    )
+    const options: Options = {
+      clientUrl: config.url,
+      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mongo/*Entity{.js,.ts}`],
+      logger: info,
+      type: 'mongo',
+      forceUndefined: true,
+      highlighter: new MongoHighlighter(),
+      debug: true,
+      validate: true
+      // driverOptions: {
+      //   monitorCommands: true,
+      // ignoreUndefined: true
+      //   loggerLevel: 'debug'
+      // }
+    }
+    const client = await MikroORM.init<MongoDriver>(options, true)
 
     return client
   }
