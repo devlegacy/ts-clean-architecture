@@ -10,8 +10,8 @@ import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../.
 export class CoursesCounterIncrementer {
   // DEBT: TYPES es undefined por alguna razón al importar en los test
   constructor(
-    @inject(TYPES?.CoursesCounterRepository) private repository: CoursesCounterRepository,
-    @inject(TYPES?.EventBus) private bus: EventBus
+    @inject(TYPES.CoursesCounterRepository) private readonly repository: CoursesCounterRepository,
+    @inject(TYPES.EventBus) private readonly eventBus: EventBus
   ) {}
 
   async run(courseId: CourseId) {
@@ -21,7 +21,7 @@ export class CoursesCounterIncrementer {
       counter.increment(courseId)
 
       await this.repository.save(counter)
-      await this.bus.publish(counter.pullDomainEvents())
+      await this.eventBus.publish(counter.pullDomainEvents())
     }
   }
 

@@ -1,4 +1,3 @@
-// .test.ts
 import '@/apps/mooc/dependency-injection'
 
 import { container } from 'tsyringe'

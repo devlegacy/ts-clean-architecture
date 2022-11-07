@@ -33,12 +33,11 @@ export class MoocBackendApp {
 
   async configureEventBus() {
     const eventBus = container.resolve<EventBus>(TYPES.EventBus)
-    eventBus.addSubscribers(
-      DomainEventSubscribers
-        .from
-        // containerBuilder()
-        ()
-    )
+    const subscribers = DomainEventSubscribers
+      .from
+      // containerBuilder()
+      ()
+    eventBus.addSubscribers(subscribers)
   }
 
   stop() {

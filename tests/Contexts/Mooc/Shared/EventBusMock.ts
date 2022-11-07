@@ -1,14 +1,13 @@
 import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
 
-export default class EventBusMock implements EventBus {
+export class EventBusMock implements EventBus {
   private publishSpy = jest.fn()
 
-  async publish(events: DomainEvent[]) {
+  async publish(events: DomainEvent[]): Promise<void> {
     this.publishSpy(events)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   addSubscribers(_subscribers: DomainEventSubscribers): void {}
 
   assertLastPublishedEventIs(expectedEvent: DomainEvent) {
@@ -17,7 +16,7 @@ export default class EventBusMock implements EventBus {
     expect(publishSpyCalls.length).toBeGreaterThan(0)
 
     const lastPublishSpyCall = publishSpyCalls[publishSpyCalls.length - 1]
-    const [[lastPublishedEvent]] = lastPublishSpyCall
+    const [[lastPublishedEvent]] = lastPublishSpyCall //[0][0]
 
     const expected = this.getDataFromDomainEvent(expectedEvent)
     const published = this.getDataFromDomainEvent(lastPublishedEvent)
@@ -26,7 +25,7 @@ export default class EventBusMock implements EventBus {
   }
 
   private getDataFromDomainEvent(event: DomainEvent) {
-    const { eventId, occurredOn, ...attributes } = event
+    const { eventId: _eventId, occurredOn: _occurredOn, ...attributes } = event
 
     return attributes
   }

@@ -1,7 +1,8 @@
 import { CourseCreator } from '@/Contexts/Mooc/Courses/application'
 import { CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain'
 
-import { CourseRepositoryMock, EventBusMock } from '../__mocks__'
+import { EventBusMock } from '../../Shared'
+import { CourseRepositoryMock } from '../__mocks__'
 import { CourseCreatedDomainEventMother, CourseMother } from '../domain'
 import { CreateCourseRequestMother } from './CreateCourseRequestMother'
 

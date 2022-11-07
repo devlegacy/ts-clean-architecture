@@ -6,7 +6,7 @@ import { CoursesCounterNotExist, CoursesCounterRepository } from '../../domain'
 
 @injectable()
 export class CoursesCounterFinder {
-  constructor(@inject(TYPES?.CoursesCounterRepository) private repository: CoursesCounterRepository) {}
+  constructor(@inject(TYPES.CoursesCounterRepository) private readonly repository: CoursesCounterRepository) {}
 
   async run() {
     const counter = await this.repository.search()

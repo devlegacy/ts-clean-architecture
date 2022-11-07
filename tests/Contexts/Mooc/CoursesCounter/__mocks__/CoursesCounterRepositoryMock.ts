@@ -29,9 +29,9 @@ export class CoursesCounterRepositoryMock implements CoursesCounterRepository {
 
   assertLastCoursesCounterSaved(counter: CoursesCounter) {
     const { mock } = this.mockSave
-    const lastCoursesCounter = mock.calls[mock.calls.length - 1][0] as CoursesCounter
-    const { id: id1, ...counterPrimitives } = counter.toPrimitives()
-    const { id: id2, ...lastSavedPrimitives } = lastCoursesCounter.toPrimitives()
+    const [lastCoursesCounter] = mock.calls[mock.calls.length - 1] as CoursesCounter[]
+    const { id: _firstId, ...counterPrimitives } = counter.toPrimitives()
+    const { id: _secondId, ...lastSavedPrimitives } = lastCoursesCounter.toPrimitives()
 
     expect(lastCoursesCounter).toBeInstanceOf(CoursesCounter)
     expect(lastSavedPrimitives).toEqual(counterPrimitives)

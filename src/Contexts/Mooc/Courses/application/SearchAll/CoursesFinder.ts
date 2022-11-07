@@ -7,10 +7,10 @@ import { CoursesResponse } from './CoursesResponse'
 
 @injectable()
 export class CoursesFinder {
-  constructor(@inject(TYPES.CourseRepository) private coursesRepository: CourseRepository) {}
+  constructor(@inject(TYPES.CourseRepository) private readonly repository: CourseRepository) {}
 
   async run() {
-    const courses = await this.coursesRepository.all()
+    const courses = await this.repository.all()
 
     return new CoursesResponse(courses)
   }

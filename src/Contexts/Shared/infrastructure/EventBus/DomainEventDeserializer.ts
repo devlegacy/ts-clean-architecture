@@ -25,7 +25,7 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
     const eventClass = super.get(type)
 
     if (!eventClass) {
-      throw Error(`DomainEvent mapping not found for event ${type}`)
+      throw Error(`DomainEvent mapping not found for event <${type}>`)
     }
 
     return eventClass.fromPrimitives({

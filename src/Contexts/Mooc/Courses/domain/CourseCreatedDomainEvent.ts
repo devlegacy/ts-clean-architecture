@@ -8,8 +8,8 @@ type CreateCourseDomainEventAttributes = {
 export class CourseCreatedDomainEvent extends DomainEvent {
   static readonly EVENT_NAME = 'course.created'
 
-  readonly duration?: string
   readonly name: string
+  readonly duration?: string
 
   constructor({
     aggregateId,

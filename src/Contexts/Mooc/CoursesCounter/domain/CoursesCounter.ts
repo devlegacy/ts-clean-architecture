@@ -13,8 +13,8 @@ export class CoursesCounter extends AggregateRoot {
   constructor(id: CoursesCounterId, total: CoursesCounterTotal, existingCourses?: CourseId[]) {
     super()
     this.id = id
-    this._total = total
     this.existingCourses = existingCourses || []
+    this._total = total
   }
 
   get total(): CoursesCounterTotal {
@@ -52,7 +52,7 @@ export class CoursesCounter extends AggregateRoot {
   }
 
   hasIncremented(courseId: CourseId): boolean {
-    const exists = this.existingCourses.find((entry) => entry.value === courseId.value)
+    const exists = this.existingCourses.find((entry) => entry.equals(courseId))
     return exists !== undefined
   }
 

@@ -12,7 +12,7 @@ export abstract class AggregateRoot<Entity = any, Primitives = any> {
 
   record(event: DomainEvent) {
     // DEBT: In test is undefined
-    if (this.domainEvents === undefined) this.domainEvents = []
+    if (!this.domainEvents) this.domainEvents = []
 
     this.domainEvents.push(event)
   }

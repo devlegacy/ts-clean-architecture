@@ -1,12 +1,11 @@
 import { CoursesCounterIncrementer } from '@/Contexts/Mooc/CoursesCounter/application'
 import { CoursesCounter } from '@/Contexts/Mooc/CoursesCounter/domain'
 
-import { CourseIdMother } from '../../../Shared/domain/Courses'
-import EventBusMock from '../../../Shared/EventBusMock'
+import { EventBusMock } from '../../../Shared'
+import { CourseIdMother } from '../../../Shared/domain'
 import { CoursesCounterRepositoryMock } from '../../__mocks__'
 import { CoursesCounterIncrementedDomainEventMother, CoursesCounterMother } from '../../domain'
 
-// eslint-disable-next-line max-lines-per-function
 describe('CoursesCounter Incrementer', () => {
   let incrementer: CoursesCounterIncrementer
   let eventBus: EventBusMock
@@ -19,6 +18,8 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should initialize a new counter', async () => {
+    expect.assertions(2)
+
     const courseId = CourseIdMother.random()
     const counter = CoursesCounterMother.withOne(courseId)
 
@@ -28,6 +29,8 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should increment an existing counter', async () => {
+    expect.assertions(4)
+
     const existingCounter = CoursesCounterMother.random()
     repository.returnOnSearch(existingCounter)
     const courseId = CourseIdMother.random()
@@ -42,6 +45,8 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should not increment an already incremented counter', async () => {
+    expect.assertions(1)
+
     const existingCounter = CoursesCounterMother.random()
     repository.returnOnSearch(existingCounter)
     const [courseId] = existingCounter.existingCourses

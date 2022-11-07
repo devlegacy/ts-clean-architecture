@@ -37,11 +37,15 @@ describe('CoursesCounterRepository', () => {
       const savedPreMutation = CoursesCounter.fromPrimitives(expectedCounter.toPrimitives())
 
       // NOTE: There is a mutation idkw why?
+      // We only need this line as arrange
+      // const expectedCounter = CoursesCounterMother.random();
       await repository.save(expectedCounter)
 
       const counter = await repository.search()
 
       expect(savedPreMutation.toPrimitives()).toEqual(counter?.toPrimitives())
+      // NOTE:
+      // expect(expectedCounter).toEqual(counter)
     })
 
     it('should not return null if there is no courses counter', async () => {

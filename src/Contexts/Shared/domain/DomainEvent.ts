@@ -25,6 +25,7 @@ export abstract class DomainEvent {
   abstract toPrimitives(): DomainEventAttributes
 }
 
+// NOTE: Complejidad
 export type DomainEventClass = {
   EVENT_NAME: string
   fromPrimitives(props: {
@@ -35,4 +36,4 @@ export type DomainEventClass = {
   }): DomainEvent
 }
 
-type DomainEventAttributes = any
+type DomainEventAttributes<T = any> = T

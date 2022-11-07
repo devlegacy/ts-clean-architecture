@@ -1,8 +1,7 @@
 import { container, delay } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
-
 import { DomainEvent, DomainEventSubscriber } from '../../domain'
+import { SHARED_TYPES } from '../common'
 
 // class DomainEventSubscriberTransform implements Transform<any, any> {
 //   public transform(items: DomainEventSubscriber<DomainEvent>[]): DomainEventSubscriber<DomainEvent>[] {
@@ -22,7 +21,7 @@ export class DomainEventSubscribers {
   static from(): DomainEventSubscribers {
     // const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
     const subscribers: DomainEventSubscriber<DomainEvent>[] = container.resolveAll<DomainEventSubscriber<DomainEvent>>(
-      TYPES.DomainEventSubscriber
+      SHARED_TYPES.DomainEventSubscriber
     )
 
     // subscriberDefinitions.forEach((key) => {

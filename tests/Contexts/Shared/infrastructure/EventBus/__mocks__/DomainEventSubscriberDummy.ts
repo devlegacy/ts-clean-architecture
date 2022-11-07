@@ -49,7 +49,7 @@ export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainE
     return new Promise((resolve: Function, reject: Function) => {
       setTimeout(() => {
         try {
-          expect(this.events.length).toEqual(events.length)
+          expect(this.events).toHaveLength(events.length)
           expect(this.events).toEqual(events)
           resolve()
         } catch (error: any) {

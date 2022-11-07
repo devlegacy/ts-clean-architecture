@@ -8,11 +8,12 @@ import { CoursesCounterTotalMother } from './CoursesCounterTotalMother'
 export class CoursesCounterMother {
   static random() {
     const total = CoursesCounterTotalMother.random()
-    return new CoursesCounter(
+    const coursesCounter = new CoursesCounter(
       CoursesCounterId.random(),
       total,
       Repeater.random(CourseIdMother.random.bind(CourseIdMother), total.value)
     )
+    return coursesCounter
   }
 
   static withOne(courseId: CourseId) {
