@@ -1,4 +1,4 @@
-import amqplib, { ConsumeMessage } from 'amqplib'
+import amqplib, { ConsumeMessage, Options } from 'amqplib'
 
 import { ConnectionSettings } from './ConnectionSettings'
 import { ExchangeSetting } from './ExchangeSetting'
@@ -51,12 +51,7 @@ export class RabbitMQConnection {
     return await this.channel!.deleteQueue(queue)
   }
 
-  async publish(params: {
-    exchange: string
-    routingKey: string
-    content: Buffer
-    options: { messageId: string; contentType: string; contentEncoding: string }
-  }) {
+  async publish(params: { exchange: string; routingKey: string; content: Buffer; options: Options.Publish }) {
     const { routingKey, content, options, exchange } = params
     return new Promise((resolve: (value?: unknown) => void, reject: (reason?: unknown) => void) => {
       this.channel!.publish(exchange, routingKey, content, options, (error: any) => (error ? reject(error) : resolve()))
@@ -162,6 +157,7 @@ export class RabbitMQConnection {
 
     return args
   }
+
   private async amqpConnect() {
     const { hostname, port, secure } = this.connectionSettings.connection
     const { username, password, vhost } = this.connectionSettings

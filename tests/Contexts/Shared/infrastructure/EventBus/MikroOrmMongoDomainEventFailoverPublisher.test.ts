@@ -1,15 +1,15 @@
-import { DomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 
 import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger'
 import { DomainEventDummyMother } from './__mocks__'
 import { DomainEventDeserializerMother } from './__mother__/DomainEventDeserializerMother'
-import { RabbitMQMongoClientMother } from './__mother__/RabbitMQMongoClientMother'
+import { RabbitMQMikroOrmMongoClientMother } from './__mother__/RabbitMQMikroOrmMongoClientMother'
 
 jest.setTimeout(5000 + 60000)
 
 describe('DomainEventFailoverPublisher test', () => {
   let arranger: MikroOrmMongoEnvironmentArranger
-  const mongoClient = RabbitMQMongoClientMother.create()
+  const mongoClient = RabbitMQMikroOrmMongoClientMother.create()
   const deserializer = DomainEventDeserializerMother.create()
 
   beforeAll(async () => {
@@ -25,7 +25,7 @@ describe('DomainEventFailoverPublisher test', () => {
   })
 
   it('should save the published events', async () => {
-    const eventBus = new DomainEventFailoverPublisher(mongoClient, deserializer)
+    const eventBus = new MikroOrmMongoDomainEventFailoverPublisher(mongoClient, deserializer)
     const event = DomainEventDummyMother.random()
 
     await eventBus.publish(event)

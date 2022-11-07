@@ -3,13 +3,17 @@
 import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber'
 import assert from 'assert'
 import supertest, { Response, SuperTest, Test } from 'supertest'
+import { container } from 'tsyringe'
 
 import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
+import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 let request: Test
 let response: Response
 let application: MoocBackendApp
 let api: SuperTest<Test>
+let environmentArranger: EnvironmentArranger
 
 Given('I send a GET request to {string}', (route: string) => {
   request = api.get(route)
@@ -45,17 +49,19 @@ BeforeAll(
   },
   async () => {
     // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+    environmentArranger = await container.resolve<Promise<EnvironmentArranger>>(TYPES.EnvironmentArranger)
+    await environmentArranger.arrange()
 
     application = new MoocBackendApp()
-
     await application.start()
-
     api = supertest(application.httpServer)
     // api = request('https://127.0.0.1:8080')
   }
 )
 
-AfterAll(() => {
+AfterAll(async () => {
+  await environmentArranger.close()
+
   application.stop()
 
   // TODO: The exit process should be automatic

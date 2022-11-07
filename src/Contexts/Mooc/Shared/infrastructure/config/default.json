@@ -14,7 +14,7 @@
       }
     },
     "exchangeSettings": {
-      "name": ""
+      "name": "domain_events"
     },
     "maxRetries": 2,
     "retryTtl": 1000

@@ -1,6 +1,7 @@
+import 'reflect-metadata'
 import '../../dependency-injection'
 
-import { info } from '@/Contexts/Shared/infrastructure/logger'
+import { error, info } from '@/Contexts/Shared/infrastructure/logger'
 
 import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
 
@@ -9,7 +10,7 @@ ConfigureRabbitMQCommand.run()
     info('RabbitMQ Configuration success')
     process.exit(0)
   })
-  .catch((error) => {
-    info('RabbitMQ Configuration fail', error)
+  .catch((err) => {
+    error('RabbitMQ Configuration fail', err)
     process.exit(1)
   })

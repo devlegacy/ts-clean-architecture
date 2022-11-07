@@ -1,13 +1,13 @@
 import { DomainEvent } from '@/Contexts/Shared/domain'
-import { DomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 
 import { DomainEventDeserializerMother } from '../__mother__/DomainEventDeserializerMother'
-import { RabbitMQMongoClientMother } from '../__mother__/RabbitMQMongoClientMother'
+import { RabbitMQMikroOrmMongoClientMother } from '../__mother__/RabbitMQMikroOrmMongoClientMother'
 
-export class DomainEventFailoverPublisherDouble extends DomainEventFailoverPublisher {
+export class DomainEventFailoverPublisherDouble extends MikroOrmMongoDomainEventFailoverPublisher {
   private publishMock: jest.Mock
   constructor() {
-    super(RabbitMQMongoClientMother.create(), DomainEventDeserializerMother.create())
+    super(RabbitMQMikroOrmMongoClientMother.create(), DomainEventDeserializerMother.create())
     this.publishMock = jest.fn()
   }
 

@@ -45,8 +45,7 @@ export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainE
   }
 
   async assertConsumedEvents(events: DomainEvent[]) {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    return new Promise((resolve: Function, reject: Function) => {
+    return new Promise((resolve: (value?: unknown) => void, reject: (reason?: unknown) => void) => {
       setTimeout(() => {
         try {
           expect(this.events).toHaveLength(events.length)

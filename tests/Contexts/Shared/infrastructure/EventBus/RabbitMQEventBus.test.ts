@@ -1,26 +1,32 @@
+import { DomainEvent } from '@/Contexts/Shared/domain'
 import {
+  DomainEventDeserializer,
   DomainEventSubscribers,
   RabbitMQConfigurer,
   RabbitMQConnection,
+  RabbitMQConsumer,
   RabbitMQEventBus,
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
-import { DomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 import { CoursesCounterIncrementedDomainEventMother } from '@/tests/Contexts/Mooc/CoursesCounter/domain'
 
 import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger'
 import { DomainEventDummyMother, DomainEventSubscriberDummy } from './__mocks__'
-import { DomainEventFailoverPublisherMother, RabbitMQConnectionMother, RabbitMQMongoClientMother } from './__mother__'
+import {
+  DomainEventFailoverPublisherMother,
+  RabbitMQConnectionMother,
+  RabbitMQMikroOrmMongoClientMother
+} from './__mother__'
 
 // jest.useFakeTimers()
 jest.setTimeout(5000 + 60000)
 
-// eslint-disable-next-line max-lines-per-function
 describe('RabbitMQEventBus test', () => {
   const exchange = 'test_domain_events'
 
   let arranger: MikroOrmMongoEnvironmentArranger
-  const mongoClient = RabbitMQMongoClientMother.create()
+  const mongoClient = RabbitMQMikroOrmMongoClientMother.create()
   const queueNameFormatter = new RabbitMQQueueFormatter('mooc')
 
   beforeAll(async () => {
@@ -37,6 +43,8 @@ describe('RabbitMQEventBus test', () => {
 
   describe('unit', () => {
     it('should use the failover publisher if publish to RabbitMQ fails', async () => {
+      expect.assertions(1)
+
       const connection = RabbitMQConnectionMother.failOnPublish()
       const failoverPublisher = DomainEventFailoverPublisherMother.failOverDouble()
       const eventBus = new RabbitMQEventBus({
@@ -54,15 +62,14 @@ describe('RabbitMQEventBus test', () => {
     })
   })
 
-  // eslint-disable-next-line max-lines-per-function
   describe('integration', () => {
     let connection: RabbitMQConnection
     let dummySubscriber: DomainEventSubscriberDummy
     let configurer: RabbitMQConfigurer
-    let failoverPublisher: DomainEventFailoverPublisher
+    let failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher
     let subscribers: DomainEventSubscribers
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       connection = await RabbitMQConnectionMother.create()
       failoverPublisher = DomainEventFailoverPublisherMother.create()
       configurer = new RabbitMQConfigurer(connection, queueNameFormatter, 50)
@@ -73,12 +80,30 @@ describe('RabbitMQEventBus test', () => {
       subscribers = new DomainEventSubscribers([dummySubscriber])
     })
 
-    afterAll(async () => {
+    afterEach(async () => {
       await cleanEnvironment()
       await connection.close()
     })
 
+    it('should publish events to RabbitMQ', async () => {
+      expect.assertions(0)
+
+      const eventBus = new RabbitMQEventBus({
+        failoverPublisher,
+        connection,
+        exchange,
+        queueNameFormatter,
+        maxRetries: 3
+      })
+
+      const event = CoursesCounterIncrementedDomainEventMother.create()
+
+      await eventBus.publish([event])
+    })
+
     it('should consume the events published to RabbitMQ', async () => {
+      expect.assertions(2)
+
       await configurer.configure({
         exchange,
         subscribers: [dummySubscriber]
@@ -98,50 +123,52 @@ describe('RabbitMQEventBus test', () => {
       await dummySubscriber.assertConsumedEvents([event])
     })
 
-    // it('should retry failed domain events', async () => {
-    //   dummySubscriber = DomainEventSubscriberDummy.failsFirstTime()
-    //   subscribers = new DomainEventSubscribers([dummySubscriber])
-    //   await configurer.configure({
-    //     exchange,
-    //     subscribers: [dummySubscriber]
-    //   })
-    //   const eventBus = new RabbitMQEventBus({
-    //     failoverPublisher,
-    //     connection,
-    //     exchange,
-    //     queueNameFormatter,
-    //     maxRetries: 3
-    //   })
-    //   await eventBus.addSubscribers(subscribers)
-    //   const event = DomainEventDummyMother.random()
+    it('should retry failed domain events', async () => {
+      expect.assertions(2) // should be 4
+      dummySubscriber = DomainEventSubscriberDummy.failsFirstTime()
+      subscribers = new DomainEventSubscribers([dummySubscriber])
+      await configurer.configure({
+        exchange,
+        subscribers: [dummySubscriber]
+      })
+      const eventBus = new RabbitMQEventBus({
+        failoverPublisher,
+        connection,
+        exchange,
+        queueNameFormatter,
+        maxRetries: 3
+      })
+      await eventBus.addSubscribers(subscribers)
+      const event = DomainEventDummyMother.random()
 
-    //   await eventBus.publish([event])
+      await eventBus.publish([event])
 
-    //   await dummySubscriber.assertConsumedEvents([event])
-    // })
+      await dummySubscriber.assertConsumedEvents([event])
+    })
 
-    // it('it should send events to dead letter after retry failed', async () => {
-    //   dummySubscriber = DomainEventSubscriberDummy.alwaysFails()
-    //   subscribers = new DomainEventSubscribers([dummySubscriber])
-    //   await configurer.configure({
-    //     exchange,
-    //     subscribers: [dummySubscriber]
-    //   })
-    //   const eventBus = new RabbitMQEventBus({
-    //     failoverPublisher,
-    //     connection,
-    //     exchange,
-    //     queueNameFormatter,
-    //     maxRetries: 3
-    //   })
-    //   await eventBus.addSubscribers(subscribers)
-    //   const event = DomainEventDummyMother.random()
+    it('should send events to dead letter after retry failed', async () => {
+      expect.assertions(2)
+      dummySubscriber = DomainEventSubscriberDummy.alwaysFails()
+      subscribers = new DomainEventSubscribers([dummySubscriber])
+      await configurer.configure({
+        exchange,
+        subscribers: [dummySubscriber]
+      })
+      const eventBus = new RabbitMQEventBus({
+        failoverPublisher,
+        connection,
+        exchange,
+        queueNameFormatter,
+        maxRetries: 3
+      })
+      await eventBus.addSubscribers(subscribers)
+      const event = DomainEventDummyMother.random()
 
-    //   await eventBus.publish([event])
+      await eventBus.publish([event])
 
-    //   await dummySubscriber.assertConsumedEvents([])
-    //   assertDeadLetter([event])
-    // })
+      await dummySubscriber.assertConsumedEvents([])
+      assertDeadLetter([event])
+    })
 
     async function cleanEnvironment() {
       await connection.deleteQueue(queueNameFormatter.format(dummySubscriber))
@@ -149,22 +176,23 @@ describe('RabbitMQEventBus test', () => {
       await connection.deleteQueue(queueNameFormatter.formatDeadLetter(dummySubscriber))
     }
 
-    // async function assertDeadLetter(events: DomainEvent[]) {
-    //   const deadLetterQueue = queueNameFormatter.formatDeadLetter(dummySubscriber)
-    //   const deadLetterSubscriber = new DomainEventSubscriberDummy()
-    //   const deadLetterSubscribers = new DomainEventSubscribers([dummySubscriber])
-    //   const deserializer = DomainEventDeserializer.configure(deadLetterSubscribers)
-    //   const consumer = new RabbitMQConsumer({
-    //     subscriber: deadLetterSubscriber,
-    //     deserializer,
-    //     connection,
-    //     maxRetries: 3,
-    //     queueName: deadLetterQueue,
-    //     exchange
-    //   })
-    //   await connection.consume(deadLetterQueue, consumer.onMessage.bind(consumer))
+    async function assertDeadLetter(events: DomainEvent[]) {
+      expect.assertions(2)
+      const deadLetterQueue = queueNameFormatter.formatDeadLetter(dummySubscriber)
+      const deadLetterSubscriber = new DomainEventSubscriberDummy()
+      const deadLetterSubscribers = new DomainEventSubscribers([dummySubscriber])
+      const deserializer = DomainEventDeserializer.configure(deadLetterSubscribers)
+      const consumer = new RabbitMQConsumer({
+        subscriber: deadLetterSubscriber,
+        deserializer,
+        connection,
+        maxRetries: 3,
+        queueName: deadLetterQueue,
+        exchange
+      })
+      await connection.consume(deadLetterQueue, consumer.onMessage.bind(consumer))
 
-    //   await deadLetterSubscriber.assertConsumedEvents(events)
-    // }
+      await deadLetterSubscriber.assertConsumedEvents(events)
+    }
   })
 })

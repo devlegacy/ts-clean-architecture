@@ -23,6 +23,8 @@ afterAll(async () => {
 describe('CourseRepository', () => {
   describe('#save', () => {
     it('should have a course', async () => {
+      expect.assertions(0)
+
       const course = CourseMother.random()
       await repository.save(course)
     })

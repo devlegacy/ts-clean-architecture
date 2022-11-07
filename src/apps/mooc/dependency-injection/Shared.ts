@@ -23,7 +23,7 @@ import { TYPES } from './types'
 
 const context = 'mooc'
 const mongoConfig = MongoConfigFactory.createConfig()
-const mongoClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+const mikroOrmMongo = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
@@ -34,7 +34,7 @@ container
   // .register<ConfigService>(TYPES.config, { useValue: config })
   // Database - MongoClient
   .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
-  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mongoClient })
+  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mikroOrmMongo })
   // .register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
   // .register<Promise<DataSource>>(TYPES.TypeOrmClient, {
   //   useValue: TypeOrmClientFactory.createClient(context, container.resolve<TypeOrmConfig>(TYPES.TypeOrmConfig))

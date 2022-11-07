@@ -1,7 +1,9 @@
+import { Options } from 'amqplib'
+
 import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
 
 import { DomainEventDeserializer } from '../DomainEventDeserializer'
-import { DomainEventFailoverPublisher } from '../DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '../DomainEventFailoverPublisher'
 import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
 import { DomainEventSubscribers } from '../DomainEventSubscribers'
 import { RabbitMQConnection } from './RabbitMQConnection'
@@ -9,25 +11,25 @@ import { RabbitMQConsumerFactory } from './RabbitMQConsumerFactory'
 import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter'
 
 export class RabbitMQEventBus implements EventBus {
-  private failoverPublisher: DomainEventFailoverPublisher
+  private failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher
   private connection: RabbitMQConnection
   private exchange: string
   private queueNameFormatter: RabbitMQQueueFormatter
   private maxRetries: number
 
   constructor(params: {
-    failoverPublisher: DomainEventFailoverPublisher
     connection: RabbitMQConnection
     exchange: string
-    queueNameFormatter: RabbitMQQueueFormatter
+    failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher
     maxRetries: number
+    queueNameFormatter: RabbitMQQueueFormatter
   }) {
     const { failoverPublisher, connection, exchange, queueNameFormatter, maxRetries } = params
-    this.failoverPublisher = failoverPublisher
     this.connection = connection
     this.exchange = exchange ?? 'amq.topic'
-    this.queueNameFormatter = queueNameFormatter
+    this.failoverPublisher = failoverPublisher
     this.maxRetries = maxRetries
+    this.queueNameFormatter = queueNameFormatter
   }
 
   async addSubscribers(subscribers: DomainEventSubscribers): Promise<void> {
@@ -61,7 +63,7 @@ export class RabbitMQEventBus implements EventBus {
     }
   }
 
-  private options(event: DomainEvent) {
+  private options(event: DomainEvent): Options.Publish {
     return {
       messageId: event.eventId,
       contentType: 'application/json',

@@ -1,13 +1,13 @@
-import { DomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 
 import { DomainEventFailoverPublisherDouble } from '../__mocks__'
 import { DomainEventDeserializerMother } from './DomainEventDeserializerMother'
-import { RabbitMQMongoClientMother } from './RabbitMQMongoClientMother'
+import { RabbitMQMikroOrmMongoClientMother } from './RabbitMQMikroOrmMongoClientMother'
 
 export class DomainEventFailoverPublisherMother {
   static create() {
-    const mongoClient = RabbitMQMongoClientMother.create()
-    return new DomainEventFailoverPublisher(mongoClient, DomainEventDeserializerMother.create())
+    const mongoClient = RabbitMQMikroOrmMongoClientMother.create()
+    return new MikroOrmMongoDomainEventFailoverPublisher(mongoClient, DomainEventDeserializerMother.create())
   }
 
   static failOverDouble() {

@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 
-import { RabbitMQConfig } from '@/Contexts/Mooc/Shared/infrastructure/RabbitMQ/RabbitMQConfigFactory'
+import { RabbitMQConfig } from '@/Contexts/Mooc/Shared/infrastructure/RabbitMQ'
 import {
   DomainEventSubscribers,
   RabbitMQConfigurer,
