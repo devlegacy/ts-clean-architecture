@@ -105,6 +105,7 @@ module.exports = {
       plugins: ['jest'],
       extends: ['plugin:jest/recommended', 'plugin:jest/style'],
       rules: {
+        'max-lines-per-function':'off',
         '@typescript-eslint/no-empty-function': 'off',
         'jest/prefer-expect-assertions': 'off',
         'jest/no-standalone-expect': 'off',
