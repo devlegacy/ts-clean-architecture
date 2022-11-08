@@ -40,7 +40,7 @@ export class CourseController {
   @Post()
   async create(@Body() course: CourseDto) {
     const command = new CreateCourseCommand(course)
-    this.commandBus.dispatch(command)
+    await this.commandBus.dispatch(command)
 
     return {}
   }

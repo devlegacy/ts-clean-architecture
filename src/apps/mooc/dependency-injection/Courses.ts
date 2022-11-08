@@ -1,6 +1,5 @@
 import { container } from 'tsyringe'
 
-import { SearchCoursesByCriteriaQueryHandler } from '@/Contexts/Backoffice/Courses/application'
 import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
@@ -22,7 +21,6 @@ container
   // 🚌 QueryBus <-> QueryHandlers
   // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
-  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchCoursesByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
 
 // Domain layer

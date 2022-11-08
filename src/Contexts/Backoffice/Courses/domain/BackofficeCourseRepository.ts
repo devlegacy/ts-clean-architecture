@@ -1,6 +1,9 @@
+import { Criteria } from '@/Contexts/Shared/domain'
+
 import { BackofficeCourse } from './BackofficeCourse'
 
 export interface BackofficeCourseRepository {
-  save(course: BackofficeCourse): Promise<void>
   all(): Promise<BackofficeCourse[]>
+  searchBy(criteria: Criteria): Promise<BackofficeCourse[]>
+  save(course: BackofficeCourse): Promise<void>
 }

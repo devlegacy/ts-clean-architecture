@@ -1,5 +1,6 @@
 import { EntitySchema } from '@mikro-orm/core'
 
+import { Criteria } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
@@ -9,6 +10,9 @@ export class MikroOrmMongoBackofficeCourseRepository
   extends MikroOrmMongoRepository<BackofficeCourse>
   implements BackofficeCourseRepository
 {
+  async searchBy(_criteria: Criteria): Promise<BackofficeCourse[]> {
+    return []
+  }
   save(course: BackofficeCourse): Promise<void> {
     return this.persist(course)
   }
