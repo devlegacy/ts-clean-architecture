@@ -1,6 +1,7 @@
 import { container } from 'tsyringe'
 
 import {
+  CreateBackofficeCourseOnCourseCreated,
   SearchAllCoursesQueryHandler,
   SearchCoursesByCriteriaQueryHandler
 } from '@/Contexts/Backoffice/Courses/application'
@@ -18,6 +19,7 @@ import { TYPES } from './types'
 container
   // 🚌 EventBus <-> EventSubscribers
   // 🏷 Tags - Application
+  .register(TYPES.DomainEventSubscriber, CreateBackofficeCourseOnCourseCreated)
   // 🚌 CommandBus <-> CommandHandlers
   // 🏷 Tags - Application
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)

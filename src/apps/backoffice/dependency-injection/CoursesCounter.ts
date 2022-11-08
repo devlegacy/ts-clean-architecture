@@ -1,6 +1,5 @@
 import { container } from 'tsyringe'
 
-import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
 import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
 
@@ -8,9 +7,9 @@ import { TYPES } from './types'
 
 // Application layer
 container
-  // 🚌 EventBus <-> EventSubscribers
-  // 🏷 Tags - Application
-  .register(TYPES.DomainEventSubscriber, IncrementCoursesCounterOnCourseCreated)
+// 🚌 EventBus <-> EventSubscribers
+// 🏷 Tags - Application
+
 // 🚌 CommandBus <-> CommandHandlers
 // 🏷 Tags - Application
 // 🚌 QueryBus <-> QueryHandlers

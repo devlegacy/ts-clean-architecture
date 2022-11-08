@@ -5,9 +5,9 @@ import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } fr
 export class BackofficeCourse extends AggregateRoot {
   readonly id: BackofficeCourseId
   readonly name: BackofficeCourseName
-  readonly duration: BackofficeCourseDuration
+  readonly duration?: BackofficeCourseDuration
 
-  constructor(id: BackofficeCourseId, name: BackofficeCourseName, duration: BackofficeCourseDuration) {
+  constructor(id: BackofficeCourseId, name: BackofficeCourseName, duration?: BackofficeCourseDuration) {
     super()
     this.id = id
     this.name = name
@@ -36,7 +36,7 @@ export class BackofficeCourse extends AggregateRoot {
     return {
       id: this.id.value,
       name: this.name.value,
-      duration: this.duration.value
+      duration: this.duration?.value
     }
   }
 }

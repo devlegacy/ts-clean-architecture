@@ -6,7 +6,7 @@ import { BackofficeCourse, BackofficeCourseDuration, BackofficeCourseId, Backoff
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   name: 'BackofficeCourse',
-  tableName: 'backoffice_courses',
+  tableName: 'courses',
   class: BackofficeCourse,
   hooks: {
     beforeCreate: [beforeCreate]

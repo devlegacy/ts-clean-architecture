@@ -2,8 +2,8 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
-import { MongoConfigFactory, RabbitMQConfig, RabbitMQConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure'
-import { RabbitMQEventBusFactory } from '@/Contexts/Mooc/Shared/infrastructure/RabbitMQ'
+import { MongoConfigFactory, RabbitMQConfig, RabbitMQConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
+import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure/RabbitMQ'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
 import {
@@ -18,7 +18,7 @@ import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
 
 import { TYPES } from './types'
 
-const context = 'mooc'
+const context = 'backoffice'
 const mongoConfig = MongoConfigFactory.createConfig()
 const mikroOrmMongo = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
