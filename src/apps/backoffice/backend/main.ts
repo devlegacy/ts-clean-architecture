@@ -1,5 +1,8 @@
 import 'reflect-metadata'
 
+import dotenv from 'dotenv'
+import { expand } from 'dotenv-expand'
+
 import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/logger'
 
 import { BackOfficeBackendApp } from './BackOfficeBackendApp'
@@ -7,6 +10,9 @@ import { BackOfficeBackendApp } from './BackOfficeBackendApp'
 process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
 
 try {
+  const config = dotenv.config()
+  expand(config)
+
   new BackOfficeBackendApp().start().catch((e) => fatalErrorHandler(e as Error))
 } catch (e) {
   fatalErrorHandler(e as Error)

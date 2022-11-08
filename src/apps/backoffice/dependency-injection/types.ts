@@ -1,5 +1,10 @@
-import { TYPES as MOOC_TYPES } from '@/apps/mooc/dependency-injection/types'
+import { SHARED_TYPES } from '@/Contexts/Shared/infrastructure/common'
 
 export const TYPES = {
-  ...MOOC_TYPES
+  ...SHARED_TYPES,
+  // Domain
+  CourseRepository: Symbol.for('CourseRepository'),
+  CoursesCounterRepository: Symbol.for('CoursesCounterRepository'),
+  // Test
+  EnvironmentArranger: Symbol.for('EnvironmentArranger')
 }

@@ -14,6 +14,12 @@ import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/Genera
 import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 
+const printConfig: PrintRoutesOptions = {
+  commonPrefix: false,
+  includeHooks: true,
+  includeMeta: true // ['metaProperty']
+}
+
 export class Server {
   readonly #port: number
 
@@ -49,14 +55,8 @@ export class Server {
     this.#app.log.info(`\ton mode: ${config.get('app.env')}`)
     this.#app.log.info(`\thttp://localhost:${address.port}`)
     this.#app.log.info('\tPress CTRL-C to stop 🛑')
-    if (config.get('app.debug')) {
-      const printConfig: PrintRoutesOptions = {
-        commonPrefix: false,
-        includeHooks: true,
-        includeMeta: true // ['metaProperty']
-      }
-      this.#app.log.info(this.#app.printRoutes(printConfig))
-    }
+
+    if (config.get('app.debug')) this.#app.log.info(this.#app.printRoutes(printConfig))
   }
 
   getHttpServer() {

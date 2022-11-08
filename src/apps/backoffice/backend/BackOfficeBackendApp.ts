@@ -1,8 +1,10 @@
+import '../dependency-injection'
+
 import { container } from 'tsyringe'
 
 import config from '@/Contexts/Backoffice/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
+import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
 
 import { TYPES } from '../dependency-injection/types'
 import { Server } from './Server'
@@ -31,10 +33,16 @@ export class BackOfficeBackendApp {
 
   async configureEventBus() {
     const eventBus = container.resolve<EventBus>(TYPES.EventBus)
-    eventBus.addSubscribers(DomainEventSubscribers.from())
+    const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
+    await rabbitMQConnection.connect()
+
+    const subscribers = DomainEventSubscribers.from()
+    eventBus.addSubscribers(subscribers)
   }
 
-  stop() {
+  async stop() {
+    const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
+    await rabbitMQConnection.close()
     this.#server?.stop()
   }
 }
