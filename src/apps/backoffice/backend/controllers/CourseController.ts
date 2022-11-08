@@ -1,6 +1,6 @@
 import { inject } from 'tsyringe'
 
-import { CoursesResponse, SearchAllCoursesQuery } from '@/Contexts/Mooc/Courses/application/SearchAll'
+import { BackofficeCoursesResponse, SearchAllCoursesQuery } from '@/Contexts/Backoffice/Courses/application'
 import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
@@ -31,7 +31,7 @@ export class CourseController {
     // )
     const query = new SearchAllCoursesQuery()
 
-    const { courses } = await this.queryBus.ask<CoursesResponse>(query)
+    const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
 
     return courses
   }

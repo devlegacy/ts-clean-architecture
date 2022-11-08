@@ -1,7 +1,12 @@
 import { container } from 'tsyringe'
 
-import { SearchCoursesByCriteriaQueryHandler } from '@/Contexts/Backoffice/Courses/application'
-import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
+import {
+  SearchAllCoursesQueryHandler,
+  SearchCoursesByCriteriaQueryHandler
+} from '@/Contexts/Backoffice/Courses/application'
+import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
+import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
+import { CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import { MikroOrmMongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
 import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
@@ -27,3 +32,4 @@ container
   // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
   .register<CourseRepository>(TYPES.CourseRepository, MikroOrmMongoCourseRepository)
+  .register<BackofficeCourseRepository>(TYPES.BackofficeCourseRepository, MikroOrmMongoBackofficeCourseRepository)

@@ -5,6 +5,7 @@ export const TYPES = {
   // Domain
   CourseRepository: Symbol.for('CourseRepository'),
   CoursesCounterRepository: Symbol.for('CoursesCounterRepository'),
+  BackofficeCourseRepository: Symbol.for('BackofficeCourseRepository'),
   // Test
   EnvironmentArranger: Symbol.for('EnvironmentArranger')
 }

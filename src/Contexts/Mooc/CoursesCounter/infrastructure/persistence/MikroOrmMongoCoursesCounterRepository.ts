@@ -6,7 +6,7 @@ import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persis
 import { CoursesCounter, CoursesCounterRepository } from '../../domain'
 import { CoursesCounterEntity } from './mongo/CoursesCounterEntity'
 
-export class MongoCoursesCounterRepository
+export class MikroOrmMongoCoursesCounterRepository
   extends MikroOrmMongoRepository<CoursesCounter>
   implements CoursesCounterRepository
 {

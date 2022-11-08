@@ -9,7 +9,7 @@ import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/in
 import { TYPES } from '../dependency-injection/types'
 import { Server } from './Server'
 
-export class BackOfficeBackendApp {
+export class BackofficeBackendApp {
   #server?: Server
 
   get httpServer() {

@@ -2,7 +2,7 @@ import { container } from 'tsyringe'
 
 import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
 import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { MongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
+import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
 
 import { TYPES } from './types'
 
@@ -19,4 +19,4 @@ container
 // Domain layer
 container
   // Repositories - Mongo
-  .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MongoCoursesCounterRepository)
+  .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MikroOrmMongoCoursesCounterRepository)

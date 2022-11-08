@@ -2,14 +2,14 @@ import { injectable } from 'tsyringe'
 
 import { Filters, Order, Query, QueryHandler } from '@/Contexts/Shared/domain'
 
-import { CoursesResponse } from '../CoursesResponse'
+import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
 import { CoursesByCriteriaSearcher } from './CoursesByCriteriaSearcher'
 import { SearchCoursesByCriteriaQuery } from './SearchCoursesByCriteriaQuery'
 
 // Injectable and Taggable TYPES.QueryHandler
 @injectable()
 export class SearchCoursesByCriteriaQueryHandler
-  implements QueryHandler<SearchCoursesByCriteriaQuery, CoursesResponse>
+  implements QueryHandler<SearchCoursesByCriteriaQuery, BackofficeCoursesResponse>
 {
   constructor(private searcher: CoursesByCriteriaSearcher) {}
 
@@ -17,7 +17,7 @@ export class SearchCoursesByCriteriaQueryHandler
     return SearchCoursesByCriteriaQuery
   }
 
-  handle(query: SearchCoursesByCriteriaQuery): Promise<CoursesResponse> {
+  handle(query: SearchCoursesByCriteriaQuery): Promise<BackofficeCoursesResponse> {
     const filters = Filters.fromValues(query.filters)
     const order = Order.fromValues(query.orderBy, query.orderType)
 
