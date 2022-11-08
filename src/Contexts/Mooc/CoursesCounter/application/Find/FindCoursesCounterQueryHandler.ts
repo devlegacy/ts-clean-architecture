@@ -10,7 +10,7 @@ import { FindCoursesCounterResponse } from './FindCoursesCounterResponse'
 export class FindCoursesCounterQueryHandler
   implements QueryHandler<FindCoursesCounterQuery, FindCoursesCounterResponse>
 {
-  constructor(private finder: CoursesCounterFinder) {}
+  constructor(private readonly finder: CoursesCounterFinder) {}
 
   subscribedTo(): Query {
     return FindCoursesCounterQuery

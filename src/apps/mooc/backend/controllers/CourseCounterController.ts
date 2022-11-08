@@ -8,7 +8,10 @@ import { TYPES } from '../../dependency-injection/types'
 
 @Controller('courses-counter')
 export class CoursesCounterController {
-  constructor(@inject(TYPES.QueryBus) private readonly queryBus: QueryBus) {}
+  constructor(
+    // private readonly coursesCounterFinder: CoursesCounterFinder,
+    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus
+  ) {}
 
   @Get()
   async show() {

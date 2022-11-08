@@ -1,12 +1,11 @@
 import { injectAll, singleton } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
-
 import { Query, QueryHandler, QueryNotRegisteredException, Response } from '../../domain'
+import { SHARED_TYPES } from '../common'
 
 @singleton()
 export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
-  constructor(@injectAll(TYPES.QueryHandler) queryHandlers: QueryHandler<Query, Response>[]) {
+  constructor(@injectAll(SHARED_TYPES.QueryHandler) queryHandlers: QueryHandler<Query, Response>[]) {
     super()
     queryHandlers.forEach((queryHandler) => {
       this.set(queryHandler.subscribedTo(), queryHandler)
