@@ -24,7 +24,7 @@ BeforeAll(async () => {
 AfterAll(async () => {
   await environmentArranger.close()
 
-  // application.stop()
+  // await application.stop()
   // // TODO: The exit process should be automatic
   // setTimeout(() => {
   //   process.exit(0)

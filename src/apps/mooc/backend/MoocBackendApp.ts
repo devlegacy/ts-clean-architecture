@@ -4,7 +4,7 @@ import { container } from 'tsyringe'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
+import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
 
 import { TYPES } from '../dependency-injection/types'
 import { Server } from './Server'
@@ -33,6 +33,9 @@ export class MoocBackendApp {
 
   async configureEventBus() {
     const eventBus = container.resolve<EventBus>(TYPES.EventBus)
+    const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
+    await rabbitMQConnection.connect()
+
     const subscribers = DomainEventSubscribers
       .from
       // containerBuilder()
@@ -40,7 +43,9 @@ export class MoocBackendApp {
     eventBus.addSubscribers(subscribers)
   }
 
-  stop() {
+  async stop() {
+    const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
+    await rabbitMQConnection.close()
     this.#server?.stop()
   }
 }
