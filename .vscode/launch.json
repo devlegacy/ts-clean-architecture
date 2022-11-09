@@ -44,7 +44,8 @@
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
       "env": {
-        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
+        "APP_ENV": "test"
       }
     },
     {
@@ -80,7 +81,10 @@
           "--runInBand",
           "--detectOpenHandles",
           "//${relativeFile}" // the // is a hack for windows files
-        ]
+        ],
+        "env": {
+          "APP_ENV": "test"
+        }
       },
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",

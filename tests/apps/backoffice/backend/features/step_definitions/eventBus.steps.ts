@@ -6,7 +6,7 @@ import { eventBus } from './hooks.steps'
 
 const deserializer = buildDeserializer()
 
-Given('I send an event to the event bus:', async (event: any) => {
+Given('the following event is received:', async (event: any) => {
   const domainEvent = deserializer.deserialize(event)
 
   await eventBus.publish([domainEvent])

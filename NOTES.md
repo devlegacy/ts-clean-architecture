@@ -38,6 +38,7 @@
 │  │  │  │  │  ├─ 📄 `CourseFinder.ts` Servicio | Servicio de dominio | Caso de uso    
 │  │  │  │  │  ├─ 📂 `exceptions/`   
 │  │  │  │  │  ├─ 📂 `value-objects/`   
+│  │  │  │  │  ├─ 📂 `criteria/`   
 │  │  │  │  ├─ 📂 `infrastructure/` - ¿De qué tipo? (UserPostController, MySQLUserRepository)    
 │  │  │  │  │  ├─ 📂 `persistence/`    
 │  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
@@ -170,6 +171,7 @@
 - 💉 IoC Container
   - tsyringe
   - Lab: Diod, node-dependency-injection, inversify
+  - typescript **autowiring**
 - 🧪 Testing
   - Jest (unit)
   - Cucumber (e2e)
@@ -206,6 +208,7 @@
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
   - Complejidad: Los enums son interpretados como `number` | `string`, debe evaluarse el uso por criterio
 - Desarrollo y mantenimiento de la capa de infraestructura
+- `ObjectID` como `String` en favor de agilizar el desarrollo y posteriormente diseñar una estrategia de conversión efectiva, basado en callbacks o transformaciones
 
 ## Comments conventions
 
@@ -214,7 +217,7 @@
 - FIXME
 - TODO
 - NOTE
-- DOC
+- DOC ❌
 - DEBT
 
 ## Excepciones de dominio
@@ -223,8 +226,8 @@ Generalizar para después filtrar
 
 - `InvalidArgumentException`: 422
 - `EntityNotFoundException`: 404
-- `CommandNotRegisteredException`: ?
-- `QueryNotRegisteredException`: ?
+- `CommandNotRegisteredException`: (?) 404
+- `QueryNotRegisteredException`: (?) 404
 
 ## Fastify
 

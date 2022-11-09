@@ -51,7 +51,7 @@ export class Server {
     })
     this.#httpServer = this.#app.server
     const address: AddressInfo = this.#app.server.address() as AddressInfo
-    this.#app.log.info(`🚀 Mock Backend App is running on: http://localhost:${address.port}`)
+    this.#app.log.info(`🚀 Backoffice Backend App is running on: http://localhost:${address.port}`)
     this.#app.log.info(`\ton mode: ${config.get('app.env')}`)
     this.#app.log.info(`\thttp://localhost:${address.port}`)
     this.#app.log.info('\tPress CTRL-C to stop 🛑')

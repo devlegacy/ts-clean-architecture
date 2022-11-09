@@ -3,3 +3,5 @@
 ## Memory footprint
 
 ## Cluster mode
+
+- [ ] Create config

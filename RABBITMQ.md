@@ -9,7 +9,15 @@
 
 - http://tryrabbitmq.com/
 
+## RabbitConfig config
+
+```sh
+  npm run command:mooc:rabbitmq
+  npm run command:backoffice:rabbitmq
+```
+
 ## Routing key
 
 - [empresa].[context].[version].[message type].[entity].[action]
 - codely.mooc.1.event.course.created
+

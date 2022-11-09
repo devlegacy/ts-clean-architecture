@@ -15,12 +15,9 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   // tsyringe
   private readonly _client: Promise<MikroORM<MongoDriver>> = container.resolve(SHARED_TYPES.MongoClient)
 
-  // constructor(@inject(SHARED_TYPES.MongoClient) client: Promise<MikroORM<MongoDriver>>) {
-  // if (!client) {
-  // this._client = client
-  // }
-  // }
+  // private readonly _client: Promise<MikroORM<MongoDriver>>
 
+  // constructor(@inject(SHARED_TYPES.MongoClient) client: Promise<MikroORM<MongoDriver>>) {
   constructor() {
     this.criteriaConverter = new MongoCriteriaConverter()
   }

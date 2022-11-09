@@ -1,19 +1,13 @@
 /// <reference types="../../../../../../types"/>
 
-import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber'
+import { Given, Then } from '@cucumber/cucumber'
 import assert from 'assert'
-import supertest, { Response, SuperTest, Test } from 'supertest'
-import { container } from 'tsyringe'
+import { Response, Test } from 'supertest'
 
-import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { api } from './hooks.steps'
 
 let request: Test
 let response: Response
-let application: MoocBackendApp
-let api: SuperTest<Test>
-let environmentArranger: EnvironmentArranger
 
 Given('I send a GET request to {string}', (route: string) => {
   request = api.get(route)
@@ -43,29 +37,29 @@ Then('the response content should be:', (res) => {
   assert.deepStrictEqual(response.body, JSON.parse(res))
 })
 
-BeforeAll(
-  {
-    timeout: 2 * 5000
-  },
-  async () => {
-    // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-    environmentArranger = await container.resolve<Promise<EnvironmentArranger>>(TYPES.EnvironmentArranger)
-    await environmentArranger.arrange()
+// BeforeAll(
+//   {
+//     timeout: 2 * 5000
+//   },
+//   async () => {
+//     // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+//     environmentArranger = await container.resolve<Promise<EnvironmentArranger>>(TYPES.EnvironmentArranger)
+//     await environmentArranger.arrange()
 
-    application = new MoocBackendApp()
-    await application.start()
-    api = supertest(application.httpServer)
-    // api = request('https://127.0.0.1:8080')
-  }
-)
+//     application = new MoocBackendApp()
+//     await application.start()
+//     api = supertest(application.httpServer)
+//     // api = request('https://127.0.0.1:8080')
+//   }
+// )
 
-AfterAll(async () => {
-  await environmentArranger.close()
+// AfterAll(async () => {
+//   await environmentArranger.close()
 
-  await application.stop()
+//   await application.stop()
 
-  // TODO: The exit process should be automatic
-  setTimeout(() => {
-    process.exit(0)
-  }, 0)
-})
+//   // TODO: The exit process should be automatic
+//   setTimeout(() => {
+//     process.exit(0)
+//   }, 0)
+// })

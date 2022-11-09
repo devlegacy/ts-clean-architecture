@@ -4,7 +4,5 @@ export const TYPES = {
   ...SHARED_TYPES,
   // Domain
   CourseRepository: Symbol.for('CourseRepository'),
-  CoursesCounterRepository: Symbol.for('CoursesCounterRepository'),
-  // Test
-  EnvironmentArranger: Symbol.for('EnvironmentArranger')
+  CoursesCounterRepository: Symbol.for('CoursesCounterRepository')
 }

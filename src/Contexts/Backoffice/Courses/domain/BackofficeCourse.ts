@@ -34,7 +34,8 @@ export class BackofficeCourse extends AggregateRoot {
 
   toPrimitives() {
     return {
-      id: this.id.value,
+      // HACK: On retrieve data by MiKroOrm // DEBT
+      id: this.id.value.toString(),
       name: this.name.value,
       duration: this.duration?.value
     }

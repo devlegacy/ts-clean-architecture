@@ -1,6 +1,11 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { beforeCreate, ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
+import {
+  beforeCreate,
+  beforeUpdate,
+  onLoad,
+  ValueObjectTransformer
+} from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
 import { BackofficeCourse, BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from '../../../domain'
 
@@ -9,7 +14,9 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   tableName: 'courses',
   class: BackofficeCourse,
   hooks: {
-    beforeCreate: [beforeCreate]
+    onLoad: [onLoad],
+    beforeCreate: [beforeCreate],
+    beforeUpdate: [beforeUpdate]
   },
   properties: {
     _id: {

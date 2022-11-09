@@ -17,8 +17,10 @@ export class MikroOrmMongoBackofficeCourseRepository
   //   super(client)
   // }
 
-  async searchBy(_criteria: Criteria): Promise<BackofficeCourse[]> {
-    return []
+  async searchBy(criteria: Criteria): Promise<BackofficeCourse[]> {
+    const documents = await this.findByCriteria(criteria)
+
+    return documents
   }
 
   save(course: BackofficeCourse): Promise<void> {
