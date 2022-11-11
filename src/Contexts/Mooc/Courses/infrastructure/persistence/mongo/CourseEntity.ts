@@ -6,6 +6,7 @@ import { beforeCreate, ValueObjectTransformer } from '@/Contexts/Shared/infrastr
 import { Course, CourseDuration, CourseName } from '../../../domain'
 
 export const CourseEntity = new EntitySchema<Course>({
+  // abstract: true,
   name: 'Course',
   tableName: 'courses',
   class: Course,
@@ -27,6 +28,18 @@ export const CourseEntity = new EntitySchema<Course>({
     },
     duration: {
       customType: new ValueObjectTransformer(CourseDuration, 'string')
+    },
+    createdAt: {
+      type: 'Date',
+      nullable: true
+    },
+    updatedAt: {
+      type: 'Date',
+      nullable: true
+    },
+    deletedAt: {
+      type: 'Date',
+      nullable: true
     }
   }
 })

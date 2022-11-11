@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/user/dependency-injection/types'
 
-import { User, UserFinder, UserPrimitiveProps, UserRepository } from '../domain'
+import { PrimitiveUser, User, UserFinder, UserRepository } from '../domain'
 
 /** UserUpdaterUseCase */
 @injectable()
@@ -13,7 +13,7 @@ export class UserUpdater {
     this.userFinder = new UserFinder(userRepository)
   }
 
-  async run(data: UserPrimitiveProps): Promise<User> {
+  async run(data: PrimitiveUser): Promise<User> {
     const user = await this.userFinder.run(data.id)
     const update = User.fromPrimitives({
       ...user.toPrimitives(),

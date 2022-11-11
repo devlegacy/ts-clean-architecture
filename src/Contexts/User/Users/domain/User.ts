@@ -1,4 +1,4 @@
-import { AggregateRoot, NonFunctionProperties, PrimitiveProperties } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Primitives } from '@/Contexts/Shared/domain'
 
 import { UserId } from '../../Shared/domain'
 import { UserAge, UserName, UserUsername } from './value-object'
@@ -16,8 +16,7 @@ import { UserAge, UserName, UserUsername } from './value-object'
 //   id: User['id']
 // }
 
-type UserProps = NonFunctionProperties<User>
-export type UserPrimitiveProps = PrimitiveProperties<UserProps>
+export type PrimitiveUser = Primitives<User>
 
 export class User extends AggregateRoot {
   readonly id: UserId
@@ -33,21 +32,21 @@ export class User extends AggregateRoot {
     this.age = age
   }
 
-  static fromPrimitives(props: UserPrimitiveProps): User {
+  static fromPrimitives(data: PrimitiveUser): User {
     // return new Course({
     //   id: new CourseId(props.id),
     //   name: new CourseName(props.name),
     //   duration: !props.duration ? undefined : new CourseDuration(props.duration)
     // })
     return new User(
-      new UserId(props.id),
-      new UserName(props.name),
-      new UserUsername(props.username),
-      !props.age ? undefined : new UserAge(props.age)
+      new UserId(data.id),
+      new UserName(data.name),
+      new UserUsername(data.username),
+      !data.age ? undefined : new UserAge(data.age)
     )
   }
 
-  toPrimitives(): UserPrimitiveProps {
+  toPrimitives(): PrimitiveUser {
     return {
       id: this.id.value,
       name: this.name.value,

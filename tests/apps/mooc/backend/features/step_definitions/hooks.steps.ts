@@ -10,14 +10,11 @@ import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 let application: MoocBackendApp
 let api: SuperTest<Test>
-let environmentArranger: EnvironmentArranger
-let eventBus: EventBus
+const environmentArranger = container.resolve<EnvironmentArranger>(TYPES.EnvironmentArranger)
+const eventBus = container.resolve<EventBus>(TYPES.EventBus)
 
 BeforeAll(async () => {
   await ConfigureRabbitMQCommand.run()
-
-  environmentArranger = container.resolve<EnvironmentArranger>(TYPES.EnvironmentArranger)
-  eventBus = container.resolve<EventBus>(TYPES.EventBus)
   await environmentArranger.arrange()
 
   application = new MoocBackendApp()

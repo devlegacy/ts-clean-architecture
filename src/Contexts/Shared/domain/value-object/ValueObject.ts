@@ -1,9 +1,9 @@
 import { InvalidArgumentException } from '../exceptions'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type Primitives = String | string | number | Boolean | boolean | Date
+export type PrimitiveTypes = String | string | number | Boolean | boolean | Date
 
-export abstract class ValueObject<T extends Primitives> {
+export abstract class ValueObject<T extends PrimitiveTypes> {
   readonly value: T
 
   constructor(value: T) {
