@@ -1,5 +1,6 @@
 import { Constructor } from 'type-fest'
 
+import { info } from '../../../logger'
 import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants'
 import { RouteParamtypes } from '../../enums'
 import { PipeTransform } from '../../interfaces'
@@ -51,12 +52,24 @@ const createPipesRouteParamDecorator =
   (data?: any, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
   (target, key, index) => {
     const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
+    const types: any[] = Reflect.getMetadata('design:paramtypes', target.constructor.prototype, key) || []
+
     const hasParamData = isNil(data) || isString(data)
     const paramData = (hasParamData ? data : undefined) as string
     const paramPipes = hasParamData ? pipes : [data, ...pipes]
 
     if (pipes.length) {
-      console.log(pipes)
+      info(pipes)
+    }
+
+    if (!paramPipes.length && typeof types.at(index) === 'function') {
+      paramPipes.push(
+        class DefaultPipe {
+          transform(value: any) {
+            return types.at(index)(value)
+          }
+        }
+      )
     }
 
     Reflect.defineMetadata(
