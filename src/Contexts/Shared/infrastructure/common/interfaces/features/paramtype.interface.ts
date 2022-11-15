@@ -1,1 +1,1 @@
-export type Paramtype = 'body' | 'query' | 'param' | 'custom'
+export type Paramtype = 'body' | 'query' | 'params' | 'headers' | 'custom'

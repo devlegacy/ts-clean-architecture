@@ -12,7 +12,14 @@ describe('BackofficeCourseCreator', () => {
     const repository = new BackofficeCourseRepositoryMock()
     const applicationService = new BackofficeCourseCreator(repository)
 
-    await applicationService.run(course.id.toString(), course.name.toString(), course?.duration?.toString())
+    await applicationService.run(
+      course.id.toString(),
+      course.name.toString(),
+      course?.duration?.toString(),
+      course?.createdAt,
+      course?.updatedAt,
+      course?.deletedAt
+    )
 
     repository.assertSaveHasBeenCalledWith(course)
   })

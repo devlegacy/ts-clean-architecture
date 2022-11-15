@@ -1,4 +1,5 @@
 export * from './BackofficeCourse'
 export * from './BackofficeCourseRepository'
+export * from './BackofficeCreateCourseCommand'
 export * from './criteria'
 export * from './value-object'

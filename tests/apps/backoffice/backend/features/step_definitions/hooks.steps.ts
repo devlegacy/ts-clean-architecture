@@ -10,7 +10,9 @@ import { TYPES } from '@/apps/backoffice/dependency-injection/types'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
-let application: BackofficeBackendApp
+const application = new BackofficeBackendApp()
+// const moocBackendApp = new MoocBackendApp()
+
 let api: SuperTest<Test>
 const environmentArranger = container.resolve<EnvironmentArranger>(TYPES.EnvironmentArranger)
 const eventBus = container.resolve<EventBus>(TYPES.EventBus)
@@ -23,15 +25,17 @@ BeforeAll(
     await ConfigureRabbitMQCommand.run()
     await environmentArranger.arrange()
 
-    application = new BackofficeBackendApp()
+    // await moocBackendApp.start()
     await application.start()
     api = supertest(application.httpServer)
   }
 )
 
 AfterAll(async () => {
+  await environmentArranger.arrange()
   await environmentArranger.close()
 
+  // await moocBackendApp.stop()
   await application.stop()
 
   // TODO: The exit process should be automatic

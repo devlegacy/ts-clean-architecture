@@ -38,6 +38,7 @@ describe('RabbitMQEventBus test', () => {
   })
 
   afterAll(async () => {
+    await arranger.arrange()
     await arranger.close()
   })
 

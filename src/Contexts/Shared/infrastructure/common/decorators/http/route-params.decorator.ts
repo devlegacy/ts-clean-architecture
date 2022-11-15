@@ -6,6 +6,12 @@ import { RouteParamtypes } from '../../enums'
 import { PipeTransform } from '../../interfaces'
 import { isNil, isString } from '../../utils'
 
+class DefaultNumberTransformPipe {
+  transform(value: any) {
+    return Number(value)
+  }
+}
+
 export interface ResponseDecoratorOptions {
   passthrough: boolean
 }
@@ -63,13 +69,9 @@ const createPipesRouteParamDecorator =
     }
 
     if (!paramPipes.length && typeof types.at(index) === 'function') {
-      paramPipes.push(
-        class DefaultPipe {
-          transform(value: any) {
-            return types.at(index)(value)
-          }
-        }
-      )
+      if (types.at(index)?.name === 'Number') {
+        paramPipes.push(DefaultNumberTransformPipe)
+      }
     }
 
     Reflect.defineMetadata(

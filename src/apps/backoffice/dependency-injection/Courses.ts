@@ -1,13 +1,13 @@
 import { container } from 'tsyringe'
 
 import {
+  BackofficeCreateCourseCommandHandler,
   CreateBackofficeCourseOnCourseCreated,
   SearchAllCoursesQueryHandler,
   SearchCoursesByCriteriaQueryHandler
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
-import { CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import { MikroOrmMongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
 import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
@@ -22,7 +22,7 @@ container
   .register(TYPES.DomainEventSubscriber, CreateBackofficeCourseOnCourseCreated)
   // 🚌 CommandBus <-> CommandHandlers
   // 🏷 Tags - Application
-  .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, BackofficeCreateCourseCommandHandler)
   // 🚌 QueryBus <-> QueryHandlers
   // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)

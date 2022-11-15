@@ -28,18 +28,18 @@ export const CourseEntity = new EntitySchema<Course>({
     },
     duration: {
       customType: new ValueObjectTransformer(CourseDuration, 'string')
-    },
-    createdAt: {
-      type: 'Date',
-      nullable: true
-    },
-    updatedAt: {
-      type: 'Date',
-      nullable: true
-    },
-    deletedAt: {
-      type: 'Date',
-      nullable: true
     }
+    // createdAt: {
+    //   type: 'Date',
+    //   nullable: true
+    // },
+    // updatedAt: {
+    //   type: 'Date',
+    //   nullable: true
+    // },
+    // deletedAt: {
+    //   type: 'Date',
+    //   nullable: true
+    // }
   }
 })

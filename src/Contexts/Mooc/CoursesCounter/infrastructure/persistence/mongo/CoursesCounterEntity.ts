@@ -6,7 +6,7 @@ import { beforeCreate, ValueObjectTransformer } from '@/Contexts/Shared/infrastr
 import { CoursesCounter, CoursesCounterTotal } from '../../../domain'
 
 export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
-  abstract: true,
+  // abstract: true,
   name: 'CoursesCounter',
   tableName: 'courses_counter',
   class: CoursesCounter,

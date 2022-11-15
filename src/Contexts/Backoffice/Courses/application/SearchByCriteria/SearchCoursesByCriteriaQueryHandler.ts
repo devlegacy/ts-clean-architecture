@@ -11,7 +11,7 @@ import { SearchCoursesByCriteriaQuery } from './SearchCoursesByCriteriaQuery'
 export class SearchCoursesByCriteriaQueryHandler
   implements QueryHandler<SearchCoursesByCriteriaQuery, BackofficeCoursesResponse>
 {
-  constructor(private searcher: CoursesByCriteriaSearcher) {}
+  constructor(private readonly searcher: CoursesByCriteriaSearcher) {}
 
   subscribedTo(): Query {
     return SearchCoursesByCriteriaQuery
@@ -21,6 +21,6 @@ export class SearchCoursesByCriteriaQueryHandler
     const filters = Filters.fromValues(query.filters)
     const order = Order.fromValues(query.orderBy, query.orderType)
 
-    return this.searcher.run(filters, order, query.offset, query.limit)
+    return this.searcher.run(filters, order, query.limit, query.offset)
   }
 }

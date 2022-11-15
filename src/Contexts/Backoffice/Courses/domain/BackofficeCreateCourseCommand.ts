@@ -1,12 +1,12 @@
 import { Command } from '@/Contexts/Shared/domain'
 
-import { CoursePrimitiveDto } from './Course'
+import { BackofficeCoursePrimitiveDto } from './BackofficeCourse'
 
-type Params = CoursePrimitiveDto
+type Params = BackofficeCoursePrimitiveDto
 
 // Immutable
 
-export class CreateCourseCommand extends Command {
+export class BackofficeCreateCourseCommand extends Command {
   readonly id: string
   readonly name: string
   readonly duration?: string

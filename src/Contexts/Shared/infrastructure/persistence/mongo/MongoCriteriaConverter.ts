@@ -1,9 +1,11 @@
-import { Criteria, Filter, Filters, Operator, Order } from '@/Contexts/Shared/domain'
+import { ObjectId } from 'mongodb'
 
-type MongoFilterOperator = '$eq' | '$ne' | '$gt' | '$lt' | '$regex'
-type MongoFilterValue = boolean | string | number
+import { Criteria, Filter, Filters, FilterValue, Operator, Order } from '@/Contexts/Shared/domain'
+
+type MongoFilterOperator = '$eq' | '$ne' | '$gt' | '$lt' | '$regex' | '$exists'
+type MongoFilterValue = boolean | string | number | ObjectId
 type MongoFilterOperation = { [operator in MongoFilterOperator]?: MongoFilterValue }
-type MongoFilter = { [field: string]: MongoFilterOperation } | { [field: string]: { $not: MongoFilterOperation } }
+type MongoFilter = { [field: string]: MongoFilterOperation | { $not: MongoFilterOperation } }
 type MongoDirection = 1 | -1
 type MongoSort = { [field: string]: MongoDirection }
 
@@ -28,11 +30,12 @@ export class MongoCriteriaConverter {
       [Operator.GT, this.greaterThanFilter],
       [Operator.LT, this.lowerThanFilter],
       [Operator.CONTAINS, this.containsFilter],
-      [Operator.NOT_CONTAINS, this.notContainsFilter]
+      [Operator.NOT_CONTAINS, this.notContainsFilter],
+      [Operator.EXISTS, this.existsFilter]
     ])
   }
 
-  convert(criteria: Criteria): MongoQuery {
+  public convert(criteria: Criteria): MongoQuery {
     return {
       filter: criteria.hasFilters() ? this.generateFilter(criteria.filters) : {},
       sort: criteria.order.hasOrder() ? this.generateSort(criteria.order) : { _id: -1 },
@@ -46,10 +49,10 @@ export class MongoCriteriaConverter {
       const transformer = this.filterTransformers.get(filter.operator.value)
 
       if (!transformer) {
-        throw Error(`Unexpected operator value ${filter.operator.value}`)
+        throw Error(`Unexpected operator value <${filter.operator.value}>`)
       }
 
-      return transformer(filter)
+      return transformer.call(this, filter)
     })
 
     return Object.assign({}, ...filter)
@@ -61,27 +64,39 @@ export class MongoCriteriaConverter {
     }
   }
 
+  private getFilterValue(filterValue: FilterValue) {
+    if (ObjectId.isValid(filterValue.value)) {
+      return new ObjectId(filterValue.value)
+    }
+
+    return filterValue.value
+  }
+
   private equalFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $eq: filter.value.value } }
+    return { [filter.field.value]: { $eq: this.getFilterValue(filter.value) } }
   }
 
   private notEqualFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $ne: filter.value.value } }
+    return { [filter.field.value]: { $ne: this.getFilterValue(filter.value) } }
   }
 
   private greaterThanFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $gt: filter.value.value } }
+    return { [filter.field.value]: { $gt: this.getFilterValue(filter.value) } }
   }
 
   private lowerThanFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $lt: filter.value.value } }
+    return { [filter.field.value]: { $lt: this.getFilterValue(filter.value) } }
   }
 
   private containsFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $regex: filter.value.value } }
+    return { [filter.field.value]: { $regex: this.getFilterValue(filter.value) } }
   }
 
   private notContainsFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $not: { $regex: filter.value.value } } }
+    return { [filter.field.value]: { $not: { $regex: this.getFilterValue(filter.value) } } }
+  }
+
+  private existsFilter(filter: Filter): MongoFilter {
+    return { [filter.field.value]: { $exists: this.getFilterValue(filter.value) === 'true' } }
   }
 }

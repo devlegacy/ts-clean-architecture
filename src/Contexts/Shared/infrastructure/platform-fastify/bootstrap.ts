@@ -12,6 +12,7 @@ import { info } from '@/Contexts/Shared/infrastructure/logger'
 import {
   getMethodGroup,
   getSchema,
+  ParamData,
   RequestMappingMetadata,
   RequestMethod,
   RouteParamMetadata,
@@ -26,6 +27,7 @@ import {
 } from '../common/constants'
 import { ControllerResolver } from '../common/dependency-injection'
 import { PipeTransform } from '../common/interfaces'
+import { Paramtype } from '../common/interfaces/features/paramtype.interface'
 import { Primary } from './cluster'
 import { isConstructor, normalizePath } from './shared.utils'
 
@@ -113,7 +115,23 @@ const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, numbe
     keyParam
   ])
 
-// eslint-disable-next-line complexity, max-lines-per-function
+const pipeBuilder = (
+  req: any,
+  type: Paramtype,
+  data?: ParamData,
+  pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+) => {
+  if (!(data && pipes && Array.isArray(pipes))) return
+
+  for (const pipe of pipes) {
+    if (!isConstructor(pipe)) continue
+    req[`${type}`][`${data}`] = new (pipe as Constructor<PipeTransform>)().transform(req[`${type}`][`${data}`], {
+      type
+    })
+  }
+}
+
+// eslint-disable-next-line complexity
 const getParams = (
   params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>,
   req: any,
@@ -121,68 +139,31 @@ const getParams = (
 ): unknown[] => {
   // HttpRequest | HttpResponse | unknown
   const routeParams: unknown[] = []
-
   const keyParams = params ? getKeyParam(params) : []
+
   for (const keyParam of keyParams) {
     const [paramtype, index, key] = keyParam
     const { data, pipes } = params[key]
 
     if (paramtype === RouteParamtypes.REQUEST) {
-      routeParams[index] = req
+      routeParams[`${index}`] = req
     } else if (paramtype === RouteParamtypes.RESPONSE) {
-      routeParams[index] = res
+      routeParams[`${index}`] = res
     } else if (paramtype === RouteParamtypes.QUERY) {
-      if (data && pipes && Array.isArray(pipes)) {
-        // eslint-disable-next-line max-depth
-        for (const pipe of pipes) {
-          // eslint-disable-next-line max-depth
-          if (isConstructor(pipe)) {
-            req.query[data as string] = new (pipe as Constructor<PipeTransform>)().transform(
-              req.query[data as string],
-              {
-                type: 'query'
-              }
-            )
-          }
-        }
-      }
+      pipeBuilder(req, 'query', data, pipes)
       // Extract a part of query
-      routeParams[index] = data ? req.query[data as string] : req.query
+      routeParams[`${index}`] = data ? req.query[`${data}`] : req.query
     } else if (paramtype === RouteParamtypes.PARAM) {
-      if (data && pipes && Array.isArray(pipes)) {
-        // eslint-disable-next-line max-depth
-        for (const pipe of pipes) {
-          // eslint-disable-next-line max-depth
-          if (isConstructor(pipe)) {
-            req.params[data as string] = new (pipe as Constructor<PipeTransform>)().transform(
-              req.params[data as string],
-              {
-                type: 'param'
-              }
-            )
-          }
-        }
-      }
-      routeParams[index] = req.params
+      pipeBuilder(req, 'params', data, pipes)
+
+      routeParams[`${index}`] = req.params
     } else if (paramtype === RouteParamtypes.BODY) {
-      routeParams[index] = req.body
+      routeParams[`${index}`] = req.body
     } else if (paramtype === RouteParamtypes.HEADERS) {
-      if (data && pipes && Array.isArray(pipes)) {
-        // eslint-disable-next-line max-depth
-        for (const pipe of pipes) {
-          // eslint-disable-next-line max-depth
-          if (isConstructor(pipe)) {
-            req.query[data as string] = new (pipe as Constructor<PipeTransform>)().transform(
-              req.query[data as string],
-              {
-                type: 'custom'
-              }
-            )
-          }
-        }
-      }
+      pipeBuilder(req, 'headers', data, pipes)
+
       // Extract a part of headers
-      routeParams[index] = data ? req.headers[data as string] : req.headers
+      routeParams[`${index}`] = data ? req.headers[`${data}`] : req.headers
     }
   }
 

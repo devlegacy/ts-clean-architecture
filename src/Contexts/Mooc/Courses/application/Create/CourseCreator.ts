@@ -11,10 +11,9 @@
 import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/mooc/dependency-injection/types'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { EventBus } from '@/Contexts/Shared/domain'
 
-import { Course, CourseDuration, CourseName, CourseRepository } from '../../domain'
+import { Course, CourseEntityDto, CourseRepository } from '../../domain'
 
 // NOTE: Complejidad asumida
 @injectable()
@@ -35,7 +34,7 @@ export class CourseCreator {
   //   await this.eventBus.publish(course.pullDomainEvents())
   // }
 
-  async run(request: { id: CourseId; name: CourseName; duration?: CourseDuration }) {
+  async run(request: CourseEntityDto) {
     const course = Course.create(request.id, request.name, request.duration ?? request.duration)
 
     await this.repository.save(course)

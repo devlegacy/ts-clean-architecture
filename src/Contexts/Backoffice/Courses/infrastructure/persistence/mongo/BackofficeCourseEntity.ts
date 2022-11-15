@@ -32,7 +32,20 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
       customType: new ValueObjectTransformer(BackofficeCourseName, 'string')
     },
     duration: {
-      customType: new ValueObjectTransformer(BackofficeCourseDuration, 'string')
+      customType: new ValueObjectTransformer(BackofficeCourseDuration, 'string'),
+      nullable: true
+    },
+    createdAt: {
+      type: 'Date',
+      nullable: true
+    },
+    updatedAt: {
+      type: 'Date',
+      nullable: true
+    },
+    deletedAt: {
+      type: 'Date',
+      nullable: true
     }
   }
 })

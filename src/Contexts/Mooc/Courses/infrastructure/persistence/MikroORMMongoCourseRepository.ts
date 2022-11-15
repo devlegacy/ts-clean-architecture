@@ -21,7 +21,7 @@ export class MikroOrmMongoCourseRepository extends MikroOrmMongoRepository<Cours
   }
 
   async searchBy(criteria: Criteria): Promise<Course[]> {
-    const documents = await this.findByCriteria(criteria)
+    const documents = await this.matching(criteria)
 
     return documents
   }

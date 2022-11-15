@@ -1,7 +1,7 @@
-import { Course, PrimitiveCourse } from '../../domain'
+import { Course, CoursePrimitiveDto } from '../../domain'
 
 export class CoursesResponse {
-  readonly courses: PrimitiveCourse[]
+  readonly courses: CoursePrimitiveDto[]
 
   constructor(courses: Course[]) {
     this.courses = courses.map((course) => course.toPrimitives())
