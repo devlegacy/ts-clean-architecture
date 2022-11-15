@@ -8,6 +8,7 @@ import { isNil, isString } from '../../utils'
 
 class DefaultNumberTransformPipe {
   transform(value: any) {
+    if (value === undefined || value === null) return value
     return Number(value)
   }
 }
