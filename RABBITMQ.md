@@ -11,8 +11,14 @@
 
 ## RabbitConfig config
 
+```json
+  {
+    "postinstall": "npm run command:mooc:rabbitmq && npm run command:backoffice:rabbitmq"
+  }
+```
+
 ```sh
-  npm run command:mooc:rabbitmq
+  npm run command:mooc:rabbitmq \
   npm run command:backoffice:rabbitmq
 ```
 
