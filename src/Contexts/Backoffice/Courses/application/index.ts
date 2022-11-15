@@ -1,4 +1,5 @@
 export * from './BackofficeCoursesResponse'
 export * from './Create'
+export * from './Paginate'
 export * from './SearchAll'
 export * from './SearchByCriteria'

@@ -1,5 +1,5 @@
 import { Course, CourseDuration, CourseName, CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
-import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
+import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
 import { CourseIdMother } from '../../Shared/domain/Courses'
@@ -19,7 +19,7 @@ export class CourseMother {
     )
   }
 
-  static fromRequest(request: CourseDto): Course {
+  static fromRequest(request: CourseRequestDto): Course {
     return this.create(
       new CourseId(request.id),
       new CourseName(request.name),

@@ -7,7 +7,8 @@ export enum Operator {
   GT = '>',
   LT = '<',
   CONTAINS = 'CONTAINS',
-  NOT_CONTAINS = 'NOT_CONTAINS'
+  NOT_CONTAINS = 'NOT_CONTAINS',
+  EXISTS = 'EXISTS'
 }
 
 export class FilterOperator extends EnumValueObject<Operator> {
@@ -29,8 +30,10 @@ export class FilterOperator extends EnumValueObject<Operator> {
         return new FilterOperator(Operator.CONTAINS)
       case Operator.NOT_CONTAINS:
         return new FilterOperator(Operator.NOT_CONTAINS)
+      case Operator.EXISTS:
+        return new FilterOperator(Operator.EXISTS)
       default:
-        throw new InvalidArgumentException(`The filter operator ${value} is invalid`)
+        throw new InvalidArgumentException(`The filter operator <${value}> is invalid`)
     }
   }
 
@@ -43,6 +46,6 @@ export class FilterOperator extends EnumValueObject<Operator> {
   }
 
   protected throwInvalidValueException(value: Operator): void {
-    throw new InvalidArgumentException(`The filter operator ${value} is invalid`)
+    throw new InvalidArgumentException(`The filter operator <${value}> is invalid`)
   }
 }

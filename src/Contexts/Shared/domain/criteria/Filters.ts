@@ -1,4 +1,4 @@
-import { Filter, FilterPrimitiveProps } from './Filter'
+import { Filter, FilterPrimitiveDto } from './Filter'
 
 export class Filters {
   readonly filters: Filter[]
@@ -7,7 +7,7 @@ export class Filters {
     this.filters = filters
   }
 
-  static parseFilters(params: FilterPrimitiveProps[]): Map<string, string>[] {
+  static parseFilters(params: FilterPrimitiveDto[]): Map<string, string>[] {
     if (!params) {
       return new Array<Map<string, string>>()
     }

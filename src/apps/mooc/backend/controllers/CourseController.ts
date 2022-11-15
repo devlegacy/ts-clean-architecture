@@ -2,7 +2,7 @@ import { inject } from 'tsyringe'
 
 import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 // import { UpdateRequestSchema } from '@/Contexts/Mooc/Courses/infrastructure/CourseSchema'
-import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
+import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus } from '@/Contexts/Shared/domain'
 import {
   Body,
@@ -26,7 +26,7 @@ export class CourseController {
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
   @Put(':courseId')
-  async update(@Body() course: CourseDto) {
+  async update(@Body() course: CourseRequestDto) {
     // const { id, name, duration } = course
 
     // await this.courseCreator.run({

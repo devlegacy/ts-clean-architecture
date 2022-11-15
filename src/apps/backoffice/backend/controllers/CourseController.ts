@@ -1,10 +1,15 @@
 import { inject } from 'tsyringe'
 
-import { BackofficeCoursesResponse, SearchCoursesByCriteriaQuery } from '@/Contexts/Backoffice/Courses/application'
-import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
-import { CourseDto } from '@/Contexts/Mooc/Courses/infrastructure'
-import { CommandBus, FilterPrimitiveProps, Filters, QueryBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@/Contexts/Shared/infrastructure/common'
+import {
+  BackofficeCoursesResponse,
+  PaginateCourses,
+  SearchCoursesByCriteriaQuery
+} from '@/Contexts/Backoffice/Courses/application'
+import { BackofficeCreateCourseCommand } from '@/Contexts/Backoffice/Courses/domain'
+import { JoiCourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/JoiCourseDto'
+import { CommandBus, FilterPrimitiveDto, Filters, Order, OrderByCreatedAt, QueryBus } from '@/Contexts/Shared/domain'
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@/Contexts/Shared/infrastructure/common'
+import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
 
 import { TYPES } from '../../dependency-injection/types'
 
@@ -12,23 +17,25 @@ import { TYPES } from '../../dependency-injection/types'
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator,
+    private readonly paginateCourses: PaginateCourses,
     @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
     @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
   ) {}
 
   @Get()
-  async index(req: Request) {
-    const {
-      query: { filters, orderBy, order, limit, page: offset }
-    } = req
-
+  async index(
+    @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveDto[],
+    @Query('limit') limit?: number,
+    @Query('offset') offset?: number,
+    @Query('orderBy') orderBy?: string,
+    @Query('orderType') orderType?: string
+  ) {
     const query = new SearchCoursesByCriteriaQuery(
-      Filters.parseFilters(filters as FilterPrimitiveProps[]),
-      orderBy as string,
-      order as string,
-      // NOTE: it should allow 0 index
-      limit ? parseInt(limit, 10) : undefined,
-      offset ? parseInt(offset, 10) : undefined
+      Filters.parseFilters(filtersDto ?? []),
+      orderBy,
+      orderType,
+      limit ? limit : undefined,
+      offset ? offset : undefined
     )
     // const query = new SearchAllCoursesQuery()
 
@@ -37,10 +44,27 @@ export class CourseController {
     return courses
   }
 
+  @Get('pagination')
+  async pagination(
+    @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveDto[],
+    @Query('limit') limit?: number,
+    @Query('page') page?: number,
+    @Query('orderBy') orderBy?: string,
+    @Query('orderType') orderType?: string
+  ) {
+    const parsedFilters = Filters.parseFilters(filtersDto ?? [])
+    const filters = Filters.fromValues(parsedFilters)
+    const order = !orderBy || !orderType ? new OrderByCreatedAt() : Order.fromValues(orderBy, orderType)
+
+    const pagination = await this.paginateCourses.run(filters, order, limit, page)
+
+    return pagination
+  }
+
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() course: CourseDto) {
-    const command = new CreateCourseCommand(course)
+  async create(@Body() course: JoiCourseDto) {
+    const command = new BackofficeCreateCourseCommand(course)
     await this.commandBus.dispatch(command)
 
     return {}

@@ -12,7 +12,7 @@ import { Joi } from '@/Contexts/Shared/infrastructure/joi'
  * Restricciones de integridad de dominio vs Validaciones capa de transporte/peticiones/protocolo de comunicación
  */
 
-export class CourseDto {
+export class CourseRequestDto {
   @JoiSchema(Joi.string().required())
   readonly id!: string
 

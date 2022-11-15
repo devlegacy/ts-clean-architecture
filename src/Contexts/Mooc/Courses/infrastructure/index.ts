@@ -1,5 +1,5 @@
 export * from './CourseSchema'
-export * from './dtos/CourseDto'
+export * from './dtos/CourseRequestDto'
 export * from './persistence/FileCourseRepository'
 export * from './persistence/MikroOrmMongoCourseRepository'
 export * from './persistence/TypeOrmPostgresCourseRepository'

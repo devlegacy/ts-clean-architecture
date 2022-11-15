@@ -4,7 +4,7 @@ import { FilterField } from './FilterField'
 import { FilterOperator } from './FilterOperator'
 import { FilterValue } from './FilterValue'
 
-export type FilterPrimitiveProps = Primitives<Filter>
+export type FilterPrimitiveDto = Primitives<Filter>
 
 export class Filter {
   readonly field: FilterField
@@ -23,7 +23,7 @@ export class Filter {
     const value = values.get('value')
 
     if (!field || !operator || !value) {
-      throw new InvalidArgumentException(`The filter is invalid`)
+      throw new InvalidArgumentException(`The filter <${field}> <${operator}> <${value}> is invalid`)
     }
 
     return new Filter(new FilterField(field), FilterOperator.fromValue(operator), new FilterValue(value))

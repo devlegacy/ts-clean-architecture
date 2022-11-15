@@ -1,6 +1,6 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { Criteria } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
@@ -17,8 +17,15 @@ export class MikroOrmMongoBackofficeCourseRepository
   //   super(client)
   // }
 
+  async paginate(
+    criteria: Criteria,
+    pagination: OffsetPagination
+  ): Promise<{ elements: BackofficeCourse[]; pagination?: Pagination }> {
+    return this.offsetPagination(criteria, pagination)
+  }
+
   async searchBy(criteria: Criteria): Promise<BackofficeCourse[]> {
-    const documents = await this.findByCriteria(criteria)
+    const documents = await this.matching(criteria)
 
     return documents
   }

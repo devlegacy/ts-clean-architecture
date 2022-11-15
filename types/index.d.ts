@@ -5,9 +5,10 @@
 // Temp typing - only for dev purposes
 type Request<
   RouteGeneric = {
+    Body: Record<string, any>
+    Headers: Record<string, any>
     Params: Record<string, any>
     Querystring: Record<string, any>
-    Body: Record<string, any>
   }
 > = import('fastify').FastifyRequest<RouteGeneric>
 // Temp typing - only for dev purposes
