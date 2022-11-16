@@ -1,14 +1,29 @@
 import { inject } from 'tsyringe'
 
 import {
+  BackofficeCourseDeleter,
+  BackofficeCourseFinder,
   BackofficeCoursesResponse,
+  BackofficeCourseUpdater,
   PaginateCourses,
   SearchCoursesByCriteriaQuery
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCreateCourseCommand } from '@/Contexts/Backoffice/Courses/domain'
-import { JoiCourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/JoiCourseDto'
+import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus, FilterPrimitiveDto, Filters, Order, OrderByCreatedAt, QueryBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@/Contexts/Shared/infrastructure/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Query
+} from '@/Contexts/Shared/infrastructure/common'
+import { MongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
 
 import { TYPES } from '../../dependency-injection/types'
@@ -17,7 +32,10 @@ import { TYPES } from '../../dependency-injection/types'
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator,
-    private readonly paginateCourses: PaginateCourses,
+    private readonly paginate: PaginateCourses,
+    private readonly finder: BackofficeCourseFinder,
+    private readonly updater: BackofficeCourseUpdater,
+    private readonly deleter: BackofficeCourseDeleter,
     @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
     @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
   ) {}
@@ -56,17 +74,38 @@ export class CourseController {
     const filters = Filters.fromValues(parsedFilters)
     const order = !orderBy || !orderType ? new OrderByCreatedAt() : Order.fromValues(orderBy, orderType)
 
-    const pagination = await this.paginateCourses.run(filters, order, limit, page)
+    const pagination = await this.paginate.run(filters, order, limit, page)
 
     return pagination
   }
 
+  @Get(':courseId')
+  async show(@Param('courseId', MongoIdPipe) courseId: string) {
+    const course = await this.finder.run(courseId)
+    return course.toPrimitives()
+  }
+
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() course: JoiCourseDto) {
+  async create(@Body() course: CourseRequestDto) {
     const command = new BackofficeCreateCourseCommand(course)
     await this.commandBus.dispatch(command)
 
     return {}
+  }
+
+  @Put(':courseId')
+  async update(@Param('courseId', MongoIdPipe) courseId: string, @Body() course: CourseRequestDto) {
+    const response = await this.updater.run({
+      ...course,
+      id: courseId
+    })
+    return response.toPrimitives()
+  }
+
+  @Delete(':courseId')
+  async delete(@Param('courseId', MongoIdPipe) courseId: string) {
+    const response = await this.deleter.run(courseId)
+    return response.toPrimitives()
   }
 }

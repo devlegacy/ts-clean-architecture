@@ -6,13 +6,16 @@ import { Filters } from './Filters'
 import { FilterValue } from './FilterValue'
 import { OrderByCreatedAt } from './OrderByCreatedAt'
 
-export class LastExistingEntity extends Criteria {
-  constructor() {
+export class LastExistingEntities extends Criteria {
+  constructor(filters: Filters, limit?: number, offset?: number) {
     super(
       new Filters([
-        new Filter(new FilterField('deletedAt'), new FilterOperator(Operator.EXISTS), new FilterValue('false'))
+        new Filter(new FilterField('deletedAt'), new FilterOperator(Operator.EXISTS), new FilterValue('false')),
+        ...filters.filters
       ]),
-      new OrderByCreatedAt()
+      new OrderByCreatedAt(),
+      limit,
+      offset
     )
   }
 }

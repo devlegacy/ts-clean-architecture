@@ -1,4 +1,5 @@
 export type Pagination = {
+  total: number // Debug
   totalPages: number
   perPage: number
   currentPage: number
@@ -16,7 +17,7 @@ export class OffsetPagination {
   private lastPage?: number
   private totalPages?: number
 
-  constructor(page?: number, perPage?: number, startAt = 0) {
+  constructor(page?: number, perPage?: number, startAt = 1) {
     this.startAt = startAt
     this.currentPage = page
     this.perPage = perPage
@@ -47,6 +48,7 @@ export class OffsetPagination {
     if (!this.isValidPagination()) return
 
     return {
+      total: this.total!,
       currentPage: this.currentPage!,
       perPage: this.perPage!,
       totalPages: this.totalPages ?? 0

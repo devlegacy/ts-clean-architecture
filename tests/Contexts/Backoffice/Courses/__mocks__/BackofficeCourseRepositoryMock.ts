@@ -10,6 +10,10 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
     return []
   }
 
+  async update(_course: BackofficeCourse, _update: BackofficeCourse): Promise<BackofficeCourse> {
+    return {} as BackofficeCourse
+  }
+
   async paginate(
     _criteria: Criteria,
     _pagination: OffsetPagination

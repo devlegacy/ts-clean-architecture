@@ -2,7 +2,7 @@ import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container } from 'tsyringe'
 
-import { AggregateRoot, Criteria, OffsetPagination } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
 
 import { SHARED_TYPES } from '../../common'
 import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter'
@@ -22,7 +22,10 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     this.criteriaConverter = new MongoCriteriaConverter()
   }
 
-  async offsetPagination(criteria: Criteria, offsetPagination: OffsetPagination): Promise<any> {
+  async offsetPagination(
+    criteria: Criteria,
+    offsetPagination: OffsetPagination
+  ): Promise<{ elements: T[]; pagination?: Pagination }> {
     const collection = await this.repository()
     const query = this.criteriaConverter.convert(criteria)
 

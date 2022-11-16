@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/joi'
+import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/joi'
 
 /**
  * NOTE: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
@@ -13,12 +13,15 @@ import { Joi } from '@/Contexts/Shared/infrastructure/joi'
  */
 
 export class CourseRequestDto {
-  @JoiSchema(Joi.string().required())
+  @JoiSchema([CREATE], Joi.string().required())
+  @JoiSchema([UPDATE], Joi.string().required())
   readonly id!: string
 
-  @JoiSchema(Joi.string().required())
+  @JoiSchema([CREATE], Joi.string().required())
+  @JoiSchema([UPDATE], Joi.string().optional())
   readonly name!: string
 
-  @JoiSchema(Joi.string().optional())
+  @JoiSchema([CREATE], Joi.string().optional())
+  @JoiSchema([UPDATE], Joi.string().optional())
   readonly duration?: string
 }

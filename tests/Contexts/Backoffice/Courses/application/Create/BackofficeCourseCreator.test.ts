@@ -17,8 +17,8 @@ describe('BackofficeCourseCreator', () => {
       course.name.toString(),
       course?.duration?.toString(),
       course?.createdAt,
-      course?.updatedAt,
-      course?.deletedAt
+      course?.updatedAt
+      // course?.deletedAt
     )
 
     repository.assertSaveHasBeenCalledWith(course)
