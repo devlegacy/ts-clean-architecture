@@ -1,5 +1,7 @@
 export * from './BackofficeCourse'
+export * from './BackofficeCourseFinder'
 export * from './BackofficeCourseRepository'
 export * from './BackofficeCreateCourseCommand'
 export * from './criteria'
+export * from './exceptions'
 export * from './value-object'

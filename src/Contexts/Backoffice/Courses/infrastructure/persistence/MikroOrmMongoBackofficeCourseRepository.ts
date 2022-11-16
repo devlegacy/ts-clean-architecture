@@ -1,4 +1,4 @@
-import { EntitySchema } from '@mikro-orm/core'
+import { EntitySchema, wrap } from '@mikro-orm/core'
 
 import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
@@ -32,6 +32,26 @@ export class MikroOrmMongoBackofficeCourseRepository
 
   save(course: BackofficeCourse): Promise<void> {
     return this.persist(course)
+  }
+
+  async update(course: BackofficeCourse, update: BackofficeCourse): Promise<BackofficeCourse> {
+    const repository = await this.repository()
+
+    const primitives = update.toPrimitives()
+
+    wrap(course).assign(
+      {
+        ...primitives,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        _id: primitives.id
+      },
+      { convertCustomTypes: true }
+    )
+
+    await repository.persistAndFlush(course)
+
+    return update
   }
 
   async all(): Promise<BackofficeCourse[]> {

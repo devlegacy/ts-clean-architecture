@@ -11,7 +11,7 @@ export class BackofficeCoursesResponse {
       const {
         createdAt: _createdAt,
         updatedAt: _updatedAt,
-        deletedAt: _deletedAt,
+        //, deletedAt: _deletedAt,
         ...primitives
       } = course.toPrimitives()
 

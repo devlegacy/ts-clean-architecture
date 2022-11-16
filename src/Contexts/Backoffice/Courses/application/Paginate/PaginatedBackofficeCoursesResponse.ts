@@ -6,12 +6,10 @@ import { BackofficeCourse, BackofficeCoursePrimitiveDto } from '../../domain'
 export type PaginatedBackofficeCourseResponse = BackofficeCoursePrimitiveDto
 
 export class PaginatedBackofficeCoursesResponse {
-  readonly response: { elements: PaginatedBackofficeCourseResponse[]; pagination?: Pagination }
-
+  readonly elements: PaginatedBackofficeCourseResponse[]
+  readonly pagination?: Pagination
   constructor(paginated: { elements: BackofficeCourse[]; pagination?: Pagination }) {
-    this.response = {
-      elements: paginated.elements.map((course) => course.toPrimitives()),
-      pagination: paginated.pagination
-    }
+    this.elements = paginated.elements.map((course) => course.toPrimitives())
+    this.pagination = paginated.pagination
   }
 }

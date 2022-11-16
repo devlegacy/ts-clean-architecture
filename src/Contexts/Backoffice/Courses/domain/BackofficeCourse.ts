@@ -12,15 +12,14 @@ export class BackofficeCourse extends AggregateRoot {
   // Timestamps
   readonly createdAt?: Date
   readonly updatedAt?: Date
-  readonly deletedAt?: Date
 
   constructor(
     id: BackofficeCourseId,
     name: BackofficeCourseName,
     duration?: BackofficeCourseDuration,
     createdAt?: Date,
-    updatedAt?: Date,
-    deletedAt?: Date
+    updatedAt?: Date
+    // deletedAt?: Date
   ) {
     super()
     this.id = id
@@ -28,7 +27,7 @@ export class BackofficeCourse extends AggregateRoot {
     this.duration = duration
     this.createdAt = createdAt ?? new Date()
     this.updatedAt = updatedAt ?? new Date()
-    this.deletedAt = deletedAt
+    // this.deletedAt = deletedAt
   }
 
   static create(
@@ -36,10 +35,17 @@ export class BackofficeCourse extends AggregateRoot {
     name: BackofficeCourseName,
     duration: BackofficeCourseDuration,
     createdAt?: Date,
-    updatedAt?: Date,
-    deletedAt?: Date
+    updatedAt?: Date
+    // ,deletedAt?: Date
   ): BackofficeCourse {
-    const course = new BackofficeCourse(id, name, duration, createdAt, updatedAt, deletedAt)
+    const course = new BackofficeCourse(
+      id,
+      name,
+      duration,
+      createdAt,
+      updatedAt
+      //  ,deletedAt
+    )
 
     return course
   }
@@ -50,12 +56,13 @@ export class BackofficeCourse extends AggregateRoot {
       new BackofficeCourseName(data.name),
       data.duration ? new BackofficeCourseDuration(data.duration) : undefined,
       data.createdAt ? data.createdAt : undefined,
-      data.updatedAt ? data.updatedAt : undefined,
-      data.deletedAt ? data.deletedAt : undefined
+      data.updatedAt ? data.updatedAt : undefined
+      // data.deletedAt ? data.deletedAt : undefined
     )
   }
 
-  toPrimitives(): BackofficeCoursePrimitiveDto {
+  toPrimitives() {
+    // BackofficeCoursePrimitiveDto + deletedAt (?)
     return {
       // HACK: On retrieve data by MiKroOrm // DEBT
       id: this.id.value.toString(),

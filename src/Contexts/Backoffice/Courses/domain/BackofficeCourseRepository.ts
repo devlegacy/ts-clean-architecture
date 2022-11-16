@@ -6,6 +6,7 @@ export interface BackofficeCourseRepository {
   all(): Promise<BackofficeCourse[]>
   searchBy(criteria: Criteria): Promise<BackofficeCourse[]>
   save(course: BackofficeCourse): Promise<void>
+  update(course: BackofficeCourse, update: BackofficeCourse): Promise<BackofficeCourse>
   paginate(
     criteria: Criteria,
     pagination: OffsetPagination
