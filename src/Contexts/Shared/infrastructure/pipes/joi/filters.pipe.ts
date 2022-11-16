@@ -21,12 +21,13 @@ export class FiltersPipe implements PipeTransform {
 
     const {
       error,
-      value: { value: data }
+      value: { filters: data }
     } = schema.validate({ filters })
 
     if (error) {
       throw error
     }
+
     return data
   }
 }

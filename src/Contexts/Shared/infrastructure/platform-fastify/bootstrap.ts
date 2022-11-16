@@ -156,7 +156,7 @@ const getParams = (
     } else if (paramtype === RouteParamtypes.PARAM) {
       pipeBuilder(req, 'params', data, pipes)
 
-      routeParams[`${index}`] = req.params
+      routeParams[`${index}`] = data ? req.params[`${data}`] : req.params
     } else if (paramtype === RouteParamtypes.BODY) {
       routeParams[`${index}`] = req.body
     } else if (paramtype === RouteParamtypes.HEADERS) {
