@@ -1,6 +1,6 @@
 import { Query } from '@/Contexts/Shared/domain'
 
-export class SearchCoursesByCriteriaQuery extends Query {
+export class SearchBackofficeCoursesByCriteriaQuery extends Query {
   readonly filters: Map<string, string>[]
   readonly orderBy?: string
   readonly orderType?: string

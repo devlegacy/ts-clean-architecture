@@ -3,8 +3,8 @@ import { container } from 'tsyringe'
 import {
   BackofficeCreateCourseCommandHandler,
   CreateBackofficeCourseOnCourseCreated,
-  SearchAllCoursesQueryHandler,
-  SearchCoursesByCriteriaQueryHandler
+  SearchAllBackofficeCoursesQueryHandler,
+  SearchBackofficeCoursesByCriteriaQueryHandler
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
@@ -25,8 +25,8 @@ container
   .register<CommandHandler<Command>>(TYPES.CommandHandler, BackofficeCreateCourseCommandHandler)
   // 🚌 QueryBus <-> QueryHandlers
   // 🏷 Tags - Application
-  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)
-  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchCoursesByCriteriaQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllBackofficeCoursesQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchBackofficeCoursesByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
 
 // Domain layer

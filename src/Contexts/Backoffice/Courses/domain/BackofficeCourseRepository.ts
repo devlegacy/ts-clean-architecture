@@ -7,8 +7,9 @@ export interface BackofficeCourseRepository {
   searchBy(criteria: Criteria): Promise<BackofficeCourse[]>
   save(course: BackofficeCourse): Promise<void>
   update(course: BackofficeCourse, update: BackofficeCourse): Promise<BackofficeCourse>
+  count(criteria: Criteria): Promise<number>
   paginate(
     criteria: Criteria,
     pagination: OffsetPagination
-  ): Promise<{ elements: BackofficeCourse[]; pagination?: Pagination }>
+  ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }>
 }

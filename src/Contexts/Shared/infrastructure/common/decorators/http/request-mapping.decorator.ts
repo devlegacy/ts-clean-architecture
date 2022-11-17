@@ -12,9 +12,9 @@ const defaultMetadata = {
 }
 
 export const RequestMapping = (metadata: RequestMappingMetadata = defaultMetadata): MethodDecorator => {
-  const pathMetadata = metadata[PATH_METADATA]
+  const pathMetadata = metadata[`${PATH_METADATA}`]
   const path = pathMetadata && pathMetadata.length ? pathMetadata : '/'
-  const requestMethod = metadata[METHOD_METADATA] || RequestMethod.GET
+  const requestMethod = metadata[`${METHOD_METADATA}`] || RequestMethod.GET
 
   return (target: object, key: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     Reflect.defineMetadata(PATH_METADATA, path, descriptor.value)
@@ -32,9 +32,39 @@ const createMappingDecorator =
     })
   }
 
+/**
+ * Route handler (method) Decorator. Routes HTTP DELETE requests to the specified path.
+ *
+ * @publicApi
+ */
 export const Delete = createMappingDecorator(RequestMethod.DELETE)
+/**
+ * Route handler (method) Decorator. Routes HTTP GET requests to the specified path.
+ *
+ * @publicApi
+ */
 export const Get = createMappingDecorator(RequestMethod.GET)
+/**
+ * Route handler (method) Decorator. Routes HTTP POST requests to the specified path.
+ *
+ * @publicApi
+ */
 export const Post = createMappingDecorator(RequestMethod.POST)
+/**
+ * Route handler (method) Decorator. Routes HTTP PUT requests to the specified path.
+ *
+ * @publicApi
+ */
 export const Put = createMappingDecorator(RequestMethod.PUT)
+/**
+ * Route handler (method) Decorator. Routes HTTP HEAD requests to the specified path.
+ *
+ * @publicApi
+ */
 export const Head = createMappingDecorator(RequestMethod.HEAD)
+/**
+ * Route handler (method) Decorator. Routes HTTP OPTIONS requests to the specified path.
+ *
+ * @publicApi
+ */
 export const Options = createMappingDecorator(RequestMethod.OPTIONS)

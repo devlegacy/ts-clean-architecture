@@ -96,17 +96,16 @@ const getControllerMethodMetadata = (method: () => unknown) => {
   }
 }
 
-// TODO: Improve prefixing
-const getRouteUrl = (prefix: string, controllerPath: string, routePath: RequestMappingMetadata['path']) => {
-  if (!(typeof routePath === 'string')) {
-    throw new Error('[Bootstrap]: typeof route path not defined')
+const getRoutePathUrl = (prefix: string, controllerPath: string, routePath: RequestMappingMetadata['path']) => {
+  if (Array.isArray(routePath)) {
+    routePath = routePath.reduce((curr, next) => `${curr}/${next}`)
   }
 
   prefix = prefix ?? normalizePath(prefix)
   controllerPath = normalizePath(controllerPath)
   routePath = normalizePath(routePath)
 
-  return `${prefix}${controllerPath}${routePath}`
+  return normalizePath(`${prefix}${controllerPath}${routePath}`)
 }
 
 const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, number, string][] =>
@@ -258,10 +257,10 @@ export const bootstrap = async (
         info(`Cluster child`)
 
         fastify.route({
-          method: RequestMethod[requestMethod] as HTTPMethods,
+          method: RequestMethod[`${requestMethod}`] as HTTPMethods,
           schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
           // attachValidation: true,
-          url: getRouteUrl(props.prefix ?? '', controllerPath, routePath),
+          url: getRoutePathUrl(props.prefix ?? '', controllerPath, routePath),
           // preParsing: (req, res, payload, done) => {
           //   // Some code
           //   done(null, payload)
@@ -289,7 +288,7 @@ export const bootstrap = async (
             // method() // por alguna razón pierde el bind
             // instance[methodName]() - Revisar que conserve el valor de this
             // instance[methodName]
-            return instancePrototype[methodName].apply(instance, routeParams.length ? routeParams : [req, res])
+            return instancePrototype[String(methodName)].apply(instance, routeParams.length ? routeParams : [req, res])
           }
         })
       }

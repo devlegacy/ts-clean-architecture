@@ -5,8 +5,8 @@ import {
   BackofficeCourseFinder,
   BackofficeCoursesResponse,
   BackofficeCourseUpdater,
-  PaginateCourses,
-  SearchCoursesByCriteriaQuery
+  BackofficePaginateCourses,
+  SearchBackofficeCoursesByCriteriaQuery
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCreateCourseCommand } from '@/Contexts/Backoffice/Courses/domain'
 import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
@@ -32,7 +32,7 @@ import { TYPES } from '../../dependency-injection/types'
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator,
-    private readonly paginate: PaginateCourses,
+    private readonly paginate: BackofficePaginateCourses,
     private readonly finder: BackofficeCourseFinder,
     private readonly updater: BackofficeCourseUpdater,
     private readonly deleter: BackofficeCourseDeleter,
@@ -48,7 +48,7 @@ export class CourseController {
     @Query('orderBy') orderBy?: string,
     @Query('orderType') orderType?: string
   ) {
-    const query = new SearchCoursesByCriteriaQuery(
+    const query = new SearchBackofficeCoursesByCriteriaQuery(
       Filters.parseFilters(filtersDto ?? []),
       orderBy,
       orderType,

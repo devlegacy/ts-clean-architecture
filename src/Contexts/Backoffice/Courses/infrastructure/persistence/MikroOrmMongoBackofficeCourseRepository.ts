@@ -17,10 +17,14 @@ export class MikroOrmMongoBackofficeCourseRepository
   //   super(client)
   // }
 
+  async count(criteria: Criteria) {
+    return this.countDocuments(criteria)
+  }
+
   async paginate(
     criteria: Criteria,
     pagination: OffsetPagination
-  ): Promise<{ elements: BackofficeCourse[]; pagination?: Pagination }> {
+  ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }> {
     return this.offsetPagination(criteria, pagination)
   }
 

@@ -1,4 +1,4 @@
-export * from './CoursesFinder'
-export * from './SearchAllCoursesQuery'
-export * from './SearchAllCoursesQueryHandler'
+export * from './BackofficeCoursesFinder'
+export * from './SearchAllBackofficeCoursesQuery'
+export * from './SearchAllBackofficeCoursesQueryHandler'
 export * from './TopCoursesFinder'

@@ -1,3 +1,3 @@
-export * from './CoursesByCriteriaSearcher'
-export * from './SearchCoursesByCriteriaQuery'
-export * from './SearchCoursesByCriteriaQueryHandler'
+export * from './BackofficeCoursesByCriteriaSearcher'
+export * from './SearchBackofficeCoursesByCriteriaQuery'
+export * from './SearchBackofficeCoursesByCriteriaQueryHandler'

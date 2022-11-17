@@ -1,2 +1,2 @@
-export * from './PaginateCourses'
+export * from './BackofficePaginateCourses'
 export * from './PaginatedBackofficeCoursesResponse'

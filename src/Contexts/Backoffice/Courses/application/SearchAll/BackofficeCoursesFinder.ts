@@ -5,7 +5,7 @@ import { TYPES } from '@/apps/backoffice/dependency-injection/types'
 import { BackofficeCourseRepository } from '../../domain'
 
 @injectable()
-export class CoursesFinder {
+export class BackofficeCoursesFinder {
   constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
 
   async run() {

@@ -14,11 +14,15 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
     return {} as BackofficeCourse
   }
 
+  async count(_criteria: Criteria): Promise<number> {
+    return 0
+  }
+
   async paginate(
     _criteria: Criteria,
     _pagination: OffsetPagination
-  ): Promise<{ elements: BackofficeCourse[]; pagination?: Pagination | undefined }> {
-    return { elements: [] }
+  ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
+    return { data: [] }
   }
 
   returnOnSearchAll(courses: BackofficeCourse[]) {
