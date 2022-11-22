@@ -15,8 +15,8 @@ import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contex
 
 import { TYPES } from './types'
 
-// Application layer
 container
+  // Application layer
   // 🚌 EventBus <-> EventSubscribers
   // 🏷 Tags - Application
   .register(TYPES.DomainEventSubscriber, CreateBackofficeCourseOnCourseCreated)
@@ -29,8 +29,7 @@ container
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchBackofficeCoursesByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
 
-// Domain layer
-container
+  // Domain layer
   // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
   .register<CourseRepository>(TYPES.CourseRepository, MikroOrmMongoCourseRepository)

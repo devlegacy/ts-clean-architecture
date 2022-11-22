@@ -1,7 +1,7 @@
 import {
-  CoursesFinder,
-  SearchAllCoursesQuery,
-  SearchAllCoursesQueryHandler
+  BackofficeCoursesFinder,
+  SearchAllBackofficeCoursesQuery,
+  SearchAllBackofficeCoursesQueryHandler
 } from '@/Contexts/Backoffice/Courses/application'
 
 import { BackofficeCourseRepositoryMock } from '../../__mocks__'
@@ -18,9 +18,9 @@ describe('SearchAllCourses QueryHandler', () => {
     const courses = [BackofficeCourseMother.random(), BackofficeCourseMother.random(), BackofficeCourseMother.random()]
     repository.returnOnSearchAll(courses)
 
-    const handler = new SearchAllCoursesQueryHandler(new CoursesFinder(repository))
+    const handler = new SearchAllBackofficeCoursesQueryHandler(new BackofficeCoursesFinder(repository))
 
-    const query = new SearchAllCoursesQuery()
+    const query = new SearchAllBackofficeCoursesQuery()
     const response = await handler.handle(query)
 
     repository.assertSearchAll()

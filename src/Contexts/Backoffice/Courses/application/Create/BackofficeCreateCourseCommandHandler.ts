@@ -12,7 +12,7 @@ import { BackofficeCourseCreator } from './BackofficeCourseCreator'
 
 @injectable()
 export class BackofficeCreateCourseCommandHandler implements CommandHandler<BackofficeCreateCourseCommand> {
-  constructor(private courseCreator: BackofficeCourseCreator) {}
+  constructor(private readonly courseCreator: BackofficeCourseCreator) {}
 
   subscribedTo(): Command {
     return BackofficeCreateCourseCommand

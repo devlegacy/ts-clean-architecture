@@ -22,10 +22,24 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     this.criteriaConverter = new MongoCriteriaConverter()
   }
 
-  async offsetPagination(
+  protected async countDocuments(criteria: Criteria) {
+    const collection = await this.repository()
+    const query = this.criteriaConverter.convert(criteria)
+
+    const count = collection.count(
+      { ...(query.filter as any) },
+      {
+        // convertCustomTypes: false,
+        // orderBy: query.sort as any
+      }
+    )
+    return count
+  }
+
+  protected async offsetPagination(
     criteria: Criteria,
     offsetPagination: OffsetPagination
-  ): Promise<{ elements: T[]; pagination?: Pagination }> {
+  ): Promise<{ data: T[]; pagination?: Pagination }> {
     const collection = await this.repository()
     const query = this.criteriaConverter.convert(criteria)
 
@@ -46,11 +60,11 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
       }
     )
 
-    const [total, elements] = await Promise.all([countDocuments, documents])
+    const [total, data] = await Promise.all([countDocuments, documents])
     const pagination = offsetPagination.calculatePageNumbersBy(total).getPageNumbers()
 
     return {
-      elements,
+      data,
       pagination
     }
   }
