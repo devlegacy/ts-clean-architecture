@@ -1,3 +1,5 @@
+import { shallowEqual } from 'fast-equals'
+
 import { InvalidArgumentException } from '../exceptions'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -12,7 +14,9 @@ export abstract class ValueObject<T extends PrimitiveTypes> {
   }
 
   equals(value: ValueObject<T>): boolean {
-    return value.constructor.name === this.constructor.name && value.value === this.value
+    if (value.value === undefined) return false
+
+    return shallowEqual(this.value, value.value)
   }
 
   toString() {

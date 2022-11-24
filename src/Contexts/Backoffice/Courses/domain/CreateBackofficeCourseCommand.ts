@@ -5,8 +5,9 @@ import { BackofficeCoursePrimitiveDto } from './BackofficeCourse'
 type Params = BackofficeCoursePrimitiveDto
 
 // Immutable
+// Escalares | Primitivos
 
-export class BackofficeCreateCourseCommand extends Command {
+export class CreateBackofficeCourseCommand extends Command {
   readonly id: string
   readonly name: string
   readonly duration?: string

@@ -1,5 +1,5 @@
-import { Filters, Operator } from '@/Contexts/Shared/domain'
-import { LastExistingEntities } from '@/Contexts/Shared/domain/criteria/LastExistingEntities'
+import { Filter, Filters, Operator } from '@/Contexts/Shared/domain'
+import { LastCreatedEntities } from '@/Contexts/Shared/domain/criteria/LastCreatedEntities'
 
 import { BackofficeCourse } from './BackofficeCourse'
 import { BackofficeCourseRepository } from './BackofficeCourseRepository'
@@ -13,17 +13,20 @@ import { BackofficeCourseNotFoundException } from './exceptions'
 export class BackofficeCourseFinder {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 
-  async run(courseId: string): Promise<BackofficeCourse> {
-    const filters = Filters.fromValues(
-      Filters.parseFilters([
-        {
-          field: 'id',
-          operator: Operator.EQUAL,
-          value: courseId
-        }
-      ])
-    )
-    const criteria = new LastExistingEntities(filters)
+  async run(courseId: string | Filters): Promise<BackofficeCourse> {
+    const filters =
+      typeof courseId === 'string'
+        ? Filters.fromValues(
+            Filter.parseFilters([
+              {
+                field: 'id',
+                operator: Operator.EQUAL,
+                value: courseId
+              }
+            ])
+          )
+        : courseId
+    const criteria = new LastCreatedEntities(filters)
     const courses = await this.repository.searchBy(criteria)
 
     if (!courses.length) throw new BackofficeCourseNotFoundException()

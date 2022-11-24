@@ -21,7 +21,7 @@ export class BackofficeCoursesByCriteriaSearcher {
   async run(filters: Filters, order: Order, limit?: number, offset?: number): Promise<BackofficeCoursesResponse> {
     const courses = await this.searcher.run(filters, order, limit, offset)
 
-    // Not return an aggregate
+    // No return an aggregate
     return new BackofficeCoursesResponse(courses)
   }
 }

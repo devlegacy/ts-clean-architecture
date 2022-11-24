@@ -2,32 +2,29 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/backoffice/dependency-injection/types'
 
-import {
-  BackofficeCourse,
-  BackofficeCourseDuration,
-  BackofficeCourseId,
-  BackofficeCourseName,
-  BackofficeCourseRepository
-} from '../../domain'
+import { BackofficeCourse, BackofficeCourseEntityDto, BackofficeCourseRepository } from '../../domain'
 
 @injectable()
 export class BackofficeCourseCreator {
   constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
 
   async run(
-    id: string,
-    name: string,
-    duration?: string,
-    createdAt?: Date,
-    updatedAt?: Date
-    // , deletedAt?: Date
+    params: BackofficeCourseEntityDto
+    // {
+    //   id: BackofficeCourseId
+    //   name: BackofficeCourseName
+    //   duration?: BackofficeCourseDuration
+    //   createdAt?: Date
+    //   updatedAt?: Date
+    //   // , deletedAt?: Date
+    // }
   ) {
     const course = new BackofficeCourse(
-      new BackofficeCourseId(id),
-      new BackofficeCourseName(name),
-      duration ? new BackofficeCourseDuration(duration) : undefined,
-      createdAt,
-      updatedAt
+      params.id,
+      params.name,
+      params.duration,
+      params.createdAt,
+      params.updatedAt
       // deletedAt
     )
 

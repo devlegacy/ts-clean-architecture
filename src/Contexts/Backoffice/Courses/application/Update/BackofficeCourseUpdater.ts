@@ -1,30 +1,45 @@
 import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/backoffice/dependency-injection/types'
+import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
 
-import {
-  BackofficeCourse,
-  BackofficeCourseFinder as DomainBackofficeCourseFinder,
-  BackofficeCoursePrimitiveDto,
-  BackofficeCourseRepository
-} from '../../domain'
+import { BackofficeCourse, BackofficeCourseEntityDto, BackofficeCourseRepository } from '../../domain'
+import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
+import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
 
 @injectable()
 export class BackofficeCourseUpdater {
-  private readonly finder: DomainBackofficeCourseFinder
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {
-    this.finder = new DomainBackofficeCourseFinder(this.repository)
+  constructor(
+    @inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository,
+    @inject(TYPES.QueryBus) private readonly bus: QueryBus
+  ) {}
+
+  async run(params: BackofficeCourseEntityDto): Promise<void> {
+    await this.ensureCourseExists(params.id)
+
+    const course = new BackofficeCourse(
+      params.id,
+      params.name,
+      params.duration,
+      params.createdAt,
+      params.updatedAt ?? new Date()
+    )
+
+    await this.repository.update(course)
   }
 
-  async run(update: BackofficeCoursePrimitiveDto): Promise<BackofficeCourse> {
-    const course = await this.finder.run(update.id)
-    const updated = BackofficeCourse.fromPrimitives({
-      ...update,
-      updatedAt: new Date(),
-      createdAt: course.createdAt // DEBT: no update
-    })
+  private async ensureCourseExists(courseId: BackofficeCourse['id']) {
+    const filters = Filter.parseFilters([
+      {
+        field: 'id',
+        operator: Operator.EQUAL,
+        value: courseId.value
+      }
+    ])
+    const query = new FindBackofficeCourseByCriteriaQuery(filters)
 
-    const response = await this.repository.update(course, updated)
-    return response
+    const { course } = await this.bus.ask<BackofficeCourseResponse>(query)
+
+    return course
   }
 }

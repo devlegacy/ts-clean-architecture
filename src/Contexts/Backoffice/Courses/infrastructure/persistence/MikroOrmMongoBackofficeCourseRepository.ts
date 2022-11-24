@@ -38,24 +38,43 @@ export class MikroOrmMongoBackofficeCourseRepository
     return this.persist(course)
   }
 
-  async update(course: BackofficeCourse, update: BackofficeCourse): Promise<BackofficeCourse> {
+  async update(course: BackofficeCourse): Promise<void> {
     const repository = await this.repository()
 
-    const primitives = update.toPrimitives()
+    const current = await repository.findOne(
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        _id: course.id
+      },
+      { convertCustomTypes: true }
+    )
+    const { id, ...primitives } = course.toPrimitives()
 
-    wrap(course).assign(
+    wrap(current).assign(
       {
         ...primitives,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        _id: primitives.id
+        _id: id
       },
       { convertCustomTypes: true }
     )
 
-    await repository.persistAndFlush(course)
+    await repository.persistAndFlush(current!)
+  }
 
-    return update
+  async delete(id: BackofficeCourse['id']): Promise<void> {
+    const repository = await this.repository()
+    repository.nativeUpdate(
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        _id: id
+      },
+      { deletedAt: new Date() },
+      { convertCustomTypes: true }
+    )
   }
 
   async all(): Promise<BackofficeCourse[]> {

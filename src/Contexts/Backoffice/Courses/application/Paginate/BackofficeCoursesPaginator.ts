@@ -1,19 +1,19 @@
 import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/backoffice/dependency-injection/types'
-import { Filters, OffsetPagination, Order } from '@/Contexts/Shared/domain'
-import { LastExistingEntities } from '@/Contexts/Shared/domain/criteria/LastExistingEntities'
+import { Filters, OffsetPagination } from '@/Contexts/Shared/domain'
+import { LastCreatedEntities } from '@/Contexts/Shared/domain/criteria/LastCreatedEntities'
 
 import { BackofficeCourseRepository } from '../../domain'
 import { PaginatedBackofficeCoursesResponse } from './PaginatedBackofficeCoursesResponse'
 
 @injectable()
-export class BackofficePaginateCourses {
+export class BackofficeCoursesPaginator {
   constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
 
-  async run(filters: Filters, order: Order, limit?: number, page?: number) {
+  async run(filters: Filters, limit?: number, page?: number): Promise<PaginatedBackofficeCoursesResponse> {
     const paginate = new OffsetPagination(page, limit)
-    const criteria = new LastExistingEntities(filters, limit, paginate.offset)
+    const criteria = new LastCreatedEntities(filters, limit, paginate.offset)
 
     const [courses, total] = await Promise.all([this.repository.searchBy(criteria), this.repository.count(criteria)])
     paginate.calculatePageNumbersBy(total)

@@ -24,4 +24,26 @@ export class CourseRequestDto {
   @JoiSchema([CREATE], Joi.string().optional())
   @JoiSchema([UPDATE], Joi.string().optional())
   readonly duration?: string
+
+  @JoiSchema(
+    [CREATE],
+    Joi.date()
+      .optional()
+      .default(() => new Date())
+  )
+  readonly createdAt!: Date
+
+  @JoiSchema(
+    [CREATE],
+    Joi.date()
+      .optional()
+      .default(() => new Date())
+  )
+  @JoiSchema(
+    [UPDATE],
+    Joi.date()
+      .optional()
+      .default(() => new Date())
+  )
+  readonly updatedAt!: Date
 }

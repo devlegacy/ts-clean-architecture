@@ -5,11 +5,12 @@ import { BackofficeCourse } from './BackofficeCourse'
 export interface BackofficeCourseRepository {
   all(): Promise<BackofficeCourse[]>
   searchBy(criteria: Criteria): Promise<BackofficeCourse[]>
-  save(course: BackofficeCourse): Promise<void>
-  update(course: BackofficeCourse, update: BackofficeCourse): Promise<BackofficeCourse>
   count(criteria: Criteria): Promise<number>
   paginate(
     criteria: Criteria,
     pagination: OffsetPagination
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }>
+  update(course: BackofficeCourse): Promise<void>
+  save(course: BackofficeCourse): Promise<void>
+  delete(id: BackofficeCourse['id']): Promise<void>
 }

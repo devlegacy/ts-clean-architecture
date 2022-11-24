@@ -1,16 +1,20 @@
 import { inject } from 'tsyringe'
 
 import {
-  BackofficeCourseDeleter,
-  BackofficeCourseFinder,
+  BackofficeCourseResponse,
   BackofficeCoursesResponse,
-  BackofficeCourseUpdater,
-  BackofficePaginateCourses,
+  FindBackofficeCourseByCriteriaQuery,
+  PaginateBackofficeCoursesQuery,
+  PaginatedBackofficeCoursesResponse,
   SearchBackofficeCoursesByCriteriaQuery
 } from '@/Contexts/Backoffice/Courses/application'
-import { BackofficeCreateCourseCommand } from '@/Contexts/Backoffice/Courses/domain'
+import {
+  CreateBackofficeCourseCommand,
+  DeleteBackofficeCourseCommand,
+  UpdateBackofficeCourseCommand
+} from '@/Contexts/Backoffice/Courses/domain'
 import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
-import { CommandBus, FilterPrimitiveDto, Filters, Order, OrderByCreatedAt, QueryBus } from '@/Contexts/Shared/domain'
+import { CommandBus, Filter, FilterPrimitiveDto, Operator, QueryBus } from '@/Contexts/Shared/domain'
 import {
   Body,
   Controller,
@@ -32,10 +36,6 @@ import { TYPES } from '../../dependency-injection/types'
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator,
-    private readonly paginate: BackofficePaginateCourses,
-    private readonly finder: BackofficeCourseFinder,
-    private readonly updater: BackofficeCourseUpdater,
-    private readonly deleter: BackofficeCourseDeleter,
     @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
     @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
   ) {}
@@ -48,8 +48,9 @@ export class CourseController {
     @Query('orderBy') orderBy?: string,
     @Query('orderType') orderType?: string
   ) {
+    const filters = Filter.parseFilters(filtersDto ?? [])
     const query = new SearchBackofficeCoursesByCriteriaQuery(
-      Filters.parseFilters(filtersDto ?? []),
+      filters,
       orderBy,
       orderType,
       limit ? limit : undefined,
@@ -67,28 +68,36 @@ export class CourseController {
     @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveDto[],
     @Query('limit') limit?: number,
     @Query('page') page?: number,
-    @Query('orderBy') orderBy?: string,
-    @Query('orderType') orderType?: string
+    @Query('orderBy') _orderBy?: string,
+    @Query('orderType') _orderType?: string
   ) {
-    const parsedFilters = Filters.parseFilters(filtersDto ?? [])
-    const filters = Filters.fromValues(parsedFilters)
-    const order = !orderBy || !orderType ? new OrderByCreatedAt() : Order.fromValues(orderBy, orderType)
+    const filters = Filter.parseFilters(filtersDto ?? [])
 
-    const pagination = await this.paginate.run(filters, order, limit, page)
-
+    const query = new PaginateBackofficeCoursesQuery(filters, limit, page)
+    const pagination = await this.queryBus.ask<PaginatedBackofficeCoursesResponse>(query)
     return pagination
   }
 
   @Get(':courseId')
   async show(@Param('courseId', MongoIdPipe) courseId: string) {
-    const course = await this.finder.run(courseId)
-    return course.toPrimitives()
+    const filters = Filter.parseFilters([
+      {
+        field: 'id',
+        operator: Operator.EQUAL,
+        value: courseId
+      }
+    ])
+
+    const query = new FindBackofficeCourseByCriteriaQuery(filters)
+    const { course } = await this.queryBus.ask<BackofficeCourseResponse>(query)
+
+    return course
   }
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(@Body() course: CourseRequestDto) {
-    const command = new BackofficeCreateCourseCommand(course)
+    const command = new CreateBackofficeCourseCommand(course)
     await this.commandBus.dispatch(command)
 
     return {}
@@ -96,16 +105,17 @@ export class CourseController {
 
   @Put(':courseId')
   async update(@Param('courseId', MongoIdPipe) courseId: string, @Body() course: CourseRequestDto) {
-    const response = await this.updater.run({
-      ...course,
-      id: courseId
-    })
-    return response.toPrimitives()
+    const command = new UpdateBackofficeCourseCommand(course)
+    await this.commandBus.dispatch(command)
+    return course
   }
 
   @Delete(':courseId')
   async delete(@Param('courseId', MongoIdPipe) courseId: string) {
-    const response = await this.deleter.run(courseId)
-    return response.toPrimitives()
+    const filter = { id: courseId }
+    const command = new DeleteBackofficeCourseCommand({ id: courseId })
+    await this.commandBus.dispatch(command)
+
+    return filter
   }
 }

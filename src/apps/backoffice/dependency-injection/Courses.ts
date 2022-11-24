@@ -1,10 +1,13 @@
 import { container } from 'tsyringe'
 
 import {
-  BackofficeCreateCourseCommandHandler,
+  CreateBackofficeCourseCommandHandler,
   CreateBackofficeCourseOnCourseCreated,
+  DeleteBackofficeCourseCommandHandler,
+  FindBackofficeCourseByCriteriaQueryHandler,
   SearchAllBackofficeCoursesQueryHandler,
-  SearchBackofficeCoursesByCriteriaQueryHandler
+  SearchBackofficeCoursesByCriteriaQueryHandler,
+  UpdateBackofficeCourseCommandHandler
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
@@ -22,12 +25,15 @@ container
   .register(TYPES.DomainEventSubscriber, CreateBackofficeCourseOnCourseCreated)
   // 🚌 CommandBus <-> CommandHandlers
   // 🏷 Tags - Application
-  .register<CommandHandler<Command>>(TYPES.CommandHandler, BackofficeCreateCourseCommandHandler)
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateBackofficeCourseCommandHandler)
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, DeleteBackofficeCourseCommandHandler)
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, UpdateBackofficeCourseCommandHandler)
   // 🚌 QueryBus <-> QueryHandlers
   // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllBackofficeCoursesQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchBackofficeCoursesByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindBackofficeCourseByCriteriaQueryHandler)
 
   // Domain layer
   // Repositories - Mongo

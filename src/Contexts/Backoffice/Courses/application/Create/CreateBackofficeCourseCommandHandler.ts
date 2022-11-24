@@ -6,23 +6,27 @@ import {
   BackofficeCourseDuration,
   BackofficeCourseId,
   BackofficeCourseName,
-  BackofficeCreateCourseCommand
+  CreateBackofficeCourseCommand
 } from '../../domain'
 import { BackofficeCourseCreator } from './BackofficeCourseCreator'
 
 @injectable()
-export class BackofficeCreateCourseCommandHandler implements CommandHandler<BackofficeCreateCourseCommand> {
-  constructor(private readonly courseCreator: BackofficeCourseCreator) {}
+export class CreateBackofficeCourseCommandHandler implements CommandHandler<CreateBackofficeCourseCommand> {
+  constructor(private readonly creator: BackofficeCourseCreator) {}
 
   subscribedTo(): Command {
-    return BackofficeCreateCourseCommand
+    return CreateBackofficeCourseCommand
   }
 
-  async handle(command: BackofficeCreateCourseCommand): Promise<void> {
+  async handle(command: CreateBackofficeCourseCommand): Promise<void> {
     const id = new BackofficeCourseId(command.id)
     const name = new BackofficeCourseName(command.name)
     const duration = command.duration ? new BackofficeCourseDuration(command.duration) : undefined
 
-    await this.courseCreator.run(id.value, name.value, duration?.value)
+    await this.creator.run({
+      id,
+      name,
+      duration
+    })
   }
 }

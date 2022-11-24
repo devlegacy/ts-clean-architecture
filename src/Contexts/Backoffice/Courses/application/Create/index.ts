@@ -1,3 +1,3 @@
 export * from './BackofficeCourseCreator'
-export * from './BackofficeCreateCourseCommandHandler'
+export * from './CreateBackofficeCourseCommandHandler'
 export * from './CreateBackofficeCourseOnCourseCreated'

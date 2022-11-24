@@ -28,4 +28,20 @@ export class Filter {
 
     return new Filter(new FilterField(field), FilterOperator.fromValue(operator), new FilterValue(value))
   }
+
+  static parseFilters(params: FilterPrimitiveDto[]): Map<string, string>[] {
+    if (!params) {
+      return new Array<Map<string, string>>()
+    }
+
+    return params.map((filter) => {
+      const { field, value, operator } = filter
+
+      return new Map([
+        ['field', field],
+        ['operator', operator.toString()],
+        ['value', value]
+      ])
+    })
+  }
 }

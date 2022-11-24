@@ -22,6 +22,10 @@ export class Order {
     return new Order(new OrderBy(''), new OrderType(OrderTypes.NONE))
   }
 
+  static createdAt(orderType: string = OrderTypes.DESC): Order {
+    return new Order(new OrderBy('createdAt'), OrderType.fromValue(orderType))
+  }
+
   static desc(orderBy: string): Order {
     return new Order(new OrderBy(orderBy), new OrderType(OrderTypes.DESC))
   }

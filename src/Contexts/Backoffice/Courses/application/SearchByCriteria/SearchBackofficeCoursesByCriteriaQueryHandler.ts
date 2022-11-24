@@ -19,7 +19,7 @@ export class SearchBackofficeCoursesByCriteriaQueryHandler
 
   handle(query: SearchBackofficeCoursesByCriteriaQuery): Promise<BackofficeCoursesResponse> {
     const filters = Filters.fromValues(query.filters)
-    const order = Order.fromValues(query.orderBy, query.orderType)
+    const order = query.orderBy ? Order.fromValues(query.orderBy, query.orderType) : Order.createdAt(query.orderType)
 
     return this.searcher.run(filters, order, query.limit, query.offset)
   }

@@ -10,9 +10,9 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
     return []
   }
 
-  async update(_course: BackofficeCourse, _update: BackofficeCourse): Promise<BackofficeCourse> {
-    return {} as BackofficeCourse
-  }
+  async delete(_id: BackofficeCourse['id']): Promise<void> {}
+
+  async update(_course: BackofficeCourse): Promise<void> {}
 
   async count(_criteria: Criteria): Promise<number> {
     return 0
