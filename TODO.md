@@ -2,4 +2,5 @@
 
 - [ ] Duplicated entries on request validation
 - [ ] FIX: BackofficeCourseRepository test and hacks by MikroOrm
-- [ ] Clone: Finder + Create
+- [ ] Clone service: Finder + Create
+- [x] Paginacion como servicio de dominio y crear método count en repositorio
