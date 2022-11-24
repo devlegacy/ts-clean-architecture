@@ -7,7 +7,7 @@ import { error, info } from '@/Contexts/Shared/infrastructure/logger'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
 import { UserAlreadyExistsException, UserRepository } from '@/Contexts/User/Users/domain'
 
-import { TYPES } from '../dependency-injection/types'
+import { TYPES } from '../modules/types'
 
 const userDto = {
   age: 28,

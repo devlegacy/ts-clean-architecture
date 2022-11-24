@@ -1,4 +1,4 @@
-import '../dependency-injection'
+import '../modules'
 
 import { container } from 'tsyringe'
 
@@ -6,7 +6,7 @@ import config from '@/Contexts/Backoffice/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
 
-import { TYPES } from '../dependency-injection/types'
+import { TYPES } from '../modules/types'
 import { Server } from './Server'
 
 export class BackofficeBackendApp {

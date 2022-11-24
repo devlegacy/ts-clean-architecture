@@ -1,4 +1,4 @@
-import '../dependency-injection'
+import '../modules'
 
 import { Server } from './Server'
 

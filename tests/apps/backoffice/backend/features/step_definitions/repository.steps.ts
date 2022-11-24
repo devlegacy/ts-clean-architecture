@@ -1,7 +1,7 @@
 import { Given } from '@cucumber/cucumber'
 import { container } from 'tsyringe'
 
-import { TYPES } from '@/apps/backoffice/dependency-injection/types'
+import { TYPES } from '@/apps/backoffice/modules/types'
 import {
   BackofficeCourse,
   BackofficeCourseDuration,

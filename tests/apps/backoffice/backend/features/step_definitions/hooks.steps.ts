@@ -6,7 +6,7 @@ import { container } from 'tsyringe'
 
 import { BackofficeBackendApp } from '@/apps/backoffice/backend/BackofficeBackendApp'
 import { ConfigureRabbitMQCommand } from '@/apps/backoffice/backend/command/ConfigureRabbitMQCommand'
-import { TYPES } from '@/apps/backoffice/dependency-injection/types'
+import { TYPES } from '@/apps/backoffice/modules/types'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 

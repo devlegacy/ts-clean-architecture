@@ -30,7 +30,7 @@ import {
 import { MongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
 
-import { TYPES } from '../../dependency-injection/types'
+import { TYPES } from '../../modules/types'
 
 @Controller('courses')
 export class CourseController {

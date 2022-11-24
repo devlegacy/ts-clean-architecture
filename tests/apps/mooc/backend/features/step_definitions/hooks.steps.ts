@@ -4,7 +4,7 @@ import { container } from 'tsyringe'
 
 import { ConfigureRabbitMQCommand } from '@/apps/mooc/backend/command/ConfigureRabbitMQCommand'
 import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
-import { TYPES } from '@/apps/mooc/dependency-injection/types'
+import { TYPES } from '@/apps/mooc/modules/types'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 

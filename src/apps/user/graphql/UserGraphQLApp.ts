@@ -1,4 +1,4 @@
-import '../dependency-injection'
+import '../modules'
 
 import { GraphQL } from './GraphQL'
 

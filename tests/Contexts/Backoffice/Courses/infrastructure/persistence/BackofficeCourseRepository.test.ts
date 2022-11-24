@@ -1,8 +1,8 @@
-import '@/apps/backoffice/dependency-injection'
+import '@/apps/backoffice/modules'
 
 import { container } from 'tsyringe'
 
-import { TYPES } from '@/apps/backoffice/dependency-injection/types'
+import { TYPES } from '@/apps/backoffice/modules/types'
 import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 

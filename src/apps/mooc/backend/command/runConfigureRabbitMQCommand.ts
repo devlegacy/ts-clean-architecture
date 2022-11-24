@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import '../../dependency-injection'
+import '../../modules'
 
 import { error, info } from '@/Contexts/Shared/infrastructure/logger'
 

@@ -14,7 +14,7 @@ import {
   //  Schema
 } from '@/Contexts/Shared/infrastructure/common'
 
-import { TYPES } from '../../dependency-injection/types'
+import { TYPES } from '../../modules/types'
 
 @Controller('courses')
 export class CourseController {

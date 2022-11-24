@@ -1,4 +1,4 @@
-import '@/apps/mooc/dependency-injection'
+import '@/apps/mooc/modules'
 
 import { container } from 'tsyringe'
 import { DataSource } from 'typeorm'

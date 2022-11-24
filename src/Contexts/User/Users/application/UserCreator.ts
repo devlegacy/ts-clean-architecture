@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { TYPES } from '@/apps/user/dependency-injection/types'
+import { TYPES } from '@/apps/user/modules/types'
 
 import { ExistUserByUserName, User, UserAlreadyExistsException, UserRepository } from '../domain'
 import { UserCreatorRequest } from './UserCreatorRequest'

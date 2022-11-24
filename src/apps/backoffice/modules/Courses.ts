@@ -5,6 +5,7 @@ import {
   CreateBackofficeCourseOnCourseCreated,
   DeleteBackofficeCourseCommandHandler,
   FindBackofficeCourseByCriteriaQueryHandler,
+  PaginateBackofficeCoursesQueryHandler,
   SearchAllBackofficeCoursesQueryHandler,
   SearchBackofficeCoursesByCriteriaQueryHandler,
   UpdateBackofficeCourseCommandHandler
@@ -34,7 +35,7 @@ container
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchBackofficeCoursesByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindBackofficeCourseByCriteriaQueryHandler)
-
+  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, PaginateBackofficeCoursesQueryHandler)
   // Domain layer
   // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })

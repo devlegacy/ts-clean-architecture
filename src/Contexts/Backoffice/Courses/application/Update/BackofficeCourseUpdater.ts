@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { TYPES } from '@/apps/backoffice/dependency-injection/types'
+import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourse, BackofficeCourseEntityDto, BackofficeCourseRepository } from '../../domain'
