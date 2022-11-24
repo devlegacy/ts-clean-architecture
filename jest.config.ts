@@ -199,12 +199,12 @@ export default {
   //       jsc: {
   //         parser: {
   //           syntax: 'typescript',
-  //           tsx: false,
+  //           // tsx: false,
   //           decorators: true,
-  //           decoratorsBeforeExport: true,
-  //           dynamicImport: true,
-  //           importMeta: true,
-  //           functionBind: true
+  //           // decoratorsBeforeExport: true,
+  //           dynamicImport: true
+  //           // importMeta: true,
+  //           // functionBind: true
   //         },
   //         transform: {
   //           legacyDecorator: true,
@@ -212,7 +212,15 @@ export default {
   //         },
   //         target: 'es2022',
   //         // externalHelpers: true,
-  //         keepClassNames: true
+  //         keepClassNames: true,
+  //         loose: true
+  //       },
+  //       module: {
+  //         type: 'commonjs',
+  //         strict: false,
+  //         strictMode: false,
+  //         lazy: false,
+  //         noInterop: true
   //       }
   //     }
   //   ]
