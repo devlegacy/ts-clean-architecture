@@ -1,8 +1,8 @@
-import { AggregateRoot, NonFunctionProperties, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './value-object'
 
-export type BackofficeCourseEntityDto = NonFunctionProperties<BackofficeCourse>
+export type BackofficeCourseEntityDto = Entity<BackofficeCourse>
 export type BackofficeCoursePrimitiveDto = Primitives<BackofficeCourse>
 
 export class BackofficeCourse extends AggregateRoot {

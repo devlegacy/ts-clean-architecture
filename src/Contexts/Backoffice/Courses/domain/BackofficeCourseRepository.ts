@@ -10,6 +10,7 @@ export interface BackofficeCourseRepository {
     criteria: Criteria,
     pagination: OffsetPagination
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }>
+
   update(course: BackofficeCourse): Promise<void>
   save(course: BackofficeCourse): Promise<void>
   delete(id: BackofficeCourse['id']): Promise<void>

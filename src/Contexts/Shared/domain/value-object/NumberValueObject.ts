@@ -8,7 +8,7 @@ export abstract class NumberValueObject extends ValueObject<number> {
     super(value)
   }
 
-  isBiggerThan(number: NumberValueObject): boolean {
-    return this.value > number.value
+  isBiggerThan(vo: NumberValueObject): boolean {
+    return this.value > vo.value
   }
 }

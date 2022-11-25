@@ -23,7 +23,7 @@ export class CourseType extends EnumValueObject<Type> {
       case 'FREE':
         return new CourseType(Type['FREE'])
       default:
-        throw new InvalidArgumentException(`The course type ${value} is invalid`)
+        throw new InvalidArgumentException(`The course type <${value}> is invalid`)
     }
   }
 

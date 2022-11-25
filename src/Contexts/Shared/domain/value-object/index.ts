@@ -1,6 +1,6 @@
 export * from './EnumValueObject'
-export * from './Id'
 export * from './NumberValueObject'
+export * from './ObjectId'
 export * from './StringValueObject'
 export * from './Uuid'
 export * from './ValueObject'

@@ -24,9 +24,7 @@ export class Uuid extends ValueObject<string> {
 
   private isValid(id: string) {
     // if (!ObjectId.isValid(id)) {
-    if (!validate(id)) {
-      throw new InvalidArgumentException(`<${this.constructor.name}> does not allow the value <${id}>`)
-    }
+    if (!validate(id)) throw new InvalidArgumentException(`<${this.constructor.name}> does not allow the value <${id}>`)
   }
 
   // Inherited

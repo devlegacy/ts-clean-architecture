@@ -1,5 +1,5 @@
-import { Query } from '../Query'
-import { EntityNotFoundException } from './EntityNotFoundException'
+import { EntityNotFoundException } from '../exceptions/EntityNotFoundException'
+import { Query } from './Query'
 
 export class QueryNotRegisteredException extends EntityNotFoundException {
   constructor(query: Query) {

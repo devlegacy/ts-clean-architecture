@@ -9,14 +9,14 @@ export abstract class ValueObject<T extends PrimitiveTypes> {
   readonly value: T
 
   constructor(value: T) {
-    this.value = value
+    this.value = Object.freeze(value)
     this.isValueDefined(value)
   }
 
-  equals(value: ValueObject<T>): boolean {
-    if (value.value === undefined) return false
+  equals(vo: ValueObject<T>): boolean {
+    if (vo.value === undefined) return false
 
-    return shallowEqual(this.value, value.value)
+    return shallowEqual(this.value, vo.value)
   }
 
   toString() {

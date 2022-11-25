@@ -1,12 +1,9 @@
 import { InvariantOf, Writable } from 'type-fest'
 
-import { NonFunctionProperties } from './NonFunctionProperties'
-import { EnumValueObject } from './value-object'
-import { NumberValueObject } from './value-object/NumberValueObject'
-import { StringValueObject } from './value-object/StringValueObject'
-import { PrimitiveTypes } from './value-object/ValueObject'
+import { Entity } from './Entity'
+import { EnumValueObject, NumberValueObject, PrimitiveTypes, StringValueObject } from './value-object'
 
-export type Primitives<Type> = NonFunctionProperties<
+export type Primitives<Type> = Entity<
   Writable<{
     [Property in keyof Type]: Type[Property] extends PrimitiveTypes
       ? Type[Property]

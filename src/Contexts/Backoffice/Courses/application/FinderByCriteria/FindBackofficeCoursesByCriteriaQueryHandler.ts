@@ -17,9 +17,9 @@ export class FindBackofficeCourseByCriteriaQueryHandler
     return FindBackofficeCourseByCriteriaQuery
   }
 
-  handle(query: FindBackofficeCourseByCriteriaQuery): Promise<BackofficeCourseResponse> {
+  async handle(query: FindBackofficeCourseByCriteriaQuery): Promise<BackofficeCourseResponse> {
     const filters = Filters.fromValues(query.filters)
-
-    return this.finder.run(filters)
+    const course = await this.finder.run(filters)
+    return course
   }
 }

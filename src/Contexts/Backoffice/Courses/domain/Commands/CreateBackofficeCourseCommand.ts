@@ -1,6 +1,6 @@
 import { Command } from '@/Contexts/Shared/domain'
 
-import { BackofficeCoursePrimitiveDto } from './BackofficeCourse'
+import { BackofficeCoursePrimitiveDto } from '../BackofficeCourse'
 
 type Params = BackofficeCoursePrimitiveDto
 

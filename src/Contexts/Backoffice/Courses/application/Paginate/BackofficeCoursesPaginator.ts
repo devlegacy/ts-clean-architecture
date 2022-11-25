@@ -18,6 +18,8 @@ export class BackofficeCoursesPaginator {
     const [courses, total] = await Promise.all([this.repository.searchBy(criteria), this.repository.count(criteria)])
     paginate.calculatePageNumbersBy(total)
 
-    return new PaginatedBackofficeCoursesResponse(courses, paginate)
+    const response = new PaginatedBackofficeCoursesResponse(courses, paginate)
+
+    return response
   }
 }

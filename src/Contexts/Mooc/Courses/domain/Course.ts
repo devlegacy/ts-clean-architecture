@@ -1,10 +1,10 @@
-import { AggregateRoot, NonFunctionProperties, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
 import { CourseDuration, CourseName } from './value-object'
 
-export type CourseEntityDto = NonFunctionProperties<Course>
+export type CourseEntityDto = Entity<Course>
 export type CoursePrimitiveDto = Primitives<Course>
 
 export class Course extends AggregateRoot {
