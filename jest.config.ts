@@ -200,9 +200,9 @@ export default {
   //         parser: {
   //           syntax: 'typescript',
   //           // tsx: false,
-  //           decorators: true,
+  //           decorators: true
   //           // decoratorsBeforeExport: true,
-  //           dynamicImport: true
+  //           // dynamicImport: true,
   //           // importMeta: true,
   //           // functionBind: true
   //         },
@@ -210,18 +210,18 @@ export default {
   //           legacyDecorator: true,
   //           decoratorMetadata: true
   //         },
-  //         target: 'es2022',
+  //         target: 'es2022'
   //         // externalHelpers: true,
-  //         keepClassNames: true,
-  //         loose: true
-  //       },
-  //       module: {
-  //         type: 'commonjs',
-  //         strict: false,
-  //         strictMode: false,
-  //         lazy: false,
-  //         noInterop: true
+  //         // keepClassNames: true,
+  //         // loose: true
   //       }
+  //       // module: {
+  //       //   type: 'commonjs',
+  //       //   strict: false,
+  //       //   strictMode: false,
+  //       //   lazy: false,
+  //       //   noInterop: true
+  //       // }
   //     }
   //   ]
   // },

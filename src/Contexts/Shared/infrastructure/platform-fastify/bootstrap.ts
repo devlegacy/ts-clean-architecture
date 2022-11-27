@@ -57,14 +57,14 @@ async function* readModulesRecursively(path: string, filter: RegExp): AsyncItera
   }
 }
 
-const entitiesRegister = async (path = './src') => {
+const getControllers = async (path = './src') => {
   const controllers: Class<unknown>[] = []
   const dir = resolve(cwd(), path)
 
   for await (const entities of readModulesRecursively(dir, /Controller\.(ts|js)$/)) {
     const keys = Object.keys(entities)
     for (const key of keys) {
-      const entity = entities[key]
+      const entity = entities[`${key}`]
       if (!isConstructor(entity)) continue
 
       controllers.push(entity)
@@ -74,7 +74,36 @@ const entitiesRegister = async (path = './src') => {
   return controllers
 }
 
-const getControllerMethodMetadata = (method: () => unknown) => {
+const getControllerMetadata = (controller: any, resolver?: ControllerResolver) => {
+  const instance = resolver ? resolver(controller) : new controller()
+  const {
+    // has controller path by metadata
+    // has arguments by method name and metadata
+    constructor: instanceConstructor,
+    // has methods
+    // has design:paramtypes (parameter type in method) by metadata
+    // has callable method to be executed in route
+    constructor: { prototype: instancePrototype }
+  } = instance
+
+  // The prefix saved to our controller
+  // | controller
+  const controllerPath: string = Reflect.getMetadata(PATH_METADATA, instanceConstructor)
+  // Access from instance
+  // | controller.prototype | instance.__proto__
+  // | Reflect.ownKeys(Object.getPrototypeOf(instance))
+  const classMethodNames: (string | symbol)[] = Reflect.ownKeys(instancePrototype)
+
+  return {
+    instance,
+    instanceConstructor,
+    instancePrototype,
+    controllerPath,
+    classMethodNames
+  }
+}
+
+const getRouteMethodMetadata = (method: () => unknown) => {
   const routePath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
   const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
     Reflect.getMetadata(METHOD_METADATA, method) || RequestMethod.GET
@@ -205,36 +234,20 @@ const buildSchemaWithParams = (
  * @param props
  */
 // export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
-// eslint-disable-next-line complexity, max-lines-per-function
 export const bootstrap = async (
   fastify: FastifyInstance,
   props: { controller: string; isProduction: boolean; prefix?: string; resolver?: ControllerResolver }
 ) => {
   // const controllerContainer = container.createChildContainer()
-
-  const controllers = await entitiesRegister(props.controller)
+  const controllers = await getControllers(props.controller)
   for (const controller of controllers) {
-    const instance = props.resolver ? props.resolver(controller) : new controller()
-    // has controller path by metadata
-    // has arguments by method name and metadata
-    const instanceConstructor = instance.constructor
-    // has methods
-    // has design:paramtypes (parameter type in method) by metadata
-    // has callable method to be executed in route
-    const instancePrototype = instanceConstructor.prototype
-
-    // The prefix saved to our controller
-    // | controller
-    const controllerPath: string = Reflect.getMetadata(PATH_METADATA, instanceConstructor)
-    // Access from instance
-    // | controller.prototype | instance.__proto__
-    // | Reflect.ownKeys(Object.getPrototypeOf(instance))
-    const classMethodNames: (string | symbol)[] = Reflect.ownKeys(instancePrototype)
+    const { instance, instanceConstructor, instancePrototype, classMethodNames, controllerPath } =
+      getControllerMetadata(controller, props.resolver)
     for (const methodName of classMethodNames) {
       if (methodName === 'constructor') continue // ignore constructor method reflect metadata
 
-      const method: () => unknown = instance[methodName]
-      const { routePath, requestMethod, httpCode, schema } = getControllerMethodMetadata(method)
+      const method: () => unknown = instance[String(methodName)]
+      const { routePath, requestMethod, httpCode, schema } = getRouteMethodMetadata(method)
       if (!routePath) continue // is not a route in controller
 
       const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instanceConstructor, methodName)
@@ -243,55 +256,89 @@ export const bootstrap = async (
         buildSchemaWithParams(params, schema, requestMethod, args)
       }
 
-      if (cluster.isPrimary && props.isProduction) {
-        const primary = new Primary({ cluster })
-        const limit = availableCpus
-        // const limit = availableCpus
-        // eslint-disable-next-line max-depth
-        for (let i = 0; i < limit; i++) primary.loadWorker()
-        cluster.on('exit', (worker) => {
-          info(`Cluster number: ${worker.id} stopped`)
-          primary.loadStoppedWorker()
-        })
-      } else {
-        info(`Cluster child`)
-
-        fastify.route({
-          method: RequestMethod[`${requestMethod}`] as HTTPMethods,
-          schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
-          // attachValidation: true,
-          url: getRoutePathUrl(props.prefix ?? '', controllerPath, routePath),
-          // preParsing: (req, res, payload, done) => {
-          //   // Some code
-          //   done(null, payload)
-          // },
-          // preValidation: (req, res, done) => {
-          //   // Some code
-          //   done()
-          // },
-          // errorHandler: (error, request, response) => {
-          //   fastify.errorHandler(error, request, response)
-          // },
-          handler: (req, res) => {
-            res.status(httpCode)
-            // if (req.validationError) {
-            //   const err = req.validationError
-            //   // Is JOI
-            //   if (err instanceof ValidationError) {
-            //     return res.status(schema.code).send(err)
-            //   }
-            //   return res.status(500).send(new Error(`handler: Unhandled error ${err.message}`))
-            // }
-            const routeParams = getParams(params, req, res)
-            // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
-            // const currentMethodFn = instance[method.name]
-            // method() // por alguna razón pierde el bind
-            // instance[methodName]() - Revisar que conserve el valor de this
-            // instance[methodName]
-            return instancePrototype[String(methodName)].apply(instance, routeParams.length ? routeParams : [req, res])
-          }
-        })
+      const route = {
+        method: RequestMethod[`${requestMethod}`] as HTTPMethods,
+        schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
+        url: getRoutePathUrl(props.prefix ?? '', controllerPath, routePath),
+        httpCode,
+        params,
+        instance,
+        methodName
       }
+      clusterServer(fastify, route, props.isProduction)
     }
+  }
+}
+
+const clusterServer = (
+  fastify: FastifyInstance,
+  {
+    method,
+    schema,
+    url,
+    httpCode,
+    params,
+    instance,
+    methodName
+  }: {
+    method: HTTPMethods
+    schema: any
+    url: string
+    httpCode: number
+    params: Record<string, any>
+    instance: any
+    methodName: string | symbol
+  },
+  isProduction = false
+) => {
+  if (cluster.isPrimary && isProduction) {
+    const primary = new Primary({ cluster })
+    const limit = availableCpus
+    for (let i = 0; i < limit; i++) primary.loadWorker()
+    cluster.on('exit', (worker) => {
+      info(`Cluster number: ${worker.id} stopped`)
+      primary.loadStoppedWorker()
+    })
+  } else {
+    info(`Cluster child`)
+
+    fastify.route({
+      method,
+      schema,
+      // attachValidation: true,
+      url,
+      // preParsing: (req, res, payload, done) => {
+      //   // Some code
+      //   done(null, payload)
+      // },
+      // preValidation: (req, res, done) => {
+      //   // Some code
+      //   done()
+      // },
+      // errorHandler: (error, request, response) => {
+      //   fastify.errorHandler(error, request, response)
+      // },
+      handler: (req, res) => {
+        res.status(httpCode)
+        // if (req.validationError) {
+        //   const err = req.validationError
+        //   // Is JOI
+        //   if (err instanceof ValidationError) {
+        //     return res.status(schema.code).send(err)
+        //   }
+        //   return res.status(500).send(new Error(`handler: Unhandled error ${err.message}`))
+        // }
+        const routeParams = getParams(params, req, res)
+        // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
+        // const currentMethodFn = instance[method.name]
+        // method() // por alguna razón pierde el bind
+        // instance[methodName]() - Revisar que conserve el valor de this
+        // instance[methodName]
+        return instance.constructor.prototype[String(methodName)].apply(
+          instance,
+          routeParams.length ? routeParams : [req, res]
+        )
+      }
+    })
   }
 }

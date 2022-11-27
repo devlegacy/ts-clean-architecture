@@ -4,7 +4,7 @@ import { Criteria, Nullable } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { Course, CourseRepository } from '../../domain'
-import { CourseEntity } from './mongo/CourseEntity'
+import { CourseEntity } from './mikroorm/mongo/CourseEntity'
 
 export interface CourseDocument {
   _id: string

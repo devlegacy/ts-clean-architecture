@@ -7,7 +7,12 @@ import {
   ValueObjectTransformer
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
-import { BackofficeCourse, BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from '../../../domain'
+import {
+  BackofficeCourse,
+  BackofficeCourseDuration,
+  BackofficeCourseId,
+  BackofficeCourseName
+} from '../../../../domain'
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   name: 'BackofficeCourse',

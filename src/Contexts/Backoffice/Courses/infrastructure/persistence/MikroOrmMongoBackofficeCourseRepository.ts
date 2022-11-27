@@ -4,7 +4,7 @@ import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
-import { BackofficeCourseEntity } from './mongo/BackofficeCourseEntity'
+import { BackofficeCourseEntity } from './mikroorm/mongo/BackofficeCourseEntity'
 
 export class MikroOrmMongoBackofficeCourseRepository
   extends MikroOrmMongoRepository<BackofficeCourse>

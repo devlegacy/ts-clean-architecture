@@ -4,7 +4,7 @@ import { Nullable } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { CoursesCounter, CoursesCounterRepository } from '../../domain'
-import { CoursesCounterEntity } from './mongo/CoursesCounterEntity'
+import { CoursesCounterEntity } from './mikroorm/mongo/CoursesCounterEntity'
 
 export class MikroOrmMongoCoursesCounterRepository
   extends MikroOrmMongoRepository<CoursesCounter>

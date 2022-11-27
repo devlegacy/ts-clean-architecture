@@ -3,7 +3,7 @@ import { EntitySchema } from '@mikro-orm/core'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { beforeCreate, ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
-import { CoursesCounter, CoursesCounterTotal } from '../../../domain'
+import { CoursesCounter, CoursesCounterTotal } from '../../../../domain'
 
 export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
   // abstract: true,

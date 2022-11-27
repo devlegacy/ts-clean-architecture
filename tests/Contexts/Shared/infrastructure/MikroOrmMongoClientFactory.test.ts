@@ -8,7 +8,7 @@ describe('MikroOrmMongoClientFactory', () => {
   let client: MikroORM<MongoDriver>
 
   beforeEach(async () => {
-    client = await factory.createClient('test', { url: 'mongodb://localhost:27017/mooc-backend-test1' })
+    client = await factory.createClient('test', { url: 'mongodb://127.0.0.1:27017/mooc-backend-test1?' })
   })
 
   afterEach(async () => {
@@ -20,7 +20,7 @@ describe('MikroOrmMongoClientFactory', () => {
   })
 
   it('should creates a new client if it does not exist a client with the given name', async () => {
-    const newClient = await factory.createClient('test2', { url: 'mongodb://localhost:27017/mooc-backend-test2' })
+    const newClient = await factory.createClient('test2', { url: 'mongodb://127.0.0.1:27017/mooc-backend-test2' })
 
     expect(newClient).not.toBe(client)
 
@@ -28,7 +28,7 @@ describe('MikroOrmMongoClientFactory', () => {
   })
 
   it('should returns a client if it already exists', async () => {
-    const newClient = await factory.createClient('test', { url: 'mongodb://localhost:27017/mooc-backend-test3' })
+    const newClient = await factory.createClient('test', { url: 'mongodb://127.0.0.1:27017/mooc-backend-test3' })
 
     expect(newClient).toBe(client)
 

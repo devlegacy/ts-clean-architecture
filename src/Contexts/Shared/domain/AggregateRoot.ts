@@ -8,9 +8,7 @@ import { DomainEvent } from './Events/DomainEvent'
  * - The `Aggregate Root` is the only object that outside objects are allow to reference;
  * - The `Aggregate Root` is responsible for enforcing consistency rules within the boundary;
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export abstract class AggregateRoot<Entity = any, Primitives = any> {
-  protected deletedAt?: Date
+export abstract class AggregateRoot {
   private domainEvents: DomainEvent[] = []
 
   pullDomainEvents(): DomainEvent[] {
@@ -19,6 +17,10 @@ export abstract class AggregateRoot<Entity = any, Primitives = any> {
     return domainEvents
   }
 
+  /**
+   * @description Add the domain event to this aggregate's list of domain events
+   * @param event
+   */
   record(event: DomainEvent) {
     // DEBT: In test is undefined
     if (!this.domainEvents) this.domainEvents = []
@@ -26,10 +28,5 @@ export abstract class AggregateRoot<Entity = any, Primitives = any> {
     this.domainEvents.push(event)
   }
 
-  delete() {
-    if (this.deletedAt) return
-    this.deletedAt = new Date()
-  }
-
-  abstract toPrimitives(): Primitives
+  abstract toPrimitives(): any
 }
