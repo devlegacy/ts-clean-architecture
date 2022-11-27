@@ -1,5 +1,6 @@
 export * from './mikroorm/MikroOrmMongoClientFactory'
 export * from './mikroorm/MikroOrmMongoRepository'
+export * from './mikroorm/MikroOrmPostgresClientFactory'
 export * from './mongo'
 export * from './postgres'
 export * from './typeorm/TypeOrmPostgresClientFactory'

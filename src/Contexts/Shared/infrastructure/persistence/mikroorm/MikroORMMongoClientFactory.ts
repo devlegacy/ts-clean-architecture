@@ -1,6 +1,6 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
-import { MongoDriver, Options } from '@mikro-orm/mongodb'
+import type { MongoDriver, Options } from '@mikro-orm/mongodb'
 
 import { info } from '../../logger'
 import { MongoConfig } from '../mongo/MongoConfig'
@@ -23,9 +23,16 @@ export abstract class MikroOrmMongoClientFactory {
   }
 
   private static async createAndConnectClient(config: MongoConfig): Promise<MikroORM<MongoDriver>> {
+    const from = config.url.lastIndexOf('/') + 1
+    const to = config.url.lastIndexOf('?')
+    const dbName = config.url.substring(from, to < 0 ? config.url.length : to)
+
     const options: Options = {
+      // connect: true,
+      dbName,
+      // tsNode: true,
       clientUrl: config.url,
-      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mongo/*Entity{.js,.ts}`],
+      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`],
       logger: info,
       type: 'mongo',
       forceUndefined: true,
