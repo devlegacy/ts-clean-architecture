@@ -25,26 +25,28 @@ const options: Sentry.NodeOptions = {
 }
 
 export class SentryModule {
-  #options: Sentry.NodeOptions
-  constructor(config?: { options: Sentry.NodeOptions }) {
+  static #options: Sentry.NodeOptions
+  private constructor() {
+    // do nothing
+  }
+
+  static capture(err: Error, config?: { options?: Sentry.NodeOptions; req?: any }) {
     this.#options = {
       ...options,
       ...config?.options
     }
 
     Sentry.init(this.#options)
-  }
 
-  capture(req: any, err: Error) {
     Sentry.withScope((scope) => {
       const transaction = Sentry.startTransaction({
         name: `Transaction ${Date.now()}`,
-        op: this.#options.environment
+        op: SentryModule.#options.environment
       })
       scope.setUser({
-        ip_address: req.ip
+        ip_address: config?.req.ip
       })
-      scope.setTag('path', req?.raw?.url)
+      scope.setTag('path', config?.req?.raw?.url)
       Sentry.captureException(err)
       transaction.finish()
     })

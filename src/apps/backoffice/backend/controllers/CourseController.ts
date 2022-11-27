@@ -27,8 +27,10 @@ import {
   Put,
   Query
 } from '@/Contexts/Shared/infrastructure/common'
+import { error, info } from '@/Contexts/Shared/infrastructure/logger'
 import { MongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
+import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
 
 import { TYPES } from '../../modules/types'
 
@@ -98,9 +100,15 @@ export class CourseController {
   @Post()
   async create(@Body() course: CourseRequestDto) {
     const command = new CreateBackofficeCourseCommand(course)
-    await this.commandBus.dispatch(command)
+    this.commandBus
+      .dispatch(command)
+      .then((data) => info(data))
+      .catch((e) => {
+        SentryModule.capture(e)
+        error(e)
+      })
 
-    return {}
+    return course
   }
 
   @Put(':courseId')

@@ -42,8 +42,8 @@ const ajv = {
 const fastifyServerOptions: FastifyServerOptions = {
   ajv,
   logger: logger(),
-  ignoreTrailingSlash: true,
-  forceCloseConnections: true // On Test or development
+  ignoreTrailingSlash: true
+  // forceCloseConnections: true // On Test or development
   // trustProxy: true
   // bodyLimit: 0,
 }
@@ -88,7 +88,6 @@ export class FastifyAdapter {
     prefix?: string
     resolver?: ControllerResolver
   }) {
-    const sentry = new SentryModule()
     this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
       for (const m of this.#validations) {
         if (m.validationCompiler(schemaDefinition)) {
@@ -107,7 +106,7 @@ export class FastifyAdapter {
 
     this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
       // TODO: Improve
-      sentry.capture(req, error)
+      SentryModule.capture(error, { req })
 
       for (const m of this.#validations) {
         if (res.sent) break

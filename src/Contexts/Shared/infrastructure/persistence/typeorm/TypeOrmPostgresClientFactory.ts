@@ -6,6 +6,10 @@ import { PostgresConfig } from '../postgres'
 export class TypeOrmPostgresClientFactory {
   private static clients: Record<string, DataSource> = {}
 
+  private constructor() {
+    // do nothing
+  }
+
   static async createClient(contextName: string, config: PostgresConfig) {
     let client = TypeOrmPostgresClientFactory.getClient(contextName)
     if (!client) {

@@ -9,11 +9,11 @@ import { DomainEvent } from './Events/DomainEvent'
  * - The `Aggregate Root` is responsible for enforcing consistency rules within the boundary;
  */
 export abstract class AggregateRoot {
-  private domainEvents: DomainEvent[] = []
+  #domainEvents: DomainEvent[] = []
 
   pullDomainEvents(): DomainEvent[] {
-    const domainEvents = this.domainEvents.slice()
-    this.domainEvents = []
+    const domainEvents = this.#domainEvents.slice()
+    this.#domainEvents = []
     return domainEvents
   }
 
@@ -23,9 +23,9 @@ export abstract class AggregateRoot {
    */
   record(event: DomainEvent) {
     // DEBT: In test is undefined
-    if (!this.domainEvents) this.domainEvents = []
+    if (!this.#domainEvents) this.#domainEvents = []
 
-    this.domainEvents.push(event)
+    this.#domainEvents.push(event)
   }
 
   abstract toPrimitives(): any

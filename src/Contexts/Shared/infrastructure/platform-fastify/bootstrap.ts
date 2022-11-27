@@ -270,25 +270,18 @@ export const bootstrap = async (
   }
 }
 
+type Route = {
+  method: HTTPMethods
+  schema: any
+  url: string
+  httpCode: number
+  params: Record<string, any>
+  instance: any
+  methodName: string | symbol
+}
 const clusterServer = (
   fastify: FastifyInstance,
-  {
-    method,
-    schema,
-    url,
-    httpCode,
-    params,
-    instance,
-    methodName
-  }: {
-    method: HTTPMethods
-    schema: any
-    url: string
-    httpCode: number
-    params: Record<string, any>
-    instance: any
-    methodName: string | symbol
-  },
+  { method, schema, url, httpCode, params, instance, methodName }: Route,
   isProduction = false
 ) => {
   if (cluster.isPrimary && isProduction) {
@@ -301,7 +294,6 @@ const clusterServer = (
     })
   } else {
     info(`Cluster child`)
-
     fastify.route({
       method,
       schema,
@@ -315,10 +307,13 @@ const clusterServer = (
       //   // Some code
       //   done()
       // },
-      // errorHandler: (error, request, response) => {
-      //   fastify.errorHandler(error, request, response)
-      // },
-      handler: (req, res) => {
+      onError: (request, reply, error, done) => {
+        done()
+      },
+      errorHandler: (error, request, response) => {
+        fastify.errorHandler(error, request, response)
+      },
+      handler: async (req, res) => {
         res.status(httpCode)
         // if (req.validationError) {
         //   const err = req.validationError
@@ -334,10 +329,11 @@ const clusterServer = (
         // method() // por alguna razón pierde el bind
         // instance[methodName]() - Revisar que conserve el valor de this
         // instance[methodName]
-        return instance.constructor.prototype[String(methodName)].apply(
+        const response = instance.constructor.prototype[String(methodName)].apply(
           instance,
           routeParams.length ? routeParams : [req, res]
         )
+        return response
       }
     })
   }
