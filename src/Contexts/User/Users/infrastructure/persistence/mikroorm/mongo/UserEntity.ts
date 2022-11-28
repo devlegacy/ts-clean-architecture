@@ -7,8 +7,7 @@ import {
   ValueObjectTransformer
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 import { UserId } from '@/Contexts/User/Shared/domain'
-
-import { User, UserAge, UserName, UserUsername } from '../../../domain'
+import { User, UserAge, UserName, UserUsername } from '@/Contexts/User/Users/domain'
 
 export const UserEntity = new EntitySchema<User>({
   name: 'User',

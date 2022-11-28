@@ -307,12 +307,12 @@ const clusterServer = (
       //   // Some code
       //   done()
       // },
-      onError: (request, reply, error, done) => {
-        done()
-      },
-      errorHandler: (error, request, response) => {
-        fastify.errorHandler(error, request, response)
-      },
+      // onError: (request, reply, error, done) => {
+      //   done()
+      // },
+      // errorHandler: (error, request, response) => {
+      //   fastify.errorHandler(error, request, response)
+      // },
       handler: async (req, res) => {
         res.status(httpCode)
         // if (req.validationError) {

@@ -5,7 +5,7 @@ import { Nullable } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { User, UserRepository } from '../../domain'
-import { UserEntity } from './mongo/UserEntity'
+import { UserEntity } from './mikroorm/mongo/UserEntity'
 
 export class MongoUserRepository extends MikroOrmMongoRepository<User> implements UserRepository {
   async getAll(): Promise<User[]> {
