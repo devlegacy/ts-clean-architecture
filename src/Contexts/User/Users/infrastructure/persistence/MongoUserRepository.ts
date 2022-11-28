@@ -8,15 +8,13 @@ import { User, UserRepository } from '../../domain'
 import { UserEntity } from './mikroorm/mongo/UserEntity'
 
 export class MongoUserRepository extends MikroOrmMongoRepository<User> implements UserRepository {
-  async getAll(): Promise<User[]> {
+  async all(): Promise<User[]> {
     const repository = await this.repository()
 
     const users = await repository.findAll({
-      orderBy: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        _id: -1
-      }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      orderBy: { [`_id`]: -1 }
     })
 
     return users
