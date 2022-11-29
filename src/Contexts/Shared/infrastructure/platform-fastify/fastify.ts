@@ -3,7 +3,15 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
-import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, FastifyServerOptions } from 'fastify'
+import Fastify, {
+  FastifyError,
+  FastifyInstance,
+  FastifyReply,
+  FastifyRequest,
+  FastifyServerOptions,
+  PrintRoutesOptions
+} from 'fastify'
+import { AddressInfo } from 'net'
 
 import { logger } from '@/Contexts/Shared/infrastructure/logger'
 
@@ -11,6 +19,12 @@ import { ControllerResolver } from '../common'
 import { SentryModule } from '../sentry'
 import { bootstrap } from './bootstrap'
 import { ValidationModule } from './interfaces'
+
+const printConfig: PrintRoutesOptions = {
+  commonPrefix: false,
+  includeHooks: true,
+  includeMeta: true // ['metaProperty']
+}
 
 const ajv = {
   customOptions: {
@@ -115,5 +129,33 @@ export class FastifyAdapter {
     })
 
     await bootstrap(this.#instance, props)
+  }
+
+  async listen({
+    debug,
+    port,
+    host,
+    env,
+    name
+  }: {
+    debug?: boolean
+    port?: number
+    host?: string
+    env?: string
+    name?: string
+  }) {
+    await this.#instance.listen({
+      port,
+      host
+    })
+
+    const address: AddressInfo = this.#instance.server.address() as AddressInfo
+    this.#instance.log.info(`🚀 ${name} is running on: http://localhost:${address.port}`)
+    this.#instance.log.info(`\ton mode: ${env}`)
+    this.#instance.log.info(`\thttp://localhost:${address.port}`)
+    this.#instance.log.info('\tPress CTRL-C to stop 🛑')
+    if (debug) this.#instance.log.info(this.#instance.printRoutes(printConfig))
+
+    return this.#instance.server
   }
 }
