@@ -14,6 +14,7 @@ export abstract class AggregateRoot {
   pullDomainEvents(): DomainEvent[] {
     const domainEvents = this.#domainEvents.slice()
     this.#domainEvents = []
+
     return domainEvents
   }
 

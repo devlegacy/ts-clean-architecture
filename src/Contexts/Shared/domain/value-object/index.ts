@@ -1,3 +1,4 @@
+export * from './BoolValueObject'
 export * from './EnumValueObject'
 export * from './NumberValueObject'
 export * from './ObjectId'
