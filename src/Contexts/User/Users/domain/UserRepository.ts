@@ -2,9 +2,10 @@ import { Nullable } from '@/Contexts/Shared/domain'
 
 import { User } from './User'
 
-// ¿Cómo definimos las interfaces? -> Por los clientes que las implementan
+// ¿Cómo definimos/extraemos las interfaces? -> Por los clientes que las implementan
 // Role interface - Role de User ✅ - Ser repositorio de Usuario - A bd, memoria, etc. - Agnóstico a implementación
 // Header interface - ¿Qué ya tengo en código implemento? y pasar a Interfaz como Cabeceras
+// Nos interesa comportamiento
 
 export interface UserRepository {
   // header interface
