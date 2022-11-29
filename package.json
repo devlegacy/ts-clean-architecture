@@ -46,7 +46,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@apollo/server": "4.2.1",
+    "@apollo/server": "4.2.2",
     "@as-integrations/fastify": "1.2.0",
     "@fastify/compress": "6.2.0",
     "@fastify/cookie": "8.3.0",
@@ -80,7 +80,7 @@
     "joi": "17.7.0",
     "joi-class-decorators": "1.1.0",
     "mongodb": "4.12.1",
-    "mongoose": "6.7.3",
+    "mongoose": "6.7.4",
     "node-dependency-injection": "3.0.3",
     "pg": "8.8.0",
     "pino": "8.7.0",
@@ -111,8 +111,8 @@
     "@types/supertest": "2.0.12",
     "@types/uuid": "8.3.4",
     "@types/uuid-validate": "0.0.1",
-    "@typescript-eslint/eslint-plugin": "5.44.0",
-    "@typescript-eslint/parser": "5.44.0",
+    "@typescript-eslint/eslint-plugin": "5.45.0",
+    "@typescript-eslint/parser": "5.45.0",
     "autocannon": "7.10.0",
     "commitizen": "4.2.5",
     "cross-env": "7.0.3",
@@ -140,7 +140,7 @@
     "ts-unused-exports": "8.0.0",
     "tsconfig-paths": "4.1.0",
     "tslib": "2.4.1",
-    "type-fest": "3.2.0",
+    "type-fest": "3.3.0",
     "typescript": "4.9.3"
   },
   "optionalDependencies": {
