@@ -60,8 +60,8 @@
     "@mikro-orm/mongodb": "5.5.3",
     "@mikro-orm/postgresql": "5.5.3",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.21.1",
-    "@sentry/tracing": "7.21.1",
+    "@sentry/node": "7.22.0",
+    "@sentry/tracing": "7.22.0",
     "ajv": "8.11.2",
     "amqplib": "0.10.3",
     "apollo-server-core": "3.11.1",
@@ -109,7 +109,7 @@
     "@types/jest": "29.2.3",
     "@types/node": "18.11.9",
     "@types/supertest": "2.0.12",
-    "@types/uuid": "8.3.4",
+    "@types/uuid": "9.0.0",
     "@types/uuid-validate": "0.0.1",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",
@@ -148,7 +148,7 @@
     "npm-check-updates": "16.4.3"
   },
   "engines": {
-    "node": ">=16.15.0 <=19.0.0",
+    "node": ">=16.15.0 <=19.2.0",
     "npm": ">=8.12.1"
   }
 }
