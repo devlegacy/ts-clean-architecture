@@ -37,7 +37,7 @@ export class SentryModule implements Monitoring {
     Sentry.init(this.#options)
   }
 
-  capture(err: Error, config: { req: any }) {
+  capture(err: Error, config?: { req: any }) {
     Sentry.withScope((scope) => {
       const transaction = Sentry.startTransaction({
         name: `Transaction ${Date.now()}`,

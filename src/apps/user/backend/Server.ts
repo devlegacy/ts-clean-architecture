@@ -17,7 +17,7 @@ export class Server {
 
     const adapter = new FastifyAdapter()
 
-    this.#app = adapter.instance
+    this.#app = adapter.app
   }
 
   async listen() {
@@ -28,7 +28,7 @@ export class Server {
       // prefix: '/api/'
     })
 
-    this.#app = this.#adapter.instance
+    this.#app = this.#adapter.app
 
     await this.#app.listen({
       port: this.#port,

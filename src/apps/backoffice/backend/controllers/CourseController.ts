@@ -30,9 +30,9 @@ import {
 import { error, info } from '@/Contexts/Shared/infrastructure/logger'
 import { MongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
-import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
 
 import { TYPES } from '../../modules/types'
+import { sentry } from '../Server'
 
 @Controller('courses')
 export class CourseController {
@@ -104,7 +104,7 @@ export class CourseController {
       .dispatch(command)
       .then((data) => info(data))
       .catch((e) => {
-        SentryModule.capture(e)
+        sentry.capture(e)
         error(e)
       })
 

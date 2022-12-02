@@ -18,7 +18,7 @@ export class GraphQL {
 
     const adapter = new FastifyAdapter()
 
-    this.#app = adapter.instance
+    this.#app = adapter.app
 
     this.#apolloServer = new ApolloServer<BaseContext>({
       schema,

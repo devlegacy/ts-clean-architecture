@@ -47,7 +47,7 @@ export class Server {
       isProduction: config.get('app.env') === 'production'
     })
 
-    this.#app = this.#adapter.instance
+    this.#app = this.#adapter.app
       .register(fastifyFormBody, { parser: (str) => qs.parse(str) })
       .register(fastifyQs)
       .register(fastifyHelmet)

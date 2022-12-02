@@ -22,6 +22,13 @@ type Options = {
   name?: string
 }
 
+export const sentry = new SentryModule({
+  options: {
+    dsn: config.get('sentry.dsn'),
+    debug: config.get('app.env') !== 'production'
+  }
+})
+
 export class Server {
   readonly #options?: Options
   #adapter = new FastifyAdapter()
@@ -32,14 +39,7 @@ export class Server {
 
     this.#adapter.enableCors()
     this.#adapter
-      .setMonitoringModule(
-        new SentryModule({
-          options: {
-            dsn: config.get('sentry.dsn'),
-            debug: this.#options?.env !== 'production'
-          }
-        })
-      )
+      .setMonitoringModule(sentry)
       .setValidationModule(new JoiModule())
       .setValidationModule(new GeneralValidationModule())
   }
