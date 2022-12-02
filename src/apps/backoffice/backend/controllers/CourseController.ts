@@ -22,6 +22,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Monitoring,
   Param,
   Post,
   Put,
@@ -32,14 +33,14 @@ import { MongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
 
 import { TYPES } from '../../modules/types'
-import { sentry } from '../Server'
 
 @Controller('courses')
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator,
     @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
-    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
+    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus,
+    @inject(TYPES.Monitoring) private readonly monitoring: Monitoring
   ) {}
 
   @Get()
@@ -104,7 +105,7 @@ export class CourseController {
       .dispatch(command)
       .then((data) => info(data))
       .catch((e) => {
-        sentry.capture(e)
+        this.monitoring.capture(e)
         error(e)
       })
 

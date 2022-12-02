@@ -86,7 +86,8 @@ const moocConfig = convict({
     dsn: {
       doc: 'The Sentry connection DSN.',
       format: String,
-      env: 'SENTRY_DSN'
+      env: 'SENTRY_DSN',
+      default: ''
     }
   },
   rabbitmq: {

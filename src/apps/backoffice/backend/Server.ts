@@ -5,14 +5,15 @@ import fastifyQs from 'fastify-qs'
 import http from 'http'
 import { resolve } from 'path'
 import qs from 'qs'
+import { container } from 'tsyringe'
 
-import config from '@/Contexts/Backoffice/Shared/infrastructure/config'
-import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
+import { Monitoring, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
 import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
 import { error } from '@/Contexts/Shared/infrastructure/logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
+
+import { TYPES } from '../modules/types'
 
 type Options = {
   port?: number
@@ -22,16 +23,9 @@ type Options = {
   name?: string
 }
 
-export const sentry = new SentryModule({
-  options: {
-    dsn: config.get('sentry.dsn'),
-    debug: config.get('app.env') !== 'production'
-  }
-})
-
 export class Server {
   readonly #options?: Options
-  #adapter = new FastifyAdapter()
+  readonly #adapter = new FastifyAdapter()
   #httpServer?: http.Server
 
   constructor(options?: Options) {
@@ -39,7 +33,7 @@ export class Server {
 
     this.#adapter.enableCors()
     this.#adapter
-      .setMonitoringModule(sentry)
+      .setMonitoringModule(container.resolve<Monitoring>(TYPES.Monitoring))
       .setValidationModule(new JoiModule())
       .setValidationModule(new GeneralValidationModule())
   }

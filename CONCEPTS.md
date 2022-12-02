@@ -3,6 +3,12 @@
 ## Definiciones y acrónimos
 
 - **DDD**: Domain driven design
+  - Organización (a nivel empresa/compañía/negocio) - estructura organizacional
+  - Como son los equipos y sus interacciones, llevado a código
+  - Que partes son importantes, para centrarnos, llevar el código lo mejor que se pueda
+    - Financiera (más importante, esencial)
+    - Usuarios (menos importante)
+    - que partes deben estar más cohesionadas o independientes
 - **DTO**: Data Object Transfer
 - **TDD**: Test driven design
 - **DI**: Dependency inyector

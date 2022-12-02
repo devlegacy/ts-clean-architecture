@@ -22,8 +22,13 @@ export class MoocBackendApp {
   }
 
   async startHttp() {
-    const port = config.get('app.port')
-    this.#server = new Server(port)
+    const conf = {
+      host: config.get('app.ip'),
+      env: config.get('app.env'),
+      debug: config.get('app.debug'),
+      name: config.get('app.name')
+    }
+    this.#server = new Server(conf)
     await this.#server.listen()
   }
 

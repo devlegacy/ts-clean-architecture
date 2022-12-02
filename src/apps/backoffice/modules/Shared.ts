@@ -3,6 +3,7 @@ import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
 import { MongoConfigFactory, RabbitMQConfig, RabbitMQConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
+import { SentryConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure/monitoring'
 import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure/RabbitMQ'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
@@ -15,10 +16,13 @@ import {
 import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
+import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
 
 import { TYPES } from './types'
 
 const context = 'backoffice'
+const sentry = new SentryModule({ options: SentryConfigFactory.createConfig() })
+
 const mongoConfig = MongoConfigFactory.createConfig()
 const mikroOrmMongo = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
@@ -47,3 +51,5 @@ container
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
   // QueryBus - InMemory - Infrastructure
   .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
+  // Monitoring
+  .register(TYPES.Monitoring, { useValue: sentry })

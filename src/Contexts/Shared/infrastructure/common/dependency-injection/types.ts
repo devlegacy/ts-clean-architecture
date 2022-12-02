@@ -25,6 +25,7 @@ export const SHARED_TYPES = {
   CommandHandler: Symbol.for('CommandHandler'),
   // Query - application tag
   QueryHandler: Symbol.for('QueryHandler'),
+  Monitoring: Symbol.for('Monitoring'),
   // Test
   EnvironmentArranger: Symbol.for('EnvironmentArranger')
 }
