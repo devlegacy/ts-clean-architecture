@@ -65,6 +65,7 @@
 │  │  │  │  ├─ 📂 `common/`  own modules and config to improve other infrastructures modules   
 │  │  │  │  ├─ 📂 `platform-fastify/`     
 │  │  │  │  ├─ 📂 `joi/`     
+│  │  │  │  ├─ 📂 `typebox/`     
 │  │  │  │  ├─ 📂 `zod/`     
 │  │  │  │  ├─ 📂 `pipes/`     
 │  │  │  │  ├─ 📂 `sentry/`     
@@ -333,3 +334,23 @@ Apache benchmark
   # https://github.com/FiloSottile/mkcert
   mkcert
 ```
+
+## Docs
+
+<figure class="video_container">
+  <iframe src="https://www.youtube.com/watch?v=EKseAAm4pvY" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+<figure class="video_container">
+  <iframe src="https://www.youtube.com/watch?v=e53XrGsv45s" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+<!--  -->
+<figure class="video_container">
+  <iframe src="https://www.youtube.com/watch?v=oTPL9GNbwSE" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+
+----
+
+Pino
+<figure class="video_container">
+  <iframe src="https://www.youtube.com/watch?v=NvLmjl85Hf0" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>

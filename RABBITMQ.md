@@ -24,6 +24,17 @@
 
 ## Routing key
 
-- [empresa].[context].[version].[message type].[entity].[action]
-- codely.mooc.1.event.course.created
+- [empresa].[context|bundled context].[version].[message type].[entity | aggregate roo].[action]
+- codely.mooc.1.event.course.published
 
+- version: cambios que rompan compatibilidad
+  - Añadir un nuevo campo no rompe compatibilidad
+- type: command | event | etc
+- action: past event
+
+- https://github.com/fmvilas/topic-definition
+
+## Queue naming
+
+- [service].[entity].[action]_on_[event]
+- user.notification..notify_user_on_video_published

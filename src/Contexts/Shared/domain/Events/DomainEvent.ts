@@ -3,10 +3,13 @@ import { ObjectId } from '../value-object'
 export interface IDomainEvent {
   // id for the Aggregate Root that this event belongs to
   aggregateId: string
+  // event UUID identifier
   eventId: string
-  // When the event occurred
+  // When the event occurred, with a consistent format across events
   occurredOn: Date
+  // Primitive domain data
   attributes: DomainEventAttributes
+  // Meta, host, etc.
 }
 
 /**
@@ -15,6 +18,7 @@ export interface IDomainEvent {
  * All Domain Events `MUST` extend this class.
  */
 export abstract class DomainEvent {
+  // tag event name: AsyncAPI compliant, it should use action on past
   static EVENT_NAME: string
   static fromPrimitives: (props: IDomainEvent) => DomainEvent
 

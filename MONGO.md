@@ -9,3 +9,7 @@
 ## Index
 
 - [The ESR (Equality, Sort, Range) Rule](https://www.mongodb.com/docs/upcoming/tutorial/equality-sort-range-rule/)
+
+## Map vs Array
+
+- https://www.mongodb.com/community/forums/t/use-map-vs-array-of-embedded-documents/116801

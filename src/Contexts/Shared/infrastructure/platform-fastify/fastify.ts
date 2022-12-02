@@ -6,6 +6,7 @@ import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
 import Fastify, {
   FastifyError,
   FastifyInstance,
+  FastifyRegister,
   FastifyReply,
   FastifyRequest,
   FastifyServerOptions,
@@ -15,8 +16,7 @@ import { AddressInfo } from 'net'
 
 import { logger } from '@/Contexts/Shared/infrastructure/logger'
 
-import { ControllerResolver } from '../common'
-import { SentryModule } from '../sentry'
+import { ControllerResolver, Monitoring } from '../common'
 import { bootstrap } from './bootstrap'
 import { ValidationModule } from './interfaces'
 
@@ -66,6 +66,7 @@ export class FastifyAdapter {
   // #instance: FastifyInstance
   readonly #instance: FastifyInstance
   #validations: ValidationModule<any>[] = []
+  #monitoring?: Monitoring
 
   // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
   constructor({ options }: { options?: FastifyServerOptions } = {}) {
@@ -82,7 +83,7 @@ export class FastifyAdapter {
       .register(fastifyCookie)
   }
 
-  get instance() {
+  get app() {
     return this.#instance
   }
 
@@ -92,6 +93,12 @@ export class FastifyAdapter {
 
   setValidationModule<T = unknown>(validationModule: ValidationModule<T>) {
     this.#validations.push(validationModule)
+
+    return this
+  }
+
+  setMonitoringModule(monitoring: Monitoring) {
+    this.#monitoring = monitoring
 
     return this
   }
@@ -119,9 +126,7 @@ export class FastifyAdapter {
     })
 
     this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-      // TODO: Improve
-      SentryModule.capture(error, { req })
-
+      this.#monitoring?.capture(error, { req })
       for (const m of this.#validations) {
         if (res.sent) break
         m.errorHandler(error, req, res)
@@ -129,6 +134,13 @@ export class FastifyAdapter {
     })
 
     await bootstrap(this.#instance, props)
+  }
+
+  public register<TRegister extends Parameters<FastifyRegister<FastifyInstance>>>(
+    plugin: TRegister['0'],
+    opts?: TRegister['1']
+  ) {
+    return this.#instance.register(plugin, opts)
   }
 
   async listen({
