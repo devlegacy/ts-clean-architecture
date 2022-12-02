@@ -21,7 +21,6 @@ import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
 import { TYPES } from './types'
 
 const context = 'backoffice'
-const sentry = new SentryModule({ options: SentryConfigFactory.createConfig() })
 
 const mongoConfig = MongoConfigFactory.createConfig()
 const mikroOrmMongo = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
@@ -36,6 +35,8 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   rabbitFormatter,
   rabbitConfig
 )
+const sentry = new SentryModule({ options: SentryConfigFactory.createConfig() })
+
 // Infrastructure layer
 container
   // Bootstrap global dependencies

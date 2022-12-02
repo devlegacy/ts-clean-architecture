@@ -21,6 +21,8 @@
 - **Bounded context**: Múltiples modelos están en juego en cualquier proyecto grande. Sin embargo, cuando el código basado en distintos modelos se combina, el software se vuelve defectuoso, poco confiable y difícil de entender. La comunicación entre los miembros del equipo se vuelve confusa. A menudo no está claro en qué contexto no se debe aplicar un modelo.
 
   Por lo tanto: define explícitamente el contexto dentro del cual se aplica un modelo. Establece límites explícitamente en términos de organización del equipo, uso dentro de partes específicas de la aplicación y bases de códigos y esquemas de bases de datos. Mantén el modelo estrictamente consistente dentro de estos límites, pero no te distraigas por problemas externos.
+  - Generic context
+  - Core context
 - **Bus**: En arquitectura de programación, un bus (una contracción de ómnibus del latín) es un sistema de comunicación que transfiere datos entre componentes.
 - **CQRS**: Command Query Responsibility Segregation (CQRS) es un patrón de arquitectura en el que se separan y se desacoplan la escritura (vía commands) de la lectura (vía queries).
 - **command**: Objetos que representan una intención de aplicar una operación de negocio.

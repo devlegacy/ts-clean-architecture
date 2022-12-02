@@ -8,6 +8,7 @@ import {
   RabbitMQConfigFactory
   // , TypeOrmConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
+import { SentryConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure/monitoring'
 import { RabbitMQEventBusFactory } from '@/Contexts/Mooc/Shared/infrastructure/RabbitMQ'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
@@ -20,6 +21,7 @@ import {
 import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
+import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
 
 import { TYPES } from './types'
 
@@ -37,6 +39,8 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   rabbitFormatter,
   rabbitConfig
 )
+const sentry = new SentryModule({ options: SentryConfigFactory.createConfig() })
+
 // Infrastructure layer
 container
   // Bootstrap global dependencies
@@ -59,3 +63,5 @@ container
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
   // QueryBus - InMemory - Infrastructure
   .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
+  // Monitoring
+  .register(TYPES.Monitoring, { useValue: sentry })
