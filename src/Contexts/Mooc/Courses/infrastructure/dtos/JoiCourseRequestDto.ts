@@ -2,7 +2,7 @@ import { JoiSchema } from 'joi-class-decorators'
 
 import { Joi } from '@/Contexts/Shared/infrastructure/joi'
 
-export class JoiCourseDto {
+export class JoiCourseRequestDto {
   @JoiSchema(Joi.string().required())
   readonly id!: string
 

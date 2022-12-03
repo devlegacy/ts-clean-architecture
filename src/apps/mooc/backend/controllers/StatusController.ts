@@ -1,4 +1,4 @@
-import { JoiCourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/JoiCourseDto'
+import { JoiCourseRequestDto, JoiCoursesRequestDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos'
 import { ZodCourseDto } from '@/Contexts/Mooc/Courses/infrastructure/dtos/ZodCourseDto'
 import { IndexHeadersDto, IndexQueryDto, UserDto } from '@/Contexts/Mooc/Status/infrastructure'
 import {
@@ -36,8 +36,13 @@ export class StatusController {
   }
 
   @Post('joi')
-  joi(@Body() course: JoiCourseDto) {
+  joi(@Body() course: JoiCourseRequestDto) {
     return course
+  }
+
+  @Post('joi/array')
+  joiArray(@Body() courses: JoiCoursesRequestDto) {
+    return courses
   }
 
   @Post('zod')
