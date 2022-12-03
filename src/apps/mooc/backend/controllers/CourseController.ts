@@ -38,8 +38,7 @@ export class CourseController {
     // await this.courseCreator.run(course)
 
     // Optimistic - Not wait
-    // DEBT: Without await and crash then the app breaks
-    await this.commandBus.dispatch(new CreateCourseCommand(course))
+    this.commandBus.dispatch(new CreateCourseCommand(course))
 
     return {}
   }

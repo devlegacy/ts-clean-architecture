@@ -32,7 +32,7 @@
     "**/bower_components/": true,
     "**/CVS": true,
     "**/node_modules/": true,
-    // "*git*": true,
+    "*git*": true,
     "*lock*": true, // lock files
     "ABOUT.md": true,
     "CHANGELOG.md": true,
@@ -55,6 +55,20 @@
   },
   "prettier.requireConfig": true,
   "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT"],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "bookmark"
+    },
+    "NOTE": {
+      "icon": "note"
+    },
+    "DOC": {
+      "icon": "book"
+    },
+    "DEBT": {
+      "icon": "alert-fill"
+    }
+  },
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },

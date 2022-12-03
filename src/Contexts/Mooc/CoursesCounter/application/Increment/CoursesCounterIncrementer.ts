@@ -8,7 +8,6 @@ import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../.
 
 @injectable()
 export class CoursesCounterIncrementer {
-  // DEBT: TYPES es undefined por alguna razón al importar en los test
   constructor(
     @inject(TYPES.CoursesCounterRepository) private readonly repository: CoursesCounterRepository,
     @inject(TYPES.EventBus) private readonly eventBus: EventBus

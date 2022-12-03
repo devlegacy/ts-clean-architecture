@@ -12,12 +12,13 @@
 ```
 
 📏 Rules:
-- It should answer the question What? and Why?
+- It should answer the question What? and Why? vs How?
 - It should use imperative actions
 
 🔗 Read more on:
 - [🦊 issues](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#default-closing-pattern)
 - [🐙 issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+- [📏 rules](https://cbea.ms/git-commit/#seven-rules)
 
 <h3 align="center">Commit convention</h3>
 
@@ -93,43 +94,85 @@
 
 Branch names: 
 - 🔑 key or principal branches
-  - main | master
-  - develop
+  - `main` | `master`: 
+  - `develop`: Donde se integrarán los desarrollos, parte originalmente de `main`/`master`
 ----
-- flow branches
-  - feature: new functionality
-    - develop ➡ feature/[name] ➡ develop
-  - bug: 
-  - support:
-  - release: new version and stable
-    - develop ➡ release/[major.minor.patch] ➡ master, develop
-  - hotfix: [change | patch] important
-    - master  ➡ hotfix/[name] ➡ master, develop
-  - fix: fix error
+- 🔀 flow branches
+  - `feature`: Para cada nueva feature|tarea|funcionalidad que añadamos al proyecto, partirán de `develop` y se crean los PRs para hacer merge en esa misma rama
+    - `develop` ➡ `feature/[name]` ➡ `develop`
+  - `bug`: 
+  - `support`:
+  - `release`: Parte desde `develop` para integrarse con el código de `main`/`master` de cara a generar nuevas y estables versiones de nuestra aplicación
+    - `develop` ➡ `release/[major.minor.patch]` ➡ `master`, `develop`
+    - en backend carece de sentido
+  - `hotfix`: Al estar orientadas a resolver fallos en producción rápidamente, parte y se integra directamente en `main`/`master`, llevando también la corrección a `develop`
+    - [change | patch] important
+    - `master`  ➡ `hotfix/[name]` ➡ `master`, `develop`
+  - `fix`: fix error
+
+- `develop`:  Se correspondería con nuestras ramas `feature`/`fix`/`update`…
+- `production`: Aquí podemos encontrar dos escenarios; que se corresponda con la rama `main`/`master`, o con el último punto de nuestra rama de trabajo
+- `pre-production`: En este caso partiría del mismo punto que el entorno de desarrollo
+
+⚙ Settings:
+
+- Branch rules
+- Requiere approving reviewer(s)
+- Require CI/CD checks to pass 
+- Require signed commits
+- Delete branches on merge
+
+<h2 align="center">Environments</h2>
+
+- `production`
+- `develop`
+- `staging`
+- `test`
 
 <h2 align="center">Issues</h2>
+
+Actionable | Task | Topics | Bugs
 
 💡 Samples:
 - closes #32
 - related to #32
 
-🔗 Read more on:
-- [🦊 issues](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#default-closing-pattern)
-- [🐙 issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+🏷 Labels:
 
-<h2 align="center">Merge request | Pull request</h2>
+- `documentation`
+
+🔗 Read more on:
+- [🦊 manage](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#default-closing-pattern)
+- [🦊 templates](https://docs.gitlab.com/ee/user/project/description_templates.html)
+- [🐙 manage](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+- [🐙 templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repositoryd)
+
+<h2 align="center">🤝 Merge request | Pull request</h2>
+
+⚙ Settings:
+
+- Branch requirements
+
+🏷 Labels:
+
+- `bug`
 
 📏 Rules:
-- It should explain what the change want to achieve
-- It should descriptive commit messages
-- It should have a ticket/issue link
-- It should have screenshots
+- It should have a title limit of 72 characters
+- It should explain what the change wants to achieve
+- It should have a descriptive commit messages
+- It should have a ticket/issue link (task list)
+- It should have screenshots/animation/uml (if we worked with something complex)
 - It should have a delta less than 200 lines
 
-## Code review
+- tree explorer gitlab | github
 
+<h2 align="center">📄🔍 Code reviews</h2>
+
+📏 Rules to reviewer:
 - add comments to code
 
+📏 Rules for review:
 - Acceptance criteria
 - Side effects
 - Legibility
@@ -139,9 +182,10 @@ Branch names:
 - Exception handler
 - Simplicity
 - Testing
----
-- Automate - eslint
-- Each member of the team should do code reviews!
+
+✅ Good practice:
+- 🤖 Automate - eslint
+- each team member should do code reviews!
 - ask for context
 - Focus on code not on developer
 - ask for (opinions|alternatives), not to give orders
@@ -153,7 +197,8 @@ Branch names:
   git gc
 ```
 
-## Read more
+## 🔗 Read more on
 
 - https://shields.io/category/platform-support
 - https://git-lfs.github.com/
+- https://github.com/tj/git-extras
