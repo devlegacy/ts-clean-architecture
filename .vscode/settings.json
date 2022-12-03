@@ -32,7 +32,7 @@
     "**/bower_components/": true,
     "**/CVS": true,
     "**/node_modules/": true,
-    "*git*": true,
+    // "*git*": true,
     "*lock*": true, // lock files
     "ABOUT.md": true,
     "CHANGELOG.md": true,

@@ -75,7 +75,8 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
 
   protected async repository(): Promise<EntityRepository<T>> {
     const client = await this._client
-    return client?.em.fork().getRepository(this.entitySchema())
+    const repository = client?.em.fork().getRepository(this.entitySchema())
+    return repository
   }
 
   protected async persist(aggregateRoot: T): Promise<void> {
