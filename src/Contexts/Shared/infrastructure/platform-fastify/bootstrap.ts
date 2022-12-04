@@ -9,15 +9,7 @@ import type { Class, Constructor } from 'type-fest'
 
 import { info } from '@/Contexts/Shared/infrastructure/logger'
 
-import {
-  getMethodGroup,
-  getSchema,
-  ParamData,
-  RequestMappingMetadata,
-  RequestMethod,
-  RouteParamMetadata,
-  RouteParamtypes
-} from '../common'
+import { ParamData, RequestMappingMetadata, RequestMethod, RouteParamMetadata, RouteParamtypes } from '../common'
 import {
   HTTP_CODE_METADATA,
   METHOD_METADATA,
@@ -29,6 +21,8 @@ import { ControllerResolver } from '../common/dependency-injection'
 import { PipeTransform } from '../common/interfaces'
 import { Paramtype } from '../common/interfaces/features/paramtype.interface'
 import { Primary } from './cluster'
+import { FastifyAdapter } from './fastify'
+import { ValidationModule } from './interfaces'
 import { isConstructor, normalizePath } from './shared.utils'
 
 const availableCpus = cpus().length
@@ -195,11 +189,41 @@ const getParams = (
   return routeParams
 }
 
+export const getSchema = (
+  schema: FastifySchema,
+  method: any,
+  schemasBuilders?: ValidationModule<any>[]
+): FastifySchema | undefined => {
+  let invalidSchemasCounter = 0
+  let shouldBreak = false
+
+  const keys = Object.keys(schema) as (keyof FastifySchema)[]
+  if (!keys.length || !schemasBuilders || !schemasBuilders.length) return undefined
+
+  for (const key of keys) {
+    shouldBreak = false
+    for (const builder of schemasBuilders) {
+      shouldBreak = builder.schemaBuilder(schema, key, builder.getMethodGroup(method))
+      if (shouldBreak) break
+    }
+    if (shouldBreak) continue
+
+    // Sanitize
+    delete schema[`${key}`]
+    invalidSchemasCounter++
+  }
+
+  if (invalidSchemasCounter === keys.length) return undefined
+
+  return schema
+}
+
 const buildSchemaWithParams = (
   params: Record<string, RouteParamMetadata>,
   schema: any,
   method: any,
-  args: any[] = []
+  args: any[] = [],
+  validations: ValidationModule<any>[] = []
 ): any => {
   const keyParams = getKeyParam(params)
   // console.log(args)
@@ -219,7 +243,7 @@ const buildSchemaWithParams = (
     }
   }
 
-  schema.schema = getSchema(schema.schema, getMethodGroup(method))
+  schema.schema = getSchema(schema.schema, method, validations)
 
   return schema
 }
@@ -227,12 +251,12 @@ const buildSchemaWithParams = (
 /**
  * Registrar controladores, solo relacionado a capa de infraestructura HTTP
  * TODO: Should be a singleton because has a child container creation
- * @param fastify
+ * @param adapterInstance
  * @param props
  */
 // export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
 export const bootstrap = async (
-  fastify: FastifyInstance,
+  adapterInstance: FastifyAdapter,
   props: { controller: string; isProduction: boolean; prefix?: string; resolver?: ControllerResolver }
 ) => {
   // const controllerContainer = container.createChildContainer()
@@ -250,7 +274,7 @@ export const bootstrap = async (
       const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instanceConstructor, methodName)
       if (params) {
         const args: any[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
-        buildSchemaWithParams(params, schema, requestMethod, args)
+        buildSchemaWithParams(params, schema, requestMethod, args, adapterInstance.validations)
       }
 
       const route = {
@@ -262,7 +286,7 @@ export const bootstrap = async (
         instance,
         methodName
       }
-      clusterServer(fastify, route, props.isProduction)
+      clusterServer(adapterInstance.app, route, props.isProduction)
     }
   }
 }

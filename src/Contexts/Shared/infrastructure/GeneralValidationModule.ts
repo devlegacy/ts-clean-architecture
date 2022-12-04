@@ -1,5 +1,5 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef } from 'fastify/types/schema'
+import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import CreateHttpError from 'http-errors'
 
 import { EntityNotFoundException, InvalidArgumentException } from '../domain'
@@ -26,5 +26,13 @@ export class GeneralValidationModule implements ValidationModule<unknown> {
     }
     // TODO: Improve general error handler to catch unknown errors
     return res.status(500).send(new Error(`GeneralValidationModule[errorHandler]: Unhandled error ${err.message}`))
+  }
+
+  schemaBuilder(_schema: FastifySchema, _key: keyof FastifySchema, _group?: any) {
+    return false
+  }
+
+  getMethodGroup(_group?: any) {
+    return undefined
   }
 }

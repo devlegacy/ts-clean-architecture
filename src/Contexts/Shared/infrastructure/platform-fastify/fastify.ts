@@ -64,8 +64,8 @@ const fastifyServerOptions: FastifyServerOptions = {
 
 export class FastifyAdapter {
   // #instance: FastifyInstance
+  readonly validations: ValidationModule<any>[] = []
   readonly #instance: FastifyInstance
-  #validations: ValidationModule<any>[] = []
   #monitoring?: Monitoring
 
   // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
@@ -92,7 +92,7 @@ export class FastifyAdapter {
   }
 
   setValidationModule<T = unknown>(validationModule: ValidationModule<T>) {
-    this.#validations.push(validationModule)
+    this.validations.push(validationModule)
 
     return this
   }
@@ -110,7 +110,7 @@ export class FastifyAdapter {
     resolver?: ControllerResolver
   }) {
     this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
-      for (const m of this.#validations) {
+      for (const m of this.validations) {
         if (m.validationCompiler(schemaDefinition)) {
           return m.validationCompiler(schemaDefinition)
         }
@@ -124,16 +124,15 @@ export class FastifyAdapter {
       // }
       return new Error('')
     })
-
     this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
       this.#monitoring?.capture(error, { req })
-      for (const m of this.#validations) {
+      for (const m of this.validations) {
         if (res.sent) break
         m.errorHandler(error, req, res)
       }
     })
 
-    await bootstrap(this.#instance, props)
+    await bootstrap(this, props)
   }
 
   public register<TRegister extends Parameters<FastifyRegister<FastifyInstance>>>(

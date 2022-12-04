@@ -6,6 +6,7 @@ import { DEFAULT, getClassSchema, JoiValidationGroup } from 'joi-class-decorator
 import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 import { ObjectId } from 'mongodb'
 
+import { RequestMethod } from '../common'
 import { ValidationModule } from '../platform-fastify'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
@@ -110,6 +111,17 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
       }
     }
     return false
+  }
+
+  getMethodGroup(group: RequestMethod): SchemaMethodGroup {
+    if (group === RequestMethod.POST) {
+      return { group: 'CREATE' }
+    } else if ([RequestMethod.PUT, RequestMethod.PATCH].includes(group)) {
+      return { group: 'UPDATE' }
+    } else if (group === RequestMethod.DELETE) {
+      return { group: 'DELETE' }
+    }
+    return undefined
   }
 
   isSchemaJoiCandidate(objectSchema: unknown) {

@@ -6,6 +6,7 @@ export interface ValidationModule<T> {
   errorHandler: (error: FastifyError, req: FastifyRequest, res: FastifyReply) => void
   // Usado para construir los esquemas del request al construir el controlador en bootstrap, fallback and retro-compatibilidad feature, debe eliminarse
   schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, group?: any): boolean
+  getMethodGroup(group?: any): any
 }
 
 export interface HttpError {
