@@ -98,7 +98,6 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
     }
   }
 
-  // TODO: Losses scope when is called
   schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, group?: SchemaMethodGroup) {
     const objectSchema = schema[`${key}`] || {}
     if (Joi.isSchema(objectSchema)) return true // Avoid transform if is already a joi schema

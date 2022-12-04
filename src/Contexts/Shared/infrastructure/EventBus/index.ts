@@ -1,4 +1,5 @@
 export * from './DomainEventDeserializer'
+export * from './DomainEventFailoverPublisher'
 export * from './DomainEventJsonSerializer'
 export * from './DomainEventSubscribers'
 export * from './InMemory'

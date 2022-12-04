@@ -38,6 +38,7 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
       })
     }
   }
+
   getMethodGroup(_group?: any) {
     return undefined
   }

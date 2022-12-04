@@ -2,21 +2,26 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
-import { MongoConfigFactory, RabbitMQConfig, RabbitMQConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
-import { SentryConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure/monitoring'
-import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure/RabbitMQ'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
-import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
 import {
+  MongoConfigFactory,
+  RabbitMQConfig,
+  RabbitMQConfigFactory,
+  RabbitMQEventBusFactory,
+  SentryConfigFactory
+} from '@/Contexts/Backoffice/Shared/infrastructure'
+import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
+import {
+  InMemoryCommandBus,
+  InMemoryQueryBus,
+  MikroOrmMongoClientFactory,
+  MikroOrmMongoDomainEventFailoverPublisher,
+  MongoConfig,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQEventBus,
-  RabbitMQQueueFormatter
-} from '@/Contexts/Shared/infrastructure/EventBus'
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
-import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
-import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
-import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
+  RabbitMQQueueFormatter,
+  SentryModule
+} from '@/Contexts/Shared/infrastructure'
 
 import { TYPES } from './types'
 
