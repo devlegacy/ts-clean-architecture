@@ -1,8 +1,9 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef } from 'fastify/types/schema'
+import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
 import * as joi from 'joi'
-import { DEFAULT } from 'joi-class-decorators'
+import { DEFAULT, getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
+import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 import { ObjectId } from 'mongodb'
 
 import { ValidationModule } from '../platform-fastify'
@@ -45,6 +46,8 @@ const validationOptions: joi.ValidationOptions = {
     stack: true
   }
 }
+
+type SchemaMethodGroup = { group: JoiValidationGroup } | undefined
 
 class JoiModule implements ValidationModule<joi.AnySchema> {
   validationCompiler(schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>) {
@@ -92,6 +95,29 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
         errors: this.schemaErrorFormatter(err)
       })
     }
+  }
+
+  // TODO: Losses scope when is called
+  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, group?: SchemaMethodGroup) {
+    const objectSchema = schema[`${key}`] || {}
+    if (Joi.isSchema(objectSchema)) return true // Avoid transform if is already a joi schema
+
+    if (this.isSchemaJoiCandidate(objectSchema)) {
+      const buildSchema = getClassSchema(objectSchema as Constructor, group)
+      if (Joi.isSchema(buildSchema)) {
+        schema[`${key}`] = buildSchema
+        return true
+      }
+    }
+    return false
+  }
+
+  isSchemaJoiCandidate(objectSchema: unknown) {
+    return (
+      typeof objectSchema === 'function' &&
+      Array.isArray(Reflect.getMetadataKeys(objectSchema?.prototype)) &&
+      Reflect.getMetadataKeys(objectSchema.prototype)[0] === SCHEMA_PROTO_KEY
+    )
   }
 }
 

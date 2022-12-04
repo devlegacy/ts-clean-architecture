@@ -1,5 +1,5 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef } from 'fastify/types/schema'
+import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
 import { ZodError, ZodObject, ZodSchema, ZodTypeDef } from 'zod'
 
@@ -37,6 +37,16 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
         errors: err.issues
       })
     }
+  }
+
+  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema) {
+    const objectSchema = schema[`${key}`] || {}
+    if ((objectSchema as any).isZodDto) {
+      schema[`${key}`] = (objectSchema as any).schema
+      return true
+    }
+
+    return false
   }
 }
 

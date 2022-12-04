@@ -171,8 +171,7 @@ const getParams = (
 
   for (const keyParam of keyParams) {
     const [paramtype, index, key] = keyParam
-    const { data, pipes } = params[key]
-
+    const { data, pipes } = params[`${key}`]
     if (paramtype === RouteParamtypes.REQUEST) {
       routeParams[`${index}`] = req
     } else if (paramtype === RouteParamtypes.RESPONSE) {
@@ -183,13 +182,11 @@ const getParams = (
       routeParams[`${index}`] = data ? req.query[`${data}`] : req.query
     } else if (paramtype === RouteParamtypes.PARAM) {
       pipeBuilder(req, 'params', data, pipes)
-
       routeParams[`${index}`] = data ? req.params[`${data}`] : req.params
     } else if (paramtype === RouteParamtypes.BODY) {
       routeParams[`${index}`] = req.body
     } else if (paramtype === RouteParamtypes.HEADERS) {
       pipeBuilder(req, 'headers', data, pipes)
-
       // Extract a part of headers
       routeParams[`${index}`] = data ? req.headers[`${data}`] : req.headers
     }
