@@ -20,7 +20,7 @@ import { Course, CourseEntityDto, CourseRepository } from '../../domain'
 export class CourseCreator {
   constructor(
     @inject(TYPES.CourseRepository) private readonly repository: CourseRepository,
-    @inject(TYPES.EventBus) private readonly eventBus: EventBus
+    @inject(TYPES.EventBus) private readonly bus: EventBus
   ) {}
 
   // async run(request: CoursePrimitiveProps) {
@@ -38,6 +38,6 @@ export class CourseCreator {
     const course = Course.create(request.id, request.name, request.duration ?? request.duration)
 
     await this.repository.save(course)
-    await this.eventBus.publish(course.pullDomainEvents())
+    await this.bus.publish(course.pullDomainEvents())
   }
 }

@@ -29,7 +29,7 @@ import {
   Query
 } from '@/Contexts/Shared/infrastructure/common'
 import { error, info } from '@/Contexts/Shared/infrastructure/logger'
-import { MongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
+import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
 
 import { TYPES } from '../../modules/types'
@@ -82,7 +82,7 @@ export class CourseController {
   }
 
   @Get(':courseId')
-  async show(@Param('courseId', MongoIdPipe) courseId: string) {
+  async show(@Param('courseId', ObjectIdPipe) courseId: string) {
     const filters = Filter.parseFilters([
       {
         field: 'id',
@@ -113,14 +113,14 @@ export class CourseController {
   }
 
   @Put(':courseId')
-  async update(@Param('courseId', MongoIdPipe) courseId: string, @Body() course: CourseRequestDto) {
+  async update(@Param('courseId', ObjectIdPipe) courseId: string, @Body() course: CourseRequestDto) {
     const command = new UpdateBackofficeCourseCommand(course)
     await this.commandBus.dispatch(command)
     return course
   }
 
   @Delete(':courseId')
-  async delete(@Param('courseId', MongoIdPipe) courseId: string) {
+  async delete(@Param('courseId', ObjectIdPipe) courseId: string) {
     const filter = { id: courseId }
     const command = new DeleteBackofficeCourseCommand({ id: courseId })
     await this.commandBus.dispatch(command)

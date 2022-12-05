@@ -14,7 +14,7 @@ import {
   Req,
   Res
 } from '@/Contexts/Shared/infrastructure/common'
-import { MongoIdPipe as JoiMongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
+import { ObjectIdPipe as JoiMongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
 import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/zod'
 
 @Controller('status')

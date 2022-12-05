@@ -13,16 +13,16 @@ export class CourseCreatedDomainEvent extends DomainEvent {
 
   constructor({
     aggregateId,
-    duration,
     eventId,
-    name,
-    occurredOn
+    occurredOn,
+    duration,
+    name
   }: {
     aggregateId: string
-    duration?: string
     eventId?: string
-    name: string
     occurredOn?: Date
+    duration?: string
+    name: string
   }) {
     super({
       aggregateId,
