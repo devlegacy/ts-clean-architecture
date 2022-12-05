@@ -5,10 +5,16 @@ export const SHARED_TYPES = {
   // Mongo
   MongoConfig: Symbol.for('MongoConfig'),
   MongoClient: Symbol.for('MongoClient'),
-  // TypeORM
+  // TypeOrm
   TypeOrmConfig: Symbol.for('TypeOrmConfig'),
   TypeOrmClient: Symbol.for('TypeOrmClient'),
   DataSource: Symbol.for('DataSource'),
+  // Postgres
+  PostgresConfig: Symbol.for('PostgresConfig'),
+  PostgresClient: Symbol.for('PostgresClient'),
+  // Postgres
+  MikroOrmPostgresConfig: Symbol.for('MikroOrmPostgresConfig'),
+  MikroOrmPostgresClient: Symbol.for('MikroOrmPostgresClient'),
   // EvenBus
   EventBus: Symbol.for('EventBus'),
   // Rabbit

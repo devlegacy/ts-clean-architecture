@@ -7,7 +7,7 @@ import { AggregateRoot } from '@/Contexts/Shared/domain'
 import { SHARED_TYPES } from '../../common'
 
 export abstract class MikroOrmPostgresRepository<T extends AggregateRoot> {
-  private readonly _client: Promise<MikroORM<PostgreSqlDriver>> = container.resolve(SHARED_TYPES.MongoClient)
+  private readonly _client: Promise<MikroORM<PostgreSqlDriver>> = container.resolve(SHARED_TYPES.MikroOrmPostgresClient)
 
   protected client(): Promise<MikroORM<PostgreSqlDriver>> {
     return this._client
