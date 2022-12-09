@@ -8,7 +8,9 @@
 
 ## Node Memory
 
-node --max-old-space-size=1024
+```sh
+  node --max-old-space-size=1024
+```
 
 ## Crypto
 

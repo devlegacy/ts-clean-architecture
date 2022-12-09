@@ -30,12 +30,20 @@
 │  │  │  ├─ 📂 `Courses/` 📥 Module - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
 │  │  │  │  │  ├─ 📂 `Creator/` - 📥 Module   
+│  │  │  │  │  │  ├─ 📄 `CreateCourseCommand.ts` | can't use command bus (keep one responsibility)    
+│  │  │  │  │  │  ├─ 📄 `CreateCourseCommandHandler.ts` - instance Value Objects   
+│  │  │  │  │  │  ├─ 📄 `CourseCreator.ts`   use case | can use query bus   
 │  │  │  │  │  ├─ 📂 `SearchByCriteria/` - 📥 Module   
+│  │  │  │  │  │  ├─ 📄 `SearchByCriteriaQuery.ts`    
+│  │  │  │  │  │  ├─ 📄 `SearchByCriteriaQueryHandler.ts`    
+│  │  │  │  │  │  ├─ 📄 `CourseFinder.ts`   use case 
 │  │  │  │  │  ├─ 📄 `CoursesUseCase.ts` Servicio | Servicio de aplicación | Caso de uso    
 │  │  │  │  │  ├─ 📄 `Course[UseCase].ts`   
 │  │  │  │  │  ├─ 📄 `CoursesResponse.ts `   
 │  │  │  │  ├─ 📂 `domain/` - ¿De qué tipo? (UserId, User, UserRepository)   
 │  │  │  │  │  ├─ 📄 `CourseFinder.ts` Servicio | Servicio de dominio | Caso de uso    
+│  │  │  │  │  ├─ 📄 `Course.ts`     
+│  │  │  │  │  ├─ 📄 `CourseCreateDomainEvent.ts`     
 │  │  │  │  │  ├─ 📂 `exceptions/`   
 │  │  │  │  │  ├─ 📂 `value-objects/`   
 │  │  │  │  │  ├─ 📂 `criteria/`   
@@ -88,7 +96,7 @@
 │  ├─ 📂 `Contexts/` Unitarios | Integración - Infraestructura (repositorio con base de datos)     
 │  │  ├─ 📂 `Mooc/`     
 │  │  │  ├─ 📂 `Courses/`     
-│  │  │  │  ├─ 📂 `__mocks__/` Elementos de infraestructura, estrategía para no acoplarnos a una implementación en concreto     
+│  │  │  │  ├─ 📂 `__mocks__/` Elementos de infraestructura, estrategia para no acoplarnos a una implementación en concreto     
 │  │  │  │  ├─ 📂 `__mother__/`     
 │  │  │  │  ├─ 📂 `application/`     
 │  │  │  │  ├─ 📂 `domain/`     
@@ -104,7 +112,17 @@
 
 ### Notes
 
-- Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
+- ⚙ Controller rules 📏
+  - Primary port
+  - It receives primitives | scalars - `[Entity | Course][Action | Create]RequestDto`
+  - It could instantiate  `use cases` | `use cases` ↔ `value objects` | `query bus` ↔ `queries` | `command bus` ↔ `commands`
+    -  `use cases` ↔ `value objects` could be migrated to `CQRS`
+- Uses case rules
+  - Naming Creator | Updater | Deleter | Incrementer 
+  - It should instantiate `value objects` or `domain objects`
+  - It should throw `Error` | `Exception`
+- 📥 Module rules 📏
+  - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 
 ## 🧪 Test
 
