@@ -42,6 +42,14 @@ const moocConfig = convict({
       env: 'APP_ENV'
     }
   },
+  log: {
+    level: {
+      doc: 'The application log level.',
+      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
+      default: 'info',
+      env: 'LOG_LEVEL'
+    }
+  },
   mongo: {
     url: {
       doc: 'The MongoDB connection URL.',

@@ -2,6 +2,9 @@ export const SHARED_TYPES = {
   // Infrastructure
   // Config
   config: Symbol.for('config'),
+  // Logger
+  Logger: Symbol.for('Logger'),
+  Monitoring: Symbol.for('Monitoring'),
   // Mongo
   MongoConfig: Symbol.for('MongoConfig'),
   MongoClient: Symbol.for('MongoClient'),
@@ -12,7 +15,7 @@ export const SHARED_TYPES = {
   // Postgres
   PostgresConfig: Symbol.for('PostgresConfig'),
   PostgresClient: Symbol.for('PostgresClient'),
-  // Postgres
+  // MikroOrmPostgres
   MikroOrmPostgresConfig: Symbol.for('MikroOrmPostgresConfig'),
   MikroOrmPostgresClient: Symbol.for('MikroOrmPostgresClient'),
   // EvenBus
@@ -31,7 +34,6 @@ export const SHARED_TYPES = {
   CommandHandler: Symbol.for('CommandHandler'),
   // Query - application tag
   QueryHandler: Symbol.for('QueryHandler'),
-  Monitoring: Symbol.for('Monitoring'),
   // Test
   EnvironmentArranger: Symbol.for('EnvironmentArranger')
 }

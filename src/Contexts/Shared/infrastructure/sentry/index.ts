@@ -3,7 +3,7 @@ import * as Tracing from '@sentry/tracing'
 import { resolve } from 'path'
 import { cwd } from 'process'
 
-import { Monitoring } from '../common'
+import { Monitoring } from '../../domain'
 
 // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
 const packageJson: Record<string, string> = require(resolve(cwd(), './package.json'))
@@ -11,7 +11,7 @@ const packageJson: Record<string, string> = require(resolve(cwd(), './package.js
 const options: Sentry.NodeOptions = {
   debug: true,
   environment: 'development',
-  dsn: 'https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751',
+  dsn: '',
   release: packageJson.version,
   integrations: [
     // enable HTTP calls tracing
@@ -28,6 +28,7 @@ const options: Sentry.NodeOptions = {
 
 export class SentryModule implements Monitoring {
   #options: Sentry.NodeOptions
+
   constructor(config?: { options?: Sentry.NodeOptions }) {
     this.#options = {
       ...options,
