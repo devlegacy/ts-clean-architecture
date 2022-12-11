@@ -1,3 +1,5 @@
+export * from './logger'
+export * from './monitoring'
 export * from './persistence/mongo/MongoConfigFactory'
-export * from './RabbitMQ/RabbitMQConfigFactory'
+export * from './RabbitMQ'
 // export * from './persistence/postgresql/TypeOrmConfigFactory'

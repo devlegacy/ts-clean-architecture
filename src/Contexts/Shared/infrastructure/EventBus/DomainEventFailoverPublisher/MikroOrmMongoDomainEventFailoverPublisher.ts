@@ -48,6 +48,6 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
       .getConnection()
       .getDb()
       .collection(MikroOrmMongoDomainEventFailoverPublisher.collectionName)
-    return collection as Collection
+    return collection
   }
 }

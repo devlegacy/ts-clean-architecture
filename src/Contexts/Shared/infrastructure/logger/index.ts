@@ -1,8 +1,10 @@
 import { resolve } from 'path'
-import pino, { LoggerOptions } from 'pino'
+import pino, { Logger, LoggerOptions } from 'pino'
 import pretty from 'pino-pretty'
 import { cwd } from 'process'
 import util from 'util'
+
+import { CustomLogger } from '../../domain'
 
 const stream = pretty({
   colorize: true, // colorizes the log
@@ -26,7 +28,7 @@ export let logger = () =>
     pino.multistream(streams)
   )
 
-export const fatalErrorHandler = (err: Error, ..._args: Array<unknown>) => {
+export const fatalErrorHandler = (err: Error, ..._args: unknown[]) => {
   logger().error(err)
   process.exit(1)
 }
@@ -49,3 +51,52 @@ export const warn = logger().warn.bind(logger())
 export const debug = logger().debug.bind(logger())
 export const fatal = logger().fatal.bind(logger())
 export const error = logger().error.bind(logger())
+
+export class PinoLogger implements CustomLogger {
+  #logger: Logger
+
+  constructor(conf: { name?: string; level?: string } = { level: 'info' }) {
+    this.#logger = pino(conf, pino.multistream(streams))
+  }
+
+  info(obj: unknown): void {
+    this.#logger.info(obj)
+  }
+
+  warn(obj: unknown): void {
+    this.#logger.warn(obj)
+  }
+
+  debug(obj: unknown): void {
+    this.#logger.debug(obj)
+  }
+
+  fatal(obj: unknown): void {
+    this.#logger.fatal(obj)
+  }
+
+  error(obj: unknown): void {
+    this.#logger.error(obj)
+  }
+}
+
+// logger().info(
+//   {
+//     x: 'samuel',
+//     y: 'Rojas',
+//     z: '%s'
+//   },
+//   'person',
+//   'demo'
+// )
+
+// logger().info(
+//   '%o\n%s',
+//   {
+//     x: 'samuel',
+//     y: 'Rojas',
+//     z: '%'
+//   },
+//   'person',
+//   'demo'
+// )

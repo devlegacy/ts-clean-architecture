@@ -1,9 +1,11 @@
 import 'reflect-metadata'
 import '../../modules'
 
-import { error, info } from '@/Contexts/Shared/infrastructure/logger'
+import { error, fatalErrorHandler, info } from '@/Contexts/Shared/infrastructure/logger'
 
 import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
+
+process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
 
 ConfigureRabbitMQCommand.run()
   .then(() => {
