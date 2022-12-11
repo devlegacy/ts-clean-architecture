@@ -3,13 +3,14 @@ import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
 import {
+  LoggerConfigFactory,
   MongoConfigFactory,
   RabbitMQConfig,
-  RabbitMQConfigFactory
+  RabbitMQConfigFactory,
+  RabbitMQEventBusFactory,
   // , TypeOrmConfigFactory
+  SentryConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
-import { SentryConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure/monitoring'
-import { RabbitMQEventBusFactory } from '@/Contexts/Mooc/Shared/infrastructure/RabbitMQ'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
 import {
@@ -19,6 +20,7 @@ import {
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
 import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/logger'
 import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
 import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
 import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
@@ -40,6 +42,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   rabbitConfig
 )
 const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+const logger = new PinoLogger(LoggerConfigFactory.createConfig())
 
 // Infrastructure layer
 container
@@ -65,3 +68,4 @@ container
   .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
   // Monitoring
   .register(TYPES.Monitoring, { useValue: monitoring })
+  .register(TYPES.Logger, { useValue: logger })
