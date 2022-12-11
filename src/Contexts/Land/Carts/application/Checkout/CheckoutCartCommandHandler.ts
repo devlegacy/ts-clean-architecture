@@ -1,0 +1,16 @@
+import { CartId, OrderId } from '@/Contexts/Land/Shared/domain'
+import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+
+import { CartCheckout } from './CartCheckout'
+import { CheckoutCartCommand } from './CheckoutCartCommand'
+
+export class CheckoutCartCommandHandler implements CommandHandler<CheckoutCartCommand> {
+  constructor(private readonly checkout: CartCheckout) {}
+  subscribedTo(): Command {
+    return CheckoutCartCommand
+  }
+
+  async handle(command: CheckoutCartCommand): Promise<void> {
+    this.checkout.run(new CartId(command.cartId), new OrderId(command.orderId))
+  }
+}
