@@ -39,7 +39,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   rabbitFormatter,
   rabbitConfig
 )
-const sentry = new SentryModule({ options: SentryConfigFactory.createConfig() })
+const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
 
 // Infrastructure layer
 container
@@ -64,4 +64,4 @@ container
   // QueryBus - InMemory - Infrastructure
   .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
   // Monitoring
-  .register(TYPES.Monitoring, { useValue: sentry })
+  .register(TYPES.Monitoring, { useValue: monitoring })
