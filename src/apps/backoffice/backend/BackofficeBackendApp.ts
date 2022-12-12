@@ -13,7 +13,8 @@ export class BackofficeBackendApp {
   #server?: Server
 
   get httpServer() {
-    return this.#server?.getHttpServer()
+    const server = this.#server?.getHttpServer()
+    return server
   }
 
   async start() {
