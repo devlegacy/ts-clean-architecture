@@ -29,12 +29,12 @@ import { TYPES } from './types'
 
 const context = 'mooc'
 const mongoConfig = MongoConfigFactory.createConfig()
-const mikroOrmMongo = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
 const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
-const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(mikroOrmMongo)
+const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
@@ -50,7 +50,7 @@ container
   // .register<ConfigService>(TYPES.config, { useValue: config })
   // Database - MongoClient
   .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
-  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mikroOrmMongo })
+  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: connectionClient })
   // .register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
   // .register<Promise<DataSource>>(TYPES.TypeOrmClient, {
   //   useValue: TypeOrmClientFactory.createClient(context, container.resolve<TypeOrmConfig>(TYPES.TypeOrmConfig))
