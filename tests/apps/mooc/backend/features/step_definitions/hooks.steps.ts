@@ -31,10 +31,10 @@ AfterAll(async () => {
   // await backofficeBackendApp.stop()
   await application.stop()
 
-  // TODO: The exit process should be automatic
-  setTimeout(() => {
-    process.exit(0)
-  }, 0)
+  // DEBT: The exit process should be automatic
+  // setTimeout(() => {
+  //   process.exit(0)
+  // }, 0)
 })
 
 export { api, application, environmentArranger, eventBus }

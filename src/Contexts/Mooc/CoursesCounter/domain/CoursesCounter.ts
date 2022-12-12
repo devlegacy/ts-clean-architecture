@@ -1,9 +1,13 @@
-import { AggregateRoot, ObjectId } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Entity, ObjectId, Primitives } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent'
 import { CoursesCounterId } from './value-object/CoursesCounterId'
 import { CoursesCounterTotal } from './value-object/CoursesCounterTotal'
+
+export type CoursesCounterEntityDto = Entity<CoursesCounter>
+// DEBT: Invariant of array
+export type CoursesCounterPrimitiveDto = Primitives<CoursesCounter>
 
 export class CoursesCounter extends AggregateRoot {
   readonly id: CoursesCounterId

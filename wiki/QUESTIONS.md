@@ -35,5 +35,6 @@ Opinion
 
 Cursos: 
 - API Gateway
-- Event  sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
+- Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
 - Documentación de eventos y arquitectura que entregue valor a la empresa y al equipo
+- Convict, MongoDB

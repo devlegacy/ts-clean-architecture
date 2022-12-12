@@ -10,9 +10,7 @@ export class CoursesCounterFinder {
 
   async run() {
     const counter = await this.repository.search()
-    if (!counter) {
-      throw new CoursesCounterNotExist()
-    }
+    if (!counter) throw new CoursesCounterNotExist()
 
     return counter.total.value
   }

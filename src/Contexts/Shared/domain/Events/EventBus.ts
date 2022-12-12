@@ -3,6 +3,6 @@ import { DomainEvent } from './DomainEvent'
 
 export interface EventBus {
   publish(events: DomainEvent[]): Promise<void>
-  // Helper to solve circular dependencies
+  // Helper to solve circular dependencies with the current container
   addSubscribers(subscribers: DomainEventSubscribers): void
 }

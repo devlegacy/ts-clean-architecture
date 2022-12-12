@@ -18,6 +18,7 @@ export class FindCoursesCounterQueryHandler
 
   async handle(_query: FindCoursesCounterQuery): Promise<FindCoursesCounterResponse> {
     const counter = await this.finder.run()
-    return new FindCoursesCounterResponse(counter)
+    const response = new FindCoursesCounterResponse(counter)
+    return response
   }
 }

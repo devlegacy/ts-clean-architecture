@@ -20,9 +20,7 @@ export class DomainEventSubscribers {
    */
   static from(): DomainEventSubscribers {
     // const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
-    const subscribers: DomainEventSubscriber<DomainEvent>[] = container.resolveAll<DomainEventSubscriber<DomainEvent>>(
-      SHARED_TYPES.DomainEventSubscriber
-    )
+    const subscribers = container.resolveAll<DomainEventSubscriber<DomainEvent>>(SHARED_TYPES.DomainEventSubscriber)
 
     // subscriberDefinitions.forEach((key) => {
     //   const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(key)

@@ -10,18 +10,19 @@ import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../.
 export class CoursesCounterIncrementer {
   constructor(
     @inject(TYPES.CoursesCounterRepository) private readonly repository: CoursesCounterRepository,
-    @inject(TYPES.EventBus) private readonly eventBus: EventBus
+    @inject(TYPES.EventBus) private readonly bus: EventBus
   ) {}
 
   async run(courseId: CourseId) {
-    const counter = (await this.repository.search()) || this.initializeCounter()
+    const search = await this.repository.search()
+    const counter = search || this.initializeCounter()
 
-    if (!counter.hasIncremented(courseId)) {
-      counter.increment(courseId)
+    if (counter.hasIncremented(courseId)) return
 
-      await this.repository.save(counter)
-      await this.eventBus.publish(counter.pullDomainEvents())
-    }
+    counter.increment(courseId)
+
+    await this.repository.save(counter)
+    await this.bus.publish(counter.pullDomainEvents())
   }
 
   private initializeCounter(): CoursesCounter {

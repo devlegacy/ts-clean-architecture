@@ -10,7 +10,7 @@ import {
   RabbitMQEventBusFactory,
   SentryConfigFactory
 } from '@/Contexts/Backoffice/Shared/infrastructure'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
+import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
   InMemoryCommandBus,
   InMemoryQueryBus,
@@ -19,7 +19,6 @@ import {
   MongoConfig,
   RabbitMQConfigurer,
   RabbitMQConnection,
-  RabbitMQEventBus,
   RabbitMQQueueFormatter,
   SentryModule
 } from '@/Contexts/Shared/infrastructure'
@@ -30,12 +29,12 @@ import { TYPES } from './types'
 const context = 'backoffice'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const mikroOrmMongo = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
 const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
-const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(mikroOrmMongo)
+const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
@@ -50,12 +49,12 @@ container
   // Bootstrap global dependencies
   // Database - MongoClient
   .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
-  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: mikroOrmMongo })
+  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: connectionClient })
   // EventBus - RabbitMQ - Infrastructure
   .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
   .register<RabbitMQConnection>(TYPES.RabbitMQConnection, { useValue: rabbitConnection })
   .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, { useValue: rabbitConfigurer })
-  .register<RabbitMQEventBus>(TYPES.EventBus, { useValue: rabbitEventBus })
+  .register<EventBus>(TYPES.EventBus, { useValue: rabbitEventBus })
   // CommandBus - InMemory - Infrastructure
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
   // QueryBus - InMemory - Infrastructure

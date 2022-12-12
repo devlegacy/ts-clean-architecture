@@ -24,6 +24,7 @@ jest.setTimeout(5000 + 60000)
 
 describe('RabbitMQEventBus test', () => {
   const exchange = 'test_domain_events'
+  const maxRetries = 3
 
   let arranger: MikroOrmMongoEnvironmentArranger
   const mongoClient = RabbitMQMikroOrmMongoClientMother.create()
@@ -53,7 +54,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries: 3
+        maxRetries
       })
       const event = CoursesCounterIncrementedDomainEventMother.create()
 
@@ -71,7 +72,6 @@ describe('RabbitMQEventBus test', () => {
     let subscribers: DomainEventSubscribers
 
     beforeEach(async () => {
-      // DEBT: Is not configured
       connection = await RabbitMQConnectionMother.create()
       failoverPublisher = DomainEventFailoverPublisherMother.create()
       configurer = new RabbitMQConfigurer(connection, queueNameFormatter, 50)
@@ -93,9 +93,9 @@ describe('RabbitMQEventBus test', () => {
       const eventBus = new RabbitMQEventBus({
         failoverPublisher,
         connection,
-        exchange,
+        exchange: '', // exchange
         queueNameFormatter,
-        maxRetries: 3
+        maxRetries
       })
 
       const event = CoursesCounterIncrementedDomainEventMother.create()
@@ -115,7 +115,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries: 3
+        maxRetries
       })
       await eventBus.addSubscribers(subscribers)
       const event = DomainEventDummyMother.random()
@@ -138,7 +138,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries: 3
+        maxRetries
       })
       await eventBus.addSubscribers(subscribers)
       const event = DomainEventDummyMother.random()
@@ -161,7 +161,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries: 3
+        maxRetries
       })
       await eventBus.addSubscribers(subscribers)
       const event = DomainEventDummyMother.random()
@@ -188,7 +188,7 @@ describe('RabbitMQEventBus test', () => {
         subscriber: deadLetterSubscriber,
         deserializer,
         connection,
-        maxRetries: 3,
+        maxRetries,
         queueName: deadLetterQueue,
         exchange
       })

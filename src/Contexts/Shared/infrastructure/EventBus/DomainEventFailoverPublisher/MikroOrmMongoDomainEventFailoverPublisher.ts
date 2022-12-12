@@ -21,6 +21,7 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
     const collection = await this.collection()
 
     const eventSerialized = DomainEventJsonSerializer.serialize(event)
+    // avoid duplications with $set update
     const options = { upsert: true }
     const update = {
       $set: {
@@ -48,6 +49,7 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
       .getConnection()
       .getDb()
       .collection(MikroOrmMongoDomainEventFailoverPublisher.collectionName)
+
     return collection
   }
 }

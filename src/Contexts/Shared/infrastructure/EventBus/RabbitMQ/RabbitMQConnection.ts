@@ -1,4 +1,4 @@
-import amqplib, { ConsumeMessage, Options } from 'amqplib'
+import amqplib, { ConfirmChannel, Connection, ConsumeMessage, Options } from 'amqplib'
 
 import { ConnectionSettings } from './ConnectionSettings'
 import { ExchangeSetting } from './ExchangeSetting'
@@ -7,8 +7,8 @@ import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter'
 export class RabbitMQConnection {
   protected connectionSettings: ConnectionSettings
 
-  protected channel?: amqplib.ConfirmChannel
-  protected connection?: amqplib.Connection
+  protected channel?: ConfirmChannel
+  protected connection?: Connection
 
   constructor(params: { connectionSettings: ConnectionSettings; exchangeSettings: ExchangeSetting }) {
     this.connectionSettings = params.connectionSettings
@@ -54,7 +54,9 @@ export class RabbitMQConnection {
   async publish(params: { exchange: string; routingKey: string; content: Buffer; options: Options.Publish }) {
     const { routingKey, content, options, exchange } = params
     return new Promise((resolve: (value?: unknown) => void, reject: (reason?: unknown) => void) => {
-      this.channel!.publish(exchange, routingKey, content, options, (error: any) => (error ? reject(error) : resolve()))
+      this.channel!.publish(exchange, routingKey, content, options, (error: unknown) =>
+        error ? reject(error) : resolve()
+      )
     })
   }
 
@@ -63,7 +65,7 @@ export class RabbitMQConnection {
     await this.connection?.close()
   }
 
-  async consume(queue: string, onMessage: (message: ConsumeMessage) => Record<string, any>) {
+  async consume(queue: string, onMessage: (message: ConsumeMessage) => void) {
     await this.channel!.consume(queue, (message: ConsumeMessage | null) => {
       if (!message) {
         return
@@ -172,14 +174,14 @@ export class RabbitMQConnection {
       vhost
     })
 
-    connection.on('error', (err: any) => {
+    connection.on('error', (err: unknown) => {
       Promise.reject(err)
     })
 
     return connection
   }
 
-  private async amqpChannel(): Promise<amqplib.ConfirmChannel> {
+  private async amqpChannel(): Promise<ConfirmChannel> {
     const channel = await this.connection!.createConfirmChannel()
     await channel.prefetch(1)
 

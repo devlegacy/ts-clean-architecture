@@ -11,23 +11,24 @@ import {
   // , TypeOrmConfigFactory
   SentryConfigFactory
 } from '@/Contexts/Mooc/Shared/infrastructure'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
-import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus'
+import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
+  InMemoryCommandBus,
+  InMemoryQueryBus,
+  MikroOrmMongoClientFactory,
+  MikroOrmMongoDomainEventFailoverPublisher,
+  MongoConfig,
   RabbitMQConfigurer,
   RabbitMQConnection,
-  RabbitMQEventBus,
-  RabbitMQQueueFormatter
-} from '@/Contexts/Shared/infrastructure/EventBus'
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+  RabbitMQQueueFormatter,
+  SentryModule
+} from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/logger'
-import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
-import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
-import { SentryModule } from '@/Contexts/Shared/infrastructure/sentry'
 
 import { TYPES } from './types'
 
 const context = 'mooc'
+
 const mongoConfig = MongoConfigFactory.createConfig()
 const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
@@ -61,7 +62,7 @@ container
   .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
   .register<RabbitMQConnection>(TYPES.RabbitMQConnection, { useValue: rabbitConnection })
   .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, { useValue: rabbitConfigurer })
-  .register<RabbitMQEventBus>(TYPES.EventBus, { useValue: rabbitEventBus })
+  .register<EventBus>(TYPES.EventBus, { useValue: rabbitEventBus })
   // CommandBus - InMemory - Infrastructure
   .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
   // QueryBus - InMemory - Infrastructure

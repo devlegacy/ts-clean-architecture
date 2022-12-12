@@ -57,7 +57,7 @@ export class RabbitMQEventBus implements EventBus {
           options,
           exchange: this.exchange
         })
-      } catch (error: any) {
+      } catch (error: unknown) {
         await this.failoverPublisher.publish(event)
       }
     }

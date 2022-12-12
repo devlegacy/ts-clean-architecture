@@ -27,7 +27,7 @@ export abstract class DomainEvent {
   readonly occurredOn: Date
   readonly eventName: string
 
-  // TODO: props vs ctx
+  // DEBT: props vs ctx
   constructor(props: { eventName: string; aggregateId: string; eventId?: string; occurredOn?: Date }) {
     const { aggregateId, eventName, eventId, occurredOn } = props
     this.aggregateId = aggregateId
@@ -39,7 +39,7 @@ export abstract class DomainEvent {
   abstract toPrimitives(): DomainEventAttributes
 }
 
-// DEBT: Complejidad
+// DEBT: Complexity
 export type DomainEventClass = {
   EVENT_NAME: string
   fromPrimitives(props: IDomainEvent): DomainEvent

@@ -47,7 +47,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@apollo/server": "4.2.2",
+    "@apollo/server": "4.3.0",
     "@as-integrations/fastify": "1.2.0",
     "@fastify/compress": "6.2.0",
     "@fastify/cookie": "8.3.0",
@@ -61,8 +61,8 @@
     "@mikro-orm/mongodb": "5.6.0",
     "@mikro-orm/postgresql": "5.6.0",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.24.2",
-    "@sentry/tracing": "7.24.2",
+    "@sentry/node": "7.25.0",
+    "@sentry/tracing": "7.25.0",
     "ajv": "8.11.2",
     "amqplib": "0.10.3",
     "apollo-server-core": "3.11.1",
@@ -92,7 +92,7 @@
     "tsyringe": "4.7.0",
     "typeorm": "0.3.11",
     "uuid": "9.0.0",
-    "zod": "3.20.0"
+    "zod": "3.20.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.3.0",
@@ -110,8 +110,8 @@
     "@types/node": "18.11.13",
     "@types/supertest": "2.0.12",
     "@types/uuid": "9.0.0",
-    "@typescript-eslint/eslint-plugin": "5.46.0",
-    "@typescript-eslint/parser": "5.46.0",
+    "@typescript-eslint/eslint-plugin": "5.46.1",
+    "@typescript-eslint/parser": "5.46.1",
     "autocannon": "7.10.0",
     "commitizen": "4.2.6",
     "cross-env": "7.0.3",
