@@ -10,35 +10,19 @@ export enum Operator {
   NOT_CONTAINS = 'NOT_CONTAINS',
   EXISTS = 'EXISTS'
 }
+export type OperatorKeys = keyof typeof Operator
 
 export class FilterOperator extends EnumValueObject<Operator> {
   constructor(value: Operator) {
     super(value, Object.values(Operator))
   }
 
-  static fromValue(value: string): FilterOperator {
-    switch (value) {
-      case Operator.EQUAL:
-        return new FilterOperator(Operator.EQUAL)
-      case Operator.NOT_EQUAL:
-        return new FilterOperator(Operator.NOT_EQUAL)
-      case Operator.GT:
-        return new FilterOperator(Operator.GT)
-      case Operator.LT:
-        return new FilterOperator(Operator.LT)
-      case Operator.CONTAINS:
-        return new FilterOperator(Operator.CONTAINS)
-      case Operator.NOT_CONTAINS:
-        return new FilterOperator(Operator.NOT_CONTAINS)
-      case Operator.EXISTS:
-        return new FilterOperator(Operator.EXISTS)
-      default:
-        throw new InvalidArgumentException(`The filter operator <${value}> is invalid`)
-    }
+  static fromValue(value: OperatorKeys): FilterOperator {
+    return new FilterOperator(Operator[`${value}`])
   }
 
   static equal() {
-    return this.fromValue(Operator.EQUAL)
+    return new FilterOperator(Operator.EQUAL)
   }
 
   isPositive(): boolean {

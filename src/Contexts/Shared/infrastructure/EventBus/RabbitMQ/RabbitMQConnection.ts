@@ -60,7 +60,7 @@ export class RabbitMQConnection {
 
   async close() {
     await this.channel?.close()
-    return await this.connection?.close()
+    await this.connection?.close()
   }
 
   async consume(queue: string, onMessage: (message: ConsumeMessage) => Record<string, any>) {

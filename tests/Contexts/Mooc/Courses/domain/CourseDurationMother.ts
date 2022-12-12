@@ -7,7 +7,7 @@ export class CourseDurationMother {
   }
 
   static random(): CourseDuration {
-    return this.create(
+    return CourseDurationMother.create(
       WordMother.random({
         minLength: 1,
         maxLength: 20

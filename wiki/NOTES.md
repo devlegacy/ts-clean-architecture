@@ -1,10 +1,5 @@
 # Notes 
 
-## Courses
-
-- https://www.youtube.com/watch?v=pRI04OE5QXM&list=PLAZUzPw7MqPSWbqXibVBfon4Y5HgQT9EU&index=1&ab_channel=tuttodev
-- https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/about/
-
 ## Scaffold
 
 ```sh
@@ -25,15 +20,15 @@
 ├─ 📂 `dist/` Código para producción (debería ser lo único en el contenedor)     
 ├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
 │  ├─ 📂 `Contexts/` Bounded Contexts 🗃 - Mínimo conocimiento de TypeScript     
-│  │  ├─ 📂 `Mooc/` 🚀    
-│  │  │  ├─ 📂 `Videos/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Courses/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  ├─ 📂 `Mooc/` 🚀 Bounded Context   
+│  │  │  ├─ 📂 `Videos/` 📥 Module - Cohesion - ¿Quién eres y qué tipo? - Evitamos clases huérfanas    
+│  │  │  ├─ 📂 `Courses/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
-│  │  │  │  │  ├─ 📂 `Creator/` - 📥 Module   
+│  │  │  │  │  ├─ 📂 `Creator/` - 📥 SubModule   
 │  │  │  │  │  │  ├─ 📄 `CreateCourseCommand.ts` | can't use command bus (keep one responsibility)    
 │  │  │  │  │  │  ├─ 📄 `CreateCourseCommandHandler.ts` - instance Value Objects   
 │  │  │  │  │  │  ├─ 📄 `CourseCreator.ts`   use case | can use query bus   
-│  │  │  │  │  ├─ 📂 `SearchByCriteria/` - 📥 Module   
+│  │  │  │  │  ├─ 📂 `SearchByCriteria/` - 📥 SubModule   
 │  │  │  │  │  │  ├─ 📄 `SearchByCriteriaQuery.ts`    
 │  │  │  │  │  │  ├─ 📄 `SearchByCriteriaQueryHandler.ts`    
 │  │  │  │  │  │  ├─ 📄 `CourseFinder.ts`   use case 
@@ -51,19 +46,19 @@
 │  │  │  │  │  ├─ 📂 `persistence/`    
 │  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
 │  │  │  │  │  │  ├─ 📂 `typeorm/` - ORM/Data mapper que permite manejar multiples drivers   
-│  │  │  ├─ 📂 `Paths/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Students/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Retention/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Payments/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Ratings/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `.../` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Roadmap/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Paths/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Students/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Retention/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Payments/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Ratings/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `.../` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Roadmap/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Shared/` Shared Kernel | Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
-│  │  ├─ 📂 `Backoffice/` 🚀    
-│  │  │  ├─ 📂 `Courses/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Tickets/` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `.../` 📥 Module - ¿Quién eres y qué tipo?    
-│  │  │  ├─ 📂 `Students/` 📥 Module - ¿Quién eres y qué tipo?    
+│  │  ├─ 📂 `Backoffice/` 🚀 Bounded Context     
+│  │  │  ├─ 📂 `Courses/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Tickets/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `.../` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
+│  │  │  ├─ 📂 `Students/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  ├─ 📂 `Shared/` Shared Kernel | Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
 │  │  │  ├─ 📂 `domain/`     
 │  │  │  ├─ 📂 `infrastructure/`    
@@ -123,6 +118,18 @@
   - It should throw `Error` | `Exception`
 - 📥 Module rules 📏
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
+- Commands
+  - Imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
+  - Can reject operations
+  - ❌ can't instantiate command bus
+  - 💡 should use ubiquitous language not crud based thinking
+    - avoid `[Create|Update|Delete]Course`
+- Query
+  - Starts (in he majority) with Get
+  - ✅ can instantiate command bus
+- Events
+  - Past tense (Course[Created])
+  - Can't reject operations because it happened
 
 ## 🧪 Test
 
@@ -188,7 +195,9 @@
   - Complejidad: Los enums son interpretados como `number` | `string`, debe evaluarse el uso por criterio
 - Desarrollo y mantenimiento de la capa de infraestructura
 - `ObjectID` como `String` en favor de agilizar el desarrollo y posteriormente diseñar una estrategia de conversión efectiva, basado en callbacks o transformaciones
-
+- `UUID` como id en lugar de `ObjectID`
+  - Paquetes de validación y creación en dominio
+- 
 ## Comments conventions
 
 - BUG
@@ -352,6 +361,11 @@ Apache benchmark
   # https://github.com/FiloSottile/mkcert
   mkcert
 ```
+
+## Courses
+
+- https://www.youtube.com/watch?v=pRI04OE5QXM&list=PLAZUzPw7MqPSWbqXibVBfon4Y5HgQT9EU&index=1&ab_channel=tuttodev
+- https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/about/
 
 ## Docs
 

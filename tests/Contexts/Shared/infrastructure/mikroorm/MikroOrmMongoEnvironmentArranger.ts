@@ -17,7 +17,8 @@ export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
   }
 
   async close(): Promise<void> {
-    return (await this.client()).close()
+    const client = await this.client()
+    return client.close()
   }
 
   protected async cleanDatabase() {

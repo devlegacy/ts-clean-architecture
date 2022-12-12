@@ -8,6 +8,7 @@ export type RabbitMQConfig = {
   maxRetries: number
   retryTtl: number
 }
+
 export class RabbitMQConfigFactory {
   static createConfig(): RabbitMQConfig {
     return config.get('rabbitmq')

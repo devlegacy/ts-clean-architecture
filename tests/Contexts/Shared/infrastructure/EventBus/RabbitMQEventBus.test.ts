@@ -71,6 +71,7 @@ describe('RabbitMQEventBus test', () => {
     let subscribers: DomainEventSubscribers
 
     beforeEach(async () => {
+      // DEBT: Is not configured
       connection = await RabbitMQConnectionMother.create()
       failoverPublisher = DomainEventFailoverPublisherMother.create()
       configurer = new RabbitMQConfigurer(connection, queueNameFormatter, 50)

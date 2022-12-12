@@ -1,5 +1,6 @@
 export * from './BoolValueObject'
 export * from './EnumValueObject'
+export * from './Money'
 export * from './NumberValueObject'
 export * from './ObjectId'
 export * from './StringValueObject'

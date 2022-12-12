@@ -11,7 +11,8 @@
 - [ ] ¿Cómo documentar eventos de dominio?
 
 - [ ] ¿Los objetos response deberían estar en shared de aplicación?
-
+- [ ] Multiples eventos y cómo cancelar*
+  
 ## Aportes
 
 - [Estructura de carpetas: DDD en TypeScript](https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/path/step/147601236/)
@@ -21,3 +22,18 @@
 ## TypeScript
 
 - TypeScript’s New Top-Level Await
+
+## Encuesta
+
+Opinion
+- Mejorar la comunidad, aportes, comentarios, ayudas para no depender tanto de los autores de los cursos
+- Oportunidad de 1:1
+- Gamificación
+- Mejorar UI/UX de la plataforma
+- Precios contemplando regiones
+- Transcripciones
+
+Cursos: 
+- API Gateway
+- Event  sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
+- Documentación de eventos y arquitectura que entregue valor a la empresa y al equipo

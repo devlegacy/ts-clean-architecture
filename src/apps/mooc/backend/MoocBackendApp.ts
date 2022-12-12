@@ -4,7 +4,7 @@ import { container } from 'tsyringe'
 
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
+import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
 
 import { TYPES } from '../modules/types'
 import { Server } from './Server'
@@ -13,7 +13,8 @@ export class MoocBackendApp {
   #server?: Server
 
   get httpServer() {
-    return this.#server?.getHttpServer()
+    const server = this.#server?.getHttpServer()
+    return server
   }
 
   async start() {

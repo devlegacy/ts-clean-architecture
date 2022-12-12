@@ -1,6 +1,7 @@
 export * from './AggregateRoot'
 export * from './Commands'
 export * from './criteria'
+export * from './Decorators'
 export * from './Entity'
 export * from './Events'
 export * from './exceptions'

@@ -334,7 +334,7 @@ const clusterServer = (
       // errorHandler: (error, request, response) => {
       //   fastify.errorHandler(error, request, response)
       // },
-      handler: async (req, res) => {
+      handler: (req, res) => {
         res.status(httpCode)
         // if (req.validationError) {
         //   const err = req.validationError
@@ -350,7 +350,7 @@ const clusterServer = (
         // method() // por alguna razón pierde el bind
         // instance[methodName]() - Revisar que conserve el valor de this
         // instance[methodName]
-        const response = instance.constructor.prototype[String(methodName)].apply(
+        const response: any = instance.constructor.prototype[String(methodName)].apply(
           instance,
           routeParams.length ? routeParams : [req, res]
         )

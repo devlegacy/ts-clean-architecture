@@ -1,7 +1,7 @@
 import { InvalidArgumentException } from '../exceptions'
 import { Primitives } from '../Primitives'
 import { FilterField } from './FilterField'
-import { FilterOperator } from './FilterOperator'
+import { FilterOperator, OperatorKeys } from './FilterOperator'
 import { FilterValue } from './FilterValue'
 
 export type FilterPrimitiveDto = Primitives<Filter>
@@ -26,7 +26,12 @@ export class Filter {
       throw new InvalidArgumentException(`The filter <${field}> <${operator}> <${value}> is invalid`)
     }
 
-    return new Filter(new FilterField(field), FilterOperator.fromValue(operator), new FilterValue(value))
+    return new Filter(
+      new FilterField(field),
+      // DEBT: Fix operator values and fromValues type
+      FilterOperator.fromValue(operator as OperatorKeys),
+      new FilterValue(value)
+    )
   }
 
   static parseFilters(params: FilterPrimitiveDto[]): Map<string, string>[] {

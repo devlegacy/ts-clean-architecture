@@ -29,7 +29,7 @@ export class MongoClientFactory {
     }
     const client = new MongoClient(config.url, options)
 
-    // TODO: Review
+    // DEBT: Review
     // Read more on: https://www.mongodb.com/docs/drivers/node/current/fundamentals/logging/
     client.on('commandStarted', info).on('commandSucceeded', info).on('commandFailed', info)
 

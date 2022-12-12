@@ -1,19 +1,16 @@
 import { injectable } from 'tsyringe'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { Catch, Command, CommandHandler } from '@/Contexts/Shared/domain'
 
 import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain'
 import { CourseCreator } from './CourseCreator'
 
 @injectable()
 export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCommand> {
-  constructor(private courseCreator: CourseCreator) {}
+  constructor(private readonly courseCreator: CourseCreator) {}
 
-  subscribedTo(): Command {
-    return CreateCourseCommand
-  }
-
+  @Catch()
   async handle(command: CreateCourseCommand): Promise<void> {
     const id = new CourseId(command.id)
     const name = new CourseName(command.name)
@@ -24,5 +21,9 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
       name,
       duration
     })
+  }
+
+  subscribedTo(): Command {
+    return CreateCourseCommand
   }
 }

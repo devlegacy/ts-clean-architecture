@@ -14,7 +14,8 @@ export abstract class TypeOrmPostgresRepository<T extends AggregateRoot> {
   }
 
   protected async repository(): Promise<Repository<T>> {
-    return (await this._client)?.getRepository(this.entitySchema())
+    const client = await this._client
+    return client?.getRepository(this.entitySchema())
   }
 
   protected async persist(aggregateRoot: T): Promise<void> {

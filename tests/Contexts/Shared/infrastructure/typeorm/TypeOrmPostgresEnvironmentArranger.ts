@@ -12,14 +12,16 @@ export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
   }
 
   async close(): Promise<void> {
-    return (await this.client()).destroy()
+    const client = await this._client
+    return client.destroy()
   }
 
   protected async cleanDatabase() {
     const entities = await this.entities()
+    const client = await this._client
     try {
       for (const entity of entities) {
-        const repository = (await this._client).getRepository(entity.name)
+        const repository = client.getRepository(entity.name)
         await repository.query(`TRUNCATE TABLE ${entity.tableName}`)
       }
     } catch (e) {
@@ -32,6 +34,7 @@ export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
   }
 
   private async entities(): Promise<EntityMetadata[]> {
-    return (await this._client).entityMetadatas
+    const client = await this._client
+    return client.entityMetadatas
   }
 }

@@ -1,5 +1,10 @@
-import { Course, CourseDuration, CourseName, CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
-import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
+import {
+  Course,
+  CourseDuration,
+  CourseName,
+  CoursePrimitiveDto,
+  CreateCourseCommand
+} from '@/Contexts/Mooc/Courses/domain'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
 import { CourseIdMother } from '../../Shared/domain/Courses'
@@ -12,15 +17,15 @@ export class CourseMother {
   }
 
   static from(command: CreateCourseCommand): Course {
-    return this.create(
+    return CourseMother.create(
       CourseIdMother.create(command.id),
       CourseNameMother.create(command.name),
       command.duration ? CourseDurationMother.create(command.duration) : undefined
     )
   }
 
-  static fromRequest(request: CourseRequestDto): Course {
-    return this.create(
+  static fromRequest(request: CoursePrimitiveDto): Course {
+    return CourseMother.create(
       new CourseId(request.id),
       new CourseName(request.name),
       request.duration ? new CourseDuration(request.duration) : undefined
@@ -28,6 +33,6 @@ export class CourseMother {
   }
 
   static random(): Course {
-    return this.create(CourseIdMother.random(), CourseNameMother.random(), CourseDurationMother.random())
+    return CourseMother.create(CourseIdMother.random(), CourseNameMother.random(), CourseDurationMother.random())
   }
 }

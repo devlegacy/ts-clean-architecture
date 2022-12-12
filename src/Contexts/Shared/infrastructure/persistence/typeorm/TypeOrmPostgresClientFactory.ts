@@ -34,7 +34,7 @@ export class TypeOrmPostgresClientFactory {
       username: config.username,
       password: config.password,
       database: config.database,
-      synchronize: true, // TODO: handle in prod and dev
+      synchronize: true, // DEBT: handle in prod (false) and dev (true)
       logging: true,
       entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`]
       // subscribers: [],

@@ -7,6 +7,6 @@ export class CourseIdMother {
   }
 
   static random(): CourseId {
-    return this.create(IdMother.random())
+    return CourseIdMother.create(IdMother.random())
   }
 }

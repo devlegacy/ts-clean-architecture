@@ -12,14 +12,17 @@ const repository: CourseRepository = container.resolve<CourseRepository>(TYPES.C
 const environmentArranger: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)
 
 beforeEach(async () => {
-  await (await environmentArranger).arrange()
+  const arranger = await environmentArranger
+  await arranger.arrange()
 })
 
 afterAll(async () => {
-  await (await environmentArranger).arrange()
-  await (await environmentArranger).close()
+  const arranger = await environmentArranger
+  await arranger.arrange()
+  await arranger.close()
 })
 
+// npx cross-env APP_ENV=test jest ./tests/Contexts/Mooc/Courses/infrastructure/persistence/MongoCourseRepository.test.ts
 describe('CourseRepository', () => {
   describe('#save', () => {
     it('should have a course', async () => {

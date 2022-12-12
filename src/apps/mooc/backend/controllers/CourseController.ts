@@ -37,8 +37,8 @@ export class CourseController {
 
     // await this.courseCreator.run(course)
 
-    // Optimistic - Not wait
-    this.commandBus.dispatch(new CreateCourseCommand(course))
+    // Optimistic - Not wait (?)
+    await this.commandBus.dispatch(new CreateCourseCommand(course))
 
     return {}
   }
