@@ -6,6 +6,7 @@ import {
   FindBackofficeCourseByCriteriaQuery,
   PaginateBackofficeCoursesQuery,
   PaginatedBackofficeCoursesResponse,
+  SearchAllBackofficeCoursesQuery,
   SearchBackofficeCoursesByCriteriaQuery
 } from '@/Contexts/Backoffice/Courses/application'
 import {
@@ -61,6 +62,14 @@ export class CourseController {
     )
     // const query = new SearchAllCoursesQuery()
 
+    const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
+
+    return courses
+  }
+
+  @Get('/all')
+  async all() {
+    const query = new SearchAllBackofficeCoursesQuery()
     const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
 
     return courses

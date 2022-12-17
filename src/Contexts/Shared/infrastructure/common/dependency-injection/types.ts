@@ -20,6 +20,8 @@ export const SHARED_TYPES = {
   // MikroOrmPostgres
   MikroOrmPostgresConfig: Symbol.for('MikroOrmPostgresConfig'),
   MikroOrmPostgresClient: Symbol.for('MikroOrmPostgresClient'),
+  ElasticConfig: Symbol.for('ElasticConfig'),
+  ElasticClient: Symbol.for('ElasticClient'), // Client vs Manager
   // EvenBus
   EventBus: Symbol.for('EventBus'),
   // Rabbit

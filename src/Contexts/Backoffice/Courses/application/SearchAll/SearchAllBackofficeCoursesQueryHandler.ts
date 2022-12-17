@@ -10,13 +10,14 @@ import { SearchAllBackofficeCoursesQuery } from './SearchAllBackofficeCoursesQue
 export class SearchAllBackofficeCoursesQueryHandler
   implements QueryHandler<SearchAllBackofficeCoursesQuery, BackofficeCoursesResponse>
 {
-  constructor(private readonly coursesFinder: BackofficeCoursesFinder) {}
+  constructor(private readonly finder: BackofficeCoursesFinder) {}
 
   subscribedTo(): Query {
     return SearchAllBackofficeCoursesQuery
   }
 
   async handle(_query: SearchAllBackofficeCoursesQuery): Promise<BackofficeCoursesResponse> {
-    return new BackofficeCoursesResponse(await this.coursesFinder.run())
+    const courses = await this.finder.run()
+    return new BackofficeCoursesResponse(courses)
   }
 }

@@ -17,11 +17,12 @@ const eventBus = container.resolve<EventBus>(TYPES.EventBus)
 
 BeforeAll(async () => {
   await ConfigureRabbitMQCommand.run()
-  await environmentArranger.arrange()
 
   // await backofficeBackendApp.start()
   await application.start()
   api = supertest(application.httpServer)
+  await wait()
+  await environmentArranger.arrange()
 })
 
 AfterAll(async () => {
@@ -37,4 +38,8 @@ AfterAll(async () => {
   // }, 0)
 })
 
-export { api, application, environmentArranger, eventBus }
+function wait(milliseconds = 800) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds))
+}
+
+export { api, application, environmentArranger, eventBus, wait }

@@ -225,6 +225,11 @@ const buildSchemaWithParams = (
   args: any[] = [],
   validations: ValidationModule<any>[] = []
 ): any => {
+  if (Object.keys(schema.schema).length > 0) {
+    schema.schema = getSchema(schema.schema, method, validations)
+
+    return schema
+  }
   const keyParams = getKeyParam(params)
   // console.log(args)
   for (const keyParam of keyParams) {

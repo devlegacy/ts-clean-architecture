@@ -1,8 +1,10 @@
+import { Client as ElasticClient } from '@elastic/elasticsearch'
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container, Lifecycle } from 'tsyringe'
 
 import {
+  ElasticConfigFactory,
   LoggerConfigFactory,
   MongoConfigFactory,
   RabbitMQConfig,
@@ -12,6 +14,7 @@ import {
 } from '@/Contexts/Backoffice/Shared/infrastructure'
 import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
+  ElasticClientFactory,
   InMemoryCommandBus,
   InMemoryQueryBus,
   MikroOrmMongoClientFactory,
@@ -43,7 +46,8 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
 )
 const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
 const logger = new PinoLogger(LoggerConfigFactory.createConfig())
-
+const elasticConfig = ElasticConfigFactory.createConfig()
+const elasticClient = ElasticClientFactory.createClient(context, elasticConfig)
 // Infrastructure layer
 container
   // Bootstrap global dependencies
@@ -62,3 +66,5 @@ container
   // Monitoring
   .register(TYPES.Monitoring, { useValue: monitoring })
   .register(TYPES.Logger, { useValue: logger })
+  .register(TYPES.ElasticConfig, { useValue: elasticConfig })
+  .register<Promise<ElasticClient>>(TYPES.ElasticClient, { useValue: elasticClient })

@@ -1,9 +1,9 @@
 import { injectable } from 'tsyringe'
 
-import { CartId } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { CartId, ItemId } from '@/Contexts/Land/Shared/domain'
+import { Command, CommandHandler, Money } from '@/Contexts/Shared/domain'
 
-import { CartItem, ItemId, Money } from '../../domain'
+import { CartItem } from '../../domain'
 import { CartItemSubtractor } from './CartItemSubtractor'
 import { SubtractCartItemCommand } from './SubtractCartItemCommand'
 

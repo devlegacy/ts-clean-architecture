@@ -1,4 +1,5 @@
 export * from './config'
+export * from './ElasticConfigFactory'
 export * from './logger'
 export * from './monitoring'
 export * from './persistence/mongo/MongoConfigFactory'

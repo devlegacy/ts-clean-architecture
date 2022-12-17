@@ -13,3 +13,8 @@
 ## Map vs Array
 
 - https://www.mongodb.com/community/forums/t/use-map-vs-array-of-embedded-documents/116801
+
+## Nested arrays
+
+- To store data
+- If we need pagination, maybe can't be a good idea

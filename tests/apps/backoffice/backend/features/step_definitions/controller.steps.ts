@@ -19,5 +19,17 @@ Then('the response status code should be {int}', async (status: number) => {
 Then('the response should be:', async (res) => {
   const expectedResponse = JSON.parse(res)
   response = await request
+
+  if (Array.isArray(response.body)) {
+    const len = response.body.length
+    for (let i = 0; i < len; i++) {
+      delete response.body[+i].createdAt
+      delete response.body[+i].updatedAt
+    }
+  } else {
+    delete response.body.createdAt
+    delete response.body.updatedAt
+  }
+
   assert.deepStrictEqual(response.body, expectedResponse)
 })

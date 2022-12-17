@@ -6,7 +6,6 @@ import { CoursesCounterId } from './value-object/CoursesCounterId'
 import { CoursesCounterTotal } from './value-object/CoursesCounterTotal'
 
 export type CoursesCounterEntityDto = Entity<CoursesCounter>
-// DEBT: Invariant of array
 export type CoursesCounterPrimitiveDto = Primitives<CoursesCounter>
 
 export class CoursesCounter extends AggregateRoot {
@@ -33,7 +32,7 @@ export class CoursesCounter extends AggregateRoot {
     return new CoursesCounter(id, CoursesCounterTotal.initialize())
   }
 
-  static fromPrimitives(data: { id: string; total: number; existingCourses: string[] }): CoursesCounter {
+  static fromPrimitives(data: CoursesCounterPrimitiveDto): CoursesCounter {
     return new CoursesCounter(
       new CoursesCounterId(data.id),
       new CoursesCounterTotal(data.total),
@@ -60,7 +59,7 @@ export class CoursesCounter extends AggregateRoot {
     return exists !== undefined
   }
 
-  toPrimitives() {
+  toPrimitives(): CoursesCounterPrimitiveDto {
     return {
       id: this.id.value,
       total: this.total.value,

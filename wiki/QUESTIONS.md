@@ -12,6 +12,9 @@
 
 - [ ] ¿Los objetos response deberían estar en shared de aplicación?
 - [ ] Multiples eventos y cómo cancelar*
+
+- [ ] ¿Eliminar los eventos en las colas después de los test?
+- [ ] ¿Default sort de los elementos?
   
 ## Aportes
 

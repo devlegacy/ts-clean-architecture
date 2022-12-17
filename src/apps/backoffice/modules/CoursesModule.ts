@@ -11,10 +11,11 @@ import {
   UpdateBackofficeCourseCommandHandler
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
-import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
-import { MikroOrmMongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
-import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
+import {
+  ElasticBackofficeCourseRepository,
+  MikroOrmMongoBackofficeCourseRepository
+} from '@/Contexts/Backoffice/Courses/infrastructure'
+import { ProxyBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/persistence/ProxyBackofficeCourseRepository'
 import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
 
 import { TYPES } from './types'
@@ -33,11 +34,16 @@ container
   // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllBackofficeCoursesQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchBackofficeCoursesByCriteriaQueryHandler)
-  .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
+  // .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindCoursesCounterQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, FindBackofficeCourseByCriteriaQueryHandler)
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, PaginateBackofficeCoursesQueryHandler)
   // Domain layer
   // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
-  .register<CourseRepository>(TYPES.CourseRepository, MikroOrmMongoCourseRepository)
-  .register<BackofficeCourseRepository>(TYPES.BackofficeCourseRepository, MikroOrmMongoBackofficeCourseRepository)
+  // .register<CourseRepository>(TYPES.CourseRepository, MikroOrmMongoCourseRepository)
+  .register<BackofficeCourseRepository>(
+    TYPES.MikroOrmMongoBackofficeCourseRepository,
+    MikroOrmMongoBackofficeCourseRepository
+  )
+  .register<BackofficeCourseRepository>(TYPES.ElasticBackofficeCourseRepository, ElasticBackofficeCourseRepository)
+  .register<BackofficeCourseRepository>(TYPES.BackofficeCourseRepository, ProxyBackofficeCourseRepository)

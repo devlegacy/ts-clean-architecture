@@ -18,7 +18,7 @@ export class CreateBackofficeCourseOnCourseCreated implements DomainEventSubscri
     const id = new BackofficeCourseId(domainEvent.aggregateId)
     const name = new BackofficeCourseName(domainEvent.name)
     const duration = domainEvent.duration ? new BackofficeCourseDuration(domainEvent.duration) : undefined
-    return this.creator.run({
+    await this.creator.run({
       id,
       name,
       duration

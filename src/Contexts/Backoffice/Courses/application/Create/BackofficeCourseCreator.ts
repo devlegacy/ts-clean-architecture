@@ -28,6 +28,6 @@ export class BackofficeCourseCreator {
       // deletedAt
     )
 
-    return this.repository.save(course)
+    await this.repository.save(course)
   }
 }

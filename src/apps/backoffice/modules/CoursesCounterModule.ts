@@ -7,15 +7,15 @@ import { TYPES } from './types'
 
 // Application layer
 container
-// 🚌 EventBus <-> EventSubscribers
-// 🏷 Tags - Application
+  // 🚌 EventBus <-> EventSubscribers
+  // 🏷 Tags - Application
 
-// 🚌 CommandBus <-> CommandHandlers
-// 🏷 Tags - Application
-// 🚌 QueryBus <-> QueryHandlers
-// 🏷 Tags - Application
+  // 🚌 CommandBus <-> CommandHandlers
+  // 🏷 Tags - Application
+  // 🚌 QueryBus <-> QueryHandlers
+  // 🏷 Tags - Application
 
-// Domain layer
-container
+  // Domain layer
+
   // Repositories - Mongo
   .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MikroOrmMongoCoursesCounterRepository)

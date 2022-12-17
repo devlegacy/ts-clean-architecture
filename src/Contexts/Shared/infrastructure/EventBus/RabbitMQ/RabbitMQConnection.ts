@@ -42,6 +42,7 @@ export class RabbitMQConnection {
       autoDelete,
       arguments: args
     })
+
     for (const routingKey of params.routingKeys) {
       await this.channel!.bindQueue(params.name, params.exchange, routingKey)
     }

@@ -4,6 +4,7 @@ import { v4, validate, version } from 'uuid'
 import { InvalidArgumentException } from '../exceptions'
 import { ValueObject } from './ValueObject'
 
+// abstract
 export class Uuid extends ValueObject<string> {
   // Inherited
   // readonly value: string

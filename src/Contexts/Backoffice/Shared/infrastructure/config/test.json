@@ -1,5 +1,9 @@
 {
   "mongo": {
     "url": "mongodb://127.0.0.1:27017/backoffice-test"
+  },
+  "elastic": {
+    "url": "http://localhost:9200",
+    "indexName": "backofficecourses_test"
   }
 }

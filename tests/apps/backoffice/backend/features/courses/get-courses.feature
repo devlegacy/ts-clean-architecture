@@ -42,17 +42,18 @@ Feature: Get courses
     And I send a GET request to "/courses"
     Then the response status code should be 200
     And the response should be:
+    # Sorted
     """
     [
+       {
+          "id": "3c81f2ae6e445df779f5ce3e",
+          "name": "DDD en Java!",
+          "duration": "24 hours"
+      },
       {
           "id": "bfd73ce7bacce0ca0adcabde",
           "name": "DDD en PHP!",
           "duration": "25 hours"
-      },
-      {
-          "id": "3c81f2ae6e445df779f5ce3e",
-          "name": "DDD en Java!",
-          "duration": "24 hours"
       }
     ]
     """

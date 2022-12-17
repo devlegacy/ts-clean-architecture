@@ -6,6 +6,11 @@ import { BoolValueObject, EnumValueObject, NumberValueObject, PrimitiveTypes, St
 export type Primitives<Type> = Writable<{
   [Property in keyof Entity<Type>]: Type[Property] extends PrimitiveTypes
     ? Type[Property]
+    : Type[Property] extends { value: unknown }[]
+    ? Pick<Type[Property][number], 'value'>['value'][]
+    : // eslint-disable-next-line @typescript-eslint/ban-types
+    Type[Property] extends Object[]
+    ? Primitives<Type[Property][number]>[]
     : Type[Property] extends BoolValueObject
     ? boolean
     : InvariantOf<Type[Property]> extends NumberValueObject
