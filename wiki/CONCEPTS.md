@@ -35,6 +35,7 @@
   Por lo tanto: define explícitamente el contexto dentro del cual se aplica un modelo. Establece límites explícitamente en términos de organización del equipo, uso dentro de partes específicas de la aplicación y bases de códigos y esquemas de bases de datos. Mantén el modelo estrictamente consistente dentro de estos límites, pero no te distraigas por problemas externos.
   - Generic context
   - Core context
+  - Organizational estructure
 
 - **ISP**: Interface Segregation Principle. Se trata de partir interfaces en partes más pequeñas de modo que habilite a los clientes a que puedan usar sólo lo que requieran.
 - **SRP**: Single Responsibility Principle.

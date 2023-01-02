@@ -1,0 +1,141 @@
+{
+    "modelName": "New Model",
+    "collections": [
+        {
+            "collectionName": "courses",
+            "type": "object",
+            "properties": [],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "461232d6-e411-4f84-8151-2a799cc9b828"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "94afd8bc-578c-4464-aea7-6e4f382a5b23",
+            "bucketId": "4bf4f1d9-180f-494d-b837-a0ce3d8a105f"
+        }
+    ],
+    "buckets": [
+        {
+            "name": "mooc",
+            "type": "bucket",
+            "collectionIds": [
+                "94afd8bc-578c-4464-aea7-6e4f382a5b23"
+            ],
+            "backgroundColor": {
+                "r": 187,
+                "g": 187,
+                "b": 187,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "GUID": "4bf4f1d9-180f-494d-b837-a0ce3d8a105f"
+        }
+    ],
+    "views": [],
+    "relationships": [],
+    "users": [],
+    "diagramViews": [],
+    "idToNameHashTable": {
+        "4bf4f1d9-180f-494d-b837-a0ce3d8a105f": "mooc",
+        "94afd8bc-578c-4464-aea7-6e4f382a5b23": "courses"
+    },
+    "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "da86c241-c320-4197-8bee-7dd46b233ee2"
+    },
+    "polyglotDefinitions": {
+        "type": "polyglotDefinitions",
+        "properties": [],
+        "GUID": "d34c95fc-cff0-48e2-851d-9b50c729e3ec"
+    },
+    "externalDefinitions": {
+        "type": "externalDefinitions",
+        "properties": [],
+        "GUID": "ee8da8c2-fbca-4ddd-ab78-9cbc33ff53da"
+    },
+    "sources": [],
+    "decorativeSymbols": [],
+    "dbVersion": "v6.0",
+    "dbVendor": "MongoDB",
+    "appTarget": "MONGODB",
+    "creationTS": "2023-01-02T06:42:01.283Z",
+    "GUID": "4bfd01d9-3b5b-4835-8944-fe62ab59ec77",
+    "isLineageEnabled": false,
+    "lastModifTS": "2023-01-02T06:42:54.612Z",
+    "persistenceSchemaVersion": "6",
+    "isCreatedByPlugin": true,
+    "pluginInformation": {
+        "pluginEngineVersion": "1.0.0"
+    },
+    "applicationInformation": {
+        "version": "6.8.1"
+    },
+    "settings": {
+        "centralPane": {
+            "dbLevel": {
+                "erd": [
+                    {
+                        "GUID": "94afd8bc-578c-4464-aea7-6e4f382a5b23",
+                        "x": 503,
+                        "y": 308,
+                        "width": 166,
+                        "height": 100,
+                        "color": {}
+                    }
+                ],
+                "erdDefinitions": {
+                    "erd": [],
+                    "rootPath": [],
+                    "entities": [],
+                    "decorativeSymbols": []
+                },
+                "buckets": [
+                    {
+                        "x": 463,
+                        "y": 268,
+                        "GUID": "4bf4f1d9-180f-494d-b837-a0ce3d8a105f"
+                    }
+                ],
+                "collapsedNodes": [],
+                "activeRelationship": "",
+                "activeRelationshipFields": {
+                    "childField": [],
+                    "parentField": []
+                },
+                "selectedCollections": [],
+                "displayColorPicker": false,
+                "graphView": {
+                    "erd": [],
+                    "buckets": [],
+                    "decorativeSymbols": [],
+                    "forceLayout": true,
+                    "defaultLinkLength": 300
+                },
+                "diagramViews": [],
+                "decorativeSymbols": [],
+                "nestedCollectionsLayout": "horizontal",
+                "options": []
+            },
+            "collectionLevel": {},
+            "changed": false
+        },
+        "dtDiagram": {
+            "collapsedNodes": [],
+            "shouldDistributeCollections": false
+        }
+    }
+}

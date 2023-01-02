@@ -19,7 +19,7 @@
 ├─ 📂 `coverage/`     
 ├─ 📂 `dist/` Código para producción (debería ser lo único en el contenedor)     
 ├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
-│  ├─ 📂 `Contexts/` Bounded Contexts 🗃 - Mínimo conocimiento de TypeScript     
+│  ├─ 📂 `Contexts/` Bounded Contexts 🗃 - Organizational estructure - Mínimo conocimiento de TypeScript     
 │  │  ├─ 📂 `Mooc/` 🚀 Bounded Context   
 │  │  │  ├─ 📂 `Videos/` 📥 Module - Cohesion - ¿Quién eres y qué tipo? - Evitamos clases huérfanas    
 │  │  │  ├─ 📂 `Courses/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
@@ -75,7 +75,7 @@
 │  │  │  │  ├─ 📂 `swagger/`     
 │  │  ├─ 📂 `Backoffice/`     
 │  │  ├─ 📂 `Blog/`     
-│  ├─ 📂 `apps/` 📲 entry points      
+│  ├─ 📂 `apps/` 📲 entry points | primary port (Input / I)     
 │  │  ├─ 📂 `mooc/` 📱    
 │  │  │  ├─ 📂 `backend/` 👨🏾‍💻🔙     
 │  │  │  ├─ 📂 `console/`     
@@ -107,6 +107,8 @@
 
 ### Notes
 
+- Aggregates
+  - without await (indicates I/O)
 - ⚙ Controller rules 📏
   - Primary port
   - It receives primitives | scalars - `[Entity | Course][Action | Create]RequestDto`
@@ -122,14 +124,17 @@
   - Imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
   - Can reject operations
   - ❌ can't instantiate command bus
+  - ✅ `CommandBus` can instantiate in controllers
   - 💡 should use ubiquitous language not crud based thinking
     - avoid `[Create|Update|Delete]Course`
 - Query
   - Starts (in he majority) with Get
-  - ✅ can instantiate command bus
+  - ✅ `QueryBus` can instantiate in controllers
+  - ✅ `QueryBus` can instantiate in use case
+  - ✅ `QueryBus` can instantiate in command bus
 - Events
   - Past tense (Course[Created])
-  - Can't reject operations because it happened
+  - Can't reject operations because it has happened
 
 ## 🧪 Test
 
@@ -186,7 +191,21 @@
 - Load/Stress testing
   - Apache benchmark
   - Autocannon
-  
+- Documentation
+  - Notion | Markdown   
+------
+- Stack
+  - Fastify
+  - MongoDB
+  - TypeScript
+- Arquitectura a nivel infraestructura
+  - Microservicios
+- Arquitectura a nivel código
+  - DDD | Clean architecture | Hexagonal architecture | Onion architecture
+  - CQRS
+  - Event-driven architecture
+-------
+
 ## Costos asumidos
 
 - Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
@@ -350,6 +369,13 @@ Apache benchmark
 
   ab -c 1000 -n 10000 https://127.0.0.1:8080/status/
 ```
+
+## Health check
+
+- Application | HTTP 
+  - Auto scaling
+
+## Status check
 
 ## CERT
 

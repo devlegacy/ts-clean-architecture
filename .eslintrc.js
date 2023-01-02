@@ -47,7 +47,7 @@ module.exports = {
       }
     ], // .prettierrc helps
     'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }],
-    'max-params': ['error', 6],
+    'max-params': ['error', 14],
     'no-console': 'warn',
     'no-prototype-builtins': 'off',
     'no-use-before-define': 'off',

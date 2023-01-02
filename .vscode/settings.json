@@ -55,7 +55,7 @@
   },
   "prettier.requireConfig": true,
   "material-icon-theme.files.associations": {
-    ".*Command.ts": "command"
+    "Command.ts": "command"
   },
   "material-icon-theme.folders.associations": {
     "infrastructure": "Cluster",

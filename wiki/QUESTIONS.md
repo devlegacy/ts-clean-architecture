@@ -33,11 +33,14 @@ Opinion
 - Oportunidad de 1:1
 - Gamificación
 - Mejorar UI/UX de la plataforma
+  - Reproductor responsive a pantalla completa
 - Precios contemplando regiones
 - Transcripciones
 
 Cursos: 
 - API Gateway
+- Como se manejan las relaciones en DDD 1-1 1-N N-N
+- Autentificación y autorización con DDD
 - Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
 - Documentación de eventos y arquitectura que entregue valor a la empresa y al equipo
 - Convict, MongoDB

@@ -39,13 +39,14 @@
       ],
       // "args": ["${workspaceFolder}/src/index.ts"],
       "runtimeExecutable": "node",
-      "skipFiles": ["<node_internals>/**", "node_modules/**"],
+      "skipFiles": ["<node_internals>/**", "node_modules/**", "${workspaceFolder}/dist/**"],
       "type": "node",
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
       "env": {
         "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
-        "APP_ENV": "test"
+        "APP_ENV": "test",
+        "TZ": "utc"
       }
     },
     {

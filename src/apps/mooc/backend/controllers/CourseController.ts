@@ -6,7 +6,8 @@ import { CommandBus } from '@/Contexts/Shared/domain'
 import {
   Body,
   Controller,
-  // HttpStatus,
+  HttpCode,
+  HttpStatus,
   Put
   // Req
   // Schema
@@ -22,7 +23,7 @@ export class CourseController {
   ) {}
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
-  // @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.CREATED)
   @Put(':courseId')
   async update(@Body() course: CourseRequestDto) {
     // async update(req: Request<{ Body: CourseRequestDto }>) {
