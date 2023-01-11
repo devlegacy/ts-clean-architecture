@@ -11,11 +11,7 @@ import {
   UpdateBackofficeCourseCommandHandler
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
-import {
-  ElasticBackofficeCourseRepository,
-  MikroOrmMongoBackofficeCourseRepository
-} from '@/Contexts/Backoffice/Courses/infrastructure'
-import { ProxyBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/persistence/ProxyBackofficeCourseRepository'
+import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
 import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
 
 import { TYPES } from './types'
@@ -41,9 +37,10 @@ container
   // Repositories - Mongo
   // .register<CourseRepository>(TYPES.CourseRepository, { useValue: new MongoCourseRepository(mongoClient) })
   // .register<CourseRepository>(TYPES.CourseRepository, MikroOrmMongoCourseRepository)
-  .register<BackofficeCourseRepository>(
-    TYPES.MikroOrmMongoBackofficeCourseRepository,
-    MikroOrmMongoBackofficeCourseRepository
-  )
-  .register<BackofficeCourseRepository>(TYPES.ElasticBackofficeCourseRepository, ElasticBackofficeCourseRepository)
-  .register<BackofficeCourseRepository>(TYPES.BackofficeCourseRepository, ProxyBackofficeCourseRepository)
+  // .register<BackofficeCourseRepository>(
+  //   TYPES.MikroOrmMongoBackofficeCourseRepository,
+  //   MikroOrmMongoBackofficeCourseRepository
+  // )
+  // .register<BackofficeCourseRepository>(TYPES.ElasticBackofficeCourseRepository, ElasticBackofficeCourseRepository)
+  // .register<BackofficeCourseRepository>(TYPES.BackofficeCourseRepository, ProxyBackofficeCourseRepository)
+  .register<BackofficeCourseRepository>(TYPES.BackofficeCourseRepository, MikroOrmMongoBackofficeCourseRepository)

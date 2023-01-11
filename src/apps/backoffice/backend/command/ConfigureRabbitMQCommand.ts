@@ -1,11 +1,7 @@
 import { container } from 'tsyringe'
 
-import { RabbitMQConfig } from '@/Contexts/Backoffice/Shared/infrastructure/RabbitMQ'
-import {
-  DomainEventSubscribers,
-  RabbitMQConfigurer,
-  RabbitMQConnection
-} from '@/Contexts/Shared/infrastructure/EventBus'
+import { RabbitMQConfig } from '@/Contexts/Backoffice/Shared/infrastructure'
+import { DomainEventSubscribers, RabbitMQConfigurer, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
 
 import { TYPES } from '../../modules/types'
 

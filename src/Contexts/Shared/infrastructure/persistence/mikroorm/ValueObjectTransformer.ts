@@ -10,6 +10,10 @@ export class ValueObjectTransformer {
       return new ObjectId(value.value)
     } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
       return value.map((v) => new ObjectId(v.value))
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
+    } else if (this.prop.name === 'deletedAt' && !value) {
+      return undefined
     }
     return value.value
   }
@@ -19,6 +23,10 @@ export class ValueObjectTransformer {
       return new this.ValueObject(value.toString())
     } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
       return value.map((v) => new this.ValueObject(v.toString()))
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
+    } else if (this.prop.name === 'deletedAt' && !value) {
+      return undefined
     }
 
     return new this.ValueObject(value)

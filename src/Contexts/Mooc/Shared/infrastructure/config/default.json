@@ -2,24 +2,24 @@
   "app": {
     "name": "Mock Backend App"
   },
-  "sentry": {
-    "dsn": "https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751"
-  },
   "rabbitmq": {
     "connectionSettings": {
-      "username": "guest",
-      "password": "guest",
-      "vhost": "/",
+      "username": "inrfebcy",
+      "password": "fW-2oZftiwGmxyznJLP-pF2k01m7_DXw",
+      "vhost": "inrfebcy",
       "connection": {
-        "secure": false,
-        "hostname": "localhost",
-        "port": 5672
+        "secure": true,
+        "hostname": "beaver.rmq.cloudamqp.com",
+        "port": 5671
       }
     },
     "exchangeSettings": {
       "name": "domain_events"
     },
-    "maxRetries": 2,
+    "maxRetries": 3,
     "retryTtl": 1000
+  },
+  "sentry": {
+    "dsn": "https://cc968649cee2411e91e10c5964fa75af@o914008.ingest.sentry.io/6667751"
   }
 }

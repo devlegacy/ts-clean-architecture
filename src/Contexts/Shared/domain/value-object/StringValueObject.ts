@@ -5,7 +5,7 @@ export abstract class StringValueObject extends ValueObject<string> {
 
   constructor(value: string) {
     // this.value = value
-    super(value)
+    super(value?.trim())
   }
 
   // toString() {

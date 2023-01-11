@@ -28,11 +28,6 @@ export let logger = () =>
     pino.multistream(streams)
   )
 
-export const fatalErrorHandler = (err: Error, ..._args: unknown[]) => {
-  logger().error(err)
-  process.exit(1)
-}
-
 export const deepLog = (data: object) =>
   logger().info(
     util.inspect(data, {

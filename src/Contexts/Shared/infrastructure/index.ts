@@ -1,5 +1,6 @@
 export * from './CommandBus'
 export * from './EventBus'
+export * from './FatalErrorHandler'
 export * from './GeneralValidationModule'
 export * from './persistence'
 export * from './QueryBus'

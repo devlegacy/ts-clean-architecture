@@ -2,6 +2,23 @@
   "app": {
     "name": "Backoffice Backend App"
   },
+  "rabbitmq": {
+    "connectionSettings": {
+      "username": "inrfebcy",
+      "password": "fW-2oZftiwGmxyznJLP-pF2k01m7_DXw",
+      "vhost": "inrfebcy",
+      "connection": {
+        "secure": true,
+        "hostname": "beaver.rmq.cloudamqp.com",
+        "port": 5671
+      }
+    },
+    "exchangeSettings": {
+      "name": "domain_events"
+    },
+    "maxRetries": 3,
+    "retryTtl": 1000
+  },
   "sentry": {
     "dsn": "https://63c75da4da6d4eb986d52394602515a4@o914008.ingest.sentry.io/4504036598284288"
   }
