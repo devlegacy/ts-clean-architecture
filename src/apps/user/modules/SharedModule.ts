@@ -2,6 +2,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { container } from 'tsyringe'
 
+import { Monitoring } from '@/Contexts/Shared/domain'
 import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
 import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
@@ -13,7 +14,7 @@ const context = 'user'
 
 const mongoConfig = MongoConfigFactory.createConfig()
 const mongoClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
-const monitoring = undefined //new SentryModule({ options: SentryConfigFactory.createConfig() })
+const monitoring = {} as Monitoring //new SentryModule({ options: SentryConfigFactory.createConfig() })
 const logger = new PinoLogger({
   name: 'user',
   level: 'info'
