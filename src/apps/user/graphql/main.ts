@@ -1,13 +1,19 @@
 import 'reflect-metadata'
 
-import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/Logger'
+import { container } from 'tsyringe'
+
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 
 import { UserGraphQLApp } from './UserGraphQLApp'
 
-process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
+const fatalErrorHandler = container.resolve(FatalErrorHandler)
+
+process
+  .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))
+  .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
 try {
-  new UserGraphQLApp().start()
+  new UserGraphQLApp().start().catch((e) => fatalErrorHandler.capture(e))
 } catch (e) {
-  fatalErrorHandler(e as Error)
+  fatalErrorHandler.capture(e as Error)
 }

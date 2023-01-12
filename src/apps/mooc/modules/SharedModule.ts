@@ -13,6 +13,7 @@ import {
 } from '@/Contexts/Mooc/Shared/infrastructure'
 import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
+  FatalErrorHandler,
   InMemoryCommandBus,
   InMemoryQueryBus,
   MikroOrmMongoClientFactory,
@@ -70,3 +71,4 @@ container
   // Monitoring
   .register(TYPES.Monitoring, { useValue: monitoring })
   .register(TYPES.Logger, { useValue: logger })
+  .registerSingleton(FatalErrorHandler)

@@ -1,13 +1,19 @@
 import 'reflect-metadata'
 
-import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/Logger'
+import { container } from 'tsyringe'
+
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 
 import { UserBackendApp } from './UserBackendApp'
 
-process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
+const fatalErrorHandler = container.resolve(FatalErrorHandler)
+
+process
+  .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))
+  .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
 try {
-  new UserBackendApp().start()
+  new UserBackendApp().start().catch((e) => fatalErrorHandler.capture(e as Error))
 } catch (e) {
-  fatalErrorHandler(e as Error)
+  fatalErrorHandler.capture(e as Error)
 }

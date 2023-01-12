@@ -1,11 +1,18 @@
 import 'reflect-metadata'
 import '../../modules'
 
-import { error, fatalErrorHandler, info } from '@/Contexts/Shared/infrastructure/Logger'
+import { container } from 'tsyringe'
+
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
+import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
 
-process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
+const fatalErrorHandler = container.resolve(FatalErrorHandler)
+
+process
+  .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))
+  .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
 ConfigureRabbitMQCommand.run()
   .then(() => {

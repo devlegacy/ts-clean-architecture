@@ -15,6 +15,7 @@ import {
 import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
   ElasticClientFactory,
+  FatalErrorHandler,
   InMemoryCommandBus,
   InMemoryQueryBus,
   MikroOrmMongoClientFactory,
@@ -68,3 +69,4 @@ container
   .register(TYPES.Logger, { useValue: logger })
   .register(TYPES.ElasticConfig, { useValue: elasticConfig })
   .register<Promise<ElasticClient>>(TYPES.ElasticClient, { useValue: elasticClient })
+  .registerSingleton(FatalErrorHandler)

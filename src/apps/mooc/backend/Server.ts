@@ -8,9 +8,9 @@ import qs from 'qs'
 import { container } from 'tsyringe'
 
 import { Monitoring, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
-import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 import { ZodModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Zod'
 
@@ -39,7 +39,7 @@ export class Server {
       .setMonitoringModule(container.resolve<Monitoring>(TYPES.Monitoring))
       .setValidationModule(new JoiModule())
       .setValidationModule(new ZodModule())
-      .setValidationModule(new GeneralValidationModule())
+      .setValidationModule(new GeneralRequestValidation())
   }
 
   async listen() {

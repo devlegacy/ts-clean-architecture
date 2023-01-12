@@ -1,5 +1,5 @@
 import { CartId, UserId } from '@/Contexts/Land/Shared/domain'
-import { info } from '@/Contexts/Shared/infrastructure/logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 export class CartViewCreator {
   // constructor() {}
