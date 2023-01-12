@@ -1,5 +1,5 @@
-import { PipeTransform } from '../../common/interfaces'
-import { Joi } from '../../joi'
+import { PipeTransform } from '../../../common/interfaces'
+import { Joi } from '../index'
 
 export class FiltersPipe implements PipeTransform {
   transform(filters: any) {

@@ -1,4 +1,4 @@
-import { ObjectId } from '../value-object'
+import { ObjectId } from '../ValueObjects'
 
 export interface IDomainEvent {
   // id for the Aggregate Root that this event belongs to

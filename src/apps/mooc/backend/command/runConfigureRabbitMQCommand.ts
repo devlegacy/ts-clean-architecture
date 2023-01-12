@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import '../../modules'
 
-import { error, fatalErrorHandler, info } from '@/Contexts/Shared/infrastructure/logger'
+import { error, fatalErrorHandler, info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
 

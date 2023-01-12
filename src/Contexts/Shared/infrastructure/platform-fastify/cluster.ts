@@ -1,6 +1,6 @@
 import { Cluster } from 'cluster'
 
-import { info } from '@/Contexts/Shared/infrastructure/logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 export class Primary {
   private cluster: Cluster

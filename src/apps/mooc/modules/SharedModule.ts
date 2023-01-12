@@ -23,7 +23,7 @@ import {
   RabbitMQQueueFormatter,
   SentryModule
 } from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/logger'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { TYPES } from './types'
 

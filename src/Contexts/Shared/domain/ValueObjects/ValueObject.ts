@@ -1,6 +1,6 @@
 import { shallowEqual } from 'fast-equals'
 
-import { InvalidArgumentException } from '../exceptions'
+import { InvalidArgumentException } from '../Exceptions'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type PrimitiveTypes = String | string | number | Boolean | boolean | Date

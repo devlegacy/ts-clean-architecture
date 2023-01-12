@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
 
-import { info } from '@/Contexts/Shared/infrastructure/logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { DomainEvent, EventBus } from '../../../domain'
 import { DomainEventSubscribers } from '../DomainEventSubscribers'

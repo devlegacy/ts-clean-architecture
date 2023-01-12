@@ -1,4 +1,4 @@
-import { EntityNotFoundException } from '../exceptions/EntityNotFoundException'
+import { EntityNotFoundException } from '../Exceptions/EntityNotFoundException'
 import { Query } from './Query'
 
 export class QueryNotRegisteredException extends EntityNotFoundException {

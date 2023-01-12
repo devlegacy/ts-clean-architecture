@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe'
 
 import { Command, CommandBus } from '../../domain'
-import { error } from '../logger'
+import { error } from '../Logger'
 import { CommandHandlers } from './CommandHandlers'
 
 // Alternative -> EventEmitter

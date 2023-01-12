@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/logger'
+import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { UserBackendApp } from './UserBackendApp'
 

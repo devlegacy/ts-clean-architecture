@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/joi'
+import { Joi } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 export class JoiCourseRequestDto {
   @JoiSchema(Joi.string().required())

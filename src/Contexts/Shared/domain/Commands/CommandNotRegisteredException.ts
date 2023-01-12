@@ -1,4 +1,4 @@
-import { EntityNotFoundException } from '../exceptions/EntityNotFoundException'
+import { EntityNotFoundException } from '../Exceptions'
 import { Command } from './Command'
 
 export class CommandNotRegisteredException extends EntityNotFoundException {

@@ -7,7 +7,7 @@ import { join, resolve } from 'path'
 import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
 
-import { info } from '@/Contexts/Shared/infrastructure/logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { ParamData, RequestMappingMetadata, RequestMethod, RouteParamMetadata, RouteParamtypes } from '../common'
 import {

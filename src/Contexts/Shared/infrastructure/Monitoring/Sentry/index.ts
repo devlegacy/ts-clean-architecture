@@ -3,7 +3,7 @@ import * as Tracing from '@sentry/tracing'
 import { resolve } from 'path'
 import { cwd } from 'process'
 
-import { Monitoring } from '../../domain'
+import { Monitoring } from '../../../domain'
 
 // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
 const packageJson: Record<string, string> = require(resolve(cwd(), './package.json'))

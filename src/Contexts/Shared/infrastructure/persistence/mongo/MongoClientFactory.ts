@@ -1,6 +1,6 @@
 import { MongoClient, MongoClientOptions } from 'mongodb'
 
-import { info } from '../../logger'
+import { info } from '../../Logger'
 import { MongoConfig } from './MongoConfig'
 
 export class MongoClientFactory {

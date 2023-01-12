@@ -2,7 +2,7 @@ import { MikroORM } from '@mikro-orm/core'
 import type { Options, PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 
-import { info } from '../../logger'
+import { info } from '../../Logger'
 import { PostgresConfig } from '../postgres'
 
 export abstract class MikroOrmPostgresClientFactory {

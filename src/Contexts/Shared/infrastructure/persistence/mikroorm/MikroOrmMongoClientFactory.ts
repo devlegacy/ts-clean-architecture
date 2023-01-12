@@ -2,7 +2,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
 import type { MongoDriver, Options } from '@mikro-orm/mongodb'
 
-import { info } from '../../logger'
+import { info } from '../../Logger'
 import { MongoConfig } from '../mongo/MongoConfig'
 
 export abstract class MikroOrmMongoClientFactory {

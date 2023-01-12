@@ -1,5 +1,5 @@
-import { InvalidArgumentException } from '../exceptions'
-import { EnumValueObject } from '../value-object'
+import { InvalidArgumentException } from '../Exceptions'
+import { EnumValueObject } from '../ValueObjects'
 
 export enum OrderTypes {
   ASC = 'asc',

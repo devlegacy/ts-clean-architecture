@@ -1,14 +1,18 @@
-import { ArgumentMetadata, PipeTransform } from '../../common/interfaces'
-import { Joi } from '../../joi'
-import { info } from '../../logger'
+import { ArgumentMetadata, PipeTransform } from '../../../common/interfaces'
+import { info } from '../../../Logger'
+import { Joi } from '../index'
 
-export class ObjectIdPipe implements PipeTransform {
+export class UuidPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     // metadata key: value
     info(`${value} ${metadata}`)
     const schema = Joi.object({
       // metadata key: value
-      value: Joi.string().objectId().required()
+      value: Joi.string()
+        .trim()
+        .guid({
+          version: ['uuidv4']
+        })
     })
 
     const {

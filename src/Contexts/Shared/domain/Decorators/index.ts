@@ -1,4 +1,4 @@
-import { error, info } from '../../infrastructure/logger'
+import { error, info } from '../../infrastructure/Logger'
 
 export function Catch(): MethodDecorator {
   // Receives the target, key and descriptor

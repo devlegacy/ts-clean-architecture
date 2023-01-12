@@ -8,7 +8,7 @@ import {
   NumberValueObject,
   PrimitiveTypes,
   StringValueObject
-} from './value-object'
+} from './ValueObjects'
 
 export type Primitives<Type> = Writable<{
   [Property in keyof Entity<Type>]: Type[Property] extends PrimitiveTypes

@@ -3,7 +3,7 @@
 
 import { ObjectId as ObjectID } from 'mongodb'
 
-import { InvalidArgumentException } from '../exceptions'
+import { InvalidArgumentException } from '../Exceptions'
 import { ValueObject } from './ValueObject'
 
 export class ObjectId extends ValueObject<string> {

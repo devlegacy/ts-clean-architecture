@@ -1,4 +1,4 @@
-import { InvalidArgumentException } from '../exceptions'
+import { InvalidArgumentException } from '../Exceptions'
 import { NumberValueObject } from './NumberValueObject'
 
 export class PositiveNumberValueObject extends NumberValueObject {

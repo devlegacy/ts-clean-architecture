@@ -1,5 +1,5 @@
 import { CommandNotRegisteredException } from './Commands'
-import { EntityNotFoundException, InvalidArgumentException } from './exceptions'
+import { EntityNotFoundException, InvalidArgumentException } from './Exceptions'
 import { QueryNotRegisteredException } from './Queries'
 
 export class DomainException {

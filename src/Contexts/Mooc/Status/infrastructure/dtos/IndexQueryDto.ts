@@ -1,6 +1,6 @@
 import { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/joi'
+import { Joi } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 @JoiSchemaOptions({
   allowUnknown: false

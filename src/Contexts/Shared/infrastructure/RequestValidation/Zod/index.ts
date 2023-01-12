@@ -3,7 +3,7 @@ import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
 import { ZodError, ZodObject, ZodSchema, ZodTypeDef } from 'zod'
 
-import { ValidationModule } from '../platform-fastify'
+import { ValidationModule } from '../../platform-fastify'
 
 // Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts
 

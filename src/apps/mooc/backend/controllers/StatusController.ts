@@ -14,8 +14,11 @@ import {
   Req,
   Res
 } from '@/Contexts/Shared/infrastructure/common'
-import { ObjectIdPipe as JoiMongoIdPipe, PageNumberPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
-import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/pipes/zod'
+import {
+  ObjectIdPipe as JoiMongoIdPipe,
+  PageNumberPipe
+} from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
+import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Zod/Pipes'
 
 @Controller('status')
 export class StatusController {
@@ -25,12 +28,12 @@ export class StatusController {
     return {}
   }
 
-  @Post('joi/pipe/:mongoId')
+  @Post('Joi/pipe/:mongoId')
   mongoPipe(@Param('mongoId', JoiMongoIdPipe) mongoId: string) {
     return { mongoId }
   }
 
-  @Post('zod/pipe/:mongoId')
+  @Post('Zod/pipe/:mongoId')
   zodPipe(@Param('mongoId', ZodMongoIdPipe) mongoId: string) {
     return { mongoId }
   }
@@ -40,7 +43,7 @@ export class StatusController {
     return course
   }
 
-  @Post('joi/array')
+  @Post('Joi/array')
   joiArray(@Body() courses: JoiCoursesRequestDto) {
     return courses
   }

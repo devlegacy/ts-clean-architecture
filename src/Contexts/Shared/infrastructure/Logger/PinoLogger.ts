@@ -1,10 +1,10 @@
 import { resolve } from 'path'
-import pino, { Logger, LoggerOptions } from 'pino'
+import pino, { Logger as BasePinoLogger, LoggerOptions } from 'pino'
 import pretty from 'pino-pretty'
 import { cwd } from 'process'
 import util from 'util'
 
-import { CustomLogger } from '../../domain'
+import { Logger } from '../../domain'
 
 const stream = pretty({
   colorize: true, // colorizes the log
@@ -14,7 +14,7 @@ const stream = pretty({
   translateTime: 'yyyy-dd-mm, h:MM:ss TT'
 })
 
-const streams = [{ stream }, { stream: pino.destination(resolve(cwd(), './logger.log')) }]
+const streams = [{ stream }, { stream: pino.destination(resolve(cwd(), './Logger.log')) }]
 
 /**
  * Read more on: https://getpino.io/#/
@@ -47,51 +47,40 @@ export const debug = logger().debug.bind(logger())
 export const fatal = logger().fatal.bind(logger())
 export const error = logger().error.bind(logger())
 
-export class PinoLogger implements CustomLogger {
-  #logger: Logger
+export class PinoLogger implements Logger {
+  #logger: BasePinoLogger
 
   constructor(conf: { name?: string; level?: string } = { level: 'info' }) {
     this.#logger = pino(conf, pino.multistream(streams))
   }
 
-  info(obj: unknown): void {
-    this.#logger.info(obj)
+  info(data: unknown): void {
+    this.#logger.info(data)
   }
 
-  warn(obj: unknown): void {
-    this.#logger.warn(obj)
+  warn(data: unknown): void {
+    this.#logger.warn(data)
   }
 
-  debug(obj: unknown): void {
-    this.#logger.debug(obj)
+  debug(data: unknown): void {
+    this.#logger.debug(data)
   }
 
-  fatal(obj: unknown): void {
-    this.#logger.fatal(obj)
+  fatal(data: unknown): void {
+    this.#logger.fatal(data)
   }
 
-  error(obj: unknown): void {
-    this.#logger.error(obj)
+  error(data: unknown): void {
+    this.#logger.error(data)
+  }
+
+  deep(data: unknown) {
+    this.#logger.info(
+      util.inspect(data, {
+        showHidden: false,
+        depth: null,
+        colors: true
+      })
+    )
   }
 }
-
-// logger().info(
-//   {
-//     x: 'samuel',
-//     y: 'Rojas',
-//     z: '%s'
-//   },
-//   'person',
-//   'demo'
-// )
-
-// logger().info(
-//   '%o\n%s',
-//   {
-//     x: 'samuel',
-//     y: 'Rojas',
-//     z: '%'
-//   },
-//   'person',
-//   'demo'
-// )

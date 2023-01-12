@@ -1,5 +1,5 @@
 import { Filter, Filters, Operator } from '@/Contexts/Shared/domain'
-import { LastCreatedEntities } from '@/Contexts/Shared/domain/criteria/LastCreatedEntities'
+import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
 
 import { BackofficeCourse } from './BackofficeCourse'
 import { BackofficeCourseRepository } from './BackofficeCourseRepository'

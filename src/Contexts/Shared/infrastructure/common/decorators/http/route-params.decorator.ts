@@ -1,6 +1,6 @@
 import { Constructor } from 'type-fest'
 
-import { info } from '../../../logger'
+import { info } from '../../../Logger'
 import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants'
 import { RouteParamtypes } from '../../enums'
 import { PipeTransform } from '../../interfaces'

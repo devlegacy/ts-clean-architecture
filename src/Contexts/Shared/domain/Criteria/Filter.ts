@@ -1,4 +1,4 @@
-import { InvalidArgumentException } from '../exceptions'
+import { InvalidArgumentException } from '../Exceptions'
 import { Primitives } from '../Primitives'
 import { FilterField } from './FilterField'
 import { FilterOperator, OperatorKeys } from './FilterOperator'

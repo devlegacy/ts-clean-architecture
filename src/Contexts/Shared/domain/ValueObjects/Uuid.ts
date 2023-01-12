@@ -1,7 +1,7 @@
 import { v4, validate, version } from 'uuid'
 
 // import { ObjectId } from 'mongodb'
-import { InvalidArgumentException } from '../exceptions'
+import { InvalidArgumentException } from '../Exceptions'
 import { ValueObject } from './ValueObject'
 
 // abstract

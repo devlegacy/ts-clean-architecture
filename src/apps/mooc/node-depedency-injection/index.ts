@@ -8,7 +8,7 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter
 } from '@/Contexts/Shared/infrastructure/EventBus'
-import { logger } from '@/Contexts/Shared/infrastructure/logger'
+import { logger } from '@/Contexts/Shared/infrastructure/Logger'
 import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/persistence'
 import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus'
 

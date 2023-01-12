@@ -1,7 +1,8 @@
-export interface CustomLogger {
-  info(obj: unknown): void
-  warn(obj: unknown): void
-  debug(obj: unknown): void
-  fatal(obj: unknown): void
-  error(obj: unknown): void
+export interface Logger {
+  info(data: unknown): void
+  warn(data: unknown): void
+  debug(data: unknown): void
+  fatal(data: unknown): void
+  error(data: unknown): void
+  deep(data: unknown): void
 }

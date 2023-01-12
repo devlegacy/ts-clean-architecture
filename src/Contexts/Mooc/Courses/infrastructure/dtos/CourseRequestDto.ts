@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/joi'
+import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 /**
  * NOTE: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)

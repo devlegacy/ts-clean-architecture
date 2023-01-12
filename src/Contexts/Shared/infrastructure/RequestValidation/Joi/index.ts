@@ -6,8 +6,8 @@ import { DEFAULT, getClassSchema, JoiValidationGroup } from 'joi-class-decorator
 import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 import { ObjectId } from 'mongodb'
 
-import { RequestMethod } from '../common'
-import { ValidationModule } from '../platform-fastify'
+import { RequestMethod } from '../../common'
+import { ValidationModule } from '../../platform-fastify'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
@@ -100,7 +100,7 @@ class JoiModule implements ValidationModule<joi.AnySchema> {
 
   schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, group?: SchemaMethodGroup) {
     const objectSchema = schema[`${key}`] || {}
-    if (Joi.isSchema(objectSchema)) return true // Avoid transform if is already a joi schema
+    if (Joi.isSchema(objectSchema)) return true // Avoid transform if is already a Joi schema
 
     if (this.isSchemaJoiCandidate(objectSchema)) {
       const buildSchema = getClassSchema(objectSchema as Constructor, group)

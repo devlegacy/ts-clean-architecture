@@ -9,9 +9,9 @@ import { container } from 'tsyringe'
 
 import { Monitoring, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
 import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
-import { error } from '@/Contexts/Shared/infrastructure/logger'
+import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 import { TYPES } from '../modules/types'
 

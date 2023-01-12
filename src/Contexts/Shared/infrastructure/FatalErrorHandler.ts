@@ -1,12 +1,12 @@
 import { inject, injectable } from 'tsyringe'
 
-import { CustomLogger, DomainException, Monitoring } from '../domain'
+import { DomainException, Logger, Monitoring } from '../domain'
 import { SHARED_TYPES } from './common'
 
 @injectable()
 export class FatalErrorHandler {
   constructor(
-    @inject(SHARED_TYPES.Logger) private readonly logger: CustomLogger,
+    @inject(SHARED_TYPES.Logger) private readonly logger: Logger,
     @inject(SHARED_TYPES.Monitoring) private readonly monitoring: Monitoring
   ) {}
 

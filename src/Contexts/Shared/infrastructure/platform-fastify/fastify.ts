@@ -14,7 +14,7 @@ import Fastify, {
 } from 'fastify'
 import { AddressInfo } from 'net'
 
-import { logger } from '@/Contexts/Shared/infrastructure/logger'
+import { logger } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { ControllerResolver, Monitoring } from '../common'
 import { bootstrap } from './bootstrap'

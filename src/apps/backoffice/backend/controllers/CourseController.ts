@@ -29,9 +29,9 @@ import {
   Put,
   Query
 } from '@/Contexts/Shared/infrastructure/common'
-import { error, info } from '@/Contexts/Shared/infrastructure/logger'
-import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/pipes/joi'
-import { FiltersPipe } from '@/Contexts/Shared/infrastructure/pipes/joi/filters.pipe'
+import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
+import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
+import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes/filters.pipe'
 
 import { TYPES } from '../../modules/types'
 
