@@ -1,12 +1,13 @@
+import { createWriteStream } from 'fs'
 import { resolve } from 'path'
 import pino, { Logger as BasePinoLogger, LoggerOptions } from 'pino'
-import pretty from 'pino-pretty'
+import PinoPretty from 'pino-pretty'
 import { cwd } from 'process'
 import util from 'util'
 
 import { Logger } from '../../domain'
 
-const stream = pretty({
+const stream = PinoPretty({
   colorize: true, // colorizes the log
   destination: 1,
   ignore: 'pid,hostname',
@@ -14,7 +15,14 @@ const stream = pretty({
   translateTime: 'yyyy-dd-mm, h:MM:ss TT'
 })
 
-const streams = [{ stream }, { stream: pino.destination(resolve(cwd(), './Logger.log')) }]
+const dest = resolve(cwd(), './logger.log')
+const streams = [
+  { stream },
+  {
+    stream: createWriteStream(dest)
+    //pino.destination({ dest: resolve(cwd(), './logger.log')})
+  }
+]
 
 /**
  * Read more on: https://getpino.io/#/
@@ -51,7 +59,7 @@ export class PinoLogger implements Logger {
   #logger: BasePinoLogger
 
   constructor(conf: { name?: string; level?: string } = { level: 'info' }) {
-    this.#logger = pino(conf, pino.multistream(streams))
+    this.#logger = pino(conf)
   }
 
   info(data: unknown): void {
