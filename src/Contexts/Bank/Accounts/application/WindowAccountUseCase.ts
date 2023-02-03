@@ -1,0 +1,35 @@
+import { EntityNotFoundException, Money } from '@/Contexts/Shared/domain'
+
+import { Account, AccountRepository, EURRatioService } from '../domain'
+
+export class AccountUseCase {
+  constructor(private readonly accountRepository: AccountRepository, private readonly ratioService: EURRatioService) {}
+
+  async create(id: string, name: string, currency: string): Promise<string> {
+    const account = Account.create(id, name, currency)
+    await this.accountRepository.save(account)
+
+    return account.id
+  }
+
+  async find(id: string): Promise<Account> {
+    const account = await this.accountRepository.find(id)
+    if (!account) throw new EntityNotFoundException(`Unknown account ${id}`)
+
+    return account
+  }
+
+  async deposit(id: string, amount: number, currency: string): Promise<void> {
+    const account = await this.find(id)
+    account.deposit(new Money(amount, currency))
+
+    await this.accountRepository.update(id, account)
+  }
+
+  async withdraw(id: string, amount: number, currency: string): Promise<void> {
+    const account = await this.find(id)
+    account.withdraw(new Money(amount, currency), this.ratioService)
+
+    await this.accountRepository.update(id, account)
+  }
+}

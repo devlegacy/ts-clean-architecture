@@ -1,0 +1,22 @@
+import { Nullable } from '@/Contexts/Shared/domain'
+import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/persistence/memory'
+
+import { Account, AccountRepository } from '../../domain'
+
+export class InMemoryAccountRepository extends InMemoryRepository<Account> implements AccountRepository {
+  protected override parser = Account.fromPrimitives
+
+  async save(account: Account): Promise<void> {
+    await this.persist(account)
+  }
+
+  override async update(id: Account['id'], account: Account): Promise<void> {
+    await super.update(id, account)
+  }
+
+  override async find(id: Account['id']): Promise<Nullable<Account>> {
+    const account = super.find(id)
+
+    return account
+  }
+}

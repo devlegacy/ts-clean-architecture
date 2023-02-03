@@ -1,4 +1,5 @@
 export * from './elasticsearch'
+export * from './memory'
 export * from './mikroorm/MikroOrmMongoClientFactory'
 export * from './mikroorm/MikroOrmMongoRepository'
 export * from './mikroorm/MikroOrmPostgresClientFactory'

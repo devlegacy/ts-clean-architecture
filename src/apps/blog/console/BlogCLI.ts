@@ -18,7 +18,7 @@ export class BlogCLI {
       .map((option, index) => `\t${index + 1}) ${option.name.replace('bound ', '')}`)
       .join('\n')
     const message = `
-      Welcome to our Blog!
+      Welcome to our CLI Blog!
       Please, choose an option:
       ${options}`
     console.log(message)
