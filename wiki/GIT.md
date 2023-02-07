@@ -63,7 +63,7 @@
 #### Bump dependencies
 
 ```md
-  chore(packages): bump dependencies   
+  chore(deps): bump dependencies   
     - update dependencies
     - update dev dependencies
 ```

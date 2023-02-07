@@ -108,12 +108,36 @@
 ### Notes
 
 - Aggregates
-  - without await (indicates I/O)
+  - it shouldn't contain async/await functions (indicates I/O)
+  - it should be loaded in one go to memory (with all it's child objects) no lazy loading
+  - The aggregate is created, retrieved and stored as a whole.
+  - The aggregate is always in a consistent state.
+  - The aggregate is owned by an entity called the aggregate root, whose ID is used to identify the aggregate itself.
+
+  - An aggregate can be referenced from the outside through its root only. Objects outside of the aggregate may not reference any other entities inside the aggregate.
+  - The aggregate root is responsible for enforcing business invariants inside the aggregate, ensuring that the aggregate is in a consistent state at all times.
 - ⚙ Controller rules 📏
   - Primary port
   - It receives primitives | scalars - `[Entity | Course][Action | Create]RequestDto`
   - It could instantiate  `use cases` | `use cases` ↔ `value objects` | `query bus` ↔ `queries` | `command bus` ↔ `commands`
     -  `use cases` ↔ `value objects` could be migrated to `CQRS`
+ -  It has an implicit interface
+-  Repositories
+   - Communicate with infrastructure (persistence)
+     - Database
+     - Redis
+     - Elasticsearch
+   - Write methods
+     - `save<T>([aggregate]: T): Promise<void>`
+     - `update<T>([aggregate]: T): Promise<void>`
+     - `delete([aggregate]: T)): Promise<void>`
+   - Read methods
+     - `all<T>(): Promise<T[]>`
+     - `searchBy<T>(criteria: Criteria): Promise<T[]>`
+       - An empty array is possible and allowed
+     - `find<T>(...): Promise<Nullable<T>>`
+       - 
+     - 
 - Uses case rules
   - Naming Creator | Updater | Deleter | Incrementer 
   - It should instantiate `value objects` or `domain objects`
@@ -121,13 +145,16 @@
 - 📥 Module rules 📏
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 - Commands
+  - Implement `service locator pattern` 1:1
   - Imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
   - Can reject operations
   - ❌ can't instantiate command bus
   - ✅ `CommandBus` can instantiate in controllers
   - 💡 should use ubiquitous language not crud based thinking
     - avoid `[Create|Update|Delete]Course`
+  - should return void indicating a side effect
 - Query
+  - Implement `service locator pattern` 1:1
   - Starts (in he majority) with Get
   - ✅ `QueryBus` can instantiate in controllers
   - ✅ `QueryBus` can instantiate in use case
@@ -148,6 +175,9 @@
 ## Define
 
 - [ ] errors vs exceptions
+  - ✅ Error: A mistake
+    - an action, decision, or judgment that produces an unwanted or unintentional result
+  - ❌ Exception: someone or something that is not included in a rule, group, or list or that does not behave in the expected way
 - [ ] CreateCourseRequest - primitives creation (?)
 - [ ] No injectable elements
   - [ ] Logger
@@ -206,17 +236,19 @@
   - Event-driven architecture
 -------
 
-## Costos asumidos
+## Complexity
 
 - Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
-  - `@injectable()` | `@inject()` | `@singleton()`
+  - [`tsyringe`](https://github.com/Microsoft/tsyringe)
+  - [alternatives](https://npmtrends.com/awilix-vs-bottlejs-vs-diod-vs-inversify-vs-node-dependency-injection-vs-tsyringe-vs-typedi-vs-typescript-ioc)
+  - `@injectable()` | `@inject()` | `@singleton()` |  `@injectAll()`
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
   - Complejidad: Los enums son interpretados como `number` | `string`, debe evaluarse el uso por criterio
 - Desarrollo y mantenimiento de la capa de infraestructura
 - `ObjectID` como `String` en favor de agilizar el desarrollo y posteriormente diseñar una estrategia de conversión efectiva, basado en callbacks o transformaciones
-- `UUID` como id en lugar de `ObjectID`
+- `UUID` como identificador de agregados en lugar de `ObjectID`
   - Paquetes de validación y creación en dominio
-- 
+
 ## Comments conventions
 
 - BUG
@@ -229,12 +261,18 @@
 
 ## Excepciones de dominio
 
-Generalizar para después filtrar
+Clases base para representar las excepciones de dominio, esto con el objetivo de generalizar los errores, poder capturarlos y reconocerlos en el flujo de vida de la aplicación.
 
-- `InvalidArgumentException`: 422
-- `EntityNotFoundException`: 404
-- `CommandNotRegisteredException`: (?) 404
-- `QueryNotRegisteredException`: (?) 404
+- `InvalidArgumentException`:
+  - Value objects
+  - HTTP status code: `422`
+- `EntityNotFoundException`: 
+  - Queries | Finders | Searcher
+  - HTTP status code: `404`
+- `CommandNotRegisteredException`: 
+  - HTTP status code: `404` (DEBT)
+- `QueryNotRegisteredException`: 
+  - HTTP status code: `404` (DEBT) 
 
 ## Fastify
 
@@ -372,10 +410,17 @@ Apache benchmark
 
 ## Health check
 
-- Application | HTTP 
-  - Auto scaling
+Uso: 
+  - Auto scaling group (levant cuando este caído)
+  - Ping (conocer el estado del servicio y notificar)
+  - Salud del despliegue
+  - Evitar eliminar maquinas sanas a nivel de aplicación
+  - Limitado a la application | HTTP 
 
 ## Status check
+
+- Base de datos
+- 
 
 ## CERT
 
@@ -412,3 +457,6 @@ Pino
 <figure class="video_container">
   <iframe src="https://www.youtube.com/watch?v=NvLmjl85Hf0" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
+
+---
+https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design

@@ -30,6 +30,7 @@
 
 - **Aggregate**: Es un patrón DDD. Un agregado DDD es un conjunto de objetos de dominio que se pueden tratar como una sola unidad. Un ejemplo puede ser un pedido y sus artículos, estos serán objetos separados, pero es útil tratar el pedido (junto con sus artículos) como un agredo único.
 - **value object**: Objetos que representan conceptos. Cada concepto concreto es representado por la suma de todas las propiedades del objeto.
+  - Value objects are not only containers of data - they can also contain business logic
 - **Bounded context**: Múltiples modelos están en juego en cualquier proyecto grande. Sin embargo, cuando el código basado en distintos modelos se combina, el software se vuelve defectuoso, poco confiable y difícil de entender. La comunicación entre los miembros del equipo se vuelve confusa. A menudo no está claro en qué contexto no se debe aplicar un modelo.
 
   Por lo tanto: define explícitamente el contexto dentro del cual se aplica un modelo. Establece límites explícitamente en términos de organización del equipo, uso dentro de partes específicas de la aplicación y bases de códigos y esquemas de bases de datos. Mantén el modelo estrictamente consistente dentro de estos límites, pero no te distraigas por problemas externos.
@@ -82,3 +83,10 @@
 - **event sourcing**: Persistir el estado de un agregado en forma de secuencia ordenada de eventos que se habían aplicado al agregado.
 - **replay**: Reprocesar todos los eventos almacenados en el event store para recrear o crear una nueva proyección.
 - **upcasting**: Cuando surge la necesidad de evolucionar un evento, podemos usar esta estrategia que consiste en convertir una estructura de evento de una versión antigua a una nueva.
+
+## Symbols
+
+- virgulilla | Tilde: `~`
+- acento circunflejo | Circumflex: `^`
+- cedilla, C caudata | C-cedilla: `ç`
+- acento grave | backtick: ``` ` ```
