@@ -3,7 +3,7 @@ import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreat
 
 import { BackofficeCourse } from './BackofficeCourse'
 import { BackofficeCourseRepository } from './BackofficeCourseRepository'
-import { BackofficeCourseNotFoundException } from './exceptions'
+import { BackofficeCourseNotFoundError } from './Errors'
 
 /**
  * Domain service - Return a domain element
@@ -29,7 +29,7 @@ export class BackofficeCourseFinder {
     const criteria = new LastCreatedEntities(filters)
     const courses = await this.repository.searchBy(criteria)
 
-    if (!courses.length) throw new BackofficeCourseNotFoundException()
+    if (!courses.length) throw new BackofficeCourseNotFoundError()
 
     return courses[0]
   }

@@ -1,5 +1,5 @@
-// 404
-export class EntityNotFoundException extends Error {
+// 422
+export class InvalidArgumentError extends Error {
   constructor(message: string) {
     super(message)
     this.name = this.constructor.name

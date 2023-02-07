@@ -1,7 +1,7 @@
 import { v4, validate, version } from 'uuid'
 
 // import { ObjectId } from 'mongodb'
-import { InvalidArgumentException } from '../Exceptions'
+import { InvalidArgumentError } from '../Errors'
 import { ValueObject } from './ValueObject'
 
 // abstract
@@ -25,7 +25,7 @@ export class Uuid extends ValueObject<string> {
   private isValidUuid(value: string) {
     // if (!ObjectId.isValid(id)) {
     if (!(validate(value) || version(value) === 4))
-      throw new InvalidArgumentException(`<${this.constructor.name}> does not allow the value <${value}>`)
+      throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${value}>`)
   }
 
   // Inherited

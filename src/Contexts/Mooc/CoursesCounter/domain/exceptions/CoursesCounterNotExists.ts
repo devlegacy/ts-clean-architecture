@@ -1,6 +1,6 @@
-import { EntityNotFoundException } from '@/Contexts/Shared/domain'
+import { EntityNotFoundError } from '@/Contexts/Shared/domain'
 
-export class CoursesCounterNotExist extends EntityNotFoundException {
+export class CoursesCounterNotExist extends EntityNotFoundError {
   constructor() {
     super('The courses counter does not exists')
   }

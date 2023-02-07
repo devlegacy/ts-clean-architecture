@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/user/modules/types'
 
-import { ExistUserByUserName, User, UserAlreadyExistsException, UserRepository } from '../domain'
+import { ExistUserByUserName, User, UserAlreadyExistsError, UserRepository } from '../domain'
 import { UserCreatorRequest } from './UserCreatorRequest'
 
 /** UserCreatorUseCase */
@@ -18,7 +18,7 @@ export class UserCreator {
     const user: User = User.fromPrimitives(request)
 
     const existUser = await this.existUserByUserName.run(user.username.value)
-    if (existUser) throw new UserAlreadyExistsException()
+    if (existUser) throw new UserAlreadyExistsError()
 
     return this.userRepository.save(user)
   }

@@ -1,4 +1,4 @@
 export * from './Command'
 export * from './CommandBus'
 export * from './CommandHandler'
-export * from './CommandNotRegisteredException'
+export * from './CommandNotRegisteredError'

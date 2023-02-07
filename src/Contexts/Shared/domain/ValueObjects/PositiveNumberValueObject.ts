@@ -1,4 +1,4 @@
-import { InvalidArgumentException } from '../Exceptions'
+import { InvalidArgumentError } from '../Errors'
 import { NumberValueObject } from './NumberValueObject'
 
 export class PositiveNumberValueObject extends NumberValueObject {
@@ -9,7 +9,7 @@ export class PositiveNumberValueObject extends NumberValueObject {
 
   private isPositiveNumber(value: number) {
     if (value < 0) {
-      throw new InvalidArgumentException(`The value <${value}> must be a positive number`)
+      throw new InvalidArgumentError(`The value <${value}> must be a positive number`)
     }
   }
 }

@@ -5,7 +5,7 @@ import { container } from 'tsyringe'
 
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
-import { UserAlreadyExistsException, UserRepository } from '@/Contexts/User/Users/domain'
+import { UserAlreadyExistsError, UserRepository } from '@/Contexts/User/Users/domain'
 
 import { TYPES } from '../modules/types'
 
@@ -35,7 +35,7 @@ const bootstrap = async () => {
   try {
     await userCreator.run(userDto)
   } catch (e) {
-    if (e instanceof UserAlreadyExistsException) {
+    if (e instanceof UserAlreadyExistsError) {
       error(e)
     }
   }

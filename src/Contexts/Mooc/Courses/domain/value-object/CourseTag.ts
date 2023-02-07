@@ -1,4 +1,4 @@
-import { EnumValueObject, InvalidArgumentException } from '@/Contexts/Shared/domain'
+import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain'
 
 export enum Tag {
   NEW_RELEASE = 'new_release',
@@ -17,11 +17,11 @@ export class CourseTag extends EnumValueObject<Tag> {
       case Tag.DEPRECATED:
         return new CourseTag(Tag.DEPRECATED)
       default:
-        throw new InvalidArgumentException(`The course tag ${value} is invalid`)
+        throw new InvalidArgumentError(`The course tag ${value} is invalid`)
     }
   }
 
-  protected throwInvalidValueException(value: Tag): void {
-    throw new InvalidArgumentException(`The course tag ${value} is invalid`)
+  protected throwInvalidValueError(value: Tag): void {
+    throw new InvalidArgumentError(`The course tag ${value} is invalid`)
   }
 }

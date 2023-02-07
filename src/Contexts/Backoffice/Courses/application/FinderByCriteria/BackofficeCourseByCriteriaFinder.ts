@@ -4,7 +4,7 @@ import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filters } from '@/Contexts/Shared/domain'
 import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
 
-import { BackofficeCourseNotFoundException, BackofficeCourseRepository } from '../../domain'
+import { BackofficeCourseNotFoundError, BackofficeCourseRepository } from '../../domain'
 import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
 
 // Knows - Repository - Aggregate
@@ -17,7 +17,7 @@ export class BackofficeCourseByCriteriaFinder {
     const criteria = new LastCreatedEntities(filters)
 
     const courses = await this.repository.searchBy(criteria)
-    if (!courses.length) throw new BackofficeCourseNotFoundException()
+    if (!courses.length) throw new BackofficeCourseNotFoundError()
 
     const response = new BackofficeCourseResponse(courses[0])
     // No return an aggregate

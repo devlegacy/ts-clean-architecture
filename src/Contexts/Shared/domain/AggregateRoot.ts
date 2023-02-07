@@ -1,3 +1,4 @@
+import { DomainError } from './DomainError'
 import { DomainEvent } from './Events/DomainEvent'
 /**
  * A cluster of associated objects which act as a single unit for the purpose of data changes.
@@ -11,6 +12,12 @@ import { DomainEvent } from './Events/DomainEvent'
 export abstract class AggregateRoot {
   static fromPrimitives: (args: any) => AggregateRoot
   private domainEvents: DomainEvent[] = []
+
+  constructor() {
+    this.domainEvents = []
+    if (!(this.constructor as typeof AggregateRoot).fromPrimitives)
+      throw new DomainError(`${this.constructor.name} fromPrimitives must be implemented`)
+  }
 
   pullDomainEvents(): DomainEvent[] {
     const domainEvents = this.domainEvents.slice()

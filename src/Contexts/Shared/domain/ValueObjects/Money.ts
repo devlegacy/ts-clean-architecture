@@ -1,4 +1,4 @@
-import { InvalidArgumentException } from '../Exceptions'
+import { InvalidArgumentError } from '../Errors'
 import { StringValueObject } from './StringValueObject'
 
 export class Money extends StringValueObject {
@@ -35,7 +35,7 @@ export class Money extends StringValueObject {
   }
 
   ensureIsSameCurrency(vo: Money) {
-    if (!this.isSameCurrency(vo)) throw new InvalidArgumentException('Incompatible currency')
+    if (!this.isSameCurrency(vo)) throw new InvalidArgumentError('Incompatible currency')
   }
 
   isSameCurrency(vo: Money): boolean {

@@ -1,4 +1,4 @@
-import { InvalidArgumentException } from '../Exceptions'
+import { InvalidArgumentError } from '../Errors'
 import { EnumValueObject } from '../ValueObjects/EnumValueObject'
 
 export enum Operator {
@@ -29,7 +29,7 @@ export class FilterOperator extends EnumValueObject<Operator> {
     return this.value !== Operator.NOT_EQUAL && this.value !== Operator.NOT_CONTAINS
   }
 
-  protected throwInvalidValueException(value: Operator): void {
-    throw new InvalidArgumentException(`The filter operator <${value}> is invalid`)
+  protected throwInvalidValueError(value: Operator): void {
+    throw new InvalidArgumentError(`The filter operator <${value}> is invalid`)
   }
 }

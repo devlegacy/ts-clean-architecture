@@ -1,6 +1,6 @@
 import { injectAll, singleton } from 'tsyringe'
 
-import { Query, QueryHandler, QueryNotRegisteredException, Response } from '../../domain'
+import { Query, QueryHandler, QueryNotRegisteredError, Response } from '../../domain'
 import { SHARED_TYPES } from '../common'
 
 @singleton()
@@ -26,7 +26,7 @@ export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
     const queryHandler = super.get(query.constructor)
 
     if (!queryHandler) {
-      throw new QueryNotRegisteredException(query)
+      throw new QueryNotRegisteredError(query)
     }
 
     return queryHandler

@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/user/modules/types'
 
-import { User, UserNotFoundException, UserRepository } from '.'
+import { User, UserNotFoundError, UserRepository } from '.'
 
 /**
  * Domain service
@@ -15,7 +15,7 @@ export class UserFinder {
   async run(userId: string): Promise<User> {
     const user = await this.userRepository.findById(userId)
 
-    if (!user) throw new UserNotFoundException()
+    if (!user) throw new UserNotFoundError()
 
     return user
   }

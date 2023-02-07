@@ -1,6 +1,6 @@
 import { StringValueObject } from '@/Contexts/Shared/domain'
 
-import { UserBadEntityException } from '../exception'
+import { UserBadEntityError } from '../exception'
 
 export class UserUsername extends StringValueObject {
   constructor(value: string) {
@@ -9,6 +9,6 @@ export class UserUsername extends StringValueObject {
   }
 
   private isLengthValid() {
-    if (!this.value.length) throw new UserBadEntityException()
+    if (!this.value.length) throw new UserBadEntityError()
   }
 }

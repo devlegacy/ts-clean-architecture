@@ -1,53 +1,54 @@
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import {
+  DomainEvent,
+  DomainEventPrimitivesWithAttributes,
+  InstanceDomainEventPrimitives,
+} from '@/Contexts/Shared/domain'
 
-type CreateCourseDomainEventAttributes = {
-  readonly duration?: string
-  readonly name: string
+interface CreateCourseDomainEventAttributes {
+  name: string // should be readonly
+  duration?: string // should be readonly
 }
 
-export class CourseCreatedDomainEvent extends DomainEvent {
+export class CourseCreatedDomainEvent extends DomainEvent implements CreateCourseDomainEventAttributes {
   static override readonly EVENT_NAME = 'course.created'
 
   readonly name: string
   readonly duration?: string
 
   constructor({
-    eventId,
-    occurredOn,
-    aggregateId,
+    // eventId,
+    // occurredOn,
+    // aggregateId,
     duration,
     name,
-  }: {
-    eventId?: string
-    occurredOn?: Date
-    aggregateId: string
-    duration?: string
-    name: string
-  }) {
+    ...event
+  }: InstanceDomainEventPrimitives<CreateCourseDomainEventAttributes>) {
+    const eventName = CourseCreatedDomainEvent.EVENT_NAME
     super({
-      aggregateId,
-      eventId,
-      occurredOn,
-      eventName: CourseCreatedDomainEvent.EVENT_NAME,
+      eventName,
+      // eventId,
+      // occurredOn,
+      // aggregateId,
+      ...event,
     })
     this.duration = duration
     this.name = name
   }
 
-  static override fromPrimitives(params: {
-    aggregateId: string
-    occurredOn: Date
-    eventId: string
-    attributes: CreateCourseDomainEventAttributes
-  }): DomainEvent {
-    const { aggregateId, attributes, occurredOn, eventId } = params
-    return new CourseCreatedDomainEvent({
+  static override fromPrimitives({
+    eventId,
+    occurredOn,
+    aggregateId,
+    attributes: { name, duration },
+  }: DomainEventPrimitivesWithAttributes<CreateCourseDomainEventAttributes>): CourseCreatedDomainEvent {
+    const event = new CourseCreatedDomainEvent({
       eventId,
       occurredOn,
       aggregateId,
-      duration: attributes?.duration,
-      name: attributes.name,
+      name,
+      duration,
     })
+    return event
   }
 
   toPrimitives(): CreateCourseDomainEventAttributes {

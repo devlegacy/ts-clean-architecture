@@ -1,3 +1,3 @@
-export * from './UserAlreadyExistsException'
-export * from './UserBadEntityException'
-export * from './UserNotFoundException'
+export * from './UserAlreadyExistsError'
+export * from './UserBadEntityError'
+export * from './UserNotFoundError'

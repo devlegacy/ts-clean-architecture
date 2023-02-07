@@ -1,4 +1,4 @@
-import { EnumValueObject, InvalidArgumentException } from '@/Contexts/Shared/domain'
+import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain'
 
 export enum Type {
   FREE = 0,
@@ -23,11 +23,11 @@ export class CourseType extends EnumValueObject<Type> {
       case 'FREE':
         return new CourseType(Type['FREE'])
       default:
-        throw new InvalidArgumentException(`The course type <${value}> is invalid`)
+        throw new InvalidArgumentError(`The course type <${value}> is invalid`)
     }
   }
 
-  protected throwInvalidValueException(value: Type): void {
-    throw new InvalidArgumentException(`The course type ${value} is invalid`)
+  protected throwInvalidValueError(value: Type): void {
+    throw new InvalidArgumentError(`The course type ${value} is invalid`)
   }
 }

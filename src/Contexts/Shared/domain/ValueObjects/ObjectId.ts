@@ -3,7 +3,7 @@
 
 import { ObjectId as ObjectID } from 'mongodb'
 
-import { InvalidArgumentException } from '../Exceptions'
+import { InvalidArgumentError } from '../Errors'
 import { ValueObject } from './ValueObject'
 
 export class ObjectId extends ValueObject<string> {
@@ -26,7 +26,7 @@ export class ObjectId extends ValueObject<string> {
   private isValidObjectId(id: string) {
     // if (!validate(id)) {
     if (!ObjectID.isValid(id)) {
-      throw new InvalidArgumentException(`<${this.constructor.name}> does not allow the value <${id}>`)
+      throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${id}>`)
     }
   }
 

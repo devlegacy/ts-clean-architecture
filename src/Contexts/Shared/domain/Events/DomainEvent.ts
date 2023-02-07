@@ -1,15 +1,24 @@
 import { ObjectId } from '../ValueObjects'
 
-export interface IDomainEvent {
-  // id for the Aggregate Root that this event belongs to
-  aggregateId: string
+type DomainEventAttributes<T = any> = T
+
+export interface DomainEventPrimitivesWithAttributes<Attributes = DomainEventAttributes> {
   // event UUID identifier
   eventId: string
   // When the event occurred, with a consistent format across events
   occurredOn: Date
-  // Primitive domain data
-  attributes: DomainEventAttributes
+  // ID for the Aggregate Root that this event belongs to, related to the attributes because is the ID root
+  aggregateId: string
+  // Primitive domain data | Payload domain data
+  attributes: Attributes
   // Meta, host, etc.
+}
+
+// Base (?)
+export type InstanceDomainEventPrimitives<Attributes> = Attributes & {
+  eventId?: string
+  occurredOn?: Date
+  aggregateId: string
 }
 
 /**
@@ -20,7 +29,7 @@ export interface IDomainEvent {
 export abstract class DomainEvent {
   // tag event name: AsyncAPI compliant, it should use action on past
   static EVENT_NAME: string
-  static fromPrimitives: (props: IDomainEvent) => DomainEvent
+  static fromPrimitives: (props: DomainEventPrimitivesWithAttributes) => DomainEvent
 
   readonly aggregateId: string
   readonly eventId: string
@@ -42,7 +51,5 @@ export abstract class DomainEvent {
 // DEBT: Complexity
 export type DomainEventClass = {
   EVENT_NAME: string
-  fromPrimitives(props: IDomainEvent): DomainEvent
+  fromPrimitives(props: DomainEventPrimitivesWithAttributes): DomainEvent
 }
-
-type DomainEventAttributes<T = any> = T
