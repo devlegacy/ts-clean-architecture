@@ -1,26 +1,27 @@
 version: '3.9'
 
 services:
-  # eventstore.db:
-  #   image: eventstore/eventstore:22.6.0-buster-slim
-  #   environment:
-  #     - EVENTSTORE_CLUSTER_SIZE=1
-  #     - EVENTSTORE_RUN_PROJECTIONS=All
-  #     - EVENTSTORE_START_STANDARD_PROJECTIONS=true
-  #     - EVENTSTORE_INSECURE=true
-  #     - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
-  #     - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
-  #   ports:
-  #     - '1113:1113'
-  #     - '2113:2113'
-  #   # volumes:
-  #   #   - type: volume
-  #   #     source: eventstore-volume-data
-  #   #     target: /var/lib/eventstore
-  #   #   - type: volume
-  #   #     source: eventstore-volume-logs
-  #   #     target: /var/log/eventstore
-  #   # esdb://eventstore.db:2113?tls=false
+  eventstore.db:
+    image: eventstore/eventstore:latest
+    environment:
+      - EVENTSTORE_CLUSTER_SIZE=1
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    ports:
+      - '1113:1113'
+      - '2113:2113'
+    volumes:
+      - type: volume
+        source: eventstore-volume-data
+        target: /var/lib/eventstore
+      - type: volume
+        source: eventstore-volume-logs
+        target: /var/log/eventstore
+    # esdb://eventstore.db:2113?tls=false
+    # http://localhost:2113/
 
   zookeeper:
     container_name: zookeeper
@@ -177,3 +178,5 @@ volumes:
     driver: local
   esdata:
     driver: local
+  eventstore-volume-data:
+  eventstore-volume-logs:
