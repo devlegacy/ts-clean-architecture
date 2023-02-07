@@ -4,14 +4,14 @@ import {
   beforeCreate,
   beforeUpdate,
   onLoad,
-  ValueObjectTransformer
+  ValueObjectTransformer,
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
 import {
   BackofficeCourse,
   BackofficeCourseDuration,
   BackofficeCourseId,
-  BackofficeCourseName
+  BackofficeCourseName,
 } from '../../../../domain'
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
@@ -21,36 +21,36 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   hooks: {
     onLoad: [onLoad],
     beforeCreate: [beforeCreate],
-    beforeUpdate: [beforeUpdate]
+    beforeUpdate: [beforeUpdate],
   },
   properties: {
     _id: {
       customType: new ValueObjectTransformer(BackofficeCourseId, 'ObjectId'),
-      primary: true
+      primary: true,
       // hidden: true
     },
     id: {
       type: 'string',
-      serializedPrimaryKey: true
+      serializedPrimaryKey: true,
     },
     name: {
-      customType: new ValueObjectTransformer(BackofficeCourseName, 'string')
+      customType: new ValueObjectTransformer(BackofficeCourseName, 'string'),
     },
     duration: {
       customType: new ValueObjectTransformer(BackofficeCourseDuration, 'string'),
-      nullable: true
+      nullable: true,
     },
     createdAt: {
       type: 'Date',
-      nullable: true
+      nullable: true,
     },
     updatedAt: {
       type: 'Date',
-      nullable: true
+      nullable: true,
     },
     deletedAt: {
       type: 'Date',
-      nullable: true
-    }
-  }
+      nullable: true,
+    },
+  },
 })

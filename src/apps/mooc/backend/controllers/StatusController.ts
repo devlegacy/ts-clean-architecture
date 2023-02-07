@@ -12,11 +12,11 @@ import {
   Post,
   Query,
   Req,
-  Res
+  Res,
 } from '@/Contexts/Shared/infrastructure/common'
 import {
   ObjectIdPipe as JoiMongoIdPipe,
-  PageNumberPipe
+  PageNumberPipe,
 } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
 import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Zod/Pipes'
 
@@ -74,7 +74,7 @@ export class StatusController {
       query,
       params,
       body,
-      headers
+      headers,
     }
   }
 
@@ -88,7 +88,7 @@ export class StatusController {
     return {
       page,
       limit,
-      account
+      account,
     }
   }
 }

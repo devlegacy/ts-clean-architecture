@@ -8,8 +8,8 @@ export class DomainEventJsonSerializer {
         type: event.eventName,
         occurred_on: event.occurredOn.toISOString(),
         aggregateId: event.aggregateId,
-        attributes: event.toPrimitives()
-      }
+        attributes: event.toPrimitives(),
+      },
     })
   }
 }

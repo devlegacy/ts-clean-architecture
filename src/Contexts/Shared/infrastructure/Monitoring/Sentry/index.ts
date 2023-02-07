@@ -17,13 +17,13 @@ const options: Sentry.NodeOptions = {
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
     new Tracing.Integrations.Mongo({
-      useMongoose: false // Default: false
-    })
+      useMongoose: false, // Default: false
+    }),
   ],
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
-  tracesSampleRate: 1.0
+  tracesSampleRate: 1.0,
 }
 
 export class SentryModule implements Monitoring {
@@ -32,7 +32,7 @@ export class SentryModule implements Monitoring {
   constructor(config?: { options?: Sentry.NodeOptions }) {
     this.#options = {
       ...options,
-      ...config?.options
+      ...config?.options,
     }
 
     Sentry.init(this.#options)
@@ -42,10 +42,10 @@ export class SentryModule implements Monitoring {
     Sentry.withScope((scope) => {
       const transaction = Sentry.startTransaction({
         name: `Transaction ${Date.now()}`,
-        op: this.#options.environment
+        op: this.#options.environment,
       })
       scope.setUser({
-        ip_address: config?.req.ip
+        ip_address: config?.req.ip,
       })
       scope.setTag('path', config?.req?.raw?.url)
       Sentry.captureException(err)

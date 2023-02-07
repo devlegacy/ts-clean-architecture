@@ -26,8 +26,8 @@ export class BackofficeCourseDeleter {
       {
         field: 'id',
         operator: Operator.EQUAL,
-        value: courseId.value
-      }
+        value: courseId.value,
+      },
     ])
 
     await this.bus.ask(new FindBackofficeCourseByCriteriaQuery(filters))

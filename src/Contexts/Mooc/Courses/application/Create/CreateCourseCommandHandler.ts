@@ -19,7 +19,7 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
     await this.courseCreator.run({
       id,
       name,
-      duration
+      duration,
     })
   }
 

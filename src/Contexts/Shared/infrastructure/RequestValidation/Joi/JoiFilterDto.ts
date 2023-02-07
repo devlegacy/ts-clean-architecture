@@ -9,7 +9,7 @@ const value = Joi.string().trim().required()
 const filter = Joi.object({
   field,
   operator,
-  value
+  value,
 })
 const filters = Joi.array().items(filter)
 

@@ -33,8 +33,8 @@ export class BackofficeCourseUpdater {
       {
         field: 'id',
         operator: Operator.EQUAL,
-        value: courseId.value
-      }
+        value: courseId.value,
+      },
     ])
     const query = new FindBackofficeCourseByCriteriaQuery(filters)
 

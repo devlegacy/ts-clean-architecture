@@ -24,7 +24,7 @@ export class Server {
     await this.#adapter.bootstrap({
       controller: resolve(__dirname, './controllers'),
       resolver: TsyringeControllerResolver,
-      isProduction: false
+      isProduction: false,
       // prefix: '/api/'
     })
 
@@ -32,7 +32,7 @@ export class Server {
 
     await this.#app.listen({
       port: this.#port,
-      host: '0.0.0.0'
+      host: '0.0.0.0',
     })
 
     this.#httpServer = this.#app.server

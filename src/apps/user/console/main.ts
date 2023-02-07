@@ -15,12 +15,12 @@ const userDto = {
   // name: 'Samuel',
   name: faker.name.fullName(),
   // username: 'jst.samuel'
-  username: faker.internet.userName()
+  username: faker.internet.userName(),
 }
 
 const updateUserDto = {
   id: '63312922a9f759eabbb1a161',
-  name: `Samuel ${new Date()}`
+  name: `Samuel ${new Date()}`,
 }
 
 const bootstrap = async () => {

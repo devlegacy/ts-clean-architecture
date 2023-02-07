@@ -11,13 +11,13 @@ export class UuidPipe implements PipeTransform {
       value: Joi.string()
         .trim()
         .guid({
-          version: ['uuidv4']
-        })
+          version: ['uuidv4'],
+        }),
     })
 
     const {
       error,
-      value: { value: data }
+      value: { value: data },
     } = schema.validate({ value })
 
     if (error) {

@@ -25,12 +25,12 @@ export abstract class MongoRepository<T extends AggregateRoot> {
 
   protected async persist(id: EntityId, aggregateRoot: T, transform?: (obj: any) => any): Promise<void> {
     const collection = await this.collection()
-    const _id = ObjectId.isValid(id) ? new ObjectId(id) : id
+    const _id = (ObjectId.isValid(id) ? new ObjectId(id) : id) as ObjectId
     const primitives = transform ? transform(aggregateRoot.toPrimitives()) : aggregateRoot.toPrimitives()
     const document = {
       ...primitives,
       _id,
-      id: undefined
+      id: undefined,
     }
 
     /**
@@ -42,9 +42,9 @@ export abstract class MongoRepository<T extends AggregateRoot> {
       {
         $setOnInsert: {
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
-        $set: document
+        $set: document,
       },
       { upsert: true }
     )

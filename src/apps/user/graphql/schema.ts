@@ -8,12 +8,12 @@ const gqlFiles = readdirSync(join(__dirname, './typedefs'))
 
 const schemaDefinition: IExecutableSchemaDefinition = {
   resolvers,
-  typeDefs: ''
+  typeDefs: '',
 }
 
 gqlFiles.forEach((file) => {
   schemaDefinition.typeDefs += readFileSync(join(__dirname, './typedefs', file), {
-    encoding: 'utf8'
+    encoding: 'utf8',
   })
 })
 

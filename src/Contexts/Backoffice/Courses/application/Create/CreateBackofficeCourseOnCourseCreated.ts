@@ -21,7 +21,7 @@ export class CreateBackofficeCourseOnCourseCreated implements DomainEventSubscri
     await this.creator.run({
       id,
       name,
-      duration
+      duration,
     })
   }
 }

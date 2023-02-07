@@ -28,7 +28,7 @@ export class MoocBackendApp {
       env: config.get('app.env'),
       debug: config.get('app.debug'),
       name: config.get('app.name'),
-      port: config.get('app.port')
+      port: config.get('app.port'),
     }
     this.#server = new Server(conf)
     await this.#server.listen()

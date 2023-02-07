@@ -8,12 +8,12 @@ export class ObjectIdPipe implements PipeTransform {
     info(`${value} ${metadata}`)
     const schema = Joi.object({
       // metadata key: value
-      value: Joi.string().objectId().required()
+      value: Joi.string().objectId().required(),
     })
 
     const {
       error,
-      value: { value: data }
+      value: { value: data },
     } = schema.validate({ value })
 
     if (error) {

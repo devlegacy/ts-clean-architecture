@@ -9,7 +9,7 @@ import {
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   // , TypeOrmConfigFactory
-  SentryConfigFactory
+  SentryConfigFactory,
 } from '@/Contexts/Mooc/Shared/infrastructure'
 import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
@@ -22,7 +22,7 @@ import {
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-  SentryModule
+  SentryModule,
 } from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
 

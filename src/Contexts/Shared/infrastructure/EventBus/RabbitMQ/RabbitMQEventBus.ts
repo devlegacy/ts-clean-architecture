@@ -55,7 +55,7 @@ export class RabbitMQEventBus implements EventBus {
           routingKey,
           content,
           options,
-          exchange: this.exchange
+          exchange: this.exchange,
         })
       } catch (error: unknown) {
         await this.failoverPublisher.publish(event)
@@ -67,7 +67,7 @@ export class RabbitMQEventBus implements EventBus {
     return {
       messageId: event.eventId,
       contentType: 'application/json',
-      contentEncoding: 'utf-8'
+      contentEncoding: 'utf-8',
     }
   }
 

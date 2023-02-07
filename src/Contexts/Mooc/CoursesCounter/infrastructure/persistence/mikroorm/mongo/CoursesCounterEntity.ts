@@ -11,23 +11,23 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
   tableName: 'courses_counter',
   class: CoursesCounter,
   hooks: {
-    beforeCreate: [beforeCreate]
+    beforeCreate: [beforeCreate],
   },
   properties: {
     _id: {
       customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
-      primary: true
+      primary: true,
       // hidden: true
     },
     id: {
       type: 'string',
-      serializedPrimaryKey: true
+      serializedPrimaryKey: true,
     },
     total: {
-      customType: new ValueObjectTransformer(CoursesCounterTotal, 'number')
+      customType: new ValueObjectTransformer(CoursesCounterTotal, 'number'),
     },
     existingCourses: {
-      customType: new ValueObjectTransformer(CourseId, 'ObjectId[]')
-    }
-  }
+      customType: new ValueObjectTransformer(CourseId, 'ObjectId[]'),
+    },
+  },
 })

@@ -15,7 +15,7 @@ export class RabbitMQEventBusFactory {
       connection,
       exchange: config.exchangeSettings.name,
       queueNameFormatter,
-      maxRetries: config.maxRetries
+      maxRetries: config.maxRetries,
     })
   }
 }

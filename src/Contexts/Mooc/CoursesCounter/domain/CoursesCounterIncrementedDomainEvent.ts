@@ -12,7 +12,7 @@ export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
       eventName: CoursesCounterIncrementedDomainEvent.EVENT_NAME,
       aggregateId,
       eventId,
-      occurredOn
+      occurredOn,
     })
     this.total = data.total
   }
@@ -28,13 +28,13 @@ export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
       aggregateId,
       total: attributes.total,
       eventId,
-      occurredOn
+      occurredOn,
     })
   }
 
   toPrimitives() {
     return {
-      total: this.total
+      total: this.total,
     }
   }
 }

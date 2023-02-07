@@ -2,7 +2,7 @@ import { EnumValueObject, InvalidArgumentException } from '@/Contexts/Shared/dom
 
 export enum Tag {
   NEW_RELEASE = 'new_release',
-  DEPRECATED = 'deprecated'
+  DEPRECATED = 'deprecated',
 }
 
 export class CourseTag extends EnumValueObject<Tag> {

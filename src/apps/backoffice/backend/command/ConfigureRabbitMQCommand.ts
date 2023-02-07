@@ -16,7 +16,7 @@ export class ConfigureRabbitMQCommand {
 
     await configurer.configure({
       exchange,
-      subscribers
+      subscribers,
     })
     await connection.close()
   }

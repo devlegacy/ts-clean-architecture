@@ -4,7 +4,7 @@ import { EnumValueObject } from '../ValueObjects'
 export enum OrderTypes {
   ASC = 'asc',
   DESC = 'desc',
-  NONE = 'none'
+  NONE = 'none',
 }
 
 export class OrderType extends EnumValueObject<OrderTypes> {

@@ -56,7 +56,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
         convertCustomTypes: false,
         orderBy: query.sort as any,
         limit: query.limit,
-        offset: query.skip
+        offset: query.skip,
       }
     )
 
@@ -65,7 +65,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
 
     return {
       data,
-      pagination
+      pagination,
     }
   }
 
@@ -106,7 +106,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
         convertCustomTypes: false,
         orderBy: query.sort as any,
         limit: query.limit,
-        offset: query.skip
+        offset: query.skip,
       }
     )
 

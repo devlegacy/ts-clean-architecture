@@ -9,5 +9,5 @@ export const TYPES = {
   ElasticBackofficeCourseRepository: Symbol.for('ElasticBackofficeCourseRepository'),
   BackofficeCourseRepository: Symbol.for('BackofficeCourseRepository'),
   // Test
-  EnvironmentArranger: Symbol.for('EnvironmentArranger')
+  EnvironmentArranger: Symbol.for('EnvironmentArranger'),
 }

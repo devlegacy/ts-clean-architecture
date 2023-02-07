@@ -8,7 +8,7 @@ import {
   PaginateBackofficeCoursesQueryHandler,
   SearchAllBackofficeCoursesQueryHandler,
   SearchBackofficeCoursesByCriteriaQueryHandler,
-  UpdateBackofficeCourseCommandHandler
+  UpdateBackofficeCourseCommandHandler,
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'

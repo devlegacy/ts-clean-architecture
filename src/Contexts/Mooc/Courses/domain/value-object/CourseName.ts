@@ -1,5 +1,5 @@
 import {
-  StringValueObject
+  StringValueObject,
   // ValueObject
 } from '@/Contexts/Shared/domain'
 

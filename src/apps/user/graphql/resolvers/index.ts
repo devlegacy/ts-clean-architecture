@@ -2,11 +2,11 @@ import { userMutation, userQueries } from './users'
 
 const resolvers = {
   Query: {
-    ...userQueries
+    ...userQueries,
   },
   Mutation: {
-    ...userMutation
-  }
+    ...userMutation,
+  },
 }
 
 export default resolvers

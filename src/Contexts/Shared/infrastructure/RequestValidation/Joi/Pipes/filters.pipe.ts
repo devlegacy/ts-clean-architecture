@@ -13,15 +13,15 @@ export class FiltersPipe implements PipeTransform {
           Joi.object({
             field,
             operator,
-            value
+            value,
           })
         )
-        .optional()
+        .optional(),
     })
 
     const {
       error,
-      value: { filters: data }
+      value: { filters: data },
     } = schema.validate({ filters })
 
     if (error) {

@@ -8,7 +8,7 @@ export interface RequestMappingMetadata {
 
 const defaultMetadata = {
   [PATH_METADATA]: '/',
-  [METHOD_METADATA]: RequestMethod.GET
+  [METHOD_METADATA]: RequestMethod.GET,
 }
 
 export const RequestMapping = (metadata: RequestMappingMetadata = defaultMetadata): MethodDecorator => {
@@ -28,7 +28,7 @@ const createMappingDecorator =
   (path?: string | string[]): MethodDecorator => {
     return RequestMapping({
       [PATH_METADATA]: path,
-      [METHOD_METADATA]: method
+      [METHOD_METADATA]: method,
     })
   }
 

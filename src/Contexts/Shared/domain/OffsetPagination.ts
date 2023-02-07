@@ -51,7 +51,7 @@ export class OffsetPagination {
       total: this.total!,
       currentPage: this.currentPage!,
       perPage: this.perPage!,
-      totalPages: this.totalPages ?? 0
+      totalPages: this.totalPages ?? 0,
     }
   }
 }

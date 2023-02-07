@@ -16,7 +16,7 @@ export class Post {
       id: this.id,
       content: this.content,
       author: this.author,
-      date: this.date
+      date: this.date,
     }
     return post
   }

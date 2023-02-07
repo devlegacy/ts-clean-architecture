@@ -42,7 +42,7 @@ export class Server {
     await this.#adapter.bootstrap({
       controller: resolve(__dirname, './controllers'),
       resolver: TsyringeControllerResolver,
-      isProduction: this.#options?.env === 'production'
+      isProduction: this.#options?.env === 'production',
     })
 
     this.#adapter

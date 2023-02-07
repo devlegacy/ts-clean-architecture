@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb'
+
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { Criteria, Nullable } from '@/Contexts/Shared/domain'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mongo'
@@ -30,20 +32,22 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
       Course.fromPrimitives({
         name: document.name,
         duration: document.duration,
-        id: document._id
+        id: document._id,
       })
     )
   }
 
   async search(id: CourseId): Promise<Nullable<Course>> {
     const collection = await this.collection()
-    const document = await collection.findOne<CourseDocument>({ _id: id.value })
+    const document = await collection.findOne<CourseDocument>({
+      _id: id.value as unknown as ObjectId, // HACK: Mongo 5.0 ObjectId restriction
+    })
 
     return document
       ? Course.fromPrimitives({
           name: document.name,
           duration: document.duration,
-          id: id.value
+          id: id.value,
         })
       : null
   }

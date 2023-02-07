@@ -12,7 +12,7 @@ export class MongoIdPipe implements PipeTransform {
 
     const schema = z.object({
       // metadata key: value
-      value: z.string().refine((value) => ObjectId.isValid(value))
+      value: z.string().refine((value) => ObjectId.isValid(value)),
     })
 
     schema.parse({ value })

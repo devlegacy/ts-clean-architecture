@@ -15,7 +15,7 @@ import {
   METHOD_METADATA,
   PATH_METADATA,
   ROUTE_ARGS_METADATA,
-  SCHEMA_METADATA
+  SCHEMA_METADATA,
 } from '../common/constants'
 import { ControllerResolver } from '../common/dependency-injection'
 import { PipeTransform } from '../common/interfaces'
@@ -77,7 +77,7 @@ const getControllerMetadata = (controller: any, resolver?: ControllerResolver) =
     // has methods
     // has design:paramtypes (parameter type in method) by metadata
     // has callable method to be executed in route
-    constructor: { prototype: instancePrototype }
+    constructor: { prototype: instancePrototype },
   } = instance
 
   // The prefix saved to our controller
@@ -93,7 +93,7 @@ const getControllerMetadata = (controller: any, resolver?: ControllerResolver) =
     instanceConstructor,
     instancePrototype,
     controllerPath,
-    classMethodNames
+    classMethodNames,
   }
 }
 
@@ -108,14 +108,14 @@ const getRouteMethodMetadata = (method: () => unknown) => {
   // TODO: Delete
   const schema: { schema: FastifySchema; code: number } = Reflect.getMetadata(SCHEMA_METADATA, method) || {
     schema: {},
-    code: HttpStatus.UNPROCESSABLE_ENTITY
+    code: HttpStatus.UNPROCESSABLE_ENTITY,
   }
 
   return {
     routePath,
     requestMethod,
     httpCode,
-    schema
+    schema,
   }
 }
 
@@ -134,7 +134,7 @@ const getRoutePathUrl = (prefix: string, controllerPath: string, routePath: Requ
 const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, number, string][] =>
   Object.keys(params).map((keyParam: string) => [
     ...(keyParam.split(':').map((value) => parseInt(value, 10)) as [number, number]),
-    keyParam
+    keyParam,
   ])
 
 const pipeBuilder = (
@@ -148,7 +148,7 @@ const pipeBuilder = (
   for (const pipe of pipes) {
     if (!isConstructor(pipe)) continue
     req[`${type}`][`${data}`] = new (pipe as Constructor<PipeTransform>)().transform(req[`${type}`][`${data}`], {
-      type
+      type,
     })
   }
 }
@@ -289,7 +289,7 @@ export const bootstrap = async (
         httpCode,
         params,
         instance,
-        methodName
+        methodName,
       }
       clusterServer(adapterInstance.app, route, props.isProduction)
     }
@@ -360,7 +360,7 @@ const clusterServer = (
           routeParams.length ? routeParams : [req, res]
         )
         return response
-      }
+      },
     })
   }
 }

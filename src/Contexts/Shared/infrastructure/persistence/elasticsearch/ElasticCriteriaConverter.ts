@@ -6,7 +6,7 @@ export enum TypeQueryEnum {
   TERMS = 'terms',
   MATCH_ALL = 'match_all',
   RANGE = 'range',
-  WILDCARD = 'wildcard'
+  WILDCARD = 'wildcard',
 }
 
 type QueryObject = { type: TypeQueryEnum; field: string; value: string | object }
@@ -25,7 +25,7 @@ export class ElasticCriteriaConverter {
       [Operator.GT, this.greaterThanQuery],
       [Operator.LT, this.lowerThanQuery],
       [Operator.CONTAINS, this.wildcardQuery],
-      [Operator.NOT_CONTAINS, this.wildcardQuery]
+      [Operator.NOT_CONTAINS, this.wildcardQuery],
     ])
   }
 
@@ -74,7 +74,7 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.TERMS,
       field: filter.field.value,
-      value: [filter.value.value]
+      value: [filter.value.value],
     }
   }
 
@@ -82,7 +82,7 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.RANGE,
       field: filter.field.value,
-      value: { gt: filter.value.value }
+      value: { gt: filter.value.value },
     }
   }
 
@@ -90,7 +90,7 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.RANGE,
       field: filter.field.value,
-      value: { lt: filter.value.value }
+      value: { lt: filter.value.value },
     }
   }
 
@@ -98,7 +98,7 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.WILDCARD,
       field: filter.field.value,
-      value: `*${filter.value.value}*`
+      value: `*${filter.value.value}*`,
     }
   }
 }

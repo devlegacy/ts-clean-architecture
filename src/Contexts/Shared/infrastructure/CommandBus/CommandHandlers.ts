@@ -15,7 +15,7 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
     commandHandlers.forEach((commandHandler) => this.set(commandHandler.subscribedTo(), commandHandler))
   }
 
-  get(command: Command): CommandHandler<Command> {
+  override get(command: Command): CommandHandler<Command> {
     const commandHandler = super.get(command.constructor)
 
     if (!commandHandler) throw new CommandNotRegisteredException(command)

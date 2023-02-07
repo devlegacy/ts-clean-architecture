@@ -11,7 +11,7 @@ export const Schema = (schema: FastifySchema, code = HttpStatus.UNPROCESSABLE_EN
       {
         schema,
         method,
-        code
+        code,
       },
       descriptor.value
     )

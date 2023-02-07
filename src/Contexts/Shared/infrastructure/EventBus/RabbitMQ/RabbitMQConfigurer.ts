@@ -37,7 +37,7 @@ export class RabbitMQConfigurer {
     await this.connection.queue({
       routingKeys,
       name: queue,
-      exchange
+      exchange,
     })
     await this.connection.queue({
       routingKeys: [queue],
@@ -45,12 +45,12 @@ export class RabbitMQConfigurer {
       exchange: retryExchange,
       messageTtl: this.messageRetryTtl,
       deadLetterExchange: exchange,
-      deadLetterQueue: queue
+      deadLetterQueue: queue,
     })
     await this.connection.queue({
       routingKeys: [queue],
       name: deadLetterQueue,
-      exchange: deadLetterExchange
+      exchange: deadLetterExchange,
     })
   }
 

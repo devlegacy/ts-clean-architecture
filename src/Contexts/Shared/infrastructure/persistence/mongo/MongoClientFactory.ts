@@ -25,7 +25,6 @@ export class MongoClientFactory {
     const options: MongoClientOptions = {
       monitorCommands: true,
       ignoreUndefined: true,
-      loggerLevel: 'debug'
     }
     const client = new MongoClient(config.url, options)
 

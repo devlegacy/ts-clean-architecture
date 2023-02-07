@@ -51,7 +51,7 @@ export class User extends AggregateRoot {
       id: this.id.value,
       name: this.name.value,
       username: this.username.value,
-      age: this.age?.value
+      age: this.age?.value,
     }
   }
 

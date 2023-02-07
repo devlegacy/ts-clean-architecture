@@ -34,7 +34,7 @@ export abstract class MikroOrmPostgresClientFactory {
       type: 'postgresql',
       highlighter: new SqlHighlighter(),
       debug: true,
-      validate: true
+      validate: true,
     }
     const client = await MikroORM.init<PostgreSqlDriver>(options, true)
 

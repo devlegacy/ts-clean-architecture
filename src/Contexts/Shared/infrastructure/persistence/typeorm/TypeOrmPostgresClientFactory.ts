@@ -36,7 +36,7 @@ export class TypeOrmPostgresClientFactory {
       database: config.database,
       synchronize: true, // DEBT: handle in prod (false) and dev (true)
       logging: true,
-      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`]
+      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`],
       // subscribers: [],
       // migrations: []
     }
@@ -45,7 +45,7 @@ export class TypeOrmPostgresClientFactory {
     const client = await AppDataSource.initialize()
     return client
     // } catch (error) {
-    //   return
+    //   return {} as DataSource
     // }
   }
 

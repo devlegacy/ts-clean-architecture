@@ -7,7 +7,7 @@ export class ElasticConfigFactory {
     return {
       url: config.get('elastic.url'),
       indexName: config.get('elastic.indexName'),
-      indexConfig: config.get('elastic.config')
+      indexConfig: config.get('elastic.config'),
     }
   }
 }

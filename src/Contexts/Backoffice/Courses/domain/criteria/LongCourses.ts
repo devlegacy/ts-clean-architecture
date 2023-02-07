@@ -9,7 +9,7 @@ import {
   Order,
   OrderBy,
   OrderType,
-  OrderTypes
+  OrderTypes,
 } from '@/Contexts/Shared/domain'
 
 export class LongCourses extends Criteria {

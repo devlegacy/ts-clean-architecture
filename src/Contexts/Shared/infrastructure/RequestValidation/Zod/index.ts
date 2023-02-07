@@ -34,7 +34,7 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
         path: req.raw.url,
         code: err.code,
         stack: err.stack,
-        errors: err.issues
+        errors: err.issues,
       })
     }
   }

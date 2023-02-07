@@ -14,7 +14,7 @@ export class ConfigureRabbitMQCommand {
     const subscribers = DomainEventSubscribers.from().items
     await configurer.configure({
       exchange,
-      subscribers
+      subscribers,
     })
     await connection.close()
   }

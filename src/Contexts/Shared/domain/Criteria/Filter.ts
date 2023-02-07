@@ -45,7 +45,7 @@ export class Filter {
       return new Map([
         ['field', field],
         ['operator', operator.toString()],
-        ['value', value]
+        ['value', value],
       ])
     })
   }

@@ -4,7 +4,7 @@ import {
   beforeCreate,
   beforeUpdate,
   onLoad,
-  ValueObjectTransformer
+  ValueObjectTransformer,
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 import { UserId } from '@/Contexts/User/Shared/domain'
 import { User, UserAge, UserName, UserUsername } from '@/Contexts/User/Users/domain'
@@ -17,27 +17,27 @@ export const UserEntity = new EntitySchema<User>({
   hooks: {
     onLoad: [onLoad],
     beforeCreate: [beforeCreate],
-    beforeUpdate: [beforeUpdate]
+    beforeUpdate: [beforeUpdate],
   },
   properties: {
     _id: {
       customType: new ValueObjectTransformer(UserId, 'ObjectId'),
-      primary: true
+      primary: true,
       // hidden: true
     },
     id: {
       type: 'string',
-      serializedPrimaryKey: true
+      serializedPrimaryKey: true,
     },
     name: {
-      customType: new ValueObjectTransformer(UserName, 'string')
+      customType: new ValueObjectTransformer(UserName, 'string'),
     },
     username: {
       customType: new ValueObjectTransformer(UserUsername, 'string'),
-      unique: true
+      unique: true,
     },
     age: {
-      customType: new ValueObjectTransformer(UserAge, 'number')
-    }
-  }
+      customType: new ValueObjectTransformer(UserAge, 'number'),
+    },
+  },
 })

@@ -11,24 +11,24 @@ export const CourseEntity = new EntitySchema<Course>({
   tableName: 'courses',
   class: Course,
   hooks: {
-    beforeCreate: [beforeCreate]
+    beforeCreate: [beforeCreate],
   },
   properties: {
     _id: {
       customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
-      primary: true
+      primary: true,
       // hidden: true
     },
     id: {
       type: 'string',
-      serializedPrimaryKey: true
+      serializedPrimaryKey: true,
     },
     name: {
-      customType: new ValueObjectTransformer(CourseName, 'string')
+      customType: new ValueObjectTransformer(CourseName, 'string'),
     },
     duration: {
-      customType: new ValueObjectTransformer(CourseDuration, 'string')
-    }
+      customType: new ValueObjectTransformer(CourseDuration, 'string'),
+    },
     // createdAt: {
     //   type: 'Date',
     //   nullable: true
@@ -41,5 +41,5 @@ export const CourseEntity = new EntitySchema<Course>({
     //   type: 'Date',
     //   nullable: true
     // }
-  }
+  },
 })

@@ -6,7 +6,7 @@ import {
   BackofficeCourseDuration,
   BackofficeCourseId,
   BackofficeCourseName,
-  UpdateBackofficeCourseCommand
+  UpdateBackofficeCourseCommand,
 } from '../../domain'
 import { BackofficeCourseUpdater } from './BackofficeCourseUpdater'
 
@@ -28,7 +28,7 @@ export class UpdateBackofficeCourseCommandHandler implements CommandHandler<Upda
       id,
       name,
       duration,
-      updatedAt
+      updatedAt,
     })
   }
 }

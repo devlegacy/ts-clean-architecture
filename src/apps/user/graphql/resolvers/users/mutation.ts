@@ -10,20 +10,20 @@ const userMutations = {
     const userCreator = container.resolve(UserCreator)
 
     const {
-      user: { username, age, name }
+      user: { username, age, name },
     } = args
 
     const user = {
       id: ObjectId.random().toString(),
       username,
       age,
-      name
+      name,
     }
 
     await userCreator.run(user)
 
     return user
-  }
+  },
 }
 
 export default userMutations

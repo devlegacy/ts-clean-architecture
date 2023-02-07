@@ -10,5 +10,5 @@ export const enum RouteParamtypes {
   FILE,
   FILES,
   HOST,
-  IP
+  IP,
 }

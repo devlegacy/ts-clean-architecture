@@ -1,1 +1,5 @@
-export const DataStore: any[] = []
+export let DataStore: any[] = []
+
+export function clearDataStore() {
+  DataStore = []
+}

@@ -45,5 +45,5 @@ export const SHARED_TYPES = {
   MongoEnvironmentArranger: Symbol.for('MongoEnvironmentArranger'),
   TypeOrmPostgresEnvironmentArranger: Symbol.for('TypeOrmPostgresEnvironmentArranger'),
   MikroOrmPostgresEnvironmentArranger: Symbol.for('MikroOrmPostgresEnvironmentArranger'),
-  MikroOrmMongoEnvironmentArranger: Symbol.for('MikroOrmMongoEnvironmentArranger')
+  MikroOrmMongoEnvironmentArranger: Symbol.for('MikroOrmMongoEnvironmentArranger'),
 }

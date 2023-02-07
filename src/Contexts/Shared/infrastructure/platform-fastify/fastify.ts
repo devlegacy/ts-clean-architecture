@@ -10,7 +10,7 @@ import Fastify, {
   FastifyReply,
   FastifyRequest,
   FastifyServerOptions,
-  PrintRoutesOptions
+  PrintRoutesOptions,
 } from 'fastify'
 import { AddressInfo } from 'net'
 
@@ -23,7 +23,7 @@ import { ValidationModule } from './interfaces'
 const printConfig: PrintRoutesOptions = {
   commonPrefix: false,
   includeHooks: true,
-  includeMeta: true // ['metaProperty']
+  includeMeta: true, // ['metaProperty']
 }
 
 const ajv = {
@@ -36,9 +36,9 @@ const ajv = {
     nullable: true,
     removeAdditional: true, // remove additional properties
     useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
-    verbose: true
+    verbose: true,
   },
-  plugins: []
+  plugins: [],
 }
 
 // const http2Options = {
@@ -56,7 +56,7 @@ const ajv = {
 const fastifyServerOptions: FastifyServerOptions = {
   ajv,
   logger: logger(),
-  ignoreTrailingSlash: true
+  ignoreTrailingSlash: true,
   // forceCloseConnections: true // On Test or development
   // trustProxy: true
   // bodyLimit: 0,
@@ -72,7 +72,7 @@ export class FastifyAdapter {
   constructor({ options }: { options?: FastifyServerOptions } = {}) {
     this.#instance = Fastify({
       ...fastifyServerOptions,
-      ...options
+      ...options,
     })
 
     this.#instance
@@ -147,7 +147,7 @@ export class FastifyAdapter {
     port,
     host,
     env,
-    name
+    name,
   }: {
     debug?: boolean
     port?: number
@@ -157,7 +157,7 @@ export class FastifyAdapter {
   }) {
     await this.#instance.listen({
       port,
-      host
+      host,
     })
 
     const address: AddressInfo = this.#instance.server.address() as AddressInfo

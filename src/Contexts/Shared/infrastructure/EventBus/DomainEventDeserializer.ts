@@ -32,7 +32,7 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
       aggregateId,
       attributes,
       occurredOn: new Date(occurred_on),
-      eventId: id
+      eventId: id,
     })
   }
 

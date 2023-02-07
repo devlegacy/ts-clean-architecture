@@ -6,7 +6,7 @@ import {
   InMemoryAsyncEventBus,
   RabbitMQConfigurer,
   RabbitMQConnection,
-  RabbitMQQueueFormatter
+  RabbitMQQueueFormatter,
 } from '@/Contexts/Shared/infrastructure/EventBus'
 import { logger } from '@/Contexts/Shared/infrastructure/Logger'
 import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/persistence'

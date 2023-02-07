@@ -38,7 +38,7 @@ export abstract class MikroOrmMongoClientFactory {
       forceUndefined: true,
       highlighter: new MongoHighlighter(),
       debug: true,
-      validate: true
+      validate: true,
       // driverOptions: {
       //   monitorCommands: true,
       // ignoreUndefined: true

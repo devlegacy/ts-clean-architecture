@@ -12,16 +12,16 @@ const stream = PinoPretty({
   destination: 1,
   ignore: 'pid,hostname',
   levelFirst: true,
-  translateTime: 'yyyy-dd-mm, h:MM:ss TT'
+  translateTime: 'yyyy-dd-mm, h:MM:ss TT',
 })
 
 const dest = resolve(cwd(), './logger.log')
 const streams = [
   { stream },
   {
-    stream: createWriteStream(dest)
+    stream: createWriteStream(dest),
     //pino.destination({ dest: resolve(cwd(), './logger.log')})
-  }
+  },
 ]
 
 /**
@@ -31,7 +31,7 @@ export let logger = () =>
   pino(
     {
       name: process?.env?.APP_NAME,
-      level: process?.env?.LOG_LEVEL || 'info'
+      level: process?.env?.LOG_LEVEL || 'info',
     },
     pino.multistream(streams)
   )
@@ -41,7 +41,7 @@ export const deepLog = (data: object) =>
     util.inspect(data, {
       showHidden: false,
       depth: null,
-      colors: true
+      colors: true,
     })
   )
 
@@ -87,7 +87,7 @@ export class PinoLogger implements Logger {
       util.inspect(data, {
         showHidden: false,
         depth: null,
-        colors: true
+        colors: true,
       })
     )
   }

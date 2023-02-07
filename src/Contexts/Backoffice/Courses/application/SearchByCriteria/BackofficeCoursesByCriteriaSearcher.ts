@@ -5,7 +5,7 @@ import { Filters, Order } from '@/Contexts/Shared/domain'
 
 import {
   BackofficeCourseRepository,
-  BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher
+  BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
 } from '../../domain'
 import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
 

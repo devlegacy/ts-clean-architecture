@@ -3,7 +3,7 @@ import { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
 import { Joi } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 @JoiSchemaOptions({
-  allowUnknown: false
+  allowUnknown: false,
 })
 export class IndexHeadersDto {
   @JoiSchema(Joi.string().trim().objectId().required())

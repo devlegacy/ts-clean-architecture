@@ -18,8 +18,8 @@ export class MongoDomainEventFailoverPublisher {
     const update = {
       $set: {
         eventId: event.eventId,
-        event: eventSerialized
-      }
+        event: eventSerialized,
+      },
     }
 
     await collection.updateOne({ eventId: event.eventId }, update, options)

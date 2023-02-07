@@ -5,7 +5,7 @@ import { TYPES } from '@/apps/backoffice/modules/types'
 import {
   BackofficeCourse,
   BackofficeCourseFinder as DomainBackofficeCourseFinder,
-  BackofficeCourseRepository
+  BackofficeCourseRepository,
 } from '../../domain'
 
 @injectable()

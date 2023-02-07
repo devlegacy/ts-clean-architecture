@@ -69,7 +69,7 @@ export class BackofficeCourse extends AggregateRoot {
       name: this.name.value,
       duration: this.duration?.value,
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      updatedAt: this.updatedAt,
       // deletedAt: this.deletedAt
     }
   }

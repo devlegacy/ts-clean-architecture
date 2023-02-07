@@ -6,47 +6,47 @@ type CreateCourseDomainEventAttributes = {
 }
 
 export class CourseCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'course.created'
+  static override readonly EVENT_NAME = 'course.created'
 
   readonly name: string
   readonly duration?: string
 
   constructor({
-    aggregateId,
     eventId,
     occurredOn,
+    aggregateId,
     duration,
-    name
+    name,
   }: {
-    aggregateId: string
     eventId?: string
     occurredOn?: Date
+    aggregateId: string
     duration?: string
     name: string
   }) {
     super({
       aggregateId,
-      eventName: CourseCreatedDomainEvent.EVENT_NAME,
       eventId,
-      occurredOn
+      occurredOn,
+      eventName: CourseCreatedDomainEvent.EVENT_NAME,
     })
     this.duration = duration
     this.name = name
   }
 
-  static fromPrimitives(params: {
+  static override fromPrimitives(params: {
     aggregateId: string
-    attributes: CreateCourseDomainEventAttributes
-    eventId: string
     occurredOn: Date
+    eventId: string
+    attributes: CreateCourseDomainEventAttributes
   }): DomainEvent {
     const { aggregateId, attributes, occurredOn, eventId } = params
     return new CourseCreatedDomainEvent({
+      eventId,
+      occurredOn,
       aggregateId,
       duration: attributes?.duration,
       name: attributes.name,
-      eventId,
-      occurredOn
     })
   }
 
@@ -54,7 +54,7 @@ export class CourseCreatedDomainEvent extends DomainEvent {
     const { name, duration } = this
     return {
       name,
-      duration
+      duration,
     }
   }
 }

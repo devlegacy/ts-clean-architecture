@@ -17,7 +17,7 @@ export class UserUpdater {
     const user = await this.userFinder.run(data.id)
     const update = User.fromPrimitives({
       ...user.toPrimitives(),
-      ...data
+      ...data,
     })
 
     // NOTE: Alternative sample code:

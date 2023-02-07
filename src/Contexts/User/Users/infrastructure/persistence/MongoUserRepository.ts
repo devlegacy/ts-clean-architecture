@@ -14,7 +14,7 @@ export class MongoUserRepository extends MikroOrmMongoRepository<User> implement
     const users = await repository.findAll({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      orderBy: { [`_id`]: -1 }
+      orderBy: { [`_id`]: -1 },
     })
 
     return users
@@ -64,7 +64,7 @@ export class MongoUserRepository extends MikroOrmMongoRepository<User> implement
         ...primitives,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        _id: primitives.id
+        _id: primitives.id,
       },
       { convertCustomTypes: true }
     )

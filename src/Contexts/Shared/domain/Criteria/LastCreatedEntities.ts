@@ -11,7 +11,7 @@ export class LastCreatedEntities extends Criteria {
     super(
       new Filters([
         new Filter(new FilterField('deletedAt'), new FilterOperator(Operator.EXISTS), new FilterValue('false')),
-        ...filters.filters
+        ...filters.filters,
       ]),
       Order.createdAt(),
       limit,

@@ -29,5 +29,5 @@ export const TYPES = {
   CourseRepository: 'CourseRepository',
   CoursesCounterRepository: 'CoursesCounterRepository',
   // Test
-  EnvironmentArranger: 'EnvironmentArranger'
+  EnvironmentArranger: 'EnvironmentArranger',
 }

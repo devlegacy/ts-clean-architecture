@@ -8,7 +8,7 @@ export enum Operator {
   LT = '<',
   CONTAINS = 'CONTAINS',
   NOT_CONTAINS = 'NOT_CONTAINS',
-  EXISTS = 'EXISTS'
+  EXISTS = 'EXISTS',
 }
 export type OperatorKeys = keyof typeof Operator
 

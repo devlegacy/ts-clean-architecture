@@ -55,7 +55,7 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
       index: this.indexName(),
       id,
       body: document,
-      refresh: 'wait_for'
+      refresh: 'wait_for',
     }) // wait_for wait for a refresh to make this operation visible to search
   }
 
@@ -65,12 +65,12 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
     try {
       const response = await client.search<SearchResult<D>>({
         index: this.indexName(),
-        body: body.build()
+        body: body.build(),
       })
 
       return response.hits.hits.map((hit) =>
         unserializer({
-          ...(hit._source as D)
+          ...(hit._source as D),
         })
       )
     } catch (e) {

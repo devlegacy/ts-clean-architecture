@@ -7,12 +7,12 @@ import {
   PaginateBackofficeCoursesQuery,
   PaginatedBackofficeCoursesResponse,
   SearchAllBackofficeCoursesQuery,
-  SearchBackofficeCoursesByCriteriaQuery
+  SearchBackofficeCoursesByCriteriaQuery,
 } from '@/Contexts/Backoffice/Courses/application'
 import {
   CreateBackofficeCourseCommand,
   DeleteBackofficeCourseCommand,
-  UpdateBackofficeCourseCommand
+  UpdateBackofficeCourseCommand,
 } from '@/Contexts/Backoffice/Courses/domain'
 import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus, Filter, FilterPrimitiveDto, Operator, QueryBus } from '@/Contexts/Shared/domain'
@@ -27,7 +27,7 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@/Contexts/Shared/infrastructure/common'
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
@@ -96,8 +96,8 @@ export class CourseController {
       {
         field: 'id',
         operator: Operator.EQUAL,
-        value: courseId
-      }
+        value: courseId,
+      },
     ])
 
     const query = new FindBackofficeCourseByCriteriaQuery(filters)

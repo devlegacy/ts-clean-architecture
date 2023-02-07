@@ -2,7 +2,7 @@ import { EnumValueObject, InvalidArgumentException } from '@/Contexts/Shared/dom
 
 export enum Type {
   FREE = 0,
-  PREMIUM = 1
+  PREMIUM = 1,
 }
 
 export class CourseType extends EnumValueObject<Type> {

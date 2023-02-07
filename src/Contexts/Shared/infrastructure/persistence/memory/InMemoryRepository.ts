@@ -1,6 +1,8 @@
 import { Nullable } from '@/Contexts/Shared/domain'
 
-import { DataStore } from './DataStore'
+import { clearDataStore, DataStore } from './DataStore'
+
+type Query<T> = { [key in keyof T]?: T[key] }
 
 export abstract class InMemoryRepository<
   T extends {
@@ -19,7 +21,7 @@ export abstract class InMemoryRepository<
     return aggregate
   }
 
-  protected async all(query?: keyof T): Promise<T[]> {
+  protected async all(query?: Query<T>): Promise<T[]> {
     if (!query) return DataStore.map(this.parser)
     const stored = DataStore.filter((item) => this.matchesQuery(item, query))
     return stored.map(this.parser)
@@ -51,10 +53,15 @@ export abstract class InMemoryRepository<
     )
   }
 
-  private matchesQuery(item: T, query: any): boolean {
+  protected clear(): Promise<void> {
+    clearDataStore()
+    return Promise.resolve()
+  }
+
+  private matchesQuery(item: T, query: Query<T>): boolean {
     let match = true
     for (const key in query) {
-      match = match && item[key as keyof T] === query[`${key}`]
+      match = match && item[key as keyof T] === query[`${key}` as keyof T]
       if (!match) {
         return false
       }

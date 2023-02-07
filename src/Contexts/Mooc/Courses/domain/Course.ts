@@ -43,7 +43,7 @@ export class Course extends AggregateRoot {
       new CourseCreatedDomainEvent({
         aggregateId: course.id.value,
         duration: course.duration?.value,
-        name: course.name.value
+        name: course.name.value,
       })
     )
 
@@ -70,7 +70,7 @@ export class Course extends AggregateRoot {
     return {
       id: this.id.value,
       name: this.name.value,
-      duration: this.duration?.value
+      duration: this.duration?.value,
       // createdAt: this.createdAt,
       // updatedAt: this.updatedAt,
       // deletedAt: this.deletedAt

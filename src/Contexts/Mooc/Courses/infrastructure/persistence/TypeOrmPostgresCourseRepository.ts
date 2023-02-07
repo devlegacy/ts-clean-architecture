@@ -26,7 +26,7 @@ export class TypeOrmPostgresCourseRepository extends TypeOrmPostgresRepository<C
     const course = await repository.findOne({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      where: { id }
+      where: { id },
     })
 
     // const course = await repository.findOne({ id })

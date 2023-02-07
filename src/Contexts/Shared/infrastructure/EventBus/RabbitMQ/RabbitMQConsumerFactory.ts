@@ -18,7 +18,7 @@ export class RabbitMQConsumerFactory {
       connection: this.connection,
       queueName,
       exchange,
-      maxRetries: this.maxRetries
+      maxRetries: this.maxRetries,
     })
   }
 }

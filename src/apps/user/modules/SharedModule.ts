@@ -17,7 +17,7 @@ const mongoClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig
 const monitoring = {} as Monitoring //new SentryModule({ options: SentryConfigFactory.createConfig() })
 const logger = new PinoLogger({
   name: 'user',
-  level: 'info'
+  level: 'info',
 })
 
 // Infrastructure layer

@@ -6,12 +6,12 @@ export class PageNumberPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     info(`${value} ${metadata}`)
     const schema = Joi.object({
-      value: Joi.number().min(0).required()
+      value: Joi.number().min(0).required(),
     })
 
     const {
       error,
-      value: { value: data }
+      value: { value: data },
     } = schema.validate({ value })
 
     if (error) {

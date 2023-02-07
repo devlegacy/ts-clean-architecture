@@ -40,7 +40,7 @@ export class RabbitMQConnection {
       exclusive,
       durable,
       autoDelete,
-      arguments: args
+      arguments: args,
     })
 
     for (const routingKey of params.routingKeys) {
@@ -87,7 +87,7 @@ export class RabbitMQConnection {
       exchange: retryExchange,
       routingKey: queue,
       content: message.content,
-      options
+      options,
     })
   }
 
@@ -99,7 +99,7 @@ export class RabbitMQConnection {
       exchange: deadLetterExchange,
       routingKey: queue,
       content: message.content,
-      options
+      options,
     })
   }
 
@@ -110,7 +110,7 @@ export class RabbitMQConnection {
       headers: this.incrementRedeliveryCount(message),
       contentType,
       contentEncoding,
-      priority
+      priority,
     }
     return options
   }
@@ -142,19 +142,19 @@ export class RabbitMQConnection {
     if (params.deadLetterExchange) {
       args = {
         ...args,
-        'x-dead-letter-exchange': params.deadLetterExchange
+        'x-dead-letter-exchange': params.deadLetterExchange,
       }
     }
     if (params.deadLetterQueue) {
       args = {
         ...args,
-        'x-dead-letter-routing-key': params.deadLetterQueue
+        'x-dead-letter-routing-key': params.deadLetterQueue,
       }
     }
     if (params.messageTtl) {
       args = {
         ...args,
-        'x-message-ttl': params.messageTtl
+        'x-message-ttl': params.messageTtl,
       }
     }
 
@@ -172,7 +172,7 @@ export class RabbitMQConnection {
       port,
       username,
       password,
-      vhost
+      vhost,
     })
 
     connection.on('error', (err: unknown) => {

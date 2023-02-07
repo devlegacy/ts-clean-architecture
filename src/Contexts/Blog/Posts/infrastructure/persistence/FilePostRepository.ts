@@ -30,7 +30,7 @@ export class FilePostRepository implements PostRepository {
           id,
           content,
           author: deserialized.author,
-          date
+          date,
         })
       )
     }

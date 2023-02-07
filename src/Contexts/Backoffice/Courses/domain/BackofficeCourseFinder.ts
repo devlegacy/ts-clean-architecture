@@ -21,8 +21,8 @@ export class BackofficeCourseFinder {
               {
                 field: 'id',
                 operator: Operator.EQUAL,
-                value: courseId
-              }
+                value: courseId,
+              },
             ])
           )
         : courseId

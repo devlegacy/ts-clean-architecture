@@ -15,7 +15,7 @@ export class MongoDB {
         DB_PORT = 27017,
         DB_HOST = '127.0.0.1',
         DB_PASSWORD = '',
-        DB_DATABASE = 'ts-clean-architecture'
+        DB_DATABASE = 'ts-clean-architecture',
       } = process.env
       const isLocalHost = ['localhost', '127.0.0.1'].includes(DB_HOST)
 
@@ -33,7 +33,7 @@ export class MongoDB {
       const client = new MongoClient(MONGO_URL)
       await client.connect()
       MongoDB.instance = client.db(DB_DATABASE, {
-        ignoreUndefined: true
+        ignoreUndefined: true,
       })
 
       MongoDB.client = client

@@ -3,7 +3,7 @@ import { container } from 'tsyringe'
 import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
-  MikroOrmMongoCourseRepository
+  MikroOrmMongoCourseRepository,
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
 import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'

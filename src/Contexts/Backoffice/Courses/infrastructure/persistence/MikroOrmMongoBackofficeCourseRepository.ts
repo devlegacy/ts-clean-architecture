@@ -45,7 +45,7 @@ export class MikroOrmMongoBackofficeCourseRepository
       {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        _id: course.id
+        _id: course.id,
       },
       { convertCustomTypes: true }
     )
@@ -56,7 +56,7 @@ export class MikroOrmMongoBackofficeCourseRepository
         ...primitives,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        _id: id
+        _id: id,
       },
       { convertCustomTypes: true }
     )
@@ -70,7 +70,7 @@ export class MikroOrmMongoBackofficeCourseRepository
       {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        _id: id
+        _id: id,
       },
       { deletedAt: new Date() },
       { convertCustomTypes: true }

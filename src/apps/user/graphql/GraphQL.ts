@@ -22,7 +22,7 @@ export class GraphQL {
 
     this.#apolloServer = new ApolloServer<BaseContext>({
       schema,
-      plugins: [fastifyApolloDrainPlugin(this.#app)]
+      plugins: [fastifyApolloDrainPlugin(this.#app)],
     })
   }
 
@@ -32,7 +32,7 @@ export class GraphQL {
 
     await this.#app.listen({
       port: this.#port,
-      host: '0.0.0.0'
+      host: '0.0.0.0',
     })
 
     const address: AddressInfo = this.#app.server.address() as AddressInfo

@@ -13,15 +13,15 @@ export const CourseEntity = new EntitySchema<Course>({
     id: {
       type: String,
       primary: true,
-      transformer: ValueObjectTransformer(CourseId)
+      transformer: ValueObjectTransformer(CourseId),
     },
     name: {
       type: String,
-      transformer: ValueObjectTransformer(CourseName)
+      transformer: ValueObjectTransformer(CourseName),
     },
     duration: {
       type: String,
-      transformer: ValueObjectTransformer(CourseDuration)
-    }
-  }
+      transformer: ValueObjectTransformer(CourseDuration),
+    },
+  },
 })

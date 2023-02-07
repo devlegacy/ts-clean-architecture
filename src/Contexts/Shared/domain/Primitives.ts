@@ -7,7 +7,7 @@ import {
   EnumValueObject,
   NumberValueObject,
   PrimitiveTypes,
-  StringValueObject
+  StringValueObject,
 } from './ValueObjects'
 
 export type Primitives<Type> = Writable<{

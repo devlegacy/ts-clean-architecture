@@ -49,7 +49,7 @@ export class CoursesCounter extends AggregateRoot {
     this.record(
       new CoursesCounterIncrementedDomainEvent({
         aggregateId: this.id.value,
-        total: this._total.value
+        total: this._total.value,
       })
     )
   }
@@ -63,7 +63,7 @@ export class CoursesCounter extends AggregateRoot {
     return {
       id: this.id.value,
       total: this.total.value,
-      existingCourses: this.existingCourses.map((courseId) => courseId.value)
+      existingCourses: this.existingCourses.map((courseId) => courseId.value),
     }
   }
 }

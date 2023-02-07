@@ -6,7 +6,7 @@ import {
   BackofficeCourseDuration,
   BackofficeCourseId,
   BackofficeCourseName,
-  CreateBackofficeCourseCommand
+  CreateBackofficeCourseCommand,
 } from '../../domain'
 import { BackofficeCourseCreator } from './BackofficeCourseCreator'
 
@@ -26,7 +26,7 @@ export class CreateBackofficeCourseCommandHandler implements CommandHandler<Crea
     await this.creator.run({
       id,
       name,
-      duration
+      duration,
     })
   }
 }
