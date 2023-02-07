@@ -18,3 +18,13 @@
   crypto.randomBytes(16).toString('base64')
   crypto.randomBytes(16).toString('hex')
 ```
+
+## Management
+
+```sh 
+  npm cache verify
+  npm cache clean
+  npm cache clean --force
+
+  npm cache verify && npm cache clean --force
+```
