@@ -174,12 +174,13 @@
 
 ## Define
 
-- [ ] errors vs exceptions
+- [x] class errors vs class exceptions
   - ✅ Error: A mistake
     - an action, decision, or judgment that produces an unwanted or unintentional result
   - ❌ Exception: someone or something that is not included in a rule, group, or list or that does not behave in the expected way
-- [ ] CreateCourseRequest - primitives creation (?)
-- [ ] No injectable elements
+- [x] CreateCourseRequest - primitives creation (?)
+  - ✅ `CreateCourseRequestDto`
+- [x] No injectable: functions that could be called as global functions without access to a di container
   - [ ] Logger
   - [ ] Config - Env
 
