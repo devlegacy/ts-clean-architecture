@@ -67,8 +67,8 @@
     "@mikro-orm/mongodb": "5.6.8",
     "@mikro-orm/postgresql": "5.6.8",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.36.0",
-    "@sentry/tracing": "7.36.0",
+    "@sentry/node": "7.37.0",
+    "@sentry/tracing": "7.37.0",
     "ajv": "8.12.0",
     "amqplib": "0.10.3",
     "apollo-server-core": "3.11.1",
@@ -82,7 +82,7 @@
     "dotenv-expand": "10.0.0",
     "env-schema": "5.2.0",
     "fast-equals": "4.0.3",
-    "fastify": "4.12.0",
+    "fastify": "4.13.0",
     "fastify-qs": "4.0.1",
     "fix": "0.0.6",
     "graphql": "16.6.0",
@@ -158,7 +158,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.3",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.6.5"
+    "npm-check-updates": "16.7.2"
   },
   "engines": {
     "node": ">=16.15.0 <=19.2.0",
