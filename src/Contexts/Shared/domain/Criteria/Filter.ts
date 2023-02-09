@@ -1,5 +1,5 @@
 import { InvalidArgumentError } from '../Errors'
-import { Primitives } from '../Primitives'
+import { Primitives } from '../Types/Primitives'
 import { FilterField } from './FilterField'
 import { FilterOperator, OperatorKeys } from './FilterOperator'
 import { FilterValue } from './FilterValue'
