@@ -1,7 +1,7 @@
 import {
   CoursesCounterFinder,
   FindCoursesCounterQuery,
-  FindCoursesCounterQueryHandler
+  FindCoursesCounterQueryHandler,
 } from '@/Contexts/Mooc/CoursesCounter/application'
 import { CoursesCounterNotExist } from '@/Contexts/Mooc/CoursesCounter/domain'
 

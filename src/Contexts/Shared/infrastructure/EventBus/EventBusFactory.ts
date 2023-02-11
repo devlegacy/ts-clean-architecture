@@ -13,6 +13,7 @@ export class EventBusFactory {
       const bus = new InMemoryAsyncEventBus()
       this._instance = bus
     }
+
     return this._instance
   }
 }

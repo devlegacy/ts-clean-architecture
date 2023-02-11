@@ -1,3 +1,1 @@
-import { Simplify } from 'type-fest'
-
-export { Simplify }
+export type { Simplify } from 'type-fest'

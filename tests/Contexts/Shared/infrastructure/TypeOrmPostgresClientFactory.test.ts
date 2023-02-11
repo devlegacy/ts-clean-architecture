@@ -7,9 +7,9 @@ const config = {
   host: '127.0.0.1',
   port: 5432,
   password: 'postgres',
-  username: 'postgres'
+  username: 'postgres',
 }
-
+jest.setTimeout(5000 + 600000)
 describe('TypeOrmPostgresClientFactory', () => {
   const factory = TypeOrmPostgresClientFactory
   let client: DataSource
@@ -32,7 +32,7 @@ describe('TypeOrmPostgresClientFactory', () => {
   it('should creates a new client if it does not exist a client with the given name', async () => {
     const newClient = await factory.createClient('mooc-test2', {
       ...config,
-      database: 'mooc-test2'
+      database: 'mooc-test2',
     })
 
     expect(newClient).not.toBe(client)

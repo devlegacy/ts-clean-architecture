@@ -1,3 +1,1 @@
-import { SetOptional } from 'type-fest'
-
-export { SetOptional }
+export type { SetOptional } from 'type-fest'

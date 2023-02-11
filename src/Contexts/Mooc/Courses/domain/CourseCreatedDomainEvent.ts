@@ -1,8 +1,4 @@
-import {
-  DomainEvent,
-  DomainEventPrimitivesWithAttributes,
-  InstanceDomainEventPrimitives,
-} from '@/Contexts/Shared/domain'
+import { DomainEvent, DomainEventPrimitives, DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain'
 
 interface CreateCourseDomainEventAttributes {
   name: string // should be readonly
@@ -22,7 +18,7 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
     duration,
     name,
     ...event
-  }: InstanceDomainEventPrimitives<CreateCourseDomainEventAttributes>) {
+  }: DomainEventPrimitives<CreateCourseDomainEventAttributes>) {
     const eventName = CourseCreatedDomainEvent.EVENT_NAME
     super({
       eventName,
@@ -35,12 +31,16 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
     this.name = name
   }
 
-  static override fromPrimitives({
-    eventId,
-    occurredOn,
-    aggregateId,
-    attributes: { name, duration },
-  }: DomainEventPrimitivesWithAttributes<CreateCourseDomainEventAttributes>): CourseCreatedDomainEvent {
+  static override fromPrimitives(
+    props: DomainEventPrimitivesWithAttributes<CourseCreatedDomainEvent>
+  ): CourseCreatedDomainEvent {
+    const {
+      eventId,
+      occurredOn,
+      aggregateId,
+      attributes: { name, duration },
+    } = props
+
     const event = new CourseCreatedDomainEvent({
       eventId,
       occurredOn,
@@ -51,7 +51,8 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
     return event
   }
 
-  toPrimitives(): CreateCourseDomainEventAttributes {
+  // toPrimitives(): CreateCourseDomainEventAttributes {
+  toPrimitives() {
     const { name, duration } = this
     return {
       name,

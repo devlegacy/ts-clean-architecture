@@ -1,4 +1,4 @@
-// import { Uuid } from '@/Contexts/Shared/domain/value-object/Uuid'
+// import { Uuid } from '@/Contexts/Shared/domain/ValueObjects/Uuid'
 
 import { Course, CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/domain'
 import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'

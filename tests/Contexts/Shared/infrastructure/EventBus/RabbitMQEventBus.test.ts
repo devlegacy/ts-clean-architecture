@@ -2,13 +2,13 @@ import { DomainEvent } from '@/Contexts/Shared/domain'
 import {
   DomainEventDeserializer,
   DomainEventSubscribers,
+  MikroOrmMongoDomainEventFailoverPublisher,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQConsumer,
   RabbitMQEventBus,
-  RabbitMQQueueFormatter
+  RabbitMQQueueFormatter,
 } from '@/Contexts/Shared/infrastructure/EventBus'
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
 import { CoursesCounterIncrementedDomainEventMother } from '@/tests/Contexts/Mooc/CoursesCounter/domain'
 
 import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger'
@@ -16,7 +16,7 @@ import { DomainEventDummyMother, DomainEventSubscriberDummy } from './__mocks__'
 import {
   DomainEventFailoverPublisherMother,
   RabbitMQConnectionMother,
-  RabbitMQMikroOrmMongoClientMother
+  RabbitMQMikroOrmMongoClientMother,
 } from './__mother__'
 
 // jest.useFakeTimers()
@@ -54,7 +54,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries
+        maxRetries,
       })
       const event = CoursesCounterIncrementedDomainEventMother.create()
 
@@ -95,7 +95,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         exchange: '', // exchange
         queueNameFormatter,
-        maxRetries
+        maxRetries,
       })
 
       const event = CoursesCounterIncrementedDomainEventMother.create()
@@ -108,14 +108,14 @@ describe('RabbitMQEventBus test', () => {
 
       await configurer.configure({
         exchange,
-        subscribers: [dummySubscriber]
+        subscribers: [dummySubscriber],
       })
       const eventBus = new RabbitMQEventBus({
         failoverPublisher,
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries
+        maxRetries,
       })
       await eventBus.addSubscribers(subscribers)
       const event = DomainEventDummyMother.random()
@@ -131,14 +131,14 @@ describe('RabbitMQEventBus test', () => {
       subscribers = new DomainEventSubscribers([dummySubscriber])
       await configurer.configure({
         exchange,
-        subscribers: [dummySubscriber]
+        subscribers: [dummySubscriber],
       })
       const eventBus = new RabbitMQEventBus({
         failoverPublisher,
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries
+        maxRetries,
       })
       await eventBus.addSubscribers(subscribers)
       const event = DomainEventDummyMother.random()
@@ -154,14 +154,14 @@ describe('RabbitMQEventBus test', () => {
       subscribers = new DomainEventSubscribers([dummySubscriber])
       await configurer.configure({
         exchange,
-        subscribers: [dummySubscriber]
+        subscribers: [dummySubscriber],
       })
       const eventBus = new RabbitMQEventBus({
         failoverPublisher,
         connection,
         exchange,
         queueNameFormatter,
-        maxRetries
+        maxRetries,
       })
       await eventBus.addSubscribers(subscribers)
       const event = DomainEventDummyMother.random()
@@ -190,7 +190,7 @@ describe('RabbitMQEventBus test', () => {
         connection,
         maxRetries,
         queueName: deadLetterQueue,
-        exchange
+        exchange,
       })
       await connection.consume(deadLetterQueue, consumer.onMessage.bind(consumer))
 

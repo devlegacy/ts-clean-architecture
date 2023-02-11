@@ -13,13 +13,6 @@ export class CoursesCounter extends AggregateRoot {
   readonly existingCourses: CourseId[]
   private _total: CoursesCounterTotal
 
-  constructor(id: CoursesCounterId, total: CoursesCounterTotal, existingCourses?: CourseId[]) {
-    super()
-    this.id = id
-    this.existingCourses = existingCourses || []
-    this._total = total
-  }
-
   get total(): CoursesCounterTotal {
     return this._total
   }
@@ -28,11 +21,18 @@ export class CoursesCounter extends AggregateRoot {
     this._total = total
   }
 
+  constructor(id: CoursesCounterId, total: CoursesCounterTotal, existingCourses?: CourseId[]) {
+    super()
+    this.id = id
+    this.existingCourses = existingCourses || []
+    this._total = total
+  }
+
   static initialize(id: ObjectId): CoursesCounter {
     return new CoursesCounter(id, CoursesCounterTotal.initialize())
   }
 
-  static fromPrimitives(data: CoursesCounterPrimitiveDto): CoursesCounter {
+  static override fromPrimitives(data: CoursesCounterPrimitiveDto): CoursesCounter {
     return new CoursesCounter(
       new CoursesCounterId(data.id),
       new CoursesCounterTotal(data.total),

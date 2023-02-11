@@ -19,8 +19,10 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     return this._client
   }
 
-  protected async collection(): Promise<Collection> {
-    return (await this._client).db().collection(this.collectionName())
+  protected async collection<D extends Document>(): Promise<Collection<D>> {
+    const client = await this._client
+    const collection = client.db().collection<D>(this.collectionName())
+    return collection
   }
 
   protected async persist(id: EntityId, aggregateRoot: T, transform?: (obj: any) => any): Promise<void> {

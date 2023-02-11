@@ -1,8 +1,11 @@
+import { Simplify } from '../Types'
 import { ObjectId } from '../ValueObjects'
 
 type DomainEventAttributes<T = any> = T
 
-export interface DomainEventPrimitivesWithAttributes<Attributes = DomainEventAttributes> {
+export type DomainPrimitiveAttributes<T extends DomainEvent> = ReturnType<T['toPrimitives']>
+
+export interface DomainEventPrimitivesWithAttributes<Attributes> {
   // event UUID identifier
   eventId: string
   // When the event occurred, with a consistent format across events
@@ -10,16 +13,24 @@ export interface DomainEventPrimitivesWithAttributes<Attributes = DomainEventAtt
   // ID for the Aggregate Root that this event belongs to, related to the attributes because is the ID root
   aggregateId: string
   // Primitive domain data | Payload domain data
-  attributes: Attributes
+  attributes: Simplify<
+    Attributes extends DomainEvent
+      ? DomainPrimitiveAttributes<Attributes>
+      : { [Property in keyof Attributes]: Attributes[Property] }
+  >
   // Meta, host, etc.
 }
 
 // Base (?)
-export type InstanceDomainEventPrimitives<Attributes> = Attributes & {
+export type DomainEventPrimitives<Attributes> = Attributes & {
   eventId?: string
   occurredOn?: Date
   aggregateId: string
 }
+
+// export interface DomainEvent {
+//   toPrimitives(): object
+// }
 
 /**
  * Base Domain Event class.
@@ -29,7 +40,8 @@ export type InstanceDomainEventPrimitives<Attributes> = Attributes & {
 export abstract class DomainEvent {
   // tag event name: AsyncAPI compliant, it should use action on past
   static EVENT_NAME: string
-  static fromPrimitives: (props: DomainEventPrimitivesWithAttributes) => DomainEvent
+  // static fromPrimitives: (props: DomainEventPrimitivesWithAttributes) => DomainEvent
+  static fromPrimitives: (props: any) => DomainEvent
 
   readonly aggregateId: string
   readonly eventId: string
@@ -51,5 +63,6 @@ export abstract class DomainEvent {
 // DEBT: Complexity
 export type DomainEventClass = {
   EVENT_NAME: string
-  fromPrimitives(props: DomainEventPrimitivesWithAttributes): DomainEvent
+  // fromPrimitives(props: DomainEventPrimitivesWithAttributes): DomainEvent
+  fromPrimitives(props: any): DomainEvent
 }
