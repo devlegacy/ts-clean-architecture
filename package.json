@@ -116,7 +116,7 @@
     "@swc/jest": "0.2.24",
     "@types/amqplib": "0.10.1",
     "@types/convict": "6.1.1",
-    "@types/eslint": "8.21.0",
+    "@types/eslint": "8.21.1",
     "@types/http-errors": "2.0.1",
     "@types/jest": "29.4.0",
     "@types/node": "18.13.0",
