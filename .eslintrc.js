@@ -43,6 +43,7 @@ module.exports = {
       {
         code: 120,
         ignoreComments: true,
+        ignoreTemplateLiterals: true,
         ignorePattern: '^import .*'
       }
     ], // .prettierrc helps
@@ -110,7 +111,12 @@ module.exports = {
         // Static initialization
         "static-initialization",
 
+        // Getters
         "public-instance-get",
+
+        // Setters
+        "public-instance-set",
+        "private-instance-set",
 
         // Constructors
         "public-constructor",
@@ -160,9 +166,9 @@ module.exports = {
         "protected-decorated-set",
         "private-decorated-set",
 
-        "public-instance-set",
+        // "public-instance-set",
         "protected-instance-set",
-        "private-instance-set",
+        // "private-instance-set",
         "#private-instance-set",
 
         "public-abstract-set",
