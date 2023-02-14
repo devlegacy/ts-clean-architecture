@@ -1,0 +1,22 @@
+{
+  "app": {
+    "name": "Bank app"
+  },
+  "rabbitmq": {
+    "connectionSettings": {
+      "username": "inrfebcy",
+      "password": "fW-2oZftiwGmxyznJLP-pF2k01m7_DXw",
+      "vhost": "inrfebcy",
+      "connection": {
+        "secure": true,
+        "hostname": "beaver.rmq.cloudamqp.com",
+        "port": 5671
+      }
+    },
+    "exchangeSettings": {
+      "name": "domain_events"
+    },
+    "maxRetries": 3,
+    "retryTtl": 1000
+  }
+}

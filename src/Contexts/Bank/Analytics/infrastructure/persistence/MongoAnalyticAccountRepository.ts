@@ -1,0 +1,59 @@
+import { Nullable } from '@/Contexts/Shared/domain'
+import { MongoRepository } from '@/Contexts/Shared/infrastructure'
+
+import { AnalyticAccount, AnalyticAccountRepository } from '../../domain'
+
+interface AnalyticAccountDocument {
+  _id: string
+  currency: string
+  connections: {
+    startedAt: number
+  }[]
+}
+
+export class MongoAnalyticAccountRepository
+  extends MongoRepository<AnalyticAccount>
+  implements AnalyticAccountRepository
+{
+  async find(id: AnalyticAccount['id']): Promise<Nullable<AnalyticAccount>> {
+    const collection = await this.collection<AnalyticAccountDocument>()
+    const result = await collection.findOne({ _id: id })
+    if (!result) return null
+
+    const { _id, ...document } = result
+    const account = AnalyticAccount.fromPrimitives({
+      ...document,
+      id: _id.toString(),
+    })
+    return account
+  }
+
+  async findAccountsPerCurrency(currency: string): Promise<AnalyticAccount[]> {
+    const collection = await this.collection<AnalyticAccountDocument>()
+    const documents = await collection.find({ currency }).toArray()
+    const analyticAccounts = documents.map(({ _id, ...document }) =>
+      AnalyticAccount.fromPrimitives({
+        ...document,
+        id: _id.toString(),
+      })
+    )
+
+    return analyticAccounts
+  }
+
+  async trackNewAccount(account: AnalyticAccount): Promise<void> {
+    await super.persist(account.id, account)
+  }
+
+  async save(account: AnalyticAccount): Promise<void> {
+    await super.persist(account.id, account)
+  }
+
+  async update(account: AnalyticAccount): Promise<void> {
+    await super.persist(account.id, account)
+  }
+
+  protected collectionName(): string {
+    return 'analytic_accounts'
+  }
+}

@@ -31,6 +31,8 @@
   # 💡 samples:
   chore(deps): bump dependencies
   chore(deps-dev): bump dependencies
+  
+  imp(scaffold): add lint rules
 ```
 
 🎬 actions: 

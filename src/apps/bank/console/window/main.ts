@@ -1,17 +1,13 @@
-// import 'reflect-metadata'
+import 'reflect-metadata'
 
-import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
-import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain'
-import { FileAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure'
+import dotenv from 'dotenv'
+import { expand } from 'dotenv-expand'
 
-import { WindowCLI } from './WindowCLI'
+import { WindowCLIApp } from './WindowCLIApp'
 
-const repository: AccountRepository = new FileAccountRepository()
-const ratioAdapter = new EURRatioService()
-const useCase = new AccountUseCase(repository, ratioAdapter)
-const cli = new WindowCLI(useCase)
+const config = dotenv.config()
+expand(config)
 
-cli.render()
+new WindowCLIApp().start()
 
 // npx tsnd -r ts-node/register/transpile-only -r tsconfig-paths/register ./src/apps/bank/console/window/main.ts
-// 7c1e3a5f-b4fd-4215-aaf4-1b3bb28e7ae3

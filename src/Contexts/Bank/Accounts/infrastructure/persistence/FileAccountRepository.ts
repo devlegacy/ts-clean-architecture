@@ -17,7 +17,7 @@ export class FileAccountRepository implements AccountRepository {
     await writeFile(this.path(account.id), serialize(account.toPrimitives()))
   }
 
-  async update(id: Account['id'], account: Account): Promise<void> {
+  async update(account: Account): Promise<void> {
     await this.save(account)
   }
 
@@ -28,7 +28,7 @@ export class FileAccountRepository implements AccountRepository {
     return Account.fromPrimitives({
       id,
       name,
-      balance
+      balance,
     })
   }
 
