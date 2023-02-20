@@ -2,8 +2,6 @@ import * as readline from 'readline-sync'
 
 import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
 import { Account } from '@/Contexts/Bank/Accounts/domain'
-import { AnalyticAccountTrackerUseCase } from '@/Contexts/Bank/Analytics/application'
-import { AnalyticAccount } from '@/Contexts/Bank/Analytics/domain'
 import { DomainError, Uuid } from '@/Contexts/Shared/domain'
 
 type onSuccess = () => void
@@ -13,16 +11,12 @@ type Callback = (onSuccess: onSuccess, onError: onError) => void
 export class WindowCLI {
   private readonly options: Callback[]
 
-  constructor(
-    private readonly accountUseCase: AccountUseCase,
-    private readonly analyticAccountUseCase: AnalyticAccountTrackerUseCase
-  ) {
+  constructor(private readonly useCase: AccountUseCase) {
     this.options = [
       this.createAccount.bind(this),
       this.findAccount.bind(this),
       this.deposit.bind(this),
       this.withdraw.bind(this),
-      this.getAccountsPerCurrency.bind(this),
     ]
   }
 
@@ -54,17 +48,17 @@ export class WindowCLI {
     const name = readline.question('What is the account name? ')
     const currency = readline.question(`${name}. Which currency do you operate?: `)
 
-    this.accountUseCase
+    this.useCase
       .create(Uuid.random().value, name, currency)
-      .then((accountId: string) => console.log(`Congratulations ${name}. Your account ${accountId} was created!`))
+      .then((id: string) => console.log(`Congratulations ${name}. Your account ${id} was created!`))
       .catch(onError)
       .finally(onSuccess)
   }
 
   private findAccount(onSuccess: onSuccess, onError: onError) {
-    const accountId = readline.question('What is your account id? ')
-    this.accountUseCase
-      .find(accountId)
+    const id = readline.question('What is your account id? ')
+    this.useCase
+      .find(id)
       .then((account: Account) => {
         console.log(`Account: ${account.id}`)
         console.log(`Name: ${account.name}`)
@@ -75,11 +69,11 @@ export class WindowCLI {
   }
 
   private deposit(onSuccess: onSuccess, onError: onError) {
-    const accountId = readline.question('What is your account id?: ')
+    const id = readline.question('What is your account id?: ')
     const amount = readline.question('What is the amount to deposit?: ')
     const currency = readline.question('Which currency do you operate?: ')
-    this.accountUseCase
-      .deposit(accountId, Number(amount), currency)
+    this.useCase
+      .deposit(id, Number(amount), currency)
       .then(() => {
         console.log('Your deposit was completed successfully!')
       })
@@ -88,25 +82,13 @@ export class WindowCLI {
   }
 
   private withdraw(onSuccess: onSuccess, onError: onError) {
-    const accountId = readline.question('What is your account id?: ')
+    const id = readline.question('What is your account id?: ')
     const amount = readline.question('What is the amount to withdraw?: ')
     const currency = readline.question('Which currency do you operate?: ')
-    this.accountUseCase
-      .withdraw(accountId, Number(amount), currency)
+    this.useCase
+      .withdraw(id, Number(amount), currency)
       .then(() => {
         console.log('Your withdraw was completed successfully!')
-      })
-      .catch(onError)
-      .finally(onSuccess)
-  }
-
-  private getAccountsPerCurrency(onSuccess: onSuccess, onError: onError) {
-    const currency = readline.question('Which currency do you want to analyze?: ')
-    this.analyticAccountUseCase
-      .findAccountsPerCurrency(currency)
-      .then((accounts: AnalyticAccount[]) => {
-        const accountSize = accounts.length
-        console.log(`There ${accountSize <= 1 ? 'is' : 'are'} ${accountSize} accounts for currency ${currency}`)
       })
       .catch(onError)
       .finally(onSuccess)

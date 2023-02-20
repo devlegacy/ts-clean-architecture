@@ -37,7 +37,7 @@ export class BlogCLI {
     const content = readline.question(`${author}. What are you thinking? `)
 
     this.useCase
-      .publishPost(Uuid.random().value, author, content, new Date().getTime())
+      .publishPost(Uuid.random().value, author, content, new Date())
       .then(() => {
         console.log(`Congratulations ${author}. Your post was published!`)
       })
@@ -53,7 +53,7 @@ export class BlogCLI {
         posts.map((post: Post) =>
           console.log(`
           ${post.author} said:
-          ${new Date(post.date).toISOString()}
+          ${post.date.toISOString()}
           ${post.content}
         `)
         )

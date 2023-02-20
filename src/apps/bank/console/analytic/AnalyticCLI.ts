@@ -16,14 +16,17 @@ export class AnalyticCLI {
   }
 
   render() {
-    console.log('Welcome to the Analytic CLI for EventBank')
-    console.log(`Choose an option:`)
-    console.log(
-      `${this.options.map((option, index) => ` ${index + 1}) ${option.name.replace('bound ', '')}`).join('\n')}`
-    )
+    const options = this.options
+      .map((option, index) => `\t${index + 1}) ${option.name.replace('bound ', '')}`)
+      .join('\n')
+    const message = `
+      Welcome to our Analytic CLI for EventBank!
+      Please, choose an option:
+      ${options}`
+    console.log(message)
 
-    const option = Number(readline.question('Option:'))
-    this.options[option - 1](this.render.bind(this), this.onError.bind(this))
+    const optionSelected = Number(readline.question('Option:'))
+    this.options[optionSelected - 1](this.render.bind(this), this.onError.bind(this))
   }
 
   private onError(err: Error) {
@@ -41,7 +44,7 @@ export class AnalyticCLI {
       .findAccountsPerCurrency(currency)
       .then((accounts: AnalyticAccount[]) => {
         const accountSize = accounts.length
-        console.log(`There ${accountSize <= 1 ? 'is ' : 'are '}${accountSize} accounts for currency ${currency}`)
+        console.log(`There ${accountSize <= 1 ? 'is ' : 'are '}${accountSize} account(s) for currency ${currency}`)
       })
       .catch(onError)
       .finally(onSuccess)

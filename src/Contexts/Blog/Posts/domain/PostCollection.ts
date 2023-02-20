@@ -6,6 +6,6 @@ export class PostCollection extends Array<Post> {
   }
 
   private get sorted(): PostCollection {
-    return super.sort((a, b) => b.date - a.date)
+    return super.sort((a, b) => b.date.getTime() - a.date.getTime())
   }
 }

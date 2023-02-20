@@ -16,11 +16,11 @@ import { WindowCLI } from './WindowCLI'
 
 const context = 'bank'
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MongoClientFactory.createClient(context, mongoConfig)
+const dbClient = MongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
-const DomainEventFailoverPublisher = new MongoDomainEventFailoverPublisher(connectionClient)
+const DomainEventFailoverPublisher = new MongoDomainEventFailoverPublisher(dbClient)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
@@ -32,13 +32,13 @@ const container: {
   accountUseCase: AccountUseCase
   analyticAccountTrackerUseCase: AnalyticAccountTrackerUseCase
 } = {} as any
-const accountRepository: AccountRepository = new MongoAccountRepository(connectionClient)
+const accountRepository: AccountRepository = new MongoAccountRepository(dbClient)
 const ratioAdapter = new EURRatioService()
 
 const accountUseCase = new AccountUseCase(accountRepository, ratioAdapter, rabbitEventBus)
 container.accountUseCase = accountUseCase
 
-const analyticAccountRepository = new MongoAnalyticAccountRepository(connectionClient)
+const analyticAccountRepository = new MongoAnalyticAccountRepository(dbClient)
 const analyticAccountTrackerUseCase = new AnalyticAccountTrackerUseCase(analyticAccountRepository)
 container.analyticAccountTrackerUseCase = analyticAccountTrackerUseCase
 
@@ -49,7 +49,7 @@ export class WindowCLIApp {
   }
 
   startCli() {
-    const cli = new WindowCLI(container.accountUseCase, container.analyticAccountTrackerUseCase)
+    const cli = new WindowCLI(container.accountUseCase)
     cli.render()
   }
 

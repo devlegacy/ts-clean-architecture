@@ -17,28 +17,28 @@ export class MongoAnalyticAccountRepository
 {
   async find(id: AnalyticAccount['id']): Promise<Nullable<AnalyticAccount>> {
     const collection = await this.collection<AnalyticAccountDocument>()
-    const result = await collection.findOne({ _id: id })
-    if (!result) return null
+    const document = await collection.findOne({ _id: id })
+    if (!document) return null
 
-    const { _id, ...document } = result
+    const { _id, ...data } = document
     const account = AnalyticAccount.fromPrimitives({
-      ...document,
+      ...data,
       id: _id.toString(),
     })
     return account
   }
 
-  async findAccountsPerCurrency(currency: string): Promise<AnalyticAccount[]> {
+  async findAccountsPerCurrency(currency: AnalyticAccount['currency']): Promise<AnalyticAccount[]> {
     const collection = await this.collection<AnalyticAccountDocument>()
     const documents = await collection.find({ currency }).toArray()
-    const analyticAccounts = documents.map(({ _id, ...document }) =>
+    const accounts = documents.map(({ _id, ...document }) =>
       AnalyticAccount.fromPrimitives({
         ...document,
         id: _id.toString(),
       })
     )
 
-    return analyticAccounts
+    return accounts
   }
 
   async trackNewAccount(account: AnalyticAccount): Promise<void> {

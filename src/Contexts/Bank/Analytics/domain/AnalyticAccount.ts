@@ -29,10 +29,11 @@ export class AnalyticAccount extends AggregateRoot {
   }
 
   toPrimitives() {
-    return {
+    const primitive = {
       id: this.id,
       currency: this.currency,
       connections: this.connections.map((connection) => connection.toPrimitives()),
     }
+    return primitive
   }
 }

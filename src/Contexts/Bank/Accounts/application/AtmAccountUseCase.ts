@@ -9,33 +9,32 @@ export class AtmAccountUseCase {
     private readonly eventBus: EventBus
   ) {}
 
-  async create(id: string, name: string, currency: string): Promise<string> {
-    const account = Account.create(id, name, currency)
-    await this.accountRepository.save(account)
-
-    return account.id
-  }
-
   async find(id: string): Promise<Account> {
     const account = await this.accountRepository.find(id)
-    if (!account) throw new EntityNotFoundError(`Unknown account ${id}`)
+    if (!account) throw new EntityNotFoundError(`Unknown account <${id}>`)
 
     return account
   }
 
   async deposit(id: string, amount: number, currency: string): Promise<void> {
     const account = await this.find(id)
-    account.deposit(new Money(amount, currency))
+    const money = new Money(amount, currency)
+
+    account.deposit(money)
+    const events = account.pullDomainEvents()
 
     await this.accountRepository.update(account)
-    await this.eventBus.publish(account.pullDomainEvents())
+    await this.eventBus.publish(events)
   }
 
   async withdraw(id: string, amount: number, currency: string): Promise<void> {
     const account = await this.find(id)
-    account.withdraw(new Money(amount, currency), this.ratioService)
+    const money = new Money(amount, currency)
+
+    account.withdraw(money, this.ratioService)
+    const events = account.pullDomainEvents()
 
     await this.accountRepository.update(account)
-    await this.eventBus.publish(account.pullDomainEvents())
+    await this.eventBus.publish(events)
   }
 }

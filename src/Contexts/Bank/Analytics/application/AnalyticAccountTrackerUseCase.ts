@@ -10,9 +10,9 @@ export class AnalyticAccountTrackerUseCase {
     await this.analyticRepository.trackNewAccount(account)
   }
 
-  async trackConnection(accountId: string) {
-    const account = await this.analyticRepository.find(accountId)
-    if (!account) throw new EntityNotFoundError(`Account ${accountId} not found`)
+  async trackConnection(id: string) {
+    const account = await this.analyticRepository.find(id)
+    if (!account) throw new EntityNotFoundError(`Account <${id}> not found`)
     account.addConnection()
     await this.analyticRepository.update(account)
   }

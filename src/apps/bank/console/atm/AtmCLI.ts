@@ -2,6 +2,7 @@ import * as readline from 'readline-sync'
 
 import { AtmAccountUseCase } from '@/Contexts/Bank/Accounts/application'
 import { Account } from '@/Contexts/Bank/Accounts/domain'
+import { DomainError } from '@/Contexts/Shared/domain'
 
 type Callback = (onSuccess: () => void, onError: (err: Error) => void) => void
 
@@ -17,7 +18,7 @@ export class AtmCLI {
       .map((option, index) => `\t${index + 1}) ${option.name.replace('bound ', '')}`)
       .join('\n')
     const message = `
-      Welcome to our CLI Bank!
+      Welcome to our ATM CLI Bank!
       Please, choose an option:
       ${options}`
     console.log(message)
@@ -27,15 +28,18 @@ export class AtmCLI {
   }
 
   private onError(err: Error) {
-    const message = err.message ? err.message : 'Something failed, please try again...'
+    const message = DomainError?.isKnownError(err)
+      ? `[${err.constructor.name}]: : ${err.message}`
+      : 'Something failed, please try again...'
 
     console.log(message)
+    console.log(err)
   }
 
   private findAccount(onSuccess: Parameters<Callback>['0'], onError: Parameters<Callback>['1']) {
-    const accountId = readline.question('What is your account id? ')
+    const id = readline.question('What is your account id? ')
     this.useCase
-      .find(accountId)
+      .find(id)
       .then((account: Account) => {
         console.log(`Account: ${account.id}`)
         console.log(`Name: ${account.name}`)
@@ -46,11 +50,11 @@ export class AtmCLI {
   }
 
   private deposit(onSuccess: Parameters<Callback>['0'], onError: Parameters<Callback>['1']) {
-    const accountId = readline.question('What is your account id?: ')
+    const id = readline.question('What is your account id?: ')
     const amount = readline.question('What is the amount to deposit?: ')
     const currency = readline.question('Which currency do you operate?: ')
     this.useCase
-      .deposit(accountId, Number(amount), currency)
+      .deposit(id, Number(amount), currency)
       .then(() => {
         console.log('Your deposit was completed successfully!')
       })
@@ -59,11 +63,11 @@ export class AtmCLI {
   }
 
   private withdraw(onSuccess: Parameters<Callback>['0'], onError: Parameters<Callback>['1']) {
-    const accountId = readline.question('What is your account id?: ')
+    const id = readline.question('What is your account id?: ')
     const amount = readline.question('What is the amount to withdraw?: ')
     const currency = readline.question('Which currency do you operate?: ')
     this.useCase
-      .withdraw(accountId, Number(amount), currency)
+      .withdraw(id, Number(amount), currency)
       .then(() => {
         console.log('Your withdraw was completed successfully!')
       })

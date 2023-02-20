@@ -6,10 +6,10 @@ export class AnalyticAccountConnection {
   }
 
   static fromPrimitives(
-    args: ReturnType<typeof AnalyticAccountConnection.prototype.toPrimitives>
+    data: ReturnType<typeof AnalyticAccountConnection.prototype.toPrimitives>
   ): AnalyticAccountConnection {
     const connection = new AnalyticAccountConnection()
-    connection.startedAt = new Date(args.startedAt)
+    connection.startedAt = new Date(data.startedAt)
     return connection
   }
 
