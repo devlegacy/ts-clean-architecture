@@ -1,4 +1,7 @@
-import { AnalyticAccountTrackerUseCase, TrackOnAccountCreatedEventHandler } from '@/Contexts/Bank/Analytics/application'
+import {
+  AnalyticAccountTrackerUseCase,
+  TrackAnalyticAccountOnAccountCreated,
+} from '@/Contexts/Bank/Analytics/application'
 import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure/persistence'
 import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
 import { RabbitMQConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ'
@@ -34,7 +37,7 @@ export class ConfigureRabbitMQCommand {
     const configurer = rabbitConfigurer
     const analyticAccountRepository = new MongoAnalyticAccountRepository(connectionClient)
     const subscribers = [
-      new TrackOnAccountCreatedEventHandler(new AnalyticAccountTrackerUseCase(analyticAccountRepository)),
+      new TrackAnalyticAccountOnAccountCreated(new AnalyticAccountTrackerUseCase(analyticAccountRepository)),
     ]
 
     await configurer.configure({

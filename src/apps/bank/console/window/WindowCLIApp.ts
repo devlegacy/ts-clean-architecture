@@ -1,7 +1,10 @@
 import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
 import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain'
-import { MongoAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure/persistence'
-import { AnalyticAccountTrackerUseCase, TrackOnAccountCreatedEventHandler } from '@/Contexts/Bank/Analytics/application'
+import { MongoAccountEventStore, MongoAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure/persistence'
+import {
+  AnalyticAccountTrackerUseCase,
+  TrackAnalyticAccountOnAccountCreated,
+} from '@/Contexts/Bank/Analytics/application'
 import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure'
 import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
 import { RabbitMQConfigFactory, RabbitMQEventBusFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ'
@@ -16,11 +19,11 @@ import { WindowCLI } from './WindowCLI'
 
 const context = 'bank'
 const mongoConfig = MongoConfigFactory.createConfig()
-const dbClient = MongoClientFactory.createClient(context, mongoConfig)
+const connectionClient = MongoClientFactory.createClient(context, mongoConfig)
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
-const DomainEventFailoverPublisher = new MongoDomainEventFailoverPublisher(dbClient)
+const DomainEventFailoverPublisher = new MongoDomainEventFailoverPublisher(connectionClient)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
@@ -32,13 +35,14 @@ const container: {
   accountUseCase: AccountUseCase
   analyticAccountTrackerUseCase: AnalyticAccountTrackerUseCase
 } = {} as any
-const accountRepository: AccountRepository = new MongoAccountRepository(dbClient)
+const tmpAccountRepository: AccountRepository = new MongoAccountRepository(connectionClient)
+const accountRepository: AccountRepository = new MongoAccountEventStore(connectionClient)
 const ratioAdapter = new EURRatioService()
 
-const accountUseCase = new AccountUseCase(accountRepository, ratioAdapter, rabbitEventBus)
+const accountUseCase = new AccountUseCase(tmpAccountRepository, accountRepository, ratioAdapter, rabbitEventBus)
 container.accountUseCase = accountUseCase
 
-const analyticAccountRepository = new MongoAnalyticAccountRepository(dbClient)
+const analyticAccountRepository = new MongoAnalyticAccountRepository(connectionClient)
 const analyticAccountTrackerUseCase = new AnalyticAccountTrackerUseCase(analyticAccountRepository)
 container.analyticAccountTrackerUseCase = analyticAccountTrackerUseCase
 
@@ -63,7 +67,7 @@ export class WindowCLIApp {
 
     // Should be DomainEventSubscribers this is a simple hack
     const subscribers: any = {
-      items: [new TrackOnAccountCreatedEventHandler(container.analyticAccountTrackerUseCase)],
+      items: [new TrackAnalyticAccountOnAccountCreated(container.analyticAccountTrackerUseCase)],
     }
     await eventBus.addSubscribers(subscribers)
   }

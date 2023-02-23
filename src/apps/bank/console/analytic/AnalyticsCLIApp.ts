@@ -1,4 +1,7 @@
-import { AnalyticAccountTrackerUseCase, TrackOnAccountCreatedEventHandler } from '@/Contexts/Bank/Analytics/application'
+import {
+  AnalyticAccountTrackerUseCase,
+  TrackAnalyticAccountOnAccountCreated,
+} from '@/Contexts/Bank/Analytics/application'
 import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure'
 import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
 import { RabbitMQConfigFactory, RabbitMQEventBusFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ'
@@ -35,8 +38,8 @@ container.analyticAccountTrackerUseCase = useCase
 
 export class AnalyticsCLIApp {
   async start() {
-    await this.startSubscribers()
     this.startCli()
+    await this.startSubscribers()
   }
 
   startCli() {
@@ -49,12 +52,16 @@ export class AnalyticsCLIApp {
   }
 
   async configureEventBus() {
-    await rabbitConnection.connect()
-    const eventBus = rabbitEventBus
-    // Should be DomainEventSubscribers this is a simple hack
-    const subscribers: any = {
-      items: [new TrackOnAccountCreatedEventHandler(container.analyticAccountTrackerUseCase)],
+    try {
+      await rabbitConnection.connect()
+      const eventBus = rabbitEventBus
+      // Should be DomainEventSubscribers this is a simple hack
+      const subscribers: any = {
+        items: [new TrackAnalyticAccountOnAccountCreated(container.analyticAccountTrackerUseCase)],
+      }
+      await eventBus.addSubscribers(subscribers)
+    } catch (e) {
+      console.log(e)
     }
-    await eventBus.addSubscribers(subscribers)
   }
 }
