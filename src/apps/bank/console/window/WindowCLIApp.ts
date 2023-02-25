@@ -1,6 +1,10 @@
 import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
 import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain'
-import { MongoAccountEventStore, MongoAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure/persistence'
+import {
+  MongoAccountEventStore,
+  MongoAccountRepository,
+  ProxyAccountRepository,
+} from '@/Contexts/Bank/Accounts/infrastructure/persistence'
 import {
   AnalyticAccountTrackerUseCase,
   TrackAnalyticAccountOnAccountCreated,
@@ -35,11 +39,12 @@ const container: {
   accountUseCase: AccountUseCase
   analyticAccountTrackerUseCase: AnalyticAccountTrackerUseCase
 } = {} as any
-const tmpAccountRepository: AccountRepository = new MongoAccountRepository(connectionClient)
-const accountRepository: AccountRepository = new MongoAccountEventStore(connectionClient)
+const currentRepository: AccountRepository = new MongoAccountRepository(connectionClient)
+const targetRepository: AccountRepository = new MongoAccountEventStore(connectionClient)
+const accountRepository: AccountRepository = new ProxyAccountRepository(currentRepository, targetRepository)
 const ratioAdapter = new EURRatioService()
 
-const accountUseCase = new AccountUseCase(tmpAccountRepository, accountRepository, ratioAdapter, rabbitEventBus)
+const accountUseCase = new AccountUseCase(accountRepository, ratioAdapter, rabbitEventBus)
 container.accountUseCase = accountUseCase
 
 const analyticAccountRepository = new MongoAnalyticAccountRepository(connectionClient)
