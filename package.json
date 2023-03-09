@@ -71,8 +71,8 @@
     "@mikro-orm/mongodb": "5.6.13",
     "@mikro-orm/postgresql": "5.6.13",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.41.0",
-    "@sentry/tracing": "7.41.0",
+    "@sentry/node": "7.42.0",
+    "@sentry/tracing": "7.42.0",
     "ajv": "8.12.0",
     "amqplib": "0.10.3",
     "apollo-server-core": "3.12.0",
@@ -162,7 +162,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.3",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.7.10"
+    "npm-check-updates": "16.7.12"
   },
   "engines": {
     "node": ">=16.15.0 <=19.2.0",
