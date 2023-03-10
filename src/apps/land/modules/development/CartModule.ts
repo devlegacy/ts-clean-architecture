@@ -3,13 +3,13 @@ import { container } from 'tsyringe'
 import {
   AddCartItemCommandHandler,
   CreateCartCommandHandler,
-  FindCartQueryHandler
+  FindCartQueryHandler,
 } from '@/Contexts/Land/Carts/application'
 import { CartRepository } from '@/Contexts/Land/Carts/domain'
 import { MikroOrmPostgresCartRepository } from '@/Contexts/Land/Carts/infrastructure'
 import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
 
-import { TYPES } from './types'
+import { TYPES } from '../types'
 
 container
   // Application layer

@@ -6,7 +6,7 @@ import { BlockRepository } from '@/Contexts/Land/Blocks/domain'
 import { MikroOrmPostgresBlockRepository } from '@/Contexts/Land/Blocks/infrastructure'
 import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
 
-import { TYPES } from './types'
+import { TYPES } from '../types'
 
 container
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateBlockCommandHandler)
