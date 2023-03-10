@@ -4,5 +4,6 @@ export const TYPES = {
   ...SHARED_TYPES,
   // CartModule
   // Domain
-  CartRepository: Symbol.for('CartRepository')
+  CartRepository: Symbol.for('CartRepository'),
+  BlockRepository: Symbol.for('BlockRepository'),
 }
