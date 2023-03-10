@@ -1,0 +1,29 @@
+import { EntitySchema } from '@mikro-orm/core'
+
+import { Nullable } from '@/Contexts/Shared/domain'
+import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure'
+
+import { Block, BlockRepository } from '../../domain'
+import { BlockEntity } from './mikroorm/postgres/BlockEntity'
+
+export class MikroOrmPostgresBlockRepository extends MikroOrmPostgresRepository<Block> implements BlockRepository {
+  async find(id: Block['id']): Promise<Nullable<Block>> {
+    const repository = await this.repository()
+    const block = await repository.findOne({ id })
+    if (!block) return null
+
+    return block
+  }
+
+  async save(block: Block): Promise<void> {
+    await this.persist(block)
+  }
+
+  async delete(block: Block): Promise<void> {
+    await this.persist(block)
+  }
+
+  protected entitySchema(): EntitySchema<Block> {
+    return BlockEntity
+  }
+}
