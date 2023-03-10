@@ -1,17 +1,9 @@
 import { injectable } from 'tsyringe'
 
-import { Boundary } from '@/Contexts/Land/Shared/domain'
+import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
 import { Command, CommandHandler } from '@/Contexts/Shared/domain'
 
-import {
-  BlockArea,
-  BlockAvailability,
-  BlockBlock,
-  BlockCreatedAt,
-  BlockId,
-  BlockStreet,
-  BlockUpdatedAt,
-} from '../../domain'
+import { BlockArea, BlockAvailability, BlockBlock, BlockCreatedAt, BlockStreet, BlockUpdatedAt } from '../../domain'
 import { BlockCreator } from './BlockCreator'
 import { CreateBlockCommand } from './CreateBlockCommand'
 

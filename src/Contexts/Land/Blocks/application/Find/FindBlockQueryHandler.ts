@@ -1,8 +1,8 @@
 import { injectable } from 'tsyringe'
 
+import { BlockId } from '@/Contexts/Land/Shared/domain'
 import { EntityNotFoundError, Query, QueryHandler } from '@/Contexts/Shared/domain'
 
-import { BlockId } from '../../domain'
 import { BlockResponse } from '../BlockResponse'
 import { BlockFinder } from './BlockFinder'
 import { FindBlockQuery } from './FindBlockQuery'

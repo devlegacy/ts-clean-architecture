@@ -1,7 +1,7 @@
 import { AggregateRoot, Entity, Primitives, SetOptional, Simplify } from '@/Contexts/Shared/domain'
 
 import { LandDescription } from '../../LandDescriptions/domain'
-import { Boundary } from '../../Shared/domain'
+import { BlockId, Boundary } from '../../Shared/domain'
 import { BlockCreatedDomainEvent } from './BlockCreatedDomainEvent'
 import { BlockDeletedDomainEvent } from './BlockDeletedDomainEvent'
 import {
@@ -10,13 +10,12 @@ import {
   BlockBlock,
   BlockCreatedAt,
   BlockDeletedAt,
-  BlockId,
   BlockStreet,
   BlockUpdatedAt,
 } from './ValueObjects'
 
 export type BlockEntityDto = Simplify<
-  Omit<SetOptional<Entity<Block>, 'createdAt' | 'updatedAt'>, 'longDescription' | 'shortDescription'>
+  Omit<SetOptional<Entity<Block>, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>
 >
 export type BlockPrimitiveDto = Simplify<SetOptional<Primitives<Block>, 'createdAt' | 'updatedAt'>>
 
