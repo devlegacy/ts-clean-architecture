@@ -12,7 +12,7 @@ export class BlockFinder {
   async run(id: Block['id']) {
     const description = LandDescription.create({
       id: 'd6e97368-0a8e-4a16-84a4-00188138cf98',
-      long: 'Manzana',
+      full: 'Manzana',
       short: 'Mz.',
       description: 'Describe una manzana o bloque',
       type: Type.BLOCK,

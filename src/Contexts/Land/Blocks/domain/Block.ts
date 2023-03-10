@@ -55,11 +55,11 @@ export class Block extends AggregateRoot {
   private deletedAt?: BlockDeletedAt
   private description?: LandDescription
 
-  get longDescription() {
-    const longDescription = this.description?.long?.toString()
+  get fullDescription() {
+    const fullDescription = this.description?.full?.toString()
     const block = this.block.toString()
 
-    return `${longDescription} ${block}`
+    return `${fullDescription} ${block}`
   }
 
   get shortDescription() {
