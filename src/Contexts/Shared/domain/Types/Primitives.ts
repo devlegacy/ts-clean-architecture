@@ -1,5 +1,3 @@
-import { InvariantOf, Writable } from 'type-fest'
-
 import {
   BoolValueObject,
   DateTime,
@@ -9,6 +7,8 @@ import {
   StringValueObject,
 } from '../ValueObjects'
 import { Entity } from './Entity'
+import { InvariantOf } from './InvariantOf'
+import { Writable } from './Writable'
 
 export type Primitives<Type> = Writable<{
   [Property in keyof Entity<Type>]: Type[Property] extends PrimitiveTypes
@@ -24,6 +24,8 @@ export type Primitives<Type> = Writable<{
     ? number
     : InvariantOf<Type[Property]> extends StringValueObject
     ? string
+    : InvariantOf<Type[Property]> extends StringValueObject[]
+    ? string[]
     : InvariantOf<Type[Property]> extends DateTime
     ? Date
     : InvariantOf<Type[Property]> extends EnumValueObject<unknown>
