@@ -65,9 +65,9 @@
 #### Bump dependencies
 
 ```md
-  chore(deps): bump dependencies   
-    - update dependencies
-    - update dev dependencies
+chore(deps): bump dependencies   
+- update dependencies
+- update dev dependencies
 ```
 
 #### No verify | Skip hooks

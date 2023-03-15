@@ -53,6 +53,8 @@
 - **DTO**: Data Object Transfer
   - Data contracts
   - Backward compatibility
+  - DTO is an object that carries data between processes. 
+  - Los DTOs suelen ser agnósticos a tecnologías para facilitar su serialización y deserialización hacia y desde la tecnología del bus
 
 ### CQRS
 
