@@ -1,0 +1,41 @@
+@startuml Bank design
+
+class WindowCLIView {
+  render()
+}
+
+interface ForCreatingAccounts{
+  create(name: string, currency: string): Promise<string>
+}
+
+interface ForExistingAccountsOperation {
+  find(accountId: string): Promise<Account>
+  deposit(accountId: string, amount: number, currency: string): Promise<void>
+  withdraw(accountId: string, amount: number, currency: string): Promise<void>
+}
+
+WindowCLIView --> ForCreatingAccounts
+WindowCLIView --> ForExistingAccountsOperation
+class BankWindow implements ForCreatingAccounts,ForExistingAccountsOperation
+
+class Account {
+  id: string
+  name: string
+  balance: Money
+  deposit(amount: Money)
+  withdraw(amount: Money)
+}
+
+interface AccountRepository {
+  save(account: Account): Promise<void>
+  update(account: Account): Promise<void>
+
+  find(id: string): Promise<Nullable<Account>>
+}
+
+class InMemoryAccountRepository implements AccountRepository {}
+class FileAccountRepository implements AccountRepository {}
+class MongoAccountRepository implements AccountRepository {}
+
+BankWindow --> AccountRepository
+BankWindow --> Account

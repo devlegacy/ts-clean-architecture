@@ -1,0 +1,41 @@
+@startuml Bank packages
+title Bank packages
+
+package apps {
+  package window {}
+  package atm {}
+  package analytic {}
+}
+
+package Contexts {
+   package Shared {
+    package Shared.domain {}
+    package Shared.infrastructure {}
+  }
+
+  package Bank {
+    ' Accounting
+    package Accounts {
+      package Accounts.domain {}
+      package Accounts.application {}
+      package Accounts.infrastructure {}
+    }
+  }
+}
+
+window --> Accounts.domain
+window --> Accounts.application
+window --> Accounts.infrastructure
+
+' atm --> Accounts.domain
+' atm --> Accounts.application
+' atm --> Accounts.infrastructure
+
+Accounts.infrastructure ..|> Accounts.domain
+Accounts.application --> Accounts.domain
+
+Bank --> Shared.domain
+
+Shared.infrastructure ..|> Shared.domain
+
+@enduml
