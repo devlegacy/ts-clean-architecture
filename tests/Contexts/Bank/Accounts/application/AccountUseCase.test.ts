@@ -1,15 +1,16 @@
 import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
 import { EURRatioService } from '@/Contexts/Bank/Accounts/domain'
-import { InMemoryAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure'
+import { FileAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure'
 import { InvalidArgumentError, Money } from '@/Contexts/Shared/domain'
 import { EventBusFactory } from '@/Contexts/Shared/infrastructure'
 import { UuidMother } from '@/tests/Contexts/Shared/domain'
+import { TestUtil } from '@/tests/Contexts/Shared/TestUtil'
 
-describe(`Bank use case`, () => {
+describe(`Bank use case, ${TestUtil.getPackagePath(__dirname)}`, () => {
   describe('Bank TestAdapter', () => {
     let testAdapter: AccountUseCase
     beforeAll(() => {
-      testAdapter = new AccountUseCase(new InMemoryAccountRepository(), new EURRatioService(), EventBusFactory.instance)
+      testAdapter = new AccountUseCase(new FileAccountRepository(), new EURRatioService(), EventBusFactory.instance)
     })
 
     it('should create and retrieve an account', async () => {
