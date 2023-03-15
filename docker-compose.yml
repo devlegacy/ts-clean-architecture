@@ -108,8 +108,8 @@ services:
       # HOST:CONTAINER
       # ${PGADMIN_PORT:-8080}
       - "8080:80"
-    # volumes:
-      # - ./.data/postgres:/var/lib/pgadmin
+    volumes:
+      - ./.data/pgadmin:/var/lib/pgadmin
     networks:
       - app-network
 

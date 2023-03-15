@@ -39,7 +39,12 @@
       ],
       // "args": ["${workspaceFolder}/src/index.ts"],
       "runtimeExecutable": "node",
-      "skipFiles": ["<node_internals>/**", "node_modules/**", "${workspaceFolder}/dist/**", "${workspaceFolder}/.tmp/**"],
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**",
+        "${workspaceFolder}/dist/**",
+        "${workspaceFolder}/.tmp/**"
+      ],
       "type": "node",
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
@@ -233,6 +238,28 @@
       "outputCapture": "std"
       // "console": "integratedTerminal",
       // "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "🏦 Run Bank window console app",
+      "request": "launch",
+      // "envFile": "${workspaceFolder}/.env",
+      // "preLaunchTask": null,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+      "restart": true,
+      "runtimeArgs": ["run-script", "start:bank:window:console:debug", "--"],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+        // "<node_internals>/**/*.js",
+        // "<node_internals>/internal/async_hooks.js",
+        // "<node_internals>/internal/inspector_async_hook.js"
+      ],
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
+      "outputCapture": "std",
+      // "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
