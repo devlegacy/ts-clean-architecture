@@ -5,14 +5,14 @@ type CartCheckedOutDomainEventAttributes = {
 }
 
 export class CartCheckedOutDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'cart.checked_out'
+  static override readonly EVENT_NAME = 'cart.checked_out'
   readonly orderId: string
 
   constructor({
     aggregateId,
     eventId,
     occurredOn,
-    orderId
+    orderId,
   }: {
     aggregateId: string
     eventId?: string
@@ -23,14 +23,14 @@ export class CartCheckedOutDomainEvent extends DomainEvent {
       aggregateId,
       eventName: CartCheckedOutDomainEvent.EVENT_NAME,
       eventId,
-      occurredOn
+      occurredOn,
     })
     this.orderId = orderId
   }
 
   toPrimitives(): CartCheckedOutDomainEventAttributes {
     return {
-      orderId: this.orderId
+      orderId: this.orderId,
     }
   }
 }

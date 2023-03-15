@@ -1,16 +1,16 @@
 import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
 
 import { CartId, OrderId, UserId } from '../../Shared/domain'
-import { CartAlreadyCheckoutException } from './CartAlreadyCheckoutException'
+import { CartAlreadyCheckoutError } from './CartAlreadyCheckoutError'
 import { CartCheckedOutDomainEvent } from './CartCheckedOutDomainEvent'
 import { CartCreatedDomainEvent } from './CartCreatedDomainEvent'
-import { CartIsEmptyException } from './CartIsEmptyException'
+import { CartIsEmptyError } from './CartIsEmptyError'
 import { CartItem } from './CartItem'
 import { CartItemAddedDomainEvent } from './CartItemAddedDomainEvent'
-import { CartItemIsNotInCartException } from './CartItemIsNotInCartException'
+import { CartItemIsNotInCartError } from './CartItemIsNotInCartError'
 import { CartItems } from './CartItems'
 import { CartItemSubtractedDomainEvent } from './CartItemSubtractedEvent'
-import { CartCheckout } from './value-object'
+import { CartCheckout } from './ValueObjects'
 
 export type CartEntityDto = Entity<Cart>
 export type CartPrimitiveDto = Primitives<Cart>
@@ -29,7 +29,7 @@ export class Cart extends AggregateRoot {
     this.checkout = checkout ? checkout : new CartCheckout(false)
   }
 
-  static fromPrimitives(data: CartPrimitiveDto) {
+  static override fromPrimitives(data: CartPrimitiveDto) {
     const cart = new Cart(new CartId(data.id), new UserId(data.userId), new CartCheckout(data.checkout))
     return cart
   }
@@ -38,7 +38,7 @@ export class Cart extends AggregateRoot {
     const cart = new Cart(id, userId, checkout)
     const event = new CartCreatedDomainEvent({
       aggregateId: cart.id.value,
-      userId: cart.userId.value
+      userId: cart.userId.value,
     })
     cart.record(event)
 
@@ -51,7 +51,7 @@ export class Cart extends AggregateRoot {
       itemId: cartItem.itemId.value,
       price: cartItem.price.amount,
       currency: cartItem.price.currency,
-      quantity
+      quantity,
     })
     this.record(event)
   }
@@ -63,7 +63,7 @@ export class Cart extends AggregateRoot {
       itemId: cartItem.itemId.value,
       price: cartItem.price.amount,
       currency: cartItem.price.currency,
-      quantity: this.#cartItems.get(cartItem)!.value < quantity ? this.#cartItems.get(cartItem)!.value : quantity
+      quantity: this.#cartItems.get(cartItem)!.value < quantity ? this.#cartItems.get(cartItem)!.value : quantity,
     })
     this.record(event)
   }
@@ -73,24 +73,24 @@ export class Cart extends AggregateRoot {
     this.isCheckoutAvailable()
     const event = new CartCheckedOutDomainEvent({
       aggregateId: this.id.value,
-      orderId: orderId.value
+      orderId: orderId.value,
     })
     this.record(event)
   }
 
   areThereItems() {
-    if (!this.#cartItems.size) throw new CartIsEmptyException()
+    if (!this.#cartItems.size) throw new CartIsEmptyError()
   }
 
   isCheckoutAvailable() {
-    if (this.checkout) throw new CartAlreadyCheckoutException()
+    if (this.checkout) throw new CartAlreadyCheckoutError()
   }
 
   toPrimitives(): CartPrimitiveDto {
     return {
       id: this.id.value,
       userId: this.id.value,
-      checkout: this.checkout.value
+      checkout: this.checkout.value,
     }
   }
 
@@ -98,6 +98,6 @@ export class Cart extends AggregateRoot {
   // private onCartCheckout() {}
 
   private existsItemInCart(cartItem: CartItem) {
-    if (!this.#cartItems?.has(cartItem)) throw new CartItemIsNotInCartException()
+    if (!this.#cartItems?.has(cartItem)) throw new CartItemIsNotInCartError()
   }
 }

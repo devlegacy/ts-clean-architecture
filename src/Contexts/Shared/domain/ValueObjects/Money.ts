@@ -34,36 +34,32 @@ export class Money extends StringValueObject {
     return new Money(data.amount, data.currency)
   }
 
-  ensureIsSameCurrency(vo: Money) {
-    if (!this.isSameCurrency(vo)) throw new InvalidArgumentError('Incompatible currency')
-  }
-
   isSameCurrency(vo: Money): boolean {
     return this.currency === vo.currency
   }
 
   add(vo: Money) {
-    this.ensureIsSameCurrency(vo)
+    this.ensureIsTheSameCurrency(vo)
     return new Money(this.amount + vo.amount, this.currency)
   }
 
   subtract(vo: Money) {
-    this.ensureIsSameCurrency(vo)
+    this.ensureIsTheSameCurrency(vo)
     return new Money(this.amount - vo.amount, this.currency)
   }
 
   isLessThan(vo: Money) {
-    this.ensureIsSameCurrency(vo)
+    this.ensureIsTheSameCurrency(vo)
     return this.amount < vo.amount
   }
 
   isGreaterOrEqualThan(vo: Money) {
-    this.ensureIsSameCurrency(vo)
+    this.ensureIsTheSameCurrency(vo)
     return this.amount >= vo.amount
   }
 
   isLessOrEqualThan(vo: Money) {
-    this.ensureIsSameCurrency(vo)
+    this.ensureIsTheSameCurrency(vo)
     return this.value <= vo.value
   }
 
@@ -72,5 +68,9 @@ export class Money extends StringValueObject {
       amount: this.amount,
       currency: this.currency,
     }
+  }
+
+  private ensureIsTheSameCurrency(vo: Money) {
+    if (!this.isSameCurrency(vo)) throw new InvalidArgumentError('Incompatible currency')
   }
 }

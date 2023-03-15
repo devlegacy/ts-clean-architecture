@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/land/modules/types'
 import { CartId } from '@/Contexts/Land/Shared/domain'
-import { EntityNotFoundException } from '@/Contexts/Shared/domain'
+import { EntityNotFoundError } from '@/Contexts/Shared/domain'
 
 import { Cart, CartRepository } from '../../domain'
 
@@ -12,7 +12,7 @@ export class CartFinder {
 
   async run(id: CartId): Promise<Cart> {
     const cart = await this.repository.find(id)
-    if (!cart) throw new EntityNotFoundException('Cart not found')
+    if (!cart) throw new EntityNotFoundError('Cart not found')
 
     return cart
   }

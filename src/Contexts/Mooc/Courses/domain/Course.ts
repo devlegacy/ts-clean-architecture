@@ -50,13 +50,13 @@ export class Course extends AggregateRoot {
     return course
   }
 
-  static fromPrimitives(data: CoursePrimitiveDto): Course {
+  static override fromPrimitives(data: CoursePrimitiveDto): Course {
     // return new Course({
     //   id: new CourseId(props.id),
     //   name: new CourseName(props.name),
     //   duration: !props.duration ? undefined : new CourseDuration(props.duration)
     // })
-    return new Course(
+    const entity = new Course(
       new CourseId(data.id),
       new CourseName(data.name),
       data.duration ? new CourseDuration(data.duration) : undefined
@@ -64,10 +64,11 @@ export class Course extends AggregateRoot {
       // data.updatedAt ? data.updatedAt : undefined,
       // data.deletedAt ? data.deletedAt : undefined
     )
+    return entity
   }
 
   toPrimitives(): CoursePrimitiveDto {
-    return {
+    const primitives = {
       id: this.id.value,
       name: this.name.value,
       duration: this.duration?.value,
@@ -75,5 +76,6 @@ export class Course extends AggregateRoot {
       // updatedAt: this.updatedAt,
       // deletedAt: this.deletedAt
     }
+    return primitives
   }
 }

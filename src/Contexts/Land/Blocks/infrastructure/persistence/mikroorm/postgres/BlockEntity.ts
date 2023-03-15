@@ -7,11 +7,10 @@ import {
   BlockBlock,
   BlockCreatedAt,
   BlockDeletedAt,
-  BlockId,
   BlockStreet,
   BlockUpdatedAt,
 } from '@/Contexts/Land/Blocks/domain'
-import { Boundary } from '@/Contexts/Land/Shared/domain'
+import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
 import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
 export const BlockEntity = new EntitySchema<Block>({

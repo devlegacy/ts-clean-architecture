@@ -10,6 +10,7 @@ export class MikroOrmPostgresBlockRepository extends MikroOrmPostgresRepository<
   async find(id: Block['id']): Promise<Nullable<Block>> {
     const repository = await this.repository()
     const block = await repository.findOne({ id })
+
     if (!block) return null
 
     return block

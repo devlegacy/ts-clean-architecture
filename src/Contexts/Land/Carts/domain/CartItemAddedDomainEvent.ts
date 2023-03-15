@@ -8,7 +8,7 @@ type CartItemAddedDomainEventAttributes = {
 }
 
 export class CartItemAddedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'item.added'
+  static override readonly EVENT_NAME = 'item.added'
 
   readonly itemId: string
   readonly price: number
@@ -22,7 +22,7 @@ export class CartItemAddedDomainEvent extends DomainEvent {
     itemId,
     price,
     currency,
-    quantity
+    quantity,
   }: {
     aggregateId: string
     eventId?: string
@@ -36,7 +36,7 @@ export class CartItemAddedDomainEvent extends DomainEvent {
       aggregateId,
       eventName: CartItemAddedDomainEvent.EVENT_NAME,
       eventId,
-      occurredOn
+      occurredOn,
     })
     this.itemId = itemId
     this.price = price
@@ -49,7 +49,7 @@ export class CartItemAddedDomainEvent extends DomainEvent {
       itemId: this.itemId,
       price: this.price,
       currency: this.currency,
-      quantity: this.quantity
+      quantity: this.quantity,
     }
   }
 }

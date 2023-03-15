@@ -1,11 +1,11 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/joi'
+import { Joi } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 const id = Joi.string()
   .trim()
   .guid({
-    version: ['uuidv4']
+    version: ['uuidv4'],
   })
 
 export class CartItemRequestDto {

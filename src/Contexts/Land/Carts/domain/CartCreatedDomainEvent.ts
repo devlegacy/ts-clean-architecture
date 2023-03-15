@@ -5,7 +5,7 @@ type CreateCartDomainEventAttributes = {
 }
 
 export class CartCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'cart.created'
+  static override readonly EVENT_NAME = 'cart.created'
 
   readonly userId: string
 
@@ -13,7 +13,7 @@ export class CartCreatedDomainEvent extends DomainEvent {
     aggregateId,
     eventId,
     occurredOn,
-    userId
+    userId,
   }: {
     aggregateId: string
     eventId?: string
@@ -24,14 +24,14 @@ export class CartCreatedDomainEvent extends DomainEvent {
       aggregateId,
       eventName: CartCreatedDomainEvent.EVENT_NAME,
       eventId,
-      occurredOn
+      occurredOn,
     })
     this.userId = userId
   }
 
   toPrimitives(): CreateCartDomainEventAttributes {
     return {
-      userId: this.userId
+      userId: this.userId,
     }
   }
 }
