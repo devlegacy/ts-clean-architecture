@@ -7,7 +7,7 @@ const postgresConfig: PostgresConfig = {
   port: config.get('postgres.port'),
   username: config.get('postgres.username'),
   password: config.get('postgres.password'),
-  database: config.get('postgres.database')
+  database: config.get('postgres.database'),
 }
 
 export class PostgresConfigFactory {

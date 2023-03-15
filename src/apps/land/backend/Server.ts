@@ -8,10 +8,10 @@ import qs from 'qs'
 import { container } from 'tsyringe'
 
 import { Monitoring, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
-import { GeneralValidationModule } from '@/Contexts/Shared/infrastructure/GeneralValidationModule'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/joi'
-import { error } from '@/Contexts/Shared/infrastructure/logger'
+import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestValidation'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 
 import { TYPES } from '../modules/types'
 
@@ -28,21 +28,26 @@ export class Server {
   readonly #adapter = new FastifyAdapter()
   #httpServer?: http.Server
 
+  get httpServer() {
+    return this.#httpServer
+  }
+
   constructor(options?: Options) {
     this.#options = options
 
+    this.#httpServer = this.#adapter.app.server
     this.#adapter.enableCors()
     this.#adapter
       .setMonitoringModule(container.resolve<Monitoring>(TYPES.Monitoring))
       .setValidationModule(new JoiModule())
-      .setValidationModule(new GeneralValidationModule())
+      .setValidationModule(new GeneralRequestValidation())
   }
 
   async listen() {
     await this.#adapter.bootstrap({
-      controller: resolve(__dirname, './controllers'),
+      controller: resolve(__dirname, './'),
       resolver: TsyringeControllerResolver,
-      isProduction: this.#options?.env === 'production'
+      isProduction: this.#options?.env === 'production',
     })
 
     this.#adapter
@@ -51,11 +56,7 @@ export class Server {
       .register(fastifyHelmet)
       .register(fastifyRateLimit)
 
-    this.#httpServer = await this.#adapter.listen(this.#options ?? {})
-  }
-
-  getHttpServer() {
-    return this.#httpServer
+    await this.#adapter.listen(this.#options ?? {})
   }
 
   stop() {

@@ -18,7 +18,8 @@ export class ValueObjectTransformer {
     } else if (this.prop.name === 'deletedAt' && !value) {
       return undefined
     }
-    return value.value
+    const primitive = value.value
+    return primitive
   }
 
   convertToJSValue(value: any) {
@@ -32,7 +33,12 @@ export class ValueObjectTransformer {
       return undefined
     }
 
-    return new this.ValueObject(value)
+    if (this.type === 'number') {
+      value = Number(value)
+    }
+
+    const vo = new this.ValueObject(value)
+    return vo
   }
 
   getColumnType() {

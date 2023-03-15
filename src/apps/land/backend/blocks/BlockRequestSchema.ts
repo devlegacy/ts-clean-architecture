@@ -4,6 +4,7 @@ import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestVal
 
 const id = Joi.string().uuid({ version: 'uuidv4' }).trim()
 const boundary = Joi.string().trim()
+// const availability = Joi.valid(...Object.values(Availability))
 
 export class BlockRequestSchema {
   @JoiSchema([CREATE], id.required())
