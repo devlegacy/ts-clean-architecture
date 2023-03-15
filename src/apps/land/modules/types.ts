@@ -6,4 +6,5 @@ export const TYPES = {
   // Domain
   CartRepository: Symbol.for('CartRepository'),
   BlockRepository: Symbol.for('BlockRepository'),
+  LotRepository: Symbol.for('LotRepository'),
 }

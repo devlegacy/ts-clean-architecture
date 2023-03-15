@@ -50,7 +50,7 @@ export class Block extends AggregateRoot {
 
   readonly createdAt: BlockCreatedAt
   readonly updatedAt: BlockUpdatedAt
-  //
+
   private deletedAt?: BlockDeletedAt
   private description?: LandDescription
 
@@ -166,6 +166,7 @@ export class Block extends AggregateRoot {
       data.createdAt ? new BlockCreatedAt(data.createdAt) : undefined,
       data.updatedAt ? new BlockUpdatedAt(data.updatedAt) : undefined
     )
+
     return block
   }
 

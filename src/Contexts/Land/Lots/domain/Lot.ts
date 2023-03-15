@@ -1,6 +1,7 @@
 import { AggregateRoot, Entity, Primitives, SetOptional, Simplify } from '@/Contexts/Shared/domain'
 
 import { BlockDeletedAt } from '../../Blocks/domain'
+import { LandDescription } from '../../LandDescriptions/domain'
 import { BlockId, Boundary } from '../../Shared/domain'
 import { LotCreatedDomainEvent } from './LotCreatedDomainEvent'
 import { LotArea, LotAvailability, LotCreatedAt, LotDeletedAt, LotId, LotLot, LotUpdatedAt } from './ValueObjects'
@@ -32,6 +33,21 @@ export class Lot extends AggregateRoot {
   readonly updatedAt: LotUpdatedAt
 
   private deletedAt?: LotDeletedAt
+  private description?: LandDescription
+
+  get fullDescription() {
+    const fullDescription = this.description?.full?.toString()
+    const lot = this.lot.toString()
+
+    return `${fullDescription} ${lot}`
+  }
+
+  get shortDescription() {
+    const shortDescription = this.description?.short?.toString()
+    const lot = this.lot.toString()
+
+    return `${shortDescription} ${lot}`
+  }
 
   constructor(
     id: LotId,
@@ -128,6 +144,10 @@ export class Lot extends AggregateRoot {
     )
 
     return lot
+  }
+
+  setDescription(description: LandDescription) {
+    this.description = description
   }
 
   remove() {

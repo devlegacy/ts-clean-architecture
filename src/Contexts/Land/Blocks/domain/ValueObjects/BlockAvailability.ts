@@ -24,6 +24,6 @@ export class BlockAvailability extends EnumValueObject<Availability> {
   }
 
   protected throwInvalidValueError(value: Availability): void {
-    throw new InvalidArgumentError(`The availability type ${value} is invalid`)
+    throw new InvalidArgumentError(`The availability type <${value}> is invalid`)
   }
 }

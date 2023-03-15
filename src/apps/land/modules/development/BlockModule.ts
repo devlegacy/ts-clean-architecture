@@ -1,7 +1,10 @@
 import { container } from 'tsyringe'
 
-import { CreateBlockCommandHandler, FindBlockQueryHandler } from '@/Contexts/Land/Blocks/application'
-import { DeleteBlockCommandHandler } from '@/Contexts/Land/Blocks/application/Delete'
+import {
+  CreateBlockCommandHandler,
+  DeleteBlockCommandHandler,
+  FindBlockQueryHandler,
+} from '@/Contexts/Land/Blocks/application'
 import { BlockRepository } from '@/Contexts/Land/Blocks/domain'
 import { MikroOrmPostgresBlockRepository } from '@/Contexts/Land/Blocks/infrastructure'
 import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
