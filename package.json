@@ -95,7 +95,7 @@
     "joi": "17.8.4",
     "joi-class-decorators": "1.1.0",
     "mongodb": "5.1.0",
-    "mongoose": "7.0.1",
+    "mongoose": "7.0.2",
     "node-dependency-injection": "3.0.5",
     "pg": "8.10.0",
     "pino": "8.11.0",
