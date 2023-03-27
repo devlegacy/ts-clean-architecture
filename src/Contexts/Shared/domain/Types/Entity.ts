@@ -1,5 +1,5 @@
-import { Writable } from 'type-fest'
+import { Simplify, Writable } from 'type-fest'
 
 import { NonFunctionPropertyNames } from './NonFunctionPropertyNames'
 
-export type Entity<T> = Writable<Pick<T, Exclude<NonFunctionPropertyNames<T>, 'domainEvents'>>>
+export type Entity<T> = Simplify<Writable<Pick<T, Exclude<NonFunctionPropertyNames<T>, 'domainEvents'>>>>

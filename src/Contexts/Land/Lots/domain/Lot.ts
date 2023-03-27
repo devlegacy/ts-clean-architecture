@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, Primitives, SetOptional, Simplify } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Entity, Primitives, SetOptional } from '@/Contexts/Shared/domain'
 
 import { BlockDeletedAt } from '../../Blocks/domain'
 import { LandDescription } from '../../LandDescriptions/domain'
@@ -6,10 +6,10 @@ import { BlockId, Boundary } from '../../Shared/domain'
 import { LotCreatedDomainEvent } from './LotCreatedDomainEvent'
 import { LotArea, LotAvailability, LotCreatedAt, LotDeletedAt, LotId, LotLot, LotUpdatedAt } from './ValueObjects'
 
-export type LotEntityDto = Simplify<
-  Omit<SetOptional<Entity<Lot>, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>
+export type LotEntityDto = Entity<
+  Omit<SetOptional<Lot, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>
 >
-export type LotPrimitiveDto = Simplify<SetOptional<Primitives<Lot>, 'createdAt' | 'updatedAt'>>
+export type LotPrimitiveDto = Primitives<SetOptional<Lot, 'createdAt' | 'updatedAt'>>
 
 export class Lot extends AggregateRoot {
   readonly id: LotId
