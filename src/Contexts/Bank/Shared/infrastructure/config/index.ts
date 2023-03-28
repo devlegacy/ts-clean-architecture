@@ -19,7 +19,7 @@ const bankConfig = convict({
     port: {
       doc: 'The port to bind.',
       format: 'port',
-      default: 8085,
+      default: 8089,
       env: 'APP_PORT',
       arg: 'port',
     },

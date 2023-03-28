@@ -19,7 +19,7 @@ const landConfig = convict({
     port: {
       doc: 'The port to bind.',
       format: 'port',
-      default: 8084,
+      default: 8088,
       env: 'APP_PORT',
       arg: 'port',
     },

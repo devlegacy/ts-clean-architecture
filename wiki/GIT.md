@@ -1,5 +1,14 @@
 <h1 align="center">GIT</h1>
 
+<h2 align="center">First steps</h2>
+
+### Set profile
+
+```sh
+  git config --global user.name "Samuel R." && \
+  git config --global user.email "srojas@ggtech.es"
+```
+
 <h2 align="center">Commits</h2>
 
 <h3 align="center">Message</h3>
@@ -197,6 +206,10 @@ Actionable | Task | Topics | Bugs
 
 ```sh
   git gc
+```
+
+```sh
+  git squash
 ```
 
 ## 🔗 Read more on

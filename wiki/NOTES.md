@@ -137,7 +137,7 @@
        - An empty array is possible and allowed
      - `find<T>(...): Promise<Nullable<T>>`
        - 
-     - 
+     - Avoid n+1 problem (over creation of methods)
 - Uses case rules
   - Naming Creator | Updater | Deleter | Incrementer 
   - It should instantiate `value objects` or `domain objects`
@@ -146,13 +146,13 @@
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 - Commands
   - Implement `service locator pattern` 1:1
-  - Imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
-  - Can reject operations
-  - ❌ can't instantiate command bus
-  - ✅ `CommandBus` can instantiate in controllers
-  - 💡 should use ubiquitous language not crud based thinking
-    - avoid `[Create|Update|Delete]Course`
-  - should return void indicating a side effect
+  - `Command` should be imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
+  - ✅ `CommandBus` can instantiate in controllers (HTTP)
+  - ❌ `Command` can't instantiate command bus, it is a simple DTO
+  - ✅ `CommandHandler<T>` can reject operations
+  - 💡 it should use ubiquitous language not crud based thinking
+    - it should avoid `[Create|Update|Delete]Course`
+  - ✅ `CommandHandler<T>` should return `void` indicating a side effect
 - Query
   - Implement `service locator pattern` 1:1
   - Starts (in he majority) with Get

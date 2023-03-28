@@ -19,7 +19,7 @@ const moocConfig = convict({
     port: {
       doc: 'The port to bind.',
       format: 'port',
-      default: 8081,
+      default: 8085,
       env: 'APP_PORT',
       arg: 'port',
     },
