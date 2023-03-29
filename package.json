@@ -123,7 +123,7 @@
     "@types/eslint": "8.21.3",
     "@types/http-errors": "2.0.1",
     "@types/jest": "29.5.0",
-    "@types/node": "18.15.10",
+    "@types/node": "18.15.11",
     "@types/readline-sync": "1.4.4",
     "@types/supertest": "2.0.12",
     "@types/uuid": "9.0.1",
@@ -133,7 +133,7 @@
     "commitizen": "4.3.0",
     "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "8.36.0",
+    "eslint": "8.37.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-editorconfig": "4.0.2",
     "eslint-plugin-folders": "1.0.4",
@@ -162,7 +162,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.3",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.8.0"
+    "npm-check-updates": "16.8.2"
   },
   "engines": {
     "node": ">=16.15.0 <=19.2.0",
