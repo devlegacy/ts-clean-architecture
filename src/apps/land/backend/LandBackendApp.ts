@@ -1,10 +1,11 @@
 import '../modules'
 
+import { Server as SocketServer, Socket } from 'socket.io'
 import { container } from 'tsyringe'
 
 import config from '@/Contexts/Land/Shared/infrastructure/config'
-import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure'
+import { DomainEventSubscriberResolver, InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure'
+import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { TYPES } from '../modules/types'
 import { Server } from './Server'
@@ -13,7 +14,7 @@ export class LandBackendApp {
   #server?: Server
 
   get httpServer() {
-    return this.#server?.getHttpServer()
+    return this.#server?.httpServer
   }
 
   async start() {
@@ -27,7 +28,7 @@ export class LandBackendApp {
       env: config.get('app.env'),
       debug: config.get('app.debug'),
       name: config.get('app.name'),
-      port: config.get('app.port')
+      port: config.get('app.port'),
     }
     this.#server = new Server(conf)
     await this.#server.listen()
@@ -38,12 +39,26 @@ export class LandBackendApp {
   }
 
   async configureEventBus() {
-    const eventBus = container.resolve<EventBus>(TYPES.EventBus)
+    const eventBus = container.resolve<InMemoryAsyncEventBus>(TYPES.EventBus) // EventBus
     //   const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
     //   await rabbitMQConnection.connect()
-
-    const subscribers = DomainEventSubscribers.from()
+    const io = new SocketServer(this.httpServer)
+    io.on('connection', (socket: Socket) => {
+      info('a user connected')
+      socket.broadcast.emit('hi')
+      socket.on('disconnect', () => {
+        info('user disconnected')
+      })
+    })
+    setTimeout(() => {
+      io.emit('some event', {
+        someProperty: 'some value',
+        otherProperty: 'other value',
+      })
+    }, 3000)
+    const subscribers = DomainEventSubscriberResolver.from()
     eventBus.addSubscribers(subscribers)
+    eventBus.addSocketServer(io)
   }
 
   async stop() {

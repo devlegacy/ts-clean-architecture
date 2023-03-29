@@ -241,7 +241,7 @@
 
 - Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
   - [`tsyringe`](https://github.com/Microsoft/tsyringe)
-  - [alternatives](https://npmtrends.com/awilix-vs-bottlejs-vs-diod-vs-inversify-vs-node-dependency-injection-vs-tsyringe-vs-typedi-vs-typescript-ioc)
+  - [alternatives](https://npmtrends.com/awilix-vs-bottlejs-vs-diod-vs-inversify-vs-node-dependency-injection-vs-tsyringe-vs-typed-inject-vs-typedi-vs-typescript-ioc)
   - `@injectable()` | `@inject()` | `@singleton()` |  `@injectAll()`
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
   - Complejidad: Los enums son interpretados como `number` | `string`, debe evaluarse el uso por criterio

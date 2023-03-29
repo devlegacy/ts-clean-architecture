@@ -1,4 +1,6 @@
 import 'reflect-metadata'
+import 'module-alias/register'
+import 'source-map-support/register'
 
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'

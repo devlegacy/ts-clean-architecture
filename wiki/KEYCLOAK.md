@@ -5,6 +5,10 @@
 
 - [sign in](http://localhost:8081/auth/realms/simple-project/protocol/openid-connect/auth?client_id=account-console&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fauth%2Frealms%2Fsimple-project%2Faccount%2F%23%2Fsecurity%2Fsigningin&state=3faaf473-c72f-43bc-8867-dc107b66365f&response_mode=fragment&response_type=code&scope=openid&nonce=383600b8-945f-46b3-8ebb-ba651e4ca361&code_challenge=T3ItWMm0c1T5RgdFe_e07qFYK3wGRX3XF4oTFXG_JBc&code_challenge_method=S256)
 
+
+https://auth0.com/
+https://www.okta.com/
+
 ## Core concepts
 
 - https://developers.redhat.com/blog/2019/12/11/keycloak-core-concepts-of-open-source-identity-and-access-management#core_concepts
@@ -19,7 +23,7 @@
 
 - Estándar Oauth
   - https://www.youtube.com/watch?v=nNVlewjKQEQ&ab_channel=SoftwareGuru
-- OpenId Connect
+- Estándar OpenID Connect
 - JWT
 - 
 
@@ -30,7 +34,7 @@
   - Real 2: Clientes
 - Default: Master
 - Conjunto de credenciales, roles y grupos. Cada real está aislado y únicamente puede manejar y autenticar usuarios que estén bajo su dominio.
-- 
+- Área funcional dentro de una compañía
 
 ## Client
 
@@ -88,3 +92,4 @@
 
 - [Docker snippet](https://github.com/bigbluebutton/greenlight/blob/master/docker-compose.kc.yml)
 - [Docker snippet](https://gitlab.com/-/snippets/2519645)
+- [Express](https://medium.com/devops-dudes/securing-node-js-express-rest-apis-with-keycloak-a4946083be51)

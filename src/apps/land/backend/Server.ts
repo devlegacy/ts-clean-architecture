@@ -1,6 +1,9 @@
 import fastifyFormBody from '@fastify/formbody'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
+import session from '@fastify/session'
+import { FastifyReply, FastifyRequest } from 'fastify'
+import keycloak, { DefaultToken, KeycloakOptions } from 'fastify-keycloak-adapter'
 import fastifyQs from 'fastify-qs'
 import http from 'http'
 import { resolve } from 'path'
@@ -49,12 +52,36 @@ export class Server {
       resolver: TsyringeControllerResolver,
       isProduction: this.#options?.env === 'production',
     })
-
+    const opts: KeycloakOptions = {
+      appOrigin: 'http://localhost:8081',
+      useHttps: false,
+      keycloakSubdomain: 'localhost:8081/realms/land-management',
+      clientId: 'nodejs-land-microservice',
+      clientSecret: '2WHsTY0wjAhiowbrQGMoNf2smimeePq7',
+      disableCookiePlugin: true,
+      disableSessionPlugin: true,
+      autoRefreshToken: true,
+      unauthorizedHandler: (request: FastifyRequest, reply: FastifyReply) => {
+        reply.status(401).send({ message: `Invalid request` })
+      },
+      userPayloadMapper: (tokenPayload: unknown) => ({
+        account: (tokenPayload as DefaultToken).preferred_username,
+        name: (tokenPayload as DefaultToken).name,
+      }),
+      // excludedPatterns: ['/blocks/**'],
+    }
     this.#adapter
       .register(fastifyFormBody as any, { parser: (str: string) => qs.parse(str) })
       .register(fastifyQs)
       .register(fastifyHelmet)
       .register(fastifyRateLimit)
+      .register(session, {
+        secret: 'OngV0HMhhdK2MRb8eS6y3pEX7YurEzL989z33BpMqdI=',
+        cookie: {
+          secure: false,
+        },
+      })
+      .register(keycloak, opts)
 
     await this.#adapter.listen(this.#options ?? {})
   }
