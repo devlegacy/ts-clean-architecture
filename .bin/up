@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DOCKER_COMPOSE_PATH=$(which docker-compose) #path
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+function current_timestamp() {
+  DATE=$(date +"%Y-%m-%d %T")
+}
+
+current_timestamp
+echo "[${DATE}] Running start"
+current_timestamp
+echo "[${DATE}] Project path: ${PROJECT_PATH}"
+
+current_timestamp
+echo "[${DATE}] Stopping lingering containers"
+"${DOCKER_COMPOSE_PATH}" \
+    -f ${PROJECT_PATH}/docker-compose.yml \
+    down --remove-orphans
+
+current_timestamp
+echo "[${DATE}] Starting the containers"
+"${DOCKER_COMPOSE_PATH}" \
+    -f ${PROJECT_PATH}/docker-compose.yml \
+    up -d --build
+
+current_timestamp
+echo "[${DATE}] App launched 🚀"

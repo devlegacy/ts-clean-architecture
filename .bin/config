@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# dbserver1 nombre lógico
+
+# https://debezium.io/documentation/reference/stable/connectors/postgresql.html#postgresql-example-configuration
+curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '
+{
+  "name": "cqrs-test-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "land",
+    "database.server.name": "dbserver1",
+    "plugin.name": "pgoutput",
+    "topic.prefix": "fulfillment"
+  }
+}
+'
+
+curl -X GET "/connector-plugins/{connectorType}/config/validate"
+
+
+bash
+kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic fulfillment.public.blocks --from-beginning
+# expected WARN

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+UUID_GENERATOR_PATH="$PROJECT_PATH/node_modules/uuid/dist/bin/uuid"
+LAND_API="http://127.0.0.1:8088/"
+
+for (( i=1; i<=150; i++ ))
+do
+  UUID=$($UUID_GENERATOR_PATH)
+	# c=$(curl -s -X POST "${LAND_API}blocks" -d "name=pepe&country=ES" | jq -r '.id')
+  curl -s -X POST "${LAND_API}blocks" -d "name=pepe&country=ES"
+
+	for (( n=1; n<=100; n++ ))
+	do
+    UUID=$($UUID_GENERATOR_PATH)
+    echo $UUID
+		# o=$(curl -s -X POST http://127.0.0.1:8080/order/create -d "customerId=$c&total=$n")
+	done
+
+echo -n "."
+done

@@ -145,6 +145,7 @@
 - 📥 Module rules 📏
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 - Commands
+  - Tipo de evento
   - Implement `service locator pattern` 1:1
   - `Command` should be imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
   - ✅ `CommandBus` can instantiate in controllers (HTTP)
@@ -154,6 +155,7 @@
     - it should avoid `[Create|Update|Delete]Course`
   - ✅ `CommandHandler<T>` should return `void` indicating a side effect
 - Query
+  - Tipo de evento
   - Implement `service locator pattern` 1:1
   - Starts (in he majority) with Get
   - ✅ `QueryBus` can instantiate in controllers
@@ -162,6 +164,9 @@
 - Events
   - Past tense (Course[Created])
   - Can't reject operations because it has happened
+  - La acción o acontecimiento procesado por un software usualmente originado asíncronamente
+  - La notificación o mensaje se toma como el evento
+  - Tipos (Por consumo): Volatil, Consumible, Reproducible (Replayable).
 
 ## 🧪 Test
 

@@ -22,6 +22,8 @@ services:
         target: /var/log/eventstore
     # esdb://eventstore.db:2113?tls=false
     # http://localhost:2113/
+    networks:
+      - app-network
 
   zookeeper:
     container_name: zookeeper
@@ -30,22 +32,29 @@ services:
       - "2181:2181"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - app-network
 
   kafka:
     container_name: kafka
     image: docker.io/bitnami/kafka:latest
+    hostname: localhost
     ports:
       - "9092:9092"
+      - "9093:9093"
       - "29092:29092"
     environment:
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNALPLAINTEXT://:29092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNALPLAINTEXT://localhost:29092
-      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNALPLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNALPLAINTEXT://:29092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNALPLAINTEXT://localhost:29092,EXTERNAL://localhost:9093
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNALPLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=EXTERNALPLAINTEXT
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
+      # - KAFKA_ADVERTISED_HOST_NAME=192.168.1.68
     depends_on:
       - zookeeper
+    networks:
+      - app-network
 
   debezium:
     container_name: debezium
@@ -60,6 +69,8 @@ services:
       - "8083:8083"
     depends_on:
       - kafka
+    networks:
+      - app-network
 
   mongo:
     image: mongo:latest # 5.0.0
@@ -127,6 +138,11 @@ services:
     ports:
       - "6379:6379"
     command: [ "redis-server", "--requirepass", "SUPER_SECRET_PASSWORD" ]
+    # volumes:
+    #   - ./.data/redis:/data
+    networks:
+      - app-network
+    # redis-cli --pass SUPER_SECRET_PASSWORD
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3 # 8.5.3
@@ -199,6 +215,7 @@ services:
       - postgres
     networks:
       - app-network
+
 networks:
   app-network:
     name: app-network

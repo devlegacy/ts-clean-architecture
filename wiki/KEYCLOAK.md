@@ -15,18 +15,6 @@ https://www.okta.com/
 
 ![Core concepts](https://developers.redhat.com/sites/default/files/blog/2019/11/keycloak1.png)
 
-- Authentication vs Authorization
-- Verificar que el usuario es quien dice ser
-- Verificar que el usuario tenga permisos para acceder a cierto recurso
-
-- Access token: Llave o representación de una autorización
-
-- Estándar Oauth
-  - https://www.youtube.com/watch?v=nNVlewjKQEQ&ab_channel=SoftwareGuru
-- Estándar OpenID Connect
-- JWT
-- 
-
 ## Relm
 
 - Reino / Territorio: Instancia de Keycloak, configuraciones separadas
