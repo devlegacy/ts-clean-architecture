@@ -6,16 +6,22 @@ LAND_API="http://127.0.0.1:8088/"
 
 for (( i=1; i<=150; i++ ))
 do
-  UUID=$($UUID_GENERATOR_PATH)
-	# c=$(curl -s -X POST "${LAND_API}blocks" -d "name=pepe&country=ES" | jq -r '.id')
-  curl -s -X POST "${LAND_API}blocks" -d "name=pepe&country=ES"
+  BLOCK_ID=$($UUID_GENERATOR_PATH)
+  # c=$(curl -s -X POST "${LAND_API}blocks" -d "name=pepe&country=ES" | jq -r '.id')
+  # echo "${LAND_API}blocks"
+  # echo "id=\"${UUID}\"&block=${i}&area=250&street=street&northBoundary=North&northeastBoundary=Northeast&eastBoundary=East&southeastBoundary=Southeast&southBoundary=South&southwestBoundary=Southwest&westBoundary=West&northwestBoundary=Northwest"
 
-	for (( n=1; n<=100; n++ ))
-	do
-    UUID=$($UUID_GENERATOR_PATH)
+  curl -s -X POST "${LAND_API}blocks" -d "id=${BLOCK_ID}&block=${i}&area=10000&street=street&northBoundary=North&northeastBoundary=Northeast&eastBoundary=East&southeastBoundary=Southeast&southBoundary=South&southwestBoundary=Southwest&westBoundary=West&northwestBoundary=Northwest"
+
+  for (( n=1; n<=100; n++ ))
+  do
+    LOT_ID=$($UUID_GENERATOR_PATH)
     echo $UUID
-		# o=$(curl -s -X POST http://127.0.0.1:8080/order/create -d "customerId=$c&total=$n")
-	done
+    # o=$(curl -s -X POST http://127.0.0.1:8080/order/create -d "customerId=$c&total=$n")
+
+    curl -s -X POST "${LAND_API}blocks/${BLOCK_ID}/lots" -d "id=${LOT_ID}&blockId=${BLOCK_ID}&lot=${i}.${n}&area=352.00&price_x_m2=352.00&street=street&northBoundary=North&northeastBoundary=Northeast&eastBoundary=East&southeastBoundary=Southeast&southBoundary=South&southwestBoundary=Southwest&westBoundary=West&northwestBoundary=Northwest"
+  done
 
 echo -n "."
 done
+# time ./.bin/test_write

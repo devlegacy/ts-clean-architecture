@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# curl -X GET http://127.0.0.1:8088/blocks/normal?orderBy=createdAt&orderType=asc
+# curl -s -o /dev/null -v http://127.0.0.1:8088/blocks/normal?orderBy=createdAt&orderType=asc
+curl http://127.0.0.1:8088/blocks/normal?orderBy=createdAt&orderType=asc
