@@ -50,7 +50,7 @@ export class BackofficeCourse extends AggregateRoot {
     return course
   }
 
-  static fromPrimitives(data: BackofficeCoursePrimitiveDto): BackofficeCourse {
+  static override fromPrimitives(data: BackofficeCoursePrimitiveDto): BackofficeCourse {
     return new BackofficeCourse(
       new BackofficeCourseId(data.id),
       new BackofficeCourseName(data.name),

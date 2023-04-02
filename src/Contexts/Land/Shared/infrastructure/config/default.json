@@ -4,5 +4,10 @@
   },
   "sentry": {
     "dsn": "https://b7543fbfa0984d3e934073c09c97bfc9@o914008.ingest.sentry.io/4504270857043968"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "password": "SUPER_SECRET_PASSWORD"
   }
 }

@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, Primitives, SetOptional, Simplify } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Entity, Primitives, SetOptional } from '@/Contexts/Shared/domain'
 
 import { LandDescription } from '../../LandDescriptions/domain'
 import { BlockId, Boundary } from '../../Shared/domain'
@@ -14,10 +14,11 @@ import {
   BlockUpdatedAt,
 } from './ValueObjects'
 
-export type BlockEntityDto = Simplify<
-  Omit<SetOptional<Entity<Block>, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>
+export type BlockEntityType = Entity<
+  Omit<SetOptional<Block, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>
 >
-export type BlockPrimitiveDto = Simplify<SetOptional<Primitives<Block>, 'createdAt' | 'updatedAt'>>
+
+export type BlockPrimitiveType = Primitives<SetOptional<Block, 'createdAt' | 'updatedAt'>>
 
 export class Block extends AggregateRoot {
   readonly id: BlockId
@@ -55,14 +56,14 @@ export class Block extends AggregateRoot {
   private description?: LandDescription
 
   get fullDescription() {
-    const fullDescription = this.description?.full?.toString()
+    const fullDescription = this.description?.full?.toString() ?? ''
     const block = this.block.toString()
 
     return `${fullDescription} ${block}`
   }
 
   get shortDescription() {
-    const shortDescription = this.description?.short?.toString()
+    const shortDescription = this.description?.short?.toString() ?? ''
     const block = this.block.toString()
 
     return `${shortDescription} ${block}`
@@ -107,7 +108,7 @@ export class Block extends AggregateRoot {
     this.deletedAt = undefined
   }
 
-  static create(data: BlockEntityDto) {
+  static create(data: BlockEntityType) {
     const block = new Block(
       data.id,
       data.block,
@@ -194,7 +195,7 @@ export class Block extends AggregateRoot {
       southwestBoundary: this.southwestBoundary.value,
       westBoundary: this.westBoundary.value,
       northwestBoundary: this.northwestBoundary.value,
-      deletedAt: this.deletedAt.value,
+      // deletedAt: this.deletedAt?.value,
     })
     this.record(event)
   }
@@ -220,6 +221,7 @@ export class Block extends AggregateRoot {
       northwestBoundary: this.northwestBoundary.value,
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt.value,
+      // deletedAt: this.deletedAt?.value,
     }
   }
 }

@@ -7,6 +7,13 @@ import { Block, BlockRepository } from '../../domain'
 import { BlockEntity } from './mikroorm/postgres/BlockEntity'
 
 export class MikroOrmPostgresBlockRepository extends MikroOrmPostgresRepository<Block> implements BlockRepository {
+  async all(): Promise<Block[]> {
+    const repository = await this.repository()
+    const blocks = await repository.findAll()
+
+    return blocks
+  }
+
   async find(id: Block['id']): Promise<Nullable<Block>> {
     const repository = await this.repository()
     const block = await repository.findOne({ id })

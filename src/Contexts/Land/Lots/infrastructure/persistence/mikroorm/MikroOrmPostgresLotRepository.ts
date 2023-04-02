@@ -7,6 +7,13 @@ import { Lot, LotRepository } from '../../../domain'
 import { LotEntity } from './postgres/LotEntity'
 
 export class MikroOrmPostgresLotRepository extends MikroOrmPostgresRepository<Lot> implements LotRepository {
+  async all(): Promise<Lot[]> {
+    const repository = await this.repository()
+    const lots = await repository.findAll()
+
+    return lots
+  }
+
   async find(id: Lot['id']): Promise<Nullable<Lot>> {
     const repository = await this.repository()
     const lot = await repository.findOne({ id })

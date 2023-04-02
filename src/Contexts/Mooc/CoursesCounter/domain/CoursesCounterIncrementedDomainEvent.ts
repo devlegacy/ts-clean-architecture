@@ -3,7 +3,7 @@ import { DomainEvent } from '@/Contexts/Shared/domain'
 type CoursesCounterIncrementedAttributes = { total: number }
 
 export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'courses_counter.incremented'
+  static override readonly EVENT_NAME = 'courses_counter.incremented'
   readonly total: number
 
   constructor(data: { aggregateId: string; total: number; eventId?: string; occurredOn?: Date }) {
@@ -17,7 +17,7 @@ export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
     this.total = data.total
   }
 
-  static fromPrimitives(params: {
+  static override fromPrimitives(params: {
     aggregateId: string
     attributes: CoursesCounterIncrementedAttributes
     eventId: string

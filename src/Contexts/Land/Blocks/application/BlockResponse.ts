@@ -1,11 +1,11 @@
 import { Response } from '@/Contexts/Shared/domain'
 
-import { Block, BlockPrimitiveDto } from '../domain'
+import { Block, BlockPrimitiveType } from '../domain'
 
-type ResponseDto = BlockPrimitiveDto
+type ResponseType = BlockPrimitiveType
 
 export class BlockResponse implements Response {
-  readonly block: ResponseDto
+  readonly block: ResponseType
 
   constructor(block: Block) {
     this.block = {

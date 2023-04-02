@@ -1,10 +1,12 @@
 import { MikroORM } from '@mikro-orm/core'
 import type { PostgreSqlDriver } from '@mikro-orm/postgresql'
+import { Redis } from 'ioredis'
 import { container, Lifecycle } from 'tsyringe'
 
 import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure'
 import config from '@/Contexts/Land/Shared/infrastructure/config'
-import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/TypeOrmConfigFactory'
+import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory'
+import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory'
 import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
 import {
   FatalErrorHandler,
@@ -13,6 +15,8 @@ import {
   InMemoryQueryBus,
   MikroOrmPostgresClientFactory,
   PostgresConfig,
+  RedisClientFactory,
+  RedisConfig,
   SentryModule,
 } from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
@@ -23,7 +27,9 @@ import { TYPES } from '../types'
 // Could be write datasource | Could be read datasourse but this break the rule of one database peer service
 const context = 'land'
 const postgresConfig = PostgresConfigFactory.createConfig()
-const mikroOrmPostgres = MikroOrmPostgresClientFactory.createClient(context, postgresConfig)
+const postgresClient = MikroOrmPostgresClientFactory.createClient(context, postgresConfig)
+const redisConfig = RedisConfigFactory.createConfig()
+const redisClient = RedisClientFactory.createClient(context, redisConfig)
 
 const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
 const logger = new PinoLogger({
@@ -36,7 +42,9 @@ container
   // Bootstrap global dependencies
   // Database - PostgresClient
   .register<PostgresConfig>(TYPES.PostgresConfig, { useValue: postgresConfig })
-  .register<Promise<MikroORM<PostgreSqlDriver>>>(TYPES.MikroOrmPostgresClient, { useValue: mikroOrmPostgres })
+  .register<Promise<MikroORM<PostgreSqlDriver>>>(TYPES.MikroOrmPostgresClient, { useValue: postgresClient })
+  .register<RedisConfig>(TYPES.RedisConfig, { useValue: redisConfig })
+  .register<Redis>(TYPES.RedisClient, { useValue: redisClient })
   // EventBus - InMemory - Infrastructure
   .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
   // CommandBus - InMemory - Infrastructure

@@ -2,7 +2,7 @@ import { StringValueObject } from '@/Contexts/Shared/domain'
 
 import { LotLotLengthExceeded } from '../Errors'
 
-const MAX_CHARACTER_LIMIT = 4
+const MAX_CHARACTER_LIMIT = 10
 
 export class LotLot extends StringValueObject {
   constructor(value: string) {

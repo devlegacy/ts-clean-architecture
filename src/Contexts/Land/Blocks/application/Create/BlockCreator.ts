@@ -1,17 +1,21 @@
 import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/land/modules/types'
+import { EventBus } from '@/Contexts/Shared/domain'
 
-import { Block, BlockEntityDto, BlockRepository } from '../../domain'
+import { Block, BlockEntityType, BlockRepository } from '../../domain'
 
 @injectable()
 export class BlockCreator {
-  constructor(@inject(TYPES.BlockRepository) private readonly repository: BlockRepository) {}
+  constructor(
+    @inject(TYPES.BlockRepository) private readonly repository: BlockRepository,
+    @inject(TYPES.EventBus) private readonly bus: EventBus
+  ) {}
 
-  async run(request: BlockEntityDto) {
+  async run(request: BlockEntityType) {
     const block = Block.create(request)
-    // block.pullDomainEvents()
 
     await this.repository.save(block)
+    await this.bus.publish(block.pullDomainEvents())
   }
 }

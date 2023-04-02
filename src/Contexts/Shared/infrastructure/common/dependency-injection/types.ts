@@ -17,6 +17,9 @@ export const SHARED_TYPES = {
   // Postgres
   PostgresConfig: Symbol.for('PostgresConfig'),
   PostgresClient: Symbol.for('PostgresClient'), // Client vs Manager
+  // Redis
+  RedisConfig: Symbol.for('RedisConfig'),
+  RedisClient: Symbol.for('RedisClient'),
   // MikroOrmPostgres
   MikroOrmPostgresConfig: Symbol.for('MikroOrmPostgresConfig'),
   MikroOrmPostgresClient: Symbol.for('MikroOrmPostgresClient'),

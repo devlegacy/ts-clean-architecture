@@ -6,10 +6,10 @@ import { BlockId, Boundary } from '../../Shared/domain'
 import { LotCreatedDomainEvent } from './LotCreatedDomainEvent'
 import { LotArea, LotAvailability, LotCreatedAt, LotDeletedAt, LotId, LotLot, LotUpdatedAt } from './ValueObjects'
 
-export type LotEntityDto = Entity<
+export type LotEntityType = Entity<
   Omit<SetOptional<Lot, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>
 >
-export type LotPrimitiveDto = Primitives<SetOptional<Lot, 'createdAt' | 'updatedAt'>>
+export type LotPrimitiveType = Primitives<SetOptional<Lot, 'createdAt' | 'updatedAt'>>
 
 export class Lot extends AggregateRoot {
   readonly id: LotId
@@ -88,7 +88,7 @@ export class Lot extends AggregateRoot {
     this.deletedAt = undefined
   }
 
-  static create(data: LotEntityDto) {
+  static create(data: LotEntityType) {
     const lot = new Lot(
       data.id,
       data.blockId,

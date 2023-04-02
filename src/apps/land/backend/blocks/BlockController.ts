@@ -2,6 +2,7 @@ import { inject } from 'tsyringe'
 
 import { BlockResponse, CreateBlockCommand, FindBlockQuery } from '@/Contexts/Land/Blocks/application'
 import { DeleteBlockCommand } from '@/Contexts/Land/Blocks/application/Delete'
+import { BlockSearcher } from '@/Contexts/Land/Blocks/application/Search/BlockSearcher'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@/Contexts/Shared/infrastructure/common'
 import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
@@ -13,15 +14,14 @@ import { BlockRequestSchema } from './BlockRequestSchema'
 export class BlockController {
   constructor(
     @inject(TYPES.CommandBus) private readonly commandBus: CommandBus,
-    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus
+    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
+    private readonly searcher: BlockSearcher
   ) {}
 
   @Get()
-  async index(@Query('orderBy') orderBy?: string, @Query('orderType') orderType?: string) {
-    return {
-      orderBy,
-      orderType,
-    }
+  async index(@Query('orderBy') _orderBy?: string, @Query('orderType') _orderType?: string) {
+    const { blocks } = await this.searcher.run()
+    return blocks
   }
 
   @Get(':id')

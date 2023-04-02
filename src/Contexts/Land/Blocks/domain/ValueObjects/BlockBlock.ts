@@ -2,7 +2,7 @@ import { StringValueObject } from '@/Contexts/Shared/domain'
 
 import { BlockBlockLengthExceeded } from '../Errors/BlockBlockLengthExceeded'
 
-const MAX_CHARACTER_LIMIT = 4
+const MAX_CHARACTER_LIMIT = 10
 
 export class BlockBlock extends StringValueObject {
   constructor(value: string) {

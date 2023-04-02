@@ -121,7 +121,7 @@ const landConfig = convict({
           doc: 'RabbitMQ hostname',
           format: String,
           env: 'RABBITMQ_HOSTNAME',
-          default: 'localhost',
+          default: '127.0.0.1',
         },
         port: {
           doc: 'RabbitMQ amqp port',
@@ -150,6 +150,26 @@ const landConfig = convict({
       format: Number,
       env: 'RABBITMQ_RETRY_TTL',
       default: 1000,
+    },
+  },
+  redis: {
+    host: {
+      doc: 'The Redis host.',
+      format: String,
+      env: 'REDIS_HOST',
+      default: '127.0.0.1',
+    },
+    port: {
+      doc: 'The Redis port.',
+      format: Number,
+      env: 'REDIS_PORT',
+      default: 6379,
+    },
+    password: {
+      doc: 'The Redis password.',
+      format: String,
+      env: 'REDIS_PASSWORD',
+      default: '',
     },
   },
 })

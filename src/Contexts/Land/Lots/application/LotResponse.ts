@@ -1,8 +1,8 @@
 import { Response } from '@/Contexts/Shared/domain'
 
-import { Lot, LotPrimitiveDto } from '../domain'
+import { Lot, LotPrimitiveType } from '../domain'
 
-type ResponseDto = LotPrimitiveDto
+type ResponseDto = LotPrimitiveType
 
 export class LotResponse implements Response {
   readonly lot: ResponseDto

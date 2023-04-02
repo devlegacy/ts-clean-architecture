@@ -27,7 +27,7 @@ const run = async () => {
   // Consuming
   await consumer.connect()
   await consumer.subscribe({
-    topic: /^fulfillment\.public\./,
+    topic: /^fulfillment\.public./,
     // topic: 'fulfillment.public.blocks',
     fromBeginning: true,
   })
@@ -49,10 +49,39 @@ const run = async () => {
       if (operation === 'u') {
         //update after
       } else if (operation === 'c') {
-        console.log({ data: payload.after })
-        await client.set(table, JSON.stringify(payload.after))
-        const stored: any = await client.get(table)
-        console.log(JSON.parse(stored))
+        if (table === 'blocks') {
+          // JSON.DEL blocks
+          // JSON.GET blocks
+          // JSON.SET blocks $ []
+
+          // JSON.ARRAPPEND blocks $ {}
+
+          const exists = await client.call('JSON.GET', 'blocks')
+          if (!exists) await client.call('JSON.SET', 'blocks', '$', JSON.stringify([]))
+
+          console.log({ data: payload.after })
+          // await client.set(`${table}2`, JSON.stringify(payload.after))
+          // const stored: any = await client.get(`${table}2`)
+          await client.call(
+            'JSON.ARRAPPEND',
+            table,
+            '$',
+            JSON.stringify({
+              ...payload.after,
+              lots: [],
+            })
+          )
+          const stored: any = await client.call('JSON.GET', table)
+          console.log(JSON.parse(stored))
+        } else if (table === 'lots') {
+          const stored: any = await client.call('JSON.GET', 'blocks')
+          const index = JSON.parse(stored).findIndex((block: any) => block.id === payload.after.block_id)
+          // JSON.ARRAPPEND blocks $.lots {}
+          console.log({ data: payload.after })
+          await client.call('JSON.ARRAPPEND', 'blocks', `$[${index}].lots`, JSON.stringify(payload.after))
+          const stored2: any = await client.call('JSON.GET', 'blocks')
+          console.log(JSON.parse(stored2))
+        }
       } else if (operation === 'd') {
         // delete before
       }

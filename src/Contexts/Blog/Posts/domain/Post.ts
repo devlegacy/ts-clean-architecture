@@ -2,9 +2,9 @@ export class Post {
   readonly date: Date
 
   constructor(
-    public readonly id: string,
-    public readonly author: string,
-    public readonly content: string,
+    readonly id: string,
+    readonly author: string,
+    readonly content: string,
     date: number = new Date().getTime()
   ) {
     this.date = new Date(date)

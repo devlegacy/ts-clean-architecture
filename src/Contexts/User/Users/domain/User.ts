@@ -32,7 +32,7 @@ export class User extends AggregateRoot {
     this.age = age
   }
 
-  static fromPrimitives(data: PrimitiveUser): User {
+  static override fromPrimitives(data: PrimitiveUser): User {
     // return new Course({
     //   id: new CourseId(props.id),
     //   name: new CourseName(props.name),
