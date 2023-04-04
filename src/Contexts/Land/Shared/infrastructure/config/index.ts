@@ -6,9 +6,9 @@ const landConfig = convict({
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'staging', 'test'],
-    default: 'default',
+    default: 'development',
     env: 'NODE_ENV',
-  },
+  } as const,
   app: {
     ip: {
       doc: 'The IP address to bind.',
@@ -44,11 +44,11 @@ const landConfig = convict({
   },
   log: {
     level: {
-      doc: 'The application log level.',
       format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
+      doc: 'The application log level.',
       default: 'info',
       env: 'LOG_LEVEL',
-    },
+    } as const,
   },
   postgres: {
     host: {
@@ -179,6 +179,6 @@ const filePaths = [
   resolve(`${__dirname}/${landConfig.get('app.env')}.json`),
 ].filter((path) => existsSync(path))
 
-landConfig.loadFile(filePaths)
+landConfig.loadFile(filePaths).validate()
 
 export default landConfig

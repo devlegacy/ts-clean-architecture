@@ -1,8 +1,18 @@
+export interface LogMessage {
+  [key: string]: unknown
+  message: string
+  context: Record<string, unknown>
+}
+
+export type LogMethod = (message: LogMessage | string) => void
+
+export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug'
+
 export interface Logger {
-  info(data: unknown): void
-  warn(data: unknown): void
-  debug(data: unknown): void
-  fatal(data: unknown): void
-  error(data: unknown): void
-  deep(data: unknown): void
+  info: LogMethod
+  warn: LogMethod
+  debug: LogMethod
+  fatal: LogMethod
+  error: LogMethod
+  deep: LogMethod
 }

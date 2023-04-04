@@ -1,90 +1,46 @@
-import { createWriteStream } from 'fs'
-import { resolve } from 'path'
-import pino, { Logger as BasePinoLogger, LoggerOptions } from 'pino'
-import PinoPretty from 'pino-pretty'
-import { cwd } from 'process'
+import pino, { Logger as PinoLoggerType } from 'pino'
 import util from 'util'
 
-import { Logger } from '../../domain'
-
-const stream = PinoPretty({
-  colorize: true, // colorizes the log
-  destination: 1,
-  ignore: 'pid,hostname',
-  levelFirst: true,
-  translateTime: 'yyyy-dd-mm, h:MM:ss TT',
-})
-
-const dest = resolve(cwd(), './logger.log')
-const streams = [
-  { stream },
-  {
-    stream: createWriteStream(dest),
-    //pino.destination({ dest: resolve(cwd(), './logger.log')})
-  },
-]
-
-/**
- * Read more on: https://getpino.io/#/
- */
-export let logger = () =>
-  pino(
-    {
-      name: process?.env?.APP_NAME,
-      level: process?.env?.LOG_LEVEL || 'info',
-    },
-    pino.multistream(streams)
-  )
-
-export const deepLog = (data: object) =>
-  logger().info(
-    util.inspect(data, {
-      showHidden: false,
-      depth: null,
-      colors: true,
-    })
-  )
-
-export const configure = (config: LoggerOptions) => {
-  logger = () => pino(config)
-}
-
-export const info = logger().info.bind(logger())
-export const warn = logger().warn.bind(logger())
-export const debug = logger().debug.bind(logger())
-export const fatal = logger().fatal.bind(logger())
-export const error = logger().error.bind(logger())
+import { Logger, LogLevel, LogMethod } from '../../domain'
+import { streams } from './helpers'
 
 export class PinoLogger implements Logger {
-  #logger: BasePinoLogger
+  #logger: PinoLoggerType
 
-  constructor(conf: { name?: string; level?: string } = { level: 'info' }) {
-    this.#logger = pino(conf)
+  constructor(options: { name?: string; enabled?: boolean; level?: LogLevel } = { level: 'info' }) {
+    this.#logger = pino(
+      {
+        ...options,
+        // messageKey: 'message',
+        base: null,
+      },
+      pino.multistream(streams)
+    )
   }
 
-  info(data: unknown): void {
-    this.#logger.info(data)
+  info(message: Parameters<LogMethod>[0]): void {
+    this.#logger.info(message)
   }
 
-  warn(data: unknown): void {
-    this.#logger.warn(data)
+  warn(message: Parameters<LogMethod>[0]): void {
+    this.#logger.warn(message)
   }
 
-  debug(data: unknown): void {
-    this.#logger.debug(data)
+  debug(message: Parameters<LogMethod>[0]): void {
+    this.#logger.debug(message)
   }
 
-  fatal(data: unknown): void {
-    this.#logger.fatal(data)
+  fatal(message: Parameters<LogMethod>[0]): void {
+    this.#logger.fatal(message)
   }
 
-  error(data: unknown): void {
-    this.#logger.error(data)
+  error(message: Parameters<LogMethod>[0]): void {
+    this.#logger.error(message)
   }
 
-  deep(data: unknown) {
+  deep(message: Parameters<LogMethod>[0]) {
     this.#logger.info(
-      util.inspect(data, {
+      util.inspect(message, {
         showHidden: false,
         depth: null,
         colors: true,
