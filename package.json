@@ -67,13 +67,13 @@
     "@fastify/rate-limit": "8.0.0",
     "@fastify/session": "10.2.0",
     "@graphql-tools/schema": "9.0.17",
-    "@mikro-orm/core": "5.6.15",
+    "@mikro-orm/core": "5.6.16",
     "@mikro-orm/mongo-highlighter": "1.0.0",
-    "@mikro-orm/mongodb": "5.6.15",
-    "@mikro-orm/postgresql": "5.6.15",
+    "@mikro-orm/mongodb": "5.6.16",
+    "@mikro-orm/postgresql": "5.6.16",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.46.0",
-    "@sentry/tracing": "7.46.0",
+    "@sentry/node": "7.47.0",
+    "@sentry/tracing": "7.47.0",
     "ajv": "8.12.0",
     "amqplib": "0.10.3",
     "apollo-server-core": "3.12.0",
@@ -99,7 +99,7 @@
     "joi-class-decorators": "1.1.0",
     "kafkajs": "2.2.4",
     "module-alias": "2.2.2",
-    "mongodb": "5.1.0",
+    "mongodb": "5.2.0",
     "mongoose": "7.0.3",
     "node-dependency-injection": "3.0.5",
     "pg": "8.10.0",
@@ -164,13 +164,13 @@
     "ts-unused-exports": "9.0.4",
     "tsconfig-paths": "4.2.0",
     "tslib": "2.5.0",
-    "type-fest": "3.7.2",
+    "type-fest": "3.8.0",
     "typescript": "5.0.3"
   },
   "optionalDependencies": {
     "depcheck": "1.4.3",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.10.1"
+    "npm-check-updates": "16.10.7"
   },
   "engines": {
     "node": ">=16.15.0 <=19.2.0",
