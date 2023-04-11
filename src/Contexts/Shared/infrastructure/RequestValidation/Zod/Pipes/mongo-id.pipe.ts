@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { z } from 'zod'
 
-import { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain'
+import { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces'
 
 import { info } from '../../../Logger'
 

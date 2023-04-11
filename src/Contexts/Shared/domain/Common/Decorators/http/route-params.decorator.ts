@@ -83,9 +83,9 @@ const createPipesRouteParamDecorator =
     )
   }
 
-export const Request: () => ParameterDecorator = createRouteParamDecorator(RouteParamtypes.REQUEST)
+const Request: () => ParameterDecorator = createRouteParamDecorator(RouteParamtypes.REQUEST)
 
-export const Response: (options?: ResponseDecoratorOptions) => ParameterDecorator =
+const Response: (options?: ResponseDecoratorOptions) => ParameterDecorator =
   (options?: ResponseDecoratorOptions) => (target, key, index) => {
     if (options?.passthrough) {
       Reflect.defineMetadata(RESPONSE_PASSTHROUGH_METADATA, options?.passthrough, target.constructor, key)

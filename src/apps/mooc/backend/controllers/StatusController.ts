@@ -13,7 +13,7 @@ import {
   Query,
   Req,
   Res,
-} from '@/Contexts/Shared/domain'
+} from '@/Contexts/Shared/domain/Common'
 import {
   ObjectIdPipe as JoiMongoIdPipe,
   PageNumberPipe,

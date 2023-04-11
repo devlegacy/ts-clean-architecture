@@ -1,4 +1,4 @@
-import { PipeTransform } from '@/Contexts/Shared/domain'
+import { PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces'
 
 import { Joi } from '../index'
 

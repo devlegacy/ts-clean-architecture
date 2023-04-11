@@ -1,6 +1,6 @@
 export * from './AggregateRoot'
 export * from './Commands'
-export * from './Common'
+// export * from './Common' // Cause conflict
 export * from './Criteria'
 export * from './DomainError'
 export * from './Errors'
