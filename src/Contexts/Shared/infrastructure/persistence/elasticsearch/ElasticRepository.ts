@@ -3,9 +3,9 @@ import { ResponseError } from '@elastic/transport/lib/errors'
 import bodybuilder, { Bodybuilder } from 'bodybuilder'
 import { container } from 'tsyringe'
 
-import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria, SHARED_TYPES } from '@/Contexts/Shared/domain'
 
-import { HttpStatus, SHARED_TYPES } from '../../common'
+import { HttpStatus } from '../../_Common'
 import ElasticConfig from './ElasticConfig'
 import { ElasticCriteriaConverter } from './ElasticCriteriaConverter'
 

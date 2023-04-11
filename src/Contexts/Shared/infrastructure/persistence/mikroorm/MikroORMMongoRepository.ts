@@ -1,26 +1,28 @@
 import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
-import { container } from 'tsyringe'
+import { Service } from 'diod'
 
 import { AggregateRoot, Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
 
-import { SHARED_TYPES } from '../../common'
 import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter'
 
+@Service()
 export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   private criteriaConverter: MongoCriteriaConverter
   // Diod
-  // constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {}
+  constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {
+    this.criteriaConverter = new MongoCriteriaConverter()
+  }
 
   // tsyringe
-  private readonly _client: Promise<MikroORM<MongoDriver>> = container.resolve(SHARED_TYPES.MongoClient)
+  // private readonly _client: Promise<MikroORM<MongoDriver>> = container.resolve(SHARED_TYPES.MongoClient)
 
   // private readonly _client: Promise<MikroORM<MongoDriver>>
 
   // constructor(@inject(SHARED_TYPES.MongoClient) client: Promise<MikroORM<MongoDriver>>) {
-  constructor() {
-    this.criteriaConverter = new MongoCriteriaConverter()
-  }
+  // constructor() {
+  //   this.criteriaConverter = new MongoCriteriaConverter()
+  // }
 
   protected async countDocuments(criteria: Criteria) {
     const collection = await this.repository()

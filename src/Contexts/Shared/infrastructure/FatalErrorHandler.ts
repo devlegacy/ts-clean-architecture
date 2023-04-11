@@ -1,14 +1,10 @@
-import { inject, injectable } from 'tsyringe'
+import { Service } from 'diod'
 
 import { DomainError, Logger, Monitoring } from '../domain'
-import { SHARED_TYPES } from './common'
 
-@injectable()
+@Service()
 export class FatalErrorHandler {
-  constructor(
-    @inject(SHARED_TYPES.Logger) private readonly logger: Logger,
-    @inject(SHARED_TYPES.Monitoring) private readonly monitoring?: Monitoring
-  ) {}
+  constructor(private readonly logger: Logger, private readonly monitoring?: Monitoring) {}
 
   capture(err: Error, ..._args: unknown[]): void {
     this?.logger?.error(err)

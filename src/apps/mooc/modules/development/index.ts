@@ -2,18 +2,19 @@ import 'reflect-metadata'
 
 import { ContainerBuilder } from 'diod'
 
-import { registeredModules } from '@/Contexts/Shared/domain'
+import { Class, registeredModules } from '@/Contexts/Shared/domain'
 
 import { CourseModule } from './CourseModule'
 import { CoursesCounterModule } from './CoursesCounterModule'
 import { SharedModule } from './SharedModule'
 import { StatusModule } from './StatusModule'
 
-export const modules = [SharedModule, StatusModule, CourseModule, CoursesCounterModule]
-export const builder = new ContainerBuilder()
+// DEBT: It can be change by glob loader
+const modules = [SharedModule, StatusModule, CourseModule, CoursesCounterModule]
+const builder = new ContainerBuilder()
 
-const containerBuilder = (registers: any[]) => {
-  modules.forEach((mod) => mod(builder))
+const containerBuilder = (registers: Class<unknown>[]) => {
+  modules.forEach((register) => register(builder))
   registers.forEach((register) => builder.registerAndUse(register))
 
   // key, registeredModule

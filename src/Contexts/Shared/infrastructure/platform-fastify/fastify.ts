@@ -14,9 +14,7 @@ import Fastify, {
 } from 'fastify'
 import { AddressInfo } from 'net'
 
-import { logger } from '@/Contexts/Shared/infrastructure/Logger'
-
-import { ControllerResolver, Monitoring } from '../common'
+import { ControllerResolver, Monitoring } from '../_Common'
 import { bootstrap } from './bootstrap'
 import { ValidationModule } from './interfaces'
 
@@ -55,7 +53,7 @@ const ajv = {
 // const fastifyServerOptions: FastifyHttp2SecureOptions<Http2SecureServer> = {
 const fastifyServerOptions: FastifyServerOptions = {
   ajv,
-  logger: logger(),
+  // logger: logger(),
   ignoreTrailingSlash: true,
   // forceCloseConnections: true // On Test or development
   // trustProxy: true
@@ -68,8 +66,12 @@ export class FastifyAdapter {
   readonly #instance: FastifyInstance
   #monitoring?: Monitoring
 
+  get app() {
+    return this.#instance
+  }
+
   // constructor({ options }: { options?: FastifyServerOptions<Http2SecureServer> } = {}) {
-  constructor({ options }: { options?: FastifyServerOptions } = {}) {
+  constructor(options: FastifyServerOptions = {}) {
     this.#instance = Fastify({
       ...fastifyServerOptions,
       ...options,
@@ -81,10 +83,6 @@ export class FastifyAdapter {
       .register(fastifyCompress)
       // .register(fastifyRateLimit)
       .register(fastifyCookie)
-  }
-
-  get app() {
-    return this.#instance
   }
 
   enableCors(options: FastifyCorsOptions = {}) {
@@ -104,10 +102,11 @@ export class FastifyAdapter {
   }
 
   async bootstrap(props: {
-    controller: string
+    controller: string | any[]
     isProduction: boolean
     prefix?: string
     resolver?: ControllerResolver
+    container?: any
   }) {
     this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
       for (const m of this.validations) {

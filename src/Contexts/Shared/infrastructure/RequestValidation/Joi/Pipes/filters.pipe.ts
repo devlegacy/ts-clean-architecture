@@ -1,4 +1,5 @@
-import { PipeTransform } from '../../../common/interfaces'
+import { PipeTransform } from '@/Contexts/Shared/domain'
+
 import { Joi } from '../index'
 
 export class FiltersPipe implements PipeTransform {

@@ -1,7 +1,9 @@
+import { Container } from 'diod'
 import { container, delay } from 'tsyringe'
 
-import { DomainEvent, DomainEventSubscriber } from '../../domain'
-import { SHARED_TYPES } from '../common'
+import { TAGS } from '@/apps/mooc/modules/tags'
+
+import { DomainEvent, DomainEventSubscribers, IDomainEventSubscriber, SHARED_TYPES } from '../../domain'
 
 // class DomainEventSubscriberTransform implements Transform<any, any> {
 //   public transform(items: DomainEventSubscriber<DomainEvent>[]): DomainEventSubscriber<DomainEvent>[] {
@@ -11,18 +13,23 @@ import { SHARED_TYPES } from '../common'
 //   }
 // }
 
-export class DomainEventSubscribers {
-  constructor(public items: DomainEventSubscriber<DomainEvent>[]) {}
+export class DomainEventSubscriberResolver implements DomainEventSubscribers {
+  constructor(public items: IDomainEventSubscriber<DomainEvent>[]) {}
 
-  // static from(container: DependencyContainer): DomainEventSubscribers {
+  static fromContainer(container: Container): DomainEventSubscribers {
+    const subscribers = container
+      .findTaggedServiceIdentifiers<IDomainEventSubscriber<DomainEvent>>(TAGS.DomainEventSubscriber)
+      .map((subscriber) => container.get(subscriber))
+
+    return new DomainEventSubscriberResolver(subscribers)
+  }
   /**
    * HACK: To retrieve and resolve DomainEvent subscribers tokens from container
    */
-  static from(): DomainEventSubscribers {
+  static from(token: symbol = SHARED_TYPES.DomainEventSubscriber): DomainEventSubscribers {
     // const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
-    const token = SHARED_TYPES.DomainEventSubscriber
     const subscribers = container.isRegistered(token)
-      ? container.resolveAll<DomainEventSubscriber<DomainEvent>>(token)
+      ? container.resolveAll<IDomainEventSubscriber<DomainEvent>>(token)
       : []
 
     // subscriberDefinitions.forEach((key) => {
@@ -30,12 +37,12 @@ export class DomainEventSubscribers {
     //   subscribers.push(domainEventSubscriber)
     // })
 
-    return new DomainEventSubscribers(subscribers)
+    return new DomainEventSubscriberResolver(subscribers)
   }
 
   resolveFromContainer() {
     this.items = this.items.map((key) => {
-      const domainEventSubscriber = container.resolve<DomainEventSubscriber<DomainEvent>>(delay(() => key as any))
+      const domainEventSubscriber = container.resolve<IDomainEventSubscriber<DomainEvent>>(delay(() => key as any))
       return domainEventSubscriber
     })
 

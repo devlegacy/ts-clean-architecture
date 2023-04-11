@@ -5,12 +5,15 @@ import PinoPretty from 'pino-pretty'
 import { cwd } from 'process'
 import util from 'util'
 
+export const MESSAGE_KEY = 'message'
+
 const stream = PinoPretty({
   colorize: true, // colorizes the log
   destination: 1,
   ignore: 'pid,hostname',
   levelFirst: true,
   translateTime: 'yyyy-dd-mm, h:MM:ss TT',
+  messageKey: MESSAGE_KEY,
 })
 
 const destination = resolve(cwd(), './logger.log')
@@ -30,7 +33,7 @@ export let logger = () =>
     {
       name: process?.env?.APP_NAME,
       level: process?.env?.LOG_LEVEL || 'info',
-      // messageKey: 'message',
+      messageKey: MESSAGE_KEY,
       base: null,
     },
     pino.multistream(streams)

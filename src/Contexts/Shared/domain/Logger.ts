@@ -1,18 +1,21 @@
-export interface LogMessage {
+export interface LogMessageRecord {
   [key: string]: unknown
   message: string
-  context: Record<string, unknown>
+  // context: Record<string, unknown>
 }
 
-export type LogMethod = (message: LogMessage | string) => void
+export type LogMessage = LogMessageRecord | Error | string
+export type LogMethod = (message: LogMessage) => void
 
 export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug'
 
-export interface Logger {
-  info: LogMethod
-  warn: LogMethod
-  debug: LogMethod
-  fatal: LogMethod
-  error: LogMethod
-  deep: LogMethod
+export abstract class Logger {
+  abstract info: LogMethod
+  abstract warn: LogMethod
+  abstract debug: LogMethod
+  abstract fatal: LogMethod
+  abstract error: LogMethod
+  abstract trace: LogMethod
+  abstract deep?: LogMethod
+  abstract child(bindings: Record<string, unknown>): Logger
 }

@@ -1,10 +1,10 @@
 import { ObjectId } from 'mongodb'
 
-import { EnumValueObject, NewableClass, ValueObject } from '@/Contexts/Shared/domain'
+import { Class, EnumValueObject, ValueObject } from '@/Contexts/Shared/domain'
 
 export class ValueObjectTransformer {
   constructor(
-    private readonly ValueObject: NewableClass<ValueObject<any> | EnumValueObject<any>>,
+    private readonly ValueObject: Class<ValueObject<any> | EnumValueObject<any>>,
     private readonly type: string
   ) {}
 

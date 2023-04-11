@@ -1,11 +1,7 @@
-import { injectAll, singleton } from 'tsyringe'
+import { IQueryHandler, Query, QUERY_HANDLER_METADATA, QueryNotRegisteredError, Response } from '../../domain'
 
-import { Query, QueryHandler, QueryNotRegisteredError, Response } from '../../domain'
-import { SHARED_TYPES } from '../common'
-
-@singleton()
-export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
-  constructor(@injectAll(SHARED_TYPES.QueryHandler) queryHandlers: QueryHandler<Query, Response>[]) {
+export class QueryHandlers extends Map<Query, IQueryHandler<Query, Response>> {
+  constructor(private readonly handlers: IQueryHandler<Query, Response>[]) {
     // constructor() {
     //   const token = SHARED_TYPES.CommandHandler
     //   const queryHandlers: QueryHandler<Query, Response>[] = container.isRegistered(token)
@@ -17,12 +13,12 @@ export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
 
     super()
 
-    queryHandlers.forEach((queryHandler) => {
-      this.set(queryHandler.subscribedTo(), queryHandler)
+    this.handlers.forEach((handler) => {
+      this.set(Reflect.getMetadata(QUERY_HANDLER_METADATA, handler.constructor), handler)
     })
   }
 
-  override get(query: Query): QueryHandler<Query, Response> {
+  override get(query: Query): IQueryHandler<Query, Response> {
     const queryHandler = super.get(query.constructor)
 
     if (!queryHandler) {

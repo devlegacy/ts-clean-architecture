@@ -1,5 +1,6 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
+import { Document } from 'bson'
 import { Collection } from 'mongodb'
 
 import { DomainEvent } from '@/Contexts/Shared/domain'
@@ -42,7 +43,7 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
     return events.filter(Boolean)
   }
 
-  protected async collection(): Promise<Collection> {
+  protected async collection(): Promise<Collection<Document>> {
     const client = await this._client
     const collection = client.config
       .getDriver()
@@ -50,6 +51,6 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
       .getDb()
       .collection(MikroOrmMongoDomainEventFailoverPublisher.collectionName)
 
-    return collection
+    return collection as unknown as Collection<Document>
   }
 }

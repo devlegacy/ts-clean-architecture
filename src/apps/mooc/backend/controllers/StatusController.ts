@@ -13,7 +13,7 @@ import {
   Query,
   Req,
   Res,
-} from '@/Contexts/Shared/infrastructure/common'
+} from '@/Contexts/Shared/domain'
 import {
   ObjectIdPipe as JoiMongoIdPipe,
   PageNumberPipe,
@@ -28,12 +28,12 @@ export class StatusController {
     return {}
   }
 
-  @Post('Joi/pipe/:mongoId')
+  @Post('joi/pipe/:mongoId')
   mongoPipe(@Param('mongoId', JoiMongoIdPipe) mongoId: string) {
     return { mongoId }
   }
 
-  @Post('Zod/pipe/:mongoId')
+  @Post('zod/pipe/:mongoId')
   zodPipe(@Param('mongoId', ZodMongoIdPipe) mongoId: string) {
     return { mongoId }
   }
@@ -43,7 +43,7 @@ export class StatusController {
     return course
   }
 
-  @Post('Joi/array')
+  @Post('joi/array')
   joiArray(@Body() courses: JoiCoursesRequestDto) {
     return courses
   }

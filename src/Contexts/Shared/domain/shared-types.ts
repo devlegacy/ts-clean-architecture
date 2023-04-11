@@ -50,3 +50,18 @@ export const SHARED_TYPES = {
   MikroOrmPostgresEnvironmentArranger: Symbol.for('MikroOrmPostgresEnvironmentArranger'),
   MikroOrmMongoEnvironmentArranger: Symbol.for('MikroOrmMongoEnvironmentArranger'),
 }
+
+export const SHARED_TAGS = {
+  Controller: 'Controller',
+  QueryHandler: 'QueryHandler',
+  CommandHandler: 'CommandHandler',
+  UseCase: 'UseCase',
+  DomainEventSubscriber: 'DomainEventSubscriber',
+} as const
+
+export const COMMAND_METADATA = '__command__'
+export const COMMAND_HANDLER_METADATA = '__commandHandler__'
+export const QUERY_METADATA = '__query__'
+export const QUERY_HANDLER_METADATA = '__queryHandler__'
+export const EVENT_METADATA = '__event__'
+export const EVENTS_HANDLER_METADATA = '__eventsHandler__'

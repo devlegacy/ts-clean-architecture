@@ -1,4 +1,4 @@
-import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, IDomainEventSubscriber } from '@/Contexts/Shared/domain'
 
 import { DomainEventDeserializer } from '../DomainEventDeserializer'
 import { RabbitMQConnection } from './RabbitMQConnection'
@@ -11,7 +11,7 @@ export class RabbitMQConsumerFactory {
     private maxRetries: number
   ) {}
 
-  build(subscriber: DomainEventSubscriber<DomainEvent>, exchange: string, queueName: string) {
+  build(subscriber: IDomainEventSubscriber<DomainEvent>, exchange: string, queueName: string) {
     return new RabbitMQConsumer({
       subscriber,
       deserializer: this.deserializer,

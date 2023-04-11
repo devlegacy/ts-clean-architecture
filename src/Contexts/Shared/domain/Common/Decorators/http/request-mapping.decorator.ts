@@ -1,5 +1,5 @@
 import { METHOD_METADATA, PATH_METADATA } from '../../constants'
-import { RequestMethod } from '../../enums/request-method.enum'
+import { RequestMethod } from '../../enums'
 
 export interface RequestMappingMetadata {
   path?: string | string[]

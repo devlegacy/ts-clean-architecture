@@ -1,15 +1,15 @@
 import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
-import { CommandBus } from '@/Contexts/Shared/domain'
 import {
   Body,
+  CommandBus,
   Controller,
   HttpCode,
   HttpStatus,
   Put,
   // Req
   // Schema
-} from '@/Contexts/Shared/infrastructure/common'
+} from '@/Contexts/Shared/domain'
 
 @Controller('courses')
 export class CourseController {

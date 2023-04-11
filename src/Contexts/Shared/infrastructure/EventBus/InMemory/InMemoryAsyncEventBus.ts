@@ -1,15 +1,21 @@
 import { EventEmitter } from 'events'
+import { Server as SocketServer } from 'socket.io'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
-import { DomainEvent, EventBus } from '../../../domain'
-import { DomainEventSubscribers } from '../DomainEventSubscribers'
+import { DomainEvent, DomainEventSubscribers, EventBus } from '../../../domain'
 
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
+  private io?: SocketServer
+  addSocketServer(io: SocketServer) {
+    this.io = io
+  }
+
   async publish(events: DomainEvent[]): Promise<void> {
     events.forEach((event) => {
       info(`[emit 📤 ]: ${event.eventName}`)
       this.emit(event.eventName, event)
+      this.io?.emit(event.eventName, event.toPrimitives())
     })
   }
 

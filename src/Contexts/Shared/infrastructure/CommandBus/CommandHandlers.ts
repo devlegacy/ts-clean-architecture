@@ -1,21 +1,19 @@
-import { injectAll, singleton } from 'tsyringe'
+import { Command, COMMAND_HANDLER_METADATA, CommandNotRegisteredError, ICommandHandler } from '../../domain'
 
-import { Command, CommandHandler, CommandNotRegisteredError } from '../../domain'
-import { SHARED_TYPES } from '../common'
-
-@singleton()
-export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
-  constructor(@injectAll(SHARED_TYPES.CommandHandler) commandHandlers: CommandHandler<Command>[]) {
+export class CommandHandlers extends Map<Command, ICommandHandler<Command>> {
+  constructor(private readonly handlers: ICommandHandler<Command>[]) {
     // constructor() {
     //   const token = SHARED_TYPES.CommandHandler
     //   const commandHandlers = container.isRegistered(token) ? container.resolveAll<CommandHandler<Command>>(token) : []
 
     super()
 
-    commandHandlers.forEach((commandHandler) => this.set(commandHandler.subscribedTo(), commandHandler))
+    this.handlers.forEach((handler) =>
+      this.set(Reflect.getMetadata(COMMAND_HANDLER_METADATA, handler.constructor), handler)
+    )
   }
 
-  override get(command: Command): CommandHandler<Command> {
+  override get(command: Command): ICommandHandler<Command> {
     const commandHandler = super.get(command.constructor)
 
     if (!commandHandler) throw new CommandNotRegisteredError(command)

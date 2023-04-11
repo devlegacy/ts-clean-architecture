@@ -1,5 +1,4 @@
-import { DomainEventClass } from '../../domain'
-import { DomainEventSubscribers } from './DomainEventSubscribers'
+import { DomainEventClass, DomainEventSubscribers } from '../../domain'
 
 type DomainEventJSON = {
   type: string

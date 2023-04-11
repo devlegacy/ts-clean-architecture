@@ -1,7 +1,6 @@
 import { InvalidArgumentError } from '../Errors'
-import { StringValueObject } from './StringValueObject'
 
-export class Money extends StringValueObject {
+export class Money {
   static locales: Record<string, string> = {
     USD: 'en-US',
     INR: 'en-IN',
@@ -9,13 +8,14 @@ export class Money extends StringValueObject {
   }
   readonly amount: number
   readonly currency: string
+  readonly format: string
 
   constructor(amount: number, currency: string) {
     const dollarUS = Intl.NumberFormat(Money.locales[`${currency}`.toUpperCase()] ?? 'en-US', {
       style: 'currency',
       currency,
     })
-    super(dollarUS.format(amount))
+    this.format = dollarUS.format(amount)
     this.amount = amount
     this.currency = currency.toUpperCase()
   }
@@ -60,7 +60,7 @@ export class Money extends StringValueObject {
 
   isLessOrEqualThan(vo: Money) {
     this.ensureIsTheSameCurrency(vo)
-    return this.value <= vo.value
+    return this.amount <= vo.amount
   }
 
   toPrimitives() {

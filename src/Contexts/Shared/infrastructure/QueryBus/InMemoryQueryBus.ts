@@ -1,9 +1,9 @@
-import { injectable } from 'tsyringe'
+import { Service } from 'diod'
 
 import { Query, QueryBus, Response } from '../../domain'
 import { QueryHandlers } from './QueryHandlers'
 
-@injectable()
+@Service()
 export class InMemoryQueryBus implements QueryBus {
   constructor(private readonly queryHandlers: QueryHandlers) {}
 

@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/node'
-import * as Tracing from '@sentry/tracing'
 import { resolve } from 'path'
 import { cwd } from 'process'
 
@@ -16,9 +15,9 @@ const options: Sentry.NodeOptions = {
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
-    new Tracing.Integrations.Mongo({
-      useMongoose: false, // Default: false
-    }),
+    // new Tracing.Integrations.Mongo({
+    // useMongoose: false, // Default: false
+    // }),
   ],
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.

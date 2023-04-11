@@ -1,12 +1,12 @@
 import { ConsumeMessage } from 'amqplib'
 
-import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, IDomainEventSubscriber } from '@/Contexts/Shared/domain'
 
 import { DomainEventDeserializer } from '../DomainEventDeserializer'
 import { RabbitMQConnection } from './RabbitMQConnection'
 
 export class RabbitMQConsumer {
-  private subscriber: DomainEventSubscriber<DomainEvent>
+  private subscriber: IDomainEventSubscriber<DomainEvent>
   private deserializer: DomainEventDeserializer
   private connection: RabbitMQConnection
   private maxRetries: number
@@ -14,7 +14,7 @@ export class RabbitMQConsumer {
   private exchange: string
 
   constructor(params: {
-    subscriber: DomainEventSubscriber<DomainEvent>
+    subscriber: IDomainEventSubscriber<DomainEvent>
     deserializer: DomainEventDeserializer
     connection: RabbitMQConnection
     queueName: string

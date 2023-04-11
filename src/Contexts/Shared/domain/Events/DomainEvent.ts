@@ -1,5 +1,5 @@
 import { Simplify } from '../Types'
-import { ObjectId } from '../ValueObjects'
+import { ObjectId, Uuid } from '../ValueObjects'
 
 type DomainEventAttributes<T = any> = T
 
@@ -12,6 +12,8 @@ export interface DomainEventPrimitivesWithAttributes<Attributes> {
   occurredOn: Date
   // ID for the Aggregate Root that this event belongs to, related to the attributes because is the ID root
   aggregateId: string
+  //
+  // eventName: string
   // Primitive domain data | Payload domain data
   attributes: Simplify<
     Attributes extends DomainEvent
@@ -26,6 +28,7 @@ export type DomainEventPrimitives<Attributes> = Attributes & {
   eventId?: string
   occurredOn?: Date
   aggregateId: string
+  // eventName: string
 }
 
 // export interface DomainEvent {
@@ -49,10 +52,10 @@ export abstract class DomainEvent {
   readonly eventName: string
 
   // DEBT: props vs ctx
-  constructor(props: { eventName: string; aggregateId: string; eventId?: string; occurredOn?: Date }) {
+  constructor(props: DomainEventPrimitives<{ eventName: string }>) {
     const { aggregateId, eventName, eventId, occurredOn } = props
     this.aggregateId = aggregateId
-    this.eventId = eventId || ObjectId.random().value
+    this.eventId = eventId || Uuid.random().value || ObjectId.random().value
     this.occurredOn = occurredOn || new Date()
     this.eventName = eventName
   }

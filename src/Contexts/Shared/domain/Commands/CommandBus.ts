@@ -1,5 +1,5 @@
 import { Command } from './Command'
 
-export interface CommandBus {
-  dispatch(command: Command): Promise<void>
+export abstract class CommandBus {
+  abstract dispatch(command: Command): Promise<void>
 }

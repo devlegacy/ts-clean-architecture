@@ -1,9 +1,16 @@
-import { FastifySchema } from 'fastify'
 import HttpStatus from 'http-status'
 
 import { METHOD_METADATA, SCHEMA_METADATA } from '../../constants'
 
-export const Schema = (schema: FastifySchema, code = HttpStatus.UNPROCESSABLE_ENTITY): MethodDecorator => {
+type SchemaType = {
+  body?: unknown
+  querystring?: unknown
+  params?: unknown
+  headers?: unknown
+  response?: unknown
+}
+
+export const Schema = (schema: SchemaType, code = HttpStatus.UNPROCESSABLE_ENTITY): MethodDecorator => {
   return (target: object, key: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const method = Reflect.getMetadata(METHOD_METADATA, descriptor.value)
     Reflect.defineMetadata(

@@ -1,6 +1,6 @@
 import { container, injectable, Lifecycle } from 'tsyringe'
 
-import { ControllerResolver } from '.'
+import { ControllerResolver } from './index'
 
 export const TsyringeControllerResolver: ControllerResolver = (controller) => {
   const { name } = controller

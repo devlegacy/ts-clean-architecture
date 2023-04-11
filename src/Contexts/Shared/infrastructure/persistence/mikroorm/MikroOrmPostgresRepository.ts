@@ -2,9 +2,7 @@ import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { container } from 'tsyringe'
 
-import { AggregateRoot } from '@/Contexts/Shared/domain'
-
-import { SHARED_TYPES } from '../../common'
+import { AggregateRoot, SHARED_TYPES } from '@/Contexts/Shared/domain'
 
 export abstract class MikroOrmPostgresRepository<T extends AggregateRoot> {
   private readonly _client: Promise<MikroORM<PostgreSqlDriver>> = container.resolve(SHARED_TYPES.MikroOrmPostgresClient)

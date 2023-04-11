@@ -1,4 +1,5 @@
-import { ArgumentMetadata, PipeTransform } from '../../../common/interfaces'
+import { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain'
+
 import { info } from '../../../Logger'
 import { Joi } from '../index'
 

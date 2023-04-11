@@ -10,18 +10,22 @@ import { DomainEvent } from './Events/DomainEvent'
  * - The `Aggregate Root` is responsible for enforcing consistency rules within the boundary;
  */
 export abstract class AggregateRoot {
-  static fromPrimitives: (args: any) => AggregateRoot
-  private domainEvents: DomainEvent[] = []
+  static fromPrimitives: (...args: any) => AggregateRoot
+  private _domainEvents: DomainEvent[] = []
+
+  get domainEvents() {
+    return this._domainEvents
+  }
 
   constructor() {
-    this.domainEvents = []
+    this._domainEvents = []
     if (!(this.constructor as typeof AggregateRoot).fromPrimitives)
       throw new DomainError(`${this.constructor.name} fromPrimitives must be implemented`)
   }
 
   pullDomainEvents(): DomainEvent[] {
-    const domainEvents = this.domainEvents.slice()
-    this.domainEvents = []
+    const domainEvents = this._domainEvents.slice()
+    this._domainEvents = []
 
     return domainEvents
   }
@@ -32,10 +36,19 @@ export abstract class AggregateRoot {
    */
   record(event: DomainEvent) {
     // DEBT: In test is undefined
-    if (!this.domainEvents) this.domainEvents = []
+    if (!this._domainEvents) this._domainEvents = []
 
-    this.domainEvents.push(event)
+    this._domainEvents.push(event)
+  }
+
+  handleEvent(_event: DomainEvent) {
+    return
   }
 
   abstract toPrimitives(): any
+}
+
+export type AggregateRootClass<T extends AggregateRoot> = {
+  new (...args: any[]): T
+  fromPrimitives(data: any): T
 }

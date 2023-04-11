@@ -1,17 +1,19 @@
 import { Options } from 'amqplib'
 
-import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
+import { DomainEvent, DomainEventSubscribers, EventBus } from '@/Contexts/Shared/domain'
 
 import { DomainEventDeserializer } from '../DomainEventDeserializer'
-import { MikroOrmMongoDomainEventFailoverPublisher } from '../DomainEventFailoverPublisher'
+import {
+  MikroOrmMongoDomainEventFailoverPublisher,
+  MongoDomainEventFailoverPublisher,
+} from '../DomainEventFailoverPublisher'
 import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
-import { DomainEventSubscribers } from '../DomainEventSubscribers'
 import { RabbitMQConnection } from './RabbitMQConnection'
 import { RabbitMQConsumerFactory } from './RabbitMQConsumerFactory'
 import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter'
 
 export class RabbitMQEventBus implements EventBus {
-  private failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher
+  private failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher
   private connection: RabbitMQConnection
   private exchange: string
   private queueNameFormatter: RabbitMQQueueFormatter
@@ -20,7 +22,7 @@ export class RabbitMQEventBus implements EventBus {
   constructor(params: {
     connection: RabbitMQConnection
     exchange: string
-    failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher
+    failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher
     maxRetries: number
     queueNameFormatter: RabbitMQQueueFormatter
   }) {

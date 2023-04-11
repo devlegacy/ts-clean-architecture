@@ -7,19 +7,19 @@ import { join, resolve } from 'path'
 import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
 
+import { Paramtype } from '@/Contexts/Shared/domain/Common/interfaces/features/paramtype.interface'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
-import { ParamData, RequestMappingMetadata, RequestMethod, RouteParamMetadata, RouteParamtypes } from '../common'
 import {
   HTTP_CODE_METADATA,
   METHOD_METADATA,
   PATH_METADATA,
   ROUTE_ARGS_METADATA,
   SCHEMA_METADATA,
-} from '../common/constants'
-import { ControllerResolver } from '../common/dependency-injection'
-import { PipeTransform } from '../common/interfaces'
-import { Paramtype } from '../common/interfaces/features/paramtype.interface'
+} from '../../domain/Common/constants'
+import { PipeTransform } from '../../domain/Common/interfaces'
+import { ParamData, RequestMappingMetadata, RequestMethod, RouteParamMetadata, RouteParamtypes } from '../_Common'
+import { ControllerResolver } from '../_Common/dependency-injection'
 import { Primary } from './cluster'
 import { FastifyAdapter } from './fastify'
 import { ValidationModule } from './interfaces'
@@ -68,8 +68,8 @@ const getControllers = async (path = './src') => {
   return controllers
 }
 
-const getControllerMetadata = (controller: any, resolver?: ControllerResolver) => {
-  const instance = resolver ? resolver(controller) : new controller()
+const getControllerMetadata = (controller: any, resolver?: ControllerResolver, container?: any) => {
+  const instance = resolver ? resolver(controller, container) : new controller()
   const {
     // has controller path by metadata
     // has arguments by method name and metadata
@@ -260,15 +260,23 @@ const buildSchemaWithParams = (
  * @param props
  */
 // export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
+// eslint-disable-next-line complexity
 export const bootstrap = async (
   adapterInstance: FastifyAdapter,
-  props: { controller: string; isProduction: boolean; prefix?: string; resolver?: ControllerResolver }
+  props: {
+    controller: string | any[]
+    isProduction: boolean
+    prefix?: string
+    resolver?: ControllerResolver
+    container?: any
+  }
 ) => {
   // const controllerContainer = container.createChildContainer()
-  const controllers = await getControllers(props.controller)
+  const controllers = Array.isArray(props.controller) ? props.controller : await getControllers(props.controller)
   for (const controller of controllers) {
+    if (!props.resolver) continue
     const { instance, instanceConstructor, instancePrototype, classMethodNames, controllerPath } =
-      getControllerMetadata(controller, props.resolver)
+      getControllerMetadata(controller, props.resolver, props.container)
     for (const methodName of classMethodNames) {
       if (methodName === 'constructor') continue // ignore constructor method reflect metadata
 

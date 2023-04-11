@@ -1,9 +1,11 @@
 import amqplib, { ConfirmChannel, Connection, ConsumeMessage, Options } from 'amqplib'
+import { Service } from 'diod'
 
 import { ConnectionSettings } from './ConnectionSettings'
 import { ExchangeSetting } from './ExchangeSetting'
 import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter'
 
+@Service()
 export class RabbitMQConnection {
   protected connectionSettings: ConnectionSettings
 

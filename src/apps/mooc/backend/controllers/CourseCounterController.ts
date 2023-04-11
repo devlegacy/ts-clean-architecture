@@ -1,6 +1,5 @@
-import { FindCoursesCounterQuery, FindCoursesCounterResponse } from '@/Contexts/Mooc/CoursesCounter/application/Find'
-import { QueryBus } from '@/Contexts/Shared/domain'
-import { Controller, Get } from '@/Contexts/Shared/infrastructure/common'
+import { FindCoursesCounterQuery, FindCoursesCounterResponse } from '@/Contexts/Mooc/CoursesCounter/application'
+import { Controller, Get, QueryBus } from '@/Contexts/Shared/domain'
 
 @Controller('courses-counter')
 export class CoursesCounterController {

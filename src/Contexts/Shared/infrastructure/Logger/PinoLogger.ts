@@ -1,8 +1,8 @@
 import pino, { Logger as PinoLoggerType } from 'pino'
 import util from 'util'
 
-import { Logger, LogLevel, LogMethod } from '../../domain'
-import { streams } from './helpers'
+import { Logger, LogLevel, LogMessage } from '../../domain'
+import { MESSAGE_KEY, streams } from './helpers'
 
 export class PinoLogger implements Logger {
   #logger: PinoLoggerType
@@ -11,34 +11,43 @@ export class PinoLogger implements Logger {
     this.#logger = pino(
       {
         ...options,
-        // messageKey: 'message',
+        messageKey: MESSAGE_KEY,
         base: null,
       },
       pino.multistream(streams)
     )
   }
 
-  info(message: Parameters<LogMethod>[0]): void {
+  child(bindings: Record<string, unknown>): Logger {
+    const child = this.#logger.child(bindings)
+    return child
+  }
+
+  trace(message: LogMessage): void {
+    this.#logger.trace(message)
+  }
+
+  info(message: LogMessage): void {
     this.#logger.info(message)
   }
 
-  warn(message: Parameters<LogMethod>[0]): void {
+  warn(message: LogMessage): void {
     this.#logger.warn(message)
   }
 
-  debug(message: Parameters<LogMethod>[0]): void {
+  debug(message: LogMessage): void {
     this.#logger.debug(message)
   }
 
-  fatal(message: Parameters<LogMethod>[0]): void {
+  fatal(message: LogMessage): void {
     this.#logger.fatal(message)
   }
 
-  error(message: Parameters<LogMethod>[0]): void {
+  error(message: LogMessage): void {
     this.#logger.error(message)
   }
 
-  deep(message: Parameters<LogMethod>[0]) {
+  deep(message: LogMessage) {
     this.#logger.info(
       util.inspect(message, {
         showHidden: false,
