@@ -195,7 +195,7 @@
   - cross-env as a command helper
   - convict (documentation) | json
   - env + env expand | .env
-- 💉 IoC Container
+- 💉 IoC Container (Inversion of Control Container)
   - tsyringe
   - Lab: Diod, node-dependency-injection, inversify
   - typescript **autowiring**
@@ -245,7 +245,11 @@
 ## Complexity
 
 - Contaminación y complejidad de la implementación del contenedor de dependencias (`tsyringe`) en capas de aplicación y dominio.
+  - [Top fives Dependency Injection Container](https://blog.logrocket.com/top-five-typescript-dependency-injection-containers/)
   - [`tsyringe`](https://github.com/Microsoft/tsyringe)
+    - [Resource](https://www.youtube.com/watch?v=NUXvLiASqCk&ab_channel=LeanMind)
+    - [Resource](https://www.youtube.com/watch?v=D1kM5W9r85Q)
+  - [`tsyringe anti-pattern`](https://dev.to/leehambley/using-tsyringe-for-dependency-injection-without-using-the-class-syntax-29h7)
   - [alternatives](https://npmtrends.com/awilix-vs-bottlejs-vs-diod-vs-inversify-vs-node-dependency-injection-vs-tsyringe-vs-typed-inject-vs-typedi-vs-typescript-ioc)
   - `@injectable()` | `@inject()` | `@singleton()` |  `@injectAll()`
 - Contaminación y complejidad de la implementación de `type-fest` para obtener los valores primitivos en las capas de dominio 
