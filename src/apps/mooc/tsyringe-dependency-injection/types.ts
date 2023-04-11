@@ -1,4 +1,4 @@
-import { SHARED_TYPES } from '@/Contexts/Shared/infrastructure/common'
+import { SHARED_TYPES } from '@/Contexts/Shared/domain'
 
 export const TYPES = {
   ...SHARED_TYPES,

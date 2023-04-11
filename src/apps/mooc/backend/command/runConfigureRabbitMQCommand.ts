@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import '../../modules'
+import '../../tsyringe-dependency-injection'
 
 import { container } from 'tsyringe'
 

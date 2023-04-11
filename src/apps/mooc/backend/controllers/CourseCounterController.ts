@@ -1,16 +1,12 @@
-import { inject } from 'tsyringe'
-
 import { FindCoursesCounterQuery, FindCoursesCounterResponse } from '@/Contexts/Mooc/CoursesCounter/application/Find'
 import { QueryBus } from '@/Contexts/Shared/domain'
 import { Controller, Get } from '@/Contexts/Shared/infrastructure/common'
-
-import { TYPES } from '../../modules/types'
 
 @Controller('courses-counter')
 export class CoursesCounterController {
   constructor(
     // private readonly coursesCounterFinder: CoursesCounterFinder,
-    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus
+    private readonly queryBus: QueryBus
   ) {}
 
   @Get()

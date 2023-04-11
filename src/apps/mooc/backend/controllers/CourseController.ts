@@ -1,5 +1,3 @@
-import { inject } from 'tsyringe'
-
 import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus } from '@/Contexts/Shared/domain'
@@ -13,13 +11,11 @@ import {
   // Schema
 } from '@/Contexts/Shared/infrastructure/common'
 
-import { TYPES } from '../../modules/types'
-
 @Controller('courses')
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator
-    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus
   ) {}
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)

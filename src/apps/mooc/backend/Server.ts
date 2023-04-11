@@ -3,18 +3,19 @@ import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 import fastifyQs from 'fastify-qs'
 import http from 'http'
-import { resolve } from 'path'
 import qs from 'qs'
-import { container } from 'tsyringe'
 
-import { Monitoring, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
+import { Logger, Monitoring } from '@/Contexts/Shared/domain'
+import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/common'
+// import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
 import { ZodModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Zod'
 
-import { TYPES } from '../modules/types'
+import { container } from '../modules'
+import { TAGS } from '../modules/tags'
 
 type Options = {
   port?: number
@@ -24,11 +25,14 @@ type Options = {
   name?: string
 }
 
+const logger = container.get(Logger)
+const monitoring = container.get(Monitoring)
+
 export class Server {
   readonly #options?: Options
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
-  readonly #adapter = new FastifyAdapter()
+  readonly #adapter = new FastifyAdapter({ logger })
   #httpServer?: http.Server
 
   constructor(options?: Options) {
@@ -36,7 +40,7 @@ export class Server {
 
     this.#adapter.enableCors()
     this.#adapter
-      .setMonitoringModule(container.resolve<Monitoring>(TYPES.Monitoring))
+      .setMonitoringModule(monitoring)
       .setValidationModule(new JoiModule())
       .setValidationModule(new ZodModule())
       .setValidationModule(new GeneralRequestValidation())
@@ -44,8 +48,9 @@ export class Server {
 
   async listen() {
     await this.#adapter.bootstrap({
-      controller: resolve(__dirname, './controllers'),
-      resolver: TsyringeControllerResolver,
+      container,
+      controller: container.findTaggedServiceIdentifiers(TAGS.Controller),
+      resolver: DiodControllerResolver,
       isProduction: this.#options?.env === 'production',
     })
 

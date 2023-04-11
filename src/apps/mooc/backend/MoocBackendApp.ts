@@ -1,12 +1,8 @@
-import '../modules'
-
-import { container } from 'tsyringe'
-
 import config from '@/Contexts/Mooc/Shared/infrastructure/config'
 import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
+import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
 
-import { TYPES } from '../modules/types'
+import { container } from '../modules'
 import { Server } from './Server'
 
 export class MoocBackendApp {
@@ -23,14 +19,11 @@ export class MoocBackendApp {
   }
 
   async startHttp() {
-    const conf = {
-      host: config.get('app.ip'),
-      env: config.get('app.env'),
-      debug: config.get('app.debug'),
-      name: config.get('app.name'),
-      port: config.get('app.port'),
-    }
-    this.#server = new Server(conf)
+    const conf = config.get('app')
+    this.#server = new Server({
+      ...conf,
+      host: conf.ip,
+    })
     await this.#server.listen()
   }
 
@@ -39,19 +32,15 @@ export class MoocBackendApp {
   }
 
   async configureEventBus() {
-    const eventBus = container.resolve<EventBus>(TYPES.EventBus)
-    const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
+    const eventBus = container.get(EventBus)
+    const rabbitMQConnection = container.get(RabbitMQConnection)
     await rabbitMQConnection.connect()
-
-    const subscribers = DomainEventSubscribers
-      .from
-      // containerBuilder()
-      ()
+    const subscribers = DomainEventSubscriberResolver.fromContainer(container)
     eventBus.addSubscribers(subscribers)
   }
 
   async stop() {
-    const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
+    const rabbitMQConnection = container.get(RabbitMQConnection)
     await rabbitMQConnection.close()
     this.#server?.stop()
   }
