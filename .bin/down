@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $(dirname "$0")/include/global
+
+echo "[$(current_timestamp)] Stopping and removing all the containers"
+"${DOCKER_COMPOSE_PATH}" \
+    -f ${PROJECT_PATH}/docker-compose.yml \
+    down --remove-orphans --rmi local

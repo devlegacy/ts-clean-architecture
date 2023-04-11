@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export DOCKER_COMPOSE_PATH=$(which docker-compose) #path
+export PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../../ && pwd )"
+
+function current_timestamp() {
+  echo $(date +"%Y-%m-%d %T")
+}

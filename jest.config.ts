@@ -79,7 +79,7 @@ export default {
     //   "mjs",
     //   "cjs",
     //   "jsx",
-    'ts'
+    'ts',
     //   "tsx",
     //   "json",
     //   "node"
@@ -91,7 +91,7 @@ export default {
     '@/apps/(.*)$': ['<rootDir>/src/apps/$1'],
     '@/Contexts/(.*)$': ['<rootDir>/src/Contexts/$1'],
     '@/shared/(.*)$': ['<rootDir>/src/shared/$1'],
-    '@/tests/(.*)$': ['<rootDir>/tests/$1']
+    '@/tests/(.*)$': ['<rootDir>/tests/$1'],
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -130,7 +130,7 @@ export default {
   // A list of paths to directories that Jest should use to search for files in
   roots: [
     //'<rootDir>/src',
-    '<rootDir>/tests'
+    '<rootDir>/tests',
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
@@ -184,10 +184,10 @@ export default {
       'ts-jest',
       {
         tsconfig: 'tsconfig.json',
-        isolatedModules: true
+        isolatedModules: true,
         // useESM: true,
-      }
-    ]
+      },
+    ],
   },
 
   // TODO: Read about @swc/jest and MikroORM
@@ -227,7 +227,7 @@ export default {
   // },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\', '\\.pnp\\.[^\\\\]+$']
+  transformIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\', '\\.pnp\\.[^\\\\]+$'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

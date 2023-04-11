@@ -1,0 +1,171 @@
+{
+  "Domain aggregate root": {
+    "prefix": "ag",
+    "body": [
+      "import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'",
+      "",
+      "export type $1EntityDto = Entity<$1>",
+      "export type $1PrimitiveDto = Primitives<$1>",
+      "",
+      "export class $1 extends AggregateRoot {",
+      "  constructor() {",
+      "    super()",
+      "  }",
+      "",
+      "  static override fromPrimitives(data: ReturnType<typeof $1.prototype.toPrimitives>): $1 {",
+      "    const entity = new $1()",
+      "    return entity",
+      "  }",
+      "",
+      "  toPrimitives() {",
+      "    const primitives = {}",
+      "    return primitives",
+      "  }",
+      "",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": "A cluster of associated objects which act as a single unit for the purpose of data changes."
+  },
+  "Use case": {
+    "prefix": "uc",
+    "body": [
+      "import { inject, injectable } from 'tsyringe'",
+      "",
+      "@injectable()",
+      "export class $1$2 {",
+      "  constructor(@inject(TYPES.$1Repository) private readonly repository: $1Repository) {}",
+      "",
+      "  async run() {",
+      "    return",
+      "  }",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": "Create a tsyringe use case template"
+  },
+  "Controller": {
+    "prefix": "ctr",
+    "description": "Create a HTTP controller template. Adapter that implements an implicit Port | Interface (Primary port | Driving adapter). A contract that must be fulfilled by the adapter to interact with the system."
+  },
+  "Mongo repository": {
+    "prefix": "mr",
+    "body": [
+      "import { MongoRepository } from '@/Contexts/Shared/infrastructure'",
+      "",
+      "import { $1, $1Repository } from '../../domain'",
+      "",
+      "export class Mongo$1Repository extends MongoRepository<$1> implements $1Repository {}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": "Create a mongo repository template. Adapter that implements a Port | Interface (Secondary port | Driven adapter). It describes a system need to be satisfied by an adapter of a particular technology. For instance to write, to read in persistence."
+  },
+  "Command": {
+    "prefix": "cmd",
+    "body": [
+      "import { Command } from '@/Contexts/Shared/domain'",
+      "",
+      "export class $1Command extends Command {",
+      "  constructor() {",
+      "    super()",
+      "  }",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": ""
+  },
+  "Command handler": {
+    "prefix": "cmdh",
+    "body": [
+      "import { injectable } from 'tsyringe'",
+      "",
+      "import { Command, CommandHandler } from '@/Contexts/Shared/domain'",
+      "",
+      "import { $3 } from './$3'",
+      "",
+      "@injectable()",
+      "export class $1CommandHandler implements CommandHandler<$1Command> {",
+      "  constructor(private readonly $2: $3) {}",
+      "",
+      "  async handle(command: $1Command): Promise<void> {",
+      "    await this.$2.run()",
+      "  }",
+      "",
+      "  subscribedTo(): Command {",
+      "    return $1Command",
+      "  }",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": ""
+  },
+  "Query": {
+    "prefix": "qry",
+    "body": [
+      "import { Query } from '@/Contexts/Shared/domain'",
+      "",
+      "export class $1Query extends Query {",
+      "  constructor() {",
+      "    super()",
+      "  }",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": ""
+  },
+  "Query handler": {
+    "prefix": "qryh",
+    "body": [
+      "import { injectable } from 'tsyringe'",
+      "",
+      "import { EntityNotFoundError, Query, QueryHandler } from '@/Contexts/Shared/domain'",
+      "",
+      "import { $4 } from './$4'",
+      "import { $1Query } from './$1Query'",
+      "",
+      "@injectable()",
+      "export class $1QueryHandler implements QueryHandler<$1Query, $2Response> {",
+      "  constructor(private readonly finder: $4) {}",
+      "",
+      "  subscribedTo(): Query {",
+      "    return $1Query",
+      "  }",
+      "",
+      "  async handle(query: $1Query): Promise<$2Response> {",
+      "    const $3 = await this.finder.run(id)",
+      "",
+      "    if (!$3) throw new EntityNotFoundError('Entity not found')",
+      "",
+      "    const response = new $2Response($3)",
+      "",
+      "    return response",
+      "  }",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": ""
+  },
+  "Query response": {
+    "prefix": "qryr",
+    "body": [
+      "import { Response } from '@/Contexts/Shared/domain'",
+      "",
+      "type ResponseDto = any",
+      "",
+      "export class $1Response implements Response {",
+      "",
+      "  constructor() {}",
+      "}",
+      ""
+    ],
+    "scope": "typescript",
+    "description": ""
+  }
+}

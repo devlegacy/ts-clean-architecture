@@ -139,18 +139,19 @@ services:
     ports:
       - "6379:6379"
     # command: [ "redis-server", "--requirepass", "SUPER_SECRET_PASSWORD" ]
-    # volumes:
-    #   - ./.data/redis:/data
+    volumes:
+      - ./.data/redis:/data
     environment:
       - REDIS_ARGS=--requirepass SUPER_SECRET_PASSWORD
     networks:
       - app-network
     # redis-cli --pass SUPER_SECRET_PASSWORD
     # JSON.GET blocks
-    # [redis-cli] info modules --pass SUPER_SECRET_PASSWORD
+    # [redis-cli] info tsyringe-dependency-injection --pass SUPER_SECRET_PASSWORD
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3 # 8.5.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2 # 8.5.3
+    # image: docker.elastic.co/elasticsearch/elasticsearch
     container_name: elasticsearch
     environment:
       - node.name=elasticsearch
@@ -163,7 +164,8 @@ services:
         soft: -1 # The memlock soft and hard values configures the range of memory that ElasticSearch will use. Setting this to –1 means unlimited.
         hard: -1
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      # - esdata:/usr/share/elasticsearch/data
+      - ./.data/esdata:/usr/share/elasticsearch/data
       # - certs:/usr/share/elasticsearch/config/certs
     ports:
       - '9200:9200'
@@ -172,7 +174,8 @@ services:
 
   # localhost:5601
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.5.3
+    image: docker.elastic.co/kibana/kibana:8.6.2
+    # image: docker.elastic.co/kibana/kibana
     container_name: kibana
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
@@ -230,9 +233,9 @@ networks:
 
 # docker-compose up -d
 volumes:
-  certs:
-    driver: local
-  esdata:
-    driver: local
+  # certs:
+  #   driver: local
+  # esdata:
+  #   driver: local
   eventstore-volume-data:
   eventstore-volume-logs:
