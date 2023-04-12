@@ -14,7 +14,8 @@ import Fastify, {
 } from 'fastify'
 import { AddressInfo } from 'net'
 
-import { ControllerResolver, Monitoring } from '../_Common'
+import { Monitoring } from '../../domain'
+import { ControllerResolver } from '../Common'
 import { bootstrap } from './bootstrap'
 import { ValidationModule } from './interfaces'
 

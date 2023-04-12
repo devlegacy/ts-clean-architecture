@@ -3,7 +3,7 @@ import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import CreateHttpError from 'http-errors'
 
 import { EntityNotFoundError, InvalidArgumentError } from '../../domain'
-import { HttpStatus } from '../_Common'
+import { HttpStatus } from '../../domain/Common'
 import { HttpError, ValidationModule } from '../platform-fastify'
 
 export class GeneralRequestValidation implements ValidationModule<unknown> {

@@ -1,12 +1,10 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/mooc/modules/types'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { CoursesCounterNotExist, CoursesCounterRepository } from '../../domain'
 
-@injectable()
+@UseCase()
 export class CoursesCounterFinder {
-  constructor(@inject(TYPES.CoursesCounterRepository) private readonly repository: CoursesCounterRepository) {}
+  constructor(private readonly repository: CoursesCounterRepository) {}
 
   async run() {
     const counter = await this.repository.search()

@@ -177,15 +177,21 @@ export class RabbitMQConnection {
       vhost,
     })
 
-    connection.on('error', (err: unknown) => {
-      Promise.reject(err)
-    })
+    connection
+      .on('error', (err: unknown) => {
+        console.log('Connection error', err)
+        Promise.reject(err)
+      })
+      .on('close', (err: unknown) => console.log('Connection close', err))
 
     return connection
   }
 
   private async amqpChannel(): Promise<ConfirmChannel> {
     const channel = await this.connection!.createConfirmChannel()
+    channel.on('error', (err: unknown) => console.log('Channel error', err))
+    channel.on('close', (err: unknown) => console.log('Channel close', err))
+
     await channel.prefetch(1)
 
     return channel

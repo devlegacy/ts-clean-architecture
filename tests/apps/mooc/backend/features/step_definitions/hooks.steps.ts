@@ -1,10 +1,9 @@
-import { AfterAll, BeforeAll } from '@cucumber/cucumber'
+import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
 import supertest, { SuperTest, Test } from 'supertest'
-import { container } from 'tsyringe'
 
 import { ConfigureRabbitMQCommand } from '@/apps/mooc/backend/command/ConfigureRabbitMQCommand'
 import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
-import { TYPES } from '@/apps/mooc/modules/types'
+import { container } from '@/apps/mooc/modules'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
@@ -12,8 +11,9 @@ const application = new MoocBackendApp()
 // const backofficeBackendApp = new BackofficeBackendApp()
 
 let api: SuperTest<Test>
-const environmentArranger = container.resolve<EnvironmentArranger>(TYPES.EnvironmentArranger)
-const eventBus = container.resolve<EventBus>(TYPES.EventBus)
+const environmentArranger = container.get(EnvironmentArranger)
+const eventBus = container.get(EventBus)
+setDefaultTimeout(60 * 1000)
 
 BeforeAll(async () => {
   await ConfigureRabbitMQCommand.run()
@@ -21,7 +21,7 @@ BeforeAll(async () => {
   // await backofficeBackendApp.start()
   await application.start()
   api = supertest(application.httpServer)
-  await wait()
+  await wait(1000)
   await environmentArranger.arrange()
 })
 
@@ -29,6 +29,7 @@ AfterAll(async () => {
   await environmentArranger.arrange()
   await environmentArranger.close()
 
+  await wait(1000)
   // await backofficeBackendApp.stop()
   await application.stop()
 

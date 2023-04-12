@@ -6,7 +6,8 @@ import { DEFAULT, getClassSchema, JoiValidationGroup } from 'joi-class-decorator
 import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 import { ObjectId } from 'mongodb'
 
-import { RequestMethod } from '../../_Common'
+import { RequestMethod } from '@/Contexts/Shared/domain/Common'
+
 import { ValidationModule } from '../../platform-fastify'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {

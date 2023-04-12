@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { TYPES } from '@/apps/mooc/modules/types'
+import { TYPES } from '@/apps/mooc/tsyringe-dependency-injection/types'
 import { EventBus } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'

@@ -1,18 +1,17 @@
-import { injectable } from 'tsyringe'
-
-import { Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { IQueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
 import { CoursesFinder } from './CoursesFinder'
 import { CoursesResponse } from './CoursesResponse'
 import { SearchAllCoursesQuery } from './SearchAllCoursesQuery'
 
-@injectable()
-export class SearchAllCoursesQueryHandler implements QueryHandler<SearchAllCoursesQuery, CoursesResponse> {
+@QueryHandler(SearchAllCoursesQuery)
+export class SearchAllCoursesQueryHandler implements IQueryHandler<SearchAllCoursesQuery, CoursesResponse> {
   constructor(private coursesFinder: CoursesFinder) {}
 
-  subscribedTo(): Query {
-    return SearchAllCoursesQuery
-  }
+  // subscribedTo(): Query {
+  //   return SearchAllCoursesQuery
+  // }
 
   async handle(_query: SearchAllCoursesQuery): Promise<CoursesResponse> {
     return this.coursesFinder.run()

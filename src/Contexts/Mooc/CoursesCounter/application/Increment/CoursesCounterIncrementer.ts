@@ -1,17 +1,12 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/mooc/modules/types'
 import { EventBus } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { CourseId } from '../../../Shared/domain'
 import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../../domain'
 
-@injectable()
+@UseCase()
 export class CoursesCounterIncrementer {
-  constructor(
-    @inject(TYPES.CoursesCounterRepository) private readonly repository: CoursesCounterRepository,
-    @inject(TYPES.EventBus) private readonly bus: EventBus
-  ) {}
+  constructor(private readonly repository: CoursesCounterRepository, private readonly bus: EventBus) {}
 
   async run(courseId: CourseId) {
     const search = await this.repository.search()

@@ -5,7 +5,7 @@ import fastifyQs from 'fastify-qs'
 import http from 'http'
 import qs from 'qs'
 
-import { Logger, Monitoring } from '@/Contexts/Shared/domain'
+import { Monitoring } from '@/Contexts/Shared/domain'
 import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 // import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
@@ -25,14 +25,14 @@ type Options = {
   name?: string
 }
 
-const logger = container.get(Logger)
+// const logger = container.get(Logger)
 const monitoring = container.get(Monitoring)
 
 export class Server {
   readonly #options?: Options
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
-  readonly #adapter = new FastifyAdapter({ logger })
+  readonly #adapter = new FastifyAdapter()
   #httpServer?: http.Server
 
   constructor(options?: Options) {

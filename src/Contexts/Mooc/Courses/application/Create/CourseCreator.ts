@@ -8,20 +8,15 @@
  *  - Si cambiamos algo de infraestructura (no hay que modificar) no se afecta el comportamiento del dominio
  */
 
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/mooc/modules/types'
 import { EventBus } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { Course, CourseEntityDto, CourseRepository } from '../../domain'
 
 // NOTE: Complejidad asumida
-@injectable()
+@UseCase()
 export class CourseCreator {
-  constructor(
-    @inject(TYPES.CourseRepository) private readonly repository: CourseRepository,
-    @inject(TYPES.EventBus) private readonly bus: EventBus
-  ) {}
+  constructor(private readonly repository: CourseRepository, private readonly bus: EventBus) {}
 
   // async run(request: CoursePrimitiveProps) {
   //   const course = Course.create(

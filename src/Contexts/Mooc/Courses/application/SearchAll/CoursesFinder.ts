@@ -1,13 +1,11 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/mooc/modules/types'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { CourseRepository } from '../../domain'
 import { CoursesResponse } from './CoursesResponse'
 
-@injectable()
+@UseCase()
 export class CoursesFinder {
-  constructor(@inject(TYPES.CourseRepository) private readonly repository: CourseRepository) {}
+  constructor(private readonly repository: CourseRepository) {}
 
   async run() {
     const courses = await this.repository.all()

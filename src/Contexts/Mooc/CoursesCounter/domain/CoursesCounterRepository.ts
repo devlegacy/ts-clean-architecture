@@ -2,7 +2,7 @@ import { Nullable } from '@/Contexts/Shared/domain'
 
 import { CoursesCounter } from './CoursesCounter'
 
-export interface CoursesCounterRepository {
-  search(): Promise<Nullable<CoursesCounter>>
-  save(counter: CoursesCounter): Promise<void>
+export abstract class CoursesCounterRepository {
+  abstract search(): Promise<Nullable<CoursesCounter>>
+  abstract save(counter: CoursesCounter): Promise<void>
 }

@@ -11,6 +11,13 @@ import { Paramtype } from '@/Contexts/Shared/domain/Common/interfaces/features/p
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import {
+  ParamData,
+  RequestMappingMetadata,
+  RequestMethod,
+  RouteParamMetadata,
+  RouteParamtypes,
+} from '../../domain/Common'
+import {
   HTTP_CODE_METADATA,
   METHOD_METADATA,
   PATH_METADATA,
@@ -18,8 +25,7 @@ import {
   SCHEMA_METADATA,
 } from '../../domain/Common/constants'
 import { PipeTransform } from '../../domain/Common/interfaces'
-import { ParamData, RequestMappingMetadata, RequestMethod, RouteParamMetadata, RouteParamtypes } from '../_Common'
-import { ControllerResolver } from '../_Common/dependency-injection'
+import { ControllerResolver } from '../Common/dependency-injection'
 import { Primary } from './cluster'
 import { FastifyAdapter } from './fastify'
 import { ValidationModule } from './interfaces'

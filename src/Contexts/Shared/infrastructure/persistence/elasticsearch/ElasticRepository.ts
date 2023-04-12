@@ -4,8 +4,8 @@ import bodybuilder, { Bodybuilder } from 'bodybuilder'
 import { container } from 'tsyringe'
 
 import { AggregateRoot, Criteria, SHARED_TYPES } from '@/Contexts/Shared/domain'
+import { HttpStatus } from '@/Contexts/Shared/domain/Common'
 
-import { HttpStatus } from '../../_Common'
 import ElasticConfig from './ElasticConfig'
 import { ElasticCriteriaConverter } from './ElasticCriteriaConverter'
 

@@ -6,7 +6,7 @@ const moocConfig = convict({
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'staging', 'test'],
-    default: 'default',
+    default: 'development',
     env: 'NODE_ENV',
   },
   app: {
@@ -48,7 +48,7 @@ const moocConfig = convict({
       format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
       default: 'info',
       env: 'LOG_LEVEL',
-    },
+    } as const,
   },
   mongo: {
     url: {
@@ -174,6 +174,6 @@ const filePaths = [
   resolve(`${__dirname}/${moocConfig.get('app.env')}.json`),
 ].filter((path) => existsSync(path))
 
-moocConfig.loadFile(filePaths)
+moocConfig.loadFile(filePaths).validate()
 
 export default moocConfig

@@ -1,20 +1,15 @@
-import { injectable } from 'tsyringe'
-
-import { Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { IQueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
 import { CoursesCounterFinder } from './CoursesCounterFinder'
 import { FindCoursesCounterQuery } from './FindCoursesCounterQuery'
 import { FindCoursesCounterResponse } from './FindCoursesCounterResponse'
 
-@injectable()
+@QueryHandler(FindCoursesCounterQuery)
 export class FindCoursesCounterQueryHandler
-  implements QueryHandler<FindCoursesCounterQuery, FindCoursesCounterResponse>
+  implements IQueryHandler<FindCoursesCounterQuery, FindCoursesCounterResponse>
 {
   constructor(private readonly finder: CoursesCounterFinder) {}
-
-  subscribedTo(): Query {
-    return FindCoursesCounterQuery
-  }
 
   async handle(_query: FindCoursesCounterQuery): Promise<FindCoursesCounterResponse> {
     const counter = await this.finder.run()
