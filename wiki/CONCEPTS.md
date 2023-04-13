@@ -92,3 +92,11 @@
 - acento circunflejo | Circumflex: `^`
 - cedilla, C caudata | C-cedilla: `ç`
 - acento grave | backtick: ``` ` ```
+
+## Leyes
+
+- Ley de Demeter
+- Ley de conwad
+  
+- Tell don't ask
+- ¿consideramos algoritmos infraestructura?

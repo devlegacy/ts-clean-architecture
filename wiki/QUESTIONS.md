@@ -15,7 +15,7 @@
 
 - [ ] ¿Eliminar los eventos en las colas después de los test?
 - [ ] ¿Default sort de los elementos?
-  
+
 ## Aportes
 
 - [Estructura de carpetas: DDD en TypeScript](https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/path/step/147601236/)
