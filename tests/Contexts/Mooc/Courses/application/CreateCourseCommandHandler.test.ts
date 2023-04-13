@@ -20,7 +20,7 @@ beforeEach(() => {
 
 describe('CreateCourseCommandHandler', () => {
   it('should create a valid course', async () => {
-    expect.assertions(3)
+    expect.assertions(5)
 
     const command = CreateCourseCommandMother.random()
     const course = CourseMother.from(command)
@@ -28,6 +28,7 @@ describe('CreateCourseCommandHandler', () => {
 
     await handler.handle(command)
 
+    repository.assertLastSavedCourseIs(course)
     repository.assertSaveHaveBeenCalledWith(course)
     eventBus.assertLastPublishedEventIs(domainEvent)
   })
