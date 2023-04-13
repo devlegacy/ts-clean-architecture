@@ -24,7 +24,7 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     return collection
   }
 
-  protected async persist(id: EntityId, aggregateRoot: T, transform?: (obj: any) => any): Promise<void> {
+  protected async persist(id: EntityId, aggregateRoot: T, transform?: (...args: any[]) => any): Promise<void> {
     const collection = await this.collection()
     const _id = (ObjectId.isValid(id) ? new ObjectId(id) : id) as ObjectId
     const primitives = transform ? transform(aggregateRoot.toPrimitives()) : aggregateRoot.toPrimitives()

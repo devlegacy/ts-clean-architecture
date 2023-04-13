@@ -13,7 +13,7 @@ export class Uuid extends ValueObject<string> {
     // this.isValid(value)
     // this.value = value
     super(value)
-    this.isValidUuid(value)
+    this.ensureIsValidUuid(value)
   }
 
   // Debería devolver valores en string
@@ -22,7 +22,10 @@ export class Uuid extends ValueObject<string> {
     return new Uuid(v4())
   }
 
-  private isValidUuid(value: string) {
+  // void -> efecto colateral
+  // clausula de guarda
+  // early return
+  private ensureIsValidUuid(value: string) {
     // if (!ObjectId.isValid(id)) {
     if (!(validate(value) || version(value) === 4))
       throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${value}>`)

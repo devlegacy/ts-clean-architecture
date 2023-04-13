@@ -1,4 +1,1 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Response {
-  // do nothing
-}
+export abstract class Response {}

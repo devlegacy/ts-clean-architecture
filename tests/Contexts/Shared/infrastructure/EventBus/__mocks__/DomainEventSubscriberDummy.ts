@@ -1,8 +1,8 @@
-import { DomainEvent, DomainEventClass, DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, DomainEventClass, IDomainEventSubscriber } from '@/Contexts/Shared/domain'
 
 import { DomainEventDummy } from './DomainEventDummy'
 
-export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainEventDummy> {
+export class DomainEventSubscriberDummy implements IDomainEventSubscriber<DomainEventDummy> {
   private events: DomainEvent[]
   private failsFirstTime = false
   private alwaysFails = false

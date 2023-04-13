@@ -11,11 +11,13 @@
 import { EventBus } from '@/Contexts/Shared/domain'
 import { UseCase } from '@/Contexts/Shared/domain/Common'
 
-import { Course, CourseEntityDto, CourseRepository } from '../../domain'
+import { Course, CourseEntityType, CourseRepository } from '../../domain'
 
 // NOTE: Complejidad asumida
+// NOTE: Collaborator
 @UseCase()
 export class CourseCreator {
+  // Conventions | Convenciones -> Verb as Action [Creator]
   constructor(private readonly repository: CourseRepository, private readonly bus: EventBus) {}
 
   // async run(request: CoursePrimitiveProps) {
@@ -29,8 +31,8 @@ export class CourseCreator {
   //   await this.eventBus.publish(course.pullDomainEvents())
   // }
 
-  async run(request: CourseEntityDto) {
-    const course = Course.create(request.id, request.name, request.duration ?? request.duration)
+  async run(request: CourseEntityType) {
+    const course = Course.create(request.id, request.name, request.duration)
 
     await this.repository.save(course)
     await this.bus.publish(course.pullDomainEvents())

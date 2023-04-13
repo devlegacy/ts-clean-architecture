@@ -1,11 +1,11 @@
-import '@/apps/mooc/modules'
+import '@/apps/mooc/tsyringe-dependency-injection'
 
 import { container } from 'tsyringe'
 
 // import { DataSource } from 'typeorm'
 import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import {
-  EnvironmentArranger
+  EnvironmentArranger,
   //  TypeOrmEnvironmentArranger
 } from '@/tests/Contexts/Shared/infrastructure'
 

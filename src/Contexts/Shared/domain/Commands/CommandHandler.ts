@@ -1,6 +1,7 @@
 import { Command } from './Command'
 
-export interface ICommandHandler<T extends Command> {
+export interface ICommandHandler<TCommand extends Command, R = void> {
   // subscribedTo(): Command
-  handle(command: T): Promise<void>
+  // handle<C extends TCommand>(command: C): Promise<R>
+  handle(command: TCommand): Promise<R>
 }

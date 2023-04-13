@@ -1,7 +1,7 @@
 import { CourseDuration, CourseName, CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
-import { CourseIdMother } from '../../Shared/domain/Courses'
+import { CourseIdMother } from '../../Shared/domain'
 import { CourseDurationMother, CourseNameMother } from '../domain'
 
 export class CreateCourseCommandMother {
@@ -9,7 +9,7 @@ export class CreateCourseCommandMother {
     return {
       id: id.value,
       name: name.value,
-      duration: duration.value
+      duration: duration.value,
     }
   }
 
@@ -21,7 +21,7 @@ export class CreateCourseCommandMother {
     return {
       id: CourseIdMother.random().value,
       name: CourseNameMother.invalidName(),
-      duration: CourseDurationMother.random().value
+      duration: CourseDurationMother.random().value,
     }
   }
 }

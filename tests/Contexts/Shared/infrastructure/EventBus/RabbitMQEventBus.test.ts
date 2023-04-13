@@ -1,7 +1,7 @@
 import { DomainEvent } from '@/Contexts/Shared/domain'
 import {
   DomainEventDeserializer,
-  DomainEventSubscribers,
+  DomainEventSubscriberResolver,
   MikroOrmMongoDomainEventFailoverPublisher,
   RabbitMQConfigurer,
   RabbitMQConnection,
@@ -69,7 +69,7 @@ describe('RabbitMQEventBus test', () => {
     let dummySubscriber: DomainEventSubscriberDummy
     let configurer: RabbitMQConfigurer
     let failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher
-    let subscribers: DomainEventSubscribers
+    let subscribers: DomainEventSubscriberResolver
 
     beforeEach(async () => {
       connection = await RabbitMQConnectionMother.create()
@@ -79,7 +79,7 @@ describe('RabbitMQEventBus test', () => {
       await arranger.arrange()
 
       dummySubscriber = new DomainEventSubscriberDummy()
-      subscribers = new DomainEventSubscribers([dummySubscriber])
+      subscribers = new DomainEventSubscriberResolver([dummySubscriber])
     })
 
     afterEach(async () => {
@@ -128,7 +128,7 @@ describe('RabbitMQEventBus test', () => {
     it('should retry failed domain events', async () => {
       expect.assertions(2) // should be 4
       dummySubscriber = DomainEventSubscriberDummy.failsFirstTime()
-      subscribers = new DomainEventSubscribers([dummySubscriber])
+      subscribers = new DomainEventSubscriberResolver([dummySubscriber])
       await configurer.configure({
         exchange,
         subscribers: [dummySubscriber],
@@ -151,7 +151,7 @@ describe('RabbitMQEventBus test', () => {
     it('should send events to dead letter after retry failed', async () => {
       expect.assertions(2)
       dummySubscriber = DomainEventSubscriberDummy.alwaysFails()
-      subscribers = new DomainEventSubscribers([dummySubscriber])
+      subscribers = new DomainEventSubscriberResolver([dummySubscriber])
       await configurer.configure({
         exchange,
         subscribers: [dummySubscriber],
@@ -182,7 +182,7 @@ describe('RabbitMQEventBus test', () => {
       expect.assertions(2)
       const deadLetterQueue = queueNameFormatter.formatDeadLetter(dummySubscriber)
       const deadLetterSubscriber = new DomainEventSubscriberDummy()
-      const deadLetterSubscribers = new DomainEventSubscribers([dummySubscriber])
+      const deadLetterSubscribers = new DomainEventSubscriberResolver([dummySubscriber])
       const deserializer = DomainEventDeserializer.configure(deadLetterSubscribers)
       const consumer = new RabbitMQConsumer({
         subscriber: deadLetterSubscriber,

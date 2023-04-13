@@ -16,14 +16,14 @@ export class MotherCreator {
   static positiveNumber(max?: number): number {
     return faker.datatype.number({
       min: 1,
-      max
+      max,
     })
   }
 
   static word(length: number) {
     const word = faker.lorem.word({
       length,
-      strategy: 'closest'
+      strategy: 'closest',
     })
     return word || 'word'
   }

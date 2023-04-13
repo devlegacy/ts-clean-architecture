@@ -1,8 +1,8 @@
 import { Command } from '@/Contexts/Shared/domain'
 
-import { CoursePrimitiveDto } from './Course'
+import { CoursePrimitiveType } from './Course'
 
-type Params = CoursePrimitiveDto
+type Params = CoursePrimitiveType
 
 // Immutable
 

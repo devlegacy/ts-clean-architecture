@@ -1,5 +1,4 @@
 import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
-import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
 import { CommandBus } from '@/Contexts/Shared/domain'
 import {
   Body,
@@ -11,6 +10,8 @@ import {
   // Schema
 } from '@/Contexts/Shared/domain/Common'
 
+import { CourseRequestSchema } from './Validations'
+
 @Controller('courses')
 export class CourseController {
   constructor(
@@ -21,7 +22,7 @@ export class CourseController {
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
   @Put(':courseId')
-  async update(@Body() course: CourseRequestDto) {
+  async update(@Body() course: CourseRequestSchema) {
     // async update(req: Request<{ Body: CourseRequestDto }>) {
     // const { id, name, duration } = course
 

@@ -1,5 +1,5 @@
 import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
+import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
 
 export class EventBusMock implements EventBus {
   private publishSpy = jest.fn()
@@ -8,7 +8,7 @@ export class EventBusMock implements EventBus {
     this.publishSpy(events)
   }
 
-  addSubscribers(_subscribers: DomainEventSubscribers): void {}
+  addSubscribers(_subscribers: DomainEventSubscriberResolver): void {}
 
   assertLastPublishedEventIs(expectedEvent: DomainEvent) {
     const publishSpyCalls = this.publishSpy.mock.calls

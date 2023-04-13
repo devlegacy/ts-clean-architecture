@@ -1,3 +1,7 @@
 import { Query } from '@/Contexts/Shared/domain'
 
-export class SearchAllCoursesQuery implements Query {}
+export class SearchAllCoursesQuery extends Query {
+  constructor() {
+    super()
+  }
+}

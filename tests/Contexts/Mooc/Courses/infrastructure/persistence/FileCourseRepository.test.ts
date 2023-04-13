@@ -13,7 +13,7 @@ describe('FileCourseRepository', () => {
 
     await repository.save(expectedCourse)
 
-    const course = await repository.search(id.value)
+    const course = await repository.search(id.toString())
     expect(course).toEqual(expectedCourse)
   })
 })

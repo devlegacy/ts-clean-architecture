@@ -1,9 +1,12 @@
-import { Course, CoursePrimitiveDto } from '../../domain'
+import { Response } from '@/Contexts/Shared/domain'
 
-export class CoursesResponse {
-  readonly courses: CoursePrimitiveDto[]
+import { Course, CoursePrimitiveType } from '../../domain'
+
+export class CoursesResponse extends Response {
+  readonly courses: CoursePrimitiveType[]
 
   constructor(courses: Course[]) {
+    super()
     this.courses = courses.map((course) => course.toPrimitives())
   }
 }

@@ -5,7 +5,7 @@ import { Criteria, Nullable } from '@/Contexts/Shared/domain'
 import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { Course, CourseRepository } from '../../domain'
-import { CourseEntity } from './typeorm/CourseEntity'
+import { CourseEntity } from './typeorm/postgres/CourseEntity'
 
 export class TypeOrmPostgresCourseRepository extends TypeOrmPostgresRepository<Course> implements CourseRepository {
   async all(): Promise<Course[]> {

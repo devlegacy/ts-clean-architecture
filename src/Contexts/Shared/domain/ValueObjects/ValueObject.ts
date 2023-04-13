@@ -21,20 +21,20 @@ export abstract class ValueObject<T extends PrimitiveTypes> {
 
   constructor(value: T) {
     this.value = Object.freeze(value)
-    this.isValueDefined(value)
+    this.ensureValueIsDefined(value)
   }
 
   equals(vo: ValueObject<T>) {
     if (vo === null || vo === undefined) return false
 
-    return shallowEqual(this.value, vo.value)
+    return vo.constructor.name === this.constructor.name && shallowEqual(this.value, vo.value)
   }
 
   toString() {
     return this.value.toString()
   }
 
-  private isValueDefined(value: T) {
+  private ensureValueIsDefined(value: T) {
     if (value === null || value === undefined) throw new InvalidArgumentError('Value must be defined')
   }
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { createZodDto } from '@/Contexts/Shared/infrastructure/RequestValidation/Zod'
+import { createZodDto } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod'
 
 const Course = z.object({
   id: z.string().min(400),

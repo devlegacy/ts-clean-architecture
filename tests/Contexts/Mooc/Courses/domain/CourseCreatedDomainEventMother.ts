@@ -6,7 +6,7 @@ export class CourseCreatedDomainEventMother {
     eventId,
     duration,
     name,
-    occurredOn
+    occurredOn,
   }: {
     aggregateId: string
     eventId?: string
@@ -19,7 +19,7 @@ export class CourseCreatedDomainEventMother {
       eventId,
       duration,
       name,
-      occurredOn
+      occurredOn,
     })
   }
 
@@ -27,7 +27,7 @@ export class CourseCreatedDomainEventMother {
     return new CourseCreatedDomainEvent({
       aggregateId: course.id.value,
       duration: course?.duration?.value,
-      name: course.name.value
+      name: course.name.value,
     })
   }
 }

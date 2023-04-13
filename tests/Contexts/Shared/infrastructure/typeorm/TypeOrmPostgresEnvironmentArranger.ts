@@ -3,15 +3,15 @@ import { DataSource, EntityMetadata } from 'typeorm'
 import { EnvironmentArranger } from '../arranger/EnvironmentArranger'
 
 export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
-  constructor(private _client: Promise<DataSource>) {
+  constructor(private readonly _client: Promise<DataSource>) {
     super()
   }
 
-  async arrange(): Promise<void> {
+  override async arrange(): Promise<void> {
     this.cleanDatabase()
   }
 
-  async close(): Promise<void> {
+  override async close(): Promise<void> {
     const client = await this._client
     return client.destroy()
   }

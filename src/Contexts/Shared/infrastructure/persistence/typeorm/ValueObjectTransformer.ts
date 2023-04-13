@@ -1,8 +1,8 @@
 import { Class, ValueObject } from '@/Contexts/Shared/domain'
 
-export const ValueObjectTransformer = (ValueObject: Class<ValueObject<any>>) => {
+export const ValueObjectTransformer = <T extends Class<ValueObject<any>>>(ValueObject: T) => {
   return {
-    to: (value: ValueObject<any>): any => value.value,
-    from: (value: any): ValueObject<any> => new ValueObject(value),
+    to: (value: InstanceType<T>): any => value.value,
+    from: (value: any): InstanceType<T> => new ValueObject(value) as InstanceType<T>,
   }
 }

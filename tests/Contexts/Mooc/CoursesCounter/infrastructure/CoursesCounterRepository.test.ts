@@ -1,25 +1,21 @@
-import '@/apps/mooc/modules'
-
-import { container } from 'tsyringe'
-
-import { TYPES } from '@/apps/mooc/modules/types'
+import { container } from '@/apps/mooc/modules'
 import { CoursesCounter, CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { CoursesCounterMother } from '../domain'
 
-const repository: CoursesCounterRepository = container.resolve<CoursesCounterRepository>(TYPES.CoursesCounterRepository)
-const environmentArranger: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)
+const repository: CoursesCounterRepository = container.get(CoursesCounterRepository)
+const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)
 
 jest.setTimeout(5000 + 600000)
 
 beforeEach(async () => {
-  await (await environmentArranger).arrange()
+  await environmentArranger.arrange()
 })
 
 afterAll(async () => {
-  await (await environmentArranger).arrange()
-  await (await environmentArranger).close()
+  await environmentArranger.arrange()
+  await environmentArranger.close()
 })
 
 describe('CoursesCounterRepository', () => {

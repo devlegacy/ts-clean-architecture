@@ -1,7 +1,7 @@
 import { FastifySchema } from 'fastify'
 
-import { CourseRequestDto } from './dtos/CourseRequestDto'
+import { CourseRequestSchema } from './CourseRequestSchema'
 
 export const UpdateRequestSchema: FastifySchema = {
-  body: CourseRequestDto,
+  body: CourseRequestSchema,
 }

@@ -2,11 +2,11 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
 
-import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
 import {
   LoggerConfigFactory,
   MongoConfigFactory,
   RabbitMQConfigFactory,
+  RabbitMQEventBusFactory,
   SentryConfigFactory,
 } from '@/Contexts/Mooc/Shared/infrastructure'
 import { CommandBus, EventBus, Logger, Monitoring, QueryBus } from '@/Contexts/Shared/domain'
@@ -30,13 +30,13 @@ import { TAGS } from '../tags'
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+const mongoClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
 
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
 const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
-const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient)
+const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(mongoClient)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
@@ -46,7 +46,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
 
 export const SharedModule = (builder: ContainerBuilder) => {
   builder.register(Promise<MikroORM<MongoDriver>>).useFactory(() => {
-    return connectionClient
+    return mongoClient
   })
   builder.register(RabbitMQConnection).useFactory(() => {
     return rabbitConnection

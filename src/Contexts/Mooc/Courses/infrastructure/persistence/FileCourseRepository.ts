@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises'
 
 import { Criteria } from '@/Contexts/Shared/domain'
 
-import { Course, CourseRepository } from '../../domain'
+import { Course, CoursePrimitiveType, CourseRepository } from '../../domain'
 
 export class FileCourseRepository implements CourseRepository {
   private FILE_PATH = `${__dirname}/Courses`
@@ -20,7 +20,7 @@ export class FileCourseRepository implements CourseRepository {
     writeFile(this.path(course.id.value), serialize(course))
   }
 
-  async search(courseId: string): Promise<Course> {
+  async search(courseId: CoursePrimitiveType['id']): Promise<Course> {
     const courseData = await readFile(this.path(courseId))
     const { id, name, duration } = deserialize(courseData)
 

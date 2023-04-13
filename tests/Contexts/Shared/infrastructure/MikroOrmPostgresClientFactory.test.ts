@@ -8,7 +8,7 @@ const config = {
   host: '127.0.0.1',
   port: 5432,
   password: 'postgres',
-  username: 'postgres'
+  username: 'postgres',
 }
 
 describe('MikroOrmPostgresClientFactory', () => {
@@ -30,7 +30,7 @@ describe('MikroOrmPostgresClientFactory', () => {
   it('should creates a new client if it does not exist a client with the given name', async () => {
     const newClient = await factory.createClient('test2', {
       ...config,
-      database: 'mooc-test2'
+      database: 'mooc-test2',
     })
 
     expect(newClient).not.toBe(client)

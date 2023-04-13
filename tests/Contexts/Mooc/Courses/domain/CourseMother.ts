@@ -2,8 +2,8 @@ import {
   Course,
   CourseDuration,
   CourseName,
-  CoursePrimitiveDto,
-  CreateCourseCommand
+  CoursePrimitiveType,
+  CreateCourseCommand,
 } from '@/Contexts/Mooc/Courses/domain'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
@@ -24,7 +24,7 @@ export class CourseMother {
     )
   }
 
-  static fromRequest(request: CoursePrimitiveDto): Course {
+  static fromRequest(request: CoursePrimitiveType): Course {
     return CourseMother.create(
       new CourseId(request.id),
       new CourseName(request.name),

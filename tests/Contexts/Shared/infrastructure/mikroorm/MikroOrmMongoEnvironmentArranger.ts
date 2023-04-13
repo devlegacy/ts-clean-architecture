@@ -1,14 +1,12 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
-import { inject, injectable } from 'tsyringe'
-
-import { SHARED_TYPES } from '@/Contexts/Shared/infrastructure/common'
+import { Service } from 'diod'
 
 import { EnvironmentArranger } from '../arranger/EnvironmentArranger'
 
-@injectable()
+@Service()
 export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
-  constructor(@inject(SHARED_TYPES.MongoClient) private _client: Promise<MikroORM<MongoDriver>>) {
+  constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {
     super()
   }
 

@@ -2,10 +2,10 @@ import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
-import { CourseDuration, CourseName } from './value-object'
+import { CourseDuration, CourseName } from './ValueObjects'
 
-export type CourseEntityDto = Entity<Course>
-export type CoursePrimitiveDto = Primitives<Course>
+export type CourseEntityType = Entity<Course>
+export type CoursePrimitiveType = Primitives<Course>
 
 export class Course extends AggregateRoot {
   readonly id: CourseId
@@ -40,16 +40,17 @@ export class Course extends AggregateRoot {
     const course = new Course(id, name, duration)
 
     const event = new CourseCreatedDomainEvent({
-      aggregateId: course.id.value,
-      duration: course.duration?.value,
-      name: course.name.value,
+      aggregateId: id.value,
+      duration: duration?.value,
+      name: name.value,
     })
+
     course.record(event)
 
     return course
   }
 
-  static override fromPrimitives(data: CoursePrimitiveDto): Course {
+  static override fromPrimitives(data: CoursePrimitiveType): Course {
     // return new Course({
     //   id: new CourseId(props.id),
     //   name: new CourseName(props.name),
@@ -63,10 +64,11 @@ export class Course extends AggregateRoot {
       // data.updatedAt ? data.updatedAt : undefined,
       // data.deletedAt ? data.deletedAt : undefined
     )
+
     return entity
   }
 
-  toPrimitives(): CoursePrimitiveDto {
+  toPrimitives(): CoursePrimitiveType {
     const primitives = {
       id: this.id.value,
       name: this.name.value,
@@ -75,6 +77,7 @@ export class Course extends AggregateRoot {
       // updatedAt: this.updatedAt,
       // deletedAt: this.deletedAt
     }
+
     return primitives
   }
 }

@@ -3,16 +3,17 @@ import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 import fastifyQs from 'fastify-qs'
 import http from 'http'
+import { Logger as PinoLoggerType } from 'pino'
 import qs from 'qs'
 
-import { Monitoring } from '@/Contexts/Shared/domain'
+import { Logger, Monitoring } from '@/Contexts/Shared/domain'
 import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 // import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestValidation'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
-import { ZodModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Zod'
+import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
+import { ZodModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod'
 
 import { container } from '../modules'
 import { TAGS } from '../modules/tags'
@@ -25,14 +26,14 @@ type Options = {
   name?: string
 }
 
-// const logger = container.get(Logger)
+const { logger } = container.get<Logger<PinoLoggerType>>(Logger)
 const monitoring = container.get(Monitoring)
 
 export class Server {
   readonly #options?: Options
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
-  readonly #adapter = new FastifyAdapter()
+  readonly #adapter = new FastifyAdapter({ logger })
   #httpServer?: http.Server
 
   constructor(options?: Options) {

@@ -1,12 +1,13 @@
 import { IQueryHandler } from '@/Contexts/Shared/domain'
 import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
+import { CreateCourseCommand } from '../../domain'
 import { CoursesFinder } from './CoursesFinder'
 import { CoursesResponse } from './CoursesResponse'
 import { SearchAllCoursesQuery } from './SearchAllCoursesQuery'
 
 @QueryHandler(SearchAllCoursesQuery)
-export class SearchAllCoursesQueryHandler implements IQueryHandler<SearchAllCoursesQuery, CoursesResponse> {
+export class SearchAllCoursesQueryHandler implements IQueryHandler<CreateCourseCommand, CoursesResponse> {
   constructor(private coursesFinder: CoursesFinder) {}
 
   // subscribedTo(): Query {
@@ -14,6 +15,7 @@ export class SearchAllCoursesQueryHandler implements IQueryHandler<SearchAllCour
   // }
 
   async handle(_query: SearchAllCoursesQuery): Promise<CoursesResponse> {
-    return this.coursesFinder.run()
+    const response = await this.coursesFinder.run()
+    return response
   }
 }

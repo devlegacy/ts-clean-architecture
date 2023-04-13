@@ -1,3 +1,5 @@
+import { Constructor } from 'type-fest'
+
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { Command } from '../../Commands'
@@ -94,8 +96,8 @@ export const DomainEventSubscriber = () => {
   }
 }
 
-export const CommandHandler = (command: Command) => {
-  return (target: any): any => {
+export const CommandHandler = (command: Command | Constructor<Command>): ClassDecorator => {
+  return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.CommandHandler)) registeredModules.set(SHARED_TAGS.CommandHandler, new Set())
     if (!registeredModules.get(SHARED_TAGS.CommandHandler)?.has(target))
       registeredModules.get(SHARED_TAGS.CommandHandler)?.add(target)

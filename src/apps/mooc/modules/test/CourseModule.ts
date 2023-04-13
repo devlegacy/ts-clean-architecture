@@ -1,6 +1,6 @@
 import { ContainerBuilder } from 'diod'
 
-import { CourseController } from '@/apps/mooc/backend/controllers/CourseController'
+import { CourseController } from '@/apps/mooc/backend/controllers/Courses/CourseController'
 import {
   CourseCreator,
   CoursesFinder,

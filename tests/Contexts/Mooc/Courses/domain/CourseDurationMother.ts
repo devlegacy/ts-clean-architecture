@@ -10,7 +10,7 @@ export class CourseDurationMother {
     return CourseDurationMother.create(
       WordMother.random({
         minLength: 1,
-        maxLength: 20
+        maxLength: 20,
       })
     )
   }

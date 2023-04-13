@@ -4,8 +4,12 @@ import util from 'util'
 import { Logger, LogLevel, LogMessage } from '../../domain'
 import { MESSAGE_KEY, streams } from './helpers'
 
-export class PinoLogger implements Logger {
+export class PinoLogger implements Logger<PinoLoggerType> {
   #logger: PinoLoggerType
+
+  get logger() {
+    return this.#logger
+  }
 
   constructor(options: { name?: string; enabled?: boolean; level?: LogLevel } = { level: 'info' }) {
     this.#logger = pino(
@@ -18,7 +22,7 @@ export class PinoLogger implements Logger {
     )
   }
 
-  child(bindings: Record<string, unknown>): Logger {
+  child(bindings: Record<string, unknown>): Omit<Logger, 'logger' | 'deep'> {
     const child = this.#logger.child(bindings)
     return child
   }

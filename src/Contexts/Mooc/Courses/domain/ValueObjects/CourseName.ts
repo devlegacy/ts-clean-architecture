@@ -3,7 +3,7 @@ import {
   // ValueObject
 } from '@/Contexts/Shared/domain'
 
-import { CourseNameLengthExceeded } from '../exceptions'
+import { CourseNameLengthExceeded } from '../Errors'
 
 const MAX_CHARACTER_LIMIT = 30
 
@@ -12,11 +12,11 @@ export class CourseName extends StringValueObject {
     super(value)
 
     // Guard
-    this.isLengthLessThanLimit(value)
+    this.ensureLengthIsLessThanLimit(value)
   }
 
   // Guard
-  private isLengthLessThanLimit(value: string) {
+  private ensureLengthIsLessThanLimit(value: string) {
     if (value.length > MAX_CHARACTER_LIMIT) {
       throw new CourseNameLengthExceeded(`The course name <${value}> has more than ${MAX_CHARACTER_LIMIT} characters`)
     }

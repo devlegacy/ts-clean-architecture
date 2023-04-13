@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
+import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
 /**
  * NOTE: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
@@ -12,7 +12,7 @@ import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestVal
  * Restricciones de integridad de dominio vs Validaciones capa de transporte/peticiones/protocolo de comunicación
  */
 
-export class CourseRequestDto {
+export class CourseRequestSchema {
   @JoiSchema([CREATE], Joi.string().required())
   @JoiSchema([UPDATE], Joi.string().required())
   readonly id!: string

@@ -4,6 +4,7 @@ import { info } from '../../Logger'
 import { MongoConfig } from './MongoConfig'
 
 export class MongoClientFactory {
+  // poll connection
   private static clients: Record<string, MongoClient> = {}
 
   static async createClient(contextName: string, config: MongoConfig): Promise<MongoClient> {

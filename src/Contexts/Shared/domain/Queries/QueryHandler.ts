@@ -1,7 +1,7 @@
 import { Query } from './Query'
 import { Response } from './Response'
 
-export interface IQueryHandler<Q extends Query, R extends Response> {
+export interface IQueryHandler<TQuery extends Query, TResponse extends Response> {
   // subscribedTo(): Query
-  handle(query: Q): Promise<R>
+  handle(query: TQuery): Promise<TResponse>
 }
