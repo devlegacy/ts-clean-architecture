@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x,18.x] # current versions + next versions o prepare future migrations
         mongodb-version: ['5.0']
 
     steps:
