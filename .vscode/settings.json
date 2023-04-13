@@ -62,7 +62,7 @@
     "application": "app",
     "domain": "core",
     "exceptions": "error",
-    "persistence": "database",
+    "persistence": "database"
   },
   "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT"],
   "todo-tree.highlights.customHighlight": {
@@ -85,5 +85,10 @@
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "dotenv.enableAutocloaking": false
+  "dotenv.enableAutocloaking": false,
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "jest.nodeEnv": { "APP_ENV": "test" }
 }
