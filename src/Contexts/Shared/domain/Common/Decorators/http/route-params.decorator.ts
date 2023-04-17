@@ -44,6 +44,7 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
 function createRouteParamDecorator(paramtype: RouteParamtypes) {
   return (data?: ParamData): ParameterDecorator =>
     (target, key, index) => {
+      if (!key) return
       const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
       Reflect.defineMetadata(
         ROUTE_ARGS_METADATA,
@@ -57,7 +58,9 @@ function createRouteParamDecorator(paramtype: RouteParamtypes) {
 const createPipesRouteParamDecorator =
   (paramtype: RouteParamtypes) =>
   (data?: any, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
+  // eslint-disable-next-line complexity
   (target, key, index) => {
+    if (!key) return
     const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
     const types: any[] = Reflect.getMetadata('design:paramtypes', target.constructor.prototype, key) || []
 
@@ -87,6 +90,7 @@ const Request: () => ParameterDecorator = createRouteParamDecorator(RouteParamty
 
 const Response: (options?: ResponseDecoratorOptions) => ParameterDecorator =
   (options?: ResponseDecoratorOptions) => (target, key, index) => {
+    if (!key) return
     if (options?.passthrough) {
       Reflect.defineMetadata(RESPONSE_PASSTHROUGH_METADATA, options?.passthrough, target.constructor, key)
     }

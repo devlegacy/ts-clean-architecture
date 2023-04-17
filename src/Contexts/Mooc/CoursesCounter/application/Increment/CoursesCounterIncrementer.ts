@@ -12,7 +12,7 @@ export class CoursesCounterIncrementer {
     const search = await this.repository.search()
     const counter = search || this.initializeCounter()
 
-    if (counter.hasIncremented(courseId)) return
+    if (counter.hasIncremented(courseId)) return // push to domain and avoid other methods down
 
     counter.increment(courseId)
 

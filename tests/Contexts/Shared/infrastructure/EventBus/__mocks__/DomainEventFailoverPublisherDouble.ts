@@ -11,7 +11,7 @@ export class DomainEventFailoverPublisherDouble extends MikroOrmMongoDomainEvent
     this.publishMock = jest.fn()
   }
 
-  async publish(event: DomainEvent): Promise<void> {
+  override async publish(event: DomainEvent): Promise<void> {
     this.publishMock(event)
   }
 

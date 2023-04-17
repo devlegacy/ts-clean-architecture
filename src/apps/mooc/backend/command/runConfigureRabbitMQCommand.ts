@@ -1,14 +1,12 @@
 import 'reflect-metadata'
-import '../../tsyringe-dependency-injection'
-
-import { container } from 'tsyringe'
 
 import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 
+import { container } from '../../modules'
 import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
 
-const fatalErrorHandler = container.resolve(FatalErrorHandler)
+const fatalErrorHandler = container.get(FatalErrorHandler)
 
 process
   .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))

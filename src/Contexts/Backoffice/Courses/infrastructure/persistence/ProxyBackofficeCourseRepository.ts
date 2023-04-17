@@ -1,16 +1,14 @@
-import { inject, injectable } from 'tsyringe'
+import { Service } from 'diod'
 
-import { TYPES } from '@/apps/backoffice/modules/types'
 import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain'
 
-@injectable()
+@Service()
 export class ProxyBackofficeCourseRepository implements BackofficeCourseRepository {
   constructor(
-    @inject(TYPES.MikroOrmMongoBackofficeCourseRepository)
     private readonly currentRepository: BackofficeCourseRepository,
-    @inject(TYPES.ElasticBackofficeCourseRepository) private readonly targetRepository: BackofficeCourseRepository
+    private readonly targetRepository: BackofficeCourseRepository
   ) {}
 
   async all(): Promise<BackofficeCourse[]> {

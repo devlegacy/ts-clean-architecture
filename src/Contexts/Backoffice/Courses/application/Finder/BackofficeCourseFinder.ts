@@ -1,6 +1,4 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import {
   BackofficeCourse,
@@ -8,10 +6,10 @@ import {
   BackofficeCourseRepository,
 } from '../../domain'
 
-@injectable()
+@UseCase()
 export class BackofficeCourseFinder {
   private readonly finder: DomainBackofficeCourseFinder
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {
+  constructor(private readonly repository: BackofficeCourseRepository) {
     this.finder = new DomainBackofficeCourseFinder(this.repository)
   }
 

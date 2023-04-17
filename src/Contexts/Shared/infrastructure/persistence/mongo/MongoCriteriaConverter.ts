@@ -65,9 +65,7 @@ export class MongoCriteriaConverter {
   }
 
   private getFilterValue(filterValue: FilterValue) {
-    if (ObjectId.isValid(filterValue.value)) {
-      return new ObjectId(filterValue.value)
-    }
+    if (ObjectId.isValid(filterValue.value)) return new ObjectId(filterValue.value)
 
     return filterValue.value
   }

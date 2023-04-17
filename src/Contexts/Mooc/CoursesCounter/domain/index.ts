@@ -1,5 +1,5 @@
 export * from './CoursesCounter'
 export * from './CoursesCounterIncrementedDomainEvent'
 export * from './CoursesCounterRepository'
-export * from './exceptions'
-export * from './value-object'
+export * from './Errors'
+export * from './ValueObjects'

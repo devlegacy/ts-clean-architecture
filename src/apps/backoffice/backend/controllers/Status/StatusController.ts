@@ -1,4 +1,4 @@
-import { Controller, Get } from '@/Contexts/Shared/infrastructure/common'
+import { Controller, Get } from '@/Contexts/Shared/domain/Common'
 
 @Controller('status')
 export class StatusController {

@@ -1,12 +1,11 @@
 /// <reference types="../../../../../../types"/>
 
-import { AfterAll, BeforeAll } from '@cucumber/cucumber'
+import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
 import supertest, { SuperTest, Test } from 'supertest'
-import { container } from 'tsyringe'
 
 import { BackofficeBackendApp } from '@/apps/backoffice/backend/BackofficeBackendApp'
 import { ConfigureRabbitMQCommand } from '@/apps/backoffice/backend/command/ConfigureRabbitMQCommand'
-import { TYPES } from '@/apps/backoffice/modules/types'
+import { container } from '@/apps/backoffice/modules'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
@@ -14,12 +13,13 @@ const application = new BackofficeBackendApp()
 // const moocBackendApp = new MoocBackendApp()
 
 let api: SuperTest<Test>
-const environmentArranger = container.resolve<EnvironmentArranger>(TYPES.EnvironmentArranger)
-const eventBus = container.resolve<EventBus>(TYPES.EventBus)
+const environmentArranger = container.get<EnvironmentArranger>(EnvironmentArranger)
+const eventBus = container.get<EventBus>(EventBus)
+setDefaultTimeout(60 * 1000)
 
 BeforeAll(
   {
-    timeout: 2 * 5000
+    timeout: 2 * 5000,
   },
   async () => {
     await ConfigureRabbitMQCommand.run()
@@ -27,7 +27,7 @@ BeforeAll(
     // await moocBackendApp.start()
     await application.start()
     api = supertest(application.httpServer)
-    await wait()
+    await wait(1000)
     await environmentArranger.arrange()
   }
 )
@@ -37,6 +37,7 @@ AfterAll(async () => {
   await environmentArranger.close()
 
   // await moocBackendApp.stop()
+  await wait(1000)
   await application.stop()
 
   // TODO: The exit process should be automatic

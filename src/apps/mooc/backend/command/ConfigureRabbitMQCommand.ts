@@ -8,8 +8,10 @@ export class ConfigureRabbitMQCommand {
     const connection = container.get(RabbitMQConnection)
     const { name: exchange } = RabbitMQConfigFactory.createConfig().exchangeSettings
     await connection.connect()
+
     const configurer = container.get(RabbitMQConfigurer)
     const subscribers = DomainEventSubscriberResolver.fromContainer(container).items
+
     await configurer.configure({
       exchange,
       subscribers,

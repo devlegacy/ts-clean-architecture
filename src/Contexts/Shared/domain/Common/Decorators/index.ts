@@ -3,8 +3,14 @@ import { Constructor } from 'type-fest'
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { Command } from '../../Commands'
+import { DomainEventClass } from '../../Events'
 import { Query } from '../../Queries'
-import { COMMAND_HANDLER_METADATA, QUERY_HANDLER_METADATA, SHARED_TAGS } from '../../shared-types'
+import {
+  COMMAND_HANDLER_METADATA,
+  EVENTS_HANDLER_METADATA,
+  QUERY_HANDLER_METADATA,
+  SHARED_TAGS,
+} from '../../shared-types'
 
 export * from './core'
 export * from './http'
@@ -85,12 +91,21 @@ export const UseCase = () => {
   }
 }
 
-export const DomainEventSubscriber = () => {
+export const DomainEventSubscriber = (...events: DomainEventClass[]) => {
   return (target: any): any => {
     if (!registeredModules.has(SHARED_TAGS.DomainEventSubscriber))
       registeredModules.set(SHARED_TAGS.DomainEventSubscriber, new Set())
     if (!registeredModules.get(SHARED_TAGS.DomainEventSubscriber)?.has(target))
       registeredModules.get(SHARED_TAGS.DomainEventSubscriber)?.add(target)
+
+    if (!Reflect.hasMetadata(EVENTS_HANDLER_METADATA, target))
+      Reflect.defineMetadata(EVENTS_HANDLER_METADATA, [], target)
+
+    Reflect.defineMetadata(
+      EVENTS_HANDLER_METADATA,
+      Reflect.getMetadata(EVENTS_HANDLER_METADATA, target).concat(events),
+      target
+    )
 
     return target
   }

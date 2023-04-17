@@ -1,21 +1,20 @@
-import { injectable } from 'tsyringe'
-
-import { Filters, Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { Filters, IQueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
 import { BackofficeCourseByCriteriaFinder } from './BackofficeCourseByCriteriaFinder'
 import { FindBackofficeCourseByCriteriaQuery } from './FindBackofficeCourseByCriteriaQuery'
 
 // Injectable and Taggable TYPES.QueryHandler
-@injectable()
+@QueryHandler(FindBackofficeCourseByCriteriaQuery)
 export class FindBackofficeCourseByCriteriaQueryHandler
-  implements QueryHandler<FindBackofficeCourseByCriteriaQuery, BackofficeCourseResponse>
+  implements IQueryHandler<FindBackofficeCourseByCriteriaQuery, BackofficeCourseResponse>
 {
   constructor(private readonly finder: BackofficeCourseByCriteriaFinder) {}
 
-  subscribedTo(): Query {
-    return FindBackofficeCourseByCriteriaQuery
-  }
+  // subscribedTo(): Query {
+  //   return FindBackofficeCourseByCriteriaQuery
+  // }
 
   async handle(query: FindBackofficeCourseByCriteriaQuery): Promise<BackofficeCourseResponse> {
     const filters = Filters.fromValues(query.filters)

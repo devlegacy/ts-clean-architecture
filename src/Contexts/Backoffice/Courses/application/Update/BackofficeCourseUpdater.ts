@@ -1,18 +1,13 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourse, BackofficeCourseEntityDto, BackofficeCourseRepository } from '../../domain'
 import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
 import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
 
-@injectable()
+@UseCase()
 export class BackofficeCourseUpdater {
-  constructor(
-    @inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository,
-    @inject(TYPES.QueryBus) private readonly bus: QueryBus
-  ) {}
+  constructor(private readonly repository: BackofficeCourseRepository, private readonly bus: QueryBus) {}
 
   async run(params: BackofficeCourseEntityDto): Promise<void> {
     await this.ensureCourseExists(params.id)

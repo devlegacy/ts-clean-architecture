@@ -1,4 +1,5 @@
 import { EntitySchema, wrap } from '@mikro-orm/core'
+import { Service } from 'diod'
 
 import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
@@ -6,6 +7,7 @@ import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persis
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
 import { BackofficeCourseEntity } from './mikroorm/mongo/BackofficeCourseEntity'
 
+@Service()
 export class MikroOrmMongoBackofficeCourseRepository
   extends MikroOrmMongoRepository<BackofficeCourse>
   implements BackofficeCourseRepository

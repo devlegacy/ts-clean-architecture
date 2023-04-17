@@ -26,12 +26,14 @@ export class Filter {
       throw new InvalidArgumentError(`The filter <${field}> <${operator}> <${value}> is invalid`)
     }
 
-    return new Filter(
+    const filter = new Filter(
       new FilterField(field),
       // DEBT: Fix operator values and fromValues type
       FilterOperator.fromValue(operator as OperatorKeys),
       new FilterValue(value)
     )
+
+    return filter
   }
 
   static parseFilters(params: FilterPrimitiveDto[]): Map<string, string>[] {
@@ -39,14 +41,16 @@ export class Filter {
       return new Array<Map<string, string>>()
     }
 
-    return params.map((filter) => {
-      const { field, value, operator } = filter
-
-      return new Map([
+    const filters = params.map(({ field, value, operator }) => {
+      const filter = new Map([
         ['field', field],
         ['operator', operator.toString()],
         ['value', value],
       ])
+
+      return filter
     })
+
+    return filters
   }
 }

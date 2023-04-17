@@ -17,7 +17,7 @@ describe('BackofficeCourseCreator', () => {
       name: course.name,
       duration: course?.duration,
       createdAt: course?.createdAt,
-      updatedAt: course?.updatedAt
+      updatedAt: course?.updatedAt,
       // course?.deletedAt
     })
 

@@ -1,8 +1,10 @@
 import { Criteria, Filters, Order } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourse } from './BackofficeCourse'
 import { BackofficeCourseRepository } from './BackofficeCourseRepository'
 
+@UseCase()
 export class BackofficeCoursesByCriteriaSearcher {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 

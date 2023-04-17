@@ -1,7 +1,5 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filters, Order } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import {
   BackofficeCourseRepository,
@@ -11,10 +9,10 @@ import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
 
 // Knows - Repository - Aggregate
 
-@injectable()
+@UseCase()
 export class BackofficeCoursesByCriteriaSearcher {
   private searcher: DomainBackofficeCoursesByCriteriaSearcher
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {
+  constructor(private readonly repository: BackofficeCourseRepository) {
     this.searcher = new DomainBackofficeCoursesByCriteriaSearcher(this.repository)
   }
 

@@ -1,12 +1,10 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourseRepository, TopCourses } from '../../domain'
 
-@injectable()
+@UseCase()
 export class TopCoursesFinder {
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
+  constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(top: number) {
     const courses = await this.repository.searchBy(new TopCourses(top))

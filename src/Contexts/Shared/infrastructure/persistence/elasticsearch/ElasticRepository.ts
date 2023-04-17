@@ -1,9 +1,9 @@
-import { Client } from '@elastic/elasticsearch'
+import { Client as ElasticClient } from '@elastic/elasticsearch'
 import { ResponseError } from '@elastic/transport/lib/errors'
 import bodybuilder, { Bodybuilder } from 'bodybuilder'
-import { container } from 'tsyringe'
+import { Service } from 'diod'
 
-import { AggregateRoot, Criteria, SHARED_TYPES } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain'
 import { HttpStatus } from '@/Contexts/Shared/domain/Common'
 
 import ElasticConfig from './ElasticConfig'
@@ -19,21 +19,24 @@ interface SearchHitsMetadata<T> {
 
 type SearchHit<T> = { _source: T }
 
+@Service()
 export abstract class ElasticRepository<T extends AggregateRoot> {
-  private readonly criteriaConverter: ElasticCriteriaConverter
-  private readonly _client: Promise<Client> = container.resolve(SHARED_TYPES.ElasticClient)
-  private readonly config: ElasticConfig = container.resolve(SHARED_TYPES.ElasticConfig)
+  #criteriaConverter: ElasticCriteriaConverter
+  #client: Promise<ElasticClient>
+  #config: ElasticConfig
 
-  constructor() {
-    this.criteriaConverter = new ElasticCriteriaConverter()
+  constructor(client: ElasticClient, config: ElasticConfig) {
+    this.#criteriaConverter = new ElasticCriteriaConverter()
+    this.#client = client as unknown as Promise<ElasticClient>
+    this.#config = config
   }
 
   protected indexName(): string {
-    return this.config.indexName
+    return this.#config.indexName
   }
 
-  protected client(): Promise<Client> {
-    return this._client
+  protected client(): Promise<ElasticClient> {
+    return this.#client
   }
 
   protected async searchAllInElastic<D>(unserializer: (data: D) => T): Promise<T[]> {
@@ -43,7 +46,7 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
   }
 
   protected async searchByCriteria(criteria: Criteria, unserializer: (data: any) => T): Promise<T[]> {
-    const body = this.criteriaConverter.convert(criteria)
+    const body = this.#criteriaConverter.convert(criteria)
 
     return this.searchInElasticWithBuilder(unserializer, body)
   }

@@ -6,8 +6,10 @@ import { EnvironmentArranger } from '../arranger/EnvironmentArranger'
 
 @Service()
 export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
-  constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {
+  #client: Promise<MikroORM<MongoDriver>>
+  constructor(client: MikroORM<MongoDriver>) {
     super()
+    this.#client = client as unknown as Promise<MikroORM<MongoDriver>>
   }
 
   async arrange(): Promise<void> {
@@ -28,7 +30,7 @@ export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
   }
 
   protected client() {
-    return this._client
+    return this.#client
   }
 
   private async collections() {

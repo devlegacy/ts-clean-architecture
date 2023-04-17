@@ -1,6 +1,5 @@
-import { injectable } from 'tsyringe'
-
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { ICommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandler } from '@/Contexts/Shared/domain/Common'
 
 import {
   BackofficeCourseDuration,
@@ -10,13 +9,13 @@ import {
 } from '../../domain'
 import { BackofficeCourseCreator } from './BackofficeCourseCreator'
 
-@injectable()
-export class CreateBackofficeCourseCommandHandler implements CommandHandler<CreateBackofficeCourseCommand> {
+@CommandHandler(CreateBackofficeCourseCommand)
+export class CreateBackofficeCourseCommandHandler implements ICommandHandler<CreateBackofficeCourseCommand> {
   constructor(private readonly creator: BackofficeCourseCreator) {}
 
-  subscribedTo(): Command {
-    return CreateBackofficeCourseCommand
-  }
+  // subscribedTo(): Command {
+  //   return CreateBackofficeCourseCommand
+  // }
 
   async handle(command: CreateBackofficeCourseCommand): Promise<void> {
     const id = new BackofficeCourseId(command.id)

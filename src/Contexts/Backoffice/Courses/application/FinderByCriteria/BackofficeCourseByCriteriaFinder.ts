@@ -1,7 +1,5 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filters } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
 
 import { BackofficeCourseNotFoundError, BackofficeCourseRepository } from '../../domain'
@@ -9,9 +7,9 @@ import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
 
 // Knows - Repository - Aggregate
 
-@injectable()
+@UseCase()
 export class BackofficeCourseByCriteriaFinder {
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
+  constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(filters: Filters): Promise<BackofficeCourseResponse> {
     const criteria = new LastCreatedEntities(filters)

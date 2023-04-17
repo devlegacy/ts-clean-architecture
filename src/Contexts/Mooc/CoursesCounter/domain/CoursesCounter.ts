@@ -2,8 +2,7 @@ import { AggregateRoot, Entity, ObjectId, Primitives } from '@/Contexts/Shared/d
 
 import { CourseId } from '../../Shared/domain'
 import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent'
-import { CoursesCounterId } from './value-object/CoursesCounterId'
-import { CoursesCounterTotal } from './value-object/CoursesCounterTotal'
+import { CoursesCounterId, CoursesCounterTotal } from './ValueObjects'
 
 export type CoursesCounterEntityDto = Entity<CoursesCounter>
 export type CoursesCounterPrimitiveDto = Primitives<CoursesCounter>
@@ -41,17 +40,18 @@ export class CoursesCounter extends AggregateRoot {
   }
 
   increment(courseId: CourseId) {
+    // if (this.hasIncremented(courseId)) return // throw new CourseAlreadyIncremented
     // NOTE: Try to fix values when are returned by database or ORM
     this._total = this.total.increment()
     this.total = this._total
 
     this.existingCourses.push(courseId)
-    this.record(
-      new CoursesCounterIncrementedDomainEvent({
-        aggregateId: this.id.value,
-        total: this._total.value,
-      })
-    )
+
+    const event = new CoursesCounterIncrementedDomainEvent({
+      aggregateId: this.id.value,
+      total: this._total.value,
+    })
+    this.record(event)
   }
 
   hasIncremented(courseId: CourseId): boolean {

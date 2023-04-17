@@ -1,5 +1,3 @@
-import { inject } from 'tsyringe'
-
 import {
   BackofficeCourseResponse,
   BackofficeCoursesResponse,
@@ -14,8 +12,7 @@ import {
   DeleteBackofficeCourseCommand,
   UpdateBackofficeCourseCommand,
 } from '@/Contexts/Backoffice/Courses/domain'
-import { CourseRequestDto } from '@/Contexts/Mooc/Courses/infrastructure'
-import { CommandBus, Filter, FilterPrimitiveDto, Operator, QueryBus } from '@/Contexts/Shared/domain'
+import { CommandBus, Filter, FilterPrimitiveDto, Monitoring, Operator, QueryBus } from '@/Contexts/Shared/domain'
 import {
   Body,
   Controller,
@@ -23,38 +20,36 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Monitoring,
   Param,
   Post,
   Put,
   Query,
-} from '@/Contexts/Shared/infrastructure/common'
+} from '@/Contexts/Shared/domain/Common'
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
-import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
-import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes/filters.pipe'
+import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
+import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/filters.pipe'
 
-import { TYPES } from '../../modules/types'
+import { CourseRequestSchema } from './Validation'
 
 @Controller('courses')
 export class CourseController {
   constructor(
     // private readonly courseCreator: CourseCreator,
-    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
-    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus,
-    @inject(TYPES.Monitoring) private readonly monitoring: Monitoring
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+    private readonly monitoring: Monitoring
   ) {}
 
   @Get()
   async index(
-    @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveDto[],
+    @Query('filters', FiltersPipe) filters?: FilterPrimitiveDto[],
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
     @Query('orderBy') orderBy?: string,
     @Query('orderType') orderType?: string
   ) {
-    const filters = Filter.parseFilters(filtersDto ?? [])
     const query = new SearchBackofficeCoursesByCriteriaQuery(
-      filters,
+      Filter.parseFilters(filters ?? []),
       orderBy,
       orderType,
       limit ? limit : undefined,
@@ -108,7 +103,7 @@ export class CourseController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() course: CourseRequestDto) {
+  async create(@Body() course: CourseRequestSchema) {
     const command = new CreateBackofficeCourseCommand(course)
     this.commandBus
       .dispatch(command)
@@ -122,7 +117,7 @@ export class CourseController {
   }
 
   @Put(':courseId')
-  async update(@Param('courseId', ObjectIdPipe) courseId: string, @Body() course: CourseRequestDto) {
+  async update(@Param('courseId', ObjectIdPipe) courseId: string, @Body() course: CourseRequestSchema) {
     const command = new UpdateBackofficeCourseCommand(course)
     await this.commandBus.dispatch(command)
     return course

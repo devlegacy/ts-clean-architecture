@@ -1,20 +1,19 @@
-import { injectable } from 'tsyringe'
-
-import { Filters, Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { Filters, IQueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCoursesPaginator } from './BackofficeCoursesPaginator'
 import { PaginateBackofficeCoursesQuery } from './PaginateBackofficeCoursesQuery'
 import { PaginatedBackofficeCoursesResponse } from './PaginatedBackofficeCoursesResponse'
 
-@injectable()
+@QueryHandler(PaginateBackofficeCoursesQuery)
 export class PaginateBackofficeCoursesQueryHandler
-  implements QueryHandler<PaginateBackofficeCoursesQuery, PaginatedBackofficeCoursesResponse>
+  implements IQueryHandler<PaginateBackofficeCoursesQuery, PaginatedBackofficeCoursesResponse>
 {
   constructor(private readonly paginator: BackofficeCoursesPaginator) {}
 
-  subscribedTo(): Query {
-    return PaginateBackofficeCoursesQuery
-  }
+  // subscribedTo(): Query {
+  //   return PaginateBackofficeCoursesQuery
+  // }
 
   async handle(query: PaginateBackofficeCoursesQuery): Promise<PaginatedBackofficeCoursesResponse> {
     const filters = Filters.fromValues(query.filters)

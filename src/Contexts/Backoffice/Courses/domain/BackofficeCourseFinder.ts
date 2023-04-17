@@ -1,4 +1,5 @@
 import { Filter, Filters, Operator } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
 
 import { BackofficeCourse } from './BackofficeCourse'
@@ -10,6 +11,7 @@ import { BackofficeCourseNotFoundError } from './Errors'
  * Reuse logic
  */
 
+@UseCase()
 export class BackofficeCourseFinder {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 

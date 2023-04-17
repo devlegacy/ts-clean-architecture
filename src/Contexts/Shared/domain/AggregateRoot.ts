@@ -10,6 +10,7 @@ import { DomainEvent } from './Events/DomainEvent'
  * - The `Aggregate Root` is responsible for enforcing consistency rules within the boundary;
  */
 export abstract class AggregateRoot {
+  // serializer and communicate with infrastructure
   static fromPrimitives: (...args: any) => AggregateRoot
   private _domainEvents: DomainEvent[] = []
 
@@ -45,6 +46,7 @@ export abstract class AggregateRoot {
     return
   }
 
+  // deserializer and communicate with infrastructure
   abstract toPrimitives(): any
 }
 

@@ -1,20 +1,19 @@
-import { injectable } from 'tsyringe'
-
-import { Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { IQueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
 import { BackofficeCoursesFinder } from './BackofficeCoursesFinder'
 import { SearchAllBackofficeCoursesQuery } from './SearchAllBackofficeCoursesQuery'
 
-@injectable()
+@QueryHandler(SearchAllBackofficeCoursesQuery)
 export class SearchAllBackofficeCoursesQueryHandler
-  implements QueryHandler<SearchAllBackofficeCoursesQuery, BackofficeCoursesResponse>
+  implements IQueryHandler<SearchAllBackofficeCoursesQuery, BackofficeCoursesResponse>
 {
   constructor(private readonly finder: BackofficeCoursesFinder) {}
 
-  subscribedTo(): Query {
-    return SearchAllBackofficeCoursesQuery
-  }
+  // subscribedTo(): Query {
+  //   return SearchAllBackofficeCoursesQuery
+  // }
 
   async handle(_query: SearchAllBackofficeCoursesQuery): Promise<BackofficeCoursesResponse> {
     const courses = await this.finder.run()

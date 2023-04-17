@@ -1,28 +1,24 @@
-import '@/apps/backoffice/modules'
-
-import { container } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
+import { container } from '@/apps/backoffice/modules'
 import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { BackofficeCourseMother } from '../../domain'
 
-const repository: BackofficeCourseRepository = container.resolve<BackofficeCourseRepository>(
-  TYPES.BackofficeCourseRepository
-)
-const environmentArranger: Promise<EnvironmentArranger> = container.resolve(TYPES.EnvironmentArranger)
+const repository: BackofficeCourseRepository = container.get(BackofficeCourseRepository)
+const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)
 
 beforeEach(async () => {
-  await (await environmentArranger).arrange()
+  await environmentArranger.arrange()
 })
 
 afterEach(async () => {
-  await (await environmentArranger).arrange()
+  await environmentArranger.arrange()
 })
+
 afterAll(async () => {
-  await (await environmentArranger).close()
+  await environmentArranger.close()
 })
+
 describe('BackofficeCourseRepository', () => {
   describe('#save', () => {
     // Not allowed with mikrorom

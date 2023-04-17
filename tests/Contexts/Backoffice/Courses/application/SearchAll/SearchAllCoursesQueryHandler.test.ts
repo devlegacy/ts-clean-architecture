@@ -1,7 +1,7 @@
 import {
   BackofficeCoursesFinder,
   SearchAllBackofficeCoursesQuery,
-  SearchAllBackofficeCoursesQueryHandler
+  SearchAllBackofficeCoursesQueryHandler,
 } from '@/Contexts/Backoffice/Courses/application'
 
 import { BackofficeCourseRepositoryMock } from '../../__mocks__'

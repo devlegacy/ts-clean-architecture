@@ -1,4 +1,4 @@
-import { DomainEventClass, DomainEventSubscribers } from '../../domain'
+import { DomainEventClass, DomainEventSubscribers, EVENTS_HANDLER_METADATA } from '../../domain'
 
 type DomainEventJSON = {
   type: string
@@ -12,7 +12,9 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
   static configure(subscribers: DomainEventSubscribers) {
     const mapping = new DomainEventDeserializer()
     subscribers.items.forEach((subscriber) => {
-      subscriber.subscribedTo().forEach(mapping.registerEvent.bind(mapping))
+      const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
+
+      events.forEach(mapping.registerEvent.bind(mapping))
     })
 
     return mapping

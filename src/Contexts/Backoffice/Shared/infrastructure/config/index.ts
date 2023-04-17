@@ -6,7 +6,7 @@ const backOfficeConfig = convict({
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'staging', 'test'],
-    default: 'default',
+    default: 'development',
     env: 'NODE_ENV',
   },
   app: {
@@ -48,7 +48,7 @@ const backOfficeConfig = convict({
       format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
       default: 'info',
       env: 'LOG_LEVEL',
-    },
+    } as const,
   },
   mongo: {
     url: {
@@ -179,6 +179,6 @@ const filePaths = [
   resolve(`${__dirname}/${backOfficeConfig.get('app.env')}.json`),
 ].filter((path) => existsSync(path))
 
-backOfficeConfig.loadFile(filePaths)
+backOfficeConfig.loadFile(filePaths).validate()
 
 export default backOfficeConfig

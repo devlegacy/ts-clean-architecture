@@ -3,7 +3,7 @@ import { DomainEvent } from '@/Contexts/Shared/domain'
 import { IdMother } from '../../../domain'
 
 export class DomainEventDummy extends DomainEvent {
-  static readonly EVENT_NAME = 'dummy'
+  static override readonly EVENT_NAME = 'dummy'
 
   constructor(data: { aggregateId: string; eventId?: string; occurredOn?: Date }) {
     const { aggregateId, eventId, occurredOn } = data
@@ -11,11 +11,11 @@ export class DomainEventDummy extends DomainEvent {
       eventName: DomainEventDummy.EVENT_NAME,
       aggregateId,
       eventId,
-      occurredOn
+      occurredOn,
     })
   }
 
-  static fromPrimitives(params: {
+  static override fromPrimitives(params: {
     aggregateId: string
     attributes: Record<string, any>
     eventId: string
@@ -25,7 +25,7 @@ export class DomainEventDummy extends DomainEvent {
     return new DomainEventDummy({
       aggregateId,
       eventId,
-      occurredOn
+      occurredOn,
     })
   }
 
@@ -39,7 +39,7 @@ export class DomainEventDummyMother {
     return new DomainEventDummy({
       aggregateId: IdMother.random(),
       eventId: IdMother.random(),
-      occurredOn: new Date()
+      occurredOn: new Date(),
     })
   }
 }

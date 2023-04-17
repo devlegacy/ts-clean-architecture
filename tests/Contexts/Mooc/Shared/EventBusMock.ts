@@ -2,7 +2,8 @@ import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
 
 export class EventBusMock implements EventBus {
-  private publishSpy = jest.fn()
+  private publishSpy: jest.Mock<ReturnType<typeof EventBusMock.prototype.publish>, DomainEvent[][], EventBusMock> =
+    jest.fn()
 
   async publish(events: DomainEvent[]): Promise<void> {
     this.publishSpy(events)

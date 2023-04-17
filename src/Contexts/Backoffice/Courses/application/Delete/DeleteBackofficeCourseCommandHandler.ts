@@ -1,12 +1,11 @@
-import { injectable } from 'tsyringe'
-
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandler } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourseId, DeleteBackofficeCourseCommand } from '../../domain'
 import { BackofficeCourseDeleter } from './BackofficeCourseDeleter'
 
-@injectable()
-export class DeleteBackofficeCourseCommandHandler implements CommandHandler<DeleteBackofficeCourseCommand> {
+@CommandHandler(BackofficeCourseDeleter)
+export class DeleteBackofficeCourseCommandHandler implements ICommandHandler<DeleteBackofficeCourseCommand> {
   constructor(private readonly deleter: BackofficeCourseDeleter) {}
 
   subscribedTo(): Command {

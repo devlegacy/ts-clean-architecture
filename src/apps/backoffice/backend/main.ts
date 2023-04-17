@@ -2,13 +2,13 @@ import 'reflect-metadata'
 
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
-import { container } from 'tsyringe'
 
 import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 
+import { container } from '../modules'
 import { BackofficeBackendApp } from './BackofficeBackendApp'
 
-const fatalErrorHandler = container.resolve(FatalErrorHandler)
+const fatalErrorHandler = container.get(FatalErrorHandler)
 
 process
   .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))

@@ -1,12 +1,10 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourseRepository } from '../../domain'
 
-@injectable()
+@UseCase()
 export class BackofficeCoursesFinder {
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
+  constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run() {
     const courses = await this.repository.all()

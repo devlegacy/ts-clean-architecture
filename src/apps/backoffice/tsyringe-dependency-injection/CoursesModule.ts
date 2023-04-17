@@ -12,7 +12,7 @@ import {
 } from '@/Contexts/Backoffice/Courses/application'
 import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
 import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
-import { Command, CommandHandler, Query, QueryHandler, Response } from '@/Contexts/Shared/domain'
+import { Command, ICommandHandler, Query, Response } from '@/Contexts/Shared/domain'
 
 import { TYPES } from './types'
 
@@ -23,9 +23,9 @@ container
   .register(TYPES.DomainEventSubscriber, CreateBackofficeCourseOnCourseCreated)
   // 🚌 CommandBus <-> CommandHandlers
   // 🏷 Tags - Application
-  .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateBackofficeCourseCommandHandler)
-  .register<CommandHandler<Command>>(TYPES.CommandHandler, DeleteBackofficeCourseCommandHandler)
-  .register<CommandHandler<Command>>(TYPES.CommandHandler, UpdateBackofficeCourseCommandHandler)
+  .register<ICommandHandler<Command>>(TYPES.CommandHandler, CreateBackofficeCourseCommandHandler)
+  .register<ICommandHandler<Command>>(TYPES.CommandHandler, DeleteBackofficeCourseCommandHandler)
+  .register<ICommandHandler<Command>>(TYPES.CommandHandler, UpdateBackofficeCourseCommandHandler)
   // 🚌 QueryBus <-> QueryHandlers
   // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllBackofficeCoursesQueryHandler)

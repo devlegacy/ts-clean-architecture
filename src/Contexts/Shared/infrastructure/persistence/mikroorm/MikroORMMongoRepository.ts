@@ -8,11 +8,13 @@ import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter'
 
 @Service()
 export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
+  #client: Promise<MikroORM<MongoDriver>>
   // private readonly criteriaConverter: MongoCriteriaConverter
-  private readonly criteria = new MongoCriteriaConverter()
+  #criteria = new MongoCriteriaConverter()
   // Diod
-  constructor(private readonly _client: Promise<MikroORM<MongoDriver>>) {
+  constructor(client: MikroORM<MongoDriver>) {
     // this.criteriaConverter = new MongoCriteriaConverter()
+    this.#client = client as unknown as Promise<MikroORM<MongoDriver>>
   }
 
   // tsyringe
@@ -27,7 +29,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
 
   protected async countDocuments(criteria: Criteria) {
     const collection = await this.repository()
-    const query = this.criteria.convert(criteria)
+    const query = this.#criteria.convert(criteria)
 
     const count = collection.count(
       { ...(query.filter as any) },
@@ -44,7 +46,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     offsetPagination: OffsetPagination
   ): Promise<{ data: T[]; pagination?: Pagination }> {
     const collection = await this.repository()
-    const query = this.criteria.convert(criteria)
+    const query = this.#criteria.convert(criteria)
 
     const countDocuments = collection.count(
       { ...(query.filter as any) },
@@ -73,11 +75,11 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   }
 
   protected client(): Promise<MikroORM<MongoDriver>> {
-    return this._client
+    return this.#client
   }
 
   protected async repository(): Promise<EntityRepository<T>> {
-    const client = await this._client
+    const client = await this.#client
     const repository = client.em.fork().getRepository(this.entitySchema())
     return repository
   }
@@ -98,7 +100,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   }
 
   protected async matching(criteria: Criteria): Promise<T[]> {
-    const query = this.criteria.convert(criteria)
+    const query = this.#criteria.convert(criteria)
 
     const collection = await this.repository()
 

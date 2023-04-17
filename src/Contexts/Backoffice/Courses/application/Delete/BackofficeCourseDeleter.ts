@@ -1,7 +1,5 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
 import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
@@ -9,12 +7,9 @@ import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
 // Casos de uso no inyectan command bus
 // Casos de uso pueden inyectar query bus
 
-@injectable()
+@UseCase()
 export class BackofficeCourseDeleter {
-  constructor(
-    @inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository,
-    @inject(TYPES.QueryBus) private readonly bus: QueryBus
-  ) {}
+  constructor(private readonly repository: BackofficeCourseRepository, private readonly bus: QueryBus) {}
 
   async run(courseId: BackofficeCourse['id']): Promise<void> {
     await this.ensureCourseExists(courseId)

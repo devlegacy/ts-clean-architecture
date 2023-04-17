@@ -1,6 +1,7 @@
 import { Given } from '@cucumber/cucumber'
 
-import { DomainEventDeserializer, DomainEventSubscribers } from '@/Contexts/Shared/infrastructure/EventBus'
+import { container } from '@/apps/backoffice/modules'
+import { DomainEventDeserializer, DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
 
 import { eventBus, wait } from './hooks.steps'
 
@@ -14,7 +15,7 @@ Given('the following event is received:', async (event: any) => {
 })
 
 function buildDeserializer() {
-  const subscribers = DomainEventSubscribers.from()
+  const subscribers = DomainEventSubscriberResolver.fromContainer(container)
 
   return DomainEventDeserializer.configure(subscribers)
 }

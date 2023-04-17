@@ -1,7 +1,9 @@
-import { DomainEvent, DomainEventClass, IDomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, IDomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEventSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { DomainEventDummy } from './DomainEventDummy'
 
+@DomainEventSubscriber(DomainEventDummy)
 export class DomainEventSubscriberDummy implements IDomainEventSubscriber<DomainEventDummy> {
   private events: DomainEvent[]
   private failsFirstTime = false
@@ -27,9 +29,9 @@ export class DomainEventSubscriberDummy implements IDomainEventSubscriber<Domain
     return new DomainEventSubscriberDummy({ alwaysFails: true })
   }
 
-  subscribedTo(): DomainEventClass[] {
-    return [DomainEventDummy]
-  }
+  // subscribedTo(): DomainEventClass[] {
+  //   return [DomainEventDummy]
+  // }
 
   async on(domainEvent: DomainEventDummy): Promise<void> {
     if (this.alwaysFails) {

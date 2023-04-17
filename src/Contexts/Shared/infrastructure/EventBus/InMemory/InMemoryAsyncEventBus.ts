@@ -3,7 +3,13 @@ import { Server as SocketServer } from 'socket.io'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
-import { DomainEvent, DomainEventSubscribers, EventBus } from '../../../domain'
+import {
+  DomainEvent,
+  DomainEventClass,
+  DomainEventSubscribers,
+  EventBus,
+  EVENTS_HANDLER_METADATA,
+} from '../../../domain'
 
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   private io?: SocketServer
@@ -21,7 +27,8 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
 
   addSubscribers(subscribers: DomainEventSubscribers): void {
     subscribers.items.forEach((subscriber) => {
-      subscriber.subscribedTo().forEach((event) => {
+      const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
+      events.forEach((event: any) => {
         info(`[on 📥 ]: ${event.EVENT_NAME}`)
         this.on(event.EVENT_NAME, subscriber.on.bind(subscriber))
       })

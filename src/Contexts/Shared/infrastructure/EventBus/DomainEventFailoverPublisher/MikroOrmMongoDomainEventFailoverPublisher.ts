@@ -16,7 +16,10 @@ import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
 export class MikroOrmMongoDomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'
 
-  constructor(private _client: Promise<MikroORM<MongoDriver>>, private deserializer?: DomainEventDeserializer) {}
+  constructor(
+    private readonly _client: Promise<MikroORM<MongoDriver>>,
+    private deserializer?: DomainEventDeserializer
+  ) {}
 
   async publish(event: DomainEvent): Promise<void> {
     const collection = await this.collection()

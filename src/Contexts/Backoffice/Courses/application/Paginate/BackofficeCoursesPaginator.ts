@@ -1,15 +1,13 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/backoffice/modules/types'
 import { Filters, OffsetPagination } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
 
 import { BackofficeCourseRepository } from '../../domain'
 import { PaginatedBackofficeCoursesResponse } from './PaginatedBackofficeCoursesResponse'
 
-@injectable()
+@UseCase()
 export class BackofficeCoursesPaginator {
-  constructor(@inject(TYPES.BackofficeCourseRepository) private readonly repository: BackofficeCourseRepository) {}
+  constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(filters: Filters, limit?: number, page?: number): Promise<PaginatedBackofficeCoursesResponse> {
     const paginate = new OffsetPagination(page, limit)
