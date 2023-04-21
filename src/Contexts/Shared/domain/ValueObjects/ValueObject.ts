@@ -2,8 +2,8 @@ import { shallowEqual } from 'fast-equals'
 
 import { InvalidArgumentError } from '../Errors'
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint
+// // eslint-disable-next-line @typescript-eslint/ban-types
+// export type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint
 
 /**
  * @description  A small immutable object whose equality is not based on identity but purely on its attributes.
@@ -16,7 +16,7 @@ export type PrimitiveTypes = String | string | number | Boolean | boolean | Date
  * ## Notes:
  * - Value objects can/should hold validation for their data. When we have validation rules.
  */
-export abstract class ValueObject<T extends PrimitiveTypes> {
+export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined>> {
   readonly value: T
 
   constructor(value: T) {

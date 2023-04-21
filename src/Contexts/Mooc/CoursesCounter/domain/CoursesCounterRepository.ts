@@ -1,5 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { CoursesCounter } from './CoursesCounter'
 
 export abstract class CoursesCounterRepository {

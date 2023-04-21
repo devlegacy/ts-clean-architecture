@@ -1,7 +1,5 @@
 import Redis from 'ioredis'
 
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { RedisConfig } from './RedisConfig'
 
 export class RedisClientFactory {

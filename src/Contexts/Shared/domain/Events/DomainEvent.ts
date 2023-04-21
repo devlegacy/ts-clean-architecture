@@ -1,4 +1,3 @@
-import { Simplify } from '../Types'
 import { ObjectId, Uuid } from '../ValueObjects'
 
 type DomainEventAttributes<T = any> = T

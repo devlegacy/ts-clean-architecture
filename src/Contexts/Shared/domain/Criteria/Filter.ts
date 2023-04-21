@@ -1,10 +1,9 @@
 import { InvalidArgumentError } from '../Errors'
-import { Primitives } from '../Types/Primitives'
 import { FilterField } from './FilterField'
 import { FilterOperator, OperatorKeys } from './FilterOperator'
 import { FilterValue } from './FilterValue'
 
-export type FilterPrimitiveDto = Primitives<Filter>
+export type FilterPrimitiveType = Primitives<Filter>
 
 export class Filter {
   readonly field: FilterField
@@ -36,7 +35,7 @@ export class Filter {
     return filter
   }
 
-  static parseFilters(params: FilterPrimitiveDto[]): Map<string, string>[] {
+  static parseFilters(params: FilterPrimitiveType[]): Map<string, string>[] {
     if (!params) {
       return new Array<Map<string, string>>()
     }

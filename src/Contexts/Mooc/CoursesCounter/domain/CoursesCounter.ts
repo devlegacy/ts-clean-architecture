@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, ObjectId, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot, ObjectId } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent'

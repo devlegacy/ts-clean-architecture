@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { Criteria, Nullable } from '@/Contexts/Shared/domain'
+import { Criteria } from '@/Contexts/Shared/domain'
 import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { Course, CourseRepository } from '../../domain'

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { Criteria, Nullable } from '@/Contexts/Shared/domain'
+import { Criteria } from '@/Contexts/Shared/domain'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mongo'
 
 import { Course, CourseRepository } from '../../domain'

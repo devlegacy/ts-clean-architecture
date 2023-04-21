@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './value-object'
 

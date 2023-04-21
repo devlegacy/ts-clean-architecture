@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 
-import { Class, EnumValueObject, ValueObject } from '@/Contexts/Shared/domain'
+import { EnumValueObject, ValueObject } from '@/Contexts/Shared/domain'
 
 export class ValueObjectTransformer {
   constructor(

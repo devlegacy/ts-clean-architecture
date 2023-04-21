@@ -1,7 +1,5 @@
 import { Client as ElasticClient } from '@elastic/elasticsearch'
 
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import ElasticConfig from './ElasticConfig'
 
 export class ElasticClientFactory {

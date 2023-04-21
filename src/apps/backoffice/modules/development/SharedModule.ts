@@ -27,8 +27,8 @@ import {
   SentryModule,
 } from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
-import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
+// import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 import { TAGS } from '../tags'
 
 const context = 'backoffice'
@@ -97,5 +97,5 @@ export const SharedModule = (builder: ContainerBuilder) => {
     return logger
   })
   builder.register(FatalErrorHandler).use(FatalErrorHandler)
-  builder.register(EnvironmentArranger).use(MikroOrmMongoEnvironmentArranger)
+  // builder.register(EnvironmentArranger).use(MikroOrmMongoEnvironmentArranger)
 }

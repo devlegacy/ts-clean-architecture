@@ -1,6 +1,6 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { Criteria, Nullable } from '@/Contexts/Shared/domain'
+import { Criteria } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { Course, CourseRepository } from '../../domain'

@@ -1,5 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { clearDataStore, DataStore } from './DataStore'
 
 type Query<T> = { [key in keyof T]?: T[key] }

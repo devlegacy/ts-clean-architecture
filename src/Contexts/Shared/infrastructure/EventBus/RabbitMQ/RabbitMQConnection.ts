@@ -38,6 +38,12 @@ export class RabbitMQConnection {
     const autoDelete = false
     const args = this.getQueueArguments(params)
 
+    // DEBT: Horrible hack
+    if (process.env.APP_ENV === 'test' && !params.name.includes('_dummy')) {
+      console.log('-----------> Purge', params.name)
+      await this.channel?.purgeQueue(params.name)
+    }
+
     await this.channel?.assertQueue(params.name, {
       exclusive,
       durable,

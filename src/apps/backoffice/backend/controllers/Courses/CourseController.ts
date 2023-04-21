@@ -12,7 +12,7 @@ import {
   DeleteBackofficeCourseCommand,
   UpdateBackofficeCourseCommand,
 } from '@/Contexts/Backoffice/Courses/domain'
-import { CommandBus, Filter, FilterPrimitiveDto, Monitoring, Operator, QueryBus } from '@/Contexts/Shared/domain'
+import { CommandBus, Filter, FilterPrimitiveType, Monitoring, Operator, QueryBus } from '@/Contexts/Shared/domain'
 import {
   Body,
   Controller,
@@ -42,7 +42,7 @@ export class CourseController {
 
   @Get()
   async index(
-    @Query('filters', FiltersPipe) filters?: FilterPrimitiveDto[],
+    @Query('filters', FiltersPipe) filters?: FilterPrimitiveType[],
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
     @Query('orderBy') orderBy?: string,
@@ -72,7 +72,7 @@ export class CourseController {
 
   @Get('pagination')
   async pagination(
-    @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveDto[],
+    @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveType[],
     @Query('limit') limit?: number,
     @Query('page') page?: number,
     @Query('orderBy') _orderBy?: string,

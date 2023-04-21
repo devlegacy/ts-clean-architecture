@@ -1,18 +1,11 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/mooc/tsyringe-dependency-injection/types'
 import { EventBus } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { Course, CourseDuration, CourseName, CourseRepository } from '../domain'
 import { CourseCreatorRequest } from './CourseCreatorRequest'
 
-@injectable()
 export class CourseCreator {
-  constructor(
-    @inject(TYPES.CourseRepository) private readonly repository: CourseRepository,
-    @inject(TYPES.EventBus) private readonly eventBus: EventBus
-  ) {}
+  constructor(private readonly repository: CourseRepository, private readonly eventBus: EventBus) {}
 
   async run(request: CourseCreatorRequest) {
     const course = Course.create(
