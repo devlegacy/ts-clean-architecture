@@ -50,7 +50,7 @@
     // "tests": true,
     "tsconfig*.json": true,
     "tsconfig*.tsbuildinfo": true,
-    "types": true,
+    // "types": true,
     "yarn-error.log": true
   },
   "prettier.requireConfig": true,

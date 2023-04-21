@@ -11,6 +11,8 @@
     "**/*.test.ts",
     "**/*spec.ts",
     "**/*test.ts", // especial container test files
+    "./src/**/*/test",
+    "./src/**/*/tsyringe-dependency-injection",
     "dist",
     "jest.config.ts",
     "jest.setup.ts",
