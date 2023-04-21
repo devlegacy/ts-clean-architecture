@@ -45,6 +45,7 @@
 - **osificación**: Es la idea de crear de forma muy preliminar estructuras de código que más tarde marcaran y orientaran el desarrollo de una forma tan dura que resultará complejo de evolucionar.
 - **proyección**: Vista de un conjunto de datos. Por ejemplo, una proyección de las facturas de nuestros usuarios podría ser una tabla en la bbdd con todos los datos de las facturas.
 - **TDD**: Test driven design
+- **Niveles de indirección**
 
 ## CQRS, Event Drive, Event Source
 
@@ -100,3 +101,4 @@
   
 - Tell don't ask
 - ¿consideramos algoritmos infraestructura?
+
