@@ -1,5 +1,4 @@
 import { CoursesCounter, CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { Nullable } from '@/Contexts/Shared/domain'
 
 export class CoursesCounterRepositoryMock implements CoursesCounterRepository {
   #saveMock: jest.Mock<

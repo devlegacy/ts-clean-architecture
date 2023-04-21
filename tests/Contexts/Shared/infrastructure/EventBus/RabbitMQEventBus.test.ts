@@ -31,7 +31,7 @@ describe('RabbitMQEventBus test', () => {
   const queueNameFormatter = new RabbitMQQueueFormatter('mooc')
 
   beforeAll(async () => {
-    arranger = new MikroOrmMongoEnvironmentArranger(mongoClient)
+    arranger = new MikroOrmMongoEnvironmentArranger(mongoClient as unknown as Awaited<typeof mongoClient>)
   })
 
   beforeEach(async () => {

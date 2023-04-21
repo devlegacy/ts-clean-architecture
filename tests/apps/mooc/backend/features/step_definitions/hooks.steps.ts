@@ -8,7 +8,6 @@ import { EventBus } from '@/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 const application = new MoocBackendApp()
-// const backofficeBackendApp = new BackofficeBackendApp()
 
 let api: SuperTest<Test>
 const environmentArranger = container.get(EnvironmentArranger)
@@ -18,7 +17,6 @@ setDefaultTimeout(60 * 1000)
 BeforeAll(async () => {
   await ConfigureRabbitMQCommand.run()
 
-  // await backofficeBackendApp.start()
   await application.start()
   api = supertest(application.httpServer)
   await wait(1000)

@@ -1,4 +1,4 @@
-import { AggregateRoot, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 import { UserId } from '../../Shared/domain'
 import { UserAge, UserName, UserUsername } from './value-object'

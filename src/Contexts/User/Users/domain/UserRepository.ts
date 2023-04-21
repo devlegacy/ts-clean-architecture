@@ -1,5 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { User } from './User'
 
 // ¿Cómo definimos/extraemos las interfaces? -> Por los clientes que las implementan

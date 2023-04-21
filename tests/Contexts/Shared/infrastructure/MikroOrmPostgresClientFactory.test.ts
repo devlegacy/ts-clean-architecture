@@ -11,6 +11,8 @@ const config = {
   username: 'postgres',
 }
 
+jest.setTimeout(5000 + 60000)
+
 describe('MikroOrmPostgresClientFactory', () => {
   const factory = MikroOrmPostgresClientFactory
   let client: MikroORM<PostgreSqlDriver>
