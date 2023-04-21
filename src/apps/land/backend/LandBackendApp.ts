@@ -7,7 +7,6 @@ import config from '@/Contexts/Land/Shared/infrastructure/config'
 import { DomainEventSubscriberResolver, InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
-import { TYPES } from '../modules/types'
 import { Server } from './Server'
 
 export class LandBackendApp {
@@ -39,7 +38,7 @@ export class LandBackendApp {
   }
 
   async configureEventBus() {
-    const eventBus = container.resolve<InMemoryAsyncEventBus>(TYPES.EventBus) // EventBus
+    const eventBus = container.resolve<InMemoryAsyncEventBus>('EventBus') // EventBus
     //   const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
     //   await rabbitMQConnection.connect()
     const io = new SocketServer(this.httpServer)

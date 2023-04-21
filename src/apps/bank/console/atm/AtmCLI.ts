@@ -43,7 +43,7 @@ export class AtmCLI {
       .then((account: Account) => {
         console.log(`Account: ${account.id}`)
         console.log(`Name: ${account.name}`)
-        console.log(`Balance: ${account.balance.value} ${account.balance.currency}`)
+        console.log(`Balance: ${account.balance.amount} ${account.balance.currency}`)
       })
       .catch(onError)
       .finally(onSuccess)

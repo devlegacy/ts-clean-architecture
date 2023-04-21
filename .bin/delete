@@ -1,0 +1,7 @@
+#!/bin/bash
+
+find . -type f -name '*.o' -delete
+
+find ./tests/ -type f -name '*.js' -delete && \
+find ./tests/ -type f -name '*.js.map' -delete && \
+find ./tests/ -type f -name '*.d.ts' -delete

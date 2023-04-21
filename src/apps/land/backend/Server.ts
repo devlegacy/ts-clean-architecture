@@ -17,8 +17,6 @@ import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastif
 import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
-import { TYPES } from '../modules/types'
-
 type Options = {
   port?: number
   host?: string
@@ -42,7 +40,7 @@ export class Server {
     this.#httpServer = this.#adapter.app.server
     this.#adapter.enableCors()
     this.#adapter
-      .setMonitoringModule(container.resolve<Monitoring>(TYPES.Monitoring))
+      .setMonitoringModule(container.resolve<Monitoring>('Monitoring'))
       .setValidationModule(new JoiModule())
       .setValidationModule(new GeneralRequestValidation())
   }

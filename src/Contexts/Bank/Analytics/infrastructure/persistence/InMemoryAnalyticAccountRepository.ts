@@ -1,4 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
 import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/persistence/memory'
 
 import { AnalyticAccount, AnalyticAccountRepository } from '../../domain'

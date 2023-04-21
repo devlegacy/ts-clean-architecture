@@ -1,3 +1,5 @@
 export * from './FileAccountRepository'
 export * from './InMemoryAccountRepository'
+export * from './MongoAccountEventStore'
 export * from './MongoAccountRepository'
+export * from './ProxyAccountRepository'

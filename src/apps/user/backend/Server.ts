@@ -3,7 +3,7 @@ import http from 'http'
 import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
+import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 
 export class Server {

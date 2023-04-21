@@ -1,5 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { AnalyticAccount } from './AnalyticAccount'
 
 export interface AnalyticAccountRepository {

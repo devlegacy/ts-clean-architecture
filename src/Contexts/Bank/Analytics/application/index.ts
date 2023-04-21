@@ -1,2 +1,2 @@
 export * from './AnalyticAccountTrackerUseCase'
-export * from './TrackOnAccountCreatedEventHandler'
+export * from './TrackAnalyticAccountOnAccountCreated'

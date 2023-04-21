@@ -1,13 +1,9 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/land/modules/types'
 import { LandDescription, Type } from '@/Contexts/Land/LandDescriptions/domain'
 
 import { Lot, LotRepository } from '../../domain'
 
-@injectable()
 export class LotFinder {
-  constructor(@inject(TYPES.LotRepository) private readonly repository: LotRepository) {}
+  constructor(private readonly repository: LotRepository) {}
 
   async run(id: Lot['id']) {
     const description = LandDescription.create({

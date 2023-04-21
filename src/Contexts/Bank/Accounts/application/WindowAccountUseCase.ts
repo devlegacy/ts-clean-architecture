@@ -11,9 +11,10 @@ export class AccountUseCase {
 
   async create(id: string, name: string, currency: string): Promise<string> {
     const account = Account.create(id, name, currency)
-    const events = account.pullDomainEvents()
 
     await this.accountRepository.save(account)
+
+    const events = account.pullDomainEvents()
     await this.eventBus.publish(events)
 
     return account.id
@@ -29,11 +30,11 @@ export class AccountUseCase {
   async deposit(id: string, amount: number, currency: string): Promise<void> {
     const account = await this.find(id)
     const money = new Money(amount, currency)
-
     account.deposit(money)
-    const events = account.pullDomainEvents()
 
     await this.accountRepository.update(account)
+
+    const events = account.pullDomainEvents()
     await this.eventBus.publish(events)
   }
 
@@ -42,9 +43,10 @@ export class AccountUseCase {
     const money = new Money(amount, currency)
 
     account.withdraw(money, this.ratioService)
-    const events = account.pullDomainEvents()
 
     await this.accountRepository.update(account)
+
+    const events = account.pullDomainEvents()
     await this.eventBus.publish(events)
   }
 }

@@ -1,4 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure'
 
 import { Account, AccountRepository } from '../../domain'

@@ -1,15 +1,11 @@
-import { inject } from 'tsyringe'
-
 import { CreatePriceCommand } from '@/Contexts/Land/Prices/application'
 import { PriceRequestDto } from '@/Contexts/Land/Prices/infrastructure'
 import { CommandBus } from '@/Contexts/Shared/domain'
 import { Body, Controller, Post } from '@/Contexts/Shared/domain/Common'
 
-import { TYPES } from '../../modules/types'
-
 @Controller('prices')
 export class PriceController {
-  constructor(@inject(TYPES.CommandBus) private readonly commandBus: CommandBus) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @Post()
   async create(@Body() price: PriceRequestDto) {

@@ -1,17 +1,10 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/land/modules/types'
 import { BlockId } from '@/Contexts/Land/Shared/domain'
 import { EntityNotFoundError, EventBus } from '@/Contexts/Shared/domain'
 
 import { BlockRepository } from '../../domain'
 
-@injectable()
 export class BlockDeleter {
-  constructor(
-    @inject(TYPES.BlockRepository) private readonly repository: BlockRepository,
-    @inject(TYPES.EventBus) private readonly bus: EventBus
-  ) {}
+  constructor(private readonly repository: BlockRepository, private readonly bus: EventBus) {}
 
   async run(request: BlockId) {
     const block = await this.repository.find(request)

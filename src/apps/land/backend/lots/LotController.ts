@@ -1,19 +1,13 @@
-import { inject } from 'tsyringe'
-
 import { CreateLotCommand, FindLotQuery, LotResponse } from '@/Contexts/Land/Lots/application'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
 import { Body, Controller, Get, Param, Post } from '@/Contexts/Shared/domain/Common'
 import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 
-import { TYPES } from '../../modules/types'
 import { LotRequestSchema } from './LotRequestSchema'
 
 @Controller('blocks/:block/lots')
 export class LotController {
-  constructor(
-    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus,
-    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus
-  ) {}
+  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   @Get(':id')
   async show(@Param('id', UuidPipe) id: string) {

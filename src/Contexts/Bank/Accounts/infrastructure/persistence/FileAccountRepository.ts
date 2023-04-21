@@ -2,8 +2,6 @@ import { deserialize, serialize } from 'bson'
 import { existsSync, mkdirSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { Account, AccountRepository } from '../../domain'
 
 export class FileAccountRepository implements AccountRepository {

@@ -1,5 +1,3 @@
-import { inject } from 'tsyringe'
-
 import {
   AddCartItemCommand,
   CartResponse,
@@ -13,14 +11,9 @@ import { CommandBus, QueryBus, Uuid } from '@/Contexts/Shared/domain'
 import { Body, Controller, Get, Param, Post, Put } from '@/Contexts/Shared/domain/Common'
 import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 
-import { TYPES } from '../../modules/types'
-
 @Controller('carts')
 export class CartController {
-  constructor(
-    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
-    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
-  ) {}
+  constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
   @Get(':cartId')
   async show(@Param('cartId', UuidPipe) cartId: string) {

@@ -52,6 +52,8 @@ export class Block extends AggregateRoot {
   readonly createdAt: BlockCreatedAt
   readonly updatedAt: BlockUpdatedAt
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   private deletedAt?: BlockDeletedAt
   private description?: LandDescription
 
