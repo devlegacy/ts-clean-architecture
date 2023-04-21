@@ -11,5 +11,6 @@ type Request<
     Querystring: Record<string, any>
   }
 > = import('fastify').FastifyRequest<RouteGeneric>
+
 // Temp typing - only for dev purposes
 type Response = import('fastify').FastifyReply
