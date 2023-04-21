@@ -1,9 +1,9 @@
 import { Response } from '@/Contexts/Shared/domain'
 
-import { Cart, CartPrimitiveDto } from '../domain'
+import { Cart, CartPrimitiveType } from '../domain'
 
 export class CartResponse implements Response {
-  readonly cart: CartPrimitiveDto
+  readonly cart: CartPrimitiveType
 
   constructor(cart: Cart) {
     this.cart = cart.toPrimitives()

@@ -1,5 +1,3 @@
-import { Nullable } from '@/Contexts/Shared/domain'
-
 import { Block } from './Block'
 
 export interface BlockRepository {

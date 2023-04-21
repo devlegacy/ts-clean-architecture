@@ -1,14 +1,14 @@
 import { injectable } from 'tsyringe'
 
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { EntityNotFoundError, Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { EntityNotFoundError, IQueryHandler, Query } from '@/Contexts/Shared/domain'
 
 import { BlockResponse } from '../BlockResponse'
 import { BlockFinder } from './BlockFinder'
 import { FindBlockQuery } from './FindBlockQuery'
 
 @injectable()
-export class FindBlockQueryHandler implements QueryHandler<FindBlockQuery, BlockResponse> {
+export class FindBlockQueryHandler implements IQueryHandler<FindBlockQuery, BlockResponse> {
   constructor(private readonly finder: BlockFinder) {}
 
   subscribedTo(): Query {

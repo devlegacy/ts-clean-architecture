@@ -2,8 +2,7 @@ import { Redis } from 'ioredis'
 import { inject, injectable } from 'tsyringe'
 
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { Nullable } from '@/Contexts/Shared/domain'
-import { SHARED_TYPES } from '@/Contexts/Shared/infrastructure/common'
+import { SHARED_TYPES } from '@/Contexts/Shared/domain'
 
 import { Block, BlockPrimitiveType, BlockRepository } from '../../domain'
 

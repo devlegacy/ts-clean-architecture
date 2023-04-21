@@ -1,13 +1,13 @@
 import { injectable } from 'tsyringe'
 
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
 
 import { BlockDeleter } from './BlockDeleter'
 import { DeleteBlockCommand } from './DeleteBlockCommand'
 
 @injectable()
-export class DeleteBlockCommandHandler implements CommandHandler<DeleteBlockCommand> {
+export class DeleteBlockCommandHandler implements ICommandHandler<DeleteBlockCommand> {
   constructor(private readonly deleter: BlockDeleter) {}
 
   async handle(command: DeleteBlockCommand): Promise<void> {

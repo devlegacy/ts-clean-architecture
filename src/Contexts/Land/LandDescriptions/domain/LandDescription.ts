@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 import {
   LandDescriptionDescription,
@@ -8,8 +8,8 @@ import {
   LandDescriptionType,
 } from './ValueObjects'
 
-export type LandDescriptionEntityDto = Entity<LandDescription>
-export type LandDescriptionPrimitiveDto = Primitives<LandDescription>
+export type LandDescriptionEntityType = Entity<LandDescription>
+export type LandDescriptionPrimitiveType = Primitives<LandDescription>
 
 export class LandDescription extends AggregateRoot {
   readonly id: LandDescriptionId
@@ -33,7 +33,7 @@ export class LandDescription extends AggregateRoot {
     this.type = type
   }
 
-  static create(data: LandDescriptionPrimitiveDto) {
+  static create(data: LandDescriptionPrimitiveType) {
     const landDescription = new LandDescription(
       new LandDescriptionId(data.id),
       new LandDescriptionDescription(data.description),
@@ -47,7 +47,7 @@ export class LandDescription extends AggregateRoot {
   }
 
   // Communicate with infrastructure
-  static override fromPrimitives(data: LandDescriptionPrimitiveDto) {
+  static override fromPrimitives(data: LandDescriptionPrimitiveType) {
     const landDescription = new LandDescription(
       new LandDescriptionId(data.id),
       new LandDescriptionDescription(data.description),

@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, Primitives, SetOptional } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 import { BlockDeletedAt } from '../../Blocks/domain'
 import { LandDescription } from '../../LandDescriptions/domain'

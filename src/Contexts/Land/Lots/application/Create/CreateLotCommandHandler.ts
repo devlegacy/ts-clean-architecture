@@ -1,14 +1,14 @@
 import { injectable } from 'tsyringe'
 
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
 
 import { LotArea, LotAvailability, LotCreatedAt, LotId, LotLot, LotUpdatedAt } from '../../domain'
 import { CreateLotCommand } from './CreateLotCommand'
 import { LotCreator } from './LotCreator'
 
 @injectable()
-export class CreateLotCommandHandler implements CommandHandler<CreateLotCommand> {
+export class CreateLotCommandHandler implements ICommandHandler<CreateLotCommand> {
   constructor(private readonly creator: LotCreator) {}
 
   async handle(command: CreateLotCommand): Promise<void> {

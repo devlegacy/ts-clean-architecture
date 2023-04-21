@@ -1,14 +1,14 @@
 import { injectable } from 'tsyringe'
 
 import { CartId } from '@/Contexts/Land/Shared/domain'
-import { Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { IQueryHandler, Query } from '@/Contexts/Shared/domain'
 
 import { CartResponse } from '../CartResponse'
 import { CartFinder } from './CartFinder'
 import { FindCartQuery } from './FindCartQuery'
 
 @injectable()
-export class FindCartQueryHandler implements QueryHandler<FindCartQuery, CartResponse> {
+export class FindCartQueryHandler implements IQueryHandler<FindCartQuery, CartResponse> {
   constructor(private readonly finder: CartFinder) {}
 
   subscribedTo(): Query {

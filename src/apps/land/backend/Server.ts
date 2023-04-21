@@ -10,11 +10,12 @@ import { resolve } from 'path'
 import qs from 'qs'
 import { container } from 'tsyringe'
 
-import { Monitoring, TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/common'
-import { error } from '@/Contexts/Shared/infrastructure/Logger'
+import { Monitoring } from '@/Contexts/Shared/domain'
+import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
+import { error, logger } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestValidation'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi'
+import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
 import { TYPES } from '../modules/types'
 
@@ -28,7 +29,7 @@ type Options = {
 
 export class Server {
   readonly #options?: Options
-  readonly #adapter = new FastifyAdapter()
+  readonly #adapter = new FastifyAdapter({ logger: logger() })
   #httpServer?: http.Server
 
   get httpServer() {
@@ -46,12 +47,7 @@ export class Server {
       .setValidationModule(new GeneralRequestValidation())
   }
 
-  async listen() {
-    await this.#adapter.bootstrap({
-      controller: resolve(__dirname, './'),
-      resolver: TsyringeControllerResolver,
-      isProduction: this.#options?.env === 'production',
-    })
+  setup() {
     const opts: KeycloakOptions = {
       appOrigin: 'http://localhost:8081',
       useHttps: false,
@@ -82,7 +78,14 @@ export class Server {
         },
       })
       .register(keycloak, opts)
+  }
 
+  async listen() {
+    await this.#adapter.bootstrap({
+      controller: resolve(__dirname, './'),
+      resolver: TsyringeControllerResolver,
+      isProduction: this.#options?.env === 'production',
+    })
     await this.#adapter.listen(this.#options ?? {})
   }
 

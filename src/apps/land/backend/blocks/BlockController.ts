@@ -4,8 +4,8 @@ import { BlockResponse, CreateBlockCommand, FindBlockQuery } from '@/Contexts/La
 import { DeleteBlockCommand } from '@/Contexts/Land/Blocks/application/Delete'
 import { BlockSearcher } from '@/Contexts/Land/Blocks/application/Search/BlockSearcher'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@/Contexts/Shared/infrastructure/common'
-import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@/Contexts/Shared/domain/Common'
+import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 
 import { TYPES } from '../../modules/types'
 import { BlockRequestSchema } from './BlockRequestSchema'

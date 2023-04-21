@@ -1,17 +1,11 @@
-import { inject, injectable } from 'tsyringe'
-
-import { TYPES } from '@/apps/land/modules/types'
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { Nullable } from '@/Contexts/Shared/domain'
 
 import { Block, BlockRepository } from '../../domain'
 
-@injectable()
 export class ProxyBlockRepository implements BlockRepository {
   constructor(
-    @inject(TYPES.MikroOrmPostgresBlockRepository)
     private readonly currentRepository: BlockRepository,
-    @inject(TYPES.RedisBlockRepository) private readonly _targetRepository: BlockRepository
+    private readonly _targetRepository: BlockRepository
   ) {}
 
   async all(): Promise<Block[]> {

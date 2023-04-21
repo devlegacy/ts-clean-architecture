@@ -1,8 +1,8 @@
 import { Command } from '@/Contexts/Shared/domain'
 
-import { CartPrimitiveDto } from '../../domain'
+import { CartPrimitiveType } from '../../domain'
 
-type Params = Omit<CartPrimitiveDto, 'checkout'>
+type Params = Omit<CartPrimitiveType, 'checkout'>
 
 export class CreateCartCommand extends Command {
   readonly id: string

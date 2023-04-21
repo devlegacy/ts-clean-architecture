@@ -1,14 +1,14 @@
 import { injectable } from 'tsyringe'
 
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
 
 import { BlockArea, BlockAvailability, BlockBlock, BlockCreatedAt, BlockStreet, BlockUpdatedAt } from '../../domain'
 import { BlockCreator } from './BlockCreator'
 import { CreateBlockCommand } from './CreateBlockCommand'
 
 @injectable()
-export class CreateBlockCommandHandler implements CommandHandler<CreateBlockCommand> {
+export class CreateBlockCommandHandler implements ICommandHandler<CreateBlockCommand> {
   constructor(private readonly creator: BlockCreator) {}
 
   // @AsyncWait()

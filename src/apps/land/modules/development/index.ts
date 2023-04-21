@@ -1,4 +1,4 @@
-// modules | container
+// tsyringe-dependency-injection | container
 // export * from '../apps'
 export * from './BlockModule'
 export * from './CartModule'

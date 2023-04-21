@@ -2,8 +2,8 @@ import { inject } from 'tsyringe'
 
 import { CreateLotCommand, FindLotQuery, LotResponse } from '@/Contexts/Land/Lots/application'
 import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Get, Param, Post } from '@/Contexts/Shared/infrastructure/common'
-import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestValidation/Joi/Pipes'
+import { Body, Controller, Get, Param, Post } from '@/Contexts/Shared/domain/Common'
+import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 
 import { TYPES } from '../../modules/types'
 import { LotRequestSchema } from './LotRequestSchema'

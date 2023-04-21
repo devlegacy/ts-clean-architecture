@@ -1,9 +1,7 @@
-import { Entity, Primitives } from '@/Contexts/Shared/domain'
-
 import { Boundary } from './Boundary'
 
-export type BoundariesEntityDto = Entity<Boundaries>
-export type BoundariesPrimitiveDto = Primitives<Boundaries>
+export type BoundariesEntityType = Entity<Boundaries>
+export type BoundariesPrimitiveType = Primitives<Boundaries>
 
 export class Boundaries {
   readonly north: Boundary

@@ -1,6 +1,5 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { Nullable } from '@/Contexts/Shared/domain'
 import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure'
 
 import { Block, BlockRepository } from '../../domain'

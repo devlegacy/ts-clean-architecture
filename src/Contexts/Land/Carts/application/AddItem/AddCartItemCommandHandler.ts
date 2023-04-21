@@ -1,14 +1,14 @@
 import { injectable } from 'tsyringe'
 
 import { CartId, ItemId } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler, Money } from '@/Contexts/Shared/domain'
+import { Command, ICommandHandler, Money } from '@/Contexts/Shared/domain'
 
 import { CartItem } from '../../domain'
 import { AddCartItemCommand } from './AddCartItemCommand'
 import { CartItemAdder } from './CartItemAdder'
 
 @injectable()
-export class AddCartItemCommandHandler implements CommandHandler<AddCartItemCommand> {
+export class AddCartItemCommandHandler implements ICommandHandler<AddCartItemCommand> {
   constructor(private readonly adder: CartItemAdder) {}
 
   subscribedTo(): Command {

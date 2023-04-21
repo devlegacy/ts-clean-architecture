@@ -1,4 +1,4 @@
-import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 import { CartId, OrderId, UserId } from '../../Shared/domain'
 import { CartAlreadyCheckoutError } from './CartAlreadyCheckoutError'
@@ -12,8 +12,8 @@ import { CartItems } from './CartItems'
 import { CartItemSubtractedDomainEvent } from './CartItemSubtractedEvent'
 import { CartCheckout } from './ValueObjects'
 
-export type CartEntityDto = Entity<Cart>
-export type CartPrimitiveDto = Primitives<Cart>
+export type CartEntityType = Entity<Cart>
+export type CartPrimitiveType = Primitives<Cart>
 
 export class Cart extends AggregateRoot {
   readonly id: CartId
@@ -29,7 +29,7 @@ export class Cart extends AggregateRoot {
     this.checkout = checkout ? checkout : new CartCheckout(false)
   }
 
-  static override fromPrimitives(data: CartPrimitiveDto) {
+  static override fromPrimitives(data: CartPrimitiveType) {
     const cart = new Cart(new CartId(data.id), new UserId(data.userId), new CartCheckout(data.checkout))
     return cart
   }
@@ -86,7 +86,7 @@ export class Cart extends AggregateRoot {
     if (this.checkout) throw new CartAlreadyCheckoutError()
   }
 
-  toPrimitives(): CartPrimitiveDto {
+  toPrimitives(): CartPrimitiveType {
     return {
       id: this.id.value,
       userId: this.id.value,
