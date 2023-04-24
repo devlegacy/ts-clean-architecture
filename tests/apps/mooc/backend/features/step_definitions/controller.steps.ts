@@ -1,6 +1,6 @@
-/// <reference types="../../../../../../types"/>
+// /// <reference types="../../../../../../types"/>
 
-import { Given, Then } from '@cucumber/cucumber'
+import { Then, When } from '@cucumber/cucumber'
 import assert from 'assert'
 import { Response, Test } from 'supertest'
 
@@ -9,7 +9,7 @@ import { api } from './hooks.steps'
 let request: Test
 let response: Response
 
-Given('I send a GET request to {string}', (route: string) => {
+When('I send a GET request to {string}', (route: string) => {
   request = api.get(route)
   // .key('../../../../../shared/key.pem')
   // .cert('../../../../../shared/cert.pem')
@@ -21,7 +21,7 @@ Then('the response status code should be {int}', async (status: number) => {
   response = await request.expect(status)
 })
 
-Given('I send a PUT request to {string} with body:', (route: string, body: string) => {
+When('I send a PUT request to {string} with body:', (route: string, body: string) => {
   request = api.put(route)
   // .trustLocalhost()
   // _request.url = _request.url.replace('http', 'https')

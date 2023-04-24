@@ -4,7 +4,7 @@ Feature: Create a new course
   I want to create a new course
 
   Scenario: A valid non existing course
-    Given I send a PUT request to "/courses/632fca4c28fd818a1049c75c" with body:
+    When I send a PUT request to "/courses/632fca4c28fd818a1049c75c" with body:
     """
     {
       "id": "632fca4c28fd818a1049c75c",
@@ -16,7 +16,7 @@ Feature: Create a new course
     And the response should be empty
 
   Scenario: An invalid non existing course
-    Given I send a PUT request to "/courses/632fca4c28fd818a1049c75c" with body:
+    When I send a PUT request to "/courses/632fca4c28fd818a1049c75c" with body:
     """
     {
       "id": "632fca4c28fd818a1049c75c",

@@ -4,7 +4,7 @@ Feature: Obtain the total number of courses
   I want to see the courses counter
 
   Scenario: With one course
-    Given I send an event to the event bus:
+    When I send an event to the event bus:
     """
     {
       "data": {
@@ -33,7 +33,7 @@ Feature: Obtain the total number of courses
 
 
   Scenario: With more than one course having duplicates
-    Given I send an event to the event bus:
+    When I send an event to the event bus:
     """
     {
       "data": {
