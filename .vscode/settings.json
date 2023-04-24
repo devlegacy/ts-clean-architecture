@@ -64,7 +64,7 @@
     "exceptions": "error",
     "persistence": "database"
   },
-  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT"],
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT", "TRANSLATE"],
   "todo-tree.highlights.customHighlight": {
     "TODO": {
       "icon": "bookmark"
@@ -77,6 +77,9 @@
     },
     "DEBT": {
       "icon": "alert-fill"
+    },
+    "TRANSLATE": {
+      "icon": "pencil"
     }
   },
   "[markdown]": {
