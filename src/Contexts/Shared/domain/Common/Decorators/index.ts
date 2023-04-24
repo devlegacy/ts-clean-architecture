@@ -10,7 +10,7 @@ import {
   EVENTS_HANDLER_METADATA,
   QUERY_HANDLER_METADATA,
   SHARED_TAGS,
-} from '../../shared-types'
+} from '../../shared.types'
 
 export * from './core'
 export * from './http'

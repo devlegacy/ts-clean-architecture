@@ -1,3 +1,3 @@
-export * from './http-status.enum'
-export * from './request-method.enum'
-export * from './route-paramtypes.enum'
+export * from './HttpStatus'
+export * from './RequestMethod'
+export * from './RouteParamtypes'

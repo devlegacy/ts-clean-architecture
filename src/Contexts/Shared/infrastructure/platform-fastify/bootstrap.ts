@@ -7,7 +7,7 @@ import { join, resolve } from 'path'
 import { cwd } from 'process'
 import type { Class, Constructor } from 'type-fest'
 
-import { Paramtype } from '@/Contexts/Shared/domain/Common/interfaces/features/paramtype.interface'
+import { Paramtype } from '@/Contexts/Shared/domain/Common/interfaces/features/Paramtype'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import {
@@ -324,7 +324,8 @@ const clusterServer = (
   { method, schema, url, httpCode, params, instance, methodName }: Route,
   isProduction = false
 ) => {
-  if (cluster.isPrimary && isProduction) {
+  // eslint-disable-next-line no-constant-condition
+  if (cluster.isPrimary && isProduction && false) {
     const primary = new Primary({ cluster })
     const limit = availableCpus
     for (let i = 0; i < limit; i++) primary.loadWorker()

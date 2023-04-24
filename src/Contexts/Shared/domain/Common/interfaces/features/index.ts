@@ -1,1 +1,1 @@
-export * from './pipe-transform.interface'
+export * from './PipeTransform'

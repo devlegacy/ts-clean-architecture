@@ -1,12 +1,11 @@
-import { Type } from '../type.interface'
-import { Paramtype } from './paramtype.interface'
+import { Paramtype } from './Paramtype'
 
 export type Transform<T = any> = (value: T, metadata: ArgumentMetadata) => any
 
 export interface ArgumentMetadata {
   readonly type: Paramtype
 
-  readonly metatype?: Type<any> | undefined
+  readonly metatype?: Constructor<any> | undefined
 
   readonly data?: string | undefined
 }
