@@ -30,3 +30,8 @@
 
   npm cache verify && npm cache clean --force
 ```
+
+## Don't 
+
+- [NODE_ENV](https://glebbahmutov.com/blog/do-not-use-node-env-for-staging/)
+- [NODE_ENV](https://seanconnolly.dev/dont-be-fooled-by-node-env)
