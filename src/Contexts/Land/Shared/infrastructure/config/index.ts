@@ -3,12 +3,12 @@ import { existsSync } from 'fs'
 import { resolve } from 'path'
 
 const landConfig = convict({
-  env: {
-    doc: 'The application environment.',
-    format: ['production', 'development', 'staging', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
-  } as const,
+  // env: {
+  //   doc: 'The application environment.',
+  //   format: ['production', 'development', 'staging', 'test'],
+  //   default: 'development',
+  //   env: 'NODE_ENV',
+  // } as const,
   app: {
     ip: {
       doc: 'The IP address to bind.',

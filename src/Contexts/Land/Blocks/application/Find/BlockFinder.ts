@@ -1,7 +1,9 @@
 import { LandDescription, Type } from '@/Contexts/Land/LandDescriptions/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { Block, BlockRepository } from '../../domain'
 
+@UseCase()
 export class BlockFinder {
   constructor(private readonly repository: BlockRepository) {}
 

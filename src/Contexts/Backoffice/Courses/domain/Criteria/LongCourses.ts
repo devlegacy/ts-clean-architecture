@@ -12,6 +12,11 @@ import {
   OrderTypes,
 } from '@/Contexts/Shared/domain'
 
+/**
+ * Criteria patter -> converts to -> Specification patter when we can express [ business language | domain language ]
+ * Domain language
+ * Domain specificity
+ */
 export class LongCourses extends Criteria {
   constructor() {
     super(

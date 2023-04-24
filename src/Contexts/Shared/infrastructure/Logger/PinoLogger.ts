@@ -1,4 +1,4 @@
-import pino, { Logger as PinoLoggerType } from 'pino'
+import pino, { Logger as PinoLoggerType, LoggerOptions } from 'pino'
 import util from 'util'
 
 import { Logger, LogLevel, LogMessage } from '../../domain'
@@ -61,3 +61,27 @@ export class PinoLogger implements Logger<PinoLoggerType> {
     )
   }
 }
+
+/**
+ * Read more on: https://getpino.io/#/
+ */
+export let logger = () => new PinoLogger().logger
+
+export const deepLog = (data: object) =>
+  logger().info(
+    util.inspect(data, {
+      showHidden: false,
+      depth: null,
+      colors: true,
+    })
+  )
+
+export const configure = (config: LoggerOptions) => {
+  logger = () => new PinoLogger(config as any).logger
+}
+
+export const info = logger().info.bind(logger())
+export const warn = logger().warn.bind(logger())
+export const debug = logger().debug.bind(logger())
+export const fatal = logger().fatal.bind(logger())
+export const error = logger().error.bind(logger())

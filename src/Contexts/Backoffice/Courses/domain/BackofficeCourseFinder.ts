@@ -19,7 +19,7 @@ export class BackofficeCourseFinder {
     const filters =
       typeof courseId === 'string'
         ? Filters.fromValues(
-            Filter.parseFilters([
+            Filter.parse([
               {
                 field: 'id',
                 operator: Operator.EQUAL,

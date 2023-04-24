@@ -1,14 +1,13 @@
+import { Service } from 'diod'
 import { Redis } from 'ioredis'
-import { inject, injectable } from 'tsyringe'
 
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { SHARED_TYPES } from '@/Contexts/Shared/domain'
 
 import { Block, BlockPrimitiveType, BlockRepository } from '../../domain'
 
-@injectable()
+@Service()
 export class RedisBlockRepository implements BlockRepository {
-  constructor(@inject(SHARED_TYPES.RedisClient) private readonly client: Redis) {}
+  constructor(private readonly client: Redis) {}
   async all(): Promise<Block[]> {
     const stored: any = await this.client.call('JSON.GET', 'blocks')
     const blocks = (JSON.parse(stored) as BlockPrimitiveType[]).map((block) => Block.fromPrimitives(block as any))

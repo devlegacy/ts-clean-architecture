@@ -1,6 +1,9 @@
+import { UseCase } from '@/Contexts/Shared/domain/Common'
+
 import { BlockRepository } from '../../domain'
 import { BlocksResponse } from '../BlocksReponse'
 
+@UseCase()
 export class BlockSearcher {
   constructor(private readonly repository: BlockRepository) {}
 

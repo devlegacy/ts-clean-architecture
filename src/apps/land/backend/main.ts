@@ -4,14 +4,14 @@ import 'source-map-support/register'
 
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
-import { container } from 'tsyringe'
 
 import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 
+import { container } from '../modules'
 // import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/logger'
 import { LandBackendApp } from './LandBackendApp'
 
-const fatalErrorHandler = container.resolve(FatalErrorHandler)
+const fatalErrorHandler = container.get(FatalErrorHandler)
 
 process
   .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))

@@ -17,6 +17,8 @@ export class FilterOperator extends EnumValueObject<Operator> {
     super(value, Object.values(Operator))
   }
 
+  static fromValue(value: OperatorKeys): FilterOperator
+  static fromValue(value: string): FilterOperator
   static fromValue(value: OperatorKeys): FilterOperator {
     return new FilterOperator(Operator[`${value}`])
   }

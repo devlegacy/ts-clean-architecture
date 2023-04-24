@@ -1,7 +1,9 @@
 import { LandDescription, Type } from '@/Contexts/Land/LandDescriptions/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { Lot, LotRepository } from '../../domain'
 
+@UseCase()
 export class LotFinder {
   constructor(private readonly repository: LotRepository) {}
 

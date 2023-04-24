@@ -1,19 +1,14 @@
-import { injectable } from 'tsyringe'
-
-import { EntityNotFoundError, IQueryHandler, Query } from '@/Contexts/Shared/domain'
+import { EntityNotFoundError, IQueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandler } from '@/Contexts/Shared/domain/Common'
 
 import { LotId } from '../../domain'
 import { LotResponse } from '../LotResponse'
 import { FindLotQuery } from './FindLotQuery'
 import { LotFinder } from './LotFinder'
 
-@injectable()
+@QueryHandler(FindLotQuery)
 export class FindLotQueryHandler implements IQueryHandler<FindLotQuery, LotResponse> {
   constructor(private readonly finder: LotFinder) {}
-
-  subscribedTo(): Query {
-    return FindLotQuery
-  }
 
   async handle(query: FindLotQuery): Promise<LotResponse> {
     const id = new LotId(query.id)

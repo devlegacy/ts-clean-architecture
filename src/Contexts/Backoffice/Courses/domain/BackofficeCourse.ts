@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@/Contexts/Shared/domain'
 
-import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './value-object'
+import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './ValueObjects'
 
 export type BackofficeCourseEntityDto = Entity<BackofficeCourse>
 export type BackofficeCoursePrimitiveDto = Primitives<BackofficeCourse>

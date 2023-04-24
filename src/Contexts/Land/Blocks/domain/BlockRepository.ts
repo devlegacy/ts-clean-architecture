@@ -1,9 +1,9 @@
 import { Block } from './Block'
 
-export interface BlockRepository {
-  all(): Promise<Block[]>
-  find(id: Block['id']): Promise<Nullable<Block>>
+export abstract class BlockRepository {
+  abstract all(): Promise<Block[]>
+  abstract find(id: Block['id']): Promise<Nullable<Block>>
 
-  save(block: Block): Promise<void>
-  delete(block: Block): Promise<void>
+  abstract save(block: Block): Promise<void>
+  abstract delete(block: Block): Promise<void>
 }

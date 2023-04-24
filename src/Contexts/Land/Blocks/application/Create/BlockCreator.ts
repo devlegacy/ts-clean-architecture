@@ -1,7 +1,9 @@
 import { EventBus } from '@/Contexts/Shared/domain'
+import { UseCase } from '@/Contexts/Shared/domain/Common'
 
 import { Block, BlockEntityType, BlockRepository } from '../../domain'
 
+@UseCase()
 export class BlockCreator {
   constructor(private readonly repository: BlockRepository, private readonly bus: EventBus) {}
 

@@ -1,13 +1,12 @@
-import { injectable } from 'tsyringe'
-
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
+import { ICommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandler } from '@/Contexts/Shared/domain/Common'
 
 import { LotArea, LotAvailability, LotCreatedAt, LotId, LotLot, LotUpdatedAt } from '../../domain'
 import { CreateLotCommand } from './CreateLotCommand'
 import { LotCreator } from './LotCreator'
 
-@injectable()
+@CommandHandler(CreateLotCommand)
 export class CreateLotCommandHandler implements ICommandHandler<CreateLotCommand> {
   constructor(private readonly creator: LotCreator) {}
 
@@ -31,9 +30,5 @@ export class CreateLotCommandHandler implements ICommandHandler<CreateLotCommand
     }
 
     await this.creator.run(lot)
-  }
-
-  subscribedTo(): Command {
-    return CreateLotCommand
   }
 }

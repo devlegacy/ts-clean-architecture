@@ -1,5 +1,8 @@
+import { UseCase } from '@/Contexts/Shared/domain/Common'
+
 import { Lot, LotEntityType, LotRepository } from '../../domain'
 
+@UseCase()
 export class LotCreator {
   constructor(private readonly repository: LotRepository) {}
 

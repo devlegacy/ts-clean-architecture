@@ -1,0 +1,36 @@
+import { ContainerBuilder } from 'diod'
+
+import {
+  BlockCreator,
+  BlockDeleter,
+  BlockFinder,
+  BlockSearcher,
+  CreateBlockCommandHandler,
+  DeleteBlockCommandHandler,
+  FindBlockQueryHandler,
+} from '@/Contexts/Land/Blocks/application'
+import { BlockRepository } from '@/Contexts/Land/Blocks/domain'
+import {
+  MikroOrmPostgresBlockRepository,
+  ProxyBlockRepository,
+  RedisBlockRepository,
+} from '@/Contexts/Land/Blocks/infrastructure'
+
+import { BlockController } from '../../backend/blocks/BlockController'
+import { TAGS } from '../tags'
+
+export const BlockModule = (builder: ContainerBuilder) => {
+  builder.registerAndUse(BlockController).addTag(TAGS.Controller)
+  builder.registerAndUse(CreateBlockCommandHandler).addTag(TAGS.CommandHandler)
+  builder.registerAndUse(BlockCreator).addTag(TAGS.UseCase)
+  builder.registerAndUse(BlockSearcher).addTag(TAGS.UseCase)
+  builder.registerAndUse(BlockDeleter).addTag(TAGS.UseCase)
+  builder.registerAndUse(BlockFinder).addTag(TAGS.UseCase)
+  builder.registerAndUse(DeleteBlockCommandHandler).addTag(TAGS.CommandHandler)
+  builder.registerAndUse(FindBlockQueryHandler).addTag(TAGS.QueryHandler)
+  builder.registerAndUse(MikroOrmPostgresBlockRepository)
+  builder.registerAndUse(RedisBlockRepository)
+  builder.register(BlockRepository).useFactory((container) => {
+    return new ProxyBlockRepository(container.get(MikroOrmPostgresBlockRepository), container.get(RedisBlockRepository))
+  })
+}

@@ -49,7 +49,7 @@ export class CourseController {
     @Query('orderType') orderType?: string
   ) {
     const query = new SearchBackofficeCoursesByCriteriaQuery(
-      Filter.parseFilters(filters ?? []),
+      Filter.parse(filters ?? []),
       orderBy,
       orderType,
       limit ? limit : undefined,
@@ -78,7 +78,7 @@ export class CourseController {
     @Query('orderBy') _orderBy?: string,
     @Query('orderType') _orderType?: string
   ) {
-    const filters = Filter.parseFilters(filtersDto ?? [])
+    const filters = Filter.parse(filtersDto ?? [])
 
     const query = new PaginateBackofficeCoursesQuery(filters, limit, page)
     const pagination = await this.queryBus.ask<PaginatedBackofficeCoursesResponse>(query)
@@ -87,7 +87,7 @@ export class CourseController {
 
   @Get(':courseId')
   async show(@Param('courseId', ObjectIdPipe) courseId: string) {
-    const filters = Filter.parseFilters([
+    const filters = Filter.parse([
       {
         field: 'id',
         operator: Operator.EQUAL,

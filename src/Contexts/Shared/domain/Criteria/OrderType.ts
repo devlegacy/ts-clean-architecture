@@ -7,20 +7,17 @@ export enum OrderTypes {
   NONE = 'none',
 }
 
+export type OrderTypeKeys = keyof typeof OrderTypes
+
 export class OrderType extends EnumValueObject<OrderTypes> {
   constructor(value: OrderTypes) {
     super(value, Object.values(OrderTypes))
   }
 
-  static fromValue(value: string): OrderType {
-    switch (value) {
-      case OrderTypes.ASC:
-        return new OrderType(OrderTypes.ASC)
-      case OrderTypes.DESC:
-        return new OrderType(OrderTypes.DESC)
-      default:
-        throw new InvalidArgumentError(`The order type ${value} is invalid`)
-    }
+  static fromValue(value: OrderTypeKeys): OrderType
+  static fromValue(value: string): OrderType
+  static fromValue(value: OrderTypeKeys): OrderType {
+    return new OrderType(OrderTypes[`${value}`])
   }
 
   isNone(): boolean {

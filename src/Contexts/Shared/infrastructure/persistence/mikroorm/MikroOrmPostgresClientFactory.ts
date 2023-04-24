@@ -1,4 +1,4 @@
-import { MikroORM } from '@mikro-orm/core'
+import { EntityCaseNamingStrategy, MikroORM } from '@mikro-orm/core'
 import type { Options, PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 
@@ -33,6 +33,7 @@ export abstract class MikroOrmPostgresClientFactory {
       logger: info,
       type: 'postgresql',
       highlighter: new SqlHighlighter(),
+      namingStrategy: EntityCaseNamingStrategy,
       debug: true,
       validate: true,
     }

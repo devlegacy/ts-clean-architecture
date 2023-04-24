@@ -1,13 +1,12 @@
-import { injectable } from 'tsyringe'
-
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
+import { ICommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandler } from '@/Contexts/Shared/domain/Common'
 
 import { BlockArea, BlockAvailability, BlockBlock, BlockCreatedAt, BlockStreet, BlockUpdatedAt } from '../../domain'
 import { BlockCreator } from './BlockCreator'
 import { CreateBlockCommand } from './CreateBlockCommand'
 
-@injectable()
+@CommandHandler(CreateBlockCommand)
 export class CreateBlockCommandHandler implements ICommandHandler<CreateBlockCommand> {
   constructor(private readonly creator: BlockCreator) {}
 
@@ -34,9 +33,5 @@ export class CreateBlockCommandHandler implements ICommandHandler<CreateBlockCom
     //   throw new BlockBlockLengthExceeded('Length exceeded')
     await this.creator.run(block)
     // }, 3000)
-  }
-
-  subscribedTo(): Command {
-    return CreateBlockCommand
   }
 }

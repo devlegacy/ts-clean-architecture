@@ -5,13 +5,12 @@ import { Block, BlockRepository } from '../../domain'
 export class ProxyBlockRepository implements BlockRepository {
   constructor(
     private readonly currentRepository: BlockRepository,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    private readonly _targetRepository: BlockRepository
+
+    private readonly targetRepository: BlockRepository
   ) {}
 
   async all(): Promise<Block[]> {
-    const blocks = await this.currentRepository.all()
+    const blocks = await this.targetRepository.all()
 
     return blocks
   }

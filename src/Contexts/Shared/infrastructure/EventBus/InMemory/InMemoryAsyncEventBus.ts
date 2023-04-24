@@ -1,3 +1,4 @@
+import { Service } from 'diod'
 import { EventEmitter } from 'events'
 import { Server as SocketServer } from 'socket.io'
 
@@ -11,6 +12,7 @@ import {
   EVENTS_HANDLER_METADATA,
 } from '../../../domain'
 
+@Service()
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   private io?: SocketServer
   addSocketServer(io: SocketServer) {

@@ -1,14 +1,12 @@
 import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
+import type { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { ContainerBuilder } from 'diod'
+import { Redis } from 'ioredis'
 
-import {
-  LoggerConfigFactory,
-  MongoConfigFactory,
-  RabbitMQConfigFactory,
-  RabbitMQEventBusFactory,
-  SentryConfigFactory,
-} from '@/Contexts/Mooc/Shared/infrastructure'
+import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure'
+import config from '@/Contexts/Land/Shared/infrastructure/config'
+import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory'
+import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory'
 import {
   Command,
   CommandBus,
@@ -19,54 +17,34 @@ import {
   Monitoring,
   Query,
   QueryBus,
-  Response,
 } from '@/Contexts/Shared/domain'
 import {
   CommandHandlers,
   FatalErrorHandler,
+  InMemoryAsyncEventBus,
   InMemoryCommandBus,
   InMemoryQueryBus,
-  MikroOrmMongoClientFactory,
-  MikroOrmMongoDomainEventFailoverPublisher,
+  MikroOrmPostgresClientFactory,
   QueryHandlers,
-  RabbitMQConfigurer,
-  RabbitMQConnection,
-  RabbitMQQueueFormatter,
+  RedisClientFactory,
   SentryModule,
 } from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { TAGS } from '../tags'
 
-const context = 'mooc'
-
-const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
-
-const rabbitConfig = RabbitMQConfigFactory.createConfig()
-const rabbitConnection = new RabbitMQConnection(rabbitConfig)
-const rabbitFormatter = new RabbitMQQueueFormatter(context)
-const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
-const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient)
-const rabbitEventBus = RabbitMQEventBusFactory.create(
-  DomainEventFailoverPublisher,
-  rabbitConnection,
-  rabbitFormatter,
-  rabbitConfig
-)
+const context = 'land'
+const postgresConfig = PostgresConfigFactory.createConfig()
+const connectionClient = MikroOrmPostgresClientFactory.createClient(context, postgresConfig)
+const redisConfig = RedisConfigFactory.createConfig()
+const redisClient = RedisClientFactory.createClient(context, redisConfig)
 
 export const SharedModule = (builder: ContainerBuilder) => {
-  builder.register<Promise<MikroORM<MongoDriver>>>(MikroORM<MongoDriver> as any).useFactory(() => {
+  builder.register<Promise<MikroORM<PostgreSqlDriver>>>(MikroORM<PostgreSqlDriver> as any).useFactory(() => {
     return connectionClient
   })
-  builder.register(RabbitMQConnection).useFactory(() => {
-    return rabbitConnection
-  })
-  builder.register(RabbitMQConfigurer).useFactory(() => {
-    return rabbitConfigurer
-  })
-  builder.register(EventBus).useFactory(() => {
-    return rabbitEventBus
+  builder.register(Redis).useFactory(() => {
+    return redisClient
   })
   builder
     .register(CommandBus)
@@ -78,6 +56,10 @@ export const SharedModule = (builder: ContainerBuilder) => {
       const handler = new CommandHandlers(commands)
       return new InMemoryCommandBus(handler)
     })
+    .asSingleton()
+  builder
+    .register(EventBus)
+    .useFactory(() => new InMemoryAsyncEventBus())
     .asSingleton()
   builder
     .register(QueryBus)
@@ -96,7 +78,11 @@ export const SharedModule = (builder: ContainerBuilder) => {
     return monitoring
   })
   builder.register(Logger).useFactory(() => {
-    const logger = new PinoLogger(LoggerConfigFactory.createConfig())
+    const logger = new PinoLogger({
+      name: config.get('app.name'),
+      level: config.get('log.level'),
+    })
+
     return logger
   })
   builder.register(FatalErrorHandler).use(FatalErrorHandler)

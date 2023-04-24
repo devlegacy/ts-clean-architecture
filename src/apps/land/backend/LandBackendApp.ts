@@ -1,12 +1,11 @@
-import '../modules'
-
 import { Server as SocketServer, Socket } from 'socket.io'
-import { container } from 'tsyringe'
 
 import config from '@/Contexts/Land/Shared/infrastructure/config'
+import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscriberResolver, InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
+import { container } from '../modules'
 import { Server } from './Server'
 
 export class LandBackendApp {
@@ -22,14 +21,11 @@ export class LandBackendApp {
   }
 
   async startHttp() {
-    const conf = {
-      host: config.get('app.ip'),
-      env: config.get('app.env'),
-      debug: config.get('app.debug'),
-      name: config.get('app.name'),
-      port: config.get('app.port'),
-    }
-    this.#server = new Server(conf)
+    const conf = config.get('app')
+    this.#server = new Server({
+      ...conf,
+      host: conf.ip,
+    })
     await this.#server.listen()
   }
 
@@ -38,9 +34,10 @@ export class LandBackendApp {
   }
 
   async configureEventBus() {
-    const eventBus = container.resolve<InMemoryAsyncEventBus>('EventBus') // EventBus
-    //   const rabbitMQConnection = container.resolve<RabbitMQConnection>(TYPES.RabbitMQConnection)
-    //   await rabbitMQConnection.connect()
+    const eventBus = container.get(EventBus) as InMemoryAsyncEventBus
+    // const rabbitMQConnection = container.get(RabbitMQConnection)
+    // await rabbitMQConnection.connect()
+
     const io = new SocketServer(this.httpServer)
     io.on('connection', (socket: Socket) => {
       info('a user connected')
@@ -55,7 +52,8 @@ export class LandBackendApp {
         otherProperty: 'other value',
       })
     }, 3000)
-    const subscribers = DomainEventSubscriberResolver.from()
+
+    const subscribers = DomainEventSubscriberResolver.fromContainer(container)
     eventBus.addSubscribers(subscribers)
     eventBus.addSocketServer(io)
   }

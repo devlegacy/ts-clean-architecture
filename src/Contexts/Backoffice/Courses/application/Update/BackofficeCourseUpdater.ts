@@ -24,7 +24,7 @@ export class BackofficeCourseUpdater {
   }
 
   private async ensureCourseExists(courseId: BackofficeCourse['id']) {
-    const filters = Filter.parseFilters([
+    const filters = Filter.parse([
       {
         field: 'id',
         operator: Operator.EQUAL,

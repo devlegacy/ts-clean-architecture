@@ -1,18 +1,23 @@
 import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
-import { container } from 'tsyringe'
+import { Service } from 'diod'
 
-import { AggregateRoot, SHARED_TYPES } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain'
 
+@Service()
 export abstract class MikroOrmPostgresRepository<T extends AggregateRoot> {
-  private readonly _client: Promise<MikroORM<PostgreSqlDriver>> = container.resolve(SHARED_TYPES.MikroOrmPostgresClient)
+  #client: Promise<MikroORM<PostgreSqlDriver>>
+
+  constructor(client: MikroORM<PostgreSqlDriver>) {
+    this.#client = client as unknown as Promise<MikroORM<PostgreSqlDriver>>
+  }
 
   protected client(): Promise<MikroORM<PostgreSqlDriver>> {
-    return this._client
+    return this.#client
   }
 
   protected async repository(): Promise<EntityRepository<T>> {
-    const client = await this._client
+    const client = await this.#client
     const repository = client?.em.fork().getRepository(this.entitySchema())
     return repository
   }

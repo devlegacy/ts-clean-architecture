@@ -35,15 +35,13 @@ export class Filter {
     return filter
   }
 
-  static parseFilters(params: FilterPrimitiveType[]): Map<string, string>[] {
-    if (!params) {
-      return new Array<Map<string, string>>()
-    }
+  static parse(params: FilterPrimitiveType[]): Map<string, string>[] {
+    if (!params) return new Array<Map<string, string>>()
 
     const filters = params.map(({ field, value, operator }) => {
       const filter = new Map([
         ['field', field],
-        ['operator', operator.toString()],
+        ['operator', operator],
         ['value', value],
       ])
 
