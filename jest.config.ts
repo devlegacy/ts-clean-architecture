@@ -90,7 +90,6 @@ export default {
     // https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
     '@/apps/(.*)$': ['<rootDir>/src/apps/$1'],
     '@/Contexts/(.*)$': ['<rootDir>/src/Contexts/$1'],
-    '@/shared/(.*)$': ['<rootDir>/src/shared/$1'],
     '@/tests/(.*)$': ['<rootDir>/tests/$1'],
   },
 
@@ -164,7 +163,7 @@ export default {
   //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
   // (ts|tsx|js)
-  testMatch: ['**/__tests__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|test).+(ts|tsx|js)'],
+  testMatch: ['**/__tests__/**/*.+(ts)', '**/?(*.)+(spec|test).+(ts)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\'], // '\\\\__mocks__\\\\'
@@ -180,7 +179,7 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(ts|tsx|js)$': [
+    '^.+\\.(ts)$': [
       'ts-jest',
       {
         tsconfig: 'tsconfig.json',
