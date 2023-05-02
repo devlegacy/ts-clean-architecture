@@ -10,16 +10,16 @@ export enum Operator {
   NOT_CONTAINS = 'NOT_CONTAINS',
   EXISTS = 'EXISTS',
 }
-export type OperatorKeys = keyof typeof Operator
+export type FilterOperatorKeys = keyof typeof Operator
 
 export class FilterOperator extends EnumValueObject<Operator> {
   constructor(value: Operator) {
     super(value, Object.values(Operator))
   }
 
-  static fromValue(value: OperatorKeys): FilterOperator
+  static fromValue(value: FilterOperatorKeys): FilterOperator
   static fromValue(value: string): FilterOperator
-  static fromValue(value: OperatorKeys): FilterOperator {
+  static fromValue(value: FilterOperatorKeys): FilterOperator {
     return new FilterOperator(Operator[`${value}`])
   }
 

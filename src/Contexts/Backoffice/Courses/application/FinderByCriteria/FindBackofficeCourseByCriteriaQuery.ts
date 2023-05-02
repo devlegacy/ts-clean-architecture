@@ -1,10 +1,10 @@
-import { Query } from '@/Contexts/Shared/domain'
+import { FilterValueType, Query } from '@/Contexts/Shared/domain'
 
 export class FindBackofficeCourseByCriteriaQuery extends Query {
-  readonly filters: Map<string, string>[]
+  // readonly filters: Map<string, string>[]
 
-  constructor(filters: Map<string, string>[]) {
+  constructor(readonly filters: FilterValueType[]) {
     super()
-    this.filters = filters
+    // this.filters = filters
   }
 }

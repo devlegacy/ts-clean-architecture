@@ -14,10 +14,10 @@ export class OrderType extends EnumValueObject<OrderTypes> {
     super(value, Object.values(OrderTypes))
   }
 
-  static fromValue(value: OrderTypeKeys): OrderType
+  static fromValue(value: OrderTypeKeys | Lowercase<OrderTypeKeys>): OrderType
   static fromValue(value: string): OrderType
-  static fromValue(value: OrderTypeKeys): OrderType {
-    return new OrderType(OrderTypes[`${value}`])
+  static fromValue(value: OrderTypeKeys | Lowercase<OrderTypeKeys>): OrderType {
+    return new OrderType(OrderTypes[`${value}`.toUpperCase() as OrderTypeKeys])
   }
 
   isNone(): boolean {

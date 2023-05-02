@@ -1,7 +1,7 @@
 import { ValueObject } from './ValueObject'
 
 export class DateTime extends ValueObject<Date> {
-  constructor(date: Date) {
+  constructor(value: Date) {
     // let value: Date
 
     // if (typeof date === 'string') {
@@ -16,7 +16,7 @@ export class DateTime extends ValueObject<Date> {
     //   value = new Date()
     // }
 
-    super(date)
+    super(value)
   }
 
   static now() {

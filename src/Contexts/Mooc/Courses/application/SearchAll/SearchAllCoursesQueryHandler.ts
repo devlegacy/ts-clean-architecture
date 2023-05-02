@@ -15,7 +15,9 @@ export class SearchAllCoursesQueryHandler implements IQueryHandler<CreateCourseC
   // }
 
   async handle(_query: SearchAllCoursesQuery): Promise<CoursesResponse> {
-    const response = await this.coursesFinder.run()
+    const courses = await this.coursesFinder.run()
+    const response = new CoursesResponse(courses)
+
     return response
   }
 }

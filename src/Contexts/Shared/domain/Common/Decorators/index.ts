@@ -82,7 +82,7 @@ export function AsyncWait(ms = 6000): MethodDecorator {
 export const registeredModules = new Map<string, Set<any>>()
 
 export const UseCase = () => {
-  return (target: any): any => {
+  return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.UseCase)) registeredModules.set(SHARED_TAGS.UseCase, new Set())
     if (!registeredModules.get(SHARED_TAGS.UseCase)?.has(target))
       registeredModules.get(SHARED_TAGS.UseCase)?.add(target)
@@ -92,7 +92,7 @@ export const UseCase = () => {
 }
 
 export const DomainEventSubscriber = (...events: DomainEventClass[]) => {
-  return (target: any): any => {
+  return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.DomainEventSubscriber))
       registeredModules.set(SHARED_TAGS.DomainEventSubscriber, new Set())
     if (!registeredModules.get(SHARED_TAGS.DomainEventSubscriber)?.has(target))
@@ -124,7 +124,7 @@ export const CommandHandler = (command: Command | Constructor<Command>): ClassDe
 }
 
 export const QueryHandler = (query: Query): ClassDecorator => {
-  return (target: any): any => {
+  return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.QueryHandler)) registeredModules.set(SHARED_TAGS.QueryHandler, new Set())
     if (!registeredModules.get(SHARED_TAGS.QueryHandler)?.has(target))
       registeredModules.get(SHARED_TAGS.QueryHandler)?.add(target)
