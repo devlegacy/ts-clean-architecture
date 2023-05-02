@@ -95,8 +95,8 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     // delete primitives.id
 
     // repository.nativeInsert(aggregateRoot)
-    repository.persist(aggregateRoot)
-    await repository.flush()
+    repository.getEntityManager().persist(aggregateRoot)
+    await repository.getEntityManager().flush()
   }
 
   protected async matching(criteria: Criteria): Promise<T[]> {

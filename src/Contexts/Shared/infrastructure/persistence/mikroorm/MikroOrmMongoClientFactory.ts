@@ -8,10 +8,10 @@ import { MongoConfig } from '../mongo/MongoConfig'
 export abstract class MikroOrmMongoClientFactory {
   private static clients: Record<string, MikroORM<MongoDriver>> = {}
 
-  static async createClient(contextName: string, config: MongoConfig) {
+  static async createClient(contextName: string, config: MongoConfig, contextPath?: string) {
     let client = MikroOrmMongoClientFactory.getClient(contextName)
     if (!client) {
-      client = await MikroOrmMongoClientFactory.createAndConnectClient(config)
+      client = await MikroOrmMongoClientFactory.createAndConnectClient(contextName, config, contextPath)
 
       MikroOrmMongoClientFactory.registerClient(contextName, client)
     }
@@ -22,23 +22,37 @@ export abstract class MikroOrmMongoClientFactory {
     return MikroOrmMongoClientFactory.clients[`${contextName}`]
   }
 
-  private static async createAndConnectClient(config: MongoConfig): Promise<MikroORM<MongoDriver>> {
+  private static async createAndConnectClient(
+    contextName: string,
+    config: MongoConfig,
+    contextPath?: string
+  ): Promise<MikroORM<MongoDriver>> {
     const from = config.url.lastIndexOf('/') + 1
     const to = config.url.lastIndexOf('?')
     const dbName = config.url.substring(from, to < 0 ? config.url.length : to)
 
+    const entities = contextPath
+      ? [`${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`]
+      : undefined
+    // : [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`] // DEBT: Convert as env variable
+
     const options: Options = {
+      discovery: {
+        warnWhenNoEntities: !!entities,
+      },
       // connect: true,
       dbName,
       // tsNode: true,
       clientUrl: config.url,
-      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`],
+      entities,
       logger: info,
       type: 'mongo',
       forceUndefined: true,
       highlighter: new MongoHighlighter(),
       debug: true,
       validate: true,
+      contextName,
+      // strict: false,
       // driverOptions: {
       //   monitorCommands: true,
       // ignoreUndefined: true

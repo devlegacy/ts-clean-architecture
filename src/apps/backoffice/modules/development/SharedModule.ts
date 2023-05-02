@@ -2,6 +2,7 @@ import { Client as ElasticClient } from '@elastic/elasticsearch'
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
+import { resolve } from 'path'
 
 import {
   ElasticConfigFactory,
@@ -33,7 +34,11 @@ import { TAGS } from '../tags'
 
 const context = 'backoffice'
 const mongoConfig = MongoConfigFactory.createConfig()
-export const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+export const connectionClient = MikroOrmMongoClientFactory.createClient(
+  context,
+  mongoConfig,
+  resolve(`${__dirname}/../../../../Contexts/Backoffice`)
+)
 
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)

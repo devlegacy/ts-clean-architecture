@@ -1,6 +1,7 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
+import { resolve } from 'path'
 
 import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
 import {
@@ -31,7 +32,11 @@ import { TAGS } from '../tags'
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+const connectionClient = MikroOrmMongoClientFactory.createClient(
+  context,
+  mongoConfig,
+  resolve(`${__dirname}/../../../../Contexts/Mooc`)
+)
 
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
