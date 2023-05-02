@@ -47,6 +47,10 @@
 - **TDD**: Test driven design
 - **Niveles de indirección**
 
+- Patron de diseño
+- Patron de arquitectura
+- Estilos de arquitectura
+
 ## CQRS, Event Drive, Event Source
 
 - **Bus**: En arquitectura de programación, un bus (una contracción de ómnibus del latín) es un sistema de comunicación que transfiere datos entre componentes.
