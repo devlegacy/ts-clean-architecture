@@ -17,7 +17,7 @@ import { AddressInfo } from 'net'
 import { Monitoring } from '../../domain'
 import { ControllerResolver } from '../Common'
 import { bootstrap } from './bootstrap'
-import { ValidationModule } from './interfaces'
+import { HttpValidationModule } from './interfaces'
 
 const printConfig: PrintRoutesOptions = {
   commonPrefix: false,
@@ -63,7 +63,7 @@ const fastifyServerOptions: FastifyServerOptions = {
 
 export class FastifyAdapter {
   // #instance: FastifyInstance
-  readonly validations: ValidationModule<any>[] = []
+  readonly validations: HttpValidationModule<any>[] = []
   readonly #instance: FastifyInstance
   #monitoring?: Monitoring
 
@@ -90,7 +90,7 @@ export class FastifyAdapter {
     this.#instance.register(fastifyCors, options)
   }
 
-  setValidationModule<T = unknown>(validationModule: ValidationModule<T>) {
+  setValidationModule<T = unknown>(validationModule: HttpValidationModule<T>) {
     this.validations.push(validationModule)
 
     return this

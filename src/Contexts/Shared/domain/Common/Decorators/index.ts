@@ -1,5 +1,3 @@
-import { Constructor } from 'type-fest'
-
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { Command } from '../../Commands'

@@ -1,3 +1,3 @@
 export abstract class Monitoring {
-  abstract capture(err: Error, config?: { req: any }): void
+  abstract capture(err: Error, context?: { req: any }): void
 }

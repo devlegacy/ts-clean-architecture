@@ -5,11 +5,11 @@ import HttpStatus from 'http-status'
 import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
-import type { Class, Constructor } from 'type-fest'
 
-import { Paramtype } from '@/Contexts/Shared/domain/Common/interfaces/features/Paramtype'
+import { Paramtype } from '@/Contexts/Shared/domain/Common'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
+import { isConstructor, normalizePath } from '../../domain'
 import {
   ParamData,
   RequestMappingMetadata,
@@ -28,8 +28,7 @@ import { PipeTransform } from '../../domain/Common/interfaces'
 import { ControllerResolver } from '../Common/dependency-injection'
 import { Primary } from './cluster'
 import { FastifyAdapter } from './fastify'
-import { ValidationModule } from './interfaces'
-import { isConstructor, normalizePath } from './shared.utils'
+import { HttpValidationModule } from './interfaces'
 
 const availableCpus = cpus().length
 
@@ -74,6 +73,7 @@ const getControllers = async (path = './src') => {
   return controllers
 }
 
+// DEBT: how to extract container from here
 const getControllerMetadata = (controller: any, resolver?: ControllerResolver, container?: any) => {
   const instance = resolver ? resolver(controller, container) : new controller()
   const {
@@ -105,8 +105,8 @@ const getControllerMetadata = (controller: any, resolver?: ControllerResolver, c
 
 const getRouteMethodMetadata = (method: () => unknown) => {
   const routePath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
-  const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
-    Reflect.getMetadata(METHOD_METADATA, method) || RequestMethod.GET
+  // const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
+  const requestMethod: RequestMethod = Reflect.getMetadata(METHOD_METADATA, method) || RequestMethod.GET
   const httpCode: number =
     Reflect.getMetadata(HTTP_CODE_METADATA, method) ||
     (requestMethod === RequestMethod.POST ? HttpStatus.CREATED : HttpStatus.OK)
@@ -195,53 +195,52 @@ const getParams = (
   return routeParams
 }
 
-export const getSchema = (
+export const buildSchema = (
   schema: FastifySchema,
-  method: any,
-  schemasBuilders?: ValidationModule<any>[]
+  method: RequestMethod,
+  builders?: HttpValidationModule<unknown>[]
 ): FastifySchema | undefined => {
-  let invalidSchemasCounter = 0
-  let shouldBreak = false
+  // let invalidSchemas = 0
+  let stopBuildSchema = false
 
-  const keys = Object.keys(schema) as (keyof FastifySchema)[]
-  if (!keys.length || !schemasBuilders || !schemasBuilders.length) return undefined
+  const properties = Object.keys(schema) as (keyof FastifySchema)[]
+  if (!properties.length || !builders || !builders.length) return undefined
 
-  for (const key of keys) {
-    shouldBreak = false
-    for (const builder of schemasBuilders) {
-      shouldBreak = builder.schemaBuilder(schema, key, builder.getMethodGroup(method))
-      if (shouldBreak) break
+  for (const property of properties) {
+    stopBuildSchema = false
+    for (const builder of builders) {
+      stopBuildSchema = builder.schemaBuilder(schema, property, method)
+      if (stopBuildSchema) break
     }
-    if (shouldBreak) continue
+    if (stopBuildSchema) continue
 
-    // Sanitize
-    delete schema[`${key}`]
-    invalidSchemasCounter++
+    // Sanitize when is primitive schema like String/Number etc.
+    delete schema[`${property}`]
+    // invalidSchemas++
   }
 
-  if (invalidSchemasCounter === keys.length) return undefined
+  // if (invalidSchemas === keys.length) return undefined
 
-  return schema
+  // return schema
 }
 
 const buildSchemaWithParams = (
   params: Record<string, RouteParamMetadata>,
-  schema: any,
-  method: any,
-  args: any[] = [],
-  validations: ValidationModule<any>[] = []
-): any => {
+  schema: { schema: FastifySchema; code: number },
+  method: RequestMethod,
+  args: (() => unknown)[] = [],
+  validations: HttpValidationModule<any>[] = []
+): void => {
   if (Object.keys(schema.schema).length > 0) {
-    schema.schema = getSchema(schema.schema, method, validations)
-
-    return schema
+    // schema.schema = getSchema(schema.schema, method, validations)
+    buildSchema(schema.schema, method, validations)
+    // return schema
   }
   const keyParams = getKeyParam(params)
-  // console.log(args)
   for (const keyParam of keyParams) {
     const [paramtype, index] = keyParam
 
-    if (!args.at(index) || !isConstructor(args.at(index)) || args.at(index).name === 'Object') continue
+    if (!args.at(index) || !isConstructor(args.at(index)) || args.at(index)?.name === 'Object') continue
 
     if (paramtype === RouteParamtypes.QUERY) {
       schema.schema.querystring = args.at(index)
@@ -254,9 +253,9 @@ const buildSchemaWithParams = (
     }
   }
 
-  schema.schema = getSchema(schema.schema, method, validations)
-
-  return schema
+  // schema.schema = getSchema(schema.schema, method, validations)
+  buildSchema(schema.schema, method, validations)
+  // return schema
 }
 
 /**
@@ -290,9 +289,13 @@ export const bootstrap = async (
       const { routePath, requestMethod, httpCode, schema } = getRouteMethodMetadata(method)
       if (!routePath) continue // is not a route in controller
 
-      const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instanceConstructor, methodName)
+      const params: Record<string, RouteParamMetadata> = Reflect.getMetadata(
+        ROUTE_ARGS_METADATA,
+        instanceConstructor,
+        methodName
+      )
       if (params) {
-        const args: any[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
+        const args: (() => unknown)[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
         buildSchemaWithParams(params, schema, requestMethod, args, adapterInstance.validations)
       }
 

@@ -3,11 +3,13 @@ import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
 import { ZodError, ZodObject, ZodSchema, ZodTypeDef } from 'zod'
 
-import { ValidationModule } from '../../platform-fastify'
+import { RequestMethod } from '@/Contexts/Shared/domain/Common'
+
+import { HttpValidationModule } from '../../platform-fastify'
 
 // Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts
 
-export class ZodModule implements ValidationModule<ZodObject<any>> {
+export class ZodModule implements HttpValidationModule<ZodObject<any>> {
   validationCompiler(schemaDefinition: FastifyRouteSchemaDef<ZodObject<any>>) {
     const { schema } = schemaDefinition
 
@@ -39,11 +41,12 @@ export class ZodModule implements ValidationModule<ZodObject<any>> {
     }
   }
 
-  getMethodGroup(_group?: any) {
-    return undefined
-  }
+  // getMethodGroup(_group?: any) {
+  //   return undefined
+  // }
 
-  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema) {
+  // schemaBuilder(schema: FastifySchema, key: keyof FastifySchema) {
+  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, _method: RequestMethod) {
     const objectSchema = schema[`${key}`] || {}
     if ((objectSchema as any).isZodDto) {
       schema[`${key}`] = (objectSchema as any).schema
