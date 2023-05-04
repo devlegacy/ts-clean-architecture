@@ -27,7 +27,7 @@ import {
 } from '@/Contexts/Shared/domain/Common'
 import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
-import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/filters.pipe'
+import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/FiltersPipe'
 
 import { CourseRequestSchema } from './Validation'
 
