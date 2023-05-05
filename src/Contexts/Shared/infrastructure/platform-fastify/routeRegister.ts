@@ -11,24 +11,40 @@ import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { isConstructor, normalizePath } from '../../domain'
 import {
-  ParamData,
-  RequestMappingMetadata,
-  RequestMethod,
-  RouteParamMetadata,
-  RouteParamtypes,
-} from '../../domain/Common'
-import {
   HTTP_CODE_METADATA,
   METHOD_METADATA,
+  ParamData,
   PATH_METADATA,
+  PipeTransform,
+  RequestMappingMetadata,
+  RequestMethod,
   ROUTE_ARGS_METADATA,
+  RouteParamMetadata,
+  RouteParamtypes,
   SCHEMA_METADATA,
-} from '../../domain/Common/constants'
-import { PipeTransform } from '../../domain/Common/interfaces'
-import { ControllerResolver } from '../Common/dependency-injection'
+} from '../../domain/Common'
+import { ControllerResolver } from '../Common'
 import { Primary } from './cluster'
-import { FastifyAdapter } from './fastify'
+import { FastifyAdapter } from './FastifyAdapter'
 import { HttpValidationModule } from './interfaces'
+
+type Route = {
+  method: HTTPMethods
+  schema: any
+  url: string
+  httpCode: number
+  params: Record<string, any>
+  instance: any
+  methodName: string | symbol
+}
+
+type RouteRegisterProps = {
+  controller: string | Class<unknown>[]
+  isProduction: boolean
+  prefix?: string
+  resolver?: ControllerResolver
+  container?: any
+}
 
 const availableCpus = cpus().length
 
@@ -111,7 +127,7 @@ const getRouteMethodMetadata = (method: () => unknown) => {
     Reflect.getMetadata(HTTP_CODE_METADATA, method) ||
     (requestMethod === RequestMethod.POST ? HttpStatus.CREATED : HttpStatus.OK)
 
-  // TODO: Delete
+  // TODO: Delete, this is a deprecated utility
   const schema: { schema: FastifySchema; code: number } = Reflect.getMetadata(SCHEMA_METADATA, method) || {
     schema: {},
     code: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -126,9 +142,7 @@ const getRouteMethodMetadata = (method: () => unknown) => {
 }
 
 const getRoutePathUrl = (prefix: string, controllerPath: string, routePath: RequestMappingMetadata['path']) => {
-  if (Array.isArray(routePath)) {
-    routePath = routePath.reduce((curr, next) => `${curr}/${next}`)
-  }
+  if (Array.isArray(routePath)) routePath = routePath.reduce((curr, next) => `${curr}/${next}`)
 
   prefix = prefix ?? normalizePath(prefix)
   controllerPath = normalizePath(controllerPath)
@@ -152,50 +166,65 @@ const pipeBuilder = (
   if (!(data && pipes && Array.isArray(pipes))) return
 
   for (const pipe of pipes) {
-    if (!isConstructor(pipe)) continue
-    req[`${type}`][`${data}`] = new (pipe as Constructor<PipeTransform>)().transform(req[`${type}`][`${data}`], {
+    const reqType: any = req[`${type}`]
+    if (!isConstructor(pipe) || !reqType) continue
+    reqType[`${data}`] = new (pipe as Constructor<PipeTransform>)().transform(reqType[`${data}`], {
       type,
     })
   }
 }
 
-// eslint-disable-next-line complexity
+const extractParams = (req: any, res: any, paramtype: number, data: ParamData | undefined) => {
+  let routeParamValue: unknown
+  let pipeBuilderType: undefined | Paramtype
+
+  if (paramtype === RouteParamtypes.REQUEST) {
+    routeParamValue = req
+  } else if (paramtype === RouteParamtypes.RESPONSE) {
+    routeParamValue = res
+  } else if (paramtype === RouteParamtypes.QUERY) {
+    pipeBuilderType = 'query'
+    // Extract a part of query
+    routeParamValue = data ? req.query[`${data}`] : req.query
+  } else if (paramtype === RouteParamtypes.PARAM) {
+    pipeBuilderType = 'params'
+    routeParamValue = data ? req.params[`${data}`] : req.params
+  } else if (paramtype === RouteParamtypes.BODY) {
+    routeParamValue = req.body
+  } else if (paramtype === RouteParamtypes.HEADERS) {
+    pipeBuilderType = 'headers'
+    // Extract a part of headers
+    routeParamValue = data ? req.headers[`${data}`] : req.headers
+  }
+
+  return {
+    pipeBuilderType,
+    routeParamValue,
+  }
+}
+
 const getParams = (
-  params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>,
   req: any,
-  res: any
+  res: any,
+  params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>
 ): unknown[] => {
   // HttpRequest | HttpResponse | unknown
   const routeParams: unknown[] = []
   const keyParams = params ? getKeyParam(params) : []
-
   for (const keyParam of keyParams) {
     const [paramtype, index, key] = keyParam
     const { data, pipes } = params[`${key}`]
-    if (paramtype === RouteParamtypes.REQUEST) {
-      routeParams[`${index}`] = req
-    } else if (paramtype === RouteParamtypes.RESPONSE) {
-      routeParams[`${index}`] = res
-    } else if (paramtype === RouteParamtypes.QUERY) {
-      pipeBuilder(req, 'query', data, pipes)
-      // Extract a part of query
-      routeParams[`${index}`] = data ? req.query[`${data}`] : req.query
-    } else if (paramtype === RouteParamtypes.PARAM) {
-      pipeBuilder(req, 'params', data, pipes)
-      routeParams[`${index}`] = data ? req.params[`${data}`] : req.params
-    } else if (paramtype === RouteParamtypes.BODY) {
-      routeParams[`${index}`] = req.body
-    } else if (paramtype === RouteParamtypes.HEADERS) {
-      pipeBuilder(req, 'headers', data, pipes)
-      // Extract a part of headers
-      routeParams[`${index}`] = data ? req.headers[`${data}`] : req.headers
-    }
+
+    const { pipeBuilderType, routeParamValue } = extractParams(req, res, paramtype, data)
+
+    if (pipeBuilderType) pipeBuilder(req, pipeBuilderType, data, pipes)
+    routeParams[`${index}`] = routeParamValue
   }
 
   return routeParams
 }
 
-export const buildSchema = (
+const buildSchema = (
   schema: FastifySchema,
   method: RequestMethod,
   builders?: HttpValidationModule<unknown>[]
@@ -258,70 +287,42 @@ const buildSchemaWithParams = (
   // return schema
 }
 
-/**
- * Registrar controladores, solo relacionado a capa de infraestructura HTTP
- * TODO: Should be a singleton because has a child container creation
- * @param adapterInstance
- * @param props
- */
-// export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
-// eslint-disable-next-line complexity
-export const bootstrap = async (
-  adapterInstance: FastifyAdapter,
-  props: {
-    controller: string | any[]
-    isProduction: boolean
-    prefix?: string
-    resolver?: ControllerResolver
-    container?: any
-  }
-) => {
-  // const controllerContainer = container.createChildContainer()
-  const controllers = Array.isArray(props.controller) ? props.controller : await getControllers(props.controller)
-  for (const controller of controllers) {
-    if (!props.resolver) continue
-    const { instance, instanceConstructor, instancePrototype, classMethodNames, controllerPath } =
-      getControllerMetadata(controller, props.resolver, props.container)
-    for (const methodName of classMethodNames) {
-      if (methodName === 'constructor') continue // ignore constructor method reflect metadata
+const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown>, props: RouteRegisterProps) => {
+  const { instance, instanceConstructor, instancePrototype, classMethodNames, controllerPath } = getControllerMetadata(
+    controller,
+    props.resolver,
+    props.container
+  )
+  for (const methodName of classMethodNames) {
+    if (methodName === 'constructor') continue // ignore constructor method reflect metadata
 
-      const method: () => unknown = instance[String(methodName)]
-      const { routePath, requestMethod, httpCode, schema } = getRouteMethodMetadata(method)
-      if (!routePath) continue // is not a route in controller
+    const method: () => unknown = instance[String(methodName)]
+    const { routePath, requestMethod, httpCode, schema } = getRouteMethodMetadata(method)
+    if (!routePath) continue // is not a route in controller
 
-      const params: Record<string, RouteParamMetadata> = Reflect.getMetadata(
-        ROUTE_ARGS_METADATA,
-        instanceConstructor,
-        methodName
-      )
-      if (params) {
-        const args: (() => unknown)[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
-        buildSchemaWithParams(params, schema, requestMethod, args, adapterInstance.validations)
-      }
-
-      const route = {
-        method: RequestMethod[`${requestMethod}`] as HTTPMethods,
-        schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
-        url: getRoutePathUrl(props.prefix ?? '', controllerPath, routePath),
-        httpCode,
-        params,
-        instance,
-        methodName,
-      }
-      clusterServer(adapterInstance.app, route, props.isProduction)
+    const params: Record<string, RouteParamMetadata> = Reflect.getMetadata(
+      ROUTE_ARGS_METADATA,
+      instanceConstructor,
+      methodName
+    )
+    if (params) {
+      const args: (() => unknown)[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
+      buildSchemaWithParams(params, schema, requestMethod, args, adapterInstance.validations)
     }
+
+    const route = {
+      method: RequestMethod[`${requestMethod}`] as HTTPMethods,
+      schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
+      url: getRoutePathUrl(props.prefix ?? '', controllerPath, routePath),
+      httpCode,
+      params,
+      instance,
+      methodName,
+    }
+    clusterServer(adapterInstance.app, route, props.isProduction)
   }
 }
 
-type Route = {
-  method: HTTPMethods
-  schema: any
-  url: string
-  httpCode: number
-  params: Record<string, any>
-  instance: any
-  methodName: string | symbol
-}
 const clusterServer = (
   fastify: FastifyInstance,
   { method, schema, url, httpCode, params, instance, methodName }: Route,
@@ -367,18 +368,34 @@ const clusterServer = (
         //   }
         //   return res.status(500).send(new Error(`handler: Unhandled error ${err.message}`))
         // }
-        const routeParams = getParams(params, req, res)
+        const routeParams = getParams(req, res, params)
         // Reflect.getMetadata('__routeArguments__',instanceConstructor,'params')
         // const currentMethodFn = instance[method.name]
         // method() // por alguna razón pierde el bind
         // instance[methodName]() - Revisar que conserve el valor de this
         // instance[methodName]
-        const response: any = instance.constructor.prototype[String(methodName)].apply(
+        const response: Promise<unknown> | unknown = instance.constructor.prototype[String(methodName)].apply(
           instance,
           routeParams.length ? routeParams : [req, res]
         )
         return response
       },
     })
+  }
+}
+
+/**
+ * Registrar controladores, solo relacionado a capa de infraestructura HTTP
+ * TODO: Should be a singleton because has a child container creation
+ * @param adapterInstance
+ * @param props
+ */
+// export const bootstrap = async (fastify: FastifyInstance<Http2SecureServer>, props: { controller: string }) => {
+export const routeRegister = async (adapterInstance: FastifyAdapter, props: RouteRegisterProps) => {
+  // const controllerContainer = container.createChildContainer()
+  const controllers = Array.isArray(props.controller) ? props.controller : await getControllers(props.controller)
+  for (const controller of controllers) {
+    if (!props.resolver) continue
+    routeBuilder(adapterInstance, controller, props)
   }
 }

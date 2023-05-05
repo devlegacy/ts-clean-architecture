@@ -16,8 +16,8 @@ import { AddressInfo } from 'net'
 
 import { Monitoring } from '../../domain'
 import { ControllerResolver } from '../Common'
-import { bootstrap } from './bootstrap'
 import { HttpValidationModule } from './interfaces'
+import { routeRegister } from './routeRegister'
 
 const printConfig: PrintRoutesOptions = {
   commonPrefix: false,
@@ -132,7 +132,7 @@ export class FastifyAdapter {
       }
     })
 
-    await bootstrap(this, props)
+    await routeRegister(this, props)
   }
 
   public register<TRegister extends Parameters<FastifyRegister<FastifyInstance>>>(

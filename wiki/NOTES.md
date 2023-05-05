@@ -420,12 +420,18 @@ Apache benchmark
 
 ## Health check
 
+Endpoint: GET /status/
+
 Uso: 
-  - Auto scaling group (levant cuando este caído)
+  - Auto scaling group (levanta cuando el servidor este caído o no este bien)
   - Ping (conocer el estado del servicio y notificar)
   - Salud del despliegue
-  - Evitar eliminar maquinas sanas a nivel de aplicación
+  - Evitar eliminar maquinas sanas a nivel de aplicación (HTTP) (en caso por ejemplo, que la base de datos, un broker o algo más este caído)
   - Limitado a la application | HTTP 
+  - No se revisa o valida la base de datos
+Response:
+  - `{}`
+  - code: 200
 
 ## Status check
 
