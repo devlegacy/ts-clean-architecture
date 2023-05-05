@@ -3,8 +3,7 @@ import { EURRatioService } from '@/Contexts/Bank/Accounts/domain'
 import { FileAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure'
 import { InvalidArgumentError, Money } from '@/Contexts/Shared/domain'
 import { EventBusFactory } from '@/Contexts/Shared/infrastructure'
-import { UuidMother } from '@/tests/Contexts/Shared/domain'
-import { TestUtil } from '@/tests/Contexts/Shared/TestUtil'
+import { TestUtil, UuidMother } from '@/tests/Contexts/Shared/domain'
 
 describe(`Bank use case, ${TestUtil.getPackagePath(__dirname)}`, () => {
   describe('Bank TestAdapter', () => {

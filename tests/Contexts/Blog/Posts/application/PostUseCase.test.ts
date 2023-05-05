@@ -1,7 +1,6 @@
 import { PostUseCase } from '@/Contexts/Blog/Posts/application'
 import { InMemoryPostRepository } from '@/Contexts/Blog/Posts/infrastructure'
-import { UuidMother } from '@/tests/Contexts/Shared/domain'
-import { TestUtil } from '@/tests/Contexts/Shared/TestUtil'
+import { TestUtil, UuidMother } from '@/tests/Contexts/Shared/domain'
 
 describe(`Blog use case, ${TestUtil.getPackagePath(__dirname)}`, () => {
   describe('Blog TestAdapter', () => {
