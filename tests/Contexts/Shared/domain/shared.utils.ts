@@ -1,3 +1,7 @@
+export function wait(milliseconds = 800) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds))
+}
+
 export class TestUtil {
   static getPackagePath(dirname: string) {
     const path = this.getPath(dirname)

@@ -1,4 +1,4 @@
-/// <reference types="../../../../../../types"/>
+// /// <reference types="../../../../../../types"/>
 
 import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
 import supertest, { SuperTest, Test } from 'supertest'
@@ -7,6 +7,7 @@ import { BackofficeBackendApp } from '@/apps/backoffice/backend/BackofficeBacken
 import { ConfigureRabbitMQCommand } from '@/apps/backoffice/backend/command/ConfigureRabbitMQCommand'
 import { container } from '@/apps/backoffice/modules'
 import { EventBus } from '@/Contexts/Shared/domain'
+import { wait } from '@/tests/Contexts/Shared/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 const application = new BackofficeBackendApp()
@@ -46,8 +47,4 @@ AfterAll(async () => {
   }, 0)
 })
 
-function wait(milliseconds = 800) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds))
-}
-
-export { api, application, environmentArranger, eventBus, wait }
+export { api, application, environmentArranger, eventBus }

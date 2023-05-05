@@ -2,8 +2,9 @@ import { Given } from '@cucumber/cucumber'
 
 import { container } from '@/apps/backoffice/modules'
 import { DomainEventDeserializer, DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
+import { wait } from '@/tests/Contexts/Shared/domain'
 
-import { eventBus, wait } from './hooks.steps'
+import { eventBus } from './hooks.steps'
 
 const deserializer = buildDeserializer()
 
