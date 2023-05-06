@@ -1,5 +1,5 @@
 import { Container } from 'diod'
-import { container, delay } from 'tsyringe'
+import { container } from 'tsyringe'
 
 import { TAGS } from '@/apps/mooc/modules/tags'
 
@@ -14,7 +14,7 @@ import { DomainEvent, DomainEventSubscribers, IDomainEventSubscriber, SHARED_TYP
 // }
 
 export class DomainEventSubscriberResolver implements DomainEventSubscribers {
-  constructor(public items: IDomainEventSubscriber<DomainEvent>[]) {}
+  constructor(readonly items: IDomainEventSubscriber<DomainEvent>[]) {}
 
   static fromContainer(container: Container): DomainEventSubscribers {
     const subscribers = container
@@ -41,10 +41,10 @@ export class DomainEventSubscriberResolver implements DomainEventSubscribers {
   }
 
   resolveFromContainer() {
-    this.items = this.items.map((key) => {
-      const domainEventSubscriber = container.resolve<IDomainEventSubscriber<DomainEvent>>(delay(() => key as any))
-      return domainEventSubscriber
-    })
+    // const _items = this.items.map((key) => {
+    //   const domainEventSubscriber = container.resolve<IDomainEventSubscriber<DomainEvent>>(delay(() => key as any))
+    //   return domainEventSubscriber
+    // })
 
     return this
   }

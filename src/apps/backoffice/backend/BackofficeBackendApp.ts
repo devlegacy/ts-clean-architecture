@@ -20,10 +20,7 @@ export class BackofficeBackendApp {
 
   async startHttp() {
     const conf = config.get('app')
-    this.#server = new Server({
-      ...conf,
-      host: conf.ip,
-    })
+    this.#server = new Server(conf)
     await this.#server.listen()
   }
 

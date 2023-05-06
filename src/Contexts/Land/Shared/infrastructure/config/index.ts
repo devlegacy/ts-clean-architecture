@@ -10,11 +10,11 @@ const landConfig = convict({
   //   env: 'NODE_ENV',
   // } as const,
   app: {
-    ip: {
+    host: {
       doc: 'The IP address to bind.',
       // format: 'ipaddress',
       default: '0.0.0.0',
-      env: 'APP_IP_ADDRESS',
+      env: 'APP_HOST',
     },
     port: {
       doc: 'The port to bind.',

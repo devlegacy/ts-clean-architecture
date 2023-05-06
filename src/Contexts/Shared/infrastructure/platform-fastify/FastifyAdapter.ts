@@ -135,7 +135,7 @@ export class FastifyAdapter {
     await routeRegister(this, props)
   }
 
-  public register<TRegister extends Parameters<FastifyRegister<FastifyInstance>>>(
+  register<TRegister extends Parameters<FastifyRegister<FastifyInstance>>>(
     plugin: TRegister['0'],
     opts?: TRegister['1']
   ) {

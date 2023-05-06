@@ -8,7 +8,7 @@ export class EventBusFactory {
     // do nothing
   }
 
-  public static get instance(): EventBus {
+  static get instance(): EventBus {
     if (!this._instance) {
       const bus = new InMemoryAsyncEventBus()
       this._instance = bus

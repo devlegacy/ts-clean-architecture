@@ -29,7 +29,7 @@ export class ElasticCriteriaConverter {
     ])
   }
 
-  public convert(criteria: Criteria): Bodybuilder {
+  convert(criteria: Criteria): Bodybuilder {
     let body = bodybuilder()
 
     body.from(criteria.offset || 0)

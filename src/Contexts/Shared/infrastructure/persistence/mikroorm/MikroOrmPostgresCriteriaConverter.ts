@@ -35,7 +35,7 @@ export class MikroOrmPostgresCriteriaConverter {
     ])
   }
 
-  public convert(criteria: Criteria): MongoQuery {
+  convert(criteria: Criteria): MongoQuery {
     return {
       filter: criteria.hasFilters() ? this.generateFilter(criteria.filters) : {},
       sort: criteria.order.hasOrder() ? this.generateSort(criteria.order) : { _id: -1 },
