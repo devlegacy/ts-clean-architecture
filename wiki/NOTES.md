@@ -120,24 +120,29 @@
   - Primary port
   - It receives primitives | scalars - `[Entity | Course][Action | Create]RequestDto`
   - It could instantiate  `use cases` | `use cases` ↔ `value objects` | `query bus` ↔ `queries` | `command bus` ↔ `commands`
-    -  `use cases` ↔ `value objects` could be migrated to `CQRS`
- -  It has an implicit interface
--  Repositories
-   - Communicate with infrastructure (persistence)
+    - `use cases` ↔ `value objects` could be migrated to `CQRS`
+  - It has an implicit interface 
+- Repositories
+  - Communicate with infrastructure (persistence)
      - Database
      - Redis
      - Elasticsearch
-   - Write methods
+  - Write methods
      - `save<T>([aggregate]: T): Promise<void>`
      - `update<T>([aggregate]: T): Promise<void>`
      - `delete([aggregate]: T)): Promise<void>`
-   - Read methods
-     - `all<T>(): Promise<T[]>`
-     - `searchBy<T>(criteria: Criteria): Promise<T[]>`
-       - An empty array is possible and allowed
-     - `find<T>(...): Promise<Nullable<T>>`
-       - 
-     - Avoid n+1 problem (over creation of methods)
+  - Read methods 
+    - `all<T>(): Promise<T[]>`
+    - `searchBy<T>(criteria: Criteria): Promise<T[]>`
+      - An empty array is possible and allowed
+    - `find<T>(...): Promise<Nullable<T>>`
+    - Avoid n+1 problem (over creation of methods)
+  - Evitar nombrar las interfaces como `ICourseRepository` | `CourseRepositoryImp`
+    - Cuando definimos la interfaz como `CourseRepository` nos orilla a nombrar a los colaborares de una forma más semántica, con prefijos, indicando|evidenciando el propósito|particularidad de la implementación
+      - InMemoryCourseRepository
+      - FileCourseRepository
+      - MongoCourseRepository
+      - CourseRepositoryMock
 - Uses case rules
   - Naming Creator | Updater | Deleter | Incrementer 
   - It should instantiate `value objects` or `domain objects`
@@ -167,6 +172,9 @@
   - La acción o acontecimiento procesado por un software usualmente originado asíncronamente
   - La notificación o mensaje se toma como el evento
   - Tipos (Por consumo): Volatil, Consumible, Reproducible (Replayable).
+- El tipado estricto nos protege hasta cierto punto
+  - No podemos controlar los tipos desde los puertos, primarios y secundarios
+  - 
 
 ## 🧪 Test
 

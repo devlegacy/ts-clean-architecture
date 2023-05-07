@@ -18,3 +18,29 @@
 
 - To store data
 - If we need pagination, maybe can't be a good idea
+
+## Validation
+
+```js
+{
+  $jsonSchema: {
+    bsonType: 'object',
+    title: 'Course Object Validation',
+    required: [
+      'name',
+      'duration'
+    ],
+    properties: {
+      name: {
+        bsonType: 'string',
+        description: '\'name\' must be a string and is required',
+        maxLength: 10
+      },
+      duration: {
+        bsonType: 'string',
+        description: '\'duration\' must be a string and is required'
+      }
+    }
+  }
+}
+```
