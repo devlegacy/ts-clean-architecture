@@ -66,6 +66,8 @@
     "@fastify/helmet": "10.1.0",
     "@fastify/rate-limit": "8.0.0",
     "@fastify/session": "10.3.0",
+    "@fastify/swagger": "8.3.1",
+    "@fastify/swagger-ui": "1.8.1",
     "@graphql-tools/schema": "9.0.19",
     "@mikro-orm/core": "5.7.4",
     "@mikro-orm/mongo-highlighter": "1.0.0",
@@ -98,6 +100,7 @@
     "ioredis": "5.3.2",
     "joi": "17.9.2",
     "joi-class-decorators": "1.1.0",
+    "joi-to-json": "3.1.2",
     "kafkajs": "2.2.4",
     "module-alias": "2.2.2",
     "mongodb": "5.4.0",
@@ -171,10 +174,10 @@
   "optionalDependencies": {
     "depcheck": "1.4.3",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.10.9"
+    "npm-check-updates": "16.10.10"
   },
   "engines": {
-    "node": ">=16.15.0 <=19.8.1",
+    "node": ">=16.15.0 <=20.1.0",
     "npm": ">=9.6.4"
   }
 }
