@@ -109,7 +109,7 @@ export class FastifyAdapter {
     resolver?: ControllerResolver
     container?: any
   }) {
-    this.#instance.setValidatorCompiler((schemaDefinition: any): any => {
+    this.#instance.setValidatorCompiler<unknown>((schemaDefinition) => {
       for (const m of this.validations) {
         if (m.validationCompiler(schemaDefinition)) {
           return m.validationCompiler(schemaDefinition)
