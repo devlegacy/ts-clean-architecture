@@ -34,13 +34,11 @@ describe('CreateCourseCommandHandler', () => {
   })
 
   it('should throw error if course name length is exceeded', async () => {
+    const command = CreateCourseCommandMother.invalid()
+
     await expect(async () => {
-      const command = CreateCourseCommandMother.invalid()
-
       const course = CourseMother.from(command)
-
       await handler.handle(command)
-
       repository.assertSaveHaveBeenCalledWith(course)
     }).rejects.toThrow(CourseNameLengthExceeded)
   })
