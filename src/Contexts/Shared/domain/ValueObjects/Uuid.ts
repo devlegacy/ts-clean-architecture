@@ -4,6 +4,7 @@ import { v4, validate, version } from 'uuid'
 import { InvalidArgumentError } from '../Errors'
 import { ValueObject } from './ValueObject'
 
+// contener contaminación lo más que se pueda
 // abstract
 export class Uuid extends ValueObject<string> {
   // Inherited

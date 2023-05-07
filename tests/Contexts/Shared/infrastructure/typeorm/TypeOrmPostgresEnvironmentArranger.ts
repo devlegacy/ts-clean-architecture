@@ -7,17 +7,17 @@ export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
     super()
   }
 
-  override async arrange(): Promise<void> {
+  async arrange(): Promise<void> {
     this.cleanDatabase()
   }
 
-  override async close(): Promise<void> {
+  async close(): Promise<void> {
     const client = await this._client
     return client.destroy()
   }
 
   protected async cleanDatabase() {
-    const entities = await this.entities()
+    const entities = await this.#entities()
     const client = await this._client
     try {
       for (const entity of entities) {
@@ -33,7 +33,7 @@ export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
     return this._client
   }
 
-  private async entities(): Promise<EntityMetadata[]> {
+  async #entities(): Promise<EntityMetadata[]> {
     const client = await this._client
     return client.entityMetadatas
   }

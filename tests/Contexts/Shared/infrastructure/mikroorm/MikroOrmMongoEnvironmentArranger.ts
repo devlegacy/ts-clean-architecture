@@ -18,11 +18,11 @@ export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
 
   async close(): Promise<void> {
     const client = await this.client()
-    return client.close()
+    await client.close()
   }
 
   protected async cleanDatabase() {
-    const collections = await this.collections()
+    const collections = await this.#collections()
     const client = await this.client()
     for (const collection of collections) {
       await client.config.getDriver().getConnection().getDb().collection(collection).deleteMany({})
@@ -33,7 +33,7 @@ export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
     return this.#client
   }
 
-  private async collections() {
+  async #collections() {
     const client = await this.client()
 
     const collections = await client.config

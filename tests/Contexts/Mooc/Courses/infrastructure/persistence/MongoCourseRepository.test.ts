@@ -5,15 +5,13 @@ import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 import { CourseMother } from '../../domain'
 
 const repository = container.get(CourseRepository)
-const environmentArranger = container.get(EnvironmentArranger)
+const arranger = container.get(EnvironmentArranger)
 
 beforeEach(async () => {
-  const arranger = environmentArranger
   await arranger.arrange()
 })
 
 afterAll(async () => {
-  const arranger = environmentArranger
   await arranger.arrange()
   await arranger.close()
 })

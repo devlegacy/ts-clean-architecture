@@ -3,11 +3,13 @@ import { WordMother } from '@/tests/Contexts/Shared/domain'
 
 export class CourseNameMother {
   static create(value: string): CourseName {
-    return new CourseName(value)
+    const name = new CourseName(value)
+    return name
   }
 
   static random(): CourseName {
-    return CourseNameMother.create(WordMother.random({ maxLength: 30 }))
+    const name = CourseNameMother.create(WordMother.random({ maxLength: 30 }))
+    return name
   }
 
   static invalidName(): string {

@@ -6,23 +6,24 @@ import { info } from '../../Logger'
 import { MongoConfig } from '../mongo/MongoConfig'
 
 export abstract class MikroOrmMongoClientFactory {
-  private static clients: Record<string, MikroORM<MongoDriver>> = {}
+  static #clients: Record<string, MikroORM<MongoDriver>> = {}
 
   static async createClient(contextName: string, config: MongoConfig, contextPath?: string) {
-    let client = MikroOrmMongoClientFactory.getClient(contextName)
+    let client = MikroOrmMongoClientFactory.#getClient(contextName)
     if (!client) {
-      client = await MikroOrmMongoClientFactory.createAndConnectClient(contextName, config, contextPath)
+      client = await MikroOrmMongoClientFactory.#createAndConnectClient(contextName, config, contextPath)
 
-      MikroOrmMongoClientFactory.registerClient(contextName, client)
+      MikroOrmMongoClientFactory.#registerClient(contextName, client)
     }
+
     return client
   }
 
-  private static getClient(contextName: string): MikroORM<MongoDriver> {
-    return MikroOrmMongoClientFactory.clients[`${contextName}`]
+  static #getClient(contextName: string): MikroORM<MongoDriver> {
+    return MikroOrmMongoClientFactory.#clients[`${contextName}`]
   }
 
-  private static async createAndConnectClient(
+  static async #createAndConnectClient(
     contextName: string,
     config: MongoConfig,
     contextPath?: string
@@ -64,8 +65,8 @@ export abstract class MikroOrmMongoClientFactory {
     return client
   }
 
-  private static registerClient(contextName: string, client: MikroORM<MongoDriver>): void {
-    MikroOrmMongoClientFactory.clients[`${contextName}`] = client
+  static #registerClient(contextName: string, client: MikroORM<MongoDriver>): void {
+    MikroOrmMongoClientFactory.#clients[`${contextName}`] = client
   }
 }
 

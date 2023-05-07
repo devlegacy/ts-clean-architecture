@@ -59,7 +59,7 @@ export class Course extends AggregateRoot {
     const entity = new Course(
       new CourseId(data.id),
       new CourseName(data.name),
-      data.duration ? new CourseDuration(data.duration) : undefined
+      CourseDuration.create(data.duration)
       // data.createdAt ? data.createdAt : undefined,
       // data.updatedAt ? data.updatedAt : undefined,
       // data.deletedAt ? data.deletedAt : undefined

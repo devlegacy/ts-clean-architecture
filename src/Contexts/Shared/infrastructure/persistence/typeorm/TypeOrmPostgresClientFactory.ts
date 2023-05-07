@@ -4,27 +4,27 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { PostgresConfig } from '../postgres'
 
 export class TypeOrmPostgresClientFactory {
-  private static clients: Record<string, DataSource> = {}
+  static #clients: Record<string, DataSource> = {}
 
   private constructor() {
     // do nothing
   }
 
   static async createClient(contextName: string, config: PostgresConfig) {
-    let client = TypeOrmPostgresClientFactory.getClient(contextName)
+    let client = TypeOrmPostgresClientFactory.#getClient(contextName)
     if (!client) {
-      client = await TypeOrmPostgresClientFactory.createAndConnectClient(contextName, config)
+      client = await TypeOrmPostgresClientFactory.#createAndConnectClient(contextName, config)
 
-      TypeOrmPostgresClientFactory.registerClient(contextName, client)
+      TypeOrmPostgresClientFactory.#registerClient(contextName, client)
     }
     return !client.isInitialized ? await client.initialize() : client
   }
 
-  private static getClient(contextName: string): DataSource {
-    return TypeOrmPostgresClientFactory.clients[`${contextName}`]
+  static #getClient(contextName: string): DataSource {
+    return TypeOrmPostgresClientFactory.#clients[`${contextName}`]
   }
 
-  private static async createAndConnectClient(contextName: string, config: PostgresConfig): Promise<DataSource> {
+  static async #createAndConnectClient(contextName: string, config: PostgresConfig): Promise<DataSource> {
     // try {
     const options: PostgresConnectionOptions = {
       applicationName: contextName,
@@ -49,8 +49,8 @@ export class TypeOrmPostgresClientFactory {
     // }
   }
 
-  private static registerClient(contextName: string, client: DataSource): void {
-    TypeOrmPostgresClientFactory.clients[`${contextName}`] = client
+  static #registerClient(contextName: string, client: DataSource): void {
+    TypeOrmPostgresClientFactory.#clients[`${contextName}`] = client
   }
 }
 

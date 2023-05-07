@@ -1,6 +1,7 @@
 import { shallowEqual } from 'fast-equals'
 
 import { InvalidArgumentError } from '../Errors'
+import { isNil } from '../shared.utils'
 
 // // eslint-disable-next-line @typescript-eslint/ban-types
 // export type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint
@@ -25,7 +26,7 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined>> 
   }
 
   equals(vo: ValueObject<T>) {
-    if (vo === null || vo === undefined) return false
+    if (isNil(vo)) return false
 
     return vo.constructor.name === this.constructor.name && shallowEqual(this.value, vo.value)
   }
@@ -35,6 +36,6 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined>> 
   }
 
   private ensureValueIsDefined(value: T) {
-    if (value === null || value === undefined) throw new InvalidArgumentError('Value must be defined')
+    if (isNil(value)) throw new InvalidArgumentError('Value must be defined')
   }
 }
