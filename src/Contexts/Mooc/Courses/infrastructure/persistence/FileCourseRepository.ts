@@ -6,7 +6,7 @@ import { Criteria } from '@/Contexts/Shared/domain'
 import { Course, CoursePrimitiveType, CourseRepository } from '../../domain'
 
 export class FileCourseRepository implements CourseRepository {
-  private FILE_PATH = `${__dirname}/Courses`
+  #FILE_PATH = `${__dirname}/Courses`
 
   async all(): Promise<Course[]> {
     return []
@@ -17,17 +17,22 @@ export class FileCourseRepository implements CourseRepository {
   }
 
   async save(course: Course) {
-    writeFile(this.path(course.id.value), serialize(course))
+    const path = this.#path(course.id.value)
+    // console.log(path)
+    await writeFile(path, serialize(course))
   }
 
   async search(courseId: CoursePrimitiveType['id']): Promise<Course> {
-    const courseData = await readFile(this.path(courseId))
-    const { id, name, duration } = deserialize(courseData)
+    const path = this.#path(courseId)
+    // console.log(path)
+    const courseBuffer = await readFile(path)
+    const { id, name, duration } = deserialize(courseBuffer)
+    const course = new Course(id, name, duration)
 
-    return new Course(id, name, duration)
+    return course
   }
 
-  private path(id: string) {
-    return `${this.FILE_PATH}.${id}.repo`
+  #path(id: string) {
+    return `${this.#FILE_PATH}.${id}.repo`
   }
 }

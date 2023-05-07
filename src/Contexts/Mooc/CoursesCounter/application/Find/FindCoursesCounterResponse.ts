@@ -4,4 +4,10 @@ export class FindCoursesCounterResponse {
   constructor(total: number) {
     this.total = total
   }
+
+  toJSON() {
+    return {
+      total: this.total,
+    }
+  }
 }

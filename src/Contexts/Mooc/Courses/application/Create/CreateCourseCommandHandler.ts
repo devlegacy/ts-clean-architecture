@@ -11,15 +11,12 @@ export class CreateCourseCommandHandler implements ICommandHandler<CreateCourseC
 
   // @Catch()
   async handle(command: CreateCourseCommand): Promise<void> {
-    const id = new CourseId(command.id)
-    const name = new CourseName(command.name)
-    const duration = CourseDuration.create(command.duration)
-
-    await this.creator.run({
-      id,
-      name,
-      duration,
-    })
+    const request = {
+      id: new CourseId(command.id),
+      name: new CourseName(command.name),
+      duration: CourseDuration.create(command.duration),
+    }
+    await this.creator.run(request)
   }
 
   // subscribedTo(): Command {
