@@ -38,6 +38,10 @@ export class Server {
   readonly #adapter = new FastifyAdapter({ logger })
   #httpServer?: http.Server
 
+  get httpServer() {
+    return this.#httpServer
+  }
+
   constructor(options?: Options) {
     this.#options = options
 
@@ -134,10 +138,6 @@ export class Server {
     // })
 
     this.#httpServer = await this.#adapter.listen(this.#options ?? {})
-  }
-
-  getHttpServer() {
-    return this.#httpServer
   }
 
   stop() {

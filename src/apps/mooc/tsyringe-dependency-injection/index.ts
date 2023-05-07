@@ -1,6 +1,6 @@
 // let containerInstance: DependencyContainer | null = null
 
-import config from '@/Contexts/Mooc/Shared/infrastructure/config'
+import config from '@/Contexts/Mooc/Shared/infrastructure'
 
 // let isContainerInstanceLoaded = false
 // const containerBuilder = () => {

@@ -1,4 +1,4 @@
-import config from '@/Contexts/Mooc/Shared/infrastructure/config'
+import config from '@/Contexts/Mooc/Shared/infrastructure'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
 
@@ -9,7 +9,7 @@ export class MoocBackendApp {
   #server?: Server
 
   get httpServer() {
-    const server = this.#server?.getHttpServer()
+    const server = this.#server?.httpServer
     return server
   }
 
