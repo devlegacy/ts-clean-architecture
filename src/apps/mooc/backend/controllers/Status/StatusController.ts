@@ -11,6 +11,7 @@ import {
   Req,
   Res,
 } from '@/Contexts/Shared/domain/Common'
+import { Request, Response } from '@/Contexts/Shared/infrastructure/platform-fastify'
 import {
   ObjectIdPipe as JoiMongoIdPipe,
   PageNumberPipe,

@@ -1,6 +1,8 @@
 import fastifyFormBody from '@fastify/formbody'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
+import fastifySwagger, { JSONObject } from '@fastify/swagger'
+import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastifyQs from 'fastify-qs'
 import http from 'http'
 import { Logger as PinoLoggerType } from 'pino'
@@ -47,6 +49,7 @@ export class Server {
       .setValidationModule(new GeneralRequestValidation())
   }
 
+  // eslint-disable-next-line max-lines-per-function
   async listen() {
     await this.#adapter.bootstrap({
       container,
@@ -54,12 +57,81 @@ export class Server {
       resolver: DiodControllerResolver,
       isProduction: this.#options?.env === 'production',
     })
-
     this.#adapter
       .register(fastifyFormBody as any, { parser: (str: string) => qs.parse(str) })
       .register(fastifyQs)
       .register(fastifyHelmet)
       .register(fastifyRateLimit)
+      .register(fastifySwagger, {
+        swagger: {
+          info: {
+            title: 'Title...',
+            description: `Description`,
+            version: '0.0.1',
+          },
+          externalDocs: {
+            url: 'https://swagger.io',
+            description: 'Find more info here',
+          },
+          host: 'localhost',
+          schemes: ['http'],
+          consumes: ['application/json', 'multipart/form-data'],
+          produces: ['application/json'],
+          tags: [],
+        },
+        transform: ({ schema, url }) => {
+          const {
+            // params = undefined,
+            // body = undefined,
+            // querystring = undefined,
+            // headers = undefined,
+            // response = undefined,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            ...transformedSchema
+          } = schema ?? {}
+          console.log(transformedSchema)
+          // const schema: any = { ...others }
+          // if (params) schema.params = Joi2Json(params)
+          // if (body) schema.body = Joi2Json(body)
+          // if (querystring) schema.querystring = Joi2Json(querystring)
+          // if (headers) schema.headers = Joi2Json(headers)
+          //  if (response) transformedSchema.response = convert(response)
+          // transformedSchema = {} as any
+          // (transformedSchema as unknown as JSONObject) ??
+          return {
+            schema: {} satisfies JSONObject, // satisfies
+            url,
+          }
+        },
+      })
+      .register(fastifySwaggerUi, {
+        routePrefix: '/documentation',
+        uiConfig: {
+          docExpansion: 'full', // expand/not all the documentations none|list|full
+          deepLinking: true,
+        },
+        uiHooks: {
+          onRequest(request, reply, next) {
+            next()
+          },
+          preHandler(request, reply, next) {
+            next()
+          },
+        },
+        staticCSP: true,
+        transformStaticCSP: (header) => header,
+        transformSpecification: (swaggerObject: any, _request: any, _reply: any): any => {
+          return swaggerObject
+        },
+        transformSpecificationClone: true,
+      })
+
+    // await this.#adapter.app.ready()
+    // this.#adapter.app.swagger()
+
+    // this.#adapter.app.ready(() => {
+    //   this.#adapter.app.swagger()
+    // })
 
     this.#httpServer = await this.#adapter.listen(this.#options ?? {})
   }

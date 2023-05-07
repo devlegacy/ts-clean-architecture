@@ -12,7 +12,7 @@ export class CoursesCounterController {
   @Get()
   async show() {
     const query = new FindCoursesCounterQuery()
-    const { total } = await this.queryBus.ask<FindCoursesCounterResponse>(query)
-    return { total }
+    const response = await this.queryBus.ask<FindCoursesCounterResponse>(query)
+    return response
   }
 }

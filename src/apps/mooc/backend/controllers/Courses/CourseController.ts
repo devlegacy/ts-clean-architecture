@@ -36,7 +36,8 @@ export class CourseController {
 
     // Optimistic - Not wait (?)
     // await this.commandBus.dispatch(new CreateCourseCommand(req.body))
-    await this.commandBus.dispatch(new CreateCourseCommand(course))
+    const command = new CreateCourseCommand(course)
+    await this.commandBus.dispatch(command)
 
     return {}
   }

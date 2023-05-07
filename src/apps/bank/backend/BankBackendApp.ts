@@ -15,14 +15,14 @@ export class BankBackendApp {
   }
 
   async startHttp() {
-    const conf = {
-      host: config.get('app.ip'),
-      env: config.get('app.env'),
-      debug: config.get('app.debug'),
-      name: config.get('app.name'),
-      port: config.get('app.port'),
-    }
-    this.#server = new Server(conf)
+    // const conf = {
+    //   host: config.get('app.ip'),
+    //   env: config.get('app.env'),
+    //   debug: config.get('app.debug'),
+    //   name: config.get('app.name'),
+    //   port: config.get('app.port'),
+    // }
+    this.#server = new Server(config.get('app'))
 
     await this.#server.listen()
   }
