@@ -14,7 +14,8 @@ export class GeneralRequestValidation implements HttpValidationModule<unknown> {
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
     // Is our HTTP
     if ((err as unknown as HttpError)?.code) {
-      return res.send(CreateHttpError(err.code, err.message))
+      const error = CreateHttpError(err.code, err.message)
+      return res.send(error)
     }
     if (err instanceof InvalidArgumentError) {
       return res

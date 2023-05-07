@@ -26,13 +26,13 @@ type SchemaMethodGroup = { group: JoiValidationGroup } | undefined
 export class JoiModule
   implements HttpValidationModule<joi.AnySchema, ((data: unknown) => joi.ValidationResult<any>) | void>
 {
-  validationCompiler(schemaDefinition: FastifyRouteSchemaDef<joi.AnySchema>) {
-    const { schema } = schemaDefinition
+  validationCompiler({ schema }: FastifyRouteSchemaDef<joi.AnySchema>) {
+    if (!joi.isSchema(schema)) return
 
-    if (joi.isSchema(schema))
-      return (data: unknown) => {
-        return schema.validate(data, defaultOptions)
-      }
+    return (data: unknown) => {
+      const validation = schema.validate(data, defaultOptions)
+      return validation
+    }
   }
 
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
@@ -51,18 +51,17 @@ export class JoiModule
   }
 
   schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
+    if (!schema) return false
     const group = this.getMethodGroup(method)
     const objectSchema = schema[`${key}`] || {}
     if (joi.isSchema(objectSchema)) return true // Avoid transform if is already a Joi schema
+    if (!this.isJoiSchema(objectSchema)) return false
 
-    if (this.isJoiSchema(objectSchema)) {
-      const buildSchema = getClassSchema(objectSchema as Constructor, group)
-      if (joi.isSchema(buildSchema)) {
-        schema[`${key}`] = buildSchema
-        return true
-      }
-    }
-    return false
+    const buildSchema = getClassSchema(objectSchema as Constructor, group)
+    if (!joi.isSchema(buildSchema)) return false
+
+    schema[`${key}`] = buildSchema as any
+    return true
   }
 
   private getMethodGroup(group: RequestMethod): SchemaMethodGroup {
