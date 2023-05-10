@@ -1,13 +1,13 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import CreateHttpError from 'http-errors'
 
 import { EntityNotFoundError, InvalidArgumentError } from '../../domain'
-import { HttpStatus, RequestMethod } from '../../domain/Common'
+import { HttpStatus } from '../../domain/Common'
 import { HttpError, HttpValidationModule } from '../platform-fastify'
 
-export class GeneralRequestValidation implements HttpValidationModule<unknown> {
-  validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {
+export class DefaultHttpErrorHandler implements HttpValidationModule<unknown> {
+  // validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {
+  validationCompiler(): void {
     // do nothing
   }
 
@@ -29,7 +29,8 @@ export class GeneralRequestValidation implements HttpValidationModule<unknown> {
     return res.status(500).send(new Error(`GeneralRequestValidation[errorHandler]: Unhandled error ${err.message}`))
   }
 
-  schemaBuilder(_schema: FastifySchema, _key: keyof FastifySchema, _method?: RequestMethod) {
-    return false
+  // schemaBuilder(_schema: FastifySchema, _key: keyof FastifySchema, _method?: RequestMethod) {
+  schemaBuilder() {
+    // do nothing
   }
 }

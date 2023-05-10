@@ -229,28 +229,13 @@ const buildSchema = (
   method: RequestMethod,
   builders?: HttpValidationModule<unknown>[]
 ): FastifySchema | undefined => {
-  // let invalidSchemas = 0
-  let stopBuildSchema = false
+  // Quién me da el esquema?
+  if (!builders || !builders.length) return
 
-  const properties = Object.keys(schema) as (keyof FastifySchema)[]
-  if (!properties.length || !builders || !builders.length) return undefined
-
-  for (const property of properties) {
-    stopBuildSchema = false
-    for (const builder of builders) {
-      stopBuildSchema = builder.schemaBuilder(schema, property, method)
-      if (stopBuildSchema) break
-    }
-    if (stopBuildSchema) continue
-
-    // Sanitize when is primitive schema like String/Number etc.
-    delete schema[`${property}`]
-    // invalidSchemas++
+  // this focus allow to combine schemas
+  for (const builder of builders) {
+    builder.schemaBuilder(schema, method)
   }
-
-  // if (invalidSchemas === keys.length) return undefined
-
-  // return schema
 }
 
 const buildSchemaWithParams = (

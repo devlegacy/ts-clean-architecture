@@ -3,8 +3,6 @@ import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import HttpStatus from 'http-status'
 import { ZodError, ZodObject, ZodSchema, ZodTypeDef } from 'zod'
 
-import { RequestMethod } from '@/Contexts/Shared/domain/Common'
-
 import { HttpValidationModule } from '../../platform-fastify'
 
 // Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts
@@ -27,18 +25,17 @@ export class ZodModule implements HttpValidationModule<ZodObject<any>> {
   // })
 
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
+    if (!(err instanceof ZodError)) return
     // Is Zod
-    if (err instanceof ZodError) {
-      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
-        error: HttpStatus[err.statusCode ?? HttpStatus.UNPROCESSABLE_ENTITY],
-        statusCode: err.statusCode,
-        message: err.message,
-        path: req.raw.url,
-        code: err.code,
-        stack: err.stack,
-        errors: err.issues,
-      })
-    }
+    return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
+      error: HttpStatus[err.statusCode ?? HttpStatus.UNPROCESSABLE_ENTITY],
+      statusCode: err.statusCode,
+      message: err.message,
+      path: req.raw.url,
+      code: err.code,
+      stack: err.stack,
+      errors: err.issues,
+    })
   }
 
   // getMethodGroup(_group?: any) {
@@ -46,14 +43,28 @@ export class ZodModule implements HttpValidationModule<ZodObject<any>> {
   // }
 
   // schemaBuilder(schema: FastifySchema, key: keyof FastifySchema) {
-  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, _method: RequestMethod) {
-    const objectSchema = schema[`${key}`] || {}
-    if ((objectSchema as any).isZodDto) {
-      schema[`${key}`] = (objectSchema as any).schema
-      return true
+  schemaBuilder(schema: FastifySchema) {
+    const properties = Object.keys(schema) as (keyof FastifySchema)[]
+    if (!properties.length) return
+    // let invalidSchemas = 0
+    // let stopBuildSchema = false
+    for (const property of properties) {
+      // stopBuildSchema = false
+      // stopBuildSchema = this.#schemaBuilder2(schema, property)
+      this.#builder(schema, property)
+      // if (stopBuildSchema) continue
+      // Sanitize when is primitive schema like String/Number etc.
+      // delete schema[`${property}`]
+      // invalidSchemas++
     }
+    // if (invalidSchemas === keys.length) return undefined
+    // return schema
+  }
 
-    return false
+  #builder(schema: FastifySchema, key: keyof FastifySchema) {
+    const objectSchema = schema[`${key}`] || {}
+    if (!(objectSchema as any).isZodDto) return
+    schema[`${key}`] = (objectSchema as any).schema
   }
 }
 

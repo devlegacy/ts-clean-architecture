@@ -27,6 +27,7 @@ export class JoiModule
   implements HttpValidationModule<joi.AnySchema, ((data: unknown) => joi.ValidationResult<any>) | void>
 {
   validationCompiler({ schema }: FastifyRouteSchemaDef<joi.AnySchema>) {
+    if (!schema) return
     if (!joi.isSchema(schema)) return
 
     return (data: unknown) => {
@@ -50,21 +51,39 @@ export class JoiModule
     })
   }
 
-  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
-    if (!schema) return false
-    const group = this.getMethodGroup(method)
-    const objectSchema = schema[`${key}`] || {}
-    if (joi.isSchema(objectSchema)) return true // Avoid transform if is already a Joi schema
-    if (!this.isJoiSchema(objectSchema)) return false
-
-    const buildSchema = getClassSchema(objectSchema as Constructor, group)
-    if (!joi.isSchema(buildSchema)) return false
-
-    schema[`${key}`] = buildSchema as any
-    return true
+  schemaBuilder(schema: FastifySchema, method: RequestMethod) {
+    const properties = Object.keys(schema) as (keyof FastifySchema)[]
+    if (!properties.length) return
+    // let invalidSchemas = 0
+    // let stopBuildSchema = false
+    for (const property of properties) {
+      // stopBuildSchema = false
+      // stopBuildSchema = this.#schemaBuilder2(schema, property, method)
+      this.#builder(schema, property, method)
+      // if (stopBuildSchema) continue
+      // Sanitize when is primitive schema like String/Number etc.
+      // delete schema[`${property}`]
+      // invalidSchemas++
+    }
+    // if (invalidSchemas === keys.length) return undefined
+    // return schema
   }
 
-  private getMethodGroup(group: RequestMethod): SchemaMethodGroup {
+  #builder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
+    if (!schema) return
+
+    const group = this.#getMethodGroup(method)
+    const objectSchema = schema[`${key}`] || {}
+    if (joi.isSchema(objectSchema)) return // Avoid transform if is already a Joi schema
+    if (!this.#isJoiSchema(objectSchema)) return
+
+    const buildSchema = getClassSchema(objectSchema as Constructor, group)
+    if (!joi.isSchema(buildSchema)) return
+
+    schema[`${key}`] = buildSchema as any
+  }
+
+  #getMethodGroup(group: RequestMethod): SchemaMethodGroup {
     if (group === RequestMethod.POST) {
       return { group: 'CREATE' }
     } else if (group === RequestMethod.DELETE) {
@@ -75,7 +94,7 @@ export class JoiModule
     return undefined
   }
 
-  private isJoiSchema(objectSchema: unknown) {
+  #isJoiSchema(objectSchema: unknown) {
     if (!isFunction(objectSchema)) return false
     const metadata = Reflect.getMetadataKeys(objectSchema.prototype)
     const isJoiSchema = Array.isArray(metadata) && metadata[0] === SCHEMA_PROTO_KEY

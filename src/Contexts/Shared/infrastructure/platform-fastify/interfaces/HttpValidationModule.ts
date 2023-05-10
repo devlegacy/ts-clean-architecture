@@ -7,5 +7,5 @@ export interface HttpValidationModule<TSchema = unknown, TValidationResult = any
   validationCompiler: (schemaDefinition: FastifyRouteSchemaDef<TSchema>) => TValidationResult
   errorHandler: (error: FastifyError, req: FastifyRequest, res: FastifyReply) => void
   // Usado para construir los esquemas del request al construir el controlador en bootstrap | route loader, característica alternativa y fe retro-compatibilidad, debe eliminarse
-  schemaBuilder(schema: FastifySchema, property: keyof FastifySchema, method: RequestMethod): boolean
+  schemaBuilder(schema: FastifySchema, method: RequestMethod): void
 }
