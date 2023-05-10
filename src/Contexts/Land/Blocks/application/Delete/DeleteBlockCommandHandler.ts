@@ -1,12 +1,12 @@
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { ICommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain/Common'
+import { CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BlockDeleter } from './BlockDeleter'
 import { DeleteBlockCommand } from './DeleteBlockCommand'
 
-@CommandHandler(DeleteBlockCommand)
-export class DeleteBlockCommandHandler implements ICommandHandler<DeleteBlockCommand> {
+@CommandHandlerSubscriber(DeleteBlockCommand)
+export class DeleteBlockCommandHandler implements CommandHandler<DeleteBlockCommand> {
   constructor(private readonly deleter: BlockDeleter) {}
 
   async handle(command: DeleteBlockCommand): Promise<void> {

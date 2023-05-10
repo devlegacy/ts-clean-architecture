@@ -89,7 +89,7 @@ export const UseCase = () => {
   }
 }
 
-export const DomainEventSubscriber = (...events: DomainEventClass[]) => {
+export const DomainEventSubscribers = (...events: DomainEventClass[]) => {
   return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.DomainEventSubscriber))
       registeredModules.set(SHARED_TAGS.DomainEventSubscriber, new Set())
@@ -109,7 +109,7 @@ export const DomainEventSubscriber = (...events: DomainEventClass[]) => {
   }
 }
 
-export const CommandHandler = (command: Command | Constructor<Command>): ClassDecorator => {
+export const CommandHandlerSubscriber = (command: Command | Constructor<Command>): ClassDecorator => {
   return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.CommandHandler)) registeredModules.set(SHARED_TAGS.CommandHandler, new Set())
     if (!registeredModules.get(SHARED_TAGS.CommandHandler)?.has(target))
@@ -121,7 +121,7 @@ export const CommandHandler = (command: Command | Constructor<Command>): ClassDe
   }
 }
 
-export const QueryHandler = (query: Query): ClassDecorator => {
+export const QueryHandlerSubscriber = (query: Query): ClassDecorator => {
   return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.QueryHandler)) registeredModules.set(SHARED_TAGS.QueryHandler, new Set())
     if (!registeredModules.get(SHARED_TAGS.QueryHandler)?.has(target))

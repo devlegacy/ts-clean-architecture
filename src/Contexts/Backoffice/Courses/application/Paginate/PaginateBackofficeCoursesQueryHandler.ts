@@ -1,13 +1,13 @@
-import { Filters, IQueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { Filters, QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCoursesPaginator } from './BackofficeCoursesPaginator'
 import { PaginateBackofficeCoursesQuery } from './PaginateBackofficeCoursesQuery'
 import { PaginatedBackofficeCoursesResponse } from './PaginatedBackofficeCoursesResponse'
 
-@QueryHandler(PaginateBackofficeCoursesQuery)
+@QueryHandlerSubscriber(PaginateBackofficeCoursesQuery)
 export class PaginateBackofficeCoursesQueryHandler
-  implements IQueryHandler<PaginateBackofficeCoursesQuery, PaginatedBackofficeCoursesResponse>
+  implements QueryHandler<PaginateBackofficeCoursesQuery, PaginatedBackofficeCoursesResponse>
 {
   constructor(private readonly paginator: BackofficeCoursesPaginator) {}
 

@@ -1,14 +1,14 @@
-import { Filters, IQueryHandler, Order } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { Filters, Order, QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
 import { BackofficeCoursesByCriteriaSearcher } from './BackofficeCoursesByCriteriaSearcher'
 import { SearchBackofficeCoursesByCriteriaQuery } from './SearchBackofficeCoursesByCriteriaQuery'
 
 // Injectable and Taggable TYPES.QueryHandler
-@QueryHandler(SearchBackofficeCoursesByCriteriaQuery)
+@QueryHandlerSubscriber(SearchBackofficeCoursesByCriteriaQuery)
 export class SearchBackofficeCoursesByCriteriaQueryHandler
-  implements IQueryHandler<SearchBackofficeCoursesByCriteriaQuery, BackofficeCoursesResponse>
+  implements QueryHandler<SearchBackofficeCoursesByCriteriaQuery, BackofficeCoursesResponse>
 {
   constructor(private readonly searcher: BackofficeCoursesByCriteriaSearcher) {}
 

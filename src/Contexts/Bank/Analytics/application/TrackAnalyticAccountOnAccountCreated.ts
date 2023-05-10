@@ -1,10 +1,10 @@
-import { IDomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEventSubscriber } from '@/Contexts/Shared/domain'
 
 import { AccountCreatedDomainEvent } from '../../Accounts/domain'
 import { AnalyticAccountTrackerUseCase } from './AnalyticAccountTrackerUseCase'
 
 // DomainEventSubscriber | Subscriptor | EventHandler
-export class TrackAnalyticAccountOnAccountCreated implements IDomainEventSubscriber<AccountCreatedDomainEvent> {
+export class TrackAnalyticAccountOnAccountCreated implements DomainEventSubscriber<AccountCreatedDomainEvent> {
   constructor(private readonly useCase: AnalyticAccountTrackerUseCase) {}
 
   subscribedTo() {

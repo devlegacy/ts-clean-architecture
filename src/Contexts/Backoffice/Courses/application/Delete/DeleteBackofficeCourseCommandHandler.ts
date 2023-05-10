@@ -1,11 +1,11 @@
-import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain/Common'
+import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourseId, DeleteBackofficeCourseCommand } from '../../domain'
 import { BackofficeCourseDeleter } from './BackofficeCourseDeleter'
 
-@CommandHandler(BackofficeCourseDeleter)
-export class DeleteBackofficeCourseCommandHandler implements ICommandHandler<DeleteBackofficeCourseCommand> {
+@CommandHandlerSubscriber(BackofficeCourseDeleter)
+export class DeleteBackofficeCourseCommandHandler implements CommandHandler<DeleteBackofficeCourseCommand> {
   constructor(private readonly deleter: BackofficeCourseDeleter) {}
 
   subscribedTo(): Command {

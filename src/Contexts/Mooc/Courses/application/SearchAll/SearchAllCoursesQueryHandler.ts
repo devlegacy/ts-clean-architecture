@@ -1,13 +1,13 @@
-import { IQueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { CreateCourseCommand } from '../../domain'
 import { CoursesFinder } from './CoursesFinder'
 import { CoursesResponse } from './CoursesResponse'
 import { SearchAllCoursesQuery } from './SearchAllCoursesQuery'
 
-@QueryHandler(SearchAllCoursesQuery)
-export class SearchAllCoursesQueryHandler implements IQueryHandler<CreateCourseCommand, CoursesResponse> {
+@QueryHandlerSubscriber(SearchAllCoursesQuery)
+export class SearchAllCoursesQueryHandler implements QueryHandler<CreateCourseCommand, CoursesResponse> {
   constructor(private coursesFinder: CoursesFinder) {}
 
   // subscribedTo(): Query {

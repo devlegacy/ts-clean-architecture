@@ -3,7 +3,7 @@ import { container } from 'tsyringe'
 
 import { TAGS } from '@/apps/mooc/modules/tags'
 
-import { DomainEvent, DomainEventSubscribers, IDomainEventSubscriber, SHARED_TYPES } from '../../domain'
+import { DomainEvent, DomainEventSubscriber, DomainEventSubscribers, SHARED_TYPES } from '../../domain'
 
 // class DomainEventSubscriberTransform implements Transform<any, any> {
 //   public transform(items: DomainEventSubscriber<DomainEvent>[]): DomainEventSubscriber<DomainEvent>[] {
@@ -14,11 +14,11 @@ import { DomainEvent, DomainEventSubscribers, IDomainEventSubscriber, SHARED_TYP
 // }
 
 export class DomainEventSubscriberResolver implements DomainEventSubscribers {
-  constructor(readonly items: IDomainEventSubscriber<DomainEvent>[]) {}
+  constructor(readonly items: DomainEventSubscriber<DomainEvent>[]) {}
 
   static fromContainer(container: Container): DomainEventSubscribers {
     const subscribers = container
-      .findTaggedServiceIdentifiers<IDomainEventSubscriber<DomainEvent>>(TAGS.DomainEventSubscriber)
+      .findTaggedServiceIdentifiers<DomainEventSubscriber<DomainEvent>>(TAGS.DomainEventSubscriber)
       .map((subscriber) => container.get(subscriber))
 
     return new DomainEventSubscriberResolver(subscribers)
@@ -29,7 +29,7 @@ export class DomainEventSubscriberResolver implements DomainEventSubscribers {
   static from(token: symbol = SHARED_TYPES.DomainEventSubscriber): DomainEventSubscribers {
     // const subscriberDefinitions = [IncrementCoursesCounterOnCourseCreated]
     const subscribers = container.isRegistered(token)
-      ? container.resolveAll<IDomainEventSubscriber<DomainEvent>>(token)
+      ? container.resolveAll<DomainEventSubscriber<DomainEvent>>(token)
       : []
 
     // subscriberDefinitions.forEach((key) => {

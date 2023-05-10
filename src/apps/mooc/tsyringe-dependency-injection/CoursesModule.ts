@@ -7,7 +7,7 @@ import {
   // , TypeOrmCourseRepository
 } from '@/Contexts/Mooc/Courses/infrastructure'
 import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
-import { Command, ICommandHandler, Query, Response } from '@/Contexts/Shared/domain'
+import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain'
 
 import { TYPES } from './types'
 
@@ -17,7 +17,7 @@ container
   // 🏷 Tags - Application
   // 🚌 CommandBus <-> CommandHandlers
   // 🏷 Tags - Application
-  .register<ICommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
+  .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateCourseCommandHandler)
   // 🚌 QueryBus <-> QueryHandlers
   // 🏷 Tags - Application
   .register<QueryHandler<Query, Response>>(TYPES.QueryHandler, SearchAllCoursesQueryHandler)

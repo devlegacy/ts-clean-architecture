@@ -1,12 +1,12 @@
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { ICommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain/Common'
+import { CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain'
 import { CourseCreator } from './CourseCreator'
 
-@CommandHandler(CreateCourseCommand)
-export class CreateCourseCommandHandler implements ICommandHandler<CreateCourseCommand> {
+@CommandHandlerSubscriber(CreateCourseCommand)
+export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCommand> {
   constructor(private readonly creator: CourseCreator) {}
 
   // @Catch()

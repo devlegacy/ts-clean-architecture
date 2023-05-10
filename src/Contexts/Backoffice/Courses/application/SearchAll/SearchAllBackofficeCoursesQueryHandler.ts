@@ -1,13 +1,13 @@
-import { IQueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
 import { BackofficeCoursesFinder } from './BackofficeCoursesFinder'
 import { SearchAllBackofficeCoursesQuery } from './SearchAllBackofficeCoursesQuery'
 
-@QueryHandler(SearchAllBackofficeCoursesQuery)
+@QueryHandlerSubscriber(SearchAllBackofficeCoursesQuery)
 export class SearchAllBackofficeCoursesQueryHandler
-  implements IQueryHandler<SearchAllBackofficeCoursesQuery, BackofficeCoursesResponse>
+  implements QueryHandler<SearchAllBackofficeCoursesQuery, BackofficeCoursesResponse>
 {
   constructor(private readonly finder: BackofficeCoursesFinder) {}
 

@@ -1,9 +1,4 @@
-import {
-  DomainEvent,
-  DomainEventClass,
-  EVENTS_HANDLER_METADATA,
-  IDomainEventSubscriber,
-} from '@/Contexts/Shared/domain'
+import { DomainEvent, DomainEventClass, DomainEventSubscriber, EVENTS_HANDLER_METADATA } from '@/Contexts/Shared/domain'
 
 import { RabbitMQConnection } from './RabbitMQConnection'
 import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter'
@@ -16,7 +11,7 @@ export class RabbitMQConfigurer {
     private messageRetryTtl: number
   ) {}
 
-  async configure(params: { exchange: string; subscribers: IDomainEventSubscriber<DomainEvent>[] }): Promise<void> {
+  async configure(params: { exchange: string; subscribers: DomainEventSubscriber<DomainEvent>[] }): Promise<void> {
     const retryExchange = RabbitMQExchangeNameFormatter.retry(params.exchange)
     const deadLetterExchange = RabbitMQExchangeNameFormatter.deadLetter(params.exchange)
 
@@ -29,7 +24,7 @@ export class RabbitMQConfigurer {
     }
   }
 
-  private async addQueue(subscriber: IDomainEventSubscriber<DomainEvent>, exchange: string) {
+  private async addQueue(subscriber: DomainEventSubscriber<DomainEvent>, exchange: string) {
     const retryExchange = RabbitMQExchangeNameFormatter.retry(exchange)
     const deadLetterExchange = RabbitMQExchangeNameFormatter.deadLetter(exchange)
 
@@ -59,7 +54,7 @@ export class RabbitMQConfigurer {
     })
   }
 
-  private getRoutingKeysFor(subscriber: IDomainEventSubscriber<DomainEvent>) {
+  private getRoutingKeysFor(subscriber: DomainEventSubscriber<DomainEvent>) {
     const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
     const routingKeys = events.map((event) => event.EVENT_NAME)
 

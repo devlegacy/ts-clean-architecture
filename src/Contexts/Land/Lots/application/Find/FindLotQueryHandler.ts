@@ -1,13 +1,13 @@
-import { EntityNotFoundError, IQueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { EntityNotFoundError, QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { LotId } from '../../domain'
 import { LotResponse } from '../LotResponse'
 import { FindLotQuery } from './FindLotQuery'
 import { LotFinder } from './LotFinder'
 
-@QueryHandler(FindLotQuery)
-export class FindLotQueryHandler implements IQueryHandler<FindLotQuery, LotResponse> {
+@QueryHandlerSubscriber(FindLotQuery)
+export class FindLotQueryHandler implements QueryHandler<FindLotQuery, LotResponse> {
   constructor(private readonly finder: LotFinder) {}
 
   async handle(query: FindLotQuery): Promise<LotResponse> {

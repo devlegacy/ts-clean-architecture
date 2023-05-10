@@ -1,13 +1,13 @@
 import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { EntityNotFoundError, IQueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { EntityNotFoundError, QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BlockResponse } from '../BlockResponse'
 import { BlockFinder } from './BlockFinder'
 import { FindBlockQuery } from './FindBlockQuery'
 
-@QueryHandler(FindBlockQuery)
-export class FindBlockQueryHandler implements IQueryHandler<FindBlockQuery, BlockResponse> {
+@QueryHandlerSubscriber(FindBlockQuery)
+export class FindBlockQueryHandler implements QueryHandler<FindBlockQuery, BlockResponse> {
   constructor(private readonly finder: BlockFinder) {}
 
   async handle(query: FindBlockQuery): Promise<BlockResponse> {

@@ -1,8 +1,8 @@
-import { Command, ICommandHandler } from '@/Contexts/Shared/domain'
+import { Command, CommandHandler } from '@/Contexts/Shared/domain'
 
 import { CreatePriceCommand } from './CreatePriceCommand'
 
-export class CreatePriceCommandHandler implements ICommandHandler<CreatePriceCommand> {
+export class CreatePriceCommandHandler implements CommandHandler<CreatePriceCommand> {
   subscribedTo(): Command {
     return CreatePriceCommand
   }

@@ -1,13 +1,13 @@
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { ICommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain/Common'
+import { CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { LotArea, LotAvailability, LotCreatedAt, LotId, LotLot, LotUpdatedAt } from '../../domain'
 import { CreateLotCommand } from './CreateLotCommand'
 import { LotCreator } from './LotCreator'
 
-@CommandHandler(CreateLotCommand)
-export class CreateLotCommandHandler implements ICommandHandler<CreateLotCommand> {
+@CommandHandlerSubscriber(CreateLotCommand)
+export class CreateLotCommandHandler implements CommandHandler<CreateLotCommand> {
   constructor(private readonly creator: LotCreator) {}
 
   async handle(command: CreateLotCommand): Promise<void> {

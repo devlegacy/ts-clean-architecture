@@ -1,12 +1,12 @@
 import { CourseCreatedDomainEvent } from '@/Contexts/Mooc/Courses/domain'
-import { IDomainEventSubscriber } from '@/Contexts/Shared/domain'
-import { DomainEventSubscriber } from '@/Contexts/Shared/domain/Common'
+import { DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common'
 
 import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from '../../domain'
 import { BackofficeCourseCreator } from './BackofficeCourseCreator'
 
-@DomainEventSubscriber(CourseCreatedDomainEvent)
-export class CreateBackofficeCourseOnCourseCreated implements IDomainEventSubscriber<CourseCreatedDomainEvent> {
+@DomainEventSubscribers(CourseCreatedDomainEvent)
+export class CreateBackofficeCourseOnCourseCreated implements DomainEventSubscriber<CourseCreatedDomainEvent> {
   constructor(private readonly creator: BackofficeCourseCreator) {}
 
   // subscribedTo(): DomainEventClass[] {

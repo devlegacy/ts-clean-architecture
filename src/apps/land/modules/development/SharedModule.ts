@@ -10,13 +10,13 @@ import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persis
 import {
   Command,
   CommandBus,
+  CommandHandler,
   EventBus,
-  ICommandHandler,
-  IQueryHandler,
   Logger,
   Monitoring,
   Query,
   QueryBus,
+  QueryHandler,
 } from '@/Contexts/Shared/domain'
 import {
   CommandHandlers,
@@ -49,9 +49,9 @@ export const SharedModule = (builder: ContainerBuilder) => {
   builder
     .register(CommandBus)
     .useFactory((container) => {
-      const commands = (
-        container.findTaggedServiceIdentifiers<ICommandHandler<Command>>(TAGS.CommandHandler) ?? []
-      ).map((identifier) => container.get(identifier))
+      const commands = (container.findTaggedServiceIdentifiers<CommandHandler<Command>>(TAGS.CommandHandler) ?? []).map(
+        (identifier) => container.get(identifier)
+      )
 
       const handler = new CommandHandlers(commands)
       return new InMemoryCommandBus(handler)
@@ -65,7 +65,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     .register(QueryBus)
     .useFactory((container) => {
       const queries = (
-        container.findTaggedServiceIdentifiers<IQueryHandler<Query, Response>>(TAGS.QueryHandler) ?? []
+        container.findTaggedServiceIdentifiers<QueryHandler<Query, Response>>(TAGS.QueryHandler) ?? []
       ).map((identifier) => container.get(identifier))
 
       const handler = new QueryHandlers(queries)

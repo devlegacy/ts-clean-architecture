@@ -30,7 +30,7 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   addSubscribers(subscribers: DomainEventSubscribers): void {
     subscribers.items.forEach((subscriber) => {
       const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
-      events.forEach((event: any) => {
+      events.forEach((event) => {
         info(`[on 📥 ]: ${event.EVENT_NAME}`)
         this.on(event.EVENT_NAME, subscriber.on.bind(subscriber))
       })

@@ -1,5 +1,5 @@
-import { ICommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain/Common'
+import { CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import {
   BackofficeCourseDuration,
@@ -9,8 +9,8 @@ import {
 } from '../../domain'
 import { BackofficeCourseUpdater } from './BackofficeCourseUpdater'
 
-@CommandHandler(UpdateBackofficeCourseCommand)
-export class UpdateBackofficeCourseCommandHandler implements ICommandHandler<UpdateBackofficeCourseCommand> {
+@CommandHandlerSubscriber(UpdateBackofficeCourseCommand)
+export class UpdateBackofficeCourseCommandHandler implements CommandHandler<UpdateBackofficeCourseCommand> {
   constructor(private readonly updater: BackofficeCourseUpdater) {}
 
   // subscribedTo(): Command {

@@ -1,7 +1,7 @@
-import { IQueryHandler, Query, QUERY_HANDLER_METADATA, QueryNotRegisteredError, Response } from '../../domain'
+import { Query, QUERY_HANDLER_METADATA, QueryHandler, QueryNotRegisteredError, Response } from '../../domain'
 
-export class QueryHandlers extends Map<Query, IQueryHandler<Query, Response>> {
-  constructor(private readonly handlers: IQueryHandler<Query, Response>[]) {
+export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
+  constructor(private readonly handlers: QueryHandler<Query, Response>[]) {
     // constructor() {
     //   const token = SHARED_TYPES.CommandHandler
     //   const queryHandlers: QueryHandler<Query, Response>[] = container.isRegistered(token)
@@ -18,7 +18,7 @@ export class QueryHandlers extends Map<Query, IQueryHandler<Query, Response>> {
     })
   }
 
-  override get(query: Query): IQueryHandler<Query, Response> {
+  override get(query: Query): QueryHandler<Query, Response> {
     const queryHandler = super.get(query.constructor)
 
     if (!queryHandler) {

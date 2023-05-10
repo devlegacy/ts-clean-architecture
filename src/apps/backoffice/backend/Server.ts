@@ -11,7 +11,7 @@ import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 // import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
+import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
 import { container } from '../modules'
@@ -39,7 +39,7 @@ export class Server {
     this.#adapter
       .setMonitoringModule(monitoring)
       .setValidationModule(new JoiModule())
-      .setValidationModule(new GeneralRequestValidation())
+      .setValidationModule(new DefaultHttpErrorHandler())
   }
 
   async listen() {

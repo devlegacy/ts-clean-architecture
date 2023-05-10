@@ -1,6 +1,6 @@
 import { DomainEvent } from './DomainEvent'
-import { IDomainEventSubscriber } from './DomainEventSubscriber'
+import { DomainEventSubscriber } from './DomainEventSubscriber'
 
 export interface DomainEventSubscribers {
-  items: IDomainEventSubscriber<DomainEvent>[]
+  items: DomainEventSubscriber<DomainEvent>[]
 }

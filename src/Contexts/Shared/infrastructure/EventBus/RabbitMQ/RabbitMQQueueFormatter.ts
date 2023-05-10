@@ -1,9 +1,9 @@
-import { DomainEvent, IDomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
 
 export class RabbitMQQueueFormatter {
   constructor(private moduleName: string) {}
 
-  format(subscriber: IDomainEventSubscriber<DomainEvent>) {
+  format(subscriber: DomainEventSubscriber<DomainEvent>) {
     const value = subscriber.constructor.name
     const name = value
       .split(/(?=[A-Z])/)
@@ -12,12 +12,12 @@ export class RabbitMQQueueFormatter {
     return `${this.moduleName}.${name}`
   }
 
-  formatRetry(subscriber: IDomainEventSubscriber<DomainEvent>) {
+  formatRetry(subscriber: DomainEventSubscriber<DomainEvent>) {
     const name = this.format(subscriber)
     return `retry.${name}`
   }
 
-  formatDeadLetter(subscriber: IDomainEventSubscriber<DomainEvent>) {
+  formatDeadLetter(subscriber: DomainEventSubscriber<DomainEvent>) {
     const name = this.format(subscriber)
     return `dead_letter.${name}`
   }

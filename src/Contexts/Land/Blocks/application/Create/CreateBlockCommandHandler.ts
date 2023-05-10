@@ -1,13 +1,13 @@
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { ICommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain/Common'
+import { CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { BlockArea, BlockAvailability, BlockBlock, BlockCreatedAt, BlockStreet, BlockUpdatedAt } from '../../domain'
 import { BlockCreator } from './BlockCreator'
 import { CreateBlockCommand } from './CreateBlockCommand'
 
-@CommandHandler(CreateBlockCommand)
-export class CreateBlockCommandHandler implements ICommandHandler<CreateBlockCommand> {
+@CommandHandlerSubscriber(CreateBlockCommand)
+export class CreateBlockCommandHandler implements CommandHandler<CreateBlockCommand> {
   constructor(private readonly creator: BlockCreator) {}
 
   // @AsyncWait()
