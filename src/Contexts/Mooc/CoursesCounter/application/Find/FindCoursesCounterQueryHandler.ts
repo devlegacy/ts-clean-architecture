@@ -1,13 +1,13 @@
-import { IQueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandler } from '@/Contexts/Shared/domain/Common'
+import { QueryHandler } from '@/Contexts/Shared/domain'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { CoursesCounterFinder } from './CoursesCounterFinder'
 import { FindCoursesCounterQuery } from './FindCoursesCounterQuery'
 import { FindCoursesCounterResponse } from './FindCoursesCounterResponse'
 
-@QueryHandler(FindCoursesCounterQuery)
+@QueryHandlerSubscriber(FindCoursesCounterQuery)
 export class FindCoursesCounterQueryHandler
-  implements IQueryHandler<FindCoursesCounterQuery, FindCoursesCounterResponse>
+  implements QueryHandler<FindCoursesCounterQuery, FindCoursesCounterResponse>
 {
   constructor(private readonly finder: CoursesCounterFinder) {}
 
