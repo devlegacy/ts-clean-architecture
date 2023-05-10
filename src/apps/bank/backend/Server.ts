@@ -9,7 +9,7 @@ import qs from 'qs'
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
+import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
 type Options = {
@@ -34,7 +34,7 @@ export class Server {
 
     this.#httpServer = this.#adapter.app.server
     this.#adapter.enableCors()
-    this.#adapter.setValidationModule(new JoiModule()).setValidationModule(new GeneralRequestValidation())
+    this.#adapter.setValidationModule(new JoiModule()).setValidationModule(new DefaultHttpErrorHandler())
   }
 
   async listen() {

@@ -13,7 +13,7 @@ import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 // import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
 import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
-import { GeneralRequestValidation } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
+import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 import { ZodModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod'
 
@@ -50,7 +50,7 @@ export class Server {
       .setMonitoringModule(monitoring)
       .setValidationModule(new JoiModule())
       .setValidationModule(new ZodModule())
-      .setValidationModule(new GeneralRequestValidation())
+      .setValidationModule(new DefaultHttpErrorHandler())
   }
 
   // eslint-disable-next-line max-lines-per-function
