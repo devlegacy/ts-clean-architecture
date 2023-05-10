@@ -1,6 +1,6 @@
 # 🟨 JavaScript
 
-## Parameter object
+## Parameter object + Destructuring
 
 ```ts
 class Course {
@@ -8,4 +8,6 @@ class Course {
 }
 ```
 
-## Destructuring
+## When use or call super in a class
+
+- In override methods only

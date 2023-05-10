@@ -106,3 +106,10 @@
 - Tell don't ask
 - ¿consideramos algoritmos infraestructura?
 
+## Actions
+
+- Creator
+- Finder
+  - Domain service
+- Searcher
+  - Buscar -> Nullable<Entity> y puede que no lo encuentre
