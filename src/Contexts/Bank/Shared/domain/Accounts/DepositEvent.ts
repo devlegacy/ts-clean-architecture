@@ -1,5 +1,7 @@
 import { DomainEvent } from '@/Contexts/Shared/domain'
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 export class DepositEvent extends DomainEvent {
   static override readonly EVENT_NAME = 'account.deposit'
   readonly balance: {

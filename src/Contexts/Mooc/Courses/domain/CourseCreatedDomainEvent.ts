@@ -1,8 +1,8 @@
 import { DomainEvent, DomainEventPrimitives, DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain'
 
 interface CreateCourseDomainEventAttributes {
-  name: string // should be readonly
-  duration?: string // should be readonly
+  readonly name: string // should be readonly
+  readonly duration?: string // should be readonly
 }
 
 export class CourseCreatedDomainEvent extends DomainEvent implements CreateCourseDomainEventAttributes {
@@ -18,10 +18,10 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
     duration,
     name,
     ...event
-  }: DomainEventPrimitives<CreateCourseDomainEventAttributes>) {
-    const eventName = CourseCreatedDomainEvent.EVENT_NAME
+  }: // }: Omit<Primitives<CourseCreatedDomainEvent>, 'eventName'>) {
+  DomainEventPrimitives<CreateCourseDomainEventAttributes>) {
     super({
-      eventName,
+      eventName: CourseCreatedDomainEvent.EVENT_NAME,
       // eventId,
       // occurredOn,
       // aggregateId,
@@ -48,15 +48,16 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
       name,
       duration,
     })
+
     return event
   }
 
   // toPrimitives(): CreateCourseDomainEventAttributes {
   toPrimitives() {
-    const { name, duration } = this
-    return {
-      name,
-      duration,
+    const primitives = {
+      name: this.name,
+      duration: this.duration,
     }
+    return primitives
   }
 }

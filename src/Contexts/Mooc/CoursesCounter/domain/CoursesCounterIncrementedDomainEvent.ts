@@ -1,8 +1,13 @@
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { DomainEvent, DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain'
 
-type CoursesCounterIncrementedAttributes = { total: number }
+interface CoursesCounterIncrementedDomainEventAttributes {
+  readonly total: number
+}
 
-export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
+export class CoursesCounterIncrementedDomainEvent
+  extends DomainEvent
+  implements CoursesCounterIncrementedDomainEventAttributes
+{
   static override readonly EVENT_NAME = 'courses_counter.incremented'
   readonly total: number
 
@@ -17,13 +22,10 @@ export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
     this.total = data.total
   }
 
-  static override fromPrimitives(params: {
-    aggregateId: string
-    attributes: CoursesCounterIncrementedAttributes
-    eventId: string
-    occurredOn: Date
-  }) {
-    const { aggregateId, attributes, eventId, occurredOn } = params
+  static override fromPrimitives(
+    params: DomainEventPrimitivesWithAttributes<CoursesCounterIncrementedDomainEventAttributes>
+  ) {
+    const { eventId, occurredOn, aggregateId, attributes } = params
     return new CoursesCounterIncrementedDomainEvent({
       aggregateId,
       total: attributes.total,
@@ -33,8 +35,9 @@ export class CoursesCounterIncrementedDomainEvent extends DomainEvent {
   }
 
   toPrimitives() {
-    return {
+    const primitives = {
       total: this.total,
     }
+    return primitives
   }
 }

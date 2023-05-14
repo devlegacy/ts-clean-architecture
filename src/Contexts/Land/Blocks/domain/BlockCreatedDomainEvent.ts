@@ -15,6 +15,8 @@ type CreateBlockDomainEventAttributes = {
   readonly northwestBoundary: string
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 export class BlockCreatedDomainEvent extends DomainEvent {
   static override readonly EVENT_NAME = 'block.created'
 

@@ -35,13 +35,13 @@ export class MongoAccountEventStore extends MongoEventStore<Account> implements 
       .sort((e1, e2) => e1.occurredOn.getTime() - e2.occurredOn.getTime())
       .forEach((event) => {
         const domainEventClass = this.events.get(event.eventName)
-        const { _id: eventId, aggregateId, occurredOn, eventName, ...document } = event
+        const { _id: eventId, aggregateId, occurredOn, eventName: _eventName, ...document } = event
         // console.log(domainEventClass!.fromPrimitives, document)
         const domainEvent = domainEventClass!.fromPrimitives({
           eventId,
           aggregateId,
           occurredOn,
-          eventName,
+          // eventName,
           attributes: document,
         })
         account.handleEvent(domainEvent)

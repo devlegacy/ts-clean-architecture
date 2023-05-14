@@ -1,9 +1,11 @@
 import { ObjectId, Uuid } from '../ValueObjects'
 
 type DomainEventAttributes<T = any> = T
-
 export type DomainPrimitiveAttributes<T extends DomainEvent> = ReturnType<T['toPrimitives']>
 
+/**
+ * Create domain event with primitives attributes without event name
+ */
 export interface DomainEventPrimitivesWithAttributes<Attributes> {
   // event UUID identifier
   eventId: string
@@ -11,7 +13,7 @@ export interface DomainEventPrimitivesWithAttributes<Attributes> {
   occurredOn: Date
   // ID for the Aggregate Root that this event belongs to, related to the attributes because is the ID root
   aggregateId: string
-  //
+  // is created in instance of abstract domain event
   // eventName: string
   // Primitive domain data | Payload domain data
   attributes: Simplify<
@@ -24,10 +26,10 @@ export interface DomainEventPrimitivesWithAttributes<Attributes> {
 
 // Base (?)
 export type DomainEventPrimitives<Attributes> = Attributes & {
+  // eventName: string
   eventId?: string
   occurredOn?: Date
   aggregateId: string
-  // eventName: string
 }
 
 // export interface DomainEvent {
@@ -38,24 +40,37 @@ export type DomainEventPrimitives<Attributes> = Attributes & {
  * Base Domain Event class.
  *
  * All Domain Events `MUST` extend this class.
+ * Events are made to travel, we need to define serializer (fromPrimitives) and deserializer (toPrimitives)
  */
 export abstract class DomainEvent {
   // tag event name: AsyncAPI compliant, it should use action on past
   static EVENT_NAME: string
-  // static fromPrimitives: (props: DomainEventPrimitivesWithAttributes) => DomainEvent
-  static fromPrimitives: (props: any) => DomainEvent
+  static fromPrimitives: (
+    props:
+      | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
+      | DomainEventPrimitivesWithAttributes<any>
+  ) => DomainEvent
+  // static fromPrimitives: (props: any) => DomainEvent
+  // static fromPrimitives: (props: {
+  //   aggregateId: string
+  //   eventId: string
+  //   occurredOn: Date
+  //   attributes: DomainEventAttributes
+  // }) => DomainEvent
 
   readonly aggregateId: string
   readonly eventId: string
   readonly occurredOn: Date
   readonly eventName: string
 
-  // DEBT: props vs ctx
+  // DEBT: props vs ctx vs params
+  // The event name is needed just here!
   constructor(props: DomainEventPrimitives<{ eventName: string }>) {
     const { aggregateId, eventName, eventId, occurredOn } = props
-    this.aggregateId = aggregateId
     this.eventId = eventId || Uuid.random().value || ObjectId.random().value
     this.occurredOn = occurredOn || new Date()
+
+    this.aggregateId = aggregateId
     this.eventName = eventName
   }
 
@@ -65,6 +80,18 @@ export abstract class DomainEvent {
 // DEBT: Complexity
 export type DomainEventClass = {
   EVENT_NAME: string
-  // fromPrimitives(props: DomainEventPrimitivesWithAttributes): DomainEvent
-  fromPrimitives(props: any): DomainEvent
+  fromPrimitives(
+    props: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
+    DomainEventPrimitivesWithAttributes<any>
+  ): DomainEvent
+  // fromPrimitives(props: any): DomainEvent
+  // fromPrimitives(props: {
+  //   aggregateId: string
+  //   eventId: string
+  //   occurredOn: Date
+  //   attributes: DomainEventAttributes
+  // }): DomainEvent
 }
+
+// Works with everything but Decorator
+// export type DomainEventClass = typeof DomainEvent

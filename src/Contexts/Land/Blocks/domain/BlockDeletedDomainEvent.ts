@@ -16,6 +16,8 @@ type DeleteBlockDomainEventAttributes = {
   readonly deletedAt?: Date
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 export class BlockDeletedDomainEvent extends DomainEvent {
   static override readonly EVENT_NAME = 'block.deleted'
 
