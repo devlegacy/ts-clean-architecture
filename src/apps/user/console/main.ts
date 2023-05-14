@@ -13,7 +13,7 @@ const userDto = {
   age: 28,
   id: faker.database.mongodbObjectId(),
   // name: 'Samuel',
-  name: faker.name.fullName(),
+  name: faker.person.fullName(),
   // username: 'jst.samuel'
   username: faker.internet.userName(),
 }

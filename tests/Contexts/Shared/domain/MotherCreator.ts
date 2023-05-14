@@ -6,7 +6,7 @@ export class MotherCreator {
   }
 
   static uuid(): string {
-    return faker.datatype.uuid()
+    return faker.string.uuid()
   }
 
   static objectId(): string {
@@ -14,7 +14,7 @@ export class MotherCreator {
   }
 
   static positiveNumber(max?: number): number {
-    return faker.datatype.number({
+    return faker.number.int({
       min: 1,
       max,
     })
