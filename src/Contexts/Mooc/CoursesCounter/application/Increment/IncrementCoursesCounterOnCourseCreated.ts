@@ -11,6 +11,7 @@ export class IncrementCoursesCounterOnCourseCreated implements DomainEventSubscr
   constructor(private readonly incrementer: CoursesCounterIncrementer) {}
 
   async on(domainEvent: CourseCreatedDomainEvent) {
-    await this.incrementer.run(new CourseId(domainEvent.aggregateId))
+    const courseId = new CourseId(domainEvent.aggregateId)
+    await this.incrementer.run(courseId)
   }
 }

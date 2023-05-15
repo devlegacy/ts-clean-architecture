@@ -60,10 +60,11 @@ export class CoursesCounter extends AggregateRoot {
   }
 
   toPrimitives(): CoursesCounterPrimitiveDto {
-    return {
+    const primitives = {
       id: this.id.value,
       total: this.total.value,
       existingCourses: this.existingCourses.map((courseId) => courseId.value),
     }
+    return primitives
   }
 }

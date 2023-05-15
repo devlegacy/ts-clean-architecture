@@ -10,7 +10,7 @@ export class CoursesCounterIncrementer {
 
   async run(courseId: CourseId) {
     const search = await this.repository.search()
-    const counter = search || this.initializeCounter()
+    const counter = search || this.#initializeCounter()
 
     if (counter.hasIncremented(courseId)) return // push to domain and avoid other methods down
 
@@ -20,7 +20,8 @@ export class CoursesCounterIncrementer {
     await this.bus.publish(counter.pullDomainEvents())
   }
 
-  private initializeCounter(): CoursesCounter {
-    return CoursesCounter.initialize(CoursesCounterId.random())
+  #initializeCounter(): CoursesCounter {
+    const courseCounter = CoursesCounter.initialize(CoursesCounterId.random())
+    return courseCounter
   }
 }
