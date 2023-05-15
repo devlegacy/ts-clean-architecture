@@ -19,12 +19,12 @@ export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
   }
 
   override get(query: Query): QueryHandler<Query, Response> {
-    const queryHandler = super.get(query.constructor)
+    const handler = super.get(query.constructor)
 
-    if (!queryHandler) {
+    if (!handler) {
       throw new QueryNotRegisteredError(query)
     }
 
-    return queryHandler
+    return handler
   }
 }

@@ -52,8 +52,8 @@ export class CourseController {
       Filter.parse(filters ?? []),
       orderBy,
       orderType,
-      limit ? limit : undefined,
-      offset ? offset : undefined
+      limit, // ? limit : undefined,
+      offset //? offset : undefined
     )
     // const query = new SearchAllCoursesQuery()
 
@@ -62,7 +62,7 @@ export class CourseController {
     return courses
   }
 
-  @Get('/all')
+  @Get('all')
   async all() {
     const query = new SearchAllBackofficeCoursesQuery()
     const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)

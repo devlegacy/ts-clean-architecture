@@ -9,7 +9,7 @@ export class BackofficeBackendApp {
   #server?: Server
 
   get httpServer() {
-    const server = this.#server?.getHttpServer()
+    const server = this.#server?.httpServer
     return server
   }
 

@@ -14,10 +14,10 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
   }
 
   override get(command: Command): CommandHandler<Command> {
-    const commandHandler = super.get(command.constructor)
+    const handler = super.get(command.constructor)
 
-    if (!commandHandler) throw new CommandNotRegisteredError(command)
+    if (!handler) throw new CommandNotRegisteredError(command)
 
-    return commandHandler
+    return handler
   }
 }

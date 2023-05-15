@@ -5,10 +5,10 @@ import { QueryHandlers } from './QueryHandlers'
 
 @Service()
 export class InMemoryQueryBus implements QueryBus {
-  constructor(private readonly queryHandlers: QueryHandlers) {}
+  constructor(private readonly handlers: QueryHandlers) {}
 
   async ask<R extends Response>(query: Query): Promise<R> {
-    const handler = this.queryHandlers.get(query)
+    const handler = this.handlers.get(query)
     const response = await handler.handle(query)
 
     return response as Promise<R>

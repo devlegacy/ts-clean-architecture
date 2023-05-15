@@ -7,10 +7,10 @@ import { CommandHandlers } from './CommandHandlers'
 
 @Service()
 export class InMemoryCommandBus implements CommandBus {
-  constructor(private readonly commandHandlers: CommandHandlers) {}
+  constructor(private readonly handlers: CommandHandlers) {}
 
   async dispatch(command: Command): Promise<void> {
-    const handler = this.commandHandlers.get(command)
+    const handler = this.handlers.get(command)
 
     // try {
     await handler.handle(command)
