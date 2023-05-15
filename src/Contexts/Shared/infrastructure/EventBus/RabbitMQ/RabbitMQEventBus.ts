@@ -13,11 +13,11 @@ import { RabbitMQConsumerFactory } from './RabbitMQConsumerFactory'
 import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter'
 
 export class RabbitMQEventBus implements EventBus {
-  private failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher
-  private connection: RabbitMQConnection
-  private exchange: string
-  private queueNameFormatter: RabbitMQQueueFormatter
-  private maxRetries: number
+  #failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher
+  #connection: RabbitMQConnection
+  #exchange: string
+  #queueNameFormatter: RabbitMQQueueFormatter
+  #maxRetries: number
 
   constructor(params: {
     connection: RabbitMQConnection
@@ -27,22 +27,22 @@ export class RabbitMQEventBus implements EventBus {
     queueNameFormatter: RabbitMQQueueFormatter
   }) {
     const { failoverPublisher, connection, exchange, queueNameFormatter, maxRetries } = params
-    this.connection = connection
-    this.exchange = exchange ?? 'amq.topic'
-    this.failoverPublisher = failoverPublisher
-    this.maxRetries = maxRetries
-    this.queueNameFormatter = queueNameFormatter
+    this.#connection = connection
+    this.#exchange = exchange ?? 'amq.topic'
+    this.#failoverPublisher = failoverPublisher
+    this.#maxRetries = maxRetries
+    this.#queueNameFormatter = queueNameFormatter
   }
 
   async addSubscribers(subscribers: DomainEventSubscribers): Promise<void> {
     const deserializer = DomainEventDeserializer.configure(subscribers)
-    const consumerFactory = new RabbitMQConsumerFactory(deserializer, this.connection, this.maxRetries)
+    const consumerFactory = new RabbitMQConsumerFactory(deserializer, this.#connection, this.#maxRetries)
 
     for (const subscriber of subscribers.items) {
-      const queueName = this.queueNameFormatter.format(subscriber)
-      const rabbitMQConsumer = consumerFactory.build(subscriber, this.exchange, queueName)
+      const queueName = this.#queueNameFormatter.format(subscriber)
+      const rabbitMQConsumer = consumerFactory.build(subscriber, this.#exchange, queueName)
 
-      await this.connection.consume(queueName, rabbitMQConsumer.onMessage.bind(rabbitMQConsumer))
+      await this.#connection.consume(queueName, rabbitMQConsumer.onMessage.bind(rabbitMQConsumer))
     }
   }
 
@@ -50,30 +50,31 @@ export class RabbitMQEventBus implements EventBus {
     for (const event of events) {
       try {
         const routingKey = event.eventName
-        const content = this.toBuffer(event)
-        const options = this.options(event)
+        const content = this.#serialize(event)
+        const options = this.#options(event)
 
-        await this.connection.publish({
+        await this.#connection.publish({
           routingKey,
           content,
           options,
-          exchange: this.exchange,
+          exchange: this.#exchange,
         })
       } catch (error: unknown) {
-        await this.failoverPublisher.publish(event)
+        await this.#failoverPublisher.publish(event)
       }
     }
   }
 
-  private options(event: DomainEvent): Options.Publish {
-    return {
+  #options(event: DomainEvent): Options.Publish {
+    const options = {
       messageId: event.eventId,
       contentType: 'application/json',
       contentEncoding: 'utf-8',
     }
+    return options
   }
 
-  private toBuffer(event: DomainEvent): Buffer {
+  #serialize(event: DomainEvent): Buffer {
     const eventPrimitives = DomainEventJsonSerializer.serialize(event)
 
     return Buffer.from(eventPrimitives)

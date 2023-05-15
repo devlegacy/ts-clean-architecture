@@ -37,37 +37,37 @@ export class RabbitMQConsumer {
     try {
       await this.subscriber.on(domainEvent)
     } catch (error) {
-      await this.handleError(message)
+      await this.#handleError(message)
     } finally {
       this.connection.ack(message)
     }
   }
 
-  private async handleError(message: ConsumeMessage) {
-    if (this.hasBeenRedeliveredTooMuch(message)) {
-      await this.deadLetter(message)
+  async #handleError(message: ConsumeMessage) {
+    if (this.#hasBeenRedeliveredTooMuch(message)) {
+      await this.#deadLetter(message)
     } else {
-      await this.retry(message)
+      await this.#retry(message)
     }
   }
 
-  private async retry(message: ConsumeMessage) {
+  async #retry(message: ConsumeMessage) {
     await this.connection.retry(message, this.queueName, this.exchange)
   }
 
-  private async deadLetter(message: ConsumeMessage) {
+  async #deadLetter(message: ConsumeMessage) {
     await this.connection.deadLetter(message, this.queueName, this.exchange)
   }
 
-  private hasBeenRedeliveredTooMuch(message: ConsumeMessage) {
-    if (this.hasBeenRedelivered(message)) {
+  #hasBeenRedeliveredTooMuch(message: ConsumeMessage) {
+    if (this.#hasBeenRedelivered(message)) {
       const count = parseInt(message.properties.headers['redelivery_count'])
       return count >= this.maxRetries
     }
     return false
   }
 
-  private hasBeenRedelivered(message: ConsumeMessage) {
+  #hasBeenRedelivered(message: ConsumeMessage) {
     return message.properties.headers['redelivery_count'] !== undefined
   }
 }

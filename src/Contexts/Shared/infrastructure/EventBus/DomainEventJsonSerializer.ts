@@ -2,7 +2,7 @@ import { DomainEvent } from '../../domain'
 
 export class DomainEventJsonSerializer {
   static serialize(event: DomainEvent): string {
-    return JSON.stringify({
+    const data = {
       data: {
         id: event.eventId,
         type: event.eventName,
@@ -10,6 +10,7 @@ export class DomainEventJsonSerializer {
         aggregateId: event.aggregateId,
         attributes: event.toPrimitives(),
       },
-    })
+    }
+    return JSON.stringify(data)
   }
 }

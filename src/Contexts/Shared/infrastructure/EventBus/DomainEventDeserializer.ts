@@ -14,7 +14,7 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
     subscribers.items.forEach((subscriber) => {
       const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
 
-      events.forEach(mapping.registerEvent.bind(mapping))
+      events.forEach(mapping.#registerEvent.bind(mapping))
     })
 
     return mapping
@@ -22,20 +22,20 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
 
   deserialize(event: string) {
     const eventData = JSON.parse(event).data as DomainEventJSON
-    const { type, aggregateId, attributes, id: eventId, occurred_on } = eventData
+    const { id: eventId, type, occurred_on, aggregateId, attributes } = eventData
     const eventClass = super.get(type)
 
     if (!eventClass) throw Error(`DomainEvent mapping not found for event <${type}>`)
 
     return eventClass.fromPrimitives({
+      eventId,
+      occurredOn: new Date(occurred_on),
       aggregateId,
       attributes,
-      occurredOn: new Date(occurred_on),
-      eventId,
     })
   }
 
-  private registerEvent(domainEvent: DomainEventClass) {
+  #registerEvent(domainEvent: DomainEventClass) {
     const eventName = domainEvent.EVENT_NAME
     this.set(eventName, domainEvent)
   }

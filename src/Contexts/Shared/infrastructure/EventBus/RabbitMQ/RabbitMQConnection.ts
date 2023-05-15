@@ -17,8 +17,8 @@ export class RabbitMQConnection {
   }
 
   async connect() {
-    this.connection = await this.amqpConnect()
-    this.channel = await this.amqpChannel()
+    this.connection = await this.#amqpConnect()
+    this.channel = await this.#amqpChannel()
   }
 
   async exchange(params: { name: string }) {
@@ -36,7 +36,7 @@ export class RabbitMQConnection {
     const durable = true
     const exclusive = false
     const autoDelete = false
-    const args = this.getQueueArguments(params)
+    const args = this.#getQueueArguments(params)
 
     // DEBT: Horrible hack
     if (process.env.APP_ENV === 'test' && !params.name.includes('_dummy')) {
@@ -89,7 +89,7 @@ export class RabbitMQConnection {
 
   async retry(message: ConsumeMessage, queue: string, exchange: string) {
     const retryExchange = RabbitMQExchangeNameFormatter.retry(exchange)
-    const options = this.getMessageOptions(message)
+    const options = this.#getMessageOptions(message)
 
     return await this.publish({
       exchange: retryExchange,
@@ -101,7 +101,7 @@ export class RabbitMQConnection {
 
   async deadLetter(message: ConsumeMessage, queue: string, exchange: string) {
     const deadLetterExchange = RabbitMQExchangeNameFormatter.deadLetter(exchange)
-    const options = this.getMessageOptions(message)
+    const options = this.#getMessageOptions(message)
 
     return await this.publish({
       exchange: deadLetterExchange,
@@ -111,11 +111,11 @@ export class RabbitMQConnection {
     })
   }
 
-  private getMessageOptions(message: ConsumeMessage) {
+  #getMessageOptions(message: ConsumeMessage) {
     const { messageId, contentType, contentEncoding, priority } = message.properties
     const options = {
       messageId,
-      headers: this.incrementRedeliveryCount(message),
+      headers: this.#incrementRedeliveryCount(message),
       contentType,
       contentEncoding,
       priority,
@@ -123,8 +123,8 @@ export class RabbitMQConnection {
     return options
   }
 
-  private incrementRedeliveryCount(message: ConsumeMessage) {
-    if (this.hasBeenRedelivered(message)) {
+  #incrementRedeliveryCount(message: ConsumeMessage) {
+    if (this.#hasBeenRedelivered(message)) {
       const count = parseInt(message.properties.headers['redelivery_count'])
       message.properties.headers['redelivery_count'] = count + 1
     } else {
@@ -134,11 +134,11 @@ export class RabbitMQConnection {
     return message.properties.headers
   }
 
-  private hasBeenRedelivered(message: ConsumeMessage) {
+  #hasBeenRedelivered(message: ConsumeMessage) {
     return message.properties.headers['redelivery_count'] !== undefined
   }
 
-  private getQueueArguments(params: {
+  #getQueueArguments(params: {
     exchange: string
     name: string
     routingKeys: string[]
@@ -169,7 +169,7 @@ export class RabbitMQConnection {
     return args
   }
 
-  private async amqpConnect() {
+  async #amqpConnect() {
     const { hostname, port, secure } = this.connectionSettings.connection
     const { username, password, vhost } = this.connectionSettings
     const protocol = secure ? 'amqps' : 'amqp'
@@ -193,10 +193,11 @@ export class RabbitMQConnection {
     return connection
   }
 
-  private async amqpChannel(): Promise<ConfirmChannel> {
+  async #amqpChannel(): Promise<ConfirmChannel> {
     const channel = await this.connection!.createConfirmChannel()
-    channel.on('error', (err: unknown) => console.log('Channel error', err))
-    channel.on('close', (err: unknown) => console.log('Channel close', err))
+    channel
+      .on('error', (err: unknown) => console.log('Channel error', err))
+      .on('close', (err: unknown) => console.log('Channel close', err))
 
     await channel.prefetch(1)
 
