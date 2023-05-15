@@ -6,7 +6,9 @@ import { container } from '../../modules'
 export class ConfigureRabbitMQCommand {
   static async run() {
     const connection = container.get(RabbitMQConnection)
-    const { name: exchange } = RabbitMQConfigFactory.createConfig().exchangeSettings
+    const {
+      exchangeSettings: { name: exchange },
+    } = RabbitMQConfigFactory.createConfig()
     await connection.connect()
 
     const configurer = container.get<RabbitMQConfigurer>(RabbitMQConfigurer)
