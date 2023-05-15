@@ -46,6 +46,7 @@
 - **proyección**: Vista de un conjunto de datos. Por ejemplo, una proyección de las facturas de nuestros usuarios podría ser una tabla en la bbdd con todos los datos de las facturas.
 - **TDD**: Test driven design
 - **Niveles de indirección**
+- **Casuística**:
 
 - Patron de diseño
 - Patron de arquitectura

@@ -35,3 +35,11 @@
 
 - [NODE_ENV](https://glebbahmutov.com/blog/do-not-use-node-env-for-staging/)
 - [NODE_ENV](https://seanconnolly.dev/dont-be-fooled-by-node-env)
+
+## Concurrency
+
+- Monohilo, con entradas y salidas asíncronas. Un proceso por cada núcleo del procesador.
+
+## Event oriented
+
+- Hay un bucle de eventos que se ejecuta constantemente
