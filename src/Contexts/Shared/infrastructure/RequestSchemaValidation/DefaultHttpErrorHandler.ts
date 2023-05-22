@@ -1,9 +1,8 @@
-import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import CreateHttpError from 'http-errors'
+import { errorCodes, FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 
-import { EntityNotFoundError, InvalidArgumentError } from '../../domain'
+import { EntityNotFoundError, HttpError, InvalidArgumentError } from '../../domain'
 import { HttpStatus } from '../../domain/Common'
-import { HttpError, HttpValidationModule } from '../platform-fastify'
+import { HttpValidationModule } from '../platform-fastify'
 
 export class DefaultHttpErrorHandler implements HttpValidationModule<unknown> {
   // validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {
@@ -12,21 +11,28 @@ export class DefaultHttpErrorHandler implements HttpValidationModule<unknown> {
   }
 
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
-    // Is our HTTP
-    if ((err as unknown as HttpError)?.code) {
-      const error = CreateHttpError(err.code, err.message)
-      return res.send(error)
-    }
+    let code: number | undefined
     if (err instanceof InvalidArgumentError) {
-      return res
-        .status(HttpStatus.UNPROCESSABLE_ENTITY)
-        .send(CreateHttpError(HttpStatus.UNPROCESSABLE_ENTITY, err.message))
+      code = HttpStatus.UNPROCESSABLE_ENTITY
+    } else if (err instanceof EntityNotFoundError) {
+      code = HttpStatus.NOT_FOUND
+    } else if (
+      err instanceof errorCodes.FST_ERR_BAD_STATUS_CODE ||
+      err instanceof errorCodes.FST_ERR_CTP_EMPTY_JSON_BODY
+    ) {
+      code = err.statusCode
     }
-    if (err instanceof EntityNotFoundError) {
-      return res.status(HttpStatus.NOT_FOUND).send(CreateHttpError(HttpStatus.NOT_FOUND, err.message))
+    if (code) {
+      const response = new HttpError({
+        statusCode: code,
+        error: HttpStatus[+code] ?? '',
+        message: err.message,
+        path: req.raw.url,
+        code: err.code,
+        stack: err.stack,
+      })
+      res.status(HttpStatus.UNPROCESSABLE_ENTITY).send(response)
     }
-    // TODO: Improve general error handler to catch unknown errors
-    return res.status(500).send(new Error(`GeneralRequestValidation[errorHandler]: Unhandled error ${err.message}`))
   }
 
   // schemaBuilder(_schema: FastifySchema, _key: keyof FastifySchema, _method?: RequestMethod) {

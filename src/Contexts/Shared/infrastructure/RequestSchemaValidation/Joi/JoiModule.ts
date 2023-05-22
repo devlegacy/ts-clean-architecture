@@ -40,33 +40,20 @@ export class JoiModule
     if (!(err instanceof joi.ValidationError)) return
     // Is JOI
     err.statusCode = HttpStatus.UNPROCESSABLE_ENTITY
-    return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
+    const response = {
       error: HttpStatus[err.statusCode],
       statusCode: err.statusCode,
       message: err.message,
       path: req.raw.url,
       code: err.code,
       stack: err.stack,
-      errors: this.format(err),
-    })
+      errors: this.#format(err),
+    }
+    res.status(HttpStatus.UNPROCESSABLE_ENTITY).send(response)
   }
 
-  schemaBuilder(schema: FastifySchema, method: RequestMethod) {
-    const properties = Object.keys(schema) as (keyof FastifySchema)[]
-    if (!properties.length) return
-    // let invalidSchemas = 0
-    // let stopBuildSchema = false
-    for (const property of properties) {
-      // stopBuildSchema = false
-      // stopBuildSchema = this.#schemaBuilder2(schema, property, method)
-      this.#builder(schema, property, method)
-      // if (stopBuildSchema) continue
-      // Sanitize when is primitive schema like String/Number etc.
-      // delete schema[`${property}`]
-      // invalidSchemas++
-    }
-    // if (invalidSchemas === keys.length) return undefined
-    // return schema
+  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
+    this.#builder(schema, key, method)
   }
 
   #builder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
@@ -101,7 +88,7 @@ export class JoiModule
     return isJoiSchema
   }
 
-  private format(validationError: joi.ValidationError) {
+  #format(validationError: joi.ValidationError) {
     const errors = new Map<string, Record<string, unknown>[]>()
     const details = validationError.details.reduce((errors, item: joi.ValidationErrorItem) => {
       const key = item?.context?.key

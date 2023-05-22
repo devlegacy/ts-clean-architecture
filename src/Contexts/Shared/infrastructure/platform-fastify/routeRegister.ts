@@ -232,9 +232,14 @@ const buildSchema = (
   // Quién me da el esquema?
   if (!builders || !builders.length) return
 
-  // this focus allow to combine schemas
+  // this kind of focus allow to combine schemas
+  const properties = Object.keys(schema) as (keyof FastifySchema)[]
+  if (!properties.length) return
+
   for (const builder of builders) {
-    builder.schemaBuilder(schema, method)
+    for (const property of properties) {
+      builder.schemaBuilder(schema, property, method)
+    }
   }
 }
 

@@ -6,11 +6,12 @@ import { registeredModules } from '@/Contexts/Shared/domain/Common'
 
 import { CourseModule } from './CourseModule'
 import { CoursesCounterModule } from './CoursesCounterModule'
+import { ErrorModule } from './ErrorModule'
 import { SharedModule } from './SharedModule'
 import { StatusModule } from './StatusModule'
 
 // DEBT: It can be change by glob loader
-const modules = [SharedModule, StatusModule, CourseModule, CoursesCounterModule]
+const modules = [SharedModule, StatusModule, ErrorModule, CourseModule, CoursesCounterModule]
 const builder = new ContainerBuilder()
 
 const containerBuilder = (registers: Class<unknown>[]) => {

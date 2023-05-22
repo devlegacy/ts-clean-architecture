@@ -1,6 +1,5 @@
 export * from './Exception'
 export * from './FastifyAdapter'
-export * from './HttpException'
 export * from './interfaces'
 export * from './routeRegister'
 export * from './types'

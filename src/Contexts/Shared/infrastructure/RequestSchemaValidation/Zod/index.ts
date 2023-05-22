@@ -43,22 +43,8 @@ export class ZodModule implements HttpValidationModule<ZodObject<any>> {
   // }
 
   // schemaBuilder(schema: FastifySchema, key: keyof FastifySchema) {
-  schemaBuilder(schema: FastifySchema) {
-    const properties = Object.keys(schema) as (keyof FastifySchema)[]
-    if (!properties.length) return
-    // let invalidSchemas = 0
-    // let stopBuildSchema = false
-    for (const property of properties) {
-      // stopBuildSchema = false
-      // stopBuildSchema = this.#schemaBuilder2(schema, property)
-      this.#builder(schema, property)
-      // if (stopBuildSchema) continue
-      // Sanitize when is primitive schema like String/Number etc.
-      // delete schema[`${property}`]
-      // invalidSchemas++
-    }
-    // if (invalidSchemas === keys.length) return undefined
-    // return schema
+  schemaBuilder(schema: FastifySchema, key: keyof FastifySchema) {
+    this.#builder(schema, key)
   }
 
   #builder(schema: FastifySchema, key: keyof FastifySchema) {

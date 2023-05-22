@@ -77,14 +77,18 @@ export function AsyncWait(ms = 6000): MethodDecorator {
   }
 }
 
-export const registeredModules = new Map<string, Set<any>>()
+export const registeredModules = new Map<keyof typeof SHARED_TAGS, Set<object>>()
+
+const registerModule = (tag: keyof typeof SHARED_TAGS, target: object) => {
+  if (!registeredModules.has(tag)) registeredModules.set(tag, new Set())
+
+  const mapping = registeredModules.get(tag)
+  if (!mapping?.has(target)) mapping?.add(target)
+}
 
 export const UseCase = () => {
   return (target: object): any => {
-    if (!registeredModules.has(SHARED_TAGS.UseCase)) registeredModules.set(SHARED_TAGS.UseCase, new Set())
-    if (!registeredModules.get(SHARED_TAGS.UseCase)?.has(target))
-      registeredModules.get(SHARED_TAGS.UseCase)?.add(target)
-
+    registerModule(SHARED_TAGS.UseCase, target)
     return target
   }
 }
@@ -111,10 +115,7 @@ export const DomainEventSubscribers = (...events: DomainEventClass[]) => {
 
 export const CommandHandlerSubscriber = (command: Command | Constructor<Command>): ClassDecorator => {
   return (target: object): any => {
-    if (!registeredModules.has(SHARED_TAGS.CommandHandler)) registeredModules.set(SHARED_TAGS.CommandHandler, new Set())
-    if (!registeredModules.get(SHARED_TAGS.CommandHandler)?.has(target))
-      registeredModules.get(SHARED_TAGS.CommandHandler)?.add(target)
-
+    registerModule(SHARED_TAGS.CommandHandler, target)
     Reflect.defineMetadata(COMMAND_HANDLER_METADATA, command, target)
 
     return target
@@ -123,10 +124,7 @@ export const CommandHandlerSubscriber = (command: Command | Constructor<Command>
 
 export const QueryHandlerSubscriber = (query: Query): ClassDecorator => {
   return (target: object): any => {
-    if (!registeredModules.has(SHARED_TAGS.QueryHandler)) registeredModules.set(SHARED_TAGS.QueryHandler, new Set())
-    if (!registeredModules.get(SHARED_TAGS.QueryHandler)?.has(target))
-      registeredModules.get(SHARED_TAGS.QueryHandler)?.add(target)
-
+    registerModule(SHARED_TAGS.QueryHandler, target)
     Reflect.defineMetadata(QUERY_HANDLER_METADATA, query, target)
 
     return target

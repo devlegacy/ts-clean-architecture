@@ -14,7 +14,8 @@ import Fastify, {
 } from 'fastify'
 import { AddressInfo } from 'net'
 
-import { Monitoring } from '../../domain'
+import { HttpError, Monitoring } from '../../domain'
+import { HttpStatus } from '../../domain/Common'
 import { ControllerResolver } from '../Common'
 import { HttpValidationModule } from './interfaces'
 import { routeRegister } from './routeRegister'
@@ -25,14 +26,14 @@ const printConfig: PrintRoutesOptions = {
   includeMeta: true, // ['metaProperty']
 }
 
-const ajv = {
+const ajv: FastifyServerOptions['ajv'] = {
   customOptions: {
     allErrors: true,
     coerceTypes: true, // change data type of data to match type keyword
-    jsonPointers: true,
+    // jsonPointers: true,
     // support keyword "nullable" from Open API 3 specification.
     // Refer to [ajv options](https://ajv.js.org/#options)
-    nullable: true,
+    // nullable: true,
     removeAdditional: true, // remove additional properties
     useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
     verbose: true,
@@ -124,12 +125,27 @@ export class FastifyAdapter {
       // }
       return new Error('')
     })
-    this.#instance.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-      this.#monitoring?.capture(error, { req })
+    // https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler
+    this.#instance.setErrorHandler((err: FastifyError, req: FastifyRequest, res: FastifyReply) => {
+      this.#monitoring?.capture(err, { req })
       for (const m of this.validations) {
         if (res.sent) break
-        m.errorHandler(error, req, res)
+        m.errorHandler(err, req, res)
       }
+      if (res.sent) return
+
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+      const response = new HttpError({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: HttpStatus[HttpStatus.INTERNAL_SERVER_ERROR],
+        // GeneralRequestValidation[errorHandler]: Unhandled error
+        message: `${err.message}`,
+        path: req.raw.url,
+        code: err.code,
+        stack: err.stack,
+      })
+
+      return response
     })
 
     await routeRegister(this, props)
@@ -165,7 +181,10 @@ export class FastifyAdapter {
     this.#instance.log.info(`\ton mode: ${env}`)
     this.#instance.log.info(`\thttp://localhost:${address.port}`)
     this.#instance.log.info('\tPress CTRL-C to stop 🛑')
-    if (debug) this.#instance.log.info(this.#instance.printRoutes(printConfig))
+    if (debug) {
+      this.#instance.log.info(this.#instance.printRoutes(printConfig))
+      this.#instance.log.info(this.#instance.printPlugins())
+    }
 
     return this.#instance.server
   }
