@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "Mock Backend App"
+    "name": "Mock Backend App",
+    "port": 8085
   },
   "rabbitmq": {
     "connectionSettings": {

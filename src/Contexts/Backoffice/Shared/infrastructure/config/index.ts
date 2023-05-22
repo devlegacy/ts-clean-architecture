@@ -1,14 +1,12 @@
 import convict from 'convict'
+import dotenv from 'dotenv'
+import { expand } from 'dotenv-expand'
 import { existsSync } from 'fs'
 import { resolve } from 'path'
 
+const config = dotenv.config()
+expand(config)
 const backOfficeConfig = convict({
-  env: {
-    doc: 'The application environment.',
-    format: ['production', 'development', 'staging', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
-  },
   app: {
     host: {
       doc: 'The IP address to bind.',
