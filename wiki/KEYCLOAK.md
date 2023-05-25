@@ -3,11 +3,17 @@
 - [images](https://quay.io/repository/keycloak/keycloak?tab=tags)
 - [containers](https://www.keycloak.org/server/containers)
 
-- [sign in](http://localhost:8081/auth/realms/simple-project/protocol/openid-connect/auth?client_id=account-console&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fauth%2Frealms%2Fsimple-project%2Faccount%2F%23%2Fsecurity%2Fsigningin&state=3faaf473-c72f-43bc-8867-dc107b66365f&response_mode=fragment&response_type=code&scope=openid&nonce=383600b8-945f-46b3-8ebb-ba651e4ca361&code_challenge=T3ItWMm0c1T5RgdFe_e07qFYK3wGRX3XF4oTFXG_JBc&code_challenge_method=S256)
+- [Sign in](http://localhost:8081/admin/master/console/)
+  - user: admin
+  - password: admin
 
+- posibilidad de funcionar en standalone and domain
 
-https://auth0.com/
-https://www.okta.com/
+Alternatives
+
+- https://auth0.com/
+- https://www.okta.com/
+- https://aws.amazon.com/es/cognito/
 
 ## Core concepts
 
@@ -15,11 +21,12 @@ https://www.okta.com/
 
 ![Core concepts](https://developers.redhat.com/sites/default/files/blog/2019/11/keycloak1.png)
 
-## Relm
+## Realm
 
-- Reino / Territorio: Instancia de Keycloak, configuraciones separadas
+- Reino / Territorio: Podríamos llamarlo instancia de Keycloak, configuraciones separadas
   - Real 1: Usuarios internos
   - Real 2: Clientes
+  - Note: Nunca configurar el realm `master`
 - Default: Master
 - Conjunto de credenciales, roles y grupos. Cada real está aislado y únicamente puede manejar y autenticar usuarios que estén bajo su dominio.
 - Área funcional dentro de una compañía
@@ -34,6 +41,14 @@ https://www.okta.com/
 1. Realm rol
 2. Client rol
 3. Composite rol
+
+## Identity providers
+
+- 
+
+## User federation
+
+- Aplicaciones corporativas
 
 ## Users
 

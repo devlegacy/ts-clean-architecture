@@ -128,14 +128,26 @@
      - Redis
      - Elasticsearch
   - Write methods
-     - `save<T>([aggregate]: T): Promise<void>`
-     - `update<T>([aggregate]: T): Promise<void>`
-     - `delete([aggregate]: T)): Promise<void>`
+     - `create<T>(aggregate: T): Promise<void>`
+     - `save<T>(aggregate: T): Promise<void>`
+     - `update<T>(aggregate: T): Promise<void>`
+     - `delete(aggregate: T): Promise<void>`
+     - Los métodos void implican side effects
   - Read methods 
     - `all<T>(): Promise<T[]>`
-    - `searchBy<T>(criteria: Criteria): Promise<T[]>`
-      - An empty array is possible and allowed
-    - `find<T>(...): Promise<Nullable<T>>`
+    - `getById<T>(id: AggregateId): Promise<Nullable<T>>`
+      - `Get` (Obtener)
+      -  El método "get" generalmente se implementa de manera eficiente para buscar una entidad por su identificador único.
+      - Se desea recuperar una entidad o un conjunto específico de entidades basado en su identificador único.
+      - Suele ser más adecuado cuando la recuperación se realiza por un identificador único conocido.
+    - `find<T>(filter: {id: T['id'], [key]: T['key'] }): Promise<Nullable<T>>`
+      - `Find` (Encontrar)
+      - Se desea recuperar una entidad o un conjunto de entidades que cumplan con ciertas condiciones o criterios específicos.
+      - Este método implica una búsqueda más general y puede aceptar ciertos criterios de filtrado como argumentos.
+    - `search<T>(criteria: Criteria): Promise<T[]>`
+      - Este método implica una búsqueda más amplia y flexible, generalmente con la posibilidad de utilizar múltiples criterios de búsqueda y opciones avanzadas.
+      - Puede admitir búsquedas basadas en texto completo, búsquedas por palabras clave, opciones de filtrado avanzado, etc.
+      - An empty array is possible and allowed   
     - Avoid n+1 problem (over creation of methods)
   - Evitar nombrar las interfaces como `ICourseRepository` | `CourseRepositoryImp`
     - Cuando definimos la interfaz como `CourseRepository` nos orilla a nombrar a los colaborares de una forma más semántica, con prefijos, indicando|evidenciando el propósito|particularidad de la implementación

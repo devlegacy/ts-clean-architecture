@@ -25,22 +25,89 @@
 {
   $jsonSchema: {
     bsonType: 'object',
+    additionalProperties: false,
     title: 'Course Object Validation',
-    required: [
-      'name',
-      'duration'
-    ],
+    required: ['_id', 'name', 'duration'],
     properties: {
+      _id: {
+        bsonType: 'objectId',
+        description: 'El identificador único del curso',
+      },
       name: {
         bsonType: 'string',
-        description: '\'name\' must be a string and is required',
-        maxLength: 10
+        description:
+          '\'name\' must be a string between 5 to 60 characters and is required',
+        minLength: 5,
+        maxLength: 60,
       },
       duration: {
         bsonType: 'string',
-        description: '\'duration\' must be a string and is required'
-      }
-    }
+        description: '\'duration\' must be a string and is required',
+      },
+    },
+    indexes: [
+      {
+        key: { _id: 1 },
+        name: 'ui_course_id',
+        unique: true,
+        background: true,
+        sparse: false,
+        description: 'Unique index for \'_id\'',
+      },
+      {
+        key: { name: 1 },
+        name: 'ui_course_name',
+        unique: true,
+        background: true,
+        sparse: false,
+        description: 'Unique index for \'name\'',
+      },
+    ],
   }
+}
+```
+
+```js
+{
+  $jsonSchema: {
+    bsonType: 'object',
+    required: ['_id', 'name', 'duration'],
+    properties: {
+      _id: {
+        bsonType: 'objectId',
+        description: 'El identificador único del curso',
+      },
+      name: {
+        bsonType: 'string',
+        minLength: 5,
+        maxLength: 60,
+        description: 'El nombre del curso (entre 5 y 60 caracteres)',
+      },
+      duration: {
+        bsonType: 'string',
+        description: 'La duración del curso en formato de cadena de caracteres',
+      },
+    },
+    additionalProperties: false,
+    indexes: [
+      {
+        key: { _id: 1 },
+        name: 'ui_categories_id',
+        unique: true,
+        background: true,
+        sparse: false,
+        description: 'Índice único para el campo \'_id\'',
+      },
+      {
+        key: { name: 1, duration: 1 },
+        name: 'ui_categories_name_duration',
+        unique: true,
+        background: true,
+        sparse: false,
+        description:
+          'Índice único para los campos \'name\' y \'duration\' (índice compuesto)',
+      },
+    ],
+  },
 }
 ```
