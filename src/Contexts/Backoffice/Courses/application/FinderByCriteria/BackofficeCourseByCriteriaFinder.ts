@@ -14,7 +14,7 @@ export class BackofficeCourseByCriteriaFinder {
   async run(filters: Filters): Promise<BackofficeCourseResponse> {
     const criteria = new LastCreatedEntities(filters)
 
-    const courses = await this.repository.searchBy(criteria)
+    const courses = await this.repository.search(criteria)
     if (!courses.length) throw new BackofficeCourseNotFoundError()
 
     const response = new BackofficeCourseResponse(courses[0])

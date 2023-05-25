@@ -7,7 +7,7 @@ export class TopCoursesFinder {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(top: number) {
-    const courses = await this.repository.searchBy(new TopCourses(top))
+    const courses = await this.repository.search(new TopCourses(top))
 
     return courses
   }

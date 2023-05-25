@@ -1,4 +1,3 @@
 export * from './BackofficeCoursesPaginator'
-export * from './PaginateBackofficeCoursesQuery'
-export * from './PaginateBackofficeCoursesQueryHandler'
-export * from './PaginatedBackofficeCoursesResponse'
+export * from './GetPaginatedBackofficeCoursesQuery'
+export * from './GetPaginatedBackofficeCoursesQueryHandler'

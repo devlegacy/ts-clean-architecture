@@ -45,7 +45,7 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
     return this.searchInElasticWithBuilder(unserializer, body)
   }
 
-  protected async searchByCriteria(criteria: Criteria, unserializer: (data: any) => T): Promise<T[]> {
+  protected async matching(criteria: Criteria, unserializer: (data: any) => T): Promise<T[]> {
     const body = this.#criteriaConverter.convert(criteria)
 
     return this.searchInElasticWithBuilder(unserializer, body)

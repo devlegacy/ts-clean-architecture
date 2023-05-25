@@ -1,9 +1,9 @@
 import {
   BackofficeCourseResponse,
+  BackofficeCoursesPaginatedResponse,
   BackofficeCoursesResponse,
   FindBackofficeCourseByCriteriaQuery,
-  PaginateBackofficeCoursesQuery,
-  PaginatedBackofficeCoursesResponse,
+  GetPaginatedBackofficeCoursesQuery,
   SearchAllBackofficeCoursesQuery,
   SearchBackofficeCoursesByCriteriaQuery,
 } from '@/Contexts/Backoffice/Courses/application'
@@ -80,8 +80,8 @@ export class CourseController {
   ) {
     const filters = Filter.parse(filtersDto ?? [])
 
-    const query = new PaginateBackofficeCoursesQuery(filters, limit, page)
-    const pagination = await this.queryBus.ask<PaginatedBackofficeCoursesResponse>(query)
+    const query = new GetPaginatedBackofficeCoursesQuery(filters, limit, page)
+    const pagination = await this.queryBus.ask<BackofficeCoursesPaginatedResponse>(query)
     return pagination
   }
 

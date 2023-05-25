@@ -1,6 +1,6 @@
 import { Service } from 'diod'
 
-import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain'
 
@@ -15,8 +15,8 @@ export class ProxyBackofficeCourseRepository implements BackofficeCourseReposito
     return this.targetRepository.all()
   }
 
-  async searchBy(criteria: Criteria): Promise<BackofficeCourse[]> {
-    return this.targetRepository.searchBy(criteria)
+  async search(criteria: Criteria): Promise<BackofficeCourse[]> {
+    return this.targetRepository.search(criteria)
   }
 
   async count(_criteria: Criteria): Promise<number> {
@@ -25,7 +25,7 @@ export class ProxyBackofficeCourseRepository implements BackofficeCourseReposito
 
   async paginate(
     _criteria: Criteria,
-    _pagination: OffsetPagination
+    _pagination: OffsetPaginator
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
     throw new Error('Method not implemented.')
   }

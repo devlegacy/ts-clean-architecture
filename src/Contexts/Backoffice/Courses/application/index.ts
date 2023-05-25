@@ -1,4 +1,5 @@
 export * from './BackofficeCourseResponse'
+export * from './BackofficeCoursesPaginatedResponse'
 export * from './BackofficeCoursesResponse'
 export * from './Create'
 export * from './Delete'

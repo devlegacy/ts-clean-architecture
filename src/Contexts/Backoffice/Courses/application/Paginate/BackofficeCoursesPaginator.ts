@@ -1,23 +1,23 @@
-import { Filters, OffsetPagination } from '@/Contexts/Shared/domain'
+import { Filters } from '@/Contexts/Shared/domain'
 import { UseCase } from '@/Contexts/Shared/domain/Common'
 import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
 
-import { BackofficeCourseRepository } from '../../domain'
-import { PaginatedBackofficeCoursesResponse } from './PaginatedBackofficeCoursesResponse'
+import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
+
+type Response = { courses: BackofficeCourse[]; total: number }
 
 @UseCase()
 export class BackofficeCoursesPaginator {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 
-  async run(filters: Filters, limit?: number, page?: number): Promise<PaginatedBackofficeCoursesResponse> {
-    const paginate = new OffsetPagination(page, limit)
-    const criteria = new LastCreatedEntities(filters, limit, paginate.offset)
+  async run(filters: Filters, limit?: number, offset?: number): Promise<Response> {
+    const criteria = new LastCreatedEntities(filters, limit, offset)
 
-    const [courses, total] = await Promise.all([this.repository.searchBy(criteria), this.repository.count(criteria)])
-    paginate.calculatePageNumbersBy(total)
-
-    const response = new PaginatedBackofficeCoursesResponse(courses, paginate)
-
+    const [courses, total] = await Promise.all([this.repository.search(criteria), this.repository.count(criteria)])
+    const response = {
+      courses,
+      total,
+    }
     return response
   }
 }

@@ -1,6 +1,6 @@
 import { FilterValueType, Query } from '@/Contexts/Shared/domain'
 
-export class PaginateBackofficeCoursesQuery extends Query {
+export class GetPaginatedBackofficeCoursesQuery extends Query {
   // readonly filters: Map<string, string>[]
   // readonly limit?: number
   // readonly page?: number

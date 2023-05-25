@@ -1,8 +1,8 @@
 import { Command } from '@/Contexts/Shared/domain'
 
-import { BackofficeCoursePrimitiveDto } from '../BackofficeCourse'
+import { BackofficeCoursePrimitiveType } from '../BackofficeCourse'
 
-type Params = BackofficeCoursePrimitiveDto
+type Params = BackofficeCoursePrimitiveType
 
 // Immutable
 // Escalares | Primitivos

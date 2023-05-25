@@ -1,14 +1,14 @@
-import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourse } from './BackofficeCourse'
 
 export abstract class BackofficeCourseRepository {
   abstract all(): Promise<BackofficeCourse[]>
-  abstract searchBy(criteria: Criteria): Promise<BackofficeCourse[]>
+  abstract search(criteria: Criteria): Promise<BackofficeCourse[]>
   abstract count(criteria: Criteria): Promise<number>
   abstract paginate(
     criteria: Criteria,
-    pagination: OffsetPagination
+    pagination: OffsetPaginator
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }>
 
   abstract update(course: BackofficeCourse): Promise<void>

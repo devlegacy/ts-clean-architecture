@@ -1,4 +1,4 @@
-import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
 import { ElasticRepository } from '@/Contexts/Shared/infrastructure'
 
 import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain'
@@ -11,8 +11,8 @@ export class ElasticBackofficeCourseRepository
     return this.searchAllInElastic(BackofficeCourse.fromPrimitives)
   }
 
-  async searchBy(criteria: Criteria): Promise<BackofficeCourse[]> {
-    return this.searchByCriteria(criteria, BackofficeCourse.fromPrimitives)
+  async search(criteria: Criteria): Promise<BackofficeCourse[]> {
+    return this.matching(criteria, BackofficeCourse.fromPrimitives)
   }
 
   count(_criteria: Criteria): Promise<number> {
@@ -21,7 +21,7 @@ export class ElasticBackofficeCourseRepository
 
   async paginate(
     _criteria: Criteria,
-    _pagination: OffsetPagination
+    _pagination: OffsetPaginator
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
     throw new Error('Method not implemented.')
   }

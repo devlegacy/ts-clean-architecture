@@ -1,8 +1,8 @@
 import { Command } from '@/Contexts/Shared/domain'
 
-import { BackofficeCoursePrimitiveDto } from '../BackofficeCourse'
+import { BackofficeCoursePrimitiveType } from '../BackofficeCourse'
 
-type Params = Pick<BackofficeCoursePrimitiveDto, 'id'>
+type Params = Pick<BackofficeCoursePrimitiveType, 'id'>
 
 export class DeleteBackofficeCourseCommand extends Command {
   readonly id: string

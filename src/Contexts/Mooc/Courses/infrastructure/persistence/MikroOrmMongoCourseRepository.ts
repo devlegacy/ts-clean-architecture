@@ -20,7 +20,7 @@ export class MikroOrmMongoCourseRepository extends MikroOrmMongoRepository<Cours
     return courses
   }
 
-  async searchBy(criteria: Criteria): Promise<Course[]> {
+  async search(criteria: Criteria): Promise<Course[]> {
     const documents = await this.matching(criteria)
 
     return documents
@@ -30,13 +30,13 @@ export class MikroOrmMongoCourseRepository extends MikroOrmMongoRepository<Cours
     return this.persist(course)
   }
 
-  // async search(id: CourseId): Promise<Nullable<Course>> {
-  async search(): Promise<Nullable<Course>> {
-    const repository = await this.repository()
-    const course = await repository.findOne({})
+  // async find(id: CourseId): Promise<Nullable<Course>> {
+  // async find(): Promise<Nullable<Course>> {
+  //   const repository = await this.repository()
+  //   const course = await repository.findOne({})
 
-    return course
-  }
+  //   return course
+  // }
 
   protected entitySchema(): EntitySchema<Course> {
     return CourseEntity

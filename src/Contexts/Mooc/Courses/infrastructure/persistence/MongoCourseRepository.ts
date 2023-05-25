@@ -1,6 +1,3 @@
-import { ObjectId } from 'mongodb'
-
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { Criteria } from '@/Contexts/Shared/domain'
 import { MongoRepository } from '@/Contexts/Shared/infrastructure/persistence/mongo'
 
@@ -16,7 +13,7 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
   async all(): Promise<Course[]> {
     return []
   }
-  async searchBy(_criteria: Criteria): Promise<Course[]> {
+  async search(_criteria: Criteria): Promise<Course[]> {
     return []
   }
 
@@ -37,20 +34,20 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
     )
   }
 
-  async search(id: CourseId): Promise<Nullable<Course>> {
-    const collection = await this.collection()
-    const document = await collection.findOne<CourseDocument>({
-      _id: id.value as unknown as ObjectId, // HACK: Mongo 5.0 ObjectId restriction
-    })
+  // async search(id: CourseId): Promise<Nullable<Course>> {
+  //   const collection = await this.collection()
+  //   const document = await collection.findOne<CourseDocument>({
+  //     _id: id.value as unknown as ObjectId, // HACK: Mongo 5.0 ObjectId restriction
+  //   })
 
-    return document
-      ? Course.fromPrimitives({
-          name: document.name,
-          duration: document.duration,
-          id: id.value,
-        })
-      : null
-  }
+  //   return document
+  //     ? Course.fromPrimitives({
+  //         name: document.name,
+  //         duration: document.duration,
+  //         id: id.value,
+  //       })
+  //     : null
+  // }
 
   protected collectionName(): string {
     return 'courses'

@@ -2,8 +2,8 @@ import { AggregateRoot } from '@/Contexts/Shared/domain'
 
 import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './ValueObjects'
 
-export type BackofficeCourseEntityDto = Entity<BackofficeCourse>
-export type BackofficeCoursePrimitiveDto = Primitives<BackofficeCourse>
+export type BackofficeCourseEntityType = Entity<BackofficeCourse>
+export type BackofficeCoursePrimitiveType = Primitives<BackofficeCourse>
 
 export class BackofficeCourse extends AggregateRoot {
   readonly id: BackofficeCourseId
@@ -50,7 +50,7 @@ export class BackofficeCourse extends AggregateRoot {
     return course
   }
 
-  static override fromPrimitives(data: BackofficeCoursePrimitiveDto): BackofficeCourse {
+  static override fromPrimitives(data: BackofficeCoursePrimitiveType): BackofficeCourse {
     return new BackofficeCourse(
       new BackofficeCourseId(data.id),
       new BackofficeCourseName(data.name),

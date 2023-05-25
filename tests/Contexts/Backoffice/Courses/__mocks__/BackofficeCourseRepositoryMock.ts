@@ -1,5 +1,5 @@
 import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
-import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
 
 export class BackofficeCourseRepositoryMock implements BackofficeCourseRepository {
   #allMock: jest.Mock<
@@ -14,7 +14,7 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
   > = jest.fn()
   #courses: BackofficeCourse[] = []
 
-  async searchBy(_criteria: Criteria): Promise<BackofficeCourse[]> {
+  async search(_criteria: Criteria): Promise<BackofficeCourse[]> {
     return []
   }
 
@@ -28,7 +28,7 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
 
   async paginate(
     _criteria: Criteria,
-    _pagination: OffsetPagination
+    _pagination: OffsetPaginator
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
     return { data: [] }
   }

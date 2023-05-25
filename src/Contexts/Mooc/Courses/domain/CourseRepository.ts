@@ -7,5 +7,5 @@ export abstract class CourseRepository {
   abstract save(course: Course): Promise<void>
 
   abstract all(): Promise<Course[]>
-  abstract searchBy(criteria: Criteria): Promise<Course[]>
+  abstract search(criteria: Criteria): Promise<Course[]>
 }

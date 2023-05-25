@@ -1,7 +1,7 @@
 import { EntitySchema, wrap } from '@mikro-orm/core'
 import { Service } from 'diod'
 
-import { Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
@@ -20,17 +20,17 @@ export class MikroOrmMongoBackofficeCourseRepository
   // }
 
   async count(criteria: Criteria) {
-    return this.countDocuments(criteria)
+    return this.counter(criteria)
   }
 
   async paginate(
     criteria: Criteria,
-    pagination: OffsetPagination
+    pagination: OffsetPaginator
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }> {
     return this.offsetPagination(criteria, pagination)
   }
 
-  async searchBy(criteria: Criteria): Promise<BackofficeCourse[]> {
+  async search(criteria: Criteria): Promise<BackofficeCourse[]> {
     const documents = await this.matching(criteria)
 
     return documents

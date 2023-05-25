@@ -12,7 +12,7 @@ import {
   CreateBackofficeCourseOnCourseCreated,
   DeleteBackofficeCourseCommandHandler,
   FindBackofficeCourseByCriteriaQueryHandler,
-  PaginateBackofficeCoursesQueryHandler,
+  GetPaginatedBackofficeCoursesQueryHandler,
   SearchAllBackofficeCoursesQueryHandler,
   SearchBackofficeCoursesByCriteriaQueryHandler,
   TopCoursesFinder,
@@ -44,7 +44,7 @@ export const CourseModule = (builder: ContainerBuilder) => {
   builder.registerAndUse(SearchBackofficeCoursesByCriteriaQueryHandler).addTag(TAGS.QueryHandler)
   builder.registerAndUse(FindBackofficeCourseByCriteriaQueryHandler).addTag(TAGS.QueryHandler)
   builder.registerAndUse(BackofficeCourseByCriteriaFinder).addTag(TAGS.UseCase)
-  builder.registerAndUse(PaginateBackofficeCoursesQueryHandler).addTag(TAGS.QueryHandler)
+  builder.registerAndUse(GetPaginatedBackofficeCoursesQueryHandler).addTag(TAGS.QueryHandler)
   builder.registerAndUse(BackofficeCoursesPaginator).addTag(TAGS.UseCase)
   builder.registerAndUse(BackofficeCourseFinder).addTag(TAGS.UseCase)
   builder.registerAndUse(TopCoursesFinder).addTag(TAGS.UseCase)

@@ -134,10 +134,11 @@ export class FastifyAdapter {
       }
       if (res.sent) return
 
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+      const statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+      res.status(statusCode)
       const response = new HttpError({
-        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-        error: HttpStatus[HttpStatus.INTERNAL_SERVER_ERROR],
+        statusCode,
+        error: HttpStatus[+statusCode] ?? HttpStatus[500],
         // GeneralRequestValidation[errorHandler]: Unhandled error
         message: `${err.message}`,
         path: req.raw.url,

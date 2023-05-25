@@ -1,7 +1,7 @@
 import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
 import { UseCase } from '@/Contexts/Shared/domain/Common'
 
-import { BackofficeCourse, BackofficeCourseEntityDto, BackofficeCourseRepository } from '../../domain'
+import { BackofficeCourse, BackofficeCourseEntityType, BackofficeCourseRepository } from '../../domain'
 import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
 import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
 
@@ -9,7 +9,7 @@ import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
 export class BackofficeCourseUpdater {
   constructor(private readonly repository: BackofficeCourseRepository, private readonly bus: QueryBus) {}
 
-  async run(params: BackofficeCourseEntityDto): Promise<void> {
+  async run(params: BackofficeCourseEntityType): Promise<void> {
     await this.ensureCourseExists(params.id)
 
     const course = new BackofficeCourse(

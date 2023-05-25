@@ -12,7 +12,7 @@ export class FileCourseRepository implements CourseRepository {
     return []
   }
 
-  async searchBy(_criteria: Criteria): Promise<Course[]> {
+  async search(_criteria: Criteria): Promise<Course[]> {
     return []
   }
 
@@ -22,7 +22,7 @@ export class FileCourseRepository implements CourseRepository {
     await writeFile(path, serialize(course))
   }
 
-  async search(courseId: CoursePrimitiveType['id']): Promise<Course> {
+  async getById(courseId: CoursePrimitiveType['id']): Promise<Course> {
     const path = this.#path(courseId)
     // console.log(path)
     const courseBuffer = await readFile(path)

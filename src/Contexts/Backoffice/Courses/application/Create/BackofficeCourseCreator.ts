@@ -1,13 +1,13 @@
 import { UseCase } from '@/Contexts/Shared/domain/Common'
 
-import { BackofficeCourse, BackofficeCourseEntityDto, BackofficeCourseRepository } from '../../domain'
+import { BackofficeCourse, BackofficeCourseEntityType, BackofficeCourseRepository } from '../../domain'
 
 @UseCase()
 export class BackofficeCourseCreator {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(
-    params: BackofficeCourseEntityDto
+    params: BackofficeCourseEntityType
     // {
     //   id: BackofficeCourseId
     //   name: BackofficeCourseName

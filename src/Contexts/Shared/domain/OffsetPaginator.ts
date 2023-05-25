@@ -5,7 +5,7 @@ export type Pagination = {
   currentPage: number
 }
 
-export class OffsetPagination {
+export class OffsetPaginator {
   readonly offset?: number
 
   private startAt: number

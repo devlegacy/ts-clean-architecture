@@ -1,6 +1,5 @@
 import { EntitySchema } from 'typeorm'
 
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 import { Criteria } from '@/Contexts/Shared/domain'
 import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
@@ -12,7 +11,7 @@ export class TypeOrmPostgresCourseRepository extends TypeOrmPostgresRepository<C
     return []
   }
 
-  async searchBy(_criteria: Criteria): Promise<Course[]> {
+  async search(_criteria: Criteria): Promise<Course[]> {
     return []
   }
 
@@ -20,19 +19,19 @@ export class TypeOrmPostgresCourseRepository extends TypeOrmPostgresRepository<C
     return this.persist(course)
   }
 
-  async search(id: CourseId): Promise<Nullable<Course>> {
-    const repository = await this.repository()
+  // async search(id: CourseId): Promise<Nullable<Course>> {
+  //   const repository = await this.repository()
 
-    const course = await repository.findOne({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      where: { id },
-    })
+  //   const course = await repository.findOne({
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-expect-error
+  //     where: { id },
+  //   })
 
-    // const course = await repository.findOne({ id })
+  //   // const course = await repository.findOne({ id })
 
-    return course
-  }
+  //   return course
+  // }
 
   protected entitySchema(): EntitySchema<Course> {
     return CourseEntity

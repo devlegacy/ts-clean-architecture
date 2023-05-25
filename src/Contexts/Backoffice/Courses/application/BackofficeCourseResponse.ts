@@ -1,7 +1,7 @@
-import { BackofficeCourse, BackofficeCoursePrimitiveDto } from '../domain'
+import { BackofficeCourse, BackofficeCoursePrimitiveType } from '../domain'
 
 // This could be different
-type Response = BackofficeCoursePrimitiveDto
+type Response = BackofficeCoursePrimitiveType
 
 export class BackofficeCourseResponse {
   readonly course: Response
