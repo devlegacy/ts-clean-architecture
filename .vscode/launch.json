@@ -8,6 +8,7 @@
       "name": "🔄 Attach by Process ID",
       "processId": "${command:PickProcess}",
       "request": "attach",
+      // "justMyCode": false, not allowed for type: node
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/node_modules/**/*.js",
@@ -15,6 +16,7 @@
         "<node_internals>/internal/async_hooks.js",
         "<node_internals>/internal/inspector_async_hook.js"
       ],
+      "smartStep": true,
       // https://github.com/pinojs/pino/issues/441
       // "outputCapture": "std",
       "type": "node",
@@ -27,6 +29,7 @@
       "name": "🚀 TS: Launch Program",
       "program": "${file}",
       "request": "launch",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
       // "runtimeArgs": ["--nolazy", "-r", "ts-node/register", "-r", "tsconfig-paths/register"],
       "runtimeArgs": [
         "--nolazy",
@@ -182,6 +185,7 @@
       "restart": true,
       "runtimeArgs": ["run-script", "start:mooc:api:debug", "--"],
       "runtimeExecutable": "npm",
+      // "justMyCode": false,
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/node_modules/**/*.js"
@@ -189,6 +193,7 @@
         // "<node_internals>/internal/async_hooks.js",
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
+      "smartStep": true,
       "type": "node",
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std"
@@ -211,6 +216,7 @@
         // "<node_internals>/internal/async_hooks.js",
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
+      "smartStep": true,
       "type": "node",
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std"

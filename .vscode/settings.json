@@ -51,7 +51,17 @@
     "tsconfig*.json": true,
     "tsconfig*.tsbuildinfo": true,
     // "types": true,
-    "yarn-error.log": true
+    "yarn-error.log": true,
+    // "src/apps/bank": true,
+    // "src/apps/blog": true,
+    // "src/apps/land": true,
+    // "src/apps/user": true,
+    // "src/Contexts/Bank": true,
+    // "src/Contexts/BankAtm": true,
+    // "src/Contexts/BankBranch": true,
+    // "src/Contexts/Blog": true,
+    // "src/Contexts/Land": true,
+    // "src/Contexts/User": true,
   },
   "prettier.requireConfig": true,
   "material-icon-theme.files.associations": {
