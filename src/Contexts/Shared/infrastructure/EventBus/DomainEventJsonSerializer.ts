@@ -11,6 +11,7 @@ export class DomainEventJsonSerializer {
         attributes: event.toPrimitives(),
       },
     }
-    return JSON.stringify(data)
+    const serialize = JSON.stringify(data)
+    return serialize
   }
 }

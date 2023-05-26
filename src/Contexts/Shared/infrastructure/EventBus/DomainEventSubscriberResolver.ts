@@ -14,14 +14,15 @@ import { DomainEvent, DomainEventSubscriber, DomainEventSubscribers, SHARED_TYPE
 // }
 
 export class DomainEventSubscriberResolver implements DomainEventSubscribers {
-  constructor(readonly items: DomainEventSubscriber<DomainEvent>[]) {}
+  private constructor(readonly items: DomainEventSubscriber<DomainEvent>[]) {}
 
   static fromContainer(container: Container): DomainEventSubscribers {
     const subscribers = container
       .findTaggedServiceIdentifiers<DomainEventSubscriber<DomainEvent>>(TAGS.DomainEventSubscriber)
       .map((subscriber) => container.get(subscriber))
 
-    return new DomainEventSubscriberResolver(subscribers)
+    const subscriber = new DomainEventSubscriberResolver(subscribers)
+    return subscriber
   }
   /**
    * HACK: To retrieve and resolve DomainEvent subscribers tokens from container

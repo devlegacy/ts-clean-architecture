@@ -1,6 +1,7 @@
 import amqplib, { ConfirmChannel, Connection, ConsumeMessage, Options } from 'amqplib'
 import { Service } from 'diod'
 
+import { info } from '../../Logger'
 import { ConnectionSettings } from './ConnectionSettings'
 import { ExchangeSetting } from './ExchangeSetting'
 import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter'
@@ -40,7 +41,7 @@ export class RabbitMQConnection {
 
     // DEBT: Horrible hack
     if (process.env.APP_ENV === 'test' && !params.name.includes('_dummy')) {
-      console.log('-----------> Purge', params.name)
+      info('-----------> Purge', params.name)
       await this.channel?.purgeQueue(params.name)
     }
 
@@ -79,6 +80,7 @@ export class RabbitMQConnection {
       if (!message) {
         return
       }
+
       onMessage(message)
     })
   }
@@ -146,7 +148,9 @@ export class RabbitMQConnection {
     deadLetterQueue?: string
     messageTtl?: number
   }) {
-    let args: any = {}
+    let args: any = {
+      // defaults
+    }
     if (params.deadLetterExchange) {
       args = {
         ...args,
@@ -185,10 +189,10 @@ export class RabbitMQConnection {
 
     connection
       .on('error', (err: unknown) => {
-        console.log('Connection error', err)
+        info(err, 'Connection error')
         Promise.reject(err)
       })
-      .on('close', (err: unknown) => console.log('Connection close', err))
+      .on('close', (err: unknown) => info(err, 'Connection close'))
 
     return connection
   }
@@ -196,8 +200,8 @@ export class RabbitMQConnection {
   async #amqpChannel(): Promise<ConfirmChannel> {
     const channel = await this.connection!.createConfirmChannel()
     channel
-      .on('error', (err: unknown) => console.log('Channel error', err))
-      .on('close', (err: unknown) => console.log('Channel close', err))
+      .on('error', (err: unknown) => info(err, 'Channel error'))
+      .on('close', (err: unknown) => info(err, 'Channel close'))
 
     await channel.prefetch(1)
 

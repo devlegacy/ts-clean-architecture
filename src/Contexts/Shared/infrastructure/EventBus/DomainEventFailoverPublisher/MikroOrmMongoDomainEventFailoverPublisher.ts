@@ -15,11 +15,12 @@ import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
  */
 export class MikroOrmMongoDomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'
-
-  constructor(
-    private readonly _client: Promise<MikroORM<MongoDriver>>,
-    private deserializer?: DomainEventDeserializer
-  ) {}
+  #client: Promise<MikroORM<MongoDriver>>
+  #deserializer?: DomainEventDeserializer
+  constructor(client: Promise<MikroORM<MongoDriver>>, deserializer?: DomainEventDeserializer) {
+    this.#client = client
+    this.#deserializer = deserializer
+  }
 
   async publish(event: DomainEvent): Promise<void> {
     const collection = await this.collection()
@@ -41,13 +42,13 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
     const collection = await this.collection()
     const documents = await collection.find().limit(200).toArray()
 
-    const events = documents.map((document) => this.deserializer!.deserialize(document.event))
+    const events = documents.map((document) => this.#deserializer!.deserialize(document.event))
 
     return events.filter(Boolean)
   }
 
   protected async collection(): Promise<Collection<Document>> {
-    const client = await this._client
+    const client = await this.#client
     const collection = client.config
       .getDriver()
       .getConnection()

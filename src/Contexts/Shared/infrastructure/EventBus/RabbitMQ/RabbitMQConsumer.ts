@@ -2,6 +2,7 @@ import { ConsumeMessage } from 'amqplib'
 
 import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
 
+import { info } from '../../Logger'
 import { DomainEventDeserializer } from '../DomainEventDeserializer'
 import { RabbitMQConnection } from './RabbitMQConnection'
 
@@ -33,7 +34,7 @@ export class RabbitMQConsumer {
   async onMessage(message: ConsumeMessage) {
     const content = message.content.toString()
     const domainEvent = this.deserializer.deserialize(content)
-
+    info(`[consume 📥 ]: ${domainEvent.eventName}`)
     try {
       await this.subscriber.on(domainEvent)
     } catch (error) {

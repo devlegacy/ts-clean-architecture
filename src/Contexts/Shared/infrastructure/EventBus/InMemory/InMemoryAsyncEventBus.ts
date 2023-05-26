@@ -12,6 +12,7 @@ import {
   EVENTS_HANDLER_METADATA,
 } from '../../../domain'
 
+// InMemory, memoria de instancia
 @Service()
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   private io?: SocketServer

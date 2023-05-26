@@ -2,6 +2,7 @@ import { Options } from 'amqplib'
 
 import { DomainEvent, DomainEventSubscribers, EventBus } from '@/Contexts/Shared/domain'
 
+import { info } from '../../Logger'
 import { DomainEventDeserializer } from '../DomainEventDeserializer'
 import {
   MikroOrmMongoDomainEventFailoverPublisher,
@@ -48,6 +49,7 @@ export class RabbitMQEventBus implements EventBus {
 
   async publish(events: DomainEvent[]): Promise<void> {
     for (const event of events) {
+      info(`[emit 📤 ]: ${event.eventName}`)
       try {
         const routingKey = event.eventName
         const content = this.#serialize(event)
@@ -66,7 +68,7 @@ export class RabbitMQEventBus implements EventBus {
   }
 
   #options(event: DomainEvent): Options.Publish {
-    const options = {
+    const options: Options.Publish = {
       messageId: event.eventId,
       contentType: 'application/json',
       contentEncoding: 'utf-8',
@@ -76,7 +78,7 @@ export class RabbitMQEventBus implements EventBus {
 
   #serialize(event: DomainEvent): Buffer {
     const eventPrimitives = DomainEventJsonSerializer.serialize(event)
-
-    return Buffer.from(eventPrimitives)
+    const buffer = Buffer.from(eventPrimitives)
+    return buffer
   }
 }
