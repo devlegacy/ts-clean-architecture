@@ -2,6 +2,7 @@
 
 ## Definiciones y acrónimos
 
+- **Idempotencia**: 
 - **API**: Application Programming Interface
   - Conjunto de subrutinas, funciones y procedimientos (o métodos, en la programación orientada a objetos) que ofrece cierta biblioteca para ser utilizado por otro software como **capa de abstracción**
 - **API RESTful**: Application Programming Interface REpresentational State Transfer
