@@ -12,7 +12,7 @@ export class ConfigureRabbitMQCommand {
     await connection.connect()
 
     const configurer = container.get(RabbitMQConfigurer)
-    const subscribers = DomainEventSubscriberResolver.fromContainer(container).items
+    const { items: subscribers } = DomainEventSubscriberResolver.fromContainer(container)
 
     await configurer.configure({
       exchange,
