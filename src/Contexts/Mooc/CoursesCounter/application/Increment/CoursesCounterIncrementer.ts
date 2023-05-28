@@ -1,17 +1,19 @@
+import { Course } from '@/Contexts/Mooc/Courses/domain'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { UseCase } from '@/Contexts/Shared/domain/Common'
 
-import { CourseId } from '../../../Shared/domain'
 import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../../domain'
 
 @UseCase()
 export class CoursesCounterIncrementer {
   constructor(private readonly repository: CoursesCounterRepository, private readonly bus: EventBus) {}
 
-  async run(courseId: CourseId) {
+  async run(courseId: Course['id']) {
     const search = await this.repository.search()
     const counter = search || this.#initializeCounter()
 
+    // Idempotencia - Evitar repetición
+    // alternativas, tirar de infraestructura con un redis y usar el eventId o el ocurredOn
     if (counter.hasIncremented(courseId)) return // push to domain and avoid other methods down
 
     counter.increment(courseId)

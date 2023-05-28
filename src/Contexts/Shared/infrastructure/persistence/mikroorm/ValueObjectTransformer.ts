@@ -1,3 +1,4 @@
+import { EntityProperty, Platform } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
 import { EnumValueObject, ValueObject } from '@/Contexts/Shared/domain'
@@ -8,7 +9,7 @@ export class ValueObjectTransformer {
     private readonly type: string
   ) {}
 
-  convertToDatabaseValue(value: ValueObject<any>) {
+  convertToDatabaseValue(value: ValueObject<any>, _platform: Platform) {
     if (this.type === 'ObjectId') {
       return new ObjectId(value.value)
     } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
@@ -22,7 +23,7 @@ export class ValueObjectTransformer {
     return primitive
   }
 
-  convertToJSValue(value: any) {
+  convertToJSValue(value: any, _platform: Platform) {
     if (this.type === 'ObjectId') {
       return new this.ValueObject(value.toString())
     } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
@@ -41,11 +42,17 @@ export class ValueObjectTransformer {
     return vo
   }
 
-  getColumnType() {
+  getColumnType(_prop: EntityProperty, _platform: Platform): string {
     return this.type
   }
 
-  compareAsType() {
+  // toJSON(value: any, platform: Platform):any{}
+
+  compareAsType(): string {
     return this.type
+  }
+
+  ensureComparable() {
+    return true
   }
 }

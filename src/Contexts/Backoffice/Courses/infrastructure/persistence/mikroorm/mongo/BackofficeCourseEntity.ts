@@ -3,6 +3,7 @@ import { EntitySchema } from '@mikro-orm/core'
 import {
   beforeCreate,
   beforeUpdate,
+  beforeUpsert,
   onLoad,
   ValueObjectTransformer,
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
@@ -22,15 +23,16 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
     onLoad: [onLoad],
     beforeCreate: [beforeCreate],
     beforeUpdate: [beforeUpdate],
+    beforeUpsert: [beforeUpsert],
   },
   properties: {
     _id: {
-      customType: new ValueObjectTransformer(BackofficeCourseId, 'ObjectId'),
+      type: 'ObjectId',
       primary: true,
-      // hidden: true
+      hidden: true,
     },
     id: {
-      type: 'string',
+      customType: new ValueObjectTransformer(BackofficeCourseId, 'string'),
       serializedPrimaryKey: true,
     },
     name: {

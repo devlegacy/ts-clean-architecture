@@ -1,8 +1,9 @@
 import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { Service } from 'diod'
+import { ObjectId } from 'mongodb'
 
-import { AggregateRoot, Criteria, OffsetPagination, Pagination } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
 
 import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter'
 
@@ -27,7 +28,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   //   this.criteriaConverter = new MongoCriteriaConverter()
   // }
 
-  protected async countDocuments(criteria: Criteria) {
+  protected async counter(criteria: Criteria) {
     const collection = await this.repository()
     const query = this.#criteria.convert(criteria)
 
@@ -43,7 +44,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
 
   protected async offsetPagination(
     criteria: Criteria,
-    offsetPagination: OffsetPagination
+    offsetPagination: OffsetPaginator
   ): Promise<{ data: T[]; pagination?: Pagination }> {
     const collection = await this.repository()
     const query = this.#criteria.convert(criteria)
@@ -86,7 +87,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
 
   protected async persist(aggregateRoot: T): Promise<void> {
     const repository = await this.repository()
-
+    const manager = repository.getEntityManager()
     // const primitives = {
     //   _id: CourseId.random().toString(),
     //   ...aggregateRoot.toPrimitives()
@@ -95,8 +96,22 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     // delete primitives.id
 
     // repository.nativeInsert(aggregateRoot)
-    repository.getEntityManager().persist(aggregateRoot)
-    await repository.getEntityManager().flush()
+    // const primitives = aggregateRoot.toPrimitives()
+
+    // @ts-expect-error add value on run time, esto debería funcionar automaticamente con los hooks tal vez
+    if (!aggregateRoot._id) aggregateRoot._id = new ObjectId(aggregateRoot.id.value)
+    await manager.upsert(
+      this.entitySchema(),
+      aggregateRoot,
+      // {
+      //   ...primitives,
+      //   _id: primitives.id,
+      // },
+      {
+        // convertCustomTypes: true,
+      }
+    )
+    // await manager.persistAndFlush(aggregateRoot)
   }
 
   protected async matching(criteria: Criteria): Promise<T[]> {

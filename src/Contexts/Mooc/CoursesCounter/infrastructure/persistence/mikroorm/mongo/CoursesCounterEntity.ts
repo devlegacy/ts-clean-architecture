@@ -1,7 +1,13 @@
 import { EntitySchema } from '@mikro-orm/core'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { beforeCreate, ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
+import {
+  beforeCreate,
+  beforeUpdate,
+  beforeUpsert,
+  onLoad,
+  ValueObjectTransformer,
+} from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
 import { CoursesCounter, CoursesCounterTotal } from '../../../../domain'
 
@@ -11,16 +17,20 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
   tableName: 'courses_counter',
   class: CoursesCounter,
   hooks: {
+    onLoad: [onLoad],
     beforeCreate: [beforeCreate],
+    beforeUpdate: [beforeUpdate],
+    beforeUpsert: [beforeUpsert],
   },
   properties: {
     _id: {
-      customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
+      // customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
       primary: true,
-      // hidden: true
+      type: 'ObjectId',
+      hidden: true,
     },
     id: {
-      type: 'string',
+      customType: new ValueObjectTransformer(CourseId, 'string'),
       serializedPrimaryKey: true,
     },
     total: {
