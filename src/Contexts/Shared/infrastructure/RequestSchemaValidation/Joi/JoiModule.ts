@@ -4,7 +4,7 @@ import * as joi from 'joi'
 import { getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
 import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 
-import { isFunction } from '@/Contexts/Shared/domain'
+import { HttpError, isFunction } from '@/Contexts/Shared/domain'
 import { HttpStatus, RequestMethod } from '@/Contexts/Shared/domain/Common'
 
 import { HttpValidationModule } from '../../platform-fastify'
@@ -39,24 +39,20 @@ export class JoiModule
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
     if (!(err instanceof joi.ValidationError)) return
     // Is JOI
-    err.statusCode = HttpStatus.UNPROCESSABLE_ENTITY
-    const response = {
-      error: HttpStatus[err.statusCode],
-      statusCode: err.statusCode,
+    const statusCode = HttpStatus.UNPROCESSABLE_ENTITY
+    const response = new HttpError({
+      error: HttpStatus[+statusCode] ?? HttpStatus[422],
+      statusCode,
       message: err.message,
       path: req.raw.url,
       code: err.code,
       stack: err.stack,
       errors: this.#format(err),
-    }
-    res.status(HttpStatus.UNPROCESSABLE_ENTITY).send(response)
+    })
+    res.status(statusCode).send(response)
   }
 
   schemaBuilder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
-    this.#builder(schema, key, method)
-  }
-
-  #builder(schema: FastifySchema, key: keyof FastifySchema, method: RequestMethod) {
     if (!schema) return
 
     const group = this.#getMethodGroup(method)

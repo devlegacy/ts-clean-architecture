@@ -43,7 +43,7 @@ export class Server {
     this.#adapter
       .setMonitoringModule(monitoring)
       .setValidationModule(new JoiModule())
-      .setValidationModule(new DefaultHttpErrorHandler())
+      .setErrorHandler(new DefaultHttpErrorHandler())
   }
 
   async listen() {

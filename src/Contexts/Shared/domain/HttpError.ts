@@ -5,6 +5,7 @@ export class HttpError {
   readonly path?: string
   readonly code: string | number
   readonly stack?: string
+  readonly errors?: any
   constructor({
     statusCode,
     error,
@@ -12,6 +13,7 @@ export class HttpError {
     path,
     code,
     stack,
+    errors,
   }: {
     statusCode: number
     error: string
@@ -19,6 +21,7 @@ export class HttpError {
     path?: string
     code: string | number
     stack?: string
+    errors?: any
   }) {
     this.statusCode = statusCode
     this.error = error
@@ -26,6 +29,7 @@ export class HttpError {
     this.path = path
     this.code = code
     this.stack = stack
+    this.errors = errors
   }
 
   toJSON() {
@@ -36,6 +40,7 @@ export class HttpError {
       path: this.path,
       code: this.code,
       stack: this.stack,
+      errors: this.errors,
     }
   }
 }

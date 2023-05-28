@@ -4,6 +4,7 @@ import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, {
+  errorCodes,
   FastifyError,
   FastifyInstance,
   FastifyRegister,
@@ -17,7 +18,7 @@ import { AddressInfo } from 'net'
 import { HttpError, Monitoring } from '../../domain'
 import { HttpStatus } from '../../domain/Common'
 import { ControllerResolver } from '../Common'
-import { HttpValidationModule } from './interfaces'
+import { HttpErrorHandler, HttpValidationModule } from './interfaces'
 import { routeRegister } from './routeRegister'
 
 const printConfig: PrintRoutesOptions = {
@@ -65,6 +66,7 @@ const fastifyServerOptions: FastifyServerOptions = {
 export class FastifyAdapter {
   // #instance: FastifyInstance
   readonly validations: HttpValidationModule<any>[] = []
+  readonly errorHandlers: HttpErrorHandler[] = []
   readonly #instance: FastifyInstance
   #monitoring?: Monitoring
 
@@ -93,6 +95,12 @@ export class FastifyAdapter {
 
   setValidationModule<T = unknown>(validationModule: HttpValidationModule<T>) {
     this.validations.push(validationModule)
+
+    return this
+  }
+
+  setErrorHandler(handler: HttpErrorHandler) {
+    this.errorHandlers.push(handler)
 
     return this
   }
@@ -127,14 +135,21 @@ export class FastifyAdapter {
     })
     // https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler
     this.#instance.setErrorHandler((err: FastifyError, req: FastifyRequest, res: FastifyReply) => {
+      let statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR
       this.#monitoring?.capture(err, { req })
-      for (const m of this.validations) {
+      const errorHandlers = [...this.validations, ...this.errorHandlers]
+      for (const m of errorHandlers) {
         if (res.sent) break
         m.errorHandler(err, req, res)
       }
       if (res.sent) return
 
-      const statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+      if (
+        (err instanceof errorCodes.FST_ERR_BAD_STATUS_CODE || err instanceof errorCodes.FST_ERR_CTP_EMPTY_JSON_BODY) &&
+        err.statusCode
+      ) {
+        statusCode = err.statusCode
+      }
       res.status(statusCode)
       const response = new HttpError({
         statusCode,

@@ -1,31 +1,26 @@
-import { errorCodes, FastifyError, FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 
 import { EntityNotFoundError, HttpError, InvalidArgumentError } from '../../domain'
 import { HttpStatus } from '../../domain/Common'
-import { HttpValidationModule } from '../platform-fastify'
+import { HttpErrorHandler } from '../platform-fastify'
 
-export class DefaultHttpErrorHandler implements HttpValidationModule<unknown> {
+export class DefaultHttpErrorHandler implements HttpErrorHandler {
   // validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {
-  validationCompiler(): void {
-    // do nothing
-  }
+  // validationCompiler(): void {
+  //   // do nothing
+  // }
 
   errorHandler(err: FastifyError, req: FastifyRequest, res: FastifyReply) {
-    let code: number | undefined
+    let statusCode: number | undefined
     if (err instanceof InvalidArgumentError) {
-      code = HttpStatus.UNPROCESSABLE_ENTITY
+      statusCode = HttpStatus.UNPROCESSABLE_ENTITY
     } else if (err instanceof EntityNotFoundError) {
-      code = HttpStatus.NOT_FOUND
-    } else if (
-      err instanceof errorCodes.FST_ERR_BAD_STATUS_CODE ||
-      err instanceof errorCodes.FST_ERR_CTP_EMPTY_JSON_BODY
-    ) {
-      code = err.statusCode
+      statusCode = HttpStatus.NOT_FOUND
     }
-    if (code) {
+    if (statusCode) {
       const response = new HttpError({
-        statusCode: code,
-        error: HttpStatus[+code] ?? '',
+        statusCode,
+        error: HttpStatus[+statusCode] ?? '',
         message: err.message,
         path: req.raw.url,
         code: err.code,
@@ -35,8 +30,8 @@ export class DefaultHttpErrorHandler implements HttpValidationModule<unknown> {
     }
   }
 
-  // schemaBuilder(_schema: FastifySchema, _key: keyof FastifySchema, _method?: RequestMethod) {
-  schemaBuilder() {
-    // do nothing
-  }
+  // // schemaBuilder(_schema: FastifySchema, _key: keyof FastifySchema, _method?: RequestMethod) {
+  // schemaBuilder() {
+  //   // do nothing
+  // }
 }
