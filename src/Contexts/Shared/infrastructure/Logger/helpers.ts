@@ -18,7 +18,7 @@ const destination = resolve(cwd(), './logger.log')
 export const streams = [
   { stream },
   {
-    stream: createWriteStream(destination),
+    stream: createWriteStream(destination, { flags: 'a+' }),
     //pino.destination({ dest: resolve(cwd(), './logger.log')})
   },
 ]
