@@ -1,4 +1,4 @@
-import { JoiSchema } from 'joi-class-decorators'
+import { JoiSchema } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
 import { JoiCourseRequestDto } from './JoiCourseRequestDto'
 

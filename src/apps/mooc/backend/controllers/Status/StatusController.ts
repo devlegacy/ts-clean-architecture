@@ -1,3 +1,4 @@
+import { ZodCourseDto } from '@/apps/mooc/backend/controllers/Courses/validations/ZodCourseDto'
 import {
   Body,
   Controller,
@@ -18,9 +19,8 @@ import {
 } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/Pipes'
 
-import { JoiCourseRequestDto, JoiCoursesRequestDto } from '../Courses/Validations'
-import { ZodCourseDto } from '../Courses/Validations/ZodCourseDto'
-import { IndexHeadersDto, IndexQueryDto, UserDto } from './Validations'
+import { JoiCourseRequestDto, JoiCoursesRequestDto } from '../Courses/validations'
+import { IndexHeadersDto, IndexQueryDto, UserDto } from './validations'
 
 @Controller('status')
 export class StatusController {

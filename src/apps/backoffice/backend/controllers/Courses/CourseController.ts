@@ -29,7 +29,7 @@ import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
 import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/FiltersPipe'
 
-import { CourseRequestSchema } from './Validation'
+import { CourseRequestSchema } from './validation'
 
 @Controller('courses')
 export class CourseController {

@@ -10,7 +10,7 @@ import {
   // Schema
 } from '@/Contexts/Shared/domain/Common'
 
-import { CourseRequestSchema } from './Validations'
+import { CourseRequestSchema } from './validations'
 
 @Controller('courses')
 export class CourseController {
