@@ -2,7 +2,7 @@ import {
   BackofficeCourse,
   BackofficeCourseDuration,
   BackofficeCourseId,
-  BackofficeCourseName
+  BackofficeCourseName,
 } from '@/Contexts/Backoffice/Courses/domain'
 
 import { BackofficeCourseDurationMother } from './BackofficeCourseDurationMother'

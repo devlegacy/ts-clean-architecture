@@ -8,10 +8,10 @@ export class RabbitMQConnectionConfigurationMother {
         connection: {
           secure: false,
           hostname: 'localhost',
-          port: 5672
-        }
+          port: 5672,
+        },
       },
-      exchangeSettings: { name: '' }
+      exchangeSettings: { name: '' },
     }
   }
 }

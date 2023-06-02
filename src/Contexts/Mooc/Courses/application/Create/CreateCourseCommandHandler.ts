@@ -1,5 +1,5 @@
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain'
+import { CommandHandler, isUndefined } from '@/Contexts/Shared/domain'
 import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
 
 import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain'
@@ -14,7 +14,7 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
     const request = {
       id: new CourseId(command.id),
       name: new CourseName(command.name),
-      duration: CourseDuration.create(command.duration),
+      duration: !isUndefined(command.duration) ? new CourseDuration(command.duration) : undefined,
     }
     await this.creator.run(request)
   }

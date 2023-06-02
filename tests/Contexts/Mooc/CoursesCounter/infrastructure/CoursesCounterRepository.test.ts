@@ -1,5 +1,5 @@
 import { container } from '@/apps/mooc/modules'
-import { CoursesCounter, CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
+import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { CoursesCounterMother } from '../domain'
@@ -32,22 +32,16 @@ describe('CoursesCounterRepository', () => {
   describe('#search', () => {
     it('should return an existing course', async () => {
       const expectedCounter = CoursesCounterMother.random()
-      const savedPreMutation = CoursesCounter.fromPrimitives(expectedCounter.toPrimitives())
-
-      // NOTE: There is a mutation idkw why?
-      // We only need this line as arrange
-      // const expectedCounter = CoursesCounterMother.random();
       await repository.save(expectedCounter)
 
       const counter = await repository.search()
 
-      expect(savedPreMutation.toPrimitives()).toEqual(counter?.toPrimitives())
-      // NOTE:
-      // expect(expectedCounter).toEqual(counter)
+      expect(expectedCounter.toPrimitives()).toEqual(counter?.toPrimitives())
     })
 
     it('should not return null if there is no courses counter', async () => {
-      expect(await repository.search()).toBeFalsy()
+      const search = await repository.search()
+      expect(search).toBeFalsy()
     })
   })
 })

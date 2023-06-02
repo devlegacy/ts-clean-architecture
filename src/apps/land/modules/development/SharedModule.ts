@@ -17,6 +17,7 @@ import {
   Query,
   QueryBus,
   QueryHandler,
+  Response,
 } from '@/Contexts/Shared/domain'
 import {
   CommandHandlers,

@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot, isUndefined } from '@/Contexts/Shared/domain'
 
 import { CourseId } from '../../Shared/domain'
 import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
@@ -59,7 +59,7 @@ export class Course extends AggregateRoot {
     const entity = new Course(
       new CourseId(data.id),
       new CourseName(data.name),
-      CourseDuration.create(data.duration)
+      !isUndefined(data.duration) ? new CourseDuration(data.duration) : undefined
       // data.createdAt ? data.createdAt : undefined,
       // data.updatedAt ? data.updatedAt : undefined,
       // data.deletedAt ? data.deletedAt : undefined

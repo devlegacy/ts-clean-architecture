@@ -1,6 +1,7 @@
 import { CourseCreator } from '@/Contexts/Mooc/Courses/application'
 import { CourseDuration, CourseName, CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
+import { isUndefined } from '@/Contexts/Shared/domain'
 
 import { EventBusMock } from '../../Shared'
 import { CourseRepositoryMock } from '../__mocks__'
@@ -28,7 +29,7 @@ describe('CourseCreator', () => {
     await creator.run({
       id: new CourseId(request.id),
       name: new CourseName(request.name),
-      duration: CourseDuration.create(request.duration),
+      duration: !isUndefined(request.duration) ? new CourseDuration(request.duration) : undefined,
     })
 
     repository.assertLastSavedCourseIs(course)
@@ -43,7 +44,7 @@ describe('CourseCreator', () => {
       await creator.run({
         id: new CourseId(request.id),
         name: new CourseName(request.name),
-        duration: CourseDuration.create(request.duration),
+        duration: !isUndefined(request.duration) ? new CourseDuration(request.duration) : undefined,
       })
       repository.assertSaveHaveBeenCalledWith(course)
     }).rejects.toThrow(CourseNameLengthExceeded)

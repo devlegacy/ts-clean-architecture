@@ -34,7 +34,7 @@ export class Server {
 
     this.#httpServer = this.#adapter.app.server
     this.#adapter.enableCors()
-    this.#adapter.setValidationModule(new JoiModule()).setValidationModule(new DefaultHttpErrorHandler())
+    this.#adapter.setValidationModule(new JoiModule()).setErrorHandler(new DefaultHttpErrorHandler())
   }
 
   async listen() {
