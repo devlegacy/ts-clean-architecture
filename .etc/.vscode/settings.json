@@ -1,0 +1,109 @@
+{
+  "files.eol": "\n",
+  "files.exclude": {
+    ".cache": true,
+    ".commitlintrc.js": true,
+    ".czrc": true,
+    ".data": true,
+    ".dockerignore": true,
+    ".editorconfig": true,
+    ".eslintignore": true,
+    ".eslintrc.js": true,
+    ".eslintrc": true,
+    ".husky": true,
+    ".idea": true,
+    ".lintstagedrc.json": true,
+    ".npmrc": true,
+    ".nvmrc": true,
+    ".php_cs": true,
+    ".prettierignore": true,
+    ".prettierrc": true,
+    ".tmp": true,
+    ".vscode": false,
+    "*.example": true,
+    "*.xml": true,
+    // "*.yml": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/*.code-search": true,
+    "**/*.map": true,
+    "**/bower_components/": true,
+    "**/CVS": true,
+    "**/node_modules/": true,
+    "*git*": true,
+    "*lock*": true, // lock files
+    "ABOUT.md": true,
+    "CHANGELOG.md": true,
+    "coverage": true,
+    "cucumber.js": true,
+    "cz.js": true,
+    "dist": true,
+    "docs": true,
+    "jest.config.[j|t]s": true,
+    "jest.setup.[j|t]s": true,
+    "license": true,
+    "LICENSE": true,
+    "nbproject": true,
+    "nodemon.json": true,
+    // "tests": true,
+    "tsconfig*.json": true,
+    "tsconfig*.tsbuildinfo": true,
+    // "types": true,
+    "yarn-error.log": true,
+    "src/apps/bank": true,
+    "src/apps/blog": true,
+    "src/apps/land": true,
+    "src/apps/user": true,
+    "src/Contexts/Bank": true,
+    "src/Contexts/BankAtm": true,
+    "src/Contexts/BankBranch": true,
+    "src/Contexts/Blog": true,
+    "src/Contexts/Land": true,
+    "src/Contexts/User": true,
+  },
+  "prettier.requireConfig": true,
+  "material-icon-theme.files.associations": {
+    "Command.ts": "command"
+  },
+  "material-icon-theme.folders.associations": {
+    "infrastructure": "Cluster",
+    "application": "app",
+    "domain": "core",
+    "exceptions": "error",
+    "persistence": "database"
+  },
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT", "TRANSLATE"],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "bookmark"
+    },
+    "NOTE": {
+      "icon": "note"
+    },
+    "DOC": {
+      "icon": "book"
+    },
+    "DEBT": {
+      "icon": "alert-fill"
+    },
+    "TRANSLATE": {
+      "icon": "pencil"
+    }
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  // "typescript.tsserver.log": "verbose",
+  // "typescript.tsdk": "node_modules\\typescript\\lib",
+  "dotenv.enableAutocloaking": false,
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "jest.nodeEnv": { "APP_ENV": "test" }
+}
