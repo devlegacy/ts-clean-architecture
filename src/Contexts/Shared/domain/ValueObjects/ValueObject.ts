@@ -17,7 +17,7 @@ import { isNil } from '../shared.utils'
  * ## Notes:
  * - Value objects can/should hold validation for their data. When we have validation rules.
  */
-export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined>> {
+export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | null>> {
   readonly value: T
 
   constructor(value: T) {
