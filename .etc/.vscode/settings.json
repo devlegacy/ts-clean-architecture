@@ -5,6 +5,7 @@
     ".commitlintrc.js": true,
     ".czrc": true,
     ".data": true,
+    ".etc": true,
     ".dockerignore": true,
     ".editorconfig": true,
     ".eslintignore": true,
