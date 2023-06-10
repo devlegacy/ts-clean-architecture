@@ -16,6 +16,18 @@ const client = new Redis({
 // const producer = kafka.producer()
 const consumer = kafka.consumer({ groupId: 'group1' })
 
+// {
+//   "payload": {
+//     "op": "c",
+//     "source": {
+//       "table": "bloks"
+//     },
+//     "after": {
+//       "id": "9048cab9-394e-4e62-bd6a-80108977ffda"
+//     }
+//   }
+// }
+
 const run = async () => {
   // Producing
   // await producer.connect()
