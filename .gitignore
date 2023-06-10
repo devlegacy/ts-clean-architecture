@@ -386,6 +386,7 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/git,vim,node,linux,macos,windows,sublimetext,jetbrains+all,visualstudiocode
 
+.*.env
 .cache/*
 .data/*
 .temp/*

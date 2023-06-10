@@ -96,3 +96,7 @@ Alternatives
 - [Docker snippet](https://github.com/bigbluebutton/greenlight/blob/master/docker-compose.kc.yml)
 - [Docker snippet](https://gitlab.com/-/snippets/2519645)
 - [Express](https://medium.com/devops-dudes/securing-node-js-express-rest-apis-with-keycloak-a4946083be51)
+
+## Events
+
+- What is the relation between SPI (service provider interfaces) and events

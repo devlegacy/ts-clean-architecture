@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   eventstore.db:
+    container_name: eventstore
     image: eventstore/eventstore:latest
     environment:
       - EVENTSTORE_CLUSTER_SIZE=1
@@ -11,8 +12,8 @@ services:
       - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
       - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
     ports:
-      - '1113:1113'
-      - '2113:2113'
+      - 1113:1113
+      - 2113:2113
     volumes:
       - type: volume
         source: eventstore-volume-data
@@ -28,9 +29,12 @@ services:
   zookeeper:
     container_name: zookeeper
     image: docker.io/bitnami/zookeeper:latest
+    # image: confluentinc/cp-zookeeper:latest
     ports:
-      - "2181:2181"
+      - 2181:2181
     environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
       - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
       - app-network
@@ -38,21 +42,50 @@ services:
   kafka:
     container_name: kafka
     image: docker.io/bitnami/kafka:latest
+    # image: confluentinc/cp-kafka:latest
     hostname: localhost
     ports:
-      - "9092:9092"
-      - "9093:9093"
-      - "29092:29092"
+      - 9092:9092
+      - 9093:9093
+      - 9094:9094
+      - 29092:29092
     environment:
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNALPLAINTEXT://:29092,EXTERNAL://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNALPLAINTEXT://localhost:29092,EXTERNAL://localhost:9093
-      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNALPLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_ENABLE_KRAFT=no
+      # - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      # - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNALPLAINTEXT://:29092,CONTROLLER://:9093,EXTERNAL://:9094
+      # - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNALPLAINTEXT://localhost:29092,CONTROLLER://localhost:9093,EXTERNAL://localhost:9094
+      # - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNALPLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=EXTERNALPLAINTEXT
+      # - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
       # - KAFKA_ADVERTISED_HOST_NAME=192.168.1.68
+      # - KAFKA_AUTO_CREATE_TOPICS_ENABLE='true'
+      # - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
     depends_on:
       - zookeeper
+    volumes:
+      - ./.data/control-center:/var/lib/confluent-control-center
+    networks:
+      - app-network
+
+  control-center:
+    container_name: control-center
+    image: confluentinc/cp-enterprise-control-center:latest
+    hostname: control-center
+    ports:
+      - 9021:9021
+    environment:
+      - CONTROL_CENTER_REPLICATION_FACTOR=1
+      - CONTROL_CENTER_ZOOKEEPER_CONNECT=zookeeper:2181
+      - CONTROL_CENTER_BOOTSTRAP_SERVERS=kafka:9092
+      - CONTROL_CENTER_CONNECT_CLUSTER=localhost:8083
+    depends_on:
+      - zookeeper
+      - kafka
     networks:
       - app-network
 
@@ -60,19 +93,20 @@ services:
     container_name: debezium
     image: debezium/connect:latest
     environment:
-      GROUP_ID: 1
-      CONFIG_STORAGE_TOPIC: my-connect-configs
-      OFFSET_STORAGE_TOPIC: my-connect-offsets
-      BOOTSTRAP_SERVERS: kafka:9092
-      ADVERTISED_HOST_NAME: debezium
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my-connect-configs
+      - OFFSET_STORAGE_TOPIC=my-connect-offsets
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - ADVERTISED_HOST_NAME=debezium
     ports:
-      - "8083:8083"
+      - 8083:8083
     depends_on:
       - kafka
     networks:
       - app-network
 
   mongo:
+    container_name: mongo
     image: mongo:latest # 5.0.0
     restart: always
     environment:
@@ -87,26 +121,25 @@ services:
       - ./.data/mongo:/data/db:delegated
 
   postgres:
-    image: postgres:alpine
     container_name: postgres
+    image: postgres:alpine
     restart: unless-stopped
-    command: [ "postgres", "-c", "wal_level=logical", "-c", "max_wal_senders=1" , "-c", "max_replication_slots=1" ]
+    command: [ "postgres", "-c", "wal_level=logical", "-c", "max_wal_senders=1" , "-c", "max_replication_slots=1", "-c", "listen_addresses=*" ]
     environment:
-      POSTGRES_DB: mooc # postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /var/lib/postgresql/data
+      - POSTGRES_DB=postgres # mooc
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data
     ports:
       # HOST:CONTAINER
       - "5432:5432"
     volumes:
       - ./.data/postgres:/var/lib/postgresql/data
+      # - ./.docker/postgres/create_databases.sql:/docker-entrypoint-initdb.d/create_databases.sql
     networks:
       - app-network
 
   pgadmin:
-    depends_on:
-      - postgres
     image: dpage/pgadmin4:latest
     container_name: pgadmin
     restart: always
@@ -118,15 +151,17 @@ services:
     ports:
       # HOST:CONTAINER
       # ${PGADMIN_PORT:-8080}
-      - "8080:80"
+      - 8080:80
     volumes:
       - ./.data/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
     networks:
       - app-network
 
   rabbitmq:
-    image: rabbitmq:management-alpine
     container_name: rabbitmq
+    image: rabbitmq:management-alpine
     ports:
       - 5672:5672
       - 15672:15672
@@ -137,7 +172,7 @@ services:
     # image: redis:alpine
     image: redis/redis-stack-server:latest
     ports:
-      - "6379:6379"
+      - 6379:6379
     # command: [ "redis-server", "--requirepass", "SUPER_SECRET_PASSWORD" ]
     volumes:
       - ./.data/redis:/data
@@ -150,9 +185,9 @@ services:
     # [redis-cli] info tsyringe-dependency-injection --pass SUPER_SECRET_PASSWORD
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0 # 8.5.3
-    # image: docker.elastic.co/elasticsearch/elasticsearch
     container_name: elasticsearch
+    # image: docker.elastic.co/elasticsearch/elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0 # 8.5.3
     environment:
       - node.name=elasticsearch
       - discovery.type=single-node #Elasticsearch forms a single-node cluster
@@ -168,15 +203,15 @@ services:
       - ./.data/esdata:/usr/share/elasticsearch/data
       # - certs:/usr/share/elasticsearch/config/certs
     ports:
-      - '9200:9200'
+      - 9200:9200
     networks:
       - app-network
 
   # localhost:5601
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.7.0
     # image: docker.elastic.co/kibana/kibana
     container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.8.0
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
@@ -190,9 +225,11 @@ services:
       - app-network
 
   keycloak:
-    command: start
-    image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    # command: start
+    command:
+      - start-dev --spi-event-listener-keycloak-custom-event-listener-enabled=true --spi-event-listener-keycloak-custom-event-listener=keycloak-custom
     volumes:
       - ./.data/keycloak:/opt/jboss/keycloak/standalone/data/
     ports:
@@ -204,12 +241,16 @@ services:
       # Credentials for admin account
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
-      # - KEYCLOAK_LOGLEVEL=DEBUG
+      - KEYCLOAK_LOGLEVEL=DEBUG
+      - KEYCLOAK_LOG_BOOTSTRAP=DEBUG
+      - KEYCLOAK_LOG_JBAS=DEBUG
       # - ROOT_LOGLEVEL=DEBUG
       # Credentials for storing into an external database
       - KC_DB=postgres
       - KC_DB_URL_HOST=postgres
       - KC_DB_URL_PORT=5432
+      - KC_HEALTH_ENABLED=true
+      - KC_METRICS_ENABLED=true
       # - KC_DB_URL_DATABASE=keycloak
       # - KC_DB_SCHEMA=keycloak
       - KC_DB_USERNAME=postgres
@@ -217,10 +258,15 @@ services:
       - KC_HTTP_ENABLED=true
       - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_HTTPS=false
+      - KAFKA_EVENTS_ENABLED=true
+      - KAFKA_BROKERS=kafka:9092
+      - KAFKA_TOPIC=keycloak-events
+      - KAFKA_EVENTS_LISTENERS=org.keycloak.services.event.listeners.AuditEventPersisterFactory
     # logging:
-    #   driver: journald
+    #   driver: journald # windows
     depends_on:
       - postgres
+      - kafka
     networks:
       - app-network
 
@@ -231,7 +277,6 @@ networks:
     ipam:
       driver: default
 
-# docker-compose up -d
 volumes:
   # certs:
   #   driver: local
@@ -239,3 +284,11 @@ volumes:
   #   driver: local
   eventstore-volume-data:
   eventstore-volume-logs:
+  # .data/mongo:
+  # .data/postgres:
+  # .data/pgadmin:
+  # .data/redis:
+  # .data/esdata:
+  # .data/keycloak:
+
+# docker-compose up -d

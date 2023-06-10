@@ -6,6 +6,7 @@
     ".czrc": true,
     ".data": true,
     ".etc": true,
+    ".docker": true,
     ".dockerignore": true,
     ".editorconfig": true,
     ".eslintignore": true,
@@ -16,7 +17,6 @@
     ".lintstagedrc.json": true,
     ".npmrc": true,
     ".nvmrc": true,
-    ".php_cs": true,
     ".prettierignore": true,
     ".prettierrc": true,
     ".tmp": true,
@@ -99,8 +99,8 @@
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  // "typescript.tsserver.log": "verbose",
-  // "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.tsserver.log": "verbose",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
   "dotenv.enableAutocloaking": false,
   "jest.autoRun": {
     "watch": false,
