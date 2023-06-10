@@ -1,6 +1,4 @@
-import { JoiSchema } from 'joi-class-decorators'
-
-import { Joi } from './index'
+import { Joi, JoiSchema } from './index'
 
 const field = Joi.string().trim().required()
 const operator = Joi.string().trim().required() // From enum

@@ -2,8 +2,6 @@ import * as joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
 
-export * from './JoiModule'
-
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
 }
@@ -56,6 +54,11 @@ const stringObjectExtension: joi.Extension = {
 //   }
 // }
 
+const Joi = joi.extend(
+  stringObjectExtension
+  //  numberObjectExtension
+) as ExtendedJoi
+
 export const JoiValidationGroups = {
   DEFAULT,
   CREATE: 'CREATE',
@@ -64,10 +67,10 @@ export const JoiValidationGroups = {
 
 // Convenient & consistency export
 export { DEFAULT }
+export * from './JoiModule'
+
 export const { CREATE } = JoiValidationGroups
 export const { UPDATE } = JoiValidationGroups
+export { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
 
-export const Joi = joi.extend(
-  stringObjectExtension
-  //  numberObjectExtension
-) as ExtendedJoi
+export { Joi }

@@ -1,4 +1,3 @@
-import { info } from '../../../../infrastructure/Logger'
 import { isNil, isString } from '../../../shared.utils'
 import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants'
 import { RouteParamtypes } from '../../enums'
@@ -56,7 +55,6 @@ function createRouteParamDecorator(paramtype: RouteParamtypes) {
 const createPipesRouteParamDecorator =
   (paramtype: RouteParamtypes) =>
   (data?: any, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
-  // eslint-disable-next-line complexity
   (target, key, index) => {
     if (!key) return
     const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
@@ -66,9 +64,9 @@ const createPipesRouteParamDecorator =
     const paramData = (hasParamData ? data : undefined) as string
     const paramPipes = hasParamData ? pipes : [data, ...pipes]
 
-    if (pipes.length) {
-      info(pipes)
-    }
+    // if (pipes.length) {
+    //   info(pipes)
+    // }
 
     if (!paramPipes.length && typeof types.at(index) === 'function') {
       if (types.at(index)?.name === 'Number') {
