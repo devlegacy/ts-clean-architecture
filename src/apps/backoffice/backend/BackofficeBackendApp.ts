@@ -1,4 +1,4 @@
-import config from '@/Contexts/Backoffice/Shared/infrastructure/config'
+import { config } from '@/Contexts/Backoffice/Shared/infrastructure'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
 

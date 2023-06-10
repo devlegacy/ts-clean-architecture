@@ -4,12 +4,19 @@ import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 import { existsSync } from 'fs'
 import { resolve } from 'path'
+import { cwd } from 'process'
 
-const envConfig = dotenv.config()
+const defaultPath = `${cwd()}/.backoffice.env`
+const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
+const envConfig = dotenv.config({
+  path,
+  debug: process.env.APP_DEBUG ? process.env.APP_DEBUG === 'true' : true,
+  override: true,
+})
 expand(envConfig)
 
 convict.addFormats(convict_format_with_validator)
-const backOfficeConfig = convict(
+const config = convict(
   {
     app: {
       host: {
@@ -174,20 +181,19 @@ const backOfficeConfig = convict(
         },
       },
     },
-  },
-  {
-    env: {
-      APP_PORT: '8086',
-      APP_ENV: process.env.APP_ENV || 'development',
-    },
   }
+  // {
+  //   env: {
+  //     APP_PORT: '8086',
+  //     APP_ENV: process.env.APP_ENV || 'development',
+  //   },
+  // }
 )
 
-const filePaths = [
-  resolve(`${__dirname}/default.json`),
-  resolve(`${__dirname}/${backOfficeConfig.get('app.env')}.json`),
-].filter((path) => existsSync(path))
+const filePaths = [resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${config.get('app.env')}.json`)].filter(
+  (path) => existsSync(path)
+)
 
-backOfficeConfig.loadFile(filePaths).validate()
+config.loadFile(filePaths).validate()
 
-export default backOfficeConfig
+export { config }

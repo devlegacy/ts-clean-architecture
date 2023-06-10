@@ -4,12 +4,19 @@ import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 import { existsSync } from 'fs'
 import { resolve } from 'path'
+import { cwd } from 'process'
 
-const envConfig = dotenv.config()
+const defaultPath = `${cwd()}/.mooc.env`
+const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
+const envConfig = dotenv.config({
+  path,
+  debug: process.env.APP_DEBUG === 'true',
+  override: true,
+})
 expand(envConfig)
 
 convict.addFormats(convict_format_with_validator)
-const moocConfig = convict(
+const config = convict(
   {
     app: {
       host: {
@@ -162,13 +169,13 @@ const moocConfig = convict(
         default: 1000,
       },
     },
-  },
-  {
-    env: {
-      APP_PORT: '8085',
-      APP_ENV: process.env.APP_ENV || 'development',
-    },
   }
+  // {
+  // env: {
+  // APP_PORT: '8085',
+  // APP_ENV: process.env.APP_ENV || 'development',
+  // },
+  // }
 )
 
 // env: {
@@ -178,11 +185,10 @@ const moocConfig = convict(
 //   env: undefined
 // }
 
-const filePaths = [
-  resolve(`${__dirname}/default.json`),
-  resolve(`${__dirname}/${moocConfig.get('app.env')}.json`),
-].filter((path) => existsSync(path))
+const filePaths = [resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${config.get('app.env')}.json`)].filter(
+  (path) => existsSync(path)
+)
 
-moocConfig.loadFile(filePaths).validate()
+config.loadFile(filePaths).validate()
 
-export default moocConfig
+export { config }

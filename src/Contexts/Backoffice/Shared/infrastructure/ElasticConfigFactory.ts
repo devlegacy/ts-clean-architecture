@@ -1,6 +1,6 @@
 import ElasticConfig from '@/Contexts/Shared/infrastructure/persistence/elasticsearch/ElasticConfig'
 
-import config from './config'
+import { config } from './config'
 
 export class ElasticConfigFactory {
   static createConfig(): ElasticConfig {

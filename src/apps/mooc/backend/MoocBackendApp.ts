@@ -1,4 +1,4 @@
-import config from '@/Contexts/Mooc/Shared/infrastructure'
+import { config } from '@/Contexts/Mooc/Shared/infrastructure'
 import { EventBus } from '@/Contexts/Shared/domain'
 import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
 
