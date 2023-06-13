@@ -4,8 +4,8 @@ import { RouteParamtypes } from '../../enums'
 import { PipeTransform } from '../../interfaces'
 
 class DefaultNumberTransformPipe {
-  transform(value: any) {
-    if (value === undefined || value === null) return value
+  transform(value: unknown) {
+    if (isNil(value)) return value
     return Number(value)
   }
 }

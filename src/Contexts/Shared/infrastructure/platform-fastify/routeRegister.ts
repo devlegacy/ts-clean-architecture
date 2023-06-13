@@ -174,33 +174,35 @@ const pipeBuilder = (
   }
 }
 
-const extractParams = (req: any, res: any, paramtype: number, data: ParamData | undefined) => {
+const extractParams = (
+  req: any,
+  res: any,
+  paramtype: number,
+  data: ParamData | undefined,
+  pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+) => {
   let routeParamValue: unknown
-  let pipeBuilderType: undefined | Paramtype
 
   if (paramtype === RouteParamtypes.REQUEST) {
     routeParamValue = req
   } else if (paramtype === RouteParamtypes.RESPONSE) {
     routeParamValue = res
   } else if (paramtype === RouteParamtypes.QUERY) {
-    pipeBuilderType = 'query'
+    pipeBuilder(req, 'query', data, pipes)
     // Extract a part of query
     routeParamValue = data ? req.query[`${data}`] : req.query
   } else if (paramtype === RouteParamtypes.PARAM) {
-    pipeBuilderType = 'params'
+    pipeBuilder(req, 'params', data, pipes)
     routeParamValue = data ? req.params[`${data}`] : req.params
   } else if (paramtype === RouteParamtypes.BODY) {
     routeParamValue = req.body
   } else if (paramtype === RouteParamtypes.HEADERS) {
-    pipeBuilderType = 'headers'
+    pipeBuilder(req, 'headers', data, pipes)
     // Extract a part of headers
     routeParamValue = data ? req.headers[`${data}`] : req.headers
   }
 
-  return {
-    pipeBuilderType,
-    routeParamValue,
-  }
+  return routeParamValue
 }
 
 const getParams = (
@@ -215,9 +217,8 @@ const getParams = (
     const [paramtype, index, key] = keyParam
     const { data, pipes } = params[`${key}`]
 
-    const { pipeBuilderType, routeParamValue } = extractParams(req, res, paramtype, data)
+    const routeParamValue = extractParams(req, res, paramtype, data, pipes)
 
-    if (pipeBuilderType) pipeBuilder(req, pipeBuilderType, data, pipes)
     routeParams[`${index}`] = routeParamValue
   }
 
