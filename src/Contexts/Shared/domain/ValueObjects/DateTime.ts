@@ -23,4 +23,8 @@ export class DateTime extends ValueObject<Date> {
     // return new DateTime(utcToZonedTime(parseISO(new Date().toISOString()), 'UTC'))
     return new DateTime(new Date())
   }
+
+  override toString(): string {
+    return this.value.toISOString()
+  }
 }

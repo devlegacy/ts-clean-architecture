@@ -5,7 +5,6 @@ import { isNil } from '../shared.utils'
 
 // // eslint-disable-next-line @typescript-eslint/ban-types
 // export type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint
-
 /**
  * @description  A small immutable object whose equality is not based on identity but purely on its attributes.
  * `ValueObjects` are objects that we determine their equality through their structural property.
@@ -22,7 +21,7 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | 
 
   constructor(value: T) {
     this.value = Object.freeze(value)
-    this.ensureValueIsDefined(value)
+    this.#ensureValueIsDefined(value)
   }
 
   equals(vo: ValueObject<T>) {
@@ -35,7 +34,7 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | 
     return this.value.toString()
   }
 
-  private ensureValueIsDefined(value: T) {
+  #ensureValueIsDefined(value: Optional<T>) {
     if (isNil(value)) throw new InvalidArgumentError('Value must be defined')
   }
 }
