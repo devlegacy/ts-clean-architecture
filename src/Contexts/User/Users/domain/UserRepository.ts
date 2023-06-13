@@ -10,7 +10,8 @@ export interface UserRepository {
   all: () => Promise<User[]>
   save: (user: User) => Promise<void>
   // header interface - coupling ❌ - leak de infrastructure (username: string) <-> (User[username]: string)
-  findByUserName: (username: string) => Promise<Nullable<User>> // TODO: Criteria pattern
+  findByUsername: (username: User['username']) => Promise<Nullable<User>> // TODO: Criteria pattern
+  findByEmail: (email: User['email']) => Promise<Nullable<User>> // TODO: Criteria pattern
   findById: (userId: string) => Promise<Nullable<User>> // TODO: Criteria pattern
   update: (user: User, userUpdate: User) => Promise<User>
   delete: (userId: string) => Promise<void>

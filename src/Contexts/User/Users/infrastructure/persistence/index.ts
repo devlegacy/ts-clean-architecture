@@ -1,2 +1,2 @@
-// export * from './InMemoryUserRepository'
-export * from './MongoUserRepository'
+export * from './InMemoryUserRepository'
+export * from './MikroOrmMongoUserRepository'

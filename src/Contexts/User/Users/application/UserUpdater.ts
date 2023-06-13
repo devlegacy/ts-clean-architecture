@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/user/modules/types'
 
-import { PrimitiveUser, User, UserFinder, UserRepository } from '../domain'
+import { User, UserFinder, UserPrimitiveType, UserRepository } from '../domain'
 
 /** UserUpdaterUseCase */
 @injectable()
@@ -13,7 +13,7 @@ export class UserUpdater {
     this.userFinder = new UserFinder(userRepository)
   }
 
-  async run(data: PrimitiveUser): Promise<User> {
+  async run(data: UserPrimitiveType): Promise<User> {
     const user = await this.userFinder.run(data.id)
     const update = User.fromPrimitives({
       ...user.toPrimitives(),

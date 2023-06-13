@@ -1,6 +1,6 @@
 import { StringValueObject } from '@/Contexts/Shared/domain'
 
-import { UserBadEntityError } from '../exception'
+import { UserBadEntityError } from '../Errors'
 
 export class UserUsername extends StringValueObject {
   constructor(value: string) {

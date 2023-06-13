@@ -2,7 +2,9 @@ import { inject, injectable } from 'tsyringe'
 
 import { TYPES } from '@/apps/user/modules/types'
 
-import { User, UserNotFoundError, UserRepository } from '.'
+import { UserNotFoundError } from './Errors'
+import { User } from './User'
+import { UserRepository } from './UserRepository'
 
 /**
  * Domain service

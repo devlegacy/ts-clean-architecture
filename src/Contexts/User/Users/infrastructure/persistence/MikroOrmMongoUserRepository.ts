@@ -3,10 +3,10 @@ import { ObjectId } from 'mongodb'
 
 import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
 
-import { User, UserRepository } from '../../domain'
+import { User, UserEmail, UserRepository } from '../../domain'
 import { UserEntity } from './mikroorm/mongo/UserEntity'
 
-export class MongoUserRepository extends MikroOrmMongoRepository<User> implements UserRepository {
+export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> implements UserRepository {
   async all(): Promise<User[]> {
     const repository = await this.repository()
 
@@ -45,11 +45,15 @@ export class MongoUserRepository extends MikroOrmMongoRepository<User> implement
     return user
   }
 
-  async findByUserName(username: string): Promise<Nullable<User>> {
+  async findByUsername(username: User['username']): Promise<Nullable<User>> {
     const repository = await this.repository()
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const user = await repository.findOne({ username }, { convertCustomTypes: false })
+    const user = await repository.findOne({ username }, { convertCustomTypes: true })
+    return user
+  }
+
+  async findByEmail(email: UserEmail): Promise<Nullable<User>> {
+    const repository = await this.repository()
+    const user = await repository.findOne({ email }, { convertCustomTypes: true })
     return user
   }
 

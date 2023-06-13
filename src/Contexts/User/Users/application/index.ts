@@ -1,3 +1,5 @@
+export * from './Register'
+export * from './UpdateEmail'
 export * from './UserCreator'
 export * from './UserDeleter'
 export * from './UserGetter'
