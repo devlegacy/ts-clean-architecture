@@ -172,6 +172,7 @@
   - 💡 it should use ubiquitous language not crud based thinking
     - it should avoid `[Create|Update|Delete]Course`
   - ✅ `CommandHandler<T>` should return `void` indicating a side effect
+  - mutaciones de estados
 - Query
   - Tipo de evento
   - Implement `service locator pattern` 1:1
@@ -179,6 +180,7 @@
   - ✅ `QueryBus` can instantiate in controllers
   - ✅ `QueryBus` can instantiate in use case
   - ✅ `QueryBus` can instantiate in command bus
+  - consultas
 - Events
   - Past tense (Course[Created])
   - Can't reject operations because it has happened
