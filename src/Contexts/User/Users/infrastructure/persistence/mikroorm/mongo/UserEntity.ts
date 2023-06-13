@@ -3,6 +3,7 @@ import { EntitySchema } from '@mikro-orm/core'
 import {
   beforeCreate,
   beforeUpdate,
+  beforeUpsert,
   onLoad,
   ValueObjectTransformer,
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
@@ -18,6 +19,7 @@ export const UserEntity = new EntitySchema<User>({
     onLoad: [onLoad],
     beforeCreate: [beforeCreate],
     beforeUpdate: [beforeUpdate],
+    beforeUpsert: [beforeUpsert],
   },
   properties: {
     _id: {

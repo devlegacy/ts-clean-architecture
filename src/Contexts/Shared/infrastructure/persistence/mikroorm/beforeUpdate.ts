@@ -1,7 +1,7 @@
 import { EventArgs } from '@mikro-orm/core'
 
 export const beforeUpdate = (args: EventArgs<any>) => {
-  console.log(args)
+  // console.log(args)
   // console.log(args.entity._id)
 
   // args.entity._id = args.entity.id

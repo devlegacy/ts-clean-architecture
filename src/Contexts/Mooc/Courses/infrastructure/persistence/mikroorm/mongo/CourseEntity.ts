@@ -11,6 +11,7 @@ import {
 
 import { Course, CourseDuration, CourseName } from '../../../../domain'
 
+// https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CourseEntity = new EntitySchema<Course>({
   // abstract: true,
   name: 'Course',
@@ -24,13 +25,15 @@ export const CourseEntity = new EntitySchema<Course>({
   },
   properties: {
     _id: {
-      type: 'ObjectId',
+      customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
+      // type: 'ObjectId',
       primary: true,
-      hidden: true,
+      // hidden: true,
     },
     id: {
-      // type: 'string',
-      customType: new ValueObjectTransformer(CourseId, 'string'),
+      type: 'string',
+      // customType: new ValueObjectTransformer(CourseId, 'string'),
+      // persist: false,
       serializedPrimaryKey: true,
     },
     name: {

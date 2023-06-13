@@ -11,7 +11,9 @@ export class ValueObjectTransformer {
 
   convertToDatabaseValue(value: ValueObject<any>, _platform: Platform) {
     if (this.type === 'ObjectId') {
-      return new ObjectId(value.value)
+      const objectId =
+        ObjectId.isValid(value.toString()) && value instanceof ObjectId ? value : new ObjectId(value.value)
+      return objectId
     } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
       return value.map((v) => new ObjectId(v.value))
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -25,7 +27,8 @@ export class ValueObjectTransformer {
 
   convertToJSValue(value: any, _platform: Platform) {
     if (this.type === 'ObjectId') {
-      return new this.ValueObject(value.toString())
+      const objectId = new this.ValueObject(value.toString())
+      return objectId
     } else if (this.type === 'ObjectId[]' && Array.isArray(value)) {
       return value.map((v) => new this.ValueObject(v.toString()))
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

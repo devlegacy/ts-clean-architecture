@@ -86,8 +86,10 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   }
 
   protected async persist(aggregateRoot: T): Promise<void> {
-    const repository = await this.repository()
-    const manager = repository.getEntityManager()
+    // const repository = await this.repository()
+    const client = await this.#client
+    const manager = client.em
+
     // const primitives = {
     //   _id: CourseId.random().toString(),
     //   ...aggregateRoot.toPrimitives()
@@ -98,20 +100,32 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     // repository.nativeInsert(aggregateRoot)
     // const primitives = aggregateRoot.toPrimitives()
 
-    // @ts-expect-error add value on run time, esto debería funcionar automaticamente con los hooks tal vez
-    if (!aggregateRoot._id) aggregateRoot._id = new ObjectId(aggregateRoot.id.value)
-    await manager.upsert(
-      this.entitySchema(),
-      aggregateRoot,
-      // {
-      //   ...primitives,
-      //   _id: primitives.id,
-      // },
-      {
-        // convertCustomTypes: true,
+    try {
+      // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez
+      if (!aggregateRoot._id || !(aggregateRoot._id instanceof ObjectId)) {
+        // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez
+        aggregateRoot._id = new ObjectId(aggregateRoot.id.value)
       }
-    )
-    // await manager.persistAndFlush(aggregateRoot)
+      // new CoursesCounterId(aggregateRoot.id.value)
+      // new ObjectId(aggregateRoot.id.value)
+      // { ...aggregateRoot.id }
+      await manager.upsert(
+        this.entitySchema(),
+        aggregateRoot,
+        // {
+        //   ...primitives,
+        //   _id: primitives.id,
+        // },
+        {
+          // convertCustomTypes: true,
+          //   upsert: true,
+        }
+      )
+      // await manager.persistAndFlush(aggregateRoot)
+      console.log(aggregateRoot)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   protected async matching(criteria: Criteria): Promise<T[]> {

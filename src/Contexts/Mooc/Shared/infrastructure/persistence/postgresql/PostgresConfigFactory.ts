@@ -1,6 +1,6 @@
 import { PostgresConfig } from '@/Contexts/Shared/infrastructure'
 
-import config from '../../config'
+import { config } from '../../config'
 
 const postgresConfig: PostgresConfig = {
   host: config.get('postgres.host'),

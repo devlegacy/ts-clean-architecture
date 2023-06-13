@@ -53,7 +53,8 @@ export abstract class MikroOrmMongoClientFactory {
       debug: true,
       validate: true,
       contextName,
-      // strict: false,
+      strict: true,
+      implicitTransactions: true, // defaults to false
       // driverOptions: {
       //   monitorCommands: true,
       // ignoreUndefined: true
@@ -61,6 +62,7 @@ export abstract class MikroOrmMongoClientFactory {
       // }
     }
     const client = await MikroORM.init<MongoDriver>(options, true)
+    await client.getSchemaGenerator().createSchema()
 
     return client
   }

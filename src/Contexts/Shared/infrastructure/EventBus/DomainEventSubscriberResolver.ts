@@ -14,7 +14,8 @@ import { DomainEvent, DomainEventSubscriber, DomainEventSubscribers, SHARED_TYPE
 // }
 
 export class DomainEventSubscriberResolver implements DomainEventSubscribers {
-  private constructor(readonly items: DomainEventSubscriber<DomainEvent>[]) {}
+  // cant be private for testing
+  constructor(readonly items: DomainEventSubscriber<DomainEvent>[]) {}
 
   static fromContainer(container: Container): DomainEventSubscribers {
     const subscribers = container

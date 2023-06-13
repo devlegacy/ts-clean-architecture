@@ -14,7 +14,7 @@ export class MikroOrmMongoCoursesCounterRepository
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const courseCounter = await repository.findOne({ total: { $exists: true } }, { convertCustomTypes: false })
+    const courseCounter = await repository.findOne({ total: { $exists: true } }, { convertCustomTypes: false }) // false because we are using a custom filter
     return courseCounter
   }
 

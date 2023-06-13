@@ -9,8 +9,9 @@ import {
   ValueObjectTransformer,
 } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
 
-import { CoursesCounter, CoursesCounterTotal } from '../../../../domain'
+import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '../../../../domain'
 
+// https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
   // abstract: true,
   name: 'CoursesCounter',
@@ -25,12 +26,15 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
   properties: {
     _id: {
       // customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
+      customType: new ValueObjectTransformer(CoursesCounterId, 'ObjectId'),
+      // type: 'ObjectId',
       primary: true,
-      type: 'ObjectId',
-      hidden: true,
+      // hidden: true,
     },
     id: {
-      customType: new ValueObjectTransformer(CourseId, 'string'),
+      type: 'string',
+      // customType: new ValueObjectTransformer(CoursesCounterId, 'string'),
+      // persist: false,
       serializedPrimaryKey: true,
     },
     total: {
