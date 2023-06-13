@@ -5,6 +5,8 @@
 - **Idempotencia**: 
 - **API**: Application Programming Interface
   - Conjunto de subrutinas, funciones y procedimientos (o métodos, en la programación orientada a objetos) que ofrece cierta biblioteca para ser utilizado por otro software como **capa de abstracción**
+  - Protocolo de comunicación de red (API HTTP)
+  - Cualquier cosa que expone un programa, puede ser en términos de comunicación de Red o una clase
 - **API RESTful**: Application Programming Interface REpresentational State Transfer
 - **Adapter**: El patrón adapter se utiliza para transformas una interfaz a otra, de tal modo que una clase que no pueda utilizar la primera haga uso de ella a través de la segunda
 - **endpoint**: El punto de entrada a un servicio. En una API HTTP correspondería a una URL.
@@ -103,7 +105,9 @@
 ## Leyes
 
 - Ley de Demeter
-- Ley de conwad
+  - No aceptes caramelos de desconocidos
+  - "solo habla con tus amigos cercanos" o "no hables con extraños"
+- Ley de Conway
   
 - Tell don't ask
 - ¿consideramos algoritmos infraestructura?

@@ -155,10 +155,11 @@
       - FileCourseRepository
       - MongoCourseRepository
       - CourseRepositoryMock
-- Uses case rules
+- Use cases rules
   - Naming Creator | Updater | Deleter | Incrementer 
   - It should instantiate `value objects` or `domain objects`
   - It should throw `Error` | `Exception`
+  - Orchestration layer (directs aggregate to repositories and busses)
 - 📥 Module rules 📏
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 - Commands

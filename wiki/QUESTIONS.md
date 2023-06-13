@@ -39,6 +39,7 @@ Opinion
 
 Cursos: 
 - API Gateway
+- Patron criteria avanzado
 - Como se manejan las relaciones en DDD 1-1 1-N N-N
 - Autentificación y autorización con DDD
 - Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
