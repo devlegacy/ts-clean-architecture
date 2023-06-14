@@ -3,7 +3,7 @@ import { Joi, JoiSchema, JoiSchemaOptions } from '@/Contexts/Shared/infrastructu
 @JoiSchemaOptions({
   allowUnknown: false,
 })
-export class IndexHeadersDto {
+export class IndexRequestHeadersSchema {
   @JoiSchema(Joi.string().trim().objectId().required())
   'x-context-user'!: string
 

@@ -10,7 +10,7 @@ const packageJson: Record<string, string> = require(resolve(cwd(), './package.js
 const options: Sentry.NodeOptions = {
   debug: true,
   environment: 'development',
-  dsn: '',
+  // dsn: '',
   release: packageJson.version,
   integrations: [
     // enable HTTP calls tracing

@@ -1,7 +1,7 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import * as joi from 'joi'
-import { getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
+import { DEFAULT, getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
 import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 
 import { HttpError, isFunction } from '@/Contexts/Shared/domain'
@@ -13,7 +13,7 @@ const defaultOptions: joi.ValidationOptions = {
   convert: true,
   cache: true,
   abortEarly: false,
-  debug: true,
+  // debug: true, // cause conflict with Joi.when and joi-class-decorator
   nonEnumerables: true,
   stripUnknown: true,
   errors: {
@@ -21,7 +21,13 @@ const defaultOptions: joi.ValidationOptions = {
   },
 }
 
-type SchemaMethodGroup = { group: JoiValidationGroup } | undefined
+type SchemaMethodGroup = { group: JoiValidationGroup }
+
+export const JoiValidationGroups = {
+  DEFAULT,
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+} as const
 
 export class JoiModule
   implements HttpValidationModule<joi.AnySchema, ((data: unknown) => joi.ValidationResult<any>) | void>
@@ -41,7 +47,7 @@ export class JoiModule
     // Is JOI
     const statusCode = HttpStatus.UNPROCESSABLE_ENTITY
     const response = new HttpError({
-      error: HttpStatus[+statusCode] ?? HttpStatus[422],
+      error: HttpStatus[statusCode],
       statusCode,
       message: err.message,
       path: req.raw.url,
@@ -60,27 +66,28 @@ export class JoiModule
     if (joi.isSchema(objectSchema)) return // Avoid transform if is already a Joi schema
     if (!this.#isJoiSchema(objectSchema)) return
 
-    const buildSchema = getClassSchema(objectSchema as Constructor, group)
-    if (!joi.isSchema(buildSchema)) return
+    const joiSchema = getClassSchema(objectSchema, group)
+    if (!joi.isSchema(joiSchema)) return
 
-    schema[`${key}`] = buildSchema as any
+    schema[`${key}`] = joiSchema satisfies unknown
   }
 
-  #getMethodGroup(group: RequestMethod): SchemaMethodGroup {
+  #getMethodGroup(group: RequestMethod): SchemaMethodGroup | undefined {
     if (group === RequestMethod.POST) {
-      return { group: 'CREATE' }
+      return { group: JoiValidationGroups.CREATE } as const
     } else if (group === RequestMethod.DELETE) {
-      return { group: 'DELETE' }
+      return { group: 'DELETE' } as const
     } else if ([RequestMethod.PUT, RequestMethod.PATCH].includes(group)) {
-      return { group: 'UPDATE' }
+      return { group: JoiValidationGroups.UPDATE } as const
     }
     return undefined
   }
 
-  #isJoiSchema(objectSchema: unknown) {
+  #isJoiSchema(objectSchema: unknown): objectSchema is Constructor<any> {
     if (!isFunction(objectSchema)) return false
     const metadata = Reflect.getMetadataKeys(objectSchema.prototype)
     const isJoiSchema = Array.isArray(metadata) && metadata[0] === SCHEMA_PROTO_KEY
+
     return isJoiSchema
   }
 

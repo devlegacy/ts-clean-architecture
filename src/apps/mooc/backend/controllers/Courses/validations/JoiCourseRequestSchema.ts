@@ -1,6 +1,6 @@
 import { Joi, JoiSchema } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
-export class JoiCourseRequestDto {
+export class JoiCourseRequestSchema {
   @JoiSchema(Joi.string().required())
   readonly id!: string
 

@@ -3,7 +3,7 @@ import { Joi, JoiSchema, JoiSchemaOptions } from '@/Contexts/Shared/infrastructu
 @JoiSchemaOptions({
   allowUnknown: false,
 })
-export class IndexQueryDto {
+export class IndexQueryRequestSchema {
   @JoiSchema(Joi.number().required())
   page!: number
 

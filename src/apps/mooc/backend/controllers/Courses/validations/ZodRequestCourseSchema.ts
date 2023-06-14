@@ -9,4 +9,4 @@ const Course = z.object({
   duration: z.string(),
 })
 
-export class ZodCourseDto extends createZodDto(Course) {}
+export class ZodRequestCourseSchema extends createZodDto(Course) {}

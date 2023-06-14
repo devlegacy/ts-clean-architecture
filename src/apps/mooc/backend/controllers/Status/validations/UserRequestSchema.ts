@@ -3,7 +3,7 @@ import { Joi, JoiSchema, JoiSchemaOptions } from '@/Contexts/Shared/infrastructu
 @JoiSchemaOptions({
   allowUnknown: false,
 })
-export class UserDto {
+export class UserRequestSchema {
   @JoiSchema(Joi.string().required())
   name!: string
 

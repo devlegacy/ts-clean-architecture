@@ -1,5 +1,7 @@
 import { CREATE, Joi, JoiSchema, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 
+const string = Joi.string().trim()
+const date = Joi.date()
 /**
  * NOTE: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
  * No validaciones de dominio
@@ -9,39 +11,23 @@ import { CREATE, Joi, JoiSchema, UPDATE } from '@/Contexts/Shared/infrastructure
  *
  * Restricciones de integridad de dominio vs Validaciones capa de transporte/peticiones/protocolo de comunicación
  */
-
 export class CourseRequestSchema {
-  @JoiSchema([CREATE], Joi.string().required())
-  @JoiSchema([UPDATE], Joi.string().required())
+  @JoiSchema([CREATE], string.required())
+  @JoiSchema([UPDATE], string.required())
   readonly id!: string
 
-  @JoiSchema([CREATE], Joi.string().required())
-  @JoiSchema([UPDATE], Joi.string().optional())
+  @JoiSchema([CREATE], string.required())
+  @JoiSchema([UPDATE], string.optional())
   readonly name!: string
 
-  @JoiSchema([CREATE], Joi.string().optional())
-  @JoiSchema([UPDATE], Joi.string().optional())
+  @JoiSchema([CREATE], string.optional())
+  @JoiSchema([UPDATE], string.optional())
   readonly duration?: string
 
-  @JoiSchema(
-    [CREATE],
-    Joi.date()
-      .optional()
-      .default(() => new Date())
-  )
+  @JoiSchema([CREATE], date.optional().default(() => new Date()))
   readonly createdAt!: Date
 
-  @JoiSchema(
-    [CREATE],
-    Joi.date()
-      .optional()
-      .default(() => new Date())
-  )
-  @JoiSchema(
-    [UPDATE],
-    Joi.date()
-      .optional()
-      .default(() => new Date())
-  )
+  @JoiSchema([CREATE], date.optional().default(() => new Date()))
+  @JoiSchema([UPDATE], date.optional().default(() => new Date()))
   readonly updatedAt!: Date
 }

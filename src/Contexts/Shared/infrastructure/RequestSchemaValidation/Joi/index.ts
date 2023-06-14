@@ -1,9 +1,14 @@
 import * as joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
+import { validate } from 'uuid'
+
+import { JoiValidationGroups } from './JoiModule'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
+  slug(): this
+  uuidv4(): this
 }
 
 // interface ExtendedNumberSchema<T = number> extends joi.NumberSchema<T> {
@@ -15,20 +20,50 @@ interface ExtendedJoi extends joi.Root {
   // number<T = number>(): ExtendedNumberSchema<T>
 }
 
+const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const stringObjectExtension: joi.Extension = {
   type: 'string',
   base: joi.string(),
   messages: {
-    'string.objectId': '{{#label}} must be a valid id',
+    'string.objectId': '{{#label}} must be a valid ID',
+    'string.slug': '{{#label}} must be a valid slug',
+    'string.uuidv4': '{{#label}} must be a valid ID',
   },
   rules: {
     objectId: {
       validate: (value: string, helpers) => {
         value = value.trim()
         if (!ObjectId.isValid(value)) {
-          return helpers.error('string.objectId')
+          return {
+            value,
+            errors: helpers.error('string.objectId'),
+          }
         }
 
+        return value
+      },
+    },
+    slug: {
+      validate: (value: string, helpers) => {
+        value = value.toLowerCase().trim()
+        if (!SLUG_REGEX.test(value)) {
+          return {
+            value,
+            errors: helpers.error('string.slug'),
+          }
+        }
+        return value
+      },
+    },
+    uuidv4: {
+      validate: (value: string, helpers) => {
+        value = value.trim()
+        if (!validate(value)) {
+          return {
+            value,
+            errors: helpers.error('string.uuidv4'),
+          }
+        }
         return value
       },
     },
@@ -58,12 +93,6 @@ const Joi = joi.extend(
   stringObjectExtension
   //  numberObjectExtension
 ) as ExtendedJoi
-
-export const JoiValidationGroups = {
-  DEFAULT,
-  CREATE: 'CREATE',
-  UPDATE: 'UPDATE',
-}
 
 // Convenient & consistency export
 export { DEFAULT }

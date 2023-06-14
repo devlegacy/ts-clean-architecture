@@ -5,6 +5,7 @@ import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Sh
 import { container } from '../modules'
 import { Server } from './Server'
 
+const rabbitMQConnection = container.get(RabbitMQConnection)
 export class MoocBackendApp {
   #server?: Server
 
@@ -19,7 +20,6 @@ export class MoocBackendApp {
   }
 
   async stop() {
-    const rabbitMQConnection = container.get(RabbitMQConnection)
     await rabbitMQConnection.close()
     this.#server?.stop()
   }
@@ -35,9 +35,8 @@ export class MoocBackendApp {
   }
 
   async #configureEventBus() {
-    const eventBus = container.get(EventBus)
-    const rabbitMQConnection = container.get(RabbitMQConnection)
     await rabbitMQConnection.connect()
+    const eventBus = container.get(EventBus)
     const subscribers = DomainEventSubscriberResolver.fromContainer(container)
     eventBus.addSubscribers(subscribers)
   }

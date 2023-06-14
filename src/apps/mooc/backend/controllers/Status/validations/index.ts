@@ -1,3 +1,3 @@
-export * from './IndexHeadersDto'
-export * from './IndexQueryDto'
-export * from './UserDto'
+export * from './IndexQueryRequestSchema'
+export * from './IndexRequestHeadersSchema'
+export * from './UserRequestSchema'

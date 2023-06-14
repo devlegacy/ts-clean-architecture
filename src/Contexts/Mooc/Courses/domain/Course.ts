@@ -41,8 +41,8 @@ export class Course extends AggregateRoot {
 
     const event = new CourseCreatedDomainEvent({
       aggregateId: id.value,
-      duration: duration?.value,
       name: name.value,
+      duration: duration?.value,
     })
 
     course.record(event)

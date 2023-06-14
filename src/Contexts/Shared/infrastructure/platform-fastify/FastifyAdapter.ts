@@ -135,8 +135,8 @@ export class FastifyAdapter {
     })
     // https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler
     this.#instance.setErrorHandler((err: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-      let statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR
       this.#monitoring?.capture(err, { req })
+      let statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR
       const errorHandlers = [...this.validations, ...this.errorHandlers]
       for (const m of errorHandlers) {
         if (res.sent) break

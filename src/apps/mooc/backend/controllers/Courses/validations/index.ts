@@ -1,3 +1,3 @@
 export * from './CourseRequestSchema'
-export * from './JoiCourseRequestDto'
-export * from './JoiCoursesRequestDto'
+export * from './JoiCourseRequestSchema'
+export * from './JoiCoursesRequestSchema'

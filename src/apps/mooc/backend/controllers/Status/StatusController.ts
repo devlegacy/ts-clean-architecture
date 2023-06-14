@@ -1,4 +1,4 @@
-import { ZodCourseDto } from '@/apps/mooc/backend/controllers/Courses/validations/ZodCourseDto'
+import { ZodRequestCourseSchema } from '@/apps/mooc/backend/controllers/Courses/validations/ZodRequestCourseSchema'
 import {
   Body,
   Controller,
@@ -19,8 +19,10 @@ import {
 } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/Pipes'
 
-import { JoiCourseRequestDto, JoiCoursesRequestDto } from '../Courses/validations'
-import { IndexHeadersDto, IndexQueryDto, UserDto } from './validations'
+import { JoiCourseRequestSchema, JoiCoursesRequestSchema } from '../Courses/validations'
+import { IndexQueryRequestSchema, IndexRequestHeadersSchema, UserRequestSchema } from './validations'
+
+// Los controllers regresan promesas<any> sin excepciones, los errores se propagan hasta el Server que instancia los controllers
 
 @Controller('status')
 export class StatusController {
@@ -41,17 +43,17 @@ export class StatusController {
   }
 
   @Post('joi')
-  joi(@Body() course: JoiCourseRequestDto) {
+  joi(@Body() course: JoiCourseRequestSchema) {
     return course
   }
 
   @Post('joi/array')
-  joiArray(@Body() courses: JoiCoursesRequestDto) {
+  joiArray(@Body() courses: JoiCoursesRequestSchema) {
     return courses
   }
 
   @Post('zod')
-  zod(@Body() course: ZodCourseDto) {
+  zod(@Body() course: ZodRequestCourseSchema) {
     return course
   }
 
@@ -60,10 +62,10 @@ export class StatusController {
   params(
     @Req() req: Request,
     @Res() res: Response,
-    @Query() query: IndexQueryDto,
+    @Query() query: IndexQueryRequestSchema,
     @Param() params: Record<string, unknown>,
-    @Body() body: UserDto,
-    @Headers() headers: IndexHeadersDto
+    @Body() body: UserRequestSchema,
+    @Headers() headers: IndexRequestHeadersSchema
   ) {
     const hostname = req.hostname ?? 'no hostname'
 
