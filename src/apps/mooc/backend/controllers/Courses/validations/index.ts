@@ -1,3 +1,5 @@
 export * from './CourseRequestSchema'
+export * from './CourseSchema'
 export * from './JoiCourseRequestSchema'
 export * from './JoiCoursesRequestSchema'
+export * from './ZodRequestCourseSchema'
