@@ -1,9 +1,9 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
-import HttpStatus from 'http-status'
 import { ZodError, ZodObject } from 'zod'
 
 import { HttpError } from '@/Contexts/Shared/domain'
+import { HttpStatus } from '@/Contexts/Shared/domain/Common'
 
 import { HttpValidationModule } from '../../platform-fastify'
 import { isZodDto } from '.'

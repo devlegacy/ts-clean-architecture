@@ -11,10 +11,11 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
 
   // @Catch()
   async handle(command: CreateCourseCommand): Promise<void> {
+    const duration = !isUndefined(command.duration) ? new CourseDuration(command.duration) : undefined
     const request = {
       id: new CourseId(command.id),
       name: new CourseName(command.name),
-      duration: !isUndefined(command.duration) ? new CourseDuration(command.duration) : undefined,
+      duration,
     }
     await this.creator.run(request)
   }

@@ -1,6 +1,5 @@
-import HttpStatus from 'http-status'
-
 import { METHOD_METADATA, SCHEMA_METADATA } from '../../constants'
+import { HttpStatus } from '../../enums'
 
 type SchemaType = {
   body?: unknown

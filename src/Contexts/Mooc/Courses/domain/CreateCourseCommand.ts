@@ -2,7 +2,8 @@ import { Command } from '@/Contexts/Shared/domain'
 
 import { CoursePrimitiveType } from './Course'
 
-type Params = CoursePrimitiveType
+// alt CommandRequest
+type Request = CoursePrimitiveType
 
 // Immutable
 export class CreateCourseCommand extends Command {
@@ -10,7 +11,7 @@ export class CreateCourseCommand extends Command {
   readonly name: string
   readonly duration?: string
 
-  constructor({ id, name, duration }: Params) {
+  constructor({ id, name, duration }: Request) {
     super()
     this.id = id
     this.name = name

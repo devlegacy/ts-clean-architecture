@@ -1,12 +1,11 @@
 import cluster from 'cluster'
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
-import HttpStatus from 'http-status'
 import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 
-import { Paramtype } from '@/Contexts/Shared/domain/Common'
+import { HttpStatus, Paramtype } from '@/Contexts/Shared/domain/Common'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { isConstructor, normalizePath } from '../../domain'
@@ -167,8 +166,8 @@ const pipeBuilder = (
 
   for (const pipe of pipes) {
     const reqType: any = req[`${type}`]
-    if (!isConstructor(pipe) || !reqType) continue
-    reqType[`${data}`] = new (pipe as Constructor<PipeTransform>)().transform(reqType[`${data}`], {
+    if (!isConstructor<PipeTransform>(pipe) || !reqType) continue
+    reqType[`${data}`] = new pipe().transform(reqType[`${data}`], {
       type,
     })
   }
