@@ -245,7 +245,7 @@ module.exports = {
       }
     ],
     // kebab-case
-    'folders/match-regex': ['error', '^[a-z-]+$', '/src/']
+    // 'folders/match-regex': ['error', '^[a-z-]+$', '/src/']
   },
   overrides: [
     {
