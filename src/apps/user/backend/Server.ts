@@ -24,7 +24,7 @@ export class Server {
     await this.#adapter.bootstrap({
       controller: resolve(__dirname, './controllers'),
       resolver: TsyringeControllerResolver,
-      isProduction: false,
+      // isProduction: false,
       // prefix: '/api/'
     })
 

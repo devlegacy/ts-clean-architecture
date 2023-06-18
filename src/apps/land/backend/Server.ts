@@ -22,7 +22,7 @@ import { TAGS } from '../modules/tags'
 type Options = {
   port?: number
   host?: string
-  env?: string // 'production' | 'development' | 'staging' | 'test'
+  env?: 'production' | 'development' | 'staging' | 'test'
   debug?: boolean
   name?: string
 }
@@ -85,10 +85,10 @@ export class Server {
   async listen() {
     this.setup()
     await this.#adapter.bootstrap({
-      container,
-      controller: container.findTaggedServiceIdentifiers(TAGS.Controller),
-      resolver: DiodControllerResolver,
-      isProduction: this.#options?.env === 'production',
+      // container,
+      controller: container.findTaggedServiceIdentifiers(TAGS.Controller) as Class<unknown>[],
+      resolver: DiodControllerResolver(container),
+      // isProduction: this.#options?.env === 'production',
     })
     await this.#adapter.listen(this.#options ?? {})
   }

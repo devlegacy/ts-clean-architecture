@@ -20,7 +20,7 @@ const userMutations = {
       name,
     }
 
-    await userCreator.run(user)
+    await userCreator.run(user as any)
 
     return user
   },

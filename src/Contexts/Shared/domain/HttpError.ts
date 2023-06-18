@@ -1,9 +1,9 @@
 export class HttpError {
   readonly statusCode: number
   readonly error: string
-  readonly message: string
+  readonly message?: string
   readonly path?: string
-  readonly code: string | number
+  readonly code?: string | number
   readonly stack?: string
   readonly errors?: any
   constructor({
@@ -17,9 +17,9 @@ export class HttpError {
   }: {
     statusCode: number
     error: string
-    message: string
+    message?: string
     path?: string
-    code: string | number
+    code?: string | number
     stack?: string
     errors?: any
   }) {

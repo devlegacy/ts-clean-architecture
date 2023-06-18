@@ -8,7 +8,7 @@ import { cwd } from 'process'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
-const defaultPath = `${cwd()}/.mooc.env`
+const defaultPath = `../../../../../../.mooc.env`
 const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
 const envConfig = dotenv.config({
   path,

@@ -37,12 +37,12 @@ const run = async () => {
   // })
 
   // Consuming
-  await consumer.connect()
   await consumer.subscribe({
     topic: /^fulfillment\.public./,
     // topic: 'fulfillment.public.blocks',
     fromBeginning: true,
   })
+  await consumer.connect()
 
   await consumer.run({
     eachMessage: async ({ topic: _, partition, message }) => {

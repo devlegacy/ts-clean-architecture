@@ -64,7 +64,7 @@ export class UserController {
       await this.userUpdater.run({
         id: userId,
         ...req.body,
-      })
+      } as any)
     ).toPrimitives()
 
     return user

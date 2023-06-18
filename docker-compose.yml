@@ -226,11 +226,22 @@ services:
 
   keycloak:
     container_name: keycloak
-    image: quay.io/keycloak/keycloak:latest
+    # image: quay.io/keycloak/keycloak:latest
+    image: quay.io/phasetwo/phasetwo-keycloak:latest
     # command: start
     command:
-      - start-dev --spi-event-listener-keycloak-custom-event-listener-enabled=true --spi-event-listener-keycloak-custom-event-listener=keycloak-custom
+      - start-dev
+      - --spi-event-listener-keycloak-custom-event-listener-enabled=true
+      - --spi-event-listener-keycloak-custom-event-listener=keycloak-custom
+      - --spi-theme-static-max-age=-1
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+      - --features="preview,docker"
+      # - -Dkeycloak.profile.feature.upload_scripts=enabled
+      # - -Dkeycloak.profile.feature.docker=enabled
     volumes:
+      # - ./.data/keycloak/themes:/opt/jboss/keycloak/themes
+      # - ./.data/keycloak/config:/opt/jboss/keycloak/standalone/configuration
       - ./.data/keycloak:/opt/jboss/keycloak/standalone/data/
     ports:
       # HOST:CONTAINER
@@ -262,11 +273,12 @@ services:
       - KAFKA_BROKERS=kafka:9092
       - KAFKA_TOPIC=keycloak-events
       - KAFKA_EVENTS_LISTENERS=org.keycloak.services.event.listeners.AuditEventPersisterFactory
+      - KEYCLOAK_EVENTS_ENABLED=true
     # logging:
     #   driver: journald # windows
     depends_on:
       - postgres
-      - kafka
+      # - kafka
     networks:
       - app-network
 

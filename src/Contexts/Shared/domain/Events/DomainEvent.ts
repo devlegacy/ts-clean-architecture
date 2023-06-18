@@ -46,9 +46,8 @@ export abstract class DomainEvent {
   // tag event name: AsyncAPI compliant, it should use action on past
   static EVENT_NAME: string
   static fromPrimitives: (
-    props:
-      | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
-      | DomainEventPrimitivesWithAttributes<any>
+    data: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
+    DomainEventPrimitivesWithAttributes<any>
   ) => DomainEvent
   // static fromPrimitives: (props: any) => DomainEvent
   // static fromPrimitives: (props: {
@@ -65,8 +64,8 @@ export abstract class DomainEvent {
 
   // DEBT: props vs ctx vs params
   // The event name is needed just here!
-  constructor(props: DomainEventPrimitives<{ eventName: string }>) {
-    const { aggregateId, eventName, eventId, occurredOn } = props
+  constructor(data: DomainEventPrimitives<{ eventName: string }>) {
+    const { aggregateId, eventName, eventId, occurredOn } = data
     this.eventId = eventId || Uuid.random().value || ObjectId.random().value
     this.occurredOn = occurredOn || new Date()
 
@@ -77,11 +76,11 @@ export abstract class DomainEvent {
   abstract toPrimitives(): DomainEventAttributes
 }
 
-// DEBT: Complexity
+// DEBT: Complexity by "type erasure"
 export type DomainEventClass = {
   EVENT_NAME: string
   fromPrimitives(
-    props: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
+    data: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
     DomainEventPrimitivesWithAttributes<any>
   ): DomainEvent
   // fromPrimitives(props: any): DomainEvent

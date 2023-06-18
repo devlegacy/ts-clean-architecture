@@ -22,7 +22,10 @@ export class BankBackendApp {
     //   name: config.get('app.name'),
     //   port: config.get('app.port'),
     // }
-    this.#server = new Server(config.get('app'))
+    this.#server = new Server({
+      ...config.get('app'),
+      ...config.get('http'),
+    })
 
     await this.#server.listen()
   }

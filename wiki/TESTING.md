@@ -1,5 +1,10 @@
 # Testing
 
+## Mocks
+
+- Doblan en tiempo de test, elementos de infraestructura, estrategia para no acoplarnos a una implementación en concreto.
+- No asumir costos de entrada y salida en momento de tests. 
+
 ## ATDD
 
 ![ATDD](./atdd.jpg)

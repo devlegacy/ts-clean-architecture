@@ -15,6 +15,11 @@ Alternatives
 - https://www.okta.com/
 - https://aws.amazon.com/es/cognito/
 
+## Docs
+
+- https://www.keycloak.org/docs/latest/server_admin/
+- https://www.keycloak.org/docs-api/21.1.1/rest-api/index.html#_users_resource
+
 ## Core concepts
 
 - https://developers.redhat.com/blog/2019/12/11/keycloak-core-concepts-of-open-source-identity-and-access-management#core_concepts

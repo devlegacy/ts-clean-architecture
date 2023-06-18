@@ -12,6 +12,7 @@ import { DomainEvent } from './Events/DomainEvent'
 export abstract class AggregateRoot {
   // serializer and communicate with infrastructure
   static fromPrimitives: (...args: any) => AggregateRoot
+  // DEBT: por alguna razón si lo hago privado # los test se rompen
   private _domainEvents: DomainEvent[] = []
 
   get domainEvents() {

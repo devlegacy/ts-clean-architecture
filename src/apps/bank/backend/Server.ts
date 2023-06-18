@@ -15,7 +15,7 @@ import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidat
 type Options = {
   port?: number
   host?: string
-  env?: string // 'production' | 'development' | 'staging' | 'test'
+  env?: 'production' | 'development' | 'staging' | 'test'
   debug?: boolean
   name?: string
 }
@@ -41,7 +41,7 @@ export class Server {
     await this.#adapter.bootstrap({
       controller: resolve(__dirname, './'),
       resolver: TsyringeControllerResolver,
-      isProduction: this.#options?.env === 'production',
+      // isProduction: this.#options?.env === 'production',
     })
 
     this.#adapter

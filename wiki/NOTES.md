@@ -19,8 +19,8 @@
 ├─ 📂 `coverage/`     
 ├─ 📂 `dist/` Código para producción (debería ser lo único en el contenedor)     
 ├─ 📂 `src/` Código a transpilar para producción, ayuda a configurar tsconfig, simplicidad     
-│  ├─ 📂 `Contexts/` Bounded Contexts 🗃 - Organizational estructure - Mínimo conocimiento de TypeScript     
-│  │  ├─ 📂 `Mooc/` 🚀 Bounded Context   
+│  ├─ 📂 `Contexts/` Bounded Contexts 🗃 - Organizational estructures - Mínimo conocimiento de TypeScript     
+│  │  ├─ 📂 `Mooc/` 🚀 Bounded Context - Team | Organizational estructure - Unique database    
 │  │  │  ├─ 📂 `Videos/` 📥 Module - Cohesion - ¿Quién eres y qué tipo? - Evitamos clases huérfanas    
 │  │  │  ├─ 📂 `Courses/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  │  ├─ 📂 `application/` - ¿De qué tipo? (UserRegister, UserRemover)   
@@ -106,6 +106,8 @@
 ├─ 📂 `types/`      
 
 ### Notes
+
+- Los niveles de indirección/encapsulación (layers, use case, repository, command|query bus), añaden complejidad accidental.
 
 - Aggregates
   - it shouldn't contain async/await functions (indicates I/O)
@@ -499,3 +501,9 @@ Pino
 
 ---
 https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design
+---
+
+- [x] Facebook
+- [x] Banner 3 dimensiones (escritorio, table, smartphone)
+- [ ] (pendiente) Mensaje a destacar
+- 

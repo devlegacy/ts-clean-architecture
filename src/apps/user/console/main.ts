@@ -29,11 +29,11 @@ const bootstrap = async () => {
   const userRepository = container.resolve<UserRepository>(TYPES.UserRepository)
   const userCreator = new UserCreator(userRepository)
 
-  await userCreator.run(userDto)
+  await userCreator.run(userDto as any)
   info(userDto)
 
   try {
-    await userCreator.run(userDto)
+    await userCreator.run(userDto as any)
   } catch (e) {
     if (e instanceof UserAlreadyExistsError) {
       error(e)

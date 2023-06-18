@@ -22,7 +22,10 @@ export class LandBackendApp {
 
   async startHttp() {
     // const conf = config.get('app')
-    this.#server = new Server(config.get('app'))
+    this.#server = new Server({
+      ...config.get('app'),
+      ...config.get('http'),
+    })
     await this.#server.listen()
   }
 

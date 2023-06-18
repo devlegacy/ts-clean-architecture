@@ -10,19 +10,6 @@ const landConfig = convict({
   //   env: 'NODE_ENV',
   // } as const,
   app: {
-    host: {
-      doc: 'The IP address to bind.',
-      // format: 'ipaddress',
-      default: '0.0.0.0',
-      env: 'APP_HOST',
-    },
-    port: {
-      doc: 'The port to bind.',
-      format: 'port',
-      default: 8088,
-      env: 'APP_PORT',
-      arg: 'port',
-    },
     debug: {
       doc: 'The application debug mode.',
       format: [true, false],
@@ -38,8 +25,23 @@ const landConfig = convict({
     env: {
       doc: 'The application environment.',
       format: ['production', 'development', 'staging', 'test'],
-      default: 'development',
+      default: 'development' as 'production' | 'development' | 'staging' | 'test',
       env: 'APP_ENV',
+    },
+  },
+  http: {
+    host: {
+      doc: 'The IP address to bind.',
+      // format: 'ipaddress',
+      default: '0.0.0.0',
+      env: 'APP_HOST',
+    },
+    port: {
+      doc: 'The port to bind.',
+      format: 'port',
+      default: 8088,
+      env: 'APP_PORT',
+      arg: 'port',
     },
   },
   log: {
