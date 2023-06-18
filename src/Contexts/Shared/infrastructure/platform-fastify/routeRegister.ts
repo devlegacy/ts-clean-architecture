@@ -5,7 +5,7 @@ import { cpus } from 'os'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 
-import { HttpStatus, Paramtype } from '@/Contexts/Shared/domain/Common'
+import { ControllerResolver, HttpStatus, Paramtype } from '@/Contexts/Shared/domain/Common'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { isConstructor, normalizePath } from '../../domain'
@@ -22,7 +22,6 @@ import {
   RouteParamtypes,
   SCHEMA_METADATA,
 } from '../../domain/Common'
-import { ControllerResolver } from '../Common'
 import { Primary } from './cluster'
 import { FastifyAdapter } from './FastifyAdapter'
 import { HttpValidationModule } from './interfaces'
@@ -39,10 +38,10 @@ type Route = {
 
 type RouteRegisterProps = {
   controller: string | Class<unknown>[]
-  isProduction: boolean
+  resolver: ControllerResolver
+  // isProduction: boolean
   prefix?: string
-  resolver?: ControllerResolver
-  container?: any
+  // container?: any
 }
 
 const availableCpus = cpus().length
@@ -88,9 +87,8 @@ const getControllers = async (path = './src') => {
   return controllers
 }
 
-// DEBT: how to extract container from here
-const getControllerMetadata = (controller: any, resolver?: ControllerResolver, container?: any) => {
-  const instance = resolver ? resolver(controller, container) : new controller()
+const getControllerMetadata = (controller: Class<unknown>, resolver: ControllerResolver) => {
+  const instance = resolver(controller)
   const {
     // has controller path by metadata
     // has arguments by method name and metadata
@@ -248,7 +246,7 @@ const buildSchemaWithParams = (
   schema: { schema: FastifySchema; code: number },
   method: RequestMethod,
   args: (() => unknown)[] = [],
-  validations: HttpValidationModule<any>[] = []
+  validations: HttpValidationModule<unknown>[] = []
 ): void => {
   if (Object.keys(schema.schema).length > 0) {
     // schema.schema = getSchema(schema.schema, method, validations)
@@ -280,8 +278,7 @@ const buildSchemaWithParams = (
 const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown>, props: RouteRegisterProps) => {
   const { instance, instanceConstructor, instancePrototype, classMethodNames, controllerPath } = getControllerMetadata(
     controller,
-    props.resolver,
-    props.container
+    props.resolver
   )
   for (const methodName of classMethodNames) {
     if (methodName === 'constructor') continue // ignore constructor method reflect metadata
@@ -300,7 +297,7 @@ const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown
       buildSchemaWithParams(params, schema, requestMethod, args, adapterInstance.validations)
     }
 
-    const route = {
+    const route: Route = {
       method: RequestMethod[`${requestMethod}`] as HTTPMethods,
       schema: !Object.keys(schema?.schema || {}).length ? undefined : schema.schema,
       url: getRoutePathUrl(props.prefix ?? '', controllerPath, routePath),
@@ -309,7 +306,7 @@ const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown
       instance,
       methodName,
     }
-    clusterServer(adapterInstance.app, route, props.isProduction)
+    clusterServer(adapterInstance.app, route)
   }
 }
 
@@ -385,7 +382,6 @@ export const routeRegister = async (adapterInstance: FastifyAdapter, props: Rout
   // const controllerContainer = container.createChildContainer()
   const controllers = Array.isArray(props.controller) ? props.controller : await getControllers(props.controller)
   for (const controller of controllers) {
-    if (!props.resolver) continue
     routeBuilder(adapterInstance, controller, props)
   }
 }

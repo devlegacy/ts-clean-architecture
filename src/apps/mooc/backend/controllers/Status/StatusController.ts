@@ -1,3 +1,4 @@
+import { config } from '@/Contexts/Mooc/Shared/infrastructure'
 import {
   Body,
   Controller,
@@ -29,6 +30,13 @@ export class StatusController {
   @Get()
   index() {
     return {}
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('config')
+  config() {
+    const properties = config.getProperties()
+    return properties
   }
 
   @Post('joi/pipe/:mongoId')

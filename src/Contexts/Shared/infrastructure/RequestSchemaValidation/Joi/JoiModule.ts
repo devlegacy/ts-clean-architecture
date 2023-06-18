@@ -1,8 +1,8 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
 import * as joi from 'joi'
-import { DEFAULT, getClassSchema, JoiValidationGroup } from 'joi-class-decorators'
-import { Constructor, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
+import { DEFAULT, getClassSchema } from 'joi-class-decorators'
+import { Constructor, JoiValidationGroup, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
 
 import { HttpError, isFunction } from '@/Contexts/Shared/domain'
 import { HttpStatus, RequestMethod } from '@/Contexts/Shared/domain/Common'
@@ -21,8 +21,6 @@ const defaultOptions: joi.ValidationOptions = {
   },
 }
 
-type SchemaMethodGroup = { group: JoiValidationGroup }
-
 export const JoiValidationGroups = {
   DEFAULT,
   CREATE: 'CREATE',
@@ -30,7 +28,7 @@ export const JoiValidationGroups = {
 } as const
 
 export class JoiModule
-  implements HttpValidationModule<joi.AnySchema, ((data: unknown) => joi.ValidationResult<any>) | void>
+  implements HttpValidationModule<joi.AnySchema, ((data: unknown) => joi.ValidationResult<unknown>) | void>
 {
   validationCompiler({ schema }: FastifyRouteSchemaDef<joi.AnySchema>) {
     if (!schema) return
@@ -72,7 +70,7 @@ export class JoiModule
     schema[`${key}`] = joiSchema satisfies unknown
   }
 
-  #getMethodGroup(group: RequestMethod): SchemaMethodGroup | undefined {
+  #getMethodGroup(group: RequestMethod): { group: JoiValidationGroup } | undefined {
     if (group === RequestMethod.POST) {
       return { group: JoiValidationGroups.CREATE } as const
     } else if (group === RequestMethod.DELETE) {
@@ -83,10 +81,10 @@ export class JoiModule
     return undefined
   }
 
-  #isJoiSchema(objectSchema: unknown): objectSchema is Constructor<any> {
+  #isJoiSchema(objectSchema: unknown): objectSchema is Constructor<unknown> {
     if (!isFunction(objectSchema)) return false
     const metadata = Reflect.getMetadataKeys(objectSchema.prototype)
-    const isJoiSchema = Array.isArray(metadata) && metadata[0] === SCHEMA_PROTO_KEY
+    const isJoiSchema = Array.isArray(metadata) && metadata.at(0) === SCHEMA_PROTO_KEY
 
     return isJoiSchema
   }

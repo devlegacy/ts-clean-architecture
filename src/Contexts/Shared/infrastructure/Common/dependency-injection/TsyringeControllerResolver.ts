@@ -1,8 +1,8 @@
 import { container, injectable, Lifecycle } from 'tsyringe'
 
-import { ControllerResolver } from './index'
+import { ControllerResolver } from '@/Contexts/Shared/domain/Common'
 
-export const TsyringeControllerResolver: ControllerResolver = (controller) => {
+export const TsyringeControllerResolver: ControllerResolver = (controller: Class<unknown>) => {
   const { name } = controller
   if (!container.isRegistered(name)) {
     injectable()(controller)

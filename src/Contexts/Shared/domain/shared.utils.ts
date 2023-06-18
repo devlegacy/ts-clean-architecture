@@ -10,3 +10,6 @@ export const normalizePath = (path?: string): string =>
       ? `/${path.replace(/\/+$/, '')}`.replace(/\/+/g, '/')
       : `/${path.replace(/\/+$/, '')}`
     : '/'
+
+export const isProduction = (env?: 'production' | 'development' | 'staging' | 'test') =>
+  (env ?? process.env.APP_ENV) === 'production'

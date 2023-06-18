@@ -1,6 +1,8 @@
 {
   "app": {
-    "name": "Mooc Backend App",
+    "name": "MOOC Backend App"
+  },
+  "http": {
     "port": 8085
   },
   "rabbitmq": {

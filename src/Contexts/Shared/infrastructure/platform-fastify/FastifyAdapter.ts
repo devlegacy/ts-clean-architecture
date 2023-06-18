@@ -16,8 +16,7 @@ import Fastify, {
 import { AddressInfo } from 'net'
 
 import { HttpError, Monitoring } from '../../domain'
-import { HttpStatus } from '../../domain/Common'
-import { ControllerResolver } from '../Common'
+import { ControllerResolver, HttpStatus } from '../../domain/Common'
 import { HttpErrorHandler, HttpValidationModule } from './interfaces'
 import { routeRegister } from './routeRegister'
 
@@ -111,13 +110,7 @@ export class FastifyAdapter {
     return this
   }
 
-  async bootstrap(props: {
-    controller: string | any[]
-    isProduction: boolean
-    prefix?: string
-    resolver?: ControllerResolver
-    container?: any
-  }) {
+  async bootstrap(props: { controller: string | Class<unknown>[]; resolver: ControllerResolver; prefix?: string }) {
     this.#instance.setValidatorCompiler<unknown>((schemaDefinition) => {
       for (const m of this.validations) {
         if (m.validationCompiler(schemaDefinition)) {
@@ -132,6 +125,16 @@ export class FastifyAdapter {
       //   m?.schemaErrorFormatter(errors)
       // }
       return new Error('')
+    })
+    this.#instance.setNotFoundHandler((req, res) => {
+      const response = new HttpError({
+        statusCode: 404,
+        error: HttpStatus[404] ?? HttpStatus[404],
+        path: `Route ${req.raw.method}:${req.raw.url}`,
+      })
+      this.#monitoring?.capture(new Error(HttpStatus[404]), { req })
+
+      res.status(404).send(response)
     })
     // https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler
     this.#instance.setErrorHandler((err: FastifyError, req: FastifyRequest, res: FastifyReply) => {
@@ -156,7 +159,7 @@ export class FastifyAdapter {
         error: HttpStatus[+statusCode] ?? HttpStatus[500],
         // GeneralRequestValidation[errorHandler]: Unhandled error
         message: `${err.message}`,
-        path: req.raw.url,
+        path: `Route ${req.raw.method}:${req.raw.url}`,
         code: err.code,
         stack: err.stack,
       })
@@ -184,7 +187,7 @@ export class FastifyAdapter {
     debug?: boolean
     port?: number
     host?: string
-    env?: string
+    env?: 'production' | 'development' | 'staging' | 'test'
     name?: string
   }) {
     await this.#instance.listen({

@@ -7,7 +7,7 @@ export interface LogMessageRecord {
 export type LogMessage = LogMessageRecord | Error | string
 export type LogMethod = (message: LogMessage) => void
 
-export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug'
+export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 
 export abstract class Logger<T = unknown> {
   abstract info: LogMethod

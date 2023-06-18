@@ -6,12 +6,14 @@ import { container } from '../modules'
 import { Server } from './Server'
 
 const rabbitMQConnection = container.get(RabbitMQConnection)
+
+// Backend App - API - Coordinator (http server, subscribers)
 export class MoocBackendApp {
   #server?: Server
 
   get httpServer() {
-    const server = this.#server?.httpServer
-    return server
+    const httpServer = this.#server?.httpServer
+    return httpServer
   }
 
   async start() {
@@ -25,8 +27,11 @@ export class MoocBackendApp {
   }
 
   async #startHttp() {
-    const conf = config.get('app')
-    this.#server = new Server(conf)
+    const options = {
+      ...config.get('app'),
+      ...config.get('http'),
+    }
+    this.#server = new Server(options)
     await this.#server.listen()
   }
 

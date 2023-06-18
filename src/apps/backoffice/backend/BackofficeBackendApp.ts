@@ -5,6 +5,8 @@ import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Sh
 import { container } from '../modules'
 import { Server } from './Server'
 
+const rabbitMQConnection = container.get(RabbitMQConnection)
+
 export class BackofficeBackendApp {
   #server?: Server
 
@@ -19,14 +21,16 @@ export class BackofficeBackendApp {
   }
 
   async stop() {
-    const rabbitMQConnection = container.get(RabbitMQConnection)
     await rabbitMQConnection.close()
     this.#server?.stop()
   }
 
   async #startHttp() {
-    const conf = config.get('app')
-    this.#server = new Server(conf)
+    const options = {
+      ...config.get('app'),
+      ...config.get('http'),
+    }
+    this.#server = new Server(options)
     await this.#server.listen()
   }
 
@@ -35,9 +39,8 @@ export class BackofficeBackendApp {
   }
 
   async #configureEventBus() {
-    const eventBus = container.get(EventBus)
-    const rabbitMQConnection = container.get(RabbitMQConnection)
     await rabbitMQConnection.connect()
+    const eventBus = container.get(EventBus)
     const subscribers = DomainEventSubscriberResolver.fromContainer(container)
     eventBus.addSubscribers(subscribers)
   }

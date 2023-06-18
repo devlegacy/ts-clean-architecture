@@ -23,7 +23,7 @@ import { TAGS } from '../modules/tags'
 type Options = {
   port?: number
   host?: string
-  env?: string // 'production' | 'development' | 'staging' | 'test'
+  env?: 'production' | 'development' | 'staging' | 'test'
   debug?: boolean
   name?: string
 }
@@ -46,8 +46,10 @@ export class Server {
     this.#options = options
 
     this.#adapter.enableCors()
+    if (!(this.#options?.env === 'test')) {
+      this.#adapter.setMonitoringModule(monitoring)
+    }
     this.#adapter
-      .setMonitoringModule(monitoring)
       .setValidationModule(new JoiModule())
       .setValidationModule(new ZodModule())
       .setErrorHandler(new DefaultHttpErrorHandler())
@@ -56,87 +58,86 @@ export class Server {
   // eslint-disable-next-line max-lines-per-function
   async listen() {
     await this.#adapter.bootstrap({
-      container,
-      controller: container.findTaggedServiceIdentifiers(TAGS.Controller),
-      resolver: DiodControllerResolver,
-      isProduction: this.#options?.env === 'production',
+      controller: container.findTaggedServiceIdentifiers(TAGS.Controller) as Class<unknown>[],
+      resolver: DiodControllerResolver(container),
     })
-    this.#adapter
-      .register(fastifyFormBody as any, { parser: (str: string) => qs.parse(str) })
-      .register(fastifyQs)
-      .register(fastifyHelmet)
-      .register(fastifyRateLimit)
-    // .register(fastifySwagger, {
-    //   swagger: {
-    //     info: {
-    //       title: 'Title...',
-    //       description: `Description`,
-    //       version: '0.0.1',
-    //     },
-    //     externalDocs: {
-    //       url: 'https://swagger.io',
-    //       description: 'Find more info here',
-    //     },
-    //     host: 'localhost',
-    //     schemes: ['http'],
-    //     consumes: ['application/json', 'multipart/form-data'],
-    //     produces: ['application/json'],
-    //     tags: [],
-    //   },
-    //   transform: ({ schema, url }) => {
-    //     const {
-    //       // params = undefined,
-    //       // body = undefined,
-    //       // querystring = undefined,
-    //       // headers = undefined,
-    //       // response = undefined,
-    //       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    //       ...transformedSchema
-    //     } = schema ?? {}
-    //     console.log(transformedSchema)
-    //     // const schema: any = { ...others }
-    //     // if (params) schema.params = Joi2Json(params)
-    //     // if (body) schema.body = Joi2Json(body)
-    //     // if (querystring) schema.querystring = Joi2Json(querystring)
-    //     // if (headers) schema.headers = Joi2Json(headers)
-    //     //  if (response) transformedSchema.response = convert(response)
-    //     // transformedSchema = {} as any
-    //     // (transformedSchema as unknown as JSONObject) ??
-    //     return {
-    //       schema: {} satisfies JSONObject, // satisfies
-    //       url,
-    //     }
-    //   },
-    // })
-    // .register(fastifySwaggerUi, {
-    //   routePrefix: '/documentation',
-    //   uiConfig: {
-    //     docExpansion: 'full', // expand/not all the documentations none|list|full
-    //     deepLinking: true,
-    //   },
-    //   uiHooks: {
-    //     onRequest(request, reply, next) {
-    //       next()
-    //     },
-    //     preHandler(request, reply, next) {
-    //       next()
-    //     },
-    //   },
-    //   staticCSP: true,
-    //   transformStaticCSP: (header) => header,
-    //   transformSpecification: (swaggerObject: any, _request: any, _reply: any): any => {
-    //     return swaggerObject
-    //   },
-    //   transformSpecificationClone: true,
-    // })
+    if (!(this.#options?.env === 'test')) {
+      this.#adapter
+        .register(fastifyFormBody as any, { parser: (str: string) => qs.parse(str) })
+        .register(fastifyQs)
+        .register(fastifyHelmet)
+        .register(fastifyRateLimit)
+      // .register(fastifySwagger, {
+      //   swagger: {
+      //     info: {
+      //       title: 'Title...',
+      //       description: `Description`,
+      //       version: '0.0.1',
+      //     },
+      //     externalDocs: {
+      //       url: 'https://swagger.io',
+      //       description: 'Find more info here',
+      //     },
+      //     host: 'localhost',
+      //     schemes: ['http'],
+      //     consumes: ['application/json', 'multipart/form-data'],
+      //     produces: ['application/json'],
+      //     tags: [],
+      //   },
+      //   transform: ({ schema, url }) => {
+      //     const {
+      //       // params = undefined,
+      //       // body = undefined,
+      //       // querystring = undefined,
+      //       // headers = undefined,
+      //       // response = undefined,
+      //       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      //       ...transformedSchema
+      //     } = schema ?? {}
+      //     console.log(transformedSchema)
+      //     // const schema: any = { ...others }
+      //     // if (params) schema.params = Joi2Json(params)
+      //     // if (body) schema.body = Joi2Json(body)
+      //     // if (querystring) schema.querystring = Joi2Json(querystring)
+      //     // if (headers) schema.headers = Joi2Json(headers)
+      //     //  if (response) transformedSchema.response = convert(response)
+      //     // transformedSchema = {} as any
+      //     // (transformedSchema as unknown as JSONObject) ??
+      //     return {
+      //       schema: {} satisfies JSONObject, // satisfies
+      //       url,
+      //     }
+      //   },
+      // })
+      // .register(fastifySwaggerUi, {
+      //   routePrefix: '/documentation',
+      //   uiConfig: {
+      //     docExpansion: 'full', // expand/not all the documentations none|list|full
+      //     deepLinking: true,
+      //   },
+      //   uiHooks: {
+      //     onRequest(request, reply, next) {
+      //       next()
+      //     },
+      //     preHandler(request, reply, next) {
+      //       next()
+      //     },
+      //   },
+      //   staticCSP: true,
+      //   transformStaticCSP: (header) => header,
+      //   transformSpecification: (swaggerObject: any, _request: any, _reply: any): any => {
+      //     return swaggerObject
+      //   },
+      //   transformSpecificationClone: true,
+      // })
 
-    // await this.#adapter.app.ready()
-    // this.#adapter.app.swagger()
+      // await this.#adapter.app.ready()
+      // this.#adapter.app.swagger()
 
-    // this.#adapter.app.ready(() => {
-    //   this.#adapter.app.swagger()
-    // })
-
+      // this.#adapter.app.ready(() => {
+      //   this.#adapter.app.swagger()
+      // })
+    }
     this.#httpServer = await this.#adapter.listen(this.#options ?? {})
   }
 

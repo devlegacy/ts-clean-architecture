@@ -20,10 +20,11 @@ import { TAGS } from '../modules/tags'
 type Options = {
   port?: number
   host?: string
-  env?: string // 'production' | 'development' | 'staging' | 'test'
+  env?: 'production' | 'development' | 'staging' | 'test'
   debug?: boolean
   name?: string
 }
+
 const { logger } = container.get<Logger<PinoLoggerType>>(Logger)
 const monitoring = container.get(Monitoring)
 
@@ -40,26 +41,28 @@ export class Server {
     this.#options = options
 
     this.#adapter.enableCors()
-    this.#adapter
-      .setMonitoringModule(monitoring)
-      .setValidationModule(new JoiModule())
-      .setErrorHandler(new DefaultHttpErrorHandler())
+    if (!(this.#options?.env === 'test')) {
+      this.#adapter
+        .setMonitoringModule(monitoring)
+        .setValidationModule(new JoiModule())
+        .setErrorHandler(new DefaultHttpErrorHandler())
+    }
+    this.#adapter.setValidationModule(new JoiModule()).setErrorHandler(new DefaultHttpErrorHandler())
   }
 
   async listen() {
     await this.#adapter.bootstrap({
-      container,
-      controller: container.findTaggedServiceIdentifiers(TAGS.Controller),
-      resolver: DiodControllerResolver,
-      isProduction: this.#options?.env === 'production',
+      controller: container.findTaggedServiceIdentifiers(TAGS.Controller) as Class<unknown>[],
+      resolver: DiodControllerResolver(container),
     })
 
-    this.#adapter
-      .register(fastifyFormBody as any, { parser: (str: string) => qs.parse(str) })
-      .register(fastifyQs)
-      .register(fastifyHelmet)
-      .register(fastifyRateLimit)
-
+    if (!(this.#options?.env === 'test')) {
+      this.#adapter
+        .register(fastifyFormBody as any, { parser: (str: string) => qs.parse(str) })
+        .register(fastifyQs)
+        .register(fastifyHelmet)
+        .register(fastifyRateLimit)
+    }
     this.#httpServer = await this.#adapter.listen(this.#options ?? {})
   }
 

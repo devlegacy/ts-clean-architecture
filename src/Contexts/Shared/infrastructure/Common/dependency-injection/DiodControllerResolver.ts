@@ -1,7 +1,11 @@
-import { ControllerResolver } from './index'
+import { Container } from 'diod'
 
-export const DiodControllerResolver: ControllerResolver = (controller, container) => {
-  const instance = container.get(controller)
+import { ControllerResolver } from '@/Contexts/Shared/domain/Common'
 
-  return instance
-}
+export const DiodControllerResolver =
+  (container: Container): ControllerResolver =>
+  (controller: Class<unknown>) => {
+    const instance = container.get(controller) ?? new controller()
+
+    return instance
+  }
