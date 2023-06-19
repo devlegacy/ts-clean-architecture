@@ -65,9 +65,9 @@ jobs:
       - name: Set up Postgres - Create additional Postgres databases
         run: |
           export PGPASSWORD=$POSTGRES_PASSWORD
-          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc;"
-          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test;"
-          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test2;"
+          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc;" PGPASSWORD=password
+          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test;" PGPASSWORD=password
+          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test2;" PGPASSWORD=password
         # --owner=testuser
       - name: npm install
         run: |
