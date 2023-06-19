@@ -15,6 +15,8 @@ jobs:
       matrix:
         node-version: [16.x,18.x] # current versions + next versions o prepare future migrations
         mongodb-version: ['6.0']
+        elasticsearch-version: ['8.8.0']
+        rabbitmq-version: ['3.12.0-management-alpine']
 
     steps:
       # https://github.com/actions/setup-node
@@ -24,14 +26,31 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       # https://github.com/supercharge/mongodb-github-action
-      - name: Start MongoDB
+      - name: Start|Launch MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
+        # uses: wbari/start-mongoDB@v0.2
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
       - name: Start RabbitMQ
-        uses: namoshek/rabbitmq-github-action@v1
+        # uses: namoshek/rabbitmq-github-action@v1
+        uses: nijel/rabbitmq-action@v1.0.0
         with:
-          version: 'latest'
+          version: ${{ matrix.rabbitmq-version }}
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - name: Launch elasticsearch
+        uses: getong/elasticsearch-action@v1.2
+        with:
+          elasticsearch version: ${{ matrix.elasticsearch-version }}
+          host port: 9200
+          container port: 9200
+          host node port: 9300
+          node port: 9300
+          discovery type: 'single-node'
       - name: npm install
         run: |
           npm install
