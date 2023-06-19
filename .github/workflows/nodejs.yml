@@ -62,11 +62,11 @@ jobs:
           host node port: 9300
           node port: 9300
           discovery type: 'single-node'
-      - name: Create additional Postgres databases
+      - name: Set up Postgres - Create additional Postgres databases
         run: |
-          sudo -u postgres createdb "mooc" PGPASSWORD=password
-          sudo -u postgres createdb "mooc-test" PGPASSWORD=password
-          sudo -u postgres createdb "mooc-test2" PGPASSWORD=password
+          psql -h localhost -U postgres -c "CREATE DATABASE mooc;"
+          psql -h localhost -U postgres -c "CREATE DATABASE mooc-test;"
+          psql -h localhost -U postgres -c "CREATE DATABASE mooc-test2;"
         # --owner=testuser
       - name: npm install
         run: |
