@@ -64,9 +64,9 @@ jobs:
           discovery type: 'single-node'
       - name: Set up Postgres - Create additional Postgres databases
         run: |
-          psql -h localhost -U postgres -c "CREATE DATABASE mooc;"
-          psql -h localhost -U postgres -c "CREATE DATABASE mooc-test;"
-          psql -h localhost -U postgres -c "CREATE DATABASE mooc-test2;"
+          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc;"
+          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test;"
+          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test2;"
         # --owner=testuser
       - name: npm install
         run: |
