@@ -14,18 +14,24 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x,18.x] # current versions + next versions o prepare future migrations
-        mongodb-version: ['5.0']
+        mongodb-version: ['6.0']
 
     steps:
-      - uses: actions/checkout@v1
+      # https://github.com/actions/setup-node
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      # https://github.com/supercharge/mongodb-github-action
       - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.7.0
+        uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
+      - name: Start RabbitMQ
+        uses: namoshek/rabbitmq-github-action@v1
+        with:
+          version: 'latest'
       - name: npm install
         run: |
           npm install
