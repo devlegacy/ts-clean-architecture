@@ -7,6 +7,18 @@ on:
     branches: [master]
 
 jobs:
+  setup-postgres:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up PostgreSQL
+        uses: postgresql/actions/setup-postgres@v1
+        with:
+          postgresql-version: '15'  # Especifica la versión de PostgreSQL que deseas utilizar
+          # postgresql-host: ${{ secrets.POSTGRES_HOST }}  # Utiliza las credenciales almacenadas en GitHub Secrets
+          # postgresql-port: ${{ secrets.POSTGRES_PORT }}
+          postgresql-username: postgres
+          postgresql-password: postgres
+          postgresql-databases: mooc,mooc-test,mooc-test2
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
