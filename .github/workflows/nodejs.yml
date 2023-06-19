@@ -70,13 +70,16 @@ jobs:
           host node port: 9300
           node port: 9300
           discovery type: 'single-node'
-      - name: Set up Postgres - Create additional Postgres databases
+      - name: Start PostgreSQL on Ubuntu
         run: |
           sudo systemctl start postgresql.service
           pg_isready
-          psql -c "CREATE DATABASE mooc;" -U postgres
-          psql -c "CREATE DATABASE mooc-test;" -U postgres
-          psql -c "CREATE DATABASE mooc-test2;" -U postgres
+      - name: Set up Postgres - Create additional Postgres databases
+        run: |
+          sudo -u postgres createdb mooc
+        # psql -c "CREATE DATABASE mooc;" -U postgres
+        # psql -c "CREATE DATABASE mooc-test;" -U postgres
+        # psql -c "CREATE DATABASE mooc-test2;" -U postgres
         # --owner=testuser
         #  PGPASSWORD=postgres
         # -h localhost -d postgres  PGPASSWORD=postgres
