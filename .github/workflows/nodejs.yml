@@ -64,11 +64,15 @@ jobs:
           discovery type: 'single-node'
       - name: Set up Postgres - Create additional Postgres databases
         run: |
-          export PGPASSWORD=$POSTGRES_PASSWORD
-          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc;" PGPASSWORD=postgres
-          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test;" PGPASSWORD=postgres
-          psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mooc-test2;" PGPASSWORD=postgres
+
+          psql -c "CREATE DATABASE mooc;" -U postgres
+          psql -c "CREATE DATABASE mooc-test;" -U postgres
+          psql -c "CREATE DATABASE mooc-test2;" -U postgres
         # --owner=testuser
+        #  PGPASSWORD=postgres
+        # -h localhost -d postgres  PGPASSWORD=postgres
+        # -h localhost -d postgres
+        # -h localhost -d postgres
       - name: npm install
         run: |
           npm install
