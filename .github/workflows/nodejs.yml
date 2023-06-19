@@ -72,6 +72,8 @@ jobs:
           discovery type: 'single-node'
       - name: Set up Postgres - Create additional Postgres databases
         run: |
+          sudo systemctl start postgresql.service
+          pg_isready
           psql -c "CREATE DATABASE mooc;" -U postgres
           psql -c "CREATE DATABASE mooc-test;" -U postgres
           psql -c "CREATE DATABASE mooc-test2;" -U postgres
