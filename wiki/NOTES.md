@@ -241,6 +241,7 @@
   - prettier
 - Message broker
   - RabbitMQ
+  - Kafka
 - External services and integrations
   - Sentry
   - Postman
@@ -259,6 +260,11 @@
   - Fastify
   - MongoDB
   - TypeScript
+- Error handler
+  - [Server attach handler](../src/apps/mooc/backend/main.ts#L10)
+  - [Fastify](../src/Contexts/Shared/infrastructure/platform-fastify/FastifyAdapter.ts#L141)
+  - [General | On async (unhandled | uncaught)](../src/Contexts/Shared/infrastructure/FatalErrorHandler.ts#L8)
+
 - Arquitectura a nivel infraestructura
   - Microservicios
 - Arquitectura a nivel código
@@ -502,8 +508,3 @@ Pino
 ---
 https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design
 ---
-
-- [x] Facebook
-- [x] Banner 3 dimensiones (escritorio, table, smartphone)
-- [ ] (pendiente) Mensaje a destacar
-- 

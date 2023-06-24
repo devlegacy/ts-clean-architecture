@@ -1,5 +1,9 @@
 # 🐰 RabbitMQ
 
+- Broker de mensajería
+- Protocolo amqp
+- Política de enviar al menos una vez
+  - Pueden ocurrir mensajes duplicados
 - https://www.cloudamqp.com/plans.html
 - http://localhost:15672/
   - guest

@@ -35,13 +35,14 @@ Opinion
 - Mejorar UI/UX de la plataforma
   - Reproductor responsive a pantalla completa
 - Precios contemplando regiones
-- Transcripciones
+- Transcripciones y añadir closed captions ayudaría mucho
 
 Cursos: 
-- API Gateway
-- Patron criteria avanzado
-- Como se manejan las relaciones en DDD 1-1 1-N N-N
+- API Gateway con DDD
+- Patron criteria/specification avanzado
+- Control de actualizaciones atómicas en DDD y en agregados con relaciones
+- Control de las relaciones en DDD 1-1 1-N N-N
 - Autentificación y autorización con DDD
 - Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
-- Documentación de eventos y arquitectura que entregue valor a la empresa y al equipo
-- Convict, MongoDB
+- Documentación de eventos y arquitectura, que entregue valor a la empresa y al equipo, flujos de event storming
+- Convict, MongoDB avanzado y monitoring
