@@ -1,11 +1,10 @@
-// import { v4 } from 'uuid'
-// import validate from 'uuid-validate'
-
+// Consideramos algoritmos infraestructura?
 import { ObjectId as ObjectID } from 'mongodb'
 
 import { InvalidArgumentError } from '../Errors'
 import { ValueObject } from './ValueObject'
 
+// contener contaminación lo más que se pueda
 export class ObjectId extends ValueObject<string> {
   // Inherited
   // readonly value: string
@@ -14,7 +13,7 @@ export class ObjectId extends ValueObject<string> {
     // this.isValid(value)
     // this.value = value
     super(value)
-    this.isValidObjectId(value)
+    this.#isValidObjectId(value)
   }
 
   // Debería devolver valores en string
@@ -23,7 +22,7 @@ export class ObjectId extends ValueObject<string> {
     // return new Uuid(v4())
   }
 
-  private isValidObjectId(id: string) {
+  #isValidObjectId(id: string) {
     // if (!validate(id)) {
     if (!ObjectID.isValid(id)) {
       throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${id}>`)

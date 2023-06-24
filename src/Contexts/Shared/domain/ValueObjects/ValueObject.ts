@@ -18,7 +18,8 @@ import { isNil } from '../shared.utils'
  */
 export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | null>> {
   readonly value: T
-
+  // https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties
+  // constructor(readonly value: T) {
   constructor(value: T) {
     this.value = Object.freeze(value)
     this.#ensureValueIsDefined(value)
@@ -35,6 +36,6 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | 
   }
 
   #ensureValueIsDefined(value: Optional<T>) {
-    if (isNil(value)) throw new InvalidArgumentError('Value must be defined')
+    if (isNil(value)) throw new InvalidArgumentError(`Value of <${this.constructor.name}> must be defined`)
   }
 }

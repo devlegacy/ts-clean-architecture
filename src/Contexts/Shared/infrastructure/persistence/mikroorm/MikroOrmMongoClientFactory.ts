@@ -6,9 +6,13 @@ import { info } from '../../Logger'
 import { MongoConfig } from '../mongo/MongoConfig'
 
 export abstract class MikroOrmMongoClientFactory {
-  static #clients: Record<string, MikroORM<MongoDriver>> = {}
+  static readonly #clients: Record<string, MikroORM<MongoDriver>> = {}
 
-  static async createClient(contextName: string, config: MongoConfig, contextPath?: string) {
+  static async createClient(
+    contextName: string,
+    config: MongoConfig,
+    contextPath?: string
+  ): Promise<MikroORM<MongoDriver>> {
     let client = MikroOrmMongoClientFactory.#getClient(contextName)
     if (!client) {
       client = await MikroOrmMongoClientFactory.#createAndConnectClient(contextName, config, contextPath)

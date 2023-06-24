@@ -26,6 +26,8 @@ describe('CourseCreator', () => {
     const domainEvent = CourseCreatedDomainEventMother.fromCourse(course)
 
     // await creator.run(request)
+    // Promise<void> | it means a side effect
+    // Paso de mensaje y colaboración
     await creator.run({
       id: new CourseId(request.id),
       name: new CourseName(request.name),

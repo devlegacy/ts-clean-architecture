@@ -2,6 +2,7 @@ import { Service } from 'diod'
 
 import { DomainError, Logger, Monitoring } from '../domain'
 
+// DEBT: Domain (?)
 @Service()
 export class FatalErrorHandler {
   constructor(private readonly logger: Logger, private readonly monitoring?: Monitoring) {}

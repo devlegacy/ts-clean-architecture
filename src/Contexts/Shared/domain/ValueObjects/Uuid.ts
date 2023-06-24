@@ -1,3 +1,4 @@
+// Consideramos algoritmos infraestructura?
 import { v4, validate, version } from 'uuid'
 
 // import { ObjectId } from 'mongodb'
@@ -14,7 +15,7 @@ export class Uuid extends ValueObject<string> {
     // this.isValid(value)
     // this.value = value
     super(value)
-    this.ensureIsValidUuid(value)
+    this.#ensureIsValidUuid(value)
   }
 
   // Debería devolver valores en string
@@ -26,10 +27,11 @@ export class Uuid extends ValueObject<string> {
   // void -> efecto colateral
   // clausula de guarda
   // early return
-  private ensureIsValidUuid(value: string) {
+  #ensureIsValidUuid(value: string): void {
     // if (!ObjectId.isValid(id)) {
-    if (!(validate(value) || version(value) === 4))
-      throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${value}>`)
+    if (!(validate(value) || version(value) === 4)) {
+      throw new InvalidArgumentError(`<${this.constructor.name}> doesn't allow the value <${value}>`)
+    }
   }
 
   // Inherited

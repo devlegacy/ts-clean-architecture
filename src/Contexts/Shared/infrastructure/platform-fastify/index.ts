@@ -1,4 +1,3 @@
-export * from './Exception'
 export * from './FastifyAdapter'
 export * from './interfaces'
 export * from './routeRegister'

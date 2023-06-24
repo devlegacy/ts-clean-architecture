@@ -28,10 +28,10 @@ const options: Sentry.NodeOptions = {
 export class SentryModule implements Monitoring {
   #options: Sentry.NodeOptions
 
-  constructor(config?: { options?: Sentry.NodeOptions }) {
+  constructor(config?: Sentry.NodeOptions) {
     this.#options = {
       ...options,
-      ...config?.options,
+      ...config,
     }
 
     Sentry.init(this.#options)

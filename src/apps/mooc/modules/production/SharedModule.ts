@@ -9,7 +9,18 @@ import {
   RabbitMQEventBusFactory,
   SentryConfigFactory,
 } from '@/Contexts/Mooc/Shared/infrastructure'
-import { CommandBus, EventBus, Logger, Monitoring, QueryBus } from '@/Contexts/Shared/domain'
+import {
+  Command,
+  CommandBus,
+  CommandHandler,
+  EventBus,
+  Logger,
+  Monitoring,
+  Query,
+  QueryBus,
+  QueryHandler,
+  Response,
+} from '@/Contexts/Shared/domain'
 import {
   CommandHandlers,
   FatalErrorHandler,
@@ -60,26 +71,29 @@ export const SharedModule = (builder: ContainerBuilder) => {
   builder
     .register(CommandBus)
     .useFactory((container) => {
-      const commands = ((container.findTaggedServiceIdentifiers(TAGS.CommandHandler) as any[]) ?? []).map(
+      const commands = (container.findTaggedServiceIdentifiers<CommandHandler<Command>>(TAGS.CommandHandler) ?? []).map(
         (identifier) => container.get(identifier)
       )
 
-      const handler = new CommandHandlers(commands as any[])
-      return new InMemoryCommandBus(handler)
+      const handlers = new CommandHandlers(commands)
+      const bus = new InMemoryCommandBus(handlers)
+      return bus
     })
     .asSingleton()
   builder
     .register(QueryBus)
     .useFactory((container) => {
-      const queries = ((container.findTaggedServiceIdentifiers(TAGS.QueryHandler) as any[]) ?? []).map((identifier) =>
-        container.get(identifier)
-      )
-      const handler = new QueryHandlers(queries as any[])
-      return new InMemoryQueryBus(handler)
+      const queries = (
+        container.findTaggedServiceIdentifiers<QueryHandler<Query, Response>>(TAGS.QueryHandler) ?? []
+      ).map((identifier) => container.get(identifier))
+
+      const handlers = new QueryHandlers(queries)
+      const bus = new InMemoryQueryBus(handlers)
+      return bus
     })
     .asSingleton()
   builder.register(Monitoring).useFactory(() => {
-    const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+    const monitoring = new SentryModule(SentryConfigFactory.createConfig())
 
     return monitoring
   })

@@ -4,6 +4,7 @@ import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
 
 import { CourseMother } from '../../domain'
 
+// Por qué lo importamos a través del inyector?
 const repository = container.get(CourseRepository)
 const arranger = container.get(EnvironmentArranger)
 
@@ -22,6 +23,7 @@ describe('CourseRepository', () => {
     it('should save a course', async () => {
       expect.assertions(0)
 
+      // no news (errors!) then good news
       const course = CourseMother.random()
       await repository.save(course)
     })

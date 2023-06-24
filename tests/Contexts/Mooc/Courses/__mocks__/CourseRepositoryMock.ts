@@ -2,12 +2,13 @@ import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain'
 import { Criteria } from '@/Contexts/Shared/domain'
 
 export class CourseRepositoryMock implements CourseRepository {
+  // One var mock for each method
   #saveMock: jest.Mock<ReturnType<typeof CourseRepositoryMock.prototype.save>, Course[], CourseRepositoryMock>
   #searchAllMock: jest.Mock<ReturnType<typeof CourseRepositoryMock.prototype.all>, Course[], CourseRepositoryMock>
   #courses: Course[] = []
 
   constructor() {
-    this.#saveMock = jest.fn()
+    this.#saveMock = jest.fn() // Spy
     this.#searchAllMock = jest.fn()
   }
 
@@ -25,6 +26,7 @@ export class CourseRepositoryMock implements CourseRepository {
   }
 
   async save(course: Course): Promise<void> {
+    // register a call to saveMock method
     this.#saveMock(course)
   }
 
@@ -40,6 +42,7 @@ export class CourseRepositoryMock implements CourseRepository {
   }
 
   assertSaveHaveBeenCalledWith(expected: Course): void {
+    // mock
     expect(this.#saveMock).toHaveBeenCalledWith(expected)
   }
 

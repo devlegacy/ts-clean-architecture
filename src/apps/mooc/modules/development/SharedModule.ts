@@ -80,8 +80,9 @@ export const SharedModule = (builder: ContainerBuilder) => {
         (identifier) => container.get(identifier)
       )
 
-      const handler = new CommandHandlers(commands)
-      return new InMemoryCommandBus(handler)
+      const handlers = new CommandHandlers(commands)
+      const bus = new InMemoryCommandBus(handlers)
+      return bus
     })
     .asSingleton()
   builder
@@ -91,12 +92,13 @@ export const SharedModule = (builder: ContainerBuilder) => {
         container.findTaggedServiceIdentifiers<QueryHandler<Query, Response>>(TAGS.QueryHandler) ?? []
       ).map((identifier) => container.get(identifier))
 
-      const handler = new QueryHandlers(queries)
-      return new InMemoryQueryBus(handler)
+      const handlers = new QueryHandlers(queries)
+      const bus = new InMemoryQueryBus(handlers)
+      return bus
     })
     .asSingleton()
   builder.register(Monitoring).useFactory(() => {
-    const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+    const monitoring = new SentryModule(SentryConfigFactory.createConfig())
 
     return monitoring
   })

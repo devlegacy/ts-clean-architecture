@@ -11,6 +11,7 @@ describe('FileCourseRepository', () => {
     const expectedCourse = new Course(id, new CourseName('name'), new CourseDuration('duration'))
     const repository = new FileCourseRepository()
 
+    // first implicit valid test
     await repository.save(expectedCourse)
 
     const course = await repository.getById(id.toString())

@@ -154,6 +154,7 @@ export class FastifyAdapter {
         statusCode = err.statusCode
       }
       res.status(statusCode)
+      // DEBT: Remove leak data
       const response = new HttpError({
         statusCode,
         error: HttpStatus[+statusCode] ?? HttpStatus[500],

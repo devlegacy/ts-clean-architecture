@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises'
 
 import { Criteria } from '@/Contexts/Shared/domain'
 
-import { Course, CoursePrimitiveType, CourseRepository } from '../../domain'
+import { Course, CourseEntityType, CoursePrimitiveType, CourseRepository } from '../../domain'
 
 export class FileCourseRepository implements CourseRepository {
   #FILE_PATH = `${__dirname}/Courses`
@@ -18,15 +18,14 @@ export class FileCourseRepository implements CourseRepository {
 
   async save(course: Course) {
     const path = this.#path(course.id.value)
-    // console.log(path)
     await writeFile(path, serialize(course))
   }
 
+  // a local implementation that avoids to bring it to domain, but it leaves dirty the test file
   async getById(courseId: CoursePrimitiveType['id']): Promise<Course> {
     const path = this.#path(courseId)
-    // console.log(path)
     const courseBuffer = await readFile(path)
-    const { id, name, duration } = deserialize(courseBuffer)
+    const { id, name, duration } = deserialize(courseBuffer) as CourseEntityType
     const course = new Course(id, name, duration)
 
     return course

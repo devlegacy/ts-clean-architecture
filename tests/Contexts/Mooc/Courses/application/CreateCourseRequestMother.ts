@@ -1,11 +1,12 @@
-import { CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/domain'
+import { CourseDuration, CourseName, CoursePrimitiveType } from '@/Contexts/Mooc/Courses/domain'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
 
 import { CourseIdMother } from '../../Shared/domain'
 import { CourseDurationMother, CourseNameMother } from '../domain'
 
 export class CreateCourseRequestMother {
-  static create(id: CourseId, name: CourseName, duration: CourseDuration) {
+  // CreateCourseRequest
+  static create(id: CourseId, name: CourseName, duration: CourseDuration): CoursePrimitiveType {
     return {
       id: id.value,
       name: name.value,
@@ -13,11 +14,11 @@ export class CreateCourseRequestMother {
     }
   }
 
-  static random() {
+  static random(): CoursePrimitiveType {
     return this.create(CourseIdMother.random(), CourseNameMother.random(), CourseDurationMother.random())
   }
 
-  static invalidRequest() {
+  static invalidRequest(): CoursePrimitiveType {
     return {
       id: CourseIdMother.random().value,
       name: CourseNameMother.invalidName(),
