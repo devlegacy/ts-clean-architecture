@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/repositories/devlegacy/ts-clean-architecture
+
+npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/publisher/topic-exchange.ts

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/repositories/devlegacy/ts-clean-architecture
+# .bin/try_rabbit/queue_subscriber
+npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/topic-exchange.ts
