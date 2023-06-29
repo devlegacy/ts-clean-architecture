@@ -13,8 +13,9 @@ export class CourseCreator {
       new CourseName(request.name),
       request.duration ? new CourseDuration(request.duration) : undefined
     )
+    const events = course.pullDomainEvents()
 
     await this.repository.save(course)
-    await this.eventBus.publish(course.pullDomainEvents())
+    await this.eventBus.publish(events)
   }
 }

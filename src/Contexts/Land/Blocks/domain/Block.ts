@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot, isNil } from '@/Contexts/Shared/domain'
 
 import { LandDescription } from '../../LandDescriptions/domain'
 import { BlockId, Boundary } from '../../Shared/domain'
@@ -52,8 +52,6 @@ export class Block extends AggregateRoot {
   readonly createdAt: BlockCreatedAt
   readonly updatedAt: BlockUpdatedAt
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   private deletedAt?: BlockDeletedAt
   private description?: LandDescription
 
@@ -166,8 +164,8 @@ export class Block extends AggregateRoot {
       new Boundary(data.southwestBoundary),
       new Boundary(data.westBoundary),
       new Boundary(data.northwestBoundary),
-      data.createdAt ? new BlockCreatedAt(data.createdAt) : undefined,
-      data.updatedAt ? new BlockUpdatedAt(data.updatedAt) : undefined
+      !isNil(data.createdAt) ? new BlockCreatedAt(data.createdAt) : undefined,
+      !isNil(data.updatedAt) ? new BlockUpdatedAt(data.updatedAt) : undefined
     )
 
     return block
@@ -223,7 +221,7 @@ export class Block extends AggregateRoot {
       northwestBoundary: this.northwestBoundary.value,
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt.value,
-      // deletedAt: this.deletedAt?.value,
+      deletedAt: this.deletedAt?.value,
     }
   }
 }

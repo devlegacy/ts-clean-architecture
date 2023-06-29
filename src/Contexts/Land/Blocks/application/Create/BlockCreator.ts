@@ -9,8 +9,8 @@ export class BlockCreator {
 
   async run(request: BlockEntityType) {
     const block = Block.create(request)
-
+    const events = block.pullDomainEvents()
     await this.repository.save(block)
-    await this.bus.publish(block.pullDomainEvents())
+    await this.bus.publish(events)
   }
 }

@@ -1,12 +1,15 @@
 import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain'
 
 export enum Availability {
-  available = 'available',
-  not_available = 'not_available',
-  sold = 'sold',
+  AVAILABLE = 'available',
+  NOT_AVAILABLE = 'not_available',
+  SOLD = 'sold',
 }
 
-export type AvailabilityKeys = keyof typeof Availability
+export type AvailabilityKeys =
+  | `${(typeof Availability)[keyof typeof Availability]}`
+  | keyof typeof Availability
+  | (string & NonNullable<unknown>)
 
 export class BlockAvailability extends EnumValueObject<Availability> {
   constructor(value: Availability) {
@@ -14,16 +17,17 @@ export class BlockAvailability extends EnumValueObject<Availability> {
   }
 
   static fromValue(value: AvailabilityKeys | Availability): BlockAvailability {
-    const key = (typeof value === 'string' ? Availability[`${value}`] : value) as AvailabilityKeys
-    return new BlockAvailability(Availability[`${key}`])
+    const key = (value in Availability ? value : value.toUpperCase()) as Availability
+    console.log(value, key)
+    return new BlockAvailability(key)
   }
 
   static available() {
-    const availability = new BlockAvailability(Availability.available)
+    const availability = new BlockAvailability(Availability.AVAILABLE)
     return availability
   }
 
   protected throwInvalidValueError(value: Availability): void {
-    throw new InvalidArgumentError(`The availability type <${value}> is invalid`)
+    throw new InvalidArgumentError(`The availability value <${value}> is invalid`)
   }
 }
