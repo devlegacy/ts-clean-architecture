@@ -1,10 +1,11 @@
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { cwd } from 'node:process'
+
 import convict from 'convict'
 import convict_format_with_validator from 'convict-format-with-validator'
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
-import { existsSync } from 'fs'
-import { resolve } from 'path'
-import { cwd } from 'process'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
@@ -12,7 +13,7 @@ const defaultPath = `${cwd()}/.backoffice.env`
 const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
 const envConfig = dotenv.config({
   path,
-  debug: process.env.APP_DEBUG ? process.env.APP_DEBUG === 'true' : true,
+  debug: process.env.APP_DEBUG === 'true',
   override: true,
 })
 expand(envConfig)

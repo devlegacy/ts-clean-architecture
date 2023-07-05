@@ -1,9 +1,10 @@
-import cluster from 'cluster'
+import cluster from 'node:cluster'
+import { opendirSync } from 'node:fs'
+import { cpus } from 'node:os'
+import { join, resolve } from 'node:path'
+import { cwd } from 'node:process'
+
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
-import { opendirSync } from 'fs'
-import { cpus } from 'os'
-import { join, resolve } from 'path'
-import { cwd } from 'process'
 
 import { ControllerResolver, HttpStatus, Paramtype } from '@/Contexts/Shared/domain/Common'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'

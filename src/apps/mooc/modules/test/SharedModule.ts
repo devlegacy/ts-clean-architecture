@@ -1,7 +1,8 @@
+import { resolve } from 'node:path'
+
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
-import { resolve } from 'path'
 
 import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
 import {

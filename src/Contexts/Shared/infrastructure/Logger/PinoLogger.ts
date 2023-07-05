@@ -1,5 +1,6 @@
+import util from 'node:util'
+
 import pino, { Logger as PinoLoggerType, LoggerOptions } from 'pino'
-import util from 'util'
 
 import { Logger, LogLevel, LogMessage } from '../../domain'
 import { MESSAGE_KEY, streams } from './helpers'

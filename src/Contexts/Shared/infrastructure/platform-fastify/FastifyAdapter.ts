@@ -1,3 +1,5 @@
+import { AddressInfo } from 'node:net'
+
 import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
@@ -13,7 +15,6 @@ import Fastify, {
   FastifyServerOptions,
   PrintRoutesOptions,
 } from 'fastify'
-import { AddressInfo } from 'net'
 
 import { HttpError, Monitoring } from '../../domain'
 import { ControllerResolver, HttpStatus } from '../../domain/Common'

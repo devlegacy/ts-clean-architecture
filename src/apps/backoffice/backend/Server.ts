@@ -1,8 +1,9 @@
+import http from 'node:http'
+
 import fastifyFormBody from '@fastify/formbody'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 import fastifyQs from 'fastify-qs'
-import http from 'http'
 import { Logger as PinoLoggerType } from 'pino'
 import qs from 'qs'
 

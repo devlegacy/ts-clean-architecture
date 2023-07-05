@@ -26,6 +26,9 @@ export abstract class AggregateRoot {
   }
 
   pullDomainEvents(): DomainEvent[] {
+    // DEBT: In test is undefined
+    if (!this._domainEvents) this._domainEvents = []
+
     const domainEvents = this._domainEvents.slice()
     this._domainEvents = []
 

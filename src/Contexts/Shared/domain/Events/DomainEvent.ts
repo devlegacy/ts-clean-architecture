@@ -45,6 +45,9 @@ export type DomainEventPrimitives<Attributes> = Attributes & {
 export abstract class DomainEvent {
   // tag event name: AsyncAPI compliant, it should use action on past
   static EVENT_NAME: string
+  /**
+   * Event are designed to be transported, so there is a need to define a deserializer
+   */
   static fromPrimitives: (
     data: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
     DomainEventPrimitivesWithAttributes<any>
@@ -73,6 +76,9 @@ export abstract class DomainEvent {
     this.eventName = eventName
   }
 
+  /**
+   * Event are designed to be transported, so there is a need to define a serializer
+   */
   abstract toPrimitives(): DomainEventAttributes
 }
 

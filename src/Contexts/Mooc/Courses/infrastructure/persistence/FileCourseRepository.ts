@@ -1,5 +1,6 @@
+import { readFile, writeFile } from 'node:fs/promises'
+
 import { deserialize, serialize } from 'bson'
-import { readFile, writeFile } from 'fs/promises'
 
 import { Criteria } from '@/Contexts/Shared/domain'
 

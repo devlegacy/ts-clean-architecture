@@ -1,8 +1,9 @@
+import { resolve } from 'node:path'
+
 import { Client as ElasticClient } from '@elastic/elasticsearch'
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
-import { resolve } from 'path'
 
 import {
   ElasticConfigFactory,

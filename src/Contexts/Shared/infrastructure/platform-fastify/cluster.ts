@@ -1,4 +1,4 @@
-import { Cluster } from 'cluster'
+import { Cluster } from 'node:cluster'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 

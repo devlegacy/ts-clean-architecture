@@ -1,7 +1,8 @@
-import { createWriteStream } from 'fs'
-import { resolve } from 'path'
+import { createWriteStream } from 'node:fs'
+import { resolve } from 'node:path'
+import { cwd } from 'node:process'
+
 import PinoPretty from 'pino-pretty'
-import { cwd } from 'process'
 
 export const MESSAGE_KEY = 'message'
 

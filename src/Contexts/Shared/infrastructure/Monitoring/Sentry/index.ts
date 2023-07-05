@@ -1,6 +1,7 @@
+import { resolve } from 'node:path'
+import { cwd } from 'node:process'
+
 import * as Sentry from '@sentry/node'
-import { resolve } from 'path'
-import { cwd } from 'process'
 
 import { Monitoring } from '../../../domain'
 

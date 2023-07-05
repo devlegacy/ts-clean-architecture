@@ -1,5 +1,6 @@
+import { EventEmitter } from 'node:events'
+
 import { Service } from 'diod'
-import { EventEmitter } from 'events'
 import { Server as SocketServer } from 'socket.io'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger'

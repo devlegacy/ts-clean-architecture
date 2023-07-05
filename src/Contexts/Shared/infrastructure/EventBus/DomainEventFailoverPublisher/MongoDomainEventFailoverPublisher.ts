@@ -1,4 +1,4 @@
-import { Collection, MongoClient } from 'mongodb'
+import { Collection, MongoClient, UpdateFilter, UpdateOptions } from 'mongodb'
 
 import { DomainEvent } from '@/Contexts/Shared/domain'
 
@@ -14,8 +14,8 @@ export class MongoDomainEventFailoverPublisher {
     const collection = await this.collection()
 
     const eventSerialized = DomainEventJsonSerializer.serialize(event)
-    const options = { upsert: true }
-    const update = {
+    const options: UpdateOptions = { upsert: true }
+    const update: UpdateFilter<DomainEvent> = {
       $set: {
         eventId: event.eventId,
         event: eventSerialized,
@@ -35,6 +35,7 @@ export class MongoDomainEventFailoverPublisher {
   }
 
   protected async collection(): Promise<Collection> {
-    return (await this._client).db().collection(MongoDomainEventFailoverPublisher.collectionName)
+    const client = await this._client
+    return client.db().collection(MongoDomainEventFailoverPublisher.collectionName)
   }
 }

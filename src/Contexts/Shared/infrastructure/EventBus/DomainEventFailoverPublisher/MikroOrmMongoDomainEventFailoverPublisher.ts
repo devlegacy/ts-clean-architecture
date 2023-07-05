@@ -1,7 +1,7 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { Document } from 'bson'
-import { Collection } from 'mongodb'
+import { Collection, UpdateFilter, UpdateOptions } from 'mongodb'
 
 import { DomainEvent } from '@/Contexts/Shared/domain'
 
@@ -12,6 +12,7 @@ import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
  * NOTE: Infrastructure to Infrastructure coupling
  * MongoDomainEventFailoverPublisher
  * MikroOrmMongoDomainEventFailoverPublisher
+ * Reactivo a errores
  */
 export class MikroOrmMongoDomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'
@@ -27,8 +28,8 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
 
     const eventSerialized = DomainEventJsonSerializer.serialize(event)
     // avoid duplications with $set update
-    const options = { upsert: true }
-    const update = {
+    const options: UpdateOptions = { upsert: true }
+    const update: UpdateFilter<DomainEvent> = {
       $set: {
         eventId: event.eventId,
         event: eventSerialized,

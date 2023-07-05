@@ -1,6 +1,7 @@
 // /// <reference types="../../../../../../types"/>
+import assert from 'node:assert'
+
 import { Given, Then } from '@cucumber/cucumber'
-import assert from 'assert'
 import { Response, Test } from 'supertest'
 
 import { api } from './hooks.steps'
