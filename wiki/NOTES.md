@@ -54,7 +54,7 @@
 │  │  │  ├─ 📂 `.../` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Roadmap/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Shared/` Shared Kernel | Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
-│  │  ├─ 📂 `Backoffice/` 🚀 Bounded Context     
+│  │  ├─ 📂 `Backoffice/` 🚀 Bounded Context (panel de administración o panel de control, usuarios finales o clientes no tienen acceso directo a estas funciones.)     
 │  │  │  ├─ 📂 `Courses/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `Tickets/` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
 │  │  │  ├─ 📂 `.../` 📥 Module - Cohesion - ¿Quién eres y qué tipo?    
@@ -120,7 +120,7 @@
   - The aggregate root is responsible for enforcing business invariants inside the aggregate, ensuring that the aggregate is in a consistent state at all times.
 - ⚙ Controller rules 📏
   - Primary port
-  - It receives primitives | scalars - `[Entity | Course][Action | Create]RequestDto`
+  - It receives primitives | primitives creation of json specif. (?) | scalars - `[Entity | Course][Action | Create]RequestDto`
   - It could instantiate  `use cases` | `use cases` ↔ `value objects` | `query bus` ↔ `queries` | `command bus` ↔ `commands`
     - `use cases` ↔ `value objects` could be migrated to `CQRS`
   - It has an implicit interface 
@@ -150,6 +150,7 @@
       - Este método implica una búsqueda más amplia y flexible, generalmente con la posibilidad de utilizar múltiples criterios de búsqueda y opciones avanzadas.
       - Puede admitir búsquedas basadas en texto completo, búsquedas por palabras clave, opciones de filtrado avanzado, etc.
       - An empty array is possible and allowed   
+      - search(T) o seachAll(T[]) encapsulados por un finder que es un subgrupo de search
     - Avoid n+1 problem (over creation of methods)
   - Evitar nombrar las interfaces como `ICourseRepository` | `CourseRepositoryImp`
     - Cuando definimos la interfaz como `CourseRepository` nos orilla a nombrar a los colaborares de una forma más semántica, con prefijos, indicando|evidenciando el propósito|particularidad de la implementación
@@ -166,15 +167,23 @@
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 - Commands
   - Tipo de evento
+  - Inmutable
   - Implement `service locator pattern` 1:1
   - `Command` should be imperative `[Create|Delete|EditInfo]Course`, telling to application to do something
   - ✅ `CommandBus` can instantiate in controllers (HTTP)
-  - ❌ `Command` can't instantiate command bus, it is a simple DTO
+  - ❌ `Command` can't instantiate command bus, 
+  - ⚠ it is a simple DTO, (primitives of json specif).
+  - ⚠ transfer data from point a to point b.
   - ✅ `CommandHandler<T>` can reject operations
+    - ⚠ should destructure `Command` to `value objects` or `domain objects`
+    - ⚠ should call use case
   - 💡 it should use ubiquitous language not crud based thinking
     - it should avoid `[Create|Update|Delete]Course`
   - ✅ `CommandHandler<T>` should return `void` indicating a side effect
-  - mutaciones de estados
+  - mutaciones de estados (side effects)
+  - API Rest (POST | PATCH | PUT | DELETE)
+- Command bus
+  - Sync vs Async
 - Query
   - Tipo de evento
   - Implement `service locator pattern` 1:1
@@ -183,6 +192,7 @@
   - ✅ `QueryBus` can instantiate in use case
   - ✅ `QueryBus` can instantiate in command bus
   - consultas
+  - No tiene side effects
 - Events
   - Past tense (Course[Created])
   - Can't reject operations because it has happened
@@ -208,7 +218,7 @@
   - ✅ Error: A mistake
     - an action, decision, or judgment that produces an unwanted or unintentional result
   - ❌ Exception: someone or something that is not included in a rule, group, or list or that does not behave in the expected way
-- [x] CreateCourseRequest - primitives creation (?)
+- [x] CreateCourseRequest - primitives creation of json specif. (?)
   - ✅ `CreateCourseRequestDto`
 - [x] No injectable: functions that could be called as global functions without access to a di container
   - [ ] Logger

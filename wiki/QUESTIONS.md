@@ -46,6 +46,3 @@ Cursos:
 - Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
 - Documentación de eventos y arquitectura, que entregue valor a la empresa y al equipo, flujos de event storming
 - Convict, MongoDB avanzado y monitoring
-
-
-- https://platzi.com/clases/7197-oauth/61112-que-es-oauth-20/
