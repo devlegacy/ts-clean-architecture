@@ -10,7 +10,7 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
 } from '@/Contexts/Shared/infrastructure'
-import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/persistence/mongo/MongoClientFactory'
+import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/mongo/MongoClientFactory'
 
 import { AnalyticCLI } from './AnalyticCLI'
 

@@ -12,7 +12,7 @@ import {
   Req,
   Res,
 } from '@/Contexts/Shared/domain/Common'
-import { Request, Response } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify'
 import {
   ObjectIdPipe as JoiMongoIdPipe,
   PageNumberPipe,

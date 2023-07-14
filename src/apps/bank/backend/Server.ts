@@ -7,8 +7,8 @@ import { resolve } from 'path'
 import qs from 'qs'
 
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify'
 import { error } from '@/Contexts/Shared/infrastructure/Logger'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
 import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
 import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
 

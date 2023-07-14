@@ -5,7 +5,7 @@ import { container } from 'tsyringe'
 import { Monitoring } from '@/Contexts/Shared/domain'
 import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
-import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoClientFactory, MongoConfig } from '@/Contexts/Shared/infrastructure/Persistence'
 import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure'
 
 import { TYPES } from './types'

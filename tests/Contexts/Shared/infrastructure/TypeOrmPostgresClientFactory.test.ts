@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 
-import { TypeOrmPostgresClientFactory } from '@/Contexts/Shared/infrastructure/persistence'
+import { TypeOrmPostgresClientFactory } from '@/Contexts/Shared/infrastructure/Persistence'
 
 const config = {
   database: 'mooc-test',

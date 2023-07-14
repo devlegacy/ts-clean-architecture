@@ -4,7 +4,7 @@ const {
   RabbitMQConfigurer,
   RabbitMQQueueFormatter
 } = require('@/Contexts/Shared/infrastructure/EventBus')
-const { MikroORMMongoClientFactory } = require('@/Contexts/Shared/infrastructure/persistence')
+const { MikroORMMongoClientFactory } = require('@/Contexts/Shared/infrastructure/Persistence')
 const { TYPES } = require('./types')
 
 const mongoConfig = MongoConfigFactory.createConfig()

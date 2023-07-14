@@ -2,7 +2,7 @@ import { EntitySchema, wrap } from '@mikro-orm/core'
 import { Service } from 'diod'
 
 import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence'
 
 import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
 import { BackofficeCourseEntity } from './mikroorm/mongo/BackofficeCourseEntity'

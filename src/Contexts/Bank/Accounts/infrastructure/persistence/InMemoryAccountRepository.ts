@@ -1,4 +1,4 @@
-import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/persistence/memory'
+import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/Persistence/memory'
 
 import { Account, AccountRepository } from '../../domain'
 

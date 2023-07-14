@@ -11,7 +11,7 @@ import {
   BlockUpdatedAt,
 } from '@/Contexts/Land/Blocks/domain'
 import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
+import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
 
 export const BlockEntity = new EntitySchema<Block>({
   name: 'Block',

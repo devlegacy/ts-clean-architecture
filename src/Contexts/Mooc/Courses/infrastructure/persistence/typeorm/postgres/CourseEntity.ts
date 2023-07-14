@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm'
 
 import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/persistence/typeorm/ValueObjectTransformer'
+import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/typeorm/ValueObjectTransformer'
 
 import { Course, CourseDuration, CourseName } from '../../../../domain'
 

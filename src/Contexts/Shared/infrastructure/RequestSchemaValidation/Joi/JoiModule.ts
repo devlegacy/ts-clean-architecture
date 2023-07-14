@@ -7,7 +7,7 @@ import { Constructor, JoiValidationGroup, SCHEMA_PROTO_KEY } from 'joi-class-dec
 import { HttpError, isFunction } from '@/Contexts/Shared/domain'
 import { HttpStatus, RequestMethod } from '@/Contexts/Shared/domain/Common'
 
-import { HttpValidationModule } from '../../platform-fastify'
+import { HttpValidationModule } from '../../Fastify'
 
 const defaultOptions: joi.ValidationOptions = {
   convert: true,

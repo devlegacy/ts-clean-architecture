@@ -1,4 +1,4 @@
-import ElasticConfig from '@/Contexts/Shared/infrastructure/persistence/elasticsearch/ElasticConfig'
+import ElasticConfig from '@/Contexts/Shared/infrastructure/Persistence/elasticsearch/ElasticConfig'
 
 import { config } from './config'
 

@@ -5,7 +5,7 @@ import { ZodError, ZodObject } from 'zod'
 import { HttpError } from '@/Contexts/Shared/domain'
 import { HttpStatus } from '@/Contexts/Shared/domain/Common'
 
-import { HttpValidationModule } from '../../platform-fastify'
+import { HttpValidationModule } from '../../Fastify'
 import { isZodDto } from '.'
 
 // Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts

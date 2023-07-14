@@ -1,5 +1,4 @@
 import { DomainEventClass, DomainEventSubscribers, EVENTS_HANDLER_METADATA } from '../../domain'
-import { info } from '../Logger'
 
 type DomainEventJSON = {
   id: string // eventId
@@ -39,7 +38,6 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
 
   #registerEvent(domainEvent: DomainEventClass) {
     const eventName = domainEvent.EVENT_NAME
-    info(`[on 📥 ]: ${eventName}`)
     this.set(eventName, domainEvent)
   }
 }

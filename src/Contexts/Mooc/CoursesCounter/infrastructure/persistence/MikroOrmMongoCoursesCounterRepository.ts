@@ -1,6 +1,6 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence'
 
 import { CoursesCounter, CoursesCounterRepository } from '../../domain'
 import { CoursesCounterEntity } from './mikroorm/mongo/CoursesCounterEntity'

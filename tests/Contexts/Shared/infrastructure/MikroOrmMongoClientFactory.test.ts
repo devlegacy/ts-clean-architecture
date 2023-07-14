@@ -1,7 +1,7 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 
-import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence'
 
 describe('MikroOrmMongoClientFactory', () => {
   const factory = MikroOrmMongoClientFactory

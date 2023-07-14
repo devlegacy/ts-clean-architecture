@@ -272,7 +272,7 @@
   - TypeScript
 - Error handler
   - [Server attach handler](../src/apps/mooc/backend/main.ts#L10)
-  - [Fastify](../src/Contexts/Shared/infrastructure/platform-fastify/FastifyAdapter.ts#L141)
+  - [Fastify](../src/Contexts/Shared/infrastructure/Fastify/FastifyAdapter.ts#L141)
   - [General | On async (unhandled | uncaught)](../src/Contexts/Shared/infrastructure/FatalErrorHandler.ts#L8)
 
 - Arquitectura a nivel infraestructura

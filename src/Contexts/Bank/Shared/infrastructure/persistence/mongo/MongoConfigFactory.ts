@@ -1,4 +1,4 @@
-import { MongoConfig } from '@/Contexts/Shared/infrastructure/persistence/mongo'
+import { MongoConfig } from '@/Contexts/Shared/infrastructure/Persistence/mongo'
 
 import config from '../../config'
 

@@ -1,4 +1,4 @@
-import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence'
 
 export class RabbitMQMikroOrmMongoClientMother {
   static async create() {

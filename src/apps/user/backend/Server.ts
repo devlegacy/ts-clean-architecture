@@ -4,7 +4,7 @@ import { AddressInfo } from 'net'
 import { resolve } from 'path'
 
 import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/platform-fastify'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify'
 
 export class Server {
   #port: number

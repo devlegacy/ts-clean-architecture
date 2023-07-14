@@ -1,6 +1,6 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/persistence/mikroorm/MikroOrmPostgresRepository'
+import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/MikroOrmPostgresRepository'
 
 import { Cart, CartRepository } from '../../domain'
 import { CartEntity } from './mikroorm/postgres/CartEntity'

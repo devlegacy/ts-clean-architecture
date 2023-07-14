@@ -7,7 +7,7 @@ export abstract class InMemoryRepository<
     // id: string
     toPrimitives: () => any
     // fromPrimitives:
-  }
+  },
 > {
   protected parser!: (...props: any[]) => T
 

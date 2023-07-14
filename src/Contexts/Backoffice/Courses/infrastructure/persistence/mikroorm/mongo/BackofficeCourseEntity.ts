@@ -6,7 +6,7 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/persistence/mikroorm'
+} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
 
 import {
   BackofficeCourse,

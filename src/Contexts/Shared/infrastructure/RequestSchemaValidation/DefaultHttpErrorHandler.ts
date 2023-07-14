@@ -2,7 +2,7 @@ import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 
 import { EntityNotFoundError, HttpError, InvalidArgumentError } from '../../domain'
 import { HttpStatus } from '../../domain/Common'
-import { HttpErrorHandler } from '../platform-fastify'
+import { HttpErrorHandler } from '../Fastify'
 
 export class DefaultHttpErrorHandler implements HttpErrorHandler {
   // validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {

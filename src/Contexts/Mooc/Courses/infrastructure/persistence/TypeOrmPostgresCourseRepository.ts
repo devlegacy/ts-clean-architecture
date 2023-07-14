@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm'
 
 import { Criteria } from '@/Contexts/Shared/domain'
-import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/persistence'
+import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/Persistence'
 
 import { Course, CourseRepository } from '../../domain'
 import { CourseEntity } from './typeorm/postgres/CourseEntity'

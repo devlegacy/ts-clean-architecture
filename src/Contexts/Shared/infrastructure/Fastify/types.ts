@@ -6,7 +6,7 @@ export type Request<
     Headers: Record<string, any>
     Params: Record<string, any>
     Querystring: Record<string, any>
-  }
+  },
 > = FastifyRequest<RouteGeneric>
 
 export type Response = FastifyReply

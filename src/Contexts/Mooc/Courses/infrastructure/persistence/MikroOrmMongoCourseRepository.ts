@@ -1,7 +1,7 @@
 import { EntitySchema } from '@mikro-orm/core'
 
 import { Criteria } from '@/Contexts/Shared/domain'
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/persistence'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence'
 
 import { Course, CourseRepository } from '../../domain'
 import { CourseEntity } from './mikroorm/mongo/CourseEntity'
