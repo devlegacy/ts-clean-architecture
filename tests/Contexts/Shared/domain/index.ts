@@ -1,6 +1,6 @@
-export * from './IdMother'
 export * from './IntegerMother'
 export * from './MotherCreator'
+export * from './ObjectIdMother'
 export * from './Repeater'
 export * from './shared.utils'
 export * from './UuidMother'

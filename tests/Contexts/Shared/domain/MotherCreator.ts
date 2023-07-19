@@ -27,6 +27,31 @@ export class MotherCreator {
     })
     return word || 'word'
   }
+
+  static email(providers: string[] = ['gmail.com', 'hotmail.com']): string {
+    const randomProvider = providers[Math.floor(Math.random() * providers.length)]
+    return faker.internet.email({
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      provider: randomProvider,
+    })
+  }
+
+  static firstName(): string {
+    return faker.person.firstName()
+  }
+
+  static birthdate(): Date {
+    return faker.date.birthdate({
+      mode: 'age',
+      min: 18,
+      max: 110,
+    })
+  }
+
+  static username(): string {
+    return faker.internet.userName()
+  }
 }
 
 // NOTE: without expose more methods

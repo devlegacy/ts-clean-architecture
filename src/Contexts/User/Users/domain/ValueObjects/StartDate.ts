@@ -4,14 +4,14 @@ export class StartDate extends DateTime {
   constructor(override readonly value: Date) {
     super(value)
 
-    this.#ensureIsValidStartDate(value)
+    this.#ensureStartDateIsValid(value)
   }
 
-  #ensureIsValidStartDate(value: Date): void {
+  #ensureStartDateIsValid(value: Date): void {
     const currentDate = new Date()
 
     if (value > currentDate) {
-      throw new InvalidArgumentError(`<${value.toString()}> is not a valid birthdate`)
+      throw new InvalidArgumentError(`<${value.toString()}> is not a valid start date`)
     }
   }
 }

@@ -1,5 +1,5 @@
 import { BackofficeCourseId } from '@/Contexts/Backoffice/Courses/domain'
-import { IdMother } from '@/tests/Contexts/Shared/domain'
+import { ObjectIdMother } from '@/tests/Contexts/Shared/domain'
 
 export class BackofficeCourseIdMother {
   static create(value: string): BackofficeCourseId {
@@ -11,6 +11,6 @@ export class BackofficeCourseIdMother {
   }
 
   static random(): BackofficeCourseId {
-    return this.create(IdMother.random())
+    return this.create(ObjectIdMother.random())
   }
 }

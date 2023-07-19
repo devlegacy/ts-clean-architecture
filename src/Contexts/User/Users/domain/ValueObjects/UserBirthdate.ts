@@ -6,7 +6,7 @@ export class UserBirthdate extends DateTime {
   constructor(override readonly value: Date) {
     super(value)
 
-    this.#ensureIsValidBirthdate(value)
+    this.#ensureBirthdateIsValid(value)
   }
 
   toPrimitives(): Date {
@@ -17,7 +17,7 @@ export class UserBirthdate extends DateTime {
     return Generation.from(this.value)
   }
 
-  #ensureIsValidBirthdate(value: Date): void {
+  #ensureBirthdateIsValid(value: Date): void {
     const currentDate = new Date()
     let ageInYears = currentDate.getFullYear() - value.getFullYear()
 

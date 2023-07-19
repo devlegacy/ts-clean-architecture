@@ -1,9 +1,10 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot, isNil } from '@/Contexts/Shared/domain'
 
 import { UserId } from '../../Shared/domain'
 import {
   Generation,
   GenerationName,
+  JobExperiencePrimitiveType,
   JobExperiences,
   UserAge,
   UserBirthdate,
@@ -36,29 +37,29 @@ export class User extends AggregateRoot {
   readonly age?: UserAge
   readonly jobExperiences: JobExperiences
 
-  private _email: UserEmail
+  #email: UserEmail
 
   get email() {
-    return this._email
+    return this.#email
   }
 
   constructor(
-    id: UserId,
-    name: UserName,
-    username: UserUsername,
-    email: UserEmail,
-    birthdate: UserBirthdate,
-    jobExperiences: JobExperiences,
-    age?: UserAge
+    id: string,
+    name: string,
+    username: string,
+    email: string,
+    birthdate: Date,
+    jobExperiences: JobExperiencePrimitiveType[],
+    age?: number
   ) {
     super()
-    this.id = id
-    this.name = name
-    this.username = username
-    this._email = email
-    this.birthdate = birthdate
-    this.jobExperiences = jobExperiences
-    this.age = age
+    this.id = new UserId(id)
+    this.name = new UserName(name)
+    this.username = new UserUsername(username)
+    this.#email = new UserEmail(email)
+    this.birthdate = new UserBirthdate(birthdate)
+    this.jobExperiences = new JobExperiences(jobExperiences)
+    this.age = isNil(age) ? undefined : new UserAge(age)
   }
 
   static override fromPrimitives(data: UserPrimitiveType): User {
@@ -68,18 +69,18 @@ export class User extends AggregateRoot {
     //   duration: !props.duration ? undefined : new CourseDuration(props.duration)
     // })
     return new User(
-      new UserId(data.id),
-      new UserName(data.name),
-      new UserUsername(data.username),
-      new UserEmail(data.email),
-      new UserBirthdate(data.birthdate),
-      new JobExperiences(data.jobExperiences),
-      !data.age ? undefined : new UserAge(data.age)
+      data.id,
+      data.name,
+      data.username,
+      data.email,
+      data.birthdate,
+      data.jobExperiences,
+      isNil(data.age) ? undefined : data.age
     )
   }
 
-  updateEmail(email: User['email']) {
-    this._email = email
+  updateEmail(email: UserPrimitiveType['email']) {
+    this.#email = new UserEmail(email)
   }
 
   toPrimitives(): UserPrimitiveType {
@@ -87,9 +88,9 @@ export class User extends AggregateRoot {
       id: this.id.value,
       name: this.name.value,
       username: this.username.value,
-      email: this._email.value,
+      email: this.#email.value,
       birthdate: this.birthdate.value,
-      jobExperiences: this.jobExperiences.value,
+      jobExperiences: this.jobExperiences.toPrimitives(),
       age: this.age?.value,
     }
   }

@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain'
+import { InvalidArgumentError, isNil } from '@/Contexts/Shared/domain'
 
 import { EndDate } from './EndDate'
 import { StartDate } from './StartDate'
@@ -7,23 +7,23 @@ export type DateRangePrimitiveType = Primitives<DateRange>
 export type DateRangeEntityType = Entity<DateRange>
 
 export class DateRange {
-  startDate: StartDate
-  endDate: EndDate | null
+  readonly startDate: StartDate
+  readonly endDate: EndDate | null
 
-  constructor(startDate: StartDate, endDate: EndDate | null) {
-    this.startDate = startDate
-    this.endDate = endDate
+  constructor(startDate: Date, endDate: Date | null) {
+    this.startDate = new StartDate(startDate)
+    this.endDate = isNil(endDate) ? null : new EndDate(endDate)
     this.#ensureDateRangeIsValid(this.startDate, this.endDate)
   }
 
   static fromPrimitives(data: DateRangePrimitiveType) {
-    return new DateRange(new StartDate(data.startDate), data.endDate ? new EndDate(data.endDate) : null)
+    return new DateRange(data.startDate, isNil(data.endDate) ? null : data.endDate)
   }
 
   toPrimitives() {
     return {
-      startDate: this.startDate,
-      endDate: this.endDate || null,
+      startDate: this.startDate.value,
+      endDate: this.endDate?.value || null,
     }
   }
 
@@ -32,7 +32,7 @@ export class DateRange {
       return
     }
 
-    if (startDate > endDate) {
+    if (startDate.value > endDate.value) {
       throw new InvalidArgumentError(
         `<${startDate.toString()}-${endDate.toString()}> is not a valid <${this.constructor.name}>`
       )

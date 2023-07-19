@@ -7,10 +7,10 @@ export class UserAge extends NumberValueObject {
   constructor(value: number) {
     super(value)
 
-    this.isValidRangeAge(value)
+    this.#ensureAgeIsRange(value)
   }
 
-  private isValidRangeAge(value: number) {
+  #ensureAgeIsRange(value: number) {
     if (value < MIN_AGE || value > MAX_AGE) {
       throw new InvalidArgumentError(`The user age <${value}> has been between ${MIN_AGE} and ${MAX_AGE}`)
     }

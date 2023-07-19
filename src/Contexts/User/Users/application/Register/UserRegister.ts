@@ -1,9 +1,9 @@
-import { User, UserEntityType, UserRepository } from '../../domain'
+import { User, UserPrimitiveType, UserRepository } from '../../domain'
 
 export class UserRegister {
   constructor(private readonly repository: UserRepository) {}
 
-  async run(request: UserEntityType) {
+  async run(request: UserPrimitiveType) {
     const user = new User(
       request.id,
       request.name,

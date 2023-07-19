@@ -1,18 +1,19 @@
 import { InvalidArgumentError } from '@/Contexts/Shared/domain'
 import { UserId } from '@/Contexts/User/Shared/domain'
 import { UserRegister } from '@/Contexts/User/Users/application'
-import { JobExperiences, User, UserBirthdate, UserEmail, UserName, UserUsername } from '@/Contexts/User/Users/domain'
+import { User } from '@/Contexts/User/Users/domain'
 import { InMemoryUserRepository } from '@/Contexts/User/Users/infrastructure'
 
-const validEmail = new UserEmail('validemail@gmail.com')
-const validName = new UserName('Samuel')
-const validUsername = new UserUsername('jst.samuel')
-const validId = UserId.random()
+import { UserMother } from '../../domain'
+
+const validEmail = 'validemail@gmail.com'
+const validName = 'Samuel'
+const validUsername = 'jst.samuel'
+const validId = UserId.random().toString()
 const currentDate = new Date()
-const validBirthdate = new UserBirthdate(
-  new Date(currentDate.getFullYear() - 50, currentDate.getMonth(), currentDate.getDate())
-)
-const validJobExperiencePrimitive = [
+const validBirthdate = new Date(currentDate.getFullYear() - 50, currentDate.getMonth(), currentDate.getDate())
+
+const validJobExperience = [
   {
     title: 'Job title',
     company: 'Company',
@@ -22,7 +23,8 @@ const validJobExperiencePrimitive = [
     },
   },
 ]
-const validJobExperience = JobExperiences.fromPrimitives(validJobExperiencePrimitive)
+
+// https://github.com/CodelyTV/value_objects-course/blob/main/03-value_objects_beyond/1-testing/3-with_all_object_mothers/tests/users/application/UserRegistrar.test.ts
 
 describe('UserRegistrar', () => {
   it('registers a user without throwing errors when all data is valid', async () => {
@@ -30,17 +32,33 @@ describe('UserRegistrar', () => {
     const userRegistrar = new UserRegister(repository)
     const repositorySave = jest.spyOn(repository, 'save')
 
+    const user = UserMother.create()
+
     await userRegistrar.run({
-      id: validId,
-      name: validName,
-      username: validUsername,
-      email: validEmail,
-      birthdate: validBirthdate,
-      jobExperiences: validJobExperience,
+      // id: validId,
+      id: user.id.value,
+      // name: validName,
+      name: user.name.value,
+      // username: validUsername,
+      username: user.username.value,
+      // email: validEmail,
+      email: user.email.value,
+      // birthdate: validBirthdate,
+      birthdate: user.birthdate.value,
+      // jobExperiences: validJobExperience,
+      jobExperiences: user.jobExperiences.toPrimitives(),
     })
 
     expect(repositorySave).toHaveBeenCalledWith(
-      new User(validId, validName, validUsername, validEmail, validBirthdate, validJobExperience)
+      // new User(validId, validName, validUsername, validEmail, validBirthdate, validJobExperience)
+      new User(
+        user.id.value,
+        user.name.value,
+        user.username.value,
+        user.email.value,
+        user.birthdate.value,
+        user.jobExperiences.toPrimitives()
+      )
     )
   })
 
@@ -50,7 +68,7 @@ describe('UserRegistrar', () => {
     const repositorySave = jest.spyOn(repository, 'save')
 
     const register = async () => {
-      const invalidId = new UserId('patata')
+      const invalidId = new UserId('patata').toString()
       await userRegistrar.run({
         id: invalidId,
         name: validName,
@@ -71,7 +89,7 @@ describe('UserRegistrar', () => {
     const repositorySave = jest.spyOn(repository, 'save')
 
     const register = async () => {
-      const invalidEmail = new UserEmail('invalidemail')
+      const invalidEmail = 'invalidemail'
       await userRegistrar.run({
         id: validId,
         name: validName,
@@ -92,7 +110,7 @@ describe('UserRegistrar', () => {
     const repositorySave = jest.spyOn(repository, 'save')
 
     const register = async () => {
-      const invalidEmailDomain = new UserEmail('mail@invaliddomain.com')
+      const invalidEmailDomain = 'mail@invaliddomain.com'
       await userRegistrar.run({
         id: validId,
         name: validName,
@@ -116,7 +134,7 @@ describe('UserRegistrar', () => {
     birthdate.setFullYear(birthdate.getFullYear() - 111)
 
     const register = async () => {
-      const invalidBirthdate = new UserBirthdate(birthdate)
+      const invalidBirthdate = birthdate
       await userRegistrar.run({
         id: validId,
         name: validName,
@@ -148,7 +166,7 @@ describe('UserRegistrar', () => {
     }
 
     const register = async () => {
-      const invalidBirthdate = new UserBirthdate(birthdate)
+      const invalidBirthdate = birthdate
       await userRegistrar.run({
         id: validId,
         name: validName,
@@ -172,15 +190,15 @@ describe('UserRegistrar', () => {
     const invalidStartDate = new Date(currentDate.getFullYear() + 1, 0, 1)
 
     const register = async () => {
-      const invalidJobExperience = JobExperiences.fromPrimitives([
+      const invalidJobExperience = [
         {
-          ...validJobExperiencePrimitive[0],
+          ...validJobExperience[0],
           dateRange: {
             startDate: invalidStartDate,
             endDate: null,
           },
         },
-      ])
+      ]
       await userRegistrar.run({
         id: validId,
         name: validName,
@@ -205,15 +223,15 @@ describe('UserRegistrar', () => {
     const endDate = new Date(currentDate.getFullYear() - 2, 0, 1)
 
     const register = async () => {
-      const invalidJobExperience = JobExperiences.fromPrimitives([
+      const invalidJobExperience = [
         {
-          ...validJobExperiencePrimitive[0],
+          ...validJobExperience[0],
           dateRange: {
             startDate,
             endDate,
           },
         },
-      ])
+      ]
       await userRegistrar.run({
         id: validId,
         name: validName,
@@ -234,7 +252,7 @@ describe('UserRegistrar', () => {
     const repositorySave = jest.spyOn(repository, 'save')
 
     const register = async () => {
-      const invalidJobExperiences = JobExperiences.fromPrimitives([
+      const invalidJobExperiences = [
         {
           title: 'Job title',
           company: 'Company',
@@ -251,7 +269,7 @@ describe('UserRegistrar', () => {
             endDate: new Date('2022-01-01'),
           },
         },
-      ])
+      ]
       await userRegistrar.run({
         id: validId,
         name: validName,

@@ -4,7 +4,9 @@ type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symb
 type ValueObjectValue<T> = T extends PrimitiveTypes
   ? T
   : T extends { value: infer U }
-  ? U
+  ? U extends unknown[]
+    ? Primitives<U[number]>[]
+    : U
   : T extends { value: infer U }[]
   ? U[]
   : T extends (infer U)[]
