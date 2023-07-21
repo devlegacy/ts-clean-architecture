@@ -38,11 +38,17 @@ Opinion
 - Transcripciones y añadir closed captions ayudaría mucho
 
 Cursos: 
+- CQRS, agregados de datos, como hacer populado y joins de datos con CQRS
 - API Gateway con DDD
 - Patron criteria/specification avanzado
 - Control de actualizaciones atómicas en DDD y en agregados con relaciones
 - Control de las relaciones en DDD 1-1 1-N N-N
+- Cursor y Offset pagination con DDD
+- Actualizaciones atómicas y parciales en DDD 
 - Autentificación y autorización con DDD
 - Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
 - Documentación de eventos y arquitectura, que entregue valor a la empresa y al equipo, flujos de event storming
 - Convict, MongoDB avanzado y monitoring
+
+Algo que añadir
+- No pregunten cuantas horas le dedique al curso, es algo difícil de ponderar de manera personal
