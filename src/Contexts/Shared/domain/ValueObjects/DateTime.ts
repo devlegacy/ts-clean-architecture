@@ -27,4 +27,12 @@ export class DateTime extends ValueObject<Date> {
   override toString(): string {
     return this.value.toISOString()
   }
+  // https://date-fns.org/v2.30.0/docs/isBefore
+  isBefore(vo: DateTime): boolean {
+    return this.value.getTime() < vo.value.getTime()
+  }
+
+  isAfter(vo: DateTime): boolean {
+    return this.value.getTime() > vo.value.getTime()
+  }
 }

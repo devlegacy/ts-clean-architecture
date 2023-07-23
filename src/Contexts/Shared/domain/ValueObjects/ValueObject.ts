@@ -35,6 +35,7 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | 
     return this.value.toString()
   }
 
+  // integrity restriction
   #ensureValueIsDefined(value: Optional<T>) {
     if (isNil(value)) throw new InvalidArgumentError(`Value of <${this.constructor.name}> must be defined`)
   }
