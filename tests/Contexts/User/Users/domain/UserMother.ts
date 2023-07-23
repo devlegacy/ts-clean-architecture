@@ -5,6 +5,10 @@ import { UserBirthdateMother } from './UserBirthdateMother'
 import { UserEmailMother } from './UserEmailMother'
 import { UserIdMother } from './UserIdMother'
 
+/**
+ * Factory to (instantiate) create (objects) User entities
+ * public static methods
+ */
 export class UserMother {
   static create(params?: Partial<UserPrimitiveType>): User {
     const defaultParams: UserPrimitiveType = {
@@ -36,4 +40,5 @@ export class UserMother {
       defaultParams.jobExperiences
     )
   }
+  // static genZ() { .... }
 }
