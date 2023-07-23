@@ -1,2 +1,6 @@
-// eslint-disable-next-line security/detect-non-literal-require
-export default require(`./container/${process.env.APP_ENV || 'development'}.ts`)
+import { Container } from 'diod'
+
+import { config } from '@/Contexts/User/Shared/infrastructure'
+
+// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
+export const { container } = require(`./${config.get('app.env')}/`) as { container: Container }
