@@ -1,12 +1,31 @@
-import convict from 'convict'
-import { resolve } from 'path'
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { cwd } from 'node:process'
 
-const userConfig = convict({
-  env: {
-    doc: 'The application environment.',
-    format: ['production', 'development', 'staging', 'test'],
-    default: 'default',
-    env: 'NODE_ENV',
+import convict from 'convict'
+import convict_format_with_validator from 'convict-format-with-validator'
+import dotenv from 'dotenv'
+import { expand } from 'dotenv-expand'
+
+const defaultPath = `../../../../../../.user.env`
+const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
+const envConfig = dotenv.config({
+  path,
+  debug: process.env.APP_DEBUG === 'true',
+  override: true,
+})
+expand(envConfig)
+
+convict.addFormats(convict_format_with_validator)
+
+const config = convict({
+  app: {
+    env: {
+      doc: 'The application environment.',
+      format: ['production', 'development', 'staging', 'test'],
+      default: 'development' as 'production' | 'development' | 'staging' | 'test',
+      env: 'APP_ENV',
+    },
   },
   mongo: {
     url: {
@@ -18,6 +37,8 @@ const userConfig = convict({
   },
 })
 
-userConfig.loadFile([resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${userConfig.get('env')}.json`)])
+const filePaths = [resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${config.get('app.env')}.json`)]
 
-export default userConfig
+config.loadFile(filePaths).validate({ allowed: 'strict' })
+
+export { config }
