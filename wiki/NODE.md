@@ -18,7 +18,11 @@
 
 ```sh
   crypto.randomBytes(16).toString('base64')
+  require('crypto').randomBytes(16).toString('base64')
   crypto.randomBytes(16).toString('hex')
+  require('crypto').randomBytes(16).toString('hex')
+  require('crypto').randomBytes(32).toString('hex')
+  'base64:'+require('crypto').randomBytes(32).toString('hex')
 ```
 
 ## Management
