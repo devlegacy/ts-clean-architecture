@@ -56,6 +56,9 @@ const config = convict(
         arg: 'port',
       },
     },
+    // cookie: {
+    //   name: {}
+    // },
     log: {
       level: {
         doc: 'The application log level.',

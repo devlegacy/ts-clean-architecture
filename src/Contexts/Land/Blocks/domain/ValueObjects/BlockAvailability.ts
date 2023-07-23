@@ -10,6 +10,7 @@ export type AvailabilityKeys =
   | `${(typeof Availability)[keyof typeof Availability]}`
   | keyof typeof Availability
   | (string & NonNullable<unknown>)
+// export type AvailabilityKeys2 = FlatEnum<typeof Availability>
 
 export class BlockAvailability extends EnumValueObject<Availability> {
   constructor(value: Availability) {

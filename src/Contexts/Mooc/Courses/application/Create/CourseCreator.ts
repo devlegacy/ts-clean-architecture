@@ -18,7 +18,10 @@ import { Course, CourseEntityType, CourseRepository } from '../../domain'
 @UseCase()
 export class CourseCreator {
   // Conventions | Convenciones -> Verb as Action [Creator]
-  constructor(private readonly repository: CourseRepository, private readonly bus: EventBus) {}
+  constructor(
+    private readonly repository: CourseRepository,
+    private readonly bus: EventBus
+  ) {}
 
   // async run(request: CoursePrimitiveProps) {
   //   const course = Course.create(
