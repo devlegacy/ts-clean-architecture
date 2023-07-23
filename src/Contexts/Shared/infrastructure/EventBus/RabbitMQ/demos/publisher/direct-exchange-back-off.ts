@@ -88,4 +88,4 @@ publisher().catch((err) => {
 //   exitAfterSend()
 // })
 
-// ROUTING_KEY=a EXCHANGE=my-direct npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/publisher/direct-exchange-back-off.ts
+// ROUTING_KEY=a EXCHANGE=my-direct npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./@/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/publisher/direct-exchange-back-off.ts

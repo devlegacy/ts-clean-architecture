@@ -16,7 +16,7 @@ console.log({
 
 const publisher = async () => {
   const connection = await amqplib.connect('amqp://localhost')
-  const channel = await connection.createChannel()
+  const channel = await connection.createChannel() // createConfirmChannel
 
   await channel.assertExchange(exchangeName, exchangeType, {})
 
@@ -29,6 +29,8 @@ const publisher = async () => {
 
     const sent = channel.publish(exchangeName, routingKey, buffer, {
       persistent: true, // + durable: true
+      contentType: 'application/json',
+      contentEncoding: 'utf-8',
     })
 
     const responseStatus = sent

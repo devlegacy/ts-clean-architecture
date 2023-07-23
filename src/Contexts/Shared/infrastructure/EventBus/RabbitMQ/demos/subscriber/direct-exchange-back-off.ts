@@ -55,4 +55,4 @@ subscriber().catch((err) => {
   process.exit(1)
 })
 
-// PATTERN=a EXCHANGE=my-direct QUEUE=first npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/direct-exchange-back-off.ts
+// PATTERN=a EXCHANGE=my-direct QUEUE=first npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./@/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/direct-exchange-back-off.ts
