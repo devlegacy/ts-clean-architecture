@@ -67,7 +67,7 @@
     "@fastify/rate-limit": "8.0.3",
     "@fastify/session": "10.4.0",
     "@fastify/swagger": "8.8.0",
-    "@fastify/swagger-ui": "1.9.2",
+    "@fastify/swagger-ui": "1.9.3",
     "@graphql-tools/schema": "10.0.0",
     "@mikro-orm/core": "5.7.13",
     "@mikro-orm/mongo-highlighter": "1.0.0",
