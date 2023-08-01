@@ -20,6 +20,10 @@
 Es abstracción encima de las colas que se une a las colas por bindings
 
 - fanout 
+  - El patrón "fanout" implica que un mensaje enviado a un tópico será entregado a múltiples consumidores independientes. Cada consumidor recibirá una copia del mensaje y los consumidores actúan de manera independiente entre sí.
+    - El término "fanout" proviene del concepto de un ventilador o abanico, donde un flujo central de aire se divide en múltiples corrientes que se dispersan en diferentes direcciones. De manera similar, en el patrón "fanout" de mensajería, un mensaje central se distribuye hacia múltiples consumidores, creando una arquitectura de mensajes distribuidos.
+  - "distribución masiva" o "distribución múltiple" 
+  - similar a un PUT, secure/safe, se puede procesar dos veces con peticiones similares, idempotent 
   - broadcast
   - binding: no existe
   - 

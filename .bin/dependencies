@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Read the package.json file and extract dependencies and devDependencies sections
+dependencies=$(jq -r '.dependencies | keys | join(" ")' package.json)
+devDependencies=$(jq -r '.devDependencies | keys | join(" ")' package.json)
+
+# Install regular dependencies
+if [ -n "$dependencies" ]; then
+  echo -e "npm install $dependencies \n"
+fi
+
+# Install devDependencies
+if [ -n "$devDependencies" ]; then
+  echo -e "npm install -D $devDependencies \n"
+fi
