@@ -101,6 +101,13 @@ export function Headers(
   return createPipesRouteParamDecorator(RouteParamtypes.HEADERS)(property, ...pipes)
 }
 
+export function Cookies(
+  property?: string | (Constructor<PipeTransform> | PipeTransform),
+  ...pipes: (Constructor<PipeTransform> | PipeTransform)[]
+): ParameterDecorator {
+  return createPipesRouteParamDecorator(RouteParamtypes.COOKIES)(property, ...pipes)
+}
+
 export function Query(): ParameterDecorator
 export function Query(...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator
 export function Query(property: string, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator

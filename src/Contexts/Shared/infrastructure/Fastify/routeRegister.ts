@@ -6,14 +6,15 @@ import { cwd } from 'node:process'
 
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 
-import { ControllerResolver, HttpStatus, Paramtype } from '@/Contexts/Shared/domain/Common'
 import { info } from '@/Contexts/Shared/infrastructure/Logger'
 
 import { isConstructor, normalizePath } from '../../domain'
 import {
+  ControllerResolver,
   HTTP_CODE_METADATA,
+  HttpStatus,
   METHOD_METADATA,
-  ParamData,
+  ParamExtractors,
   PATH_METADATA,
   PipeTransform,
   RequestMappingMetadata,
@@ -155,54 +156,6 @@ const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, numbe
     keyParam,
   ])
 
-const pipeBuilder = (
-  req: any,
-  type: Paramtype,
-  data?: ParamData,
-  pipes?: (Constructor<PipeTransform> | PipeTransform)[]
-) => {
-  if (!(data && pipes && Array.isArray(pipes))) return
-
-  for (const pipe of pipes) {
-    const reqType: any = req[`${type}`]
-    if (!isConstructor<PipeTransform>(pipe) || !reqType) continue
-    reqType[`${data}`] = new pipe().transform(reqType[`${data}`], {
-      type,
-    })
-  }
-}
-
-const extractParams = (
-  req: any,
-  res: any,
-  paramtype: number,
-  data: ParamData | undefined,
-  pipes?: (Constructor<PipeTransform> | PipeTransform)[]
-) => {
-  let routeParamValue: unknown
-
-  if (paramtype === RouteParamtypes.REQUEST) {
-    routeParamValue = req
-  } else if (paramtype === RouteParamtypes.RESPONSE) {
-    routeParamValue = res
-  } else if (paramtype === RouteParamtypes.QUERY) {
-    pipeBuilder(req, 'query', data, pipes)
-    // Extract a part of query
-    routeParamValue = data ? req.query[`${data}`] : req.query
-  } else if (paramtype === RouteParamtypes.PARAM) {
-    pipeBuilder(req, 'params', data, pipes)
-    routeParamValue = data ? req.params[`${data}`] : req.params
-  } else if (paramtype === RouteParamtypes.BODY) {
-    routeParamValue = req.body
-  } else if (paramtype === RouteParamtypes.HEADERS) {
-    pipeBuilder(req, 'headers', data, pipes)
-    // Extract a part of headers
-    routeParamValue = data ? req.headers[`${data}`] : req.headers
-  }
-
-  return routeParamValue
-}
-
 const getParams = (
   req: any,
   res: any,
@@ -215,7 +168,7 @@ const getParams = (
     const [paramtype, index, key] = keyParam
     const { data, pipes } = params[`${key}`]
 
-    const routeParamValue = extractParams(req, res, paramtype, data, pipes)
+    const routeParamValue = ParamExtractors[+paramtype].extract(req, res, data, pipes)
 
     routeParams[`${index}`] = routeParamValue
   }
