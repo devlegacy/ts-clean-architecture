@@ -179,7 +179,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.5",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.12.2"
+    "npm-check-updates": "16.12.3"
   },
   "engines": {
     "node": ">=16.15.0 <=20.4.0",
