@@ -74,7 +74,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     })
     .asSingleton()
   builder.register(Monitoring).useFactory(() => {
-    const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+    const monitoring = new SentryModule(SentryConfigFactory.createConfig())
 
     return monitoring
   })

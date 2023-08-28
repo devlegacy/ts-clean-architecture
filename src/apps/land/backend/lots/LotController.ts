@@ -7,7 +7,10 @@ import { LotRequestSchema } from './LotRequestSchema'
 
 @Controller('blocks/:block/lots')
 export class LotController {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus
+  ) {}
 
   @Get(':id')
   async show(@Param('id', UuidPipe) id: string) {

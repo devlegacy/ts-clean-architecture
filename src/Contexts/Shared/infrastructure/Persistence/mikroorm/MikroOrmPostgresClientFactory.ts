@@ -18,8 +18,8 @@ export abstract class MikroOrmPostgresClientFactory {
     return client
   }
 
-  private static getClient(contextName: string): MikroORM<PostgreSqlDriver> {
-    return MikroOrmPostgresClientFactory.clients[`${contextName}`]
+  private static getClient(contextName: string): Nullable<MikroORM<PostgreSqlDriver>> {
+    return MikroOrmPostgresClientFactory.clients[`${contextName}`] || null
   }
 
   private static async createAndConnectClient(config: PostgresConfig): Promise<MikroORM<PostgreSqlDriver>> {

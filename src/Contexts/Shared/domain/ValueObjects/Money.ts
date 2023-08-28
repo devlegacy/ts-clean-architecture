@@ -11,7 +11,7 @@ export class Money {
   readonly format: string
 
   constructor(amount: number, currency: string) {
-    const dollarUS = Intl.NumberFormat(Money.locales[`${currency}`.toUpperCase()] ?? 'en-US', {
+    const dollarUS = new Intl.NumberFormat(Money.locales[`${currency}`.toUpperCase()] ?? 'en-US', {
       style: 'currency',
       currency,
     })

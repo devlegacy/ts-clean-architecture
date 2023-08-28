@@ -9,7 +9,10 @@ import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
 
 @UseCase()
 export class BackofficeCourseDeleter {
-  constructor(private readonly repository: BackofficeCourseRepository, private readonly bus: QueryBus) {}
+  constructor(
+    private readonly repository: BackofficeCourseRepository,
+    private readonly bus: QueryBus
+  ) {}
 
   async run(courseId: BackofficeCourse['id']): Promise<void> {
     await this.ensureCourseExists(courseId)

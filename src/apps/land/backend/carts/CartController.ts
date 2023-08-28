@@ -13,7 +13,10 @@ import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidati
 
 @Controller('carts')
 export class CartController {
-  constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus
+  ) {}
 
   @Get(':cartId')
   async show(@Param('cartId', UuidPipe) cartId: string) {

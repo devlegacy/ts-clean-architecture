@@ -4,7 +4,10 @@ import { EventBus } from '@/Contexts/Shared/domain'
 import { Cart, CartRepository } from '../../domain'
 
 export class CartCreator {
-  constructor(private readonly repository: CartRepository, private readonly bus: EventBus) {}
+  constructor(
+    private readonly repository: CartRepository,
+    private readonly bus: EventBus
+  ) {}
 
   async run(id: CartId, userId: UserId) {
     const cart = Cart.create(id, userId)

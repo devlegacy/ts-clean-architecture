@@ -31,7 +31,7 @@ export class BackofficeCourseFinder {
     const criteria = new LastCreatedEntities(filters)
     const courses = await this.repository.search(criteria)
 
-    if (!courses.length) throw new BackofficeCourseNotFoundError()
+    if (!courses.length || !courses[0]) throw new BackofficeCourseNotFoundError()
 
     return courses[0]
   }

@@ -15,7 +15,7 @@ export class BackofficeCourseByCriteriaFinder {
     const criteria = new LastCreatedEntities(filters)
 
     const courses = await this.repository.search(criteria)
-    if (!courses.length) throw new BackofficeCourseNotFoundError()
+    if (!courses.length || !courses[0]) throw new BackofficeCourseNotFoundError()
 
     const response = new BackofficeCourseResponse(courses[0])
     // No return an aggregate

@@ -6,7 +6,10 @@ import { BlockRepository } from '../../domain'
 
 @UseCase()
 export class BlockDeleter {
-  constructor(private readonly repository: BlockRepository, private readonly bus: EventBus) {}
+  constructor(
+    private readonly repository: BlockRepository,
+    private readonly bus: EventBus
+  ) {}
 
   async run(request: BlockId) {
     const block = await this.repository.find(request)

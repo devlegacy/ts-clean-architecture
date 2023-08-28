@@ -18,7 +18,7 @@ export class RedisClientFactory {
   }
 
   private static getClient(contextName: string): Nullable<Redis> {
-    return RedisClientFactory.clients[`${contextName}`]
+    return RedisClientFactory.clients[`${contextName}`] || null
   }
 
   private static createAndConnectClient(config: RedisConfig): Redis {

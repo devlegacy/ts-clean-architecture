@@ -123,7 +123,7 @@ export class Account extends AggregateRoot {
   }
 
   private getMaxCreditInRequestedCurrency(requested: Money, ratioService: EURRatioService) {
-    const ratioEurRequestedCurrency = ratioService.getEURRatioForCurrency(requested.currency)
+    const ratioEurRequestedCurrency = ratioService.getEURRatioForCurrency(requested.currency)!
     const money = new Money(Account.MAX_CREDIT_IN_EUROS * ratioEurRequestedCurrency, requested.currency)
     return money
   }

@@ -6,7 +6,10 @@ import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../.
 
 @UseCase()
 export class CoursesCounterIncrementer {
-  constructor(private readonly repository: CoursesCounterRepository, private readonly bus: EventBus) {}
+  constructor(
+    private readonly repository: CoursesCounterRepository,
+    private readonly bus: EventBus
+  ) {}
 
   async run(courseId: Course['id']) {
     const search = await this.repository.search()

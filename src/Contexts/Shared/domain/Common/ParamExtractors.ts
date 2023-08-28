@@ -57,8 +57,14 @@ class ParamParamExtractor implements ParamExtractor {
 }
 
 class BodyParamExtractor implements ParamExtractor {
-  extract(req: any): unknown {
-    return req.body
+  extract(
+    req: any,
+    res: any,
+    data: ParamData | undefined,
+    pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+  ): unknown {
+    pipeBuilder(req, 'body', data, pipes)
+    return data ? req.body[`${data}`] : req.body
   }
 }
 

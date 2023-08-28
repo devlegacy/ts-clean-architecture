@@ -5,7 +5,10 @@ import { Course, CourseDuration, CourseName, CourseRepository } from '../domain'
 import { CourseCreatorRequest } from './CourseCreatorRequest'
 
 export class CourseCreator {
-  constructor(private readonly repository: CourseRepository, private readonly eventBus: EventBus) {}
+  constructor(
+    private readonly repository: CourseRepository,
+    private readonly eventBus: EventBus
+  ) {}
 
   async run(request: CourseCreatorRequest) {
     const course = Course.create(

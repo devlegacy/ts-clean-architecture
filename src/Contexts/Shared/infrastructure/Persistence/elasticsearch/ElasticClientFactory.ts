@@ -20,7 +20,7 @@ export class ElasticClientFactory {
   }
 
   private static getClient(contextName: string): Nullable<ElasticClient> {
-    return ElasticClientFactory.clients[`${contextName}`]
+    return ElasticClientFactory.clients[`${contextName}`] || null
   }
 
   private static async createAndConnectClient(config: ElasticConfig): Promise<ElasticClient> {

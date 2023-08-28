@@ -156,6 +156,10 @@ const getKeyParam = (params: Record<string, RouteParamMetadata>): [number, numbe
     keyParam,
   ])
 
+const DEFAULT_METADATA = {
+  data: undefined,
+  pipes: undefined,
+}
 const getParams = (
   req: any,
   res: any,
@@ -164,11 +168,12 @@ const getParams = (
   // HttpRequest | HttpResponse | unknown
   const routeParams: unknown[] = []
   const keyParams = params ? getKeyParam(params) : []
+
   for (const keyParam of keyParams) {
     const [paramtype, index, key] = keyParam
-    const { data, pipes } = params[`${key}`]
+    const { data, pipes } = params[`${key}`] || DEFAULT_METADATA
 
-    const routeParamValue = ParamExtractors[+paramtype].extract(req, res, data, pipes)
+    const routeParamValue = ParamExtractors[+paramtype]?.extract(req, res, data, pipes)
 
     routeParams[`${index}`] = routeParamValue
   }

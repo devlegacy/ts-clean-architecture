@@ -28,7 +28,7 @@ export class MongoAccountEventStore extends MongoEventStore<Account> implements 
     const collection = await this.collection<AccountDocument>()
     const events = await collection.find({ aggregateId: id }).toArray()
 
-    if (!events || !events.length) return null
+    if (!events || !events.length || !events[0]) return null
 
     const account = new Account(id, events[0].name, new Money(events[0].balance.amount, events[0].balance.currency))
     events

@@ -18,8 +18,8 @@ export class MongoClientFactory {
     return client
   }
 
-  private static getClient(contextName: string): MongoClient {
-    return MongoClientFactory.clients[`${contextName}`]
+  private static getClient(contextName: string): Nullable<MongoClient> {
+    return MongoClientFactory.clients[`${contextName}`] || null
   }
 
   private static async createAndConnectClient(config: MongoConfig): Promise<MongoClient> {

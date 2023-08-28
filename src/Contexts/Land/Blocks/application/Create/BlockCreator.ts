@@ -5,7 +5,10 @@ import { Block, BlockEntityType, BlockRepository } from '../../domain'
 
 @UseCase()
 export class BlockCreator {
-  constructor(private readonly repository: BlockRepository, private readonly bus: EventBus) {}
+  constructor(
+    private readonly repository: BlockRepository,
+    private readonly bus: EventBus
+  ) {}
 
   async run(request: BlockEntityType) {
     const block = Block.create(request)

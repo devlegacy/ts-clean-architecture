@@ -1,7 +1,10 @@
 export abstract class EnumValueObject<T> {
   readonly value: T
 
-  constructor(value: T, readonly values: T[]) {
+  constructor(
+    value: T,
+    readonly values: T[]
+  ) {
     this.value = value
     this.isValid(value)
   }

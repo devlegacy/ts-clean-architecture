@@ -86,6 +86,11 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   }
 
   protected async persist(aggregateRoot: T): Promise<void> {
+    // Nota: una forma de evitar las transacciones dentro de los repositorios es con publicación de eventos y retries
+    // begin transaction
+    // commit transaction
+    // end transaction
+    // rollback transaction if error and clean events
     // const repository = await this.repository()
     const client = await this.#client
     const manager = client.em

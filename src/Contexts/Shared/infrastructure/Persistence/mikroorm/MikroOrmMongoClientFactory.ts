@@ -23,8 +23,8 @@ export abstract class MikroOrmMongoClientFactory {
     return client
   }
 
-  static #getClient(contextName: string): MikroORM<MongoDriver> {
-    return MikroOrmMongoClientFactory.#clients[`${contextName}`]
+  static #getClient(contextName: string): Nullable<MikroORM<MongoDriver>> {
+    return MikroOrmMongoClientFactory.#clients[`${contextName}`] || null
   }
 
   static async #createAndConnectClient(
@@ -58,12 +58,15 @@ export abstract class MikroOrmMongoClientFactory {
       validate: true,
       contextName,
       strict: true,
-      implicitTransactions: true, // defaults to false
-      // driverOptions: {
-      //   monitorCommands: true,
-      // ignoreUndefined: true
-      //   loggerLevel: 'debug'
-      // }
+      // implicitTransactions: true, // defaults to false
+      implicitTransactions: false, // defaults to false
+      ensureIndexes: true,
+      driverOptions: {
+        useUnifiedTopology: true,
+        //   monitorCommands: true,
+        // ignoreUndefined: true
+        //   loggerLevel: 'debug'
+      },
     }
     const client = await MikroORM.init<MongoDriver>(options, true)
     await client.getSchemaGenerator().createSchema()

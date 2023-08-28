@@ -8,7 +8,10 @@ import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
 export class MongoDomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'
 
-  constructor(private _client: Promise<MongoClient>, private deserializer?: DomainEventDeserializer) {}
+  constructor(
+    private readonly _client: Promise<MongoClient>,
+    private readonly deserializer?: DomainEventDeserializer
+  ) {}
 
   async publish(event: DomainEvent): Promise<void> {
     const collection = await this.collection()

@@ -6,7 +6,10 @@ import { CartResponse } from '../CartResponse'
 import { FindCartQuery } from '../Finder'
 
 export class CartCheckout {
-  constructor(private readonly queryBus: QueryBus, private readonly eventBus: EventBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly eventBus: EventBus
+  ) {}
 
   async run(id: CartId, orderId: OrderId) {
     const cart = await this.existsCart(id.value)

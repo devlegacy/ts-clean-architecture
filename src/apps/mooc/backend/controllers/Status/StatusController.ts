@@ -33,10 +33,29 @@ export class StatusController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('config')
+  @Get('configs')
   config() {
     const properties = config.getProperties()
     return properties
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('changed-config')
+  configChanger() {
+    const properties = config.getProperties()
+    const response: {
+      pre?: typeof properties
+      post?: typeof properties
+    } = {
+      pre: properties,
+      post: undefined,
+    }
+
+    config.set('log.level', 'debug')
+    // changes for all the app flow
+    response.post = config.getProperties()
+
+    return response
   }
 
   @Post('joi/pipe/:mongoId')
@@ -72,6 +91,7 @@ export class StatusController {
     @Query() query: IndexQueryRequestSchema,
     @Param() params: Record<string, unknown>,
     @Body() body: UserRequestSchema,
+    @Body('name') name: string,
     @Headers() headers: IndexRequestHeadersSchema
   ) {
     const hostname = req.hostname ?? 'no hostname'
@@ -85,6 +105,7 @@ export class StatusController {
       query,
       params,
       body,
+      name,
       headers,
     }
   }

@@ -26,7 +26,10 @@ export class AnalyticCLI {
     console.log(message)
 
     const optionSelected = Number(readline.question('Option:'))
-    this.options[optionSelected - 1](this.render.bind(this), this.onError.bind(this))
+    const cb = this.options.at(optionSelected - 1)
+    if (cb) {
+      cb(this.render.bind(this), this.onError.bind(this))
+    }
   }
 
   private onError(err: Error) {

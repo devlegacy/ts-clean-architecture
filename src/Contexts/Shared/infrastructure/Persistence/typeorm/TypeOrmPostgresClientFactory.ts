@@ -20,8 +20,8 @@ export class TypeOrmPostgresClientFactory {
     return !client.isInitialized ? await client.initialize() : client
   }
 
-  static #getClient(contextName: string): DataSource {
-    return TypeOrmPostgresClientFactory.#clients[`${contextName}`]
+  static #getClient(contextName: string): Nullable<DataSource> {
+    return TypeOrmPostgresClientFactory.#clients[`${contextName}`] || null
   }
 
   static async #createAndConnectClient(contextName: string, config: PostgresConfig): Promise<DataSource> {
