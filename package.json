@@ -68,7 +68,7 @@
     "@fastify/helmet": "11.0.0",
     "@fastify/rate-limit": "8.0.3",
     "@fastify/session": "10.4.0",
-    "@fastify/swagger": "8.9.0",
+    "@fastify/swagger": "8.10.0",
     "@fastify/swagger-ui": "1.9.3",
     "@graphql-tools/schema": "10.0.0",
     "@json2csv/plainjs": "7.0.3",
@@ -79,7 +79,7 @@
     "@mikro-orm/mongodb": "5.7.14",
     "@mikro-orm/postgresql": "5.7.14",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.66.0",
+    "@sentry/node": "7.67.0",
     "ajv": "8.12.0",
     "amqplib": "0.10.3",
     "axios": "1.5.0",
@@ -199,7 +199,7 @@
     "npm-check-updates": "16.13.2"
   },
   "engines": {
-    "node": ">=16.15.0 <=20.4.0",
+    "node": ">=16.15.0 <=20.6.0",
     "npm": ">=9.8.0"
   }
 }
