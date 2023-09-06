@@ -67,3 +67,7 @@ Es abstracción encima de las colas que se une a las colas por bindings
 
 - [service].[entity].[action]_on_[event]
 - user.notification..notify_user_on_video_published
+
+## Read 
+
+- https://climbtheladder.com/10-rabbitmq-best-practices/

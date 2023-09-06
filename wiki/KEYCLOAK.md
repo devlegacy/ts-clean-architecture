@@ -57,6 +57,10 @@ Alternatives
 
 ## Users
 
+## Themes
+
+- https://github.com/keycloak/keycloak/tree/main/themes/src/main/resources/theme/base/email/html
+
 ## Resources
 
 - https://www.youtube.com/watch?v=h_LazBPebCs

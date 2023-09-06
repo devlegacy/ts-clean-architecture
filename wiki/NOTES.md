@@ -107,6 +107,7 @@
 
 ### Notes
 
+- Una mala abstracción es peor que duplicar código.
 - Los niveles de indirección/encapsulación (layers, use case, repository, command|query bus), añaden complejidad accidental.
 
 - Aggregates
@@ -124,7 +125,8 @@
   - It could instantiate  `use cases` | `use cases` ↔ `value objects` | `query bus` ↔ `queries` | `command bus` ↔ `commands`
     - `use cases` ↔ `value objects` could be migrated to `CQRS`
   - It has an implicit interface 
-- Repositories
+- Repositories (collaborator - centralize data persistance and read with infrastructure - API / Database)
+  - Adapter pattern
   - Communicate with infrastructure (persistence)
      - Database
      - Redis
@@ -249,8 +251,13 @@
   - Comittizen (conventional changelog)
   - Lint staged
 - 📏 Code conventions
-  - eslint
-  - prettier
+  - eslint: Linter de código | Analizador de código estático
+    - "lint" originalmente se refería a las fibras sueltas y pelusas que se desprenden del lino, algodón y otras telas durante el proceso de tejido.
+    - "lint" (pelusa) fue adoptado metafóricamente para describir el proceso de identificar las "pelusas" o "residuos" en el código, es decir, fragmentos de código que no son errores per se, pero que son problemáticos o no ideales según ciertos estándares de codificación.
+    - Un "linter" es la herramienta que identifica estos problemas (linting).
+    - Busca errores de sintaxis, hasta patrones de código problemáticos o no adherentes a ciertas guías de estilo. Además, puede corregir automáticamente muchos de estos problemas.
+  - prettier: Formateador de código
+    - espaciado, sangría, saltos de línea, y la forma en que se muestran las listas, objetos, etc.
 - Message broker
   - RabbitMQ
   - Kafka

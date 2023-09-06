@@ -160,6 +160,16 @@ Actionable | Task | Topics | Bugs
 
 <h2 align="center">🤝 Merge request | Pull request</h2>
 
+Pull (move towards) Request (PR): 
+  - 🐙 github y bitbucket
+  - Solicitud para mover/jalar cambios de una rama o repositorio hacia otro
+
+Merge (join) Request (MR):
+  - 🦊 gitlab
+  - Solicitud para fusionar/unir cambios de una rama o repositorio hacia otro
+
+Ambos términos se refieren al mismo concepto básico.
+
 ⚙ Settings:
 
 - Branch requirements
