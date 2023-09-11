@@ -8,6 +8,13 @@
   - Protocolo de comunicación de red (API HTTP)
   - Cualquier cosa que expone un programa, puede ser en términos de comunicación de Red o una clase
 - **API RESTful**: Application Programming Interface REpresentational State Transfer
+  - Es una forma de diseñar y estructurar las interacciones entre un cliente y un servidor, mapea con CRUD
+  
+  | **URL / Action** | **HTTP Method GET** | **HTTP Method PUT** | **HTTP Method PATCH** | **HTTP Method POST** | **HTTP Method DELETE** |
+  | - | - | - | - | - | - |
+  | /courses | List / Show / **R**ead | Replace / **U**pdate full | N/A | **C**reate | **D**elete |
+  | /courses/:id | Find / Get / **R**ead | Replace / **U**pdate full |  Replace / **U**pdate partially | N/A | **D**elete |
+  
 - **Adapter**: El patrón adapter se utiliza para transformas una interfaz a otra, de tal modo que una clase que no pueda utilizar la primera haga uso de ella a través de la segunda
 - **endpoint**: El punto de entrada a un servicio. En una API HTTP correspondería a una URL.
 
@@ -49,7 +56,7 @@
 - **proyección**: Vista de un conjunto de datos. Por ejemplo, una proyección de las facturas de nuestros usuarios podría ser una tabla en la bbdd con todos los datos de las facturas.
 - **TDD**: Test driven design
 - **Niveles de indirección**
-- **Casuística**:
+- **Casuística**: Se refiere al estudio de casos individuales. Conjunto de los diversos casos particulares que se pueden prever en determinada materia.
 
 - Patron de diseño
 - Patron de arquitectura
@@ -64,6 +71,7 @@
   - Backward compatibility
   - DTO is an object that carries data between processes. 
   - Los DTOs suelen ser agnósticos a tecnologías para facilitar su serialización y deserialización hacia y desde la tecnología del bus
+  - Just model information and type
 
 ### CQRS
 
@@ -119,3 +127,12 @@
   - Domain service
 - Searcher
   - Buscar -> Nullable<Entity> y puede que no lo encuentre
+
+## 
+
+- YAGNI
+- Composición sobre herencia (favour composition over inheritance)
+- KISS
+- DRY
+- SOLID
+- GRASP

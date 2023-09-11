@@ -8,7 +8,7 @@
 - [x] Pagination como servicio de dominio y crear método count en repositorio
 - [ ] Leer acerca de ULID
 - [ ] Implementación de HTTP 2.x o HTTP 3.x en el entorno de fastify y nginx
-
+- [ ] Invalid Date
 
 - [ ] Crear bash para creación de un scaffold de un modulo ej. `module src/Context/Land/Lots`
   - `crear carpetas application, domain (Errors y ValueObjects), infrastructure con index.ts`

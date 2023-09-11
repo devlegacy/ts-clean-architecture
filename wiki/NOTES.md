@@ -39,9 +39,9 @@
 │  │  │  │  │  ├─ 📄 `CourseFinder.ts` Servicio | Servicio de dominio | Caso de uso    
 │  │  │  │  │  ├─ 📄 `Course.ts`     
 │  │  │  │  │  ├─ 📄 `CourseCreateDomainEvent.ts`     
-│  │  │  │  │  ├─ 📂 `exceptions/`   
-│  │  │  │  │  ├─ 📂 `value-objects/`   
-│  │  │  │  │  ├─ 📂 `criteria/`   
+│  │  │  │  │  ├─ 📂 `Exceptions/`   
+│  │  │  │  │  ├─ 📂 `ValueObjects/`   
+│  │  │  │  │  ├─ 📂 `Criteria/`   
 │  │  │  │  ├─ 📂 `infrastructure/` - ¿De qué tipo? (UserPostController, MySQLUserRepository)    
 │  │  │  │  │  ├─ 📂 `persistence/`    
 │  │  │  │  │  │  ├─ 📂 `mongo/` - Diver nativo     
@@ -62,10 +62,11 @@
 │  │  ├─ 📂 `Shared/` Shared Kernel | Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus, requiere mayor conocimiento de TypeScript     
 │  │  │  ├─ 📂 `domain/`     
 │  │  │  ├─ 📂 `infrastructure/`    
+│  │  │  │  ├─ 📂 `ValueObjects/` Lógica del tipo de dato, nunca reglas de dominio   
 │  │  │  │  ├─ 📂 `EventBus/`    
 │  │  │  │  ├─ 📂 `persistence/`    
 │  │  │  │  ├─ 📂 `logger/`     
-│  │  │  │  ├─ 📂 `common/`  own modules and config to improve other infrastructures modules   
+│  │  │  │  ├─ 📂 `common/` own modules and config to improve other infrastructures modules   
 │  │  │  │  ├─ 📂 `platform-fastify/`     
 │  │  │  │  ├─ 📂 `joi/`     
 │  │  │  │  ├─ 📂 `typebox/`     
@@ -167,6 +168,7 @@
   - It should instantiate `value objects` or `domain objects`
   - It should throw `Error` | `Exception`
   - Orchestration layer (directs aggregate to repositories and busses)
+    - Atomizar la lógica de negocio de una determinada acción
 - 📥 Module rules 📏
   - Los nombres de las carpetas que representan un `módulo` o `contexto` deben ir en mayúsculas, ya que representan a la entidad agregado de ese módulo.
 - Commands
@@ -177,6 +179,7 @@
   - ✅ `CommandBus` can instantiate in controllers (HTTP)
   - ❌ `Command` can't instantiate command bus, 
   - ⚠ it is a simple DTO, (primitives of json specif).
+    - Just model information and type
   - ⚠ transfer data from point a to point b.
   - ✅ `CommandHandler<T>` can reject operations
     - ⚠ should destructure `Command` to `value objects` or `domain objects`
