@@ -1,6 +1,6 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain'
+import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
-import { JobExperience, JobExperiencePrimitiveType } from './JobExperience'
+import { JobExperience, type JobExperiencePrimitiveType } from './JobExperience.js'
 
 export type JobExperiencesPrimitiveType = Primitives<JobExperiences>
 export type JobExperiencesEntityType = Entity<JobExperiences>
@@ -33,10 +33,15 @@ export class JobExperiences extends Array<JobExperience> {
     return new JobExperiences(experiences)
   }
 
+  // override map<U>(callbackfn: (value: JobExperience, index: number, array: JobExperience[]) => U, thisArg?: any): U[] {
+  //   return super.map(callbackfn, thisArg)
+  // }
+
   toPrimitives() {
     // return Array.from(this).map((experience) => experience.toPrimitives())
     // return this.length ? this.map((experience) => experience.toPrimitives()) : this
     // return Array.prototype.map.call(this, (experience) => experience.toPrimitives())
+    // return this.map((experience) => experience.toPrimitives())
     return this.map((experience) => experience.toPrimitives())
   }
 
@@ -47,11 +52,14 @@ export class JobExperiences extends Array<JobExperience> {
       const currentExperience = sortedExperiences[+i]
       const nextExperience = sortedExperiences[i + 1]
 
-      if (!currentExperience.endDate) {
+      if (!currentExperience?.endDate) {
         continue
       }
 
-      if ((currentExperience.endDate()?.getTime() ?? new Date().getTime()) > nextExperience.startDate().getTime()) {
+      if (
+        nextExperience &&
+        (currentExperience.endDate()?.getTime() ?? new Date().getTime()) > nextExperience.startDate().getTime()
+      ) {
         throw new InvalidArgumentError(
           `The job experience at ${
             currentExperience.company.value
@@ -63,3 +71,16 @@ export class JobExperiences extends Array<JobExperience> {
     }
   }
 }
+// const jobExperience = new JobExperiences([
+//   {
+//     company: 'company',
+//     dateRange: {
+//       startDate: new Date(),
+//       endDate: new Date(),
+//     },
+//     title: 'title',
+//   },
+// ])
+// console.log(jobExperience)
+// console.log('Array', jobExperience instanceof Array, typeof jobExperience)
+// console.log('JobExperiences', jobExperience instanceof JobExperiences, typeof jobExperience)

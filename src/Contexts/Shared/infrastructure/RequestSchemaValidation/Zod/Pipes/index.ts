@@ -1,1 +1,1 @@
-export * from './mongo-id.pipe'
+export * from './mongo-id.pipe.js'

@@ -1,7 +1,7 @@
-import { InvalidArgumentError, isNil } from '@/Contexts/Shared/domain'
+import { InvalidArgumentError, isNil } from '@/Contexts/Shared/domain/index.js'
 
-import { EndDate } from './EndDate'
-import { StartDate } from './StartDate'
+import { EndDate } from './EndDate.js'
+import { StartDate } from './StartDate.js'
 
 export type DateRangePrimitiveType = Primitives<DateRange>
 export type DateRangeEntityType = Entity<DateRange>
@@ -32,7 +32,8 @@ export class DateRange {
       return
     }
 
-    if (startDate.value > endDate.value) {
+    //
+    if (startDate.isAfter(endDate)) {
       throw new InvalidArgumentError(
         `<${startDate.toString()}-${endDate.toString()}> is not a valid <${this.constructor.name}>`
       )

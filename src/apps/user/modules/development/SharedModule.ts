@@ -1,14 +1,16 @@
 import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
 
-import { Logger, Monitoring } from '@/Contexts/Shared/domain'
-import { FatalErrorHandler, MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
-import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure'
+import { Logger, Monitoring } from '@/Contexts/Shared/domain/index.js'
+import { FatalErrorHandler, MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import { MongoConfigFactory } from '@/Contexts/User/Shared/infrastructure/index.js'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'user'
 
 const mongoConfig = MongoConfigFactory.createConfig()

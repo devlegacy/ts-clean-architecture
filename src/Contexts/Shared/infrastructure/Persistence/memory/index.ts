@@ -1,2 +1,2 @@
-export * from './DataStore'
-export * from './InMemoryRepository'
+export * from './DataStore.js'
+export * from './InMemoryRepository.js'

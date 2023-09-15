@@ -1,5 +1,5 @@
-import { ParamData } from '../../Decorators'
-import { PipeTransform } from './PipeTransform'
+import type { ParamData } from '../../Decorators/index.js'
+import type { PipeTransform } from './PipeTransform.js'
 
 export interface ParamExtractor {
   extract(

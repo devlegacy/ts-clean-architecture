@@ -1,7 +1,7 @@
 import { shallowEqual } from 'fast-equals'
 
-import { InvalidArgumentError } from '../Errors'
-import { isNil } from '../shared.utils'
+import { InvalidArgumentError } from '../Errors/index.js'
+import { isNil } from '../shared.utils.js'
 
 // // eslint-disable-next-line @typescript-eslint/ban-types
 // export type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint

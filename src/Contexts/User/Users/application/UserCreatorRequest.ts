@@ -1,7 +1,7 @@
-import {
-  JobExperience,
+import type {
+  JobExperiencePrimitiveType,
   //UserPrimitiveType
-} from '../domain'
+} from '../domain/index.js'
 
 export interface UserCreatorRequest {
   id: string
@@ -9,6 +9,6 @@ export interface UserCreatorRequest {
   username: string
   birthdate: Date
   age?: number | undefined
-  jobExperiences: JobExperience[]
+  jobExperiences: JobExperiencePrimitiveType[]
   email: string
 }

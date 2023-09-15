@@ -1,1 +1,1 @@
-export * from './ValueObjectTransformer'
+export * from './ValueObjectTransformer.js'

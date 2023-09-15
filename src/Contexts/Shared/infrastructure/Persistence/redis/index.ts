@@ -1,2 +1,2 @@
-export * from './RedisClientFactory'
-export * from './RedisConfig'
+export * from './RedisClientFactory.js'
+export * from './RedisConfig.js'

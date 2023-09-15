@@ -1,10 +1,10 @@
-import { Criteria } from './Criteria'
-import { Filter } from './Filter'
-import { FilterField } from './FilterField'
-import { FilterOperator, Operator } from './FilterOperator'
-import { Filters } from './Filters'
-import { FilterValue } from './FilterValue'
-import { Order } from './Order'
+import { Criteria } from './Criteria.js'
+import { Filter } from './Filter.js'
+import { FilterField } from './FilterField.js'
+import { FilterOperator, Operator } from './FilterOperator.js'
+import { Filters } from './Filters.js'
+import { FilterValue } from './FilterValue.js'
+import { Order } from './Order.js'
 
 export class LastCreatedEntities extends Criteria {
   constructor(filters: Filters, limit?: number, offset?: number) {

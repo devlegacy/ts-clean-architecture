@@ -1,2 +1,2 @@
-export * from './config'
-export * from './persistence/mongo/MongoConfigFactory'
+export * from './config/index.js'
+export * from './persistence/mongo/MongoConfigFactory.js'

@@ -1,4 +1,4 @@
-import { DomainEvent } from './DomainEvent'
+import { DomainEvent } from './DomainEvent.js'
 
 // EventHandler
 export interface DomainEventSubscriber<T extends DomainEvent = DomainEvent> {

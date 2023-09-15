@@ -1,1 +1,1 @@
-export * from './dependency-injection'
+export * from './dependency-injection/index.js'

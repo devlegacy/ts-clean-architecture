@@ -1,6 +1,6 @@
-import { DateTime, InvalidArgumentError } from '@/Contexts/Shared/domain'
+import { DateTime, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
-import { Generation, GenerationName } from './Generation'
+import { Generation, GenerationName } from './Generation.js'
 
 export class UserBirthdate extends DateTime {
   constructor(override readonly value: Date) {

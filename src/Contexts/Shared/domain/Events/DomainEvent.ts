@@ -1,4 +1,4 @@
-import { ObjectId, Uuid } from '../ValueObjects'
+import { ObjectId, Uuid } from '../ValueObjects/index.js'
 
 type DomainEventAttributes<T = any> = T
 export type DomainPrimitiveAttributes<T extends DomainEvent> = ReturnType<T['toPrimitives']>

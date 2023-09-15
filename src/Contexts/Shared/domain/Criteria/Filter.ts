@@ -1,7 +1,7 @@
-import { InvalidArgumentError } from '../Errors'
-import { FilterField } from './FilterField'
-import { FilterOperator, FilterOperatorKeys } from './FilterOperator'
-import { FilterValue } from './FilterValue'
+import { InvalidArgumentError } from '../Errors/index.js'
+import { FilterField } from './FilterField.js'
+import { FilterOperator, type FilterOperatorKeys } from './FilterOperator.js'
+import { FilterValue } from './FilterValue.js'
 
 export type FilterPrimitiveType = Primitives<Filter>
 type FilterPrimitiveTypeKeys = keyof FilterPrimitiveType

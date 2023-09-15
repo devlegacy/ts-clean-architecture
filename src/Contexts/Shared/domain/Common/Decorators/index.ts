@@ -1,17 +1,17 @@
-import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
+import { error, info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { Command } from '../../Commands'
-import { DomainEventClass } from '../../Events'
-import { Query } from '../../Queries'
+import { Command } from '../../Commands/index.js'
+import type { DomainEventClass } from '../../Events/index.js'
+import { Query } from '../../Queries/index.js'
 import {
   COMMAND_HANDLER_METADATA,
   EVENTS_HANDLER_METADATA,
   QUERY_HANDLER_METADATA,
   SHARED_TAGS,
-} from '../../shared.types'
+} from '../../shared.types.js'
 
-export * from './core'
-export * from './http'
+export * from './core/index.js'
+export * from './http/index.js'
 
 export function Catch(): MethodDecorator {
   // Receives the target, key and descriptor

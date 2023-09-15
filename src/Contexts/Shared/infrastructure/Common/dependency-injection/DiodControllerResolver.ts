@@ -1,6 +1,6 @@
-import { Container } from 'diod'
+import type { Container } from 'diod'
 
-import { ControllerResolver } from '@/Contexts/Shared/domain/Common'
+import type { ControllerResolver } from '@/Contexts/Shared/domain/Common/index.js'
 
 export const DiodControllerResolver =
   (container: Container): ControllerResolver =>

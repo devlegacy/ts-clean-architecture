@@ -1,13 +1,13 @@
 import { Client as ElasticClient } from '@elastic/elasticsearch'
-import { ResponseError } from '@elastic/transport/lib/errors'
-import bodybuilder, { Bodybuilder } from 'bodybuilder'
+import { ResponseError } from '@elastic/transport/lib/errors.js'
+import bodybuilder, { type Bodybuilder } from 'bodybuilder'
 import { Service } from 'diod'
 
-import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain'
-import { HttpStatus } from '@/Contexts/Shared/domain/Common'
+import { HttpStatus } from '@/Contexts/Shared/domain/Common/index.js'
+import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain/index.js'
 
-import ElasticConfig from './ElasticConfig'
-import { ElasticCriteriaConverter } from './ElasticCriteriaConverter'
+import type { ElasticConfig } from './ElasticConfig.js'
+import { ElasticCriteriaConverter } from './ElasticCriteriaConverter.js'
 
 interface SearchResult<T> {
   hits: SearchHitsMetadata<T>

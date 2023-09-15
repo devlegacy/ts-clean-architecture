@@ -1,17 +1,17 @@
-import { AggregateRoot, isNil } from '@/Contexts/Shared/domain'
+import { AggregateRoot, isNil } from '@/Contexts/Shared/domain/index.js'
 
-import { UserId } from '../../Shared/domain'
+import { UserId } from '../../Shared/domain/index.js'
 import {
   Generation,
   GenerationName,
-  JobExperiencePrimitiveType,
+  type JobExperiencePrimitiveType,
   JobExperiences,
   UserAge,
   UserBirthdate,
   UserEmail,
   UserName,
   UserUsername,
-} from './ValueObjects'
+} from './ValueObjects/index.js'
 
 // NOTE: No acoplar a un modelo
 
@@ -37,11 +37,14 @@ export class User extends AggregateRoot {
   readonly age?: UserAge
   readonly jobExperiences: JobExperiences
 
-  #email: UserEmail
+  // NOTE: #email tiene ciertas restricciones que el ORM no puede cumplir
+  // NOTE: _email tiene ciertas restricciones que el ORM no puede cumplir, todo lo asigna a email o las propiedades públicas descritas en el entity
 
-  get email() {
-    return this.#email
-  }
+  /**
+   * @readonly
+   * @type {UserEmail}
+   */
+  email: UserEmail
 
   constructor(
     id: string,
@@ -56,10 +59,10 @@ export class User extends AggregateRoot {
     this.id = new UserId(id)
     this.name = new UserName(name)
     this.username = new UserUsername(username)
-    this.#email = new UserEmail(email)
+    this.email = new UserEmail(email)
     this.birthdate = new UserBirthdate(birthdate)
     this.jobExperiences = new JobExperiences(jobExperiences)
-    this.age = isNil(age) ? undefined : new UserAge(age)
+    this.age = !isNil(age) ? new UserAge(age) : undefined
   }
 
   static override fromPrimitives(data: UserPrimitiveType): User {
@@ -80,7 +83,7 @@ export class User extends AggregateRoot {
   }
 
   updateEmail(email: UserPrimitiveType['email']) {
-    this.#email = new UserEmail(email)
+    this.email = new UserEmail(email)
   }
 
   toPrimitives(): UserPrimitiveType {
@@ -88,7 +91,7 @@ export class User extends AggregateRoot {
       id: this.id.value,
       name: this.name.value,
       username: this.username.value,
-      email: this.#email.value,
+      email: this.email.value,
       birthdate: this.birthdate.value,
       jobExperiences: this.jobExperiences.toPrimitives(),
       age: this.age?.value,
@@ -109,3 +112,7 @@ export class User extends AggregateRoot {
   // Tell don't ask
   // isBirthday() {}
 }
+
+// const user = User.fromPrimitives({} as UserPrimitiveType)
+// user.email = new UserEmail('')
+// user.id = new UserId('')

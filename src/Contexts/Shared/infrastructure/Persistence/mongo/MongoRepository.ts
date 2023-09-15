@@ -1,9 +1,9 @@
-import { Collection, Document, MongoClient, ObjectId, WithId } from 'mongodb'
+import { Collection, type Document, MongoClient, ObjectId, type WithId } from 'mongodb'
 import { inject } from 'tsyringe'
 
-import { AggregateRoot, Criteria, SHARED_TYPES } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria, SHARED_TYPES } from '@/Contexts/Shared/domain/index.js'
 
-import { MongoCriteriaConverter } from './MongoCriteriaConverter'
+import { MongoCriteriaConverter } from './MongoCriteriaConverter.js'
 
 type EntityId = string | ObjectId
 

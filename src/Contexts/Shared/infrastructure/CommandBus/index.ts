@@ -1,2 +1,2 @@
-export * from './CommandHandlers'
-export * from './InMemoryCommandBus'
+export * from './CommandHandlers.js'
+export * from './InMemoryCommandBus.js'

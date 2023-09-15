@@ -6,9 +6,17 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
-import { UserId } from '@/Contexts/User/Shared/domain'
-import { User, UserAge, UserName, UserUsername } from '@/Contexts/User/Users/domain'
+} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+import { UserId } from '@/Contexts/User/Shared/domain/index.js'
+import {
+  JobExperiences,
+  User,
+  UserAge,
+  UserBirthdate,
+  UserEmail,
+  UserName,
+  UserUsername,
+} from '@/Contexts/User/Users/domain/index.js'
 
 export const UserEntity = new EntitySchema<User>({
   name: 'User',
@@ -37,6 +45,15 @@ export const UserEntity = new EntitySchema<User>({
     username: {
       customType: new ValueObjectTransformer(UserUsername, 'string'),
       unique: true,
+    },
+    email: {
+      customType: new ValueObjectTransformer(UserEmail, 'string'),
+    },
+    birthdate: {
+      customType: new ValueObjectTransformer(UserBirthdate, 'Date'),
+    },
+    jobExperiences: {
+      customType: new ValueObjectTransformer(JobExperiences, '[]'),
     },
     age: {
       customType: new ValueObjectTransformer(UserAge, 'number'),

@@ -1,4 +1,4 @@
-import { Joi, JoiSchema } from './index'
+import { Joi, JoiSchema } from './index.js'
 
 const field = Joi.string().trim().required()
 const operator = Joi.string().trim().required() // From enum

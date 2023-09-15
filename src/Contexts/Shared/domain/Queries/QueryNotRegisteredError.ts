@@ -1,5 +1,5 @@
-import { EntityNotFoundError } from '../Errors/EntityNotFoundError'
-import { Query } from './Query'
+import { EntityNotFoundError } from '../Errors/EntityNotFoundError.js'
+import { Query } from './Query.js'
 
 export class QueryNotRegisteredError extends EntityNotFoundError {
   constructor(query: Query) {

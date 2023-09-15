@@ -23,6 +23,32 @@
       "restart": true
     },
     {
+      "cwd": "${workspaceFolder}",
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "🚀 Node.js ESM TS: Launch Program",
+      "program": "${file}",
+      "request": "launch",
+      "runtimeArgs": [
+        // "--loader=ts-node/esm",
+        "--loader=ts-paths-esm-loader/transpile-only"
+      ],
+      "runtimeExecutable": "node",
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**",
+        "${workspaceFolder}/dist/**",
+        "${workspaceFolder}/.tmp/**"
+      ],
+      "type": "node",
+      // https://github.com/pinojs/pino/issues/441
+      "outputCapture": "std",
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
+        "APP_ENV": "test",
+        "TZ": "utc"
+      }
+    },
+    {
       // NOTE: avoid use with dist folder
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart",

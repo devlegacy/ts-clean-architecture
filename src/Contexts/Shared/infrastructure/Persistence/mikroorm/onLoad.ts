@@ -1,4 +1,4 @@
-import { EventArgs } from '@mikro-orm/core'
+import type { EventArgs } from '@mikro-orm/core'
 
 export const onLoad = (args: EventArgs<any>) => {
   // if (args.entity._id && !args.entity.id?.value) {

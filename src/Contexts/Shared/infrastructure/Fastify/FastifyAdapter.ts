@@ -1,25 +1,25 @@
-import { AddressInfo } from 'node:net'
+import { type AddressInfo } from 'node:net'
 
 import fastifyCompress from '@fastify/compress'
 import fastifyCookie from '@fastify/cookie'
-import fastifyCors, { FastifyCorsOptions } from '@fastify/cors'
+import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, {
   errorCodes,
-  FastifyError,
-  FastifyInstance,
-  FastifyRegister,
-  FastifyReply,
-  FastifyRequest,
-  FastifyServerOptions,
-  PrintRoutesOptions,
+  type FastifyError,
+  type FastifyInstance,
+  type FastifyRegister,
+  type FastifyReply,
+  type FastifyRequest,
+  type FastifyServerOptions,
+  type PrintRoutesOptions,
 } from 'fastify'
 
-import { HttpError, Monitoring } from '../../domain'
-import { ControllerResolver, HttpStatus } from '../../domain/Common'
-import { HttpErrorHandler, HttpValidationModule } from './interfaces'
-import { routeRegister } from './routeRegister'
+import { type ControllerResolver, HttpStatus } from '../../domain/Common/index.js'
+import { HttpError, Monitoring } from '../../domain/index.js'
+import { type HttpErrorHandler, type HttpValidationModule } from './interfaces/index.js'
+import { routeRegister } from './routeRegister.js'
 
 const printConfig: PrintRoutesOptions = {
   commonPrefix: false,

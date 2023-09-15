@@ -1,23 +1,23 @@
-import { inject, injectable } from 'tsyringe'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { TYPES } from '@/apps/user/modules/types'
-
-import { UserNotFoundError } from './Errors'
-import { User } from './User'
-import { UserRepository } from './UserRepository'
+import { UserId } from '../../Shared/domain/index.js'
+import { UserDoesNotExistsError } from './Errors/index.js'
+import { User, type UserPrimitiveType } from './User.js'
+import { UserRepository } from './UserRepository.js'
 
 /**
  * Domain service
  * Reuse logic
+ * Finder puede tener excepciones o errores
  */
-@injectable()
+@UseCase()
 export class UserFinder {
-  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {}
+  constructor(private readonly repository: UserRepository) {}
 
-  async run(userId: string): Promise<User> {
-    const user = await this.userRepository.findById(userId)
+  async run(userId: UserPrimitiveType['id']): Promise<User> {
+    const user = await this.repository.searchById(new UserId(userId))
 
-    if (!user) throw new UserNotFoundError()
+    if (!user) throw new UserDoesNotExistsError()
 
     return user
   }

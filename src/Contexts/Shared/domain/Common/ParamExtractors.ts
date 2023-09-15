@@ -1,7 +1,7 @@
-import { isConstructor } from '../shared.utils'
-import { ParamData } from './Decorators'
-import { RouteParamtypes } from './enums'
-import { ParamExtractor, Paramtype, PipeTransform } from './interfaces'
+import { isConstructor } from '../shared.utils.js'
+import type { ParamData } from './Decorators/index.js'
+import { RouteParamtypes } from './enums/index.js'
+import type { ParamExtractor, Paramtype, PipeTransform } from './interfaces/index.js'
 
 const pipeBuilder = (
   req: any,

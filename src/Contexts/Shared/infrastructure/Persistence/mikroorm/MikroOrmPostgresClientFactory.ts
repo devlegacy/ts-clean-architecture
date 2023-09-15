@@ -2,8 +2,8 @@ import { EntityCaseNamingStrategy, MikroORM } from '@mikro-orm/core'
 import type { Options, PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 
-import { info } from '../../Logger'
-import { PostgresConfig } from '../postgres'
+import { info } from '../../Logger/index.js'
+import type { PostgresConfig } from '../postgres/index.js'
 
 export abstract class MikroOrmPostgresClientFactory {
   private static clients: Record<string, MikroORM<PostgreSqlDriver>> = {}

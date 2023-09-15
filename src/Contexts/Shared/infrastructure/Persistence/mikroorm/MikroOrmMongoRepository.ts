@@ -3,9 +3,9 @@ import { MongoDriver } from '@mikro-orm/mongodb'
 import { Service } from 'diod'
 import { ObjectId } from 'mongodb'
 
-import { AggregateRoot, Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
+import { AggregateRoot, Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
 
-import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter'
+import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter.js'
 
 @Service()
 export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {

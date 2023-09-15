@@ -1,13 +1,13 @@
-import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
+import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
+import type { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema.js'
 import * as joi from 'joi'
 import { DEFAULT, getClassSchema } from 'joi-class-decorators'
-import { Constructor, JoiValidationGroup, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs'
+import { type Constructor, type JoiValidationGroup, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs.js'
 
-import { HttpError, isFunction } from '@/Contexts/Shared/domain'
-import { HttpStatus, RequestMethod } from '@/Contexts/Shared/domain/Common'
+import { HttpStatus, RequestMethod } from '@/Contexts/Shared/domain/Common/index.js'
+import { HttpError, isFunction } from '@/Contexts/Shared/domain/index.js'
 
-import { HttpValidationModule } from '../../Fastify'
+import type { HttpValidationModule } from '../../Fastify/index.js'
 
 const defaultOptions: joi.ValidationOptions = {
   convert: true,

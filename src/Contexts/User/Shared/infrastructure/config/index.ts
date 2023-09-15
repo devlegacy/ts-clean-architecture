@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { cwd } from 'node:process'
+import { fileURLToPath, URL } from 'node:url'
 
 import convict from 'convict'
 import convict_format_with_validator from 'convict-format-with-validator'
@@ -37,6 +38,7 @@ const config = convict({
   },
 })
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const filePaths = [resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${config.get('app.env')}.json`)]
 
 config.loadFile(filePaths).validate({ allowed: 'strict' })

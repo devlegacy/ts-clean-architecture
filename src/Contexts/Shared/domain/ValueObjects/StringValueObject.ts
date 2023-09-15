@@ -1,7 +1,7 @@
 import DOMPurify from 'dompurify'
 import { JSDOM } from 'jsdom'
 
-import { ValueObject } from './ValueObject'
+import { ValueObject } from './ValueObject.js'
 
 const { window } = new JSDOM('')
 const purify = DOMPurify(window)

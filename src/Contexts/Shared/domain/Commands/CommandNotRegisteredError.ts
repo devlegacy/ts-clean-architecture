@@ -1,5 +1,5 @@
-import { EntityNotFoundError } from '../Errors'
-import { Command } from './Command'
+import { EntityNotFoundError } from '../Errors/index.js'
+import { Command } from './Command.js'
 
 export class CommandNotRegisteredError extends EntityNotFoundError {
   constructor(command: Command) {

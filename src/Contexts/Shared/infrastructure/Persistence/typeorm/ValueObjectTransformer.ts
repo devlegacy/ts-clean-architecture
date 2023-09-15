@@ -1,4 +1,4 @@
-import { ValueObject } from '@/Contexts/Shared/domain'
+import { ValueObject } from '@/Contexts/Shared/domain/index.js'
 
 export const ValueObjectTransformer = <T extends Class<ValueObject<any>>>(ValueObject: T) => {
   return {

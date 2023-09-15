@@ -1,6 +1,6 @@
-import { CommandNotRegisteredError } from './Commands'
-import { EntityNotFoundError, InvalidArgumentError } from './Errors'
-import { QueryNotRegisteredError } from './Queries'
+import { CommandNotRegisteredError } from './Commands/index.js'
+import { EntityNotFoundError, InvalidArgumentError } from './Errors/index.js'
+import { QueryNotRegisteredError } from './Queries/index.js'
 
 export class DomainError extends Error {
   constructor(message: string) {

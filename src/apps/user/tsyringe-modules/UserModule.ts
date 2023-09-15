@@ -1,9 +1,9 @@
 import { container } from 'tsyringe'
 
-import { UserRepository } from '@/Contexts/User/Users/domain'
-import { MikroOrmMongoUserRepository } from '@/Contexts/User/Users/infrastructure'
+import { UserRepository } from '@/Contexts/User/Users/domain/index.js'
+import { MikroOrmMongoUserRepository } from '@/Contexts/User/Users/infrastructure/index.js'
 
-import { TYPES } from './types'
+import { TYPES } from './types.js'
 
 // Domain - MongoRepository
 container

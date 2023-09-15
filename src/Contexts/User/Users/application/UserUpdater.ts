@@ -1,23 +1,21 @@
-import { inject, injectable } from 'tsyringe'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { TYPES } from '@/apps/user/modules/types'
-
-import { User, UserFinder, UserPrimitiveType, UserRepository } from '../domain'
+import { User, UserFinder, type UserPrimitiveType, UserRepository } from '../domain/index.js'
 
 /** UserUpdaterUseCase */
-@injectable()
+@UseCase()
 export class UserUpdater {
-  private readonly userFinder: UserFinder
+  private readonly finder: UserFinder
 
-  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {
-    this.userFinder = new UserFinder(userRepository)
+  constructor(private readonly repository: UserRepository) {
+    this.finder = new UserFinder(repository)
   }
 
-  async run(data: UserPrimitiveType): Promise<User> {
-    const user = await this.userFinder.run(data.id)
-    const update = User.fromPrimitives({
+  async run(request: UserPrimitiveType): Promise<void> {
+    const user = await this.finder.run(request.id)
+    const updatedUser = User.fromPrimitives({
       ...user.toPrimitives(),
-      ...data,
+      ...request,
     })
 
     // NOTE: Alternative sample code:
@@ -28,7 +26,6 @@ export class UserUpdater {
     //   username: data.username ?? user.username
     // }
 
-    await this.userRepository.update(user, update)
-    return user
+    await this.repository.save(updatedUser)
   }
 }

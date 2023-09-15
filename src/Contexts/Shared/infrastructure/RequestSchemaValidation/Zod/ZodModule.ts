@@ -1,12 +1,12 @@
-import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema'
+import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
+import type { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema.js'
 import { ZodError, ZodObject } from 'zod'
 
-import { HttpError } from '@/Contexts/Shared/domain'
-import { HttpStatus } from '@/Contexts/Shared/domain/Common'
+import { HttpStatus } from '@/Contexts/Shared/domain/Common/index.js'
+import { HttpError } from '@/Contexts/Shared/domain/index.js'
 
-import { HttpValidationModule } from '../../Fastify'
-import { isZodDto } from '.'
+import type { HttpValidationModule } from '../../Fastify/index.js'
+import { isZodDto } from './index.js'
 
 // Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts
 export class ZodModule implements HttpValidationModule<ZodObject<any>> {

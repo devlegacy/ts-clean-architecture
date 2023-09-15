@@ -4,29 +4,29 @@ import { cpus } from 'node:os'
 import { join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 
-import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
+import type { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { isConstructor, normalizePath } from '../../domain'
 import {
-  ControllerResolver,
+  type ControllerResolver,
   HTTP_CODE_METADATA,
   HttpStatus,
   METHOD_METADATA,
   ParamExtractors,
   PATH_METADATA,
-  PipeTransform,
-  RequestMappingMetadata,
+  type PipeTransform,
+  type RequestMappingMetadata,
   RequestMethod,
   ROUTE_ARGS_METADATA,
-  RouteParamMetadata,
+  type RouteParamMetadata,
   RouteParamtypes,
   SCHEMA_METADATA,
-} from '../../domain/Common'
-import { Primary } from './cluster'
-import { FastifyAdapter } from './FastifyAdapter'
-import { HttpValidationModule } from './interfaces'
+} from '../../domain/Common/index.js'
+import { isConstructor, normalizePath } from '../../domain/index.js'
+import { Primary } from './cluster.js'
+import { FastifyAdapter } from './FastifyAdapter.js'
+import type { HttpValidationModule } from './interfaces/index.js'
 
 type Route = {
   method: HTTPMethods

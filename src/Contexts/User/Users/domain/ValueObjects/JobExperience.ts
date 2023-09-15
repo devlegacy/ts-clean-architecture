@@ -1,6 +1,6 @@
-import { Company } from './Company'
-import { DateRange, DateRangePrimitiveType } from './DateRange'
-import { Title } from './Title'
+import { Company } from './Company.js'
+import { DateRange, type DateRangePrimitiveType } from './DateRange.js'
+import { Title } from './Title.js'
 
 export type JobExperiencePrimitiveType = Primitives<JobExperience>
 export type JobExperienceEntityType = Entity<JobExperience>
@@ -13,6 +13,7 @@ export class JobExperience {
   constructor(company: string, title: string, dateRange: DateRangePrimitiveType) {
     this.company = new Company(company)
     this.title = new Title(title)
+    // Conceptos vs Propiedades
     this.dateRange = DateRange.fromPrimitives(dateRange)
   }
 

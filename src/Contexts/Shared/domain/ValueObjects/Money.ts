@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from '../Errors'
+import { InvalidArgumentError } from '../Errors/index.js'
 
 export class Money {
   static locales: Record<string, string> = {

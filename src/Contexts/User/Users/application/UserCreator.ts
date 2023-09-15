@@ -1,25 +1,23 @@
-import { inject, injectable } from 'tsyringe'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { TYPES } from '@/apps/user/modules/types'
-
-import { ExistUserByUserName, User, UserAlreadyExistsError, UserRepository } from '../domain'
-import { UserCreatorRequest } from './UserCreatorRequest'
+import { ExistUserByUserName, User, UserAlreadyExistsError, UserRepository } from '../domain/index.js'
+import type { UserCreatorRequest } from './UserCreatorRequest.js'
 
 /** UserCreatorUseCase */
-@injectable()
+@UseCase()
 export class UserCreator {
-  private readonly existUserByUserName: ExistUserByUserName
+  private readonly finder: ExistUserByUserName
 
-  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {
-    this.existUserByUserName = new ExistUserByUserName(userRepository)
+  constructor(private readonly repository: UserRepository) {
+    this.finder = new ExistUserByUserName(repository)
   }
 
   async run(request: UserCreatorRequest) {
     const user: User = User.fromPrimitives(request)
 
-    const existUser = await this.existUserByUserName.run(user.username)
-    if (existUser) throw new UserAlreadyExistsError()
+    const exists = await this.finder.run(user.username)
+    if (exists) throw new UserAlreadyExistsError()
 
-    return this.userRepository.save(user)
+    await this.repository.save(user)
   }
 }

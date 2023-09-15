@@ -1,6 +1,6 @@
-import bodybuilder, { Bodybuilder } from 'bodybuilder'
+import bodybuilder, { type Bodybuilder } from 'bodybuilder'
 
-import { Criteria, Filter, Filters, Operator } from '@/Contexts/Shared/domain'
+import { Criteria, Filter, Filters, Operator } from '@/Contexts/Shared/domain/index.js'
 
 export enum TypeQueryEnum {
   TERMS = 'terms',

@@ -1,7 +1,7 @@
-import { Collection, Document, MongoClient, ObjectId } from 'mongodb'
+import { Collection, type Document, MongoClient, ObjectId } from 'mongodb'
 import { inject } from 'tsyringe'
 
-import { AggregateRoot, DomainEventClass, SHARED_TYPES } from '@/Contexts/Shared/domain'
+import { AggregateRoot, type DomainEventClass, SHARED_TYPES } from '@/Contexts/Shared/domain/index.js'
 
 export abstract class MongoEventStore<T extends AggregateRoot> {
   protected readonly events: Map<string, DomainEventClass>

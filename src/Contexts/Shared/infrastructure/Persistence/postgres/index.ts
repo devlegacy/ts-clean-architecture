@@ -1,1 +1,1 @@
-export * from './PostgresConfig'
+export * from './PostgresConfig.js'

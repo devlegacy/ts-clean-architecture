@@ -1,6 +1,6 @@
-import { ZodSchema, ZodTypeDef } from 'zod'
+import { ZodSchema, type ZodTypeDef } from 'zod'
 
-export * from './ZodModule'
+export * from './ZodModule.js'
 
 export interface ZodDto<TOutput = any, TDef extends ZodTypeDef = ZodTypeDef, TInput = TOutput> {
   isZodDto: true

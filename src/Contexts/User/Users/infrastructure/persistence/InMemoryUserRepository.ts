@@ -1,9 +1,9 @@
-import { User, UserEmail, UserRepository, UserUsername } from '@/Contexts/User/Users/domain'
+import { User, UserEmail, UserRepository, UserUsername } from '@/Contexts/User/Users/domain/index.js'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
 
-  async all(): Promise<User[]> {
+  async searchAll(): Promise<User[]> {
     return this.users
   }
 
@@ -19,10 +19,10 @@ export class InMemoryUserRepository implements UserRepository {
     return this.users[idx] || null
   }
 
-  async findById(userId: string): Promise<Nullable<User>> {
-    const idx = this.users.findIndex(({ id }) => id.value === userId)
+  async searchById(id: User['id']): Promise<Nullable<User>> {
+    const idx = this.users.findIndex((user) => user.id.equals(id))
 
-    return this.users[idx]
+    return this.users[idx] || null
   }
 
   async softDelete(userId: string): Promise<void> {
@@ -38,12 +38,12 @@ export class InMemoryUserRepository implements UserRepository {
     this.users.push(user)
   }
 
-  async update(user: User): Promise<User> {
+  async update(user: User): Promise<void> {
     const users = this.users.filter(({ id }) => id.value !== user.id.value)
     users.push(user)
     this.users = users
 
-    return user
+    // return user
   }
 
   async delete(userId: string): Promise<void> {

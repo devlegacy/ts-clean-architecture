@@ -2,10 +2,11 @@ import { createWriteStream } from 'node:fs'
 import { resolve } from 'node:path'
 import { cwd } from 'node:process'
 
-import PinoPretty from 'pino-pretty'
+import { default as PinoPretty } from 'pino-pretty'
 
 export const MESSAGE_KEY = 'message'
 
+// @ts-expect-error pino-pretty types are not up to date to esm
 const stream = PinoPretty({
   colorize: true, // colorizes the log
   destination: 1,

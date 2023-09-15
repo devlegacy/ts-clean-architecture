@@ -1,13 +1,13 @@
-import { EntitySchema, wrap } from '@mikro-orm/core'
+import { EntitySchema } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { User, UserEmail, UserRepository } from '../../domain'
-import { UserEntity } from './mikroorm/mongo/UserEntity'
+import { User, UserEmail, UserRepository } from '../../domain/index.js'
+import { UserEntity } from './mikroorm/mongo/UserEntity.js'
 
 export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> implements UserRepository {
-  async all(): Promise<User[]> {
+  async searchAll(): Promise<User[]> {
     const repository = await this.repository()
 
     const users = await repository.findAll({
@@ -33,15 +33,19 @@ export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> i
   // }
 
   async save(user: User): Promise<void> {
-    return this.persist(user)
+    // begin transaction
+    // commit transaction
+    // end transaction
+    // rollback transaction if error and clean events
+    await this.persist(user)
   }
 
-  async findById(id: string): Promise<Nullable<User>> {
+  async searchById(id: User['id']): Promise<Nullable<User>> {
     const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    const user = await repository.findOne({ id: new ObjectId(id) })
+    const user = await repository.findOne({ id: new ObjectId(id.value) })
     return user
   }
 
@@ -57,23 +61,19 @@ export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> i
     return user
   }
 
-  async update(user: User, userUpdated: User): Promise<User> {
-    const repository = await this.repository()
-
-    const primitives = userUpdated.toPrimitives()
-
-    wrap(user).assign(
-      {
-        ...primitives,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        _id: primitives.id,
-      },
-      { convertCustomTypes: true }
-    )
-
-    await repository.persistAndFlush(user)
-
+  async update(user: User): Promise<void> {
+    // const repository = await this.repository()
+    // const primitives = userUpdated.toPrimitives()
+    // wrap(user).assign(
+    //   {
+    //     ...primitives,
+    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //     // @ts-expect-error
+    //     _id: primitives.id,
+    //   },
+    //   { convertCustomTypes: true }
+    // )
+    // await repository.persistAndFlush(user)
     // await repository.nativeUpdate({ id: new ObjectId(user.id.value) }, { $set: userUpdated.toPrimitives() })
     //   const { id, ...data } = userDto.toPrimitives()
     //   const user = await this.user.updateOne({ id }, { $set: data }, { upsert: true })
@@ -88,7 +88,20 @@ export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> i
     //         })
     //       : userDto
     //   }
-    return userUpdated
+    // await this.persist(user)
+    // const client = await this.client()
+    // const manager = client.em
+    // await manager.flush()
+    // return userUpdated
+
+    // console.log(wrap(user).isInitialized())
+    // console.log(wrap(user))
+    // console.log(wrap(user, true).__em)
+    // await wrap(user, true).__em.flush()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    await user.__helper.__em.flush()
+    console.log(user)
   }
 
   async delete(id: string): Promise<void> {

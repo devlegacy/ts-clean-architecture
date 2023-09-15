@@ -1,6 +1,6 @@
 import { Client as ElasticClient } from '@elastic/elasticsearch'
 
-import ElasticConfig from './ElasticConfig'
+import type { ElasticConfig } from './ElasticConfig.js'
 
 export class ElasticClientFactory {
   private static clients: { [key: string]: ElasticClient } = {}

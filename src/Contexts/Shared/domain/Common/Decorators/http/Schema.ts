@@ -1,5 +1,5 @@
-import { METHOD_METADATA, SCHEMA_METADATA } from '../../constants'
-import { HttpStatus } from '../../enums'
+import { METHOD_METADATA, SCHEMA_METADATA } from '../../constants.js'
+import { HttpStatus } from '../../enums/index.js'
 
 type SchemaType = {
   body?: unknown

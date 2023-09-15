@@ -2,7 +2,7 @@ import { EntityRepository, EntitySchema, MikroORM } from '@mikro-orm/core'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { Service } from 'diod'
 
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
 
 @Service()
 export abstract class MikroOrmPostgresRepository<T extends AggregateRoot> {

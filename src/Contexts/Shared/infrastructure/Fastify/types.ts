@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest, RouteGenericInterface } from 'fastify'
+import type { FastifyReply, FastifyRequest, RouteGenericInterface } from 'fastify'
 
 export type Request<
   RouteGeneric extends RouteGenericInterface = {

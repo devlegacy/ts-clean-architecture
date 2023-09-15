@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 
-import { Criteria, Filter, Filters, FilterValue, Operator, Order } from '@/Contexts/Shared/domain'
+import { Criteria, Filter, Filters, FilterValue, Operator, Order } from '@/Contexts/Shared/domain/index.js'
 
 type MongoFilterOperator = '$eq' | '$ne' | '$gt' | '$lt' | '$regex' | '$exists'
 type MongoFilterValue = boolean | string | number | ObjectId

@@ -1,7 +1,7 @@
-import { isNil, isString } from '../../../shared.utils'
-import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants'
-import { RouteParamtypes } from '../../enums'
-import { PipeTransform } from '../../interfaces'
+import { isNil, isString } from '../../../shared.utils.js'
+import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants.js'
+import { RouteParamtypes } from '../../enums/index.js'
+import type { PipeTransform } from '../../interfaces/index.js'
 
 class DefaultNumberTransformPipe {
   transform(value: unknown) {

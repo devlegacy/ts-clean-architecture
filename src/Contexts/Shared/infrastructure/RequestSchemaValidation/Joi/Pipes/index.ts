@@ -1,3 +1,3 @@
-export * from './ObjectIdPipe'
-export * from './PageNumberPipe'
-export * from './UuidPipe'
+export * from './ObjectIdPipe.js'
+export * from './PageNumberPipe.js'
+export * from './UuidPipe.js'

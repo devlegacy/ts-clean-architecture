@@ -1,8 +1,8 @@
 // Consideramos algoritmos infraestructura?
 import { ObjectId as ObjectID } from 'mongodb'
 
-import { InvalidArgumentError } from '../Errors'
-import { ValueObject } from './ValueObject'
+import { InvalidArgumentError } from '../Errors/index.js'
+import { ValueObject } from './ValueObject.js'
 
 // contener contaminación lo más que se pueda
 export class ObjectId extends ValueObject<string> {

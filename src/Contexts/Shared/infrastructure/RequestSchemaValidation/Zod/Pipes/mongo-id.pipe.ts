@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb'
 import { z } from 'zod'
 
-import { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces'
+import type { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces/index.js'
 
-import { info } from '../../../Logger'
+import { info } from '../../../Logger/index.js'
 
 export class MongoIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {

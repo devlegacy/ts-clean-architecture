@@ -2,11 +2,12 @@
 import { v4, validate, version } from 'uuid'
 
 // import { ObjectId } from 'mongodb'
-import { InvalidArgumentError } from '../Errors'
-import { ValueObject } from './ValueObject'
+import { InvalidArgumentError } from '../Errors/index.js'
+import { ValueObject } from './ValueObject.js'
 
 // contener contaminación lo más que se pueda
 // abstract
+// Essence es un patrón de diseño creacional que también permite construir objetos complejos. Sin embargo, el patrón Essence se centra en la construcción de objetos que no tienen estado.
 export class Uuid extends ValueObject<string> {
   // Inherited
   // readonly value: string
@@ -19,6 +20,7 @@ export class Uuid extends ValueObject<string> {
   }
 
   // Debería devolver valores en string
+  // Builder, Factory pattern
   static random(): Uuid {
     // return new Uuid(new ObjectId().toString())
     return new Uuid(v4())

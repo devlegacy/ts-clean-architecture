@@ -1,4 +1,4 @@
-import { clearDataStore, DataStore } from './DataStore'
+import { clearDataStore, DataStore } from './DataStore.js'
 
 type Query<T> = { [key in keyof T]?: T[key] }
 

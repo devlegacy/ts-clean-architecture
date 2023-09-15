@@ -1,12 +1,13 @@
 import { resolve } from 'node:path'
 import { cwd } from 'node:process'
+import { pathToFileURL } from 'node:url'
 
 import * as Sentry from '@sentry/node'
 
-import { Monitoring } from '../../../domain'
+import { Monitoring } from '../../../domain/index.js'
 
-// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
-const packageJson: Record<string, string> = require(resolve(cwd(), './package.json'))
+const path = pathToFileURL(resolve(cwd(), './package.json')).toString()
+const { default: packageJson }: { default: Record<string, string> } = await import(path, { assert: { type: 'json' } })
 
 const options: Sentry.NodeOptions = {
   debug: true,

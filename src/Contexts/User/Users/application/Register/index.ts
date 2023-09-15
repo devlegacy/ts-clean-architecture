@@ -1,1 +1,1 @@
-export * from './UserRegister'
+export * from './UserRegister.js'

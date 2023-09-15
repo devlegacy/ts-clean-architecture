@@ -1,4 +1,4 @@
-import { EventArgs } from '@mikro-orm/core'
+import type { EventArgs } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
 export const beforeCreate = (args: EventArgs<any>) => {

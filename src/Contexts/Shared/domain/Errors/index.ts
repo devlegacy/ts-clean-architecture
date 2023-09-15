@@ -1,2 +1,2 @@
-export * from './EntityNotFoundError'
-export * from './InvalidArgumentError'
+export * from './EntityNotFoundError.js'
+export * from './InvalidArgumentError.js'

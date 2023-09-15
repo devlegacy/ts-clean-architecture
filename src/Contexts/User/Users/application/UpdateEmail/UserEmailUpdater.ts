@@ -1,4 +1,11 @@
-import { UserDoesNotExistError, UserEmail, UserPrimitiveType, UserRepository } from '../../domain'
+import {
+  User,
+  UserAlreadyExistsError,
+  UserDoesNotExistError,
+  UserEmail,
+  type UserPrimitiveType,
+  UserRepository,
+} from '../../domain/index.js'
 
 // Orquestación de dominio
 export class UserEmailUpdater {
@@ -6,10 +13,38 @@ export class UserEmailUpdater {
 
   async run(oldEmail: UserPrimitiveType['email'], newEmail: UserPrimitiveType['email']) {
     // Better search because we are trying to get a user by email (as a first validation)
-    const user = await this.repository.findByEmail(new UserEmail(oldEmail))
-    if (!user) throw new UserDoesNotExistError(oldEmail)
+    const [oldUser, newUser] = await Promise.all([
+      this.repository.findByEmail(new UserEmail(oldEmail)),
+      this.repository.findByEmail(new UserEmail(newEmail)),
+    ])
+    if (!oldUser) throw new UserDoesNotExistError(oldEmail)
+    if (newUser) throw new UserAlreadyExistsError()
 
-    user.updateEmail(newEmail)
-    await this.repository.save(user)
+    // First approach
+    oldUser.updateEmail(newEmail)
+    await this.repository.update(oldUser)
+
+    // Second approach
+    const userUpdated = new User(
+      oldUser.id.value,
+      oldUser.name.value,
+      oldUser.username.value,
+      newEmail,
+      oldUser.birthdate.value,
+      oldUser.jobExperiences.toPrimitives(),
+      oldUser.age?.value
+    )
+    await this.repository.update(userUpdated)
+
+    // Third approach similar to Second approach
+    const userUpdated2 = User.fromPrimitives({
+      ...oldUser.toPrimitives(),
+      email: newEmail,
+    })
+    await this.repository.update(userUpdated2)
+
+    // Fourth approach with doubt, atomic updates
+    // const userUpdated3 = oldUser.update('email', newEmail)
+    // await this.repository.update(userUpdated3)
   }
 }

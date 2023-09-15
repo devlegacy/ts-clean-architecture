@@ -1,7 +1,7 @@
-import { MongoClient, MongoClientOptions } from 'mongodb'
+import { MongoClient, type MongoClientOptions } from 'mongodb'
 
-import { info } from '../../Logger'
-import { MongoConfig } from './MongoConfig'
+import { info } from '../../Logger/index.js'
+import type { MongoConfig } from './MongoConfig.js'
 
 export class MongoClientFactory {
   // poll connections

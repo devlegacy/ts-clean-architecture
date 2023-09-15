@@ -1,1 +1,1 @@
-export * from './UserEmailUpdater'
+export * from './UserEmailUpdater.js'

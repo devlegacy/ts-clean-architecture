@@ -1,8 +1,8 @@
-import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
+import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 
-import { EntityNotFoundError, HttpError, InvalidArgumentError } from '../../domain'
-import { HttpStatus } from '../../domain/Common'
-import { HttpErrorHandler } from '../Fastify'
+import { HttpStatus } from '../../domain/Common/index.js'
+import { EntityNotFoundError, HttpError, InvalidArgumentError } from '../../domain/index.js'
+import type { HttpErrorHandler } from '../Fastify/index.js'
 
 export class DefaultHttpErrorHandler implements HttpErrorHandler {
   // validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {

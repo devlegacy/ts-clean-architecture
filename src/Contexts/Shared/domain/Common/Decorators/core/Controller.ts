@@ -1,4 +1,4 @@
-import { PATH_METADATA } from '../../constants'
+import { PATH_METADATA } from '../../constants.js'
 
 /**
  * Decorator that marks a class as a controller that can receive inbound

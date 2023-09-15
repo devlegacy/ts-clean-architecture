@@ -1,7 +1,7 @@
 import { inject } from 'tsyringe'
 import { DataSource, EntitySchema, Repository } from 'typeorm'
 
-import { AggregateRoot, SHARED_TYPES } from '@/Contexts/Shared/domain'
+import { AggregateRoot, SHARED_TYPES } from '@/Contexts/Shared/domain/index.js'
 
 // Template method
 export abstract class TypeOrmPostgresRepository<T extends AggregateRoot> {

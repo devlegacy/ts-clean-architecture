@@ -1,7 +1,7 @@
 import { Service } from 'diod'
 
-import { Query, QueryBus, Response } from '../../domain'
-import { QueryHandlers } from './QueryHandlers'
+import { Query, QueryBus, Response } from '../../domain/index.js'
+import { QueryHandlers } from './QueryHandlers.js'
 
 @Service()
 export class InMemoryQueryBus implements QueryBus {

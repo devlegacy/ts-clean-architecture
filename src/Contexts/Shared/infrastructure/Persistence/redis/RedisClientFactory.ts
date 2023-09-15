@@ -1,6 +1,6 @@
-import Redis from 'ioredis'
+import { Redis } from 'ioredis'
 
-import { RedisConfig } from './RedisConfig'
+import type { RedisConfig } from './RedisConfig.js'
 
 export class RedisClientFactory {
   private static clients: { [key: string]: Redis } = {}

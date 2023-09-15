@@ -1,6 +1,6 @@
 import { container, injectable, Lifecycle } from 'tsyringe'
 
-import { ControllerResolver } from '@/Contexts/Shared/domain/Common'
+import type { ControllerResolver } from '@/Contexts/Shared/domain/Common/index.js'
 
 export const TsyringeControllerResolver: ControllerResolver = (controller: Class<unknown>) => {
   const { name } = controller

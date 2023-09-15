@@ -1,6 +1,6 @@
-import { PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces'
+import type { PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces/index.js'
 
-import { Joi } from '../index'
+import { Joi } from '../index.js'
 
 export class FiltersPipe implements PipeTransform {
   transform(filters: any) {

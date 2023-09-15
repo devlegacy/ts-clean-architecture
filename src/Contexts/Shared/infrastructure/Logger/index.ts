@@ -1,1 +1,1 @@
-export * from './PinoLogger'
+export * from './PinoLogger.js'

@@ -3,7 +3,7 @@ import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
 import { validate } from 'uuid'
 
-import { JoiValidationGroups } from './JoiModule'
+import { JoiValidationGroups } from './JoiModule.js'
 
 interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
   objectId(): this
@@ -96,7 +96,7 @@ const Joi = joi.extend(
 
 // Convenient & consistency export
 export { DEFAULT }
-export * from './JoiModule'
+export * from './JoiModule.js'
 
 export const { CREATE } = JoiValidationGroups
 export const { UPDATE } = JoiValidationGroups

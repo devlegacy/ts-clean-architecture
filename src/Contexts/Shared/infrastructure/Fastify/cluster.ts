@@ -1,6 +1,6 @@
-import { Cluster } from 'node:cluster'
+import type { Cluster } from 'node:cluster'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 export class Primary {
   private cluster: Cluster

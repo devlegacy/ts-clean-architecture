@@ -1,4 +1,4 @@
-import { EventArgs } from '@mikro-orm/core'
+import type { EventArgs } from '@mikro-orm/core'
 
 export const beforeUpsert = (args: EventArgs<any>) => {
   // TODO: Validate type on value

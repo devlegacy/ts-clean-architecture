@@ -1,20 +1,18 @@
-import { inject, injectable } from 'tsyringe'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { TYPES } from '@/apps/user/modules/types'
-
-import { User, UserFinder, UserRepository } from '../domain'
+import { User, UserFinder, UserRepository } from '../domain/index.js'
 
 /** UserDeleterUseCase */
-@injectable()
+@UseCase()
 export class UserDeleter {
-  private readonly userFinder: UserFinder
+  private readonly finder: UserFinder
 
-  constructor(@inject(TYPES.UserRepository) private readonly userRepository: UserRepository) {
-    this.userFinder = new UserFinder(userRepository)
+  constructor(private readonly userRepository: UserRepository) {
+    this.finder = new UserFinder(userRepository)
   }
 
   async run(userId: string): Promise<User> {
-    const user = await this.userFinder.run(userId)
+    const user = await this.finder.run(userId)
     await this.userRepository.delete(user.id.value)
 
     return user

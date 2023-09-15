@@ -1,4 +1,4 @@
-import { Filter, FilterValueType } from './Filter'
+import { Filter, type FilterValueType } from './Filter.js'
 
 export class Filters {
   readonly filters: Filter[]

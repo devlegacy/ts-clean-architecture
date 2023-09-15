@@ -1,2 +1,2 @@
-export * from './DiodControllerResolver'
-export * from './TsyringeControllerResolver'
+export * from './DiodControllerResolver.js'
+export * from './TsyringeControllerResolver.js'

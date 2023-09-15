@@ -1,4 +1,9 @@
-import { Command, COMMAND_HANDLER_METADATA, CommandHandler, CommandNotRegisteredError } from '../../domain'
+import {
+  Command,
+  COMMAND_HANDLER_METADATA,
+  type CommandHandler,
+  CommandNotRegisteredError,
+} from '../../domain/index.js'
 
 export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
   constructor(private readonly handlers: CommandHandler<Command>[]) {

@@ -1,4 +1,10 @@
-import { Query, QUERY_HANDLER_METADATA, QueryHandler, QueryNotRegisteredError, Response } from '../../domain'
+import {
+  Query,
+  QUERY_HANDLER_METADATA,
+  type QueryHandler,
+  QueryNotRegisteredError,
+  Response,
+} from '../../domain/index.js'
 
 export class QueryHandlers extends Map<Query, QueryHandler<Query, Response>> {
   constructor(private readonly handlers: QueryHandler<Query, Response>[]) {

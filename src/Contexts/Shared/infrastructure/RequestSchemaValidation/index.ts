@@ -1,1 +1,1 @@
-export * from './DefaultHttpErrorHandler'
+export * from './DefaultHttpErrorHandler.js'

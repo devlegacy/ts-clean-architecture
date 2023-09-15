@@ -1,6 +1,6 @@
-import { StringValueObject } from '@/Contexts/Shared/domain'
+import { StringValueObject } from '@/Contexts/Shared/domain/index.js'
 
-import { UserBadEntityError } from '../Errors'
+import { UserBadEntityError } from '../Errors/index.js'
 
 export class UserUsername extends StringValueObject {
   constructor(value: string) {

@@ -1,3 +1,3 @@
 // export * from '../apps'
-export * from '../SharedModule'
-export * from '../UserModule'
+export * from '../SharedModule.js'
+export * from '../UserModule.js'

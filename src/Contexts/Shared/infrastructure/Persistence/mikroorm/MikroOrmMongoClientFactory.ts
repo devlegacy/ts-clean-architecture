@@ -2,8 +2,8 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
 import type { MongoDriver, Options } from '@mikro-orm/mongodb'
 
-import { info } from '../../Logger'
-import { MongoConfig } from '../mongo/MongoConfig'
+import { info } from '../../Logger/index.js'
+import type { MongoConfig } from '../mongo/MongoConfig.js'
 
 export abstract class MikroOrmMongoClientFactory {
   static readonly #clients: Record<string, MikroORM<MongoDriver>> = {}
@@ -80,15 +80,19 @@ export abstract class MikroOrmMongoClientFactory {
 }
 
 // Local test
+// MikroOrmMongoClientFactory.createClient(
+//   'mooc',
+//   {
+//     url: 'mongodb://127.0.0.1:27017/mooc',
+//   },
+//   resolve(cwd(), './src/Contexts/User/')
+// ).then(async (orm) => {
+//   console.log(orm)
+//   // const r = orm.em.fork().getRepository(CourseEntity)
+//   // console.log(r)
 
-// MongoClientFactory.createClient('mooc', {
-//   url: 'mongodb://127.0.0.1:27017/mooc'
-// }).then(async (orm) => {
-//   const r = orm.em.fork().getRepository(CourseEntity)
-//   console.log(r)
+//   // const q = await r.find({}, { convertCustomTypes: true })
+//   // console.log(q)
 
-//   const q = await r.find({}, { convertCustomTypes: true })
-//   console.log(q)
-
-//   console.log(em)
+//   // console.log(em)
 // })

@@ -1,11 +1,11 @@
-import { EntityProperty, Platform } from '@mikro-orm/core'
+import { type EntityProperty, Platform } from '@mikro-orm/core'
 import { ObjectId } from 'mongodb'
 
-import { EnumValueObject, ValueObject } from '@/Contexts/Shared/domain'
+import { EnumValueObject, ValueObject } from '@/Contexts/Shared/domain/index.js'
 
 export class ValueObjectTransformer {
   constructor(
-    private readonly ValueObject: Class<ValueObject<any> | EnumValueObject<any>>,
+    private readonly ValueObject: Class<ValueObject<any> | EnumValueObject<any>> | Class<any[]>,
     private readonly type: string
   ) {}
 
@@ -20,6 +20,11 @@ export class ValueObjectTransformer {
       //@ts-expect-error
     } else if (this.prop.name === 'deletedAt' && !value) {
       return undefined
+    } else if (this.type === '[]' && Array.isArray(value)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      return value.toPrimitives()
+      // return []
     }
     const primitive = value.value
     return primitive
@@ -35,6 +40,8 @@ export class ValueObjectTransformer {
       //@ts-expect-error
     } else if (this.prop.name === 'deletedAt' && !value) {
       return undefined
+    } else if (this.type === '[]' && Array.isArray(value)) {
+      return new this.ValueObject(value as any)
     }
 
     if (this.type === 'number') {
