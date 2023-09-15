@@ -6,6 +6,8 @@
 
 ## 
 
+- https://jsonapi.org/
+
 ## 
 
 - Creación de un mismo recurso con el ID en request

@@ -12,6 +12,7 @@
 Alternatives
 
 - https://auth0.com/
+- https://clerk.com/
 - https://www.okta.com/
 - https://aws.amazon.com/es/cognito/
 

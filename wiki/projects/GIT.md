@@ -44,20 +44,35 @@
   imp(scaffold): add lint rules
 ```
 
+```sh
+  feat: A new feature
+  fix: A bug fix
+  docs: Documentation only changes
+  style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+  refactor: A code change that neither fixes a bug nor adds a feature
+  perf: A code change that improves performance
+  test: Adding missing or correcting existing tests
+  build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+  ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+  chore: Other changes that don't modify src or test files
+  revert: Reverts a previous commit
+  wip: Work in progress
+```
+
 🎬 actions: 
-- :sparkles: feat 
-- :bug: fix 
-- :memo: docs
-- :art: style 
-- :recycle: refactor 
-- :zap: perf 
-- :white_check_mark: test 
-- :construction_worker: build
-- :construction_worker: ci 
+- :sparkles: ✨ feat 
+- :bug: 🐛 fix 
+- :memo: 📝 docs
+- :art: 🎨  style 
+- :recycle: ♻️ refactor 
+- :zap: ⚡ perf 
+- :white_check_mark: ✅ test 
+- :construction_worker: 👷 build
+- :construction_worker: 👷 ci 
 -  chore
-- :rewind: revert
-- :construction: wip
-- :art: :zap: imp 
+- :rewind: ⏪ revert
+- :construction: 🚧 wip
+- :art: 🎨 :zap: ⚡ imp 
 
 🔗 Read more on:
 - [gitmoji](https://gitmoji.dev/)

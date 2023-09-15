@@ -25,18 +25,33 @@
     - Financiera (más importante, esencial)
     - Usuarios (menos importante)
     - que partes deben estar más cohesionadas o independientes
+  - Hexagonal Architecture, Ports and Adapters, Clean Architecture, Onion Architecture, Domain Driven Design (DDD).
+  - Todo diseño de software es dirigido por el dominio.
 - **ubiquitous language**: Lenguaje marco con suficiente semántica y rigurosidad para que sea entendido transversalmente entre todas las personas de la organización.
 
 - **infrastructure**: En la organización de paquetes, es el lugar dónde vamos a colocar las implementaciones a las que hace referencia la interfaces que tenemos en el dominio.
   ¿Cómo?
 - **servicio de aplicación de domino**: Cuando necesitamos información externa al agregado para poder completar lógicas de negocio, usamos este componente para coordinar esa información y aplicar lógicas.
-- **dominio**: En la organización de paquete, es el lugar dónde vamos a colocar todo el código de dominio, es decir, toda la lógica de negocio. No pondremos ninguna implementación ni referencia a implementaciones (usaremos interfaces).
+- **dominio** | **domain**: En la organización de paquete, es el lugar dónde vamos a colocar todo el código de dominio, es decir, toda la lógica de negocio. No pondremos ninguna implementación ni referencia a implementaciones (usaremos interfaces).
   Campo que define un conjunto de requisitos comunes, terminología y funcionalidad para cualquier programa de software construido para resolver un problema. La palabra dominio también se toma como un sinónimo de dominio de aplicación. También se ve como una esfera de conocimiento.
   ¿Qué?
+  a specified sphere of activity or knowledge
+  - activity is whatever an organization does, and knowledge is how the organization does it.
+  - Core domains
+    - makes an organization unique and different from others
+    - it should receive the highest priority, the biggest effort, and the best developers. 
+  - Supporting subdomains
+    - is necessary for the organization to succeed but not a core neither generic
+  - Generic subdomains
+    - off-the-shelf software (identity management)
+  - all subdomains are essential to the overall solution
 - **módulo**: Se trata de la organización del código en una unidad funcional desde un punto de vista de negocio.
   
 - **DI**: Dependency inyector
-- **IoC** Container: Inversion of control container
+- **IoC** Container: Inversión of control container
+  - Inversión de control.
+  - Inversión de dependencias.
+  - Inyección de dependencias - Implementación de la inversión de control
 
 - **Aggregate**: Es un patrón DDD. Un agregado DDD es un conjunto de objetos de dominio que se pueden tratar como una sola unidad. Un ejemplo puede ser un pedido y sus artículos, estos serán objetos separados, pero es útil tratar el pedido (junto con sus artículos) como un agredo único.
 - **value object**: Objetos que representan conceptos. Cada concepto concreto es representado por la suma de todas las propiedades del objeto.

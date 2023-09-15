@@ -11,7 +11,7 @@
 ## Node Memory
 
 ```sh
-  node --max-old-space-size=1024
+  node --max-old-space-size=1024 -env-file=.env
 ```
 
 ## Crypto

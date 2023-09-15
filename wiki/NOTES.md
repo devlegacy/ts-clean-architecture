@@ -1,5 +1,17 @@
 # Notes 
 
+Rigor (Excesiva y escrupulosa severidad).
+Criterio.
+Priorizar.
+Delegar.
+
+
+> El pensamiento es una representación de la realidad. La realidad es aquello que se puede describir con el lenguaje, por eso los límites de mi lenguaje son los límites de mi mundo.
+> *Ludwig Josef Johann Wittgenstein.*
+
+The limits of my language mean the limits of my world.
+
+
 ## Scaffold
 
 ```sh
@@ -127,7 +139,8 @@
     - `use cases` ↔ `value objects` could be migrated to `CQRS`
   - It has an implicit interface 
 - Repositories (collaborator - centralize data persistance and read with infrastructure - API / Database)
-  - Adapter pattern
+  - **Adapter pattern**
+  - Remember implicit and explicit interfaces
   - Communicate with infrastructure (persistence)
      - Database
      - Redis
@@ -154,8 +167,10 @@
       - Este método implica una búsqueda más amplia y flexible, generalmente con la posibilidad de utilizar múltiples criterios de búsqueda y opciones avanzadas.
       - Puede admitir búsquedas basadas en texto completo, búsquedas por palabras clave, opciones de filtrado avanzado, etc.
       - An empty array is possible and allowed   
-      - search(T) o seachAll(T[]) encapsulados por un finder que es un subgrupo de search
+      - search(T) o searchAll(T[]) encapsulados por un finder que es un subgrupo de search
       - Buscar con probabilidad de null sin arrojar error
+      - La respuesta es el Aggregate o Null y existe a nivel repositorio
+        - A nivel de caso de uso Finder (en otra capa genérica, genérica en términos de las interfaces que implementa), contemplamos Errors o no
     - Avoid n+1 problem (over creation of methods)
   - Evitar nombrar las interfaces como `ICourseRepository` | `CourseRepositoryImp`
     - Cuando definimos la interfaz como `CourseRepository` nos orilla a nombrar a los colaborares de una forma más semántica, con prefijos, indicando|evidenciando el propósito|particularidad de la implementación
