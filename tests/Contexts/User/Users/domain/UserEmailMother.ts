@@ -1,5 +1,5 @@
-import { UserEmail } from '@/Contexts/User/Users/domain'
-import { MotherCreator } from '@/tests/Contexts/Shared/domain'
+import { UserEmail } from '@/Contexts/User/Users/domain/index.js'
+import { MotherCreator } from '@/tests/Contexts/Shared/domain/index.js'
 
 export class UserEmailMother {
   static create(value?: string): UserEmail {

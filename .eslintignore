@@ -5,6 +5,8 @@
 *.html
 *.ico
 *.js
+*.cjs
+*.mjs
 *.json
 *.lock
 *.log

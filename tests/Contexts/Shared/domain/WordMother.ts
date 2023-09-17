@@ -1,4 +1,4 @@
-import { MotherCreator } from './MotherCreator'
+import { MotherCreator } from './MotherCreator.js'
 
 export class WordMother {
   static random({ maxLength, minLength = 1 }: { maxLength: number; minLength?: number }): string {

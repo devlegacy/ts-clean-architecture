@@ -1,11 +1,11 @@
-import { ApolloServer, BaseContext } from '@apollo/server'
+import { ApolloServer, type BaseContext } from '@apollo/server'
 import fastifyApollo, { fastifyApolloDrainPlugin } from '@as-integrations/fastify'
-import { FastifyInstance } from 'fastify'
-import { AddressInfo } from 'net'
+import type { FastifyInstance } from 'fastify'
+import type { AddressInfo } from 'net'
 
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
 
-import schema from './schema'
+import schema from './schema.js'
 
 export class GraphQL {
   #port: number

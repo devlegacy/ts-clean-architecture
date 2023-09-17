@@ -1,13 +1,14 @@
-import { container } from 'tsyringe'
+// import { container } from 'tsyringe'
 
-import { ObjectId } from '@/Contexts/Shared/domain'
-import { UserCreator } from '@/Contexts/User/Users/application'
+import { container } from '@/apps/user/modules/index.js'
+import { ObjectId } from '@/Contexts/Shared/domain/index.js'
+import { UserCreator } from '@/Contexts/User/Users/application/index.js'
 
 const userMutations = {
   createUser: async (_: any, args: any) => {
     // const database = await MongoDB.getInstance()
     // const userRepository = new MongoUserRepository(database)
-    const userCreator = container.resolve(UserCreator)
+    const userCreator = container.get(UserCreator)
 
     const {
       user: { username, age, name },

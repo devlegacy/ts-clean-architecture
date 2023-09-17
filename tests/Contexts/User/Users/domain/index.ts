@@ -1,1 +1,1 @@
-export * from './UserMother'
+export * from './UserMother.js'

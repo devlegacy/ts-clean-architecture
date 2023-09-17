@@ -1,10 +1,15 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain'
-import { UserId } from '@/Contexts/User/Shared/domain'
-import { UserRegister } from '@/Contexts/User/Users/application'
-import { User } from '@/Contexts/User/Users/domain'
-import { InMemoryUserRepository } from '@/Contexts/User/Users/infrastructure'
+// import { jest } from '@jest/globals'
+// node --test --loader=ts-paths-esm-loader/transpile-only ./tests/Contexts/User/Users/application/Register/UserRegister.test.ts
+import assert from 'node:assert/strict'
+import { describe, it, mock } from 'node:test'
 
-import { UserMother } from '../../domain'
+import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import { UserId } from '@/Contexts/User/Shared/domain/index.js'
+import { UserRegister } from '@/Contexts/User/Users/application/index.js'
+import { User } from '@/Contexts/User/Users/domain/index.js'
+import { InMemoryUserRepository } from '@/Contexts/User/Users/infrastructure/index.js'
+
+import { UserMother } from '../../domain/index.js'
 
 const validEmail = 'validemail@gmail.com'
 const validName = 'Samuel'
@@ -30,7 +35,9 @@ describe('UserRegistrar', () => {
   it('registers a user without throwing errors when all data is valid', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+
+    const repositorySave = mock.method(repository, 'save')
 
     const user = UserMother.create()
 
@@ -49,8 +56,19 @@ describe('UserRegistrar', () => {
       jobExperiences: user.jobExperiences.toPrimitives(),
     })
 
-    expect(repositorySave).toHaveBeenCalledWith(
-      // new User(validId, validName, validUsername, validEmail, validBirthdate, validJobExperience)
+    // expect(repositorySave).toHaveBeenCalledWith(
+    //   // new User(validId, validName, validUsername, validEmail, validBirthdate, validJobExperience)
+    //   new User(
+    //     user.id.value,
+    //     user.name.value,
+    //     user.username.value,
+    //     user.email.value,
+    //     user.birthdate.value,
+    //     user.jobExperiences.toPrimitives()
+    //   )
+    // )
+    assert.deepEqual(
+      repositorySave.mock.calls[0]!.arguments[0],
       new User(
         user.id.value,
         user.name.value,
@@ -65,7 +83,8 @@ describe('UserRegistrar', () => {
   it('throws an error when registering a user with an invalid uuid', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const register = async () => {
       const invalidId = new UserId('patata').toString()
@@ -79,14 +98,17 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user with an invalid email', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const register = async () => {
       const invalidEmail = 'invalidemail'
@@ -100,14 +122,17 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user with an invalid email domain', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const register = async () => {
       const invalidEmailDomain = 'mail@invaliddomain.com'
@@ -121,14 +146,18 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user older than 110 years', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const birthdate = new Date()
     birthdate.setFullYear(birthdate.getFullYear() - 111)
@@ -145,14 +174,17 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user younger than 18 years', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const birthdate = new Date()
     birthdate.setFullYear(birthdate.getFullYear() - 18)
@@ -177,14 +209,17 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it(`throws an error when registering a user with a job experience that has a startDate later than the current Date`, async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const currentDate = new Date()
     const invalidStartDate = new Date(currentDate.getFullYear() + 1, 0, 1)
@@ -192,7 +227,7 @@ describe('UserRegistrar', () => {
     const register = async () => {
       const invalidJobExperience = [
         {
-          ...validJobExperience[0],
+          ...validJobExperience[0]!,
           dateRange: {
             startDate: invalidStartDate,
             endDate: null,
@@ -209,14 +244,17 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it(`throws an error when registering a user with a job experience with an end date that is earlier than the start date`, async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const currentDate = new Date()
     const startDate = new Date(currentDate.getFullYear() - 1, 0, 1)
@@ -225,7 +263,7 @@ describe('UserRegistrar', () => {
     const register = async () => {
       const invalidJobExperience = [
         {
-          ...validJobExperience[0],
+          ...validJobExperience[0]!,
           dateRange: {
             startDate,
             endDate,
@@ -242,14 +280,17 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when two job experiences overlap', async () => {
     const repository = new InMemoryUserRepository()
     const userRegistrar = new UserRegister(repository)
-    const repositorySave = jest.spyOn(repository, 'save')
+    // const repositorySave = jest.spyOn(repository, 'save')
+    const repositorySave = mock.method(repository, 'save')
 
     const register = async () => {
       const invalidJobExperiences = [
@@ -280,7 +321,9 @@ describe('UserRegistrar', () => {
       })
     }
 
-    await expect(register).rejects.toThrow(InvalidArgumentError)
-    expect(repositorySave).not.toHaveBeenCalled()
+    // await expect(register).rejects.toThrow(InvalidArgumentError)
+    await assert.rejects(register, InvalidArgumentError)
+    // expect(repositorySave).not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0)
   })
 })

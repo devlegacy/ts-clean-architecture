@@ -4,6 +4,8 @@
 .husky/*
 *.ico
 *.js
+*.cjs
+*.mjs
 *.lock
 *.log
 *.md

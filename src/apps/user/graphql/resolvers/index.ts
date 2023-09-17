@@ -1,4 +1,4 @@
-import { userMutation, userQueries } from './users'
+import { userMutation, userQueries } from './users/index.js'
 
 const resolvers = {
   Query: {

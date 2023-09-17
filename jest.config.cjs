@@ -1,9 +1,19 @@
+// import('ts-jest/dist/types').InitialOptionsTsJest
+
+// import type { Config } from 'jest'
+const fs = require('node:fs')
+const JSON5 = require('json5')
+
+const { pathsToModuleNameMapper } = require('ts-jest')
+const { compilerOptions } = JSON5.parse(fs.readFileSync('./tsconfig.json', 'utf8'))
+console.log(compilerOptions.baseUrl)
+console.log(pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }))
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-export default {
+
+module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -84,13 +94,15 @@ export default {
     //   "json",
     //   "node"
   ],
-
+  modulePaths: [compilerOptions.baseUrl],
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     // https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
-    '@/apps/(.*)$': ['<rootDir>/src/apps/$1'],
-    '@/Contexts/(.*)$': ['<rootDir>/src/Contexts/$1'],
-    '@/tests/(.*)$': ['<rootDir>/tests/$1'],
+    '@/apps/(.*)\\.js$': ['<rootDir>/src/apps/$1'],
+    '@/Contexts/(.*)\\.js$': ['<rootDir>/src/Contexts/$1'],
+    '@/tests/(.*)\\.js$': ['<rootDir>/tests/$1'],
+    // '^(\\.{1,2}/.*)$': '$1',
+    '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -103,7 +115,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest',
+  // preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -129,7 +141,8 @@ export default {
   // A list of paths to directories that Jest should use to search for files in
   roots: [
     //'<rootDir>/src',
-    '<rootDir>/tests',
+    // '<rootDir>/tests',
+    '<rootDir>',
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
@@ -139,7 +152,7 @@ export default {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -178,13 +191,15 @@ export default {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
+  extensionsToTreatAsEsm: ['.ts'],
   transform: {
-    '^.+\\.(ts)$': [
+    '^.+\\.tsx?$': [
       'ts-jest',
       {
         tsconfig: 'tsconfig.json',
-        isolatedModules: true,
-        // useESM: true,
+        // isolatedModules: true,
+        // module: 'NodeNext',
+        useESM: true,
       },
     ],
   },

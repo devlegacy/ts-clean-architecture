@@ -1,4 +1,4 @@
-export class UserDoesNotExistsError extends Error {
+export class UserNotFoundError extends Error {
   constructor() {
     super("User doesn't exists")
   }

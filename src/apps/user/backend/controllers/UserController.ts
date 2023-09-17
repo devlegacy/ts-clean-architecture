@@ -1,15 +1,15 @@
 import HttpStatus from 'http-status'
 
-import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/domain/Common'
-import { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify'
-import { UserId } from '@/Contexts/User/Shared/domain'
-import { UserCreator, UserDeleter, UserGetter, UserUpdater } from '@/Contexts/User/Users/application'
-import { UserFinder } from '@/Contexts/User/Users/domain'
+import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/domain/Common/index.js'
+import type { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+import { UserId } from '@/Contexts/User/Shared/domain/index.js'
+import { UserCreator, UserDeleter, UserSearcherAll, UserUpdater } from '@/Contexts/User/Users/application/index.js'
+import { UserFinder } from '@/Contexts/User/Users/domain/index.js'
 
 @Controller('users')
 export class UserController {
   constructor(
-    private readonly userGetter: UserGetter,
+    private readonly userSearcher: UserSearcherAll,
     private readonly userCreator: UserCreator,
     private readonly userUpdater: UserUpdater,
     private readonly userDeleter: UserDeleter,
@@ -19,7 +19,7 @@ export class UserController {
   @Get()
   async index() {
     // const userGetter = new UserGetter(userRepository)
-    const users = await this.userGetter.run()
+    const users = await this.userSearcher.run()
     // res.code(HttpStatus.OK)
 
     return users.map((user) => user.toPrimitives())
@@ -60,12 +60,11 @@ export class UserController {
 
     // res.code(HttpStatus.OK)
 
-    const user = (
-      await this.userUpdater.run({
-        id: userId,
-        ...req.body,
-      } as any)
-    ).toPrimitives()
+    const user = {
+      id: userId,
+      ...req.body,
+    }
+    await this.userUpdater.run(user as any)
 
     return user
   }

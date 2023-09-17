@@ -1,12 +1,12 @@
 import 'reflect-metadata'
 
-import { container } from 'tsyringe'
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
+import { container } from '../modules/index.js'
+import { UserBackendApp } from './UserBackendApp.js'
 
-import { UserBackendApp } from './UserBackendApp'
-
-const fatalErrorHandler = container.resolve(FatalErrorHandler)
+// const { container } = await import('../modules/index.js')
+const fatalErrorHandler = container.get(FatalErrorHandler)
 
 process
   .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))

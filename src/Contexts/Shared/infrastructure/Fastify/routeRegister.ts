@@ -3,6 +3,7 @@ import { opendirSync } from 'node:fs'
 import { cpus } from 'node:os'
 import { join, resolve } from 'node:path'
 import { cwd } from 'node:process'
+import { pathToFileURL } from 'node:url'
 
 import type { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 
@@ -62,7 +63,9 @@ async function* readModulesRecursively(path: string, filter: RegExp): AsyncItera
       if (dirent.isDirectory()) {
         yield* readModulesRecursively(fullFilePath, filter)
       } else if (filter.test(dirent.name)) {
-        yield import(fullFilePath.toString()).then((m) => {
+        // console.log(fullFilePath.toString())
+        // console.log(pathToFileURL(fullFilePath.toString()).toString())
+        yield import(pathToFileURL(fullFilePath.toString()).toString()).then((m) => {
           return m
         })
       }

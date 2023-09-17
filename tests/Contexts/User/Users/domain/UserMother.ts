@@ -1,12 +1,12 @@
-import { User, UserPrimitiveType } from '@/Contexts/User/Users/domain'
-import { MotherCreator } from '@/tests/Contexts/Shared/domain'
+import { User, type UserPrimitiveType } from '@/Contexts/User/Users/domain/index.js'
+import { MotherCreator } from '@/tests/Contexts/Shared/domain/index.js'
 
-import { UserBirthdateMother } from './UserBirthdateMother'
-import { UserEmailMother } from './UserEmailMother'
-import { UserIdMother } from './UserIdMother'
+import { UserBirthdateMother } from './UserBirthdateMother.js'
+import { UserEmailMother } from './UserEmailMother.js'
+import { UserIdMother } from './UserIdMother.js'
 
 /**
- * Factory to (instantiate) create (objects) User entities
+ * Factory to (instantiate responsibility) create (new objects) User entities
  * public static methods
  */
 export class UserMother {

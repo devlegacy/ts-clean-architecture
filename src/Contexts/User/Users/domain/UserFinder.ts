@@ -1,7 +1,7 @@
 import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
 import { UserId } from '../../Shared/domain/index.js'
-import { UserDoesNotExistsError } from './Errors/index.js'
+import { UserNotFoundError } from './Errors/index.js'
 import { User, type UserPrimitiveType } from './User.js'
 import { UserRepository } from './UserRepository.js'
 
@@ -17,7 +17,7 @@ export class UserFinder {
   async run(userId: UserPrimitiveType['id']): Promise<User> {
     const user = await this.repository.searchById(new UserId(userId))
 
-    if (!user) throw new UserDoesNotExistsError()
+    if (!user) throw new UserNotFoundError()
 
     return user
   }

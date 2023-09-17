@@ -46,5 +46,8 @@ export class UserEmailUpdater {
     // Fourth approach with doubt, atomic updates
     // const userUpdated3 = oldUser.update('email', newEmail)
     // await this.repository.update(userUpdated3)
+
+    // Real approach just for testing
+    await this.repository.save(oldUser)
   }
 }

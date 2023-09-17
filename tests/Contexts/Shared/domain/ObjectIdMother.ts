@@ -1,4 +1,4 @@
-import { MotherCreator } from './MotherCreator'
+import { MotherCreator } from './MotherCreator.js'
 
 export class ObjectIdMother {
   static random(): string {

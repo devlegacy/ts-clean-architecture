@@ -1,11 +1,16 @@
-import { FastifyInstance } from 'fastify'
+import { fileURLToPath } from 'node:url'
+
+import type { FastifyInstance } from 'fastify'
 import http from 'http'
-import { AddressInfo } from 'net'
+import type { AddressInfo } from 'net'
 import { resolve } from 'path'
 
-import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify'
+import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common/index.js'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
 
+import { container } from '../modules/index.js'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export class Server {
   #port: number
   #adapter: FastifyAdapter = new FastifyAdapter()
@@ -23,7 +28,8 @@ export class Server {
   async listen() {
     await this.#adapter.bootstrap({
       controller: resolve(__dirname, './controllers'),
-      resolver: TsyringeControllerResolver,
+      // resolver: TsyringeControllerResolver,
+      resolver: DiodControllerResolver(container),
       // isProduction: false,
       // prefix: '/api/'
     })

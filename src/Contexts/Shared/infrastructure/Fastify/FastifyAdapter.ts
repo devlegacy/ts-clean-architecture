@@ -6,7 +6,6 @@ import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, {
-  errorCodes,
   type FastifyError,
   type FastifyInstance,
   type FastifyRegister,
@@ -14,13 +13,14 @@ import Fastify, {
   type FastifyRequest,
   type FastifyServerOptions,
   type PrintRoutesOptions,
-} from 'fastify'
+} from 'fastify' // commonjs module
 
 import { type ControllerResolver, HttpStatus } from '../../domain/Common/index.js'
 import { HttpError, Monitoring } from '../../domain/index.js'
 import { type HttpErrorHandler, type HttpValidationModule } from './interfaces/index.js'
 import { routeRegister } from './routeRegister.js'
 
+const { errorCodes } = Fastify
 const printConfig: PrintRoutesOptions = {
   commonPrefix: false,
   includeHooks: true,

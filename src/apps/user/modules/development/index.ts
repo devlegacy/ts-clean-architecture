@@ -5,10 +5,10 @@ import { registeredModules } from '@/Contexts/Shared/domain/Common/index.js'
 import { SharedModule } from './SharedModule.js'
 import { UserModule } from './UserModule.js'
 
-const modules = [SharedModule, UserModule]
+const modules: ((builder: ContainerBuilder) => void)[] = [SharedModule, UserModule]
 const builder = new ContainerBuilder()
 
-const containerBuilder = (registers: Class<unknown>[]) => {
+const containerBuilder = (registers: Class<unknown>[] = []) => {
   modules.forEach((register) => register(builder))
   registers.forEach((register) => builder.registerAndUse(register))
 
@@ -21,4 +21,4 @@ const containerBuilder = (registers: Class<unknown>[]) => {
   }
   return builder.build()
 }
-export const container = containerBuilder([])
+export const container = containerBuilder()
