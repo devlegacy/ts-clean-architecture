@@ -2,9 +2,9 @@
 
 ## Departments
 
-- Backend ⚙
-- Frontend 💻
-- Design 🎨
+- Backend ⚙ | 🖥 | 🧠
+- Frontend 💻 | 🌐 | 📱
+- Design 🎨 | ✏️ | 📐
 
 ## Types
 
@@ -37,12 +37,12 @@
 
 💎
 
-- High 🔥
-- Medium 🌱
-- Low 🌧
-- None ❌
-- Urgent 🚨
-- Critical 🚧
+- High 🔴 | 🔥
+  - Critical 🚧
+  - Urgent 🚨
+- Medium 🟡 | 🌱 (in develop)
+- Low 🟢 | 🌧 (it could be delayed because the rain)
+  - None ❌
 - P1 🥇
 - P2 🥈
 - P3 🥉
@@ -55,20 +55,21 @@
 ## Status
 
 - To do 📝
-  - Backlog 🗄
-  - Parking lot 🅿
-  - Rejected 🗑
-  - Blocked 🛑
-  - Prioritized 👍🏾
-  - No status 📌
+  - [ ] Backlog 🗄
+  - [ ] Parking lot 🅿
+  - [ ] Rejected 🗑
+  - [ ] Blocked 🛑
+  - [ ] Prioritized 👍🏾
+  - [ ] No status 📌
+  - [ ] Not started 🚫
 
 - In progress 🏗
-  - In progress 👷🏾‍♂️
-  - In review 👨🏾‍💻
-  - Testing 🧪
+  - [ ] In progress 👷🏾‍♂️
+  - [ ] In review 👨🏾‍💻
+  - [ ] Testing 🧪
 
 - Completed 🎉
-  - Complete 🙌
-  - Deployed 🚀
-  - Archived 📦
-  - Done ✅
+  - [ ] Complete 🙌
+  - [ ] Deployed 🚀
+  - [ ] Archived 📦
+  - [ ] Done ✅

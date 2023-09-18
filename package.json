@@ -31,6 +31,7 @@
     "lint:fix": "npm run lint -- --fix",
     "nibble": "eslint-nibble ./src/",
     "test": "npm run test:unit && npm run test:features",
+    "test:node": "node --loader tsx --test ./tests/Contexts/User/Users/**/**/*.test.ts",
     "test:unit": "cross-env APP_ENV=test jest --config=./jest.config.cjs --runInBand --detectOpenHandles",
     "test:features": "npm run test:mooc:backend:features && npm run test:backoffice:backend:features",
     "test:mooc:backend:features": "cross-env APP_ENV=test cucumber-js -p mooc_backend",
@@ -66,7 +67,7 @@
     "@fastify/cookie": "9.0.4",
     "@fastify/cors": "8.3.0",
     "@fastify/formbody": "7.4.0",
-    "@fastify/helmet": "11.1.0",
+    "@fastify/helmet": "11.1.1",
     "@fastify/rate-limit": "8.0.3",
     "@fastify/session": "10.5.0",
     "@fastify/swagger": "8.10.0",
@@ -112,7 +113,7 @@
     "http-errors": "2.0.0",
     "http-status": "1.7.0",
     "ioredis": "5.3.2",
-    "joi": "17.10.1",
+    "joi": "17.10.2",
     "joi-class-decorators": "1.1.0",
     "joi-to-json": "4.0.1",
     "jsdom": "22.1.0",
@@ -121,7 +122,7 @@
     "kafkajs": "2.2.4",
     "mime": "3.0.0",
     "module-alias": "2.2.3",
-    "mongodb": "6.1.0",
+    "mongodb": "5.9.0",
     "mongoose": "7.5.2",
     "node-dependency-injection": "3.1.0",
     "nodemailer": "6.9.5",
@@ -200,13 +201,14 @@
     "ts-prune": "0.10.3",
     "ts-unused-exports": "10.0.1",
     "tsconfig-paths": "4.2.0",
+    "tsx": "3.12.10",
     "type-fest": "4.3.1",
     "typescript": "5.2.2"
   },
   "optionalDependencies": {
     "depcheck": "1.4.6",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "16.14.3"
+    "npm-check-updates": "16.14.4"
   },
   "engines": {
     "node": ">=16.15.0 <=20.6.1",

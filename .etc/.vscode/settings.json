@@ -70,21 +70,47 @@
   "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "NOTE", "DOC", "DEBT", "TRANSLATE"],
   "todo-tree.highlights.customHighlight": {
     "TODO": {
-      "icon": "bookmark"
+      "icon": "issue-opened",
+      "gutterIcon": true,
+      "iconColour": "#FFD580"
+    },
+    "BUG": {
+      "icon": "bug",
+      "gutterIcon": true,
+      "iconColour": "#FF6B6B"
+    },
+    "HACK": {
+      "icon": "tools",
+      "gutterIcon": true,
+      "iconColour": "#A3A3A3"
+    },
+    "FIXME": {
+      "icon": "flame",
+      "gutterIcon": true,
+      "iconColour": "#FF926B"
     },
     "NOTE": {
-      "icon": "note"
+      "icon": "note",
+      "gutterIcon": true,
+      "iconColour": "#6BC1FF"
     },
     "DOC": {
-      "icon": "book"
+      "icon": "book",
+      "gutterIcon": true,
+      "iconColour": "#86D2B5"
     },
     "DEBT": {
-      "icon": "alert-fill"
+      "icon": "issue-reopened",
+      "gutterIcon": true,
+      "iconColour": "#F06C9B"
     },
     "TRANSLATE": {
-      "icon": "pencil"
+      "icon": "globe",
+      "gutterIcon": true,
+      "iconColour": "#A29BFE"
     }
   },
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|\\s\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },

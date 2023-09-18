@@ -47,3 +47,7 @@
 ## Event oriented
 
 - Hay un bucle de eventos que se ejecuta constantemente
+
+## Flame graph
+
+- [Flame graph](https://github.com/davidmarkclements/0x)
