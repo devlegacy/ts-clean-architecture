@@ -148,6 +148,14 @@ Branch names:
 - Require signed commits
 - Delete branches on merge
 
+Flows:
+
+- Ship / Show / Ask
+- Git flow
+- Github flow
+- Gitlab flow
+- One Flow
+
 <h2 align="center">Environments</h2>
 
 - `production`
