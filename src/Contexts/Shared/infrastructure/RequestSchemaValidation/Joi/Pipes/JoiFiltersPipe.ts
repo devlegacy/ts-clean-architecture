@@ -2,7 +2,7 @@ import type { PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces/i
 
 import { Joi } from '../index.js'
 
-export class FiltersPipe implements PipeTransform {
+export class JoiFiltersPipe implements PipeTransform {
   transform(filters: any) {
     const field = Joi.string().trim().required()
     const operator = Joi.string().trim().required() // From enum

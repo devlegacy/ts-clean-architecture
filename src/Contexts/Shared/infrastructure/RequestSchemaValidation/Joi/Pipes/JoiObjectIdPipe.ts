@@ -3,17 +3,13 @@ import type { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/C
 import { info } from '../../../Logger/index.js'
 import { Joi } from '../index.js'
 
-export class UuidPipe implements PipeTransform {
+export class JoiObjectIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     // metadata key: value
     info(`${value} ${metadata}`)
     const schema = Joi.object({
       // metadata key: value
-      value: Joi.string()
-        .trim()
-        .guid({
-          version: ['uuidv4'],
-        }),
+      value: Joi.string().objectId().required(),
     })
 
     const {
