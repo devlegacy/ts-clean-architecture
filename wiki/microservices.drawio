@@ -1,0 +1,31 @@
+<mxfile host="Electron" modified="2023-09-25T16:47:47.048Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="-Kifiiu5qmHFxxdWzMkz" version="21.7.5" type="device">
+  <diagram id="SPKYBTCJc2w390qjwVUy" name="Page-1">
+    <mxGraphModel dx="2058" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-1" value="Server (fastify)&lt;br&gt;is starting" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="30" y="449.64" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-6" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="150" y="390" width="184.3" height="189.64" as="geometry" />
+        </mxCell>
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-2" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.jumpInArrow;dy=15;dx=38;arrowHead=55;rotation=55;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" parent="dJnPSKyWQtNuJKsAuVXQ-6" vertex="1">
+          <mxGeometry x="78.26346327837928" y="17.417131544150504" width="88.63231877714495" height="88.6980822769231" as="geometry" />
+        </mxCell>
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-3" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.jumpInArrow;dy=15;dx=38;arrowHead=55;rotation=-60;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" parent="dJnPSKyWQtNuJKsAuVXQ-6" vertex="1">
+          <mxGeometry x="16.2208401343778" y="61.76617268261205" width="88.63231877714495" height="88.6980822769231" as="geometry" />
+        </mxCell>
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-4" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.jumpInArrow;dy=15;dx=38;arrowHead=55;rotation=-185;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" parent="dJnPSKyWQtNuJKsAuVXQ-6" vertex="1">
+          <mxGeometry x="78.26346327837928" y="97.24540559338128" width="88.63231877714495" height="88.6980822769231" as="geometry" />
+        </mxCell>
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-5" value="for each route" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="dJnPSKyWQtNuJKsAuVXQ-6" vertex="1">
+          <mxGeometry x="69.9975769213898" y="96.11554900498425" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="dJnPSKyWQtNuJKsAuVXQ-7" value="Route is ready!" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="630" y="444.82" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

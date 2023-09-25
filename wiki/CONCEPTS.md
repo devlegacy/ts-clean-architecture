@@ -77,6 +77,20 @@
 - Patron de arquitectura
 - Estilos de arquitectura
 
+## Arquitectura, patron arquitectónico y estilo arquitectónico
+
+- Arquitectura: Elementos y su interacción a nivel general
+- Patron (repetitivo) arquitectónico:
+  - MVC (separate responsibility)
+  - Hexagonal Architecture (reduce coupling)
+  - Ports and Adapters
+  - Clean Architecture
+  - Onion Architecture 
+  - Domain Driven Design (DDD)
+- Estilo arquitectónico: Mecanismo de implementación pero que no necesariamente resuelve un problema.
+  - Monolithic
+  - Microservices
+
 ## CQRS, Event Drive, Event Source
 
 - **Bus**: En arquitectura de programación, un bus (una contracción de ómnibus del latín) es un sistema de comunicación que transfiere datos entre componentes.
