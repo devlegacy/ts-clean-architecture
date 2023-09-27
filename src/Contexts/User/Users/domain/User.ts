@@ -26,8 +26,8 @@ import {
 //   id: User['id']
 // }
 
-export type UserPrimitiveType = Primitives<User>
 export type UserEntityType = Entity<User>
+export type UserPrimitiveType = Primitives<User>
 
 export class User extends AggregateRoot {
   readonly id: UserId
@@ -71,7 +71,7 @@ export class User extends AggregateRoot {
     //   name: new CourseName(props.name),
     //   duration: !props.duration ? undefined : new CourseDuration(props.duration)
     // })
-    return new User(
+    const user = new User(
       data.id,
       data.name,
       data.username,
@@ -80,6 +80,7 @@ export class User extends AggregateRoot {
       data.jobExperiences,
       isNil(data.age) ? undefined : data.age
     )
+    return user
   }
 
   updateEmail(email: UserPrimitiveType['email']) {
@@ -87,7 +88,7 @@ export class User extends AggregateRoot {
   }
 
   toPrimitives(): UserPrimitiveType {
-    return {
+    const user = {
       id: this.id.value,
       name: this.name.value,
       username: this.username.value,
@@ -96,6 +97,7 @@ export class User extends AggregateRoot {
       jobExperiences: this.jobExperiences.toPrimitives(),
       age: this.age?.value,
     }
+    return user
   }
 
   generation(): Generation {

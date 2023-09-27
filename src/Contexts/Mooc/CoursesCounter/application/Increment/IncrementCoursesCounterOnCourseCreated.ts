@@ -1,9 +1,9 @@
-import { CourseCreatedDomainEvent } from '@/Contexts/Mooc/Courses/domain'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { DomainEventSubscriber } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common'
+import { CourseCreatedDomainEvent } from '@/Contexts/Mooc/Courses/domain/index.js'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common/index.js'
+import type { DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
 
-import { CoursesCounterIncrementer } from './CoursesCounterIncrementer'
+import { CoursesCounterIncrementer } from './CoursesCounterIncrementer.js'
 
 // DomainEventSubscriber - Subscriptor - EventHandler
 @DomainEventSubscribers(CourseCreatedDomainEvent)

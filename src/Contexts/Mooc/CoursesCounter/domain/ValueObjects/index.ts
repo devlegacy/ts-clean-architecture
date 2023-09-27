@@ -1,2 +1,2 @@
-export * from './CoursesCounterId'
-export * from './CoursesCounterTotal'
+export * from './CoursesCounterId.js'
+export * from './CoursesCounterTotal.js'

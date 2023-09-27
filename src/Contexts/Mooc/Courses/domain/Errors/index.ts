@@ -1,1 +1,1 @@
-export * from './CourseNameLengthExceeded'
+export * from './CourseNameLengthExceeded.js'

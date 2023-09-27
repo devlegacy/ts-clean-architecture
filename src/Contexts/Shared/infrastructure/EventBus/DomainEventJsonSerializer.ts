@@ -1,4 +1,4 @@
-import { DomainEvent } from '../../domain'
+import { DomainEvent } from '../../domain/index.js'
 
 export class DomainEventJsonSerializer {
   static serialize(event: DomainEvent): string {

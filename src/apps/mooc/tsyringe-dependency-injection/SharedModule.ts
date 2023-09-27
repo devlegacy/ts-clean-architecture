@@ -5,28 +5,28 @@ import { container, Lifecycle } from 'tsyringe'
 import {
   LoggerConfigFactory,
   MongoConfigFactory,
-  RabbitMQConfig,
+  type RabbitMQConfig,
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   // , TypeOrmConfigFactory
   SentryConfigFactory,
-} from '@/Contexts/Mooc/Shared/infrastructure'
-import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Mooc/Shared/infrastructure/index.js'
+import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
 import {
   FatalErrorHandler,
   InMemoryCommandBus,
   InMemoryQueryBus,
   MikroOrmMongoClientFactory,
   MikroOrmMongoDomainEventFailoverPublisher,
-  MongoConfig,
+  type MongoConfig,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryModule,
-} from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TYPES } from './types'
+import { TYPES } from './types.js'
 
 const context = 'mooc'
 
@@ -43,7 +43,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   rabbitFormatter,
   rabbitConfig
 )
-const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+const monitoring = new SentryModule(SentryConfigFactory.createConfig())
 const logger = new PinoLogger(LoggerConfigFactory.createConfig())
 
 // Infrastructure layer

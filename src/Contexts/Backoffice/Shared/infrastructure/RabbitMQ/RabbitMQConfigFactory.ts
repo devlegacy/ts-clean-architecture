@@ -1,6 +1,6 @@
-import { ConnectionSettings, ExchangeSetting } from '@/Contexts/Shared/infrastructure/EventBus'
+import type { ConnectionSettings, ExchangeSetting } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
-import { config } from '../config'
+import { config } from '../config/index.js'
 
 export type RabbitMQConfig = {
   connectionSettings: ConnectionSettings

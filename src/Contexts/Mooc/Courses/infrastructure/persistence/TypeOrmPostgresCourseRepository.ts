@@ -1,10 +1,10 @@
 import { EntitySchema } from 'typeorm'
 
-import { Criteria } from '@/Contexts/Shared/domain'
-import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/Persistence'
+import { Criteria } from '@/Contexts/Shared/domain/index.js'
+import { TypeOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { Course, CourseRepository } from '../../domain'
-import { CourseEntity } from './typeorm/postgres/CourseEntity'
+import { Course, CourseRepository } from '../../domain/index.js'
+import { CourseEntity } from './typeorm/postgres/CourseEntity.js'
 
 export class TypeOrmPostgresCourseRepository extends TypeOrmPostgresRepository<Course> implements CourseRepository {
   async all(): Promise<Course[]> {

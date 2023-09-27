@@ -1,2 +1,2 @@
-export * from './MikroOrmMongoDomainEventFailoverPublisher'
-export * from './MongoDomainEventFailoverPublisher'
+export * from './MikroOrmMongoDomainEventFailoverPublisher.js'
+export * from './MongoDomainEventFailoverPublisher.js'

@@ -1,4 +1,4 @@
-import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain'
+import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
 export enum Tag {
   NEW_RELEASE = 'new_release',

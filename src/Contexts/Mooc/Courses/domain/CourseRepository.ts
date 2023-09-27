@@ -1,6 +1,6 @@
-import { Criteria } from '@/Contexts/Shared/domain'
+import { Criteria } from '@/Contexts/Shared/domain/index.js'
 
-import { Course } from './Course'
+import { Course } from './Course.js'
 
 export abstract class CourseRepository {
   // El átomo es Course, no recibir atributos para construir Course

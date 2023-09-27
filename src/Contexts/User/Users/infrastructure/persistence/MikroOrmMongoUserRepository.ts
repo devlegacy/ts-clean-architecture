@@ -104,7 +104,7 @@ export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> i
     console.log(user)
   }
 
-  async delete(id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

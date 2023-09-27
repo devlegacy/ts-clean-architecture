@@ -1,7 +1,7 @@
-import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
-import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common'
+import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common/index.js'
+import { DomainEvent, type DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
 
-import { DomainEventDummy } from './DomainEventDummy'
+import { DomainEventDummy } from './DomainEventDummy.js'
 
 @DomainEventSubscribers(DomainEventDummy)
 export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainEventDummy> {

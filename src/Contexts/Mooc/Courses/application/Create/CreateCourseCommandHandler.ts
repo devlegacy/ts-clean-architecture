@@ -1,9 +1,9 @@
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { CommandHandler, isUndefined } from '@/Contexts/Shared/domain'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import { type CommandHandler, isNil } from '@/Contexts/Shared/domain/index.js'
 
-import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain'
-import { CourseCreator } from './CourseCreator'
+import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain/index.js'
+import { CourseCreator } from './CourseCreator.js'
 
 @CommandHandlerSubscriber(CreateCourseCommand)
 export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCommand> {
@@ -11,7 +11,7 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
 
   // @Catch()
   async handle(command: CreateCourseCommand): Promise<void> {
-    const duration = !isUndefined(command.duration) ? new CourseDuration(command.duration) : undefined
+    const duration = !isNil(command.duration) ? new CourseDuration(command.duration) : undefined
     const request = {
       id: new CourseId(command.id),
       name: new CourseName(command.name),

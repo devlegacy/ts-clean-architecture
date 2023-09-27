@@ -8,10 +8,10 @@
  *  - Si cambiamos algo de infraestructura (no hay que modificar) no se afecta el comportamiento del dominio
  */
 
-import { EventBus } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { EventBus } from '@/Contexts/Shared/domain/index.js'
 
-import { Course, CourseEntityType, CourseRepository } from '../../domain'
+import { Course, type CourseEntityType, CourseRepository } from '../../domain/index.js'
 
 // NOTE: Complejidad asumida
 // NOTE: Collaborator

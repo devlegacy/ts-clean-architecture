@@ -1,2 +1,2 @@
-export * from './CourseCreator'
-export * from './CreateCourseCommandHandler'
+export * from './CourseCreator.js'
+export * from './CreateCourseCommandHandler.js'

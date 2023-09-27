@@ -3,15 +3,15 @@ import { EventEmitter } from 'node:events'
 import { Service } from 'diod'
 import { Server as SocketServer } from 'socket.io'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 import {
   DomainEvent,
-  DomainEventClass,
-  DomainEventSubscribers,
+  type DomainEventClass,
+  type DomainEventSubscribers,
   EventBus,
   EVENTS_HANDLER_METADATA,
-} from '../../../domain'
+} from '../../../domain/index.js'
 
 // InMemory, memoria de instancia
 @Service()

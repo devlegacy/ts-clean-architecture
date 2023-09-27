@@ -1,7 +1,11 @@
-import { RabbitMQConnection, RabbitMQEventBus, RabbitMQQueueFormatter } from '@/Contexts/Shared/infrastructure/EventBus'
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
+import {
+  RabbitMQConnection,
+  RabbitMQEventBus,
+  RabbitMQQueueFormatter,
+} from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
-import { RabbitMQConfig } from './RabbitMQConfigFactory'
+import type { RabbitMQConfig } from './RabbitMQConfigFactory.js'
 
 export class RabbitMQEventBusFactory {
   static create(

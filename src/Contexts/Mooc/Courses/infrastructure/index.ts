@@ -1,3 +1,3 @@
-export * from './persistence/FileCourseRepository'
-export * from './persistence/MikroOrmMongoCourseRepository'
-export * from './persistence/TypeOrmPostgresCourseRepository'
+export * from './persistence/FileCourseRepository.js'
+export * from './persistence/MikroOrmMongoCourseRepository.js'
+export * from './persistence/TypeOrmPostgresCourseRepository.js'

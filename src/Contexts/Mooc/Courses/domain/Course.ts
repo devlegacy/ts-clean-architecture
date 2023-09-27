@@ -1,8 +1,8 @@
-import { AggregateRoot, isUndefined } from '@/Contexts/Shared/domain'
+import { AggregateRoot, isUndefined } from '@/Contexts/Shared/domain/index.js'
 
-import { CourseId } from '../../Shared/domain'
-import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent'
-import { CourseDuration, CourseName } from './ValueObjects'
+import { CourseId } from '../../Shared/domain/index.js'
+import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent.js'
+import { CourseDuration, CourseName } from './ValueObjects/index.js'
 
 export type CourseEntityType = Entity<Course>
 export type CoursePrimitiveType = Primitives<Course>

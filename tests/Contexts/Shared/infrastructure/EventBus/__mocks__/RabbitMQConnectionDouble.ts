@@ -1,7 +1,7 @@
-import { RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
+import { RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
 export class RabbitMQConnectionDouble extends RabbitMQConnection {
-  async publish(_params: any): Promise<boolean> {
+  override async publish(_params: any): Promise<boolean> {
     throw new Error()
   }
 }

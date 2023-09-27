@@ -5,7 +5,7 @@ import type { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/C
 
 import { info } from '../../../Logger/index.js'
 
-export class MongoIdPipe implements PipeTransform {
+export class ZodObjectIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     // metadata key: value
     info(`${value}`)

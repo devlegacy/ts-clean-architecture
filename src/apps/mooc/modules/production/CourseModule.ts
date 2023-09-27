@@ -1,16 +1,16 @@
 import { ContainerBuilder } from 'diod'
 
-import { CourseController } from '@/apps/mooc/backend/controllers/Courses/CourseController'
+import { CourseController } from '@/apps/mooc/backend/controllers/Courses/CourseController.js'
 import {
   CourseCreator,
   CoursesFinder,
   CreateCourseCommandHandler,
   SearchAllCoursesQueryHandler,
-} from '@/Contexts/Mooc/Courses/application'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
-import { MikroOrmMongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure'
+} from '@/Contexts/Mooc/Courses/application/index.js'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
+import { MikroOrmMongoCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/index.js'
 
-import { TAGS } from '../tags'
+import { TAGS } from '../tags.js'
 
 export const CourseModule = (builder: ContainerBuilder) => {
   builder.registerAndUse(CourseController).addTag(TAGS.Controller)

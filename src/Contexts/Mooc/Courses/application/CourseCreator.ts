@@ -1,8 +1,8 @@
-import { EventBus } from '@/Contexts/Shared/domain'
+import { EventBus } from '@/Contexts/Shared/domain/index.js'
 
-import { CourseId } from '../../Shared/domain'
-import { Course, CourseDuration, CourseName, CourseRepository } from '../domain'
-import { CourseCreatorRequest } from './CourseCreatorRequest'
+import { CourseId } from '../../Shared/domain/index.js'
+import { Course, CourseDuration, CourseName, CourseRepository } from '../domain/index.js'
+import type { CourseCreatorRequest } from './CourseCreatorRequest.js'
 
 export class CourseCreator {
   constructor(

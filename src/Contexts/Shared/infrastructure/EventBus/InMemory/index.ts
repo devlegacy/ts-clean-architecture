@@ -1,1 +1,1 @@
-export * from './InMemoryAsyncEventBus'
+export * from './InMemoryAsyncEventBus.js'

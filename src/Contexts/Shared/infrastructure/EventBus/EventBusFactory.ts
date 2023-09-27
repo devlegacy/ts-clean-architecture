@@ -1,5 +1,5 @@
-import { EventBus } from '../../domain'
-import { InMemoryAsyncEventBus } from './InMemory'
+import { EventBus } from '../../domain/index.js'
+import { InMemoryAsyncEventBus } from './InMemory/index.js'
 
 export class EventBusFactory {
   private static _instance: EventBus

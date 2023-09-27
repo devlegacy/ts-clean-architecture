@@ -1,12 +1,12 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
-import { Document } from 'bson'
-import { Collection, UpdateFilter, UpdateOptions } from 'mongodb'
+import type { Document } from 'bson'
+import { Collection, type UpdateFilter, type UpdateOptions } from 'mongodb'
 
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
 
-import { DomainEventDeserializer } from '../DomainEventDeserializer'
-import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
+import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
+import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer.js'
 
 /**
  * NOTE: Infrastructure to Infrastructure coupling

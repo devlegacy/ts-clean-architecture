@@ -1,4 +1,4 @@
-import { CoursesCounter } from './CoursesCounter'
+import { CoursesCounter } from './CoursesCounter.js'
 
 export abstract class CoursesCounterRepository {
   abstract search(): Promise<Nullable<CoursesCounter>>

@@ -1,6 +1,6 @@
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
 
-import { ObjectIdMother } from '../../../domain'
+import { ObjectIdMother } from '../../../domain/index.js'
 
 export class DomainEventDummy extends DomainEvent {
   static override readonly EVENT_NAME = 'dummy'

@@ -1,4 +1,4 @@
-import { DomainEvent, DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain'
+import { DomainEvent, type DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain/index.js'
 
 interface CoursesCounterIncrementedDomainEventAttributes {
   readonly total: number

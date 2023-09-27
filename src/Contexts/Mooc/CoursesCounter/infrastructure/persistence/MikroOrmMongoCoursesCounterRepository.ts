@@ -1,9 +1,9 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { CoursesCounter, CoursesCounterRepository } from '../../domain'
-import { CoursesCounterEntity } from './mikroorm/mongo/CoursesCounterEntity'
+import { CoursesCounter, CoursesCounterRepository } from '../../domain/index.js'
+import { CoursesCounterEntity } from './mikroorm/mongo/CoursesCounterEntity.js'
 
 export class MikroOrmMongoCoursesCounterRepository
   extends MikroOrmMongoRepository<CoursesCounter>

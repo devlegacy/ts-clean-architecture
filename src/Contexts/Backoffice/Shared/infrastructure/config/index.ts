@@ -7,7 +7,7 @@ import convict_format_with_validator from 'convict-format-with-validator'
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger'
+import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 const defaultPath = `${cwd()}/.backoffice.env`
 const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`

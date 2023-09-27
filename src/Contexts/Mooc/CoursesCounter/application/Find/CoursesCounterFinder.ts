@@ -1,6 +1,6 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { CoursesCounterNotExist, CoursesCounterRepository } from '../../domain'
+import { CoursesCounterNotExist, CoursesCounterRepository } from '../../domain/index.js'
 
 @UseCase()
 export class CoursesCounterFinder {

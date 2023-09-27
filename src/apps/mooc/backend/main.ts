@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 
-import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { container } from '../modules'
-import { MoocBackendApp } from './MoocBackendApp'
+import { container } from '../modules/index.js'
+import { MoocBackendApp } from './MoocBackendApp.js'
 
 const fatalErrorHandler = container.get(FatalErrorHandler)
 

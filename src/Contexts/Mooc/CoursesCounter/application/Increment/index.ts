@@ -1,2 +1,2 @@
-export * from './CoursesCounterIncrementer'
-export * from './IncrementCoursesCounterOnCourseCreated'
+export * from './CoursesCounterIncrementer.js'
+export * from './IncrementCoursesCounterOnCourseCreated.js'

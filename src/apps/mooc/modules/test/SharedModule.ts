@@ -4,25 +4,25 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { ContainerBuilder } from 'diod'
 
-import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
+import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
 import {
   LoggerConfigFactory,
   MongoConfigFactory,
   RabbitMQConfigFactory,
   SentryConfigFactory,
-} from '@/Contexts/Mooc/Shared/infrastructure'
+} from '@/Contexts/Mooc/Shared/infrastructure/index.js'
 import {
   Command,
   CommandBus,
-  CommandHandler,
+  type CommandHandler,
   EventBus,
   Logger,
   Monitoring,
   Query,
   QueryBus,
-  QueryHandler,
+  type QueryHandler,
   Response,
-} from '@/Contexts/Shared/domain'
+} from '@/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   FatalErrorHandler,
@@ -35,11 +35,11 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryModule,
-} from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
-import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { TAGS } from '../tags'
+import { TAGS } from '../tags.js'
 
 const context = 'mooc'
 

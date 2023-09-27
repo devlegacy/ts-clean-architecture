@@ -1,15 +1,15 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
 import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
+} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
-import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '../../../../domain'
+import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '../../../../domain/index.js'
 
 // https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({

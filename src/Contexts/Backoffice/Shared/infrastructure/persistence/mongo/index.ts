@@ -1,1 +1,1 @@
-export * from './MongoConfigFactory'
+export * from './MongoConfigFactory.js'

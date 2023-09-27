@@ -1,7 +1,7 @@
-import { Criteria } from '@/Contexts/Shared/domain'
-import { MongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/mongo'
+import { Criteria } from '@/Contexts/Shared/domain/index.js'
+import { MongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
-import { Course, CourseRepository } from '../../domain'
+import { Course, CourseRepository } from '../../domain/index.js'
 
 interface CourseDocument {
   _id: string

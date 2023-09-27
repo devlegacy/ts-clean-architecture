@@ -1,7 +1,5 @@
-import HttpStatus from 'http-status'
-
-import { Controller, Delete, Get, Post, Put, Req, Res } from '@/Contexts/Shared/domain/Common/index.js'
-import type { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+import { Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Req } from '@/Contexts/Shared/domain/Common/index.js'
+import type { Request } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
 import { UserId } from '@/Contexts/User/Shared/domain/index.js'
 import { UserCreator, UserDeleter, UserSearcherAll, UserUpdater } from '@/Contexts/User/Users/application/index.js'
 import { UserFinder } from '@/Contexts/User/Users/domain/index.js'
@@ -25,10 +23,10 @@ export class UserController {
     return users.map((user) => user.toPrimitives())
   }
 
-  @Get('/:userId')
-  async show(@Req() req: Request<{ Params: { userId: string } }>) {
-    const { userId } = req.params
-    const user = await this.userFinder.run(userId)
+  @Get(':id')
+  async show(@Req() req: Request<{ Params: { id: string } }>) {
+    const { id } = req.params
+    const user = await this.userFinder.run(id)
     // res.code(200)
     return user.toPrimitives()
   }
@@ -47,21 +45,21 @@ export class UserController {
     return req.body
   }
 
-  @Put(':userId')
+  @Put(':id')
   async update(
     @Req()
     req: Request<{
       Body: { id?: string; username: string; age: number; name: string }
-      Params: { userId: string }
+      Params: { id: string }
     }>
   ) {
     // const userUpdater = new UserUpdater(userRepository)
-    const { userId } = req.params
+    const { id } = req.params
 
     // res.code(HttpStatus.OK)
 
     const user = {
-      id: userId,
+      id,
       ...req.body,
     }
     await this.userUpdater.run(user as any)
@@ -69,15 +67,16 @@ export class UserController {
     return user
   }
 
-  @Delete(':userId')
-  async delete(@Req() req: Request<{ Params: { userId: string } }>, @Res() res: Response) {
-    const { userId } = req.params
+  @HttpCode(HttpStatus.OK)
+  @Delete(':id')
+  async delete(@Req() req: Request<{ Params: { id: string } }>) {
+    const { id } = req.params
 
     // const userDeleter = new UserDeleter(userRepository)
 
-    res.code(HttpStatus.OK)
+    // res.code(HttpStatus.OK)
 
-    const user = (await this.userDeleter.run(userId)).toPrimitives()
+    const user = (await this.userDeleter.run(id)).toPrimitives()
 
     return user
   }

@@ -1,9 +1,14 @@
-import { Container } from 'diod'
+import type { Container } from 'diod'
 import { container } from 'tsyringe'
 
-import { TAGS } from '@/apps/mooc/modules/tags'
+import { TAGS } from '@/apps/mooc/modules/tags.js'
 
-import { DomainEvent, DomainEventSubscriber, DomainEventSubscribers, SHARED_TYPES } from '../../domain'
+import {
+  DomainEvent,
+  type DomainEventSubscriber,
+  type DomainEventSubscribers,
+  SHARED_TYPES,
+} from '../../domain/index.js'
 
 // class DomainEventSubscriberTransform implements Transform<any, any> {
 //   public transform(items: DomainEventSubscriber<DomainEvent>[]): DomainEventSubscriber<DomainEvent>[] {

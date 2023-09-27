@@ -1,4 +1,4 @@
-export * from './arranger/EnvironmentArranger'
-export * from './mikroorm/MikroOrmMongoEnvironmentArranger'
+export * from './arranger/EnvironmentArranger.js'
+export * from './mikroorm/MikroOrmMongoEnvironmentArranger.js'
 // export * from './typeorm/TypeOrmEnvironmentArranger'
-export * from './mongo/MongoEnvironmentArranger'
+export * from './mongo/MongoEnvironmentArranger.js'

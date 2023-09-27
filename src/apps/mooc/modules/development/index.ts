@@ -2,13 +2,13 @@ import 'reflect-metadata'
 
 import { ContainerBuilder } from 'diod'
 
-import { registeredModules } from '@/Contexts/Shared/domain/Common'
+import { registeredModules } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { CourseModule } from './CourseModule'
-import { CoursesCounterModule } from './CoursesCounterModule'
-import { ErrorModule } from './ErrorModule'
-import { SharedModule } from './SharedModule'
-import { StatusModule } from './StatusModule'
+import { CourseModule } from './CourseModule.js'
+import { CoursesCounterModule } from './CoursesCounterModule.js'
+import { ErrorModule } from './ErrorModule.js'
+import { SharedModule } from './SharedModule.js'
+import { StatusModule } from './StatusModule.js'
 
 // DEBT: It can be change by glob loader
 const modules = [SharedModule, StatusModule, ErrorModule, CourseModule, CoursesCounterModule]

@@ -1,7 +1,7 @@
-import { RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus'
+import { RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
-import { RabbitMQConnectionDouble } from '../__mocks__'
-import { RabbitMQConnectionConfigurationMother } from './RabbitMQConnectionConfigurationMother'
+import { RabbitMQConnectionDouble } from '../__mocks__/index.js'
+import { RabbitMQConnectionConfigurationMother } from './RabbitMQConnectionConfigurationMother.js'
 
 export class RabbitMQConnectionMother {
   static async create() {

@@ -1,6 +1,9 @@
-import { DomainEventDeserializer, DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
+import {
+  DomainEventDeserializer,
+  DomainEventSubscriberResolver,
+} from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
-import { DomainEventSubscriberDummy } from '../__mocks__'
+import { DomainEventSubscriberDummy } from '../__mocks__/index.js'
 
 export class DomainEventDeserializerMother {
   static create() {

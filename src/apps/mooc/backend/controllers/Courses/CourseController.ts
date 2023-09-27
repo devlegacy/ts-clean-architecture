@@ -1,5 +1,4 @@
-import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
-import { CommandBus } from '@/Contexts/Shared/domain'
+import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain/index.js'
 import {
   Body,
   Controller,
@@ -8,9 +7,10 @@ import {
   Put,
   // Req
   // Schema
-} from '@/Contexts/Shared/domain/Common'
+} from '@/Contexts/Shared/domain/Common/index.js'
+import { CommandBus } from '@/Contexts/Shared/domain/index.js'
 
-import { CourseRequestSchema } from './validations'
+import { CourseRequestSchema } from './validations/index.js'
 
 @Controller('courses')
 export class CourseController {

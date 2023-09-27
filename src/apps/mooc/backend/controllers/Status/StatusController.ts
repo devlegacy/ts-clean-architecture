@@ -1,4 +1,4 @@
-import { config } from '@/Contexts/Mooc/Shared/infrastructure'
+import { config } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
 import {
   Body,
   Controller,
@@ -11,16 +11,20 @@ import {
   Query,
   Req,
   Res,
-} from '@/Contexts/Shared/domain/Common'
-import { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify'
+} from '@/Contexts/Shared/domain/Common/index.js'
+import type { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
 import {
-  ObjectIdPipe as JoiMongoIdPipe,
-  PageNumberPipe,
-} from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
-import { MongoIdPipe as ZodMongoIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/Pipes'
+  JoiObjectIdPipe,
+  JoiPageNumberPipe,
+} from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
+import { ZodObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/Pipes/index.js'
 
-import { JoiCourseRequestSchema, JoiCoursesRequestSchema, ZodRequestCourseSchema } from '../Courses/validations'
-import { IndexQueryRequestSchema, IndexRequestHeadersSchema, UserRequestSchema } from './validations'
+import {
+  JoiCourseRequestSchema,
+  JoiCoursesRequestSchema,
+  ZodRequestCourseSchema,
+} from '../Courses/validations/index.js'
+import { IndexQueryRequestSchema, IndexRequestHeadersSchema, UserRequestSchema } from './validations/index.js'
 
 // Los controllers regresan promesas<any> sin excepciones, los errores se propagan hasta el Server que instancia los controllers
 
@@ -59,12 +63,12 @@ export class StatusController {
   }
 
   @Post('joi/pipe/:mongoId')
-  mongoPipe(@Param('mongoId', JoiMongoIdPipe) mongoId: string) {
+  mongoPipe(@Param('mongoId', JoiObjectIdPipe) mongoId: string) {
     return { mongoId }
   }
 
   @Post('zod/pipe/:mongoId')
-  zodPipe(@Param('mongoId', ZodMongoIdPipe) mongoId: string) {
+  zodPipe(@Param('mongoId', ZodObjectIdPipe) mongoId: string) {
     return { mongoId }
   }
 
@@ -114,8 +118,8 @@ export class StatusController {
   @Post('helpers')
   helpers(
     @Query('limit') limit: number,
-    @Query('page', PageNumberPipe) page: number,
-    @Headers('x-context-account', JoiMongoIdPipe) account: string
+    @Query('page', JoiPageNumberPipe) page: number,
+    @Headers('x-context-account', JoiObjectIdPipe) account: string
   ) {
     return {
       page,

@@ -1,15 +1,15 @@
 import { container } from 'tsyringe'
 
-import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
+import { CreateCourseCommandHandler, SearchAllCoursesQueryHandler } from '@/Contexts/Mooc/Courses/application/index.js'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
 import {
   MikroOrmMongoCourseRepository,
   // , TypeOrmCourseRepository
-} from '@/Contexts/Mooc/Courses/infrastructure'
-import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application'
-import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Mooc/Courses/infrastructure/index.js'
+import { FindCoursesCounterQueryHandler } from '@/Contexts/Mooc/CoursesCounter/application/index.js'
+import { Command, type CommandHandler, Query, type QueryHandler, Response } from '@/Contexts/Shared/domain/index.js'
 
-import { TYPES } from './types'
+import { TYPES } from './types.js'
 
 // Application layer
 container

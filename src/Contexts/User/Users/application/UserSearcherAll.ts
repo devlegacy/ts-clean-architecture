@@ -5,10 +5,10 @@ import { User, UserRepository } from '../domain/index.js'
 /** UserGetterUseCase */
 @UseCase()
 export class UserSearcherAll {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly repository: UserRepository) {}
 
   async run(): Promise<User[]> {
-    const users = await this.userRepository.searchAll()
+    const users = await this.repository.searchAll()
     return users
   }
 }

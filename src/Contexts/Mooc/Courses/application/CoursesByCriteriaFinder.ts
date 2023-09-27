@@ -1,6 +1,6 @@
-import { Criteria, Filters, Order } from '@/Contexts/Shared/domain'
+import { Criteria, Filters, Order } from '@/Contexts/Shared/domain/index.js'
 
-import { CourseRepository } from '../domain'
+import { CourseRepository } from '../domain/index.js'
 
 export class CoursesByCriteriaFinder {
   constructor(private repository: CourseRepository) {}

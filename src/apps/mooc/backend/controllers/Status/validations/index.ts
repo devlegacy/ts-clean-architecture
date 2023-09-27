@@ -1,3 +1,3 @@
-export * from './IndexQueryRequestSchema'
-export * from './IndexRequestHeadersSchema'
-export * from './UserRequestSchema'
+export * from './IndexQueryRequestSchema.js'
+export * from './IndexRequestHeadersSchema.js'
+export * from './UserRequestSchema.js'

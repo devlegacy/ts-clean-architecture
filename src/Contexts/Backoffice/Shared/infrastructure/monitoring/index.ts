@@ -1,1 +1,1 @@
-export * from './SentryConfigFactory'
+export * from './SentryConfigFactory.js'

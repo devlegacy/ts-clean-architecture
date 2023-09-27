@@ -1,6 +1,6 @@
-import { Command } from '@/Contexts/Shared/domain'
+import { Command } from '@/Contexts/Shared/domain/index.js'
 
-import { CoursePrimitiveType } from './Course'
+import type { CoursePrimitiveType } from './Course.js'
 
 // alt CommandRequest
 type Request = CoursePrimitiveType

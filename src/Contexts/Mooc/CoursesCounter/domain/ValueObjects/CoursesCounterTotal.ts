@@ -1,4 +1,4 @@
-import { NumberValueObject } from '@/Contexts/Shared/domain'
+import { NumberValueObject } from '@/Contexts/Shared/domain/index.js'
 
 export class CoursesCounterTotal extends NumberValueObject {
   static initialize(): CoursesCounterTotal {

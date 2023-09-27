@@ -1,9 +1,9 @@
-import { Collection, MongoClient, UpdateFilter, UpdateOptions } from 'mongodb'
+import { Collection, MongoClient, type UpdateFilter, type UpdateOptions } from 'mongodb'
 
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
 
-import { DomainEventDeserializer } from '../DomainEventDeserializer'
-import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
+import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
+import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer.js'
 
 export class MongoDomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'

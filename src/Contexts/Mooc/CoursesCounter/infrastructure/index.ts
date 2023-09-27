@@ -1,1 +1,1 @@
-export * from './persistence/MikroOrmMongoCoursesCounterRepository'
+export * from './persistence/MikroOrmMongoCoursesCounterRepository.js'

@@ -1,1 +1,1 @@
-export * from './mongo-id.pipe.js'
+export * from './ZodObjectIdPipe.js'

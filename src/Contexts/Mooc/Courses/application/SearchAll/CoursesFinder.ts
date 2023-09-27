@@ -1,6 +1,6 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { CourseRepository } from '../../domain'
+import { CourseRepository } from '../../domain/index.js'
 
 @UseCase()
 export class CoursesFinder {

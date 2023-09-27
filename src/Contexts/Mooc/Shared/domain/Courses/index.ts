@@ -1,1 +1,1 @@
-export * from './CourseId'
+export * from './CourseId.js'

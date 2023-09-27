@@ -1,10 +1,10 @@
 import { container } from 'tsyringe'
 
-import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application'
-import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
+import { IncrementCoursesCounterOnCourseCreated } from '@/Contexts/Mooc/CoursesCounter/application/index.js'
+import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
+import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure/index.js'
 
-import { TYPES } from './types'
+import { TYPES } from './types.js'
 
 // Application layer
 container

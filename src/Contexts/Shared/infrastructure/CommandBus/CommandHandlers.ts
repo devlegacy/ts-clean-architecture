@@ -13,9 +13,10 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
 
     super()
 
-    this.handlers.forEach((handler) =>
-      this.set(Reflect.getMetadata(COMMAND_HANDLER_METADATA, handler.constructor), handler)
-    )
+    this.handlers.forEach((handler) => {
+      const command: Command = Reflect.getMetadata(COMMAND_HANDLER_METADATA, handler.constructor)
+      this.set(command, handler)
+    })
   }
 
   override get(command: Command): CommandHandler<Command> {

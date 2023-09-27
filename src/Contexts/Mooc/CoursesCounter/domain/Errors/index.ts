@@ -1,1 +1,1 @@
-export * from './CoursesCounterNotExists'
+export * from './CoursesCounterNotExists.js'

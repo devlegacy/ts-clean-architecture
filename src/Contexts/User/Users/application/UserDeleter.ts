@@ -7,13 +7,13 @@ import { User, UserFinder, UserRepository } from '../domain/index.js'
 export class UserDeleter {
   private readonly finder: UserFinder
 
-  constructor(private readonly userRepository: UserRepository) {
-    this.finder = new UserFinder(userRepository)
+  constructor(private readonly repository: UserRepository) {
+    this.finder = new UserFinder(repository)
   }
 
   async run(userId: string): Promise<User> {
     const user = await this.finder.run(userId)
-    await this.userRepository.delete(user.id.value)
+    await this.repository.remove(user.id.value)
 
     return user
   }

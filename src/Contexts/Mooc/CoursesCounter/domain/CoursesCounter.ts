@@ -1,8 +1,8 @@
-import { AggregateRoot, ObjectId } from '@/Contexts/Shared/domain'
+import { AggregateRoot, ObjectId } from '@/Contexts/Shared/domain/index.js'
 
-import { CourseId } from '../../Shared/domain'
-import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent'
-import { CoursesCounterId, CoursesCounterTotal } from './ValueObjects'
+import { CourseId } from '../../Shared/domain/index.js'
+import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent.js'
+import { CoursesCounterId, CoursesCounterTotal } from './ValueObjects/index.js'
 
 export type CoursesCounterEntityDto = Entity<CoursesCounter>
 export type CoursesCounterPrimitiveDto = Primitives<CoursesCounter>

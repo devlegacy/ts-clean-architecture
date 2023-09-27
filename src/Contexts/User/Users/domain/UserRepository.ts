@@ -15,7 +15,7 @@ export abstract class UserRepository {
   // ❌ structural coupling - header interface based on MongoDB requirements
   // abstract delete(_id: string): Promise<void>
   // ✅ Role interface based on User domain requirements
-  abstract delete(id: string): Promise<void>
+  abstract remove(id: string): Promise<void>
   abstract softDelete(id: string): Promise<void>
   // structural coupling, probably empty implementation and test with special implementations, it could be an smell
   // flush(user: User): Promise<void>

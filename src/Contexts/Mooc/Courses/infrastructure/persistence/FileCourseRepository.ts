@@ -2,9 +2,9 @@ import { readFile, writeFile } from 'node:fs/promises'
 
 import { deserialize, serialize } from 'bson'
 
-import { Criteria } from '@/Contexts/Shared/domain'
+import { Criteria } from '@/Contexts/Shared/domain/index.js'
 
-import { Course, CourseEntityType, CoursePrimitiveType, CourseRepository } from '../../domain'
+import { Course, type CourseEntityType, type CoursePrimitiveType, CourseRepository } from '../../domain/index.js'
 
 export class FileCourseRepository implements CourseRepository {
   #FILE_PATH = `${__dirname}/Courses`

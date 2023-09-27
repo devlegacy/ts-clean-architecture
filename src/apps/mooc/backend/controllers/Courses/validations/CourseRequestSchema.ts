@@ -1,4 +1,4 @@
-import { CREATE, Joi, JoiSchema, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
+import { CREATE, Joi, JoiSchema, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 const string = Joi.string().trim()
 const date = Joi.date()

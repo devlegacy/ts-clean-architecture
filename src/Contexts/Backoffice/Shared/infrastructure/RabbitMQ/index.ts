@@ -1,2 +1,2 @@
-export * from './RabbitMQConfigFactory'
-export * from './RabbitMQEventBusFactory'
+export * from './RabbitMQConfigFactory.js'
+export * from './RabbitMQEventBusFactory.js'

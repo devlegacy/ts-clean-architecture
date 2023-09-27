@@ -1,4 +1,4 @@
-import { DomainEventClass, DomainEventSubscribers, EVENTS_HANDLER_METADATA } from '../../domain'
+import { type DomainEventClass, type DomainEventSubscribers, EVENTS_HANDLER_METADATA } from '../../domain/index.js'
 
 type DomainEventJSON = {
   id: string // eventId

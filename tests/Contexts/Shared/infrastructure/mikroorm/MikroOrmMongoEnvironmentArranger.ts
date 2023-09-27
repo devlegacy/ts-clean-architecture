@@ -2,7 +2,7 @@ import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
 import { Service } from 'diod'
 
-import { EnvironmentArranger } from '../arranger/EnvironmentArranger'
+import { EnvironmentArranger } from '../arranger/EnvironmentArranger.js'
 
 @Service()
 export class MikroOrmMongoEnvironmentArranger extends EnvironmentArranger {
