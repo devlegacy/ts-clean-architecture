@@ -14,7 +14,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'user'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MikroOrmMongoClientFactory.createClient(
+const connectionClient = await MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
   resolve(`${__dirname}/../../../../Contexts/User`)
@@ -26,20 +26,15 @@ const logger = new PinoLogger({
 })
 
 export const SharedModule = (builder: ContainerBuilder) => {
-  builder.register<Promise<MikroORM<MongoDriver>>>(MikroORM<MongoDriver> as any).useFactory(() => {
-    return connectionClient
-  })
+  builder.register<MikroORM<MongoDriver>>(MikroORM<MongoDriver>).useFactory(() => connectionClient)
   builder
     .register(Monitoring)
-    .useFactory(() => {
-      return monitoring
-    })
+    .useFactory(() => monitoring)
     .asSingleton()
   builder
     .register(Logger)
-    .useFactory(() => {
-      return logger
-    })
+    .useFactory(() => logger)
     .asSingleton()
   builder.register(FatalErrorHandler).use(FatalErrorHandler).asSingleton()
+  // builder.registerAndUse(FatalErrorHandler).asSingleton()
 }

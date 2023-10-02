@@ -11,10 +11,12 @@ import { UserId } from '@/Contexts/User/Shared/domain/index.js'
 import {
   JobExperiences,
   User,
-  UserAge,
   UserBirthdate,
+  UserCreatedAt,
+  UserDeletedAt,
   UserEmail,
   UserName,
+  UserUpdatedAt,
   UserUsername,
 } from '@/Contexts/User/Users/domain/index.js'
 
@@ -55,8 +57,22 @@ export const UserEntity = new EntitySchema<User>({
     jobExperiences: {
       customType: new ValueObjectTransformer(JobExperiences, '[]'),
     },
-    age: {
-      customType: new ValueObjectTransformer(UserAge, 'number'),
+    // age: {
+    //   customType: new ValueObjectTransformer(UserAge, 'number'),
+    // },
+    createdAt: {
+      customType: new ValueObjectTransformer(UserCreatedAt, 'date'),
+      // onCreate: () => new Date(),
+    },
+    updatedAt: {
+      customType: new ValueObjectTransformer(UserUpdatedAt, 'date'),
+      // onCreate: () => new Date(),
+      // onUpdate: () => new Date(),
+    },
+    deletedAt: {
+      customType: new ValueObjectTransformer(UserDeletedAt, 'date'),
+      nullable: true,
+      default: undefined,
     },
   },
 })

@@ -32,13 +32,16 @@ export class UserEmailUpdater {
       newEmail,
       oldUser.birthdate.value,
       oldUser.jobExperiences.toPrimitives(),
-      oldUser.age?.value
+      // oldUser.age?.value,
+      oldUser.createdAt.value,
+      new Date()
     )
     await this.repository.update(userUpdated)
 
     // Third approach similar to Second approach
     const userUpdated2 = User.fromPrimitives({
       ...oldUser.toPrimitives(),
+      updatedAt: new Date(),
       email: newEmail,
     })
     await this.repository.update(userUpdated2)

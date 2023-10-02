@@ -1,8 +1,7 @@
 import { DomainError } from './DomainError.js'
-// 422
 
-// TypeError
-export class InvalidArgumentError extends DomainError {
+// 409 Conflict
+export class ConflictError extends DomainError {
   constructor(message: string) {
     super(message)
     this.name = this.constructor.name

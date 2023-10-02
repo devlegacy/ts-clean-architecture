@@ -18,13 +18,16 @@ const validBirthdate = new Date(currentDate.getFullYear() - 50, currentDate.getM
 
 describe('UserEmailUpdater', () => {
   it('registers a user without throwing errors when all data is valid', async () => {
+    const timestamp = new Date()
     const repository = new InMemoryUserRepository()
     // const repositorySave = mock.method(repository, 'save') // ❌ la ubicación de este mock es importante, debe estar antes de la instancia del UserEmailUpdater
     const userEmailUpdater = new UserEmailUpdater(repository)
 
     const oldEmail = 'oldemail@gmail.com'
     const newEmail = 'newemail@gmail.com'
-    await repository.save(new User(validId, validName, validUsername, oldEmail, validBirthdate, []))
+    await repository.save(
+      new User(validId, validName, validUsername, oldEmail, validBirthdate, [], timestamp, timestamp)
+    )
 
     // const repositorySave = mock.fn(repository, 'save')
     const repositorySave = mock.method(repository, 'save')
@@ -44,7 +47,7 @@ describe('UserEmailUpdater', () => {
     assert.equal(repositorySave.mock.calls.length, 1)
     assert.deepEqual(
       repositorySave.mock.calls[0]!.arguments[0],
-      new User(validId, validName, validUsername, newEmail, validBirthdate, [])
+      new User(validId, validName, validUsername, newEmail, validBirthdate, [], timestamp, timestamp)
     )
   })
 
@@ -68,7 +71,7 @@ describe('UserEmailUpdater', () => {
     const userEmailUpdater = new UserEmailUpdater(repository)
 
     const oldEmail = 'oldemail@gmail.com'
-    const invalidNewEmail = 'newemail@invalid.com'
+    const invalidNewEmail = 'newemail@invalid.comxx'
     await repository.save(new User(validId, validName, validUsername, oldEmail, validBirthdate, []))
     const repositorySave = mock.method(repository, 'save')
 

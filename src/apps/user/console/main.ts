@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { faker } from '@faker-js/faker'
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
@@ -19,8 +21,8 @@ import { container } from '../modules/index.js'
 
 const id = faker.database.mongodbObjectId()
 
-const userDto: UserPrimitiveType = {
-  age: 28,
+const userRequest: UserPrimitiveType = {
+  // age: 28,
   id,
   // name: 'Samuel',
   name: faker.person.fullName(),
@@ -44,38 +46,39 @@ const userDto: UserPrimitiveType = {
       },
     },
   ],
+  createdAt: new Date(),
+  updatedAt: new Date(),
 }
 
-const patchUserDto: Partial<UserPrimitiveType> = {
+const patchUserRequest: Partial<UserPrimitiveType> = {
   // id: '63312922a9f759eabbb1a161',
   id,
   name: `Samuel ${new Date()}`,
   email: faker.internet.email({ provider: 'gmail.com' }),
 }
 
-const updateUserDto: UserPrimitiveType = {
-  ...userDto,
+const updateUserRequest: UserPrimitiveType = {
+  ...userRequest,
   name: `Samuel ${new Date().toISOString()}`,
   email: faker.internet.email({ provider: 'gmail.com' }),
 }
 
-const bootstrap = async () => {
+try {
   // const userRepository = new InMemoryUserRepository()
-  const userRepository = container.get(UserRepository)
-  const MongoClient = container.get(MikroORM<MongoDriver>) as unknown as Promise<MikroORM<MongoDriver>>
-  const mongoClient = await MongoClient
+  const repository = container.get(UserRepository)
+  const mongoClient = container.get(MikroORM<MongoDriver>)
 
-  const userCreator = new UserCreator(userRepository)
-  const userSearcherAll = new UserSearcherAll(userRepository)
-  const userUpdater = new UserUpdater(userRepository)
-  const userEmailUpdater = new UserEmailUpdater(userRepository)
-  const userDeleter = new UserDeleter(userRepository)
+  const userCreator = new UserCreator(repository)
+  const userSearcherAll = new UserSearcherAll(repository)
+  const userUpdater = new UserUpdater(repository)
+  const userEmailUpdater = new UserEmailUpdater(repository)
+  const userDeleter = new UserDeleter(repository)
 
-  await userCreator.run(userDto)
-  info(userDto)
+  await userCreator.run(userRequest)
+  info(userRequest)
 
   try {
-    await userCreator.run(userDto)
+    await userCreator.run(userRequest)
   } catch (e) {
     if (e instanceof UserAlreadyExistsError) {
       error(e)
@@ -85,12 +88,15 @@ const bootstrap = async () => {
   let users = await userSearcherAll.run()
   info(users)
 
-  await userUpdater.run({
+  await userUpdater.run(
+    updateUserRequest
+    // {
     // ...users[users.length - 1].toPrimitives(),
-    ...updateUserDto,
-  })
+    // ...updateUserRequest,
+    // }
+  )
 
-  await userEmailUpdater.run(updateUserDto.email, patchUserDto.email!)
+  await userEmailUpdater.run(updateUserRequest.email, patchUserRequest.email!)
 
   users = await userSearcherAll.run()
   info(users)
@@ -101,7 +107,7 @@ const bootstrap = async () => {
   info(users)
 
   await mongoClient.close()
+} catch (e) {
+  console.error(e)
 }
-
-bootstrap()
 // node --trace-warnings --watch --loader ts-paths-esm-loader/transpile-only ./src/

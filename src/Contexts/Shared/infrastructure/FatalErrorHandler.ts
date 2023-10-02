@@ -1,6 +1,6 @@
 import { Service } from 'diod'
 
-import { DomainError, Logger, Monitoring } from '../domain/index.js'
+import { DomainErrorHandler, Logger, Monitoring } from '../domain/index.js'
 
 // DEBT: Domain (?)
 @Service()
@@ -13,7 +13,7 @@ export class FatalErrorHandler {
   capture(err: Error, ..._args: unknown[]): void {
     this?.logger?.error(err)
     this?.monitoring?.capture(err)
-    if (DomainError?.isKnownError(err)) return
+    if (DomainErrorHandler?.isDomainError(err)) return
 
     process.exit(1)
   }

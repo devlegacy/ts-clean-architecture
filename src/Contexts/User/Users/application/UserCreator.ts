@@ -1,6 +1,6 @@
 import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { ExistUserByUserName, User, UserAlreadyExistsError, UserRepository } from '../domain/index.js'
+import { ExistUserByUserName, User, UserAlreadyExistsError, UserRepository, UserUsername } from '../domain/index.js'
 import type { UserCreatorRequest } from './UserCreatorRequest.js'
 
 /** UserCreatorUseCase */
@@ -13,11 +13,10 @@ export class UserCreator {
   }
 
   async run(request: UserCreatorRequest) {
-    const user: User = User.fromPrimitives(request)
-
-    const exists = await this.finder.run(user.username)
+    const exists = await this.finder.run(new UserUsername(request.username))
     if (exists) throw new UserAlreadyExistsError()
 
+    const user: User = User.create(request)
     await this.repository.save(user)
   }
 }

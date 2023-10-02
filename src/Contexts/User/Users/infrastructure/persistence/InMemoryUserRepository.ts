@@ -10,19 +10,19 @@ export class InMemoryUserRepository implements UserRepository {
   async findByUsername(username: UserUsername): Promise<Nullable<User>> {
     const idx = this.users.findIndex((user) => user.username.value === username.value)
 
-    return this.users[idx] || null
+    return this.users[+idx] || null
   }
 
   async findByEmail(email: UserEmail): Promise<Nullable<User>> {
     const idx = this.users.findIndex((user) => user.email.value === email.value)
 
-    return this.users[idx] || null
+    return this.users[+idx] || null
   }
 
   async searchById(id: User['id']): Promise<Nullable<User>> {
     const idx = this.users.findIndex((user) => user.id.equals(id))
 
-    return this.users[idx] || null
+    return this.users[+idx] || null
   }
 
   async softDelete(userId: string): Promise<void> {

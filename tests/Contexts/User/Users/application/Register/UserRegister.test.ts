@@ -75,7 +75,9 @@ describe('UserRegistrar', () => {
         user.username.value,
         user.email.value,
         user.birthdate.value,
-        user.jobExperiences.toPrimitives()
+        user.jobExperiences.toPrimitives(),
+        user.createdAt.value,
+        user.updatedAt.value
       )
     )
   })
@@ -135,7 +137,7 @@ describe('UserRegistrar', () => {
     const repositorySave = mock.method(repository, 'save')
 
     const register = async () => {
-      const invalidEmailDomain = 'mail@invaliddomain.com'
+      const invalidEmailDomain = 'mail@invaliddomain.comxx'
       await userRegistrar.run({
         id: validId,
         name: validName,

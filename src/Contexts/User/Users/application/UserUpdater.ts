@@ -13,10 +13,14 @@ export class UserUpdater {
 
   async run(request: UserPrimitiveType): Promise<void> {
     const user = await this.finder.run(request.id)
-    const updatedUser = User.fromPrimitives({
-      ...user.toPrimitives(),
-      ...request,
-    })
+    const userRequest = Object.assign({}, user.toPrimitives(), request)
+    // NOTE: Alternative sample code:
+    // const userRequest = User.fromPrimitives({
+    //   ...user.toPrimitives(),
+    //   ...request,
+    // })
+
+    const userUpdatedRequest = User.fromPrimitives(userRequest)
 
     // NOTE: Alternative sample code:
     //  {
@@ -26,6 +30,6 @@ export class UserUpdater {
     //   username: data.username ?? user.username
     // }
 
-    await this.repository.save(updatedUser)
+    await this.repository.save(userUpdatedRequest)
   }
 }

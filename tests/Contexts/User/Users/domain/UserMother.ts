@@ -11,6 +11,8 @@ import { UserIdMother } from './UserIdMother.js'
  */
 export class UserMother {
   static create(params?: Partial<UserPrimitiveType>): User {
+    // TODO: Move to MotherCreator
+    const timestamp = new Date()
     const defaultParams: UserPrimitiveType = {
       id: UserIdMother.create().value,
       name: MotherCreator.firstName(),
@@ -28,6 +30,8 @@ export class UserMother {
           },
         },
       ],
+      createdAt: timestamp,
+      updatedAt: timestamp,
       ...params,
     }
 

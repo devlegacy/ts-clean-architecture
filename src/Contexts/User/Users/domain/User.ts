@@ -6,10 +6,12 @@ import {
   GenerationName,
   type JobExperiencePrimitiveType,
   JobExperiences,
-  UserAge,
   UserBirthdate,
+  UserCreatedAt,
+  UserDeletedAt,
   UserEmail,
   UserName,
+  UserUpdatedAt,
   UserUsername,
 } from './ValueObjects/index.js'
 
@@ -27,16 +29,19 @@ import {
 // }
 
 export type UserEntityType = Entity<User>
-export type UserPrimitiveType = Primitives<User>
+export type UserPrimitiveType = SetOptional<Primitives<User>, 'createdAt' | 'updatedAt'>
 
 export class User extends AggregateRoot {
   readonly id: UserId
   readonly name: UserName
   readonly username: UserUsername
   readonly birthdate: UserBirthdate
-  readonly age?: UserAge
+  // readonly age?: UserAge
   readonly jobExperiences: JobExperiences
+  readonly createdAt: UserCreatedAt
+  readonly updatedAt: UserUpdatedAt
 
+  private deletedAt?: UserDeletedAt
   // NOTE: #email tiene ciertas restricciones que el ORM no puede cumplir
   // NOTE: _email tiene ciertas restricciones que el ORM no puede cumplir, todo lo asigna a email o las propiedades públicas descritas en el entity
 
@@ -53,7 +58,9 @@ export class User extends AggregateRoot {
     email: string,
     birthdate: Date,
     jobExperiences: JobExperiencePrimitiveType[],
-    age?: number
+    // age?: number,
+    createdAt?: Date,
+    updatedAt?: Date
   ) {
     super()
     this.id = new UserId(id)
@@ -62,7 +69,16 @@ export class User extends AggregateRoot {
     this.email = new UserEmail(email)
     this.birthdate = new UserBirthdate(birthdate)
     this.jobExperiences = new JobExperiences(jobExperiences)
-    this.age = !isNil(age) ? new UserAge(age) : undefined
+    // this.age = !isNil(age) ? new UserAge(age) : undefined
+    this.createdAt = !isNil(createdAt) ? UserCreatedAt.create(createdAt) : UserCreatedAt.now()
+    this.updatedAt = !isNil(updatedAt) ? UserUpdatedAt.create(updatedAt) : UserUpdatedAt.now()
+
+    this.deletedAt = undefined
+  }
+
+  static create(data: UserPrimitiveType): User {
+    const user = User.fromPrimitives(data)
+    return user
   }
 
   static override fromPrimitives(data: UserPrimitiveType): User {
@@ -78,9 +94,15 @@ export class User extends AggregateRoot {
       data.email,
       data.birthdate,
       data.jobExperiences,
-      isNil(data.age) ? undefined : data.age
+      // isNil(data.age) ? undefined : data.age,
+      data.createdAt,
+      data.updatedAt
     )
     return user
+  }
+
+  remove() {
+    this.deletedAt = UserDeletedAt.now()
   }
 
   updateEmail(email: UserPrimitiveType['email']) {
@@ -95,7 +117,9 @@ export class User extends AggregateRoot {
       email: this.email.value,
       birthdate: this.birthdate.value,
       jobExperiences: this.jobExperiences.toPrimitives(),
-      age: this.age?.value,
+      // age: this.age?.value,
+      createdAt: this.createdAt.value,
+      updatedAt: this.updatedAt.value,
     }
     return user
   }
@@ -106,6 +130,10 @@ export class User extends AggregateRoot {
 
   isMillennial() {
     return this.birthdate.generation() === GenerationName.Millennial
+  }
+
+  age() {
+    return this.birthdate.ageInYears()
   }
 
   // Tell don't ask

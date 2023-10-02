@@ -13,7 +13,7 @@ process
   .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
 try {
-  new UserBackendApp().start().catch((e) => fatalErrorHandler.capture(e as Error))
+  await new UserBackendApp().start()
 } catch (e) {
   fatalErrorHandler.capture(e as Error)
 }

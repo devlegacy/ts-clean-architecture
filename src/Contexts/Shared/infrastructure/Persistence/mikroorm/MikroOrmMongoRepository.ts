@@ -9,13 +9,13 @@ import { MongoCriteriaConverter } from '../mongo/MongoCriteriaConverter.js'
 
 @Service()
 export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
-  #client: Promise<MikroORM<MongoDriver>>
+  #client: MikroORM<MongoDriver>
   // private readonly criteriaConverter: MongoCriteriaConverter
   #criteria = new MongoCriteriaConverter()
   // Diod
   constructor(client: MikroORM<MongoDriver>) {
     // this.criteriaConverter = new MongoCriteriaConverter()
-    this.#client = client as unknown as Promise<MikroORM<MongoDriver>>
+    this.#client = client
   }
 
   // tsyringe
@@ -29,10 +29,10 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   // }
 
   protected async counter(criteria: Criteria) {
-    const collection = await this.repository()
+    const collection = this.repository()
     const query = this.#criteria.convert(criteria)
 
-    const count = collection.count(
+    const count = await collection.count(
       { ...(query.filter as any) },
       {
         // convertCustomTypes: false,
@@ -46,7 +46,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     criteria: Criteria,
     offsetPagination: OffsetPaginator
   ): Promise<{ data: T[]; pagination?: Pagination }> {
-    const collection = await this.repository()
+    const collection = this.repository()
     const query = this.#criteria.convert(criteria)
 
     const countDocuments = collection.count(
@@ -56,7 +56,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
         // orderBy: query.sort as any
       }
     )
-    const documents = await collection.find(
+    const documents = collection.find(
       { ...(query.filter as any) },
       {
         convertCustomTypes: false,
@@ -75,12 +75,12 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     }
   }
 
-  protected client(): Promise<MikroORM<MongoDriver>> {
+  protected client(): MikroORM<MongoDriver> {
     return this.#client
   }
 
-  protected async repository(): Promise<EntityRepository<T>> {
-    const client = await this.#client
+  protected repository(): EntityRepository<T> {
+    const client = this.#client
     const repository = client.em.fork().getRepository(this.entitySchema())
     return repository
   }
@@ -91,8 +91,8 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     // commit transaction
     // end transaction
     // rollback transaction if error and clean events
-    // const repository = await this.repository()
-    const client = await this.#client
+    // const repository = this.repository()
+    const client = this.#client
     const manager = client.em
 
     // const primitives = {
@@ -136,7 +136,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   protected async matching(criteria: Criteria): Promise<T[]> {
     const query = this.#criteria.convert(criteria)
 
-    const collection = await this.repository()
+    const collection = this.repository()
 
     const documents = await collection.find(
       { ...(query.filter as any) },

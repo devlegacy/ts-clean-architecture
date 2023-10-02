@@ -12,8 +12,8 @@ export class UserRegister {
       request.username,
       request.email,
       request.birthdate,
-      request.jobExperiences,
-      request.age
+      request.jobExperiences
+      // request.age
     )
     if (user.isMillennial()) {
       // do something

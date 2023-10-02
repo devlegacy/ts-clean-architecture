@@ -20,7 +20,10 @@ export class UserController {
     const users = await this.userSearcher.run()
     // res.code(HttpStatus.OK)
 
-    return users.map((user) => user.toPrimitives())
+    return users.map((user) => ({
+      ...user.toPrimitives(),
+      age: user.age(),
+    }))
   }
 
   @Get(':id')
@@ -28,21 +31,37 @@ export class UserController {
     const { id } = req.params
     const user = await this.userFinder.run(id)
     // res.code(200)
-    return user.toPrimitives()
+    return {
+      ...user.toPrimitives(),
+      age: user.age(),
+    }
   }
 
   @Post()
   async create(
-    @Req() req: Request<{ Body: { id: string; username: string; age: number; name: string } }>
+    @Req()
+    req: Request<{
+      Body: {
+        id: string
+        username: string
+        // age: number
+        name: string
+        email: string
+        birthdate: Date
+        jobExperiences: any[]
+      }
+    }>
     // @Res() res: Response
   ) {
+    const user = req.body
+    user.id ??= UserId.random().toString()
+    user.birthdate = new Date(user.birthdate)
     // const userCreator = new UserCreator(userRepository)
-    req.body.id ??= UserId.random().toString()
     // res.code(HttpStatus.CREATED)
 
-    await this.userCreator.run(req.body as any)
+    await this.userCreator.run(user)
 
-    return req.body
+    return user
   }
 
   @Put(':id')

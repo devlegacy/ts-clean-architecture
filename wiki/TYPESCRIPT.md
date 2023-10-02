@@ -28,3 +28,11 @@
 - noErrorTruncation
 
 ## Generic vs Utility types
+
+## CLI
+
+```sh
+  # https://github.com/esbuild-kit/tsx?tab=readme-ov-file#does-it-have-any-limitations
+  --loader tsx/esm
+  --loader ts-paths-esm-loader/transpile-only 
+```

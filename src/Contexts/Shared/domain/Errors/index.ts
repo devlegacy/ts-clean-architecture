@@ -1,2 +1,4 @@
+export * from './ConflictError.js'
+export * from './DomainError.js'
 export * from './EntityNotFoundError.js'
 export * from './InvalidArgumentError.js'

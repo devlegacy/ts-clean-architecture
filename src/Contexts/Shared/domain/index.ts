@@ -2,7 +2,7 @@ export * from './AggregateRoot.js'
 export * from './Commands/index.js'
 // export * from './Common/index.js' // Cause conflict
 export * from './Criteria/index.js'
-export * from './DomainError.js'
+export * from './DomainErrorHandler.js'
 export * from './EmailSender.js'
 export * from './Errors/index.js'
 export * from './Events/index.js'

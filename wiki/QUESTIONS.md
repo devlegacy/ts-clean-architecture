@@ -16,6 +16,11 @@
 - [ ] ¿Eliminar los eventos en las colas después de los test?
 - [ ] ¿Default sort de los elementos?
 
+## Aggregates
+
+- En el contexto de DDD, Arquitectura Hexagonal, SOLID y buenas practicas, como se gestionan los datos virtuales en lectura y escritura en los Aggreate Root?
+  - Por ejemplo en un Aggreate Root de User con el value object de birthdate que encapsula la funcionalidad de Date, como se gestionaría la edad del usuario en lectura y escritura?
+
 ## Aportes
 
 - [Estructura de carpetas: DDD en TypeScript](https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/path/step/147601236/)

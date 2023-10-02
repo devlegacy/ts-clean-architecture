@@ -16,7 +16,7 @@ import Fastify, {
 } from 'fastify' // commonjs module
 
 import { type ControllerResolver, HttpStatus } from '../../domain/Common/index.js'
-import { HttpError, Monitoring } from '../../domain/index.js'
+import { DomainErrorHandler, HttpError, Monitoring } from '../../domain/index.js'
 import { type HttpErrorHandler, type HttpValidationModule } from './interfaces/index.js'
 import { routeRegister } from './routeRegister.js'
 
@@ -152,7 +152,9 @@ export class FastifyAdapter {
         (err instanceof errorCodes.FST_ERR_BAD_STATUS_CODE || err instanceof errorCodes.FST_ERR_CTP_EMPTY_JSON_BODY) &&
         err.statusCode
       ) {
-        statusCode = err.statusCode
+        statusCode = +err.statusCode
+      } else if (DomainErrorHandler.isDomainError(err)) {
+        statusCode = DomainErrorHandler.toHttpCode(err)
       }
       res.status(statusCode)
       // DEBT: Remove leak data
