@@ -1,18 +1,31 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
 type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint | undefined | null
 
+// type ValueObjectValue<T> = T extends PrimitiveTypes
+// ? T
+// : T extends { value: infer U }
+// ? U extends unknown[]
+//   ? Primitives<U[number]>[]
+//   : U
+// : T extends { value: infer U }[]
+// ? U[]
+// : T extends (infer U)[]
+// ? ValueObjectValue<U>[]
+// : T extends { [K in keyof Entity<T>]: unknown }
+// ? { [K in keyof Entity<T>]: ValueObjectValue<T[K]> }
+// : never
+
 type ValueObjectValue<T> = T extends PrimitiveTypes
   ? T
   : T extends { value: infer U }
-  ? U extends unknown[]
-    ? Primitives<U[number]>[]
-    : U
+  ? U
   : T extends { value: infer U }[]
   ? U[]
   : T extends (infer U)[]
   ? ValueObjectValue<U>[]
-  : T extends { [K in keyof Entity<T>]: unknown }
-  ? { [K in keyof Entity<T>]: ValueObjectValue<T[K]> }
+  : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  T extends { [K in keyof Entity<T>]: infer U }
+  ? { [K in keyof Entity<T>]: ValueObjectValue<Entity<T>[K]> }
   : never
 
 type Primitives<Type> = Simplify<
