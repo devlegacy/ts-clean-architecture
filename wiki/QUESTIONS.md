@@ -18,8 +18,15 @@
 
 ## Aggregates
 
-- En el contexto de DDD, Arquitectura Hexagonal, SOLID y buenas practicas, como se gestionan los datos virtuales en lectura y escritura en los Aggreate Root?
-  - Por ejemplo en un Aggreate Root de User con el value object de birthdate que encapsula la funcionalidad de Date, como se gestionaría la edad del usuario en lectura y escritura?
+-  En el contexto de DDD, Arquitectura Hexagonal, SOLID y buenas practicas, como se gestionan los datos virtuales en lectura y escritura en los Aggregate Root?
+  - Por ejemplo en un Aggregate Root de User con el value object de birthdate que encapsula la funcionalidad de Date, como se gestionaría la edad del usuario en lectura y escritura?
+- Relaciones 1:n, n:n, n:1, 1:1 entre Aggregates
+- n + 1 problem
+
+- HTTP Responses with relations
+- Orquestación
+  - API Gateway !== BFF
+- Controller (ProductFinder, ReviewsByProductSearcher, UserSearcher)
 
 ## Aportes
 
