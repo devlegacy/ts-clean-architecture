@@ -2,7 +2,7 @@
   "Domain aggregate root": {
     "prefix": "ag",
     "body": [
-      "import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain'",
+      "import { AggregateRoot, Entity, Primitives } from '@/Contexts/Shared/domain/index.js'",
       "",
       "export type $1EntityDto = Entity<$1>",
       "export type $1PrimitiveDto = Primitives<$1>",
@@ -53,9 +53,9 @@
   "Mongo repository": {
     "prefix": "mr",
     "body": [
-      "import { MongoRepository } from '@/Contexts/Shared/infrastructure'",
+      "import { MongoRepository } from '@/Contexts/Shared/infrastructure/index.js'",
       "",
-      "import { $1, $1Repository } from '../../domain'",
+      "import { $1, $1Repository } from '../../domain/index.js'",
       "",
       "export class Mongo$1Repository extends MongoRepository<$1> implements $1Repository {}",
       ""
@@ -66,7 +66,7 @@
   "Command": {
     "prefix": "cmd",
     "body": [
-      "import { Command } from '@/Contexts/Shared/domain'",
+      "import { Command } from '@/Contexts/Shared/domain/index.js'",
       "",
       "export class $1Command extends Command {",
       "  constructor() {",
@@ -83,7 +83,7 @@
     "body": [
       "import { injectable } from 'tsyringe'",
       "",
-      "import { Command, CommandHandler } from '@/Contexts/Shared/domain'",
+      "import { Command, CommandHandler } from '@/Contexts/Shared/domain/index.js'",
       "",
       "import { $3 } from './$3'",
       "",
@@ -107,7 +107,7 @@
   "Query": {
     "prefix": "qry",
     "body": [
-      "import { Query } from '@/Contexts/Shared/domain'",
+      "import { Query } from '@/Contexts/Shared/domain/index.js'",
       "",
       "export class $1Query extends Query {",
       "  constructor() {",
@@ -124,7 +124,7 @@
     "body": [
       "import { injectable } from 'tsyringe'",
       "",
-      "import { EntityNotFoundError, Query, QueryHandler } from '@/Contexts/Shared/domain'",
+      "import { EntityNotFoundError, Query, QueryHandler } from '@/Contexts/Shared/domain/index.js'",
       "",
       "import { $4 } from './$4'",
       "import { $1Query } from './$1Query'",
@@ -155,7 +155,7 @@
   "Query response": {
     "prefix": "qryr",
     "body": [
-      "import { Response } from '@/Contexts/Shared/domain'",
+      "import { Response } from '@/Contexts/Shared/domain/index.js'",
       "",
       "type ResponseDto = any",
       "",
