@@ -8,6 +8,7 @@
   },
   "exclude": [
     "**/*.js",
+    "**/*.cjs",
     "**/*.test.ts",
     "**/*spec.ts",
     "**/*test.ts", // especial container test files
@@ -17,6 +18,19 @@
     "jest.config.ts",
     "jest.setup.ts",
     "node_modules",
-    "tests"
+    "tests",
+    // TODO: remove on full ecmascript modules migration
+    "./src/apps/backoffice",
+    "./src/apps/bank",
+    "./src/apps/blog",
+    "./src/apps/land",
+    "./src/apps/mooc",
+    "./src/Contexts/Backoffice",
+    "./src/Contexts/Bank",
+    "./src/Contexts/BankAtm",
+    "./src/Contexts/BankBranch",
+    "./src/Contexts/Blog",
+    "./src/Contexts/Land",
+    "./src/Contexts/Mooc"
   ]
 }

@@ -39,12 +39,15 @@
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/reflect-metadata",
+      // "./node_modules/type-fest",
       "./types"
     ] /* Specify multiple folders that act like `./node_modules/@types`. */,
     "types": [
       "jest",
       "node",
       "reflect-metadata"
+      // "./node_modules/type-fest",
+      // "type-fest",
     ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     "resolveJsonModule": true /* Enable importing .json files */,
@@ -96,7 +99,7 @@
     // "strictBindCallApply": true /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */,
     // "strictPropertyInitialization": true /* Check for class properties that are declared but not set in the constructor. */,
     // "noImplicitThis": true /* Enable error reporting when `this` is given the type `any`. */,
-    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    "useUnknownInCatchVariables": true /* Type catch clause variables as 'unknown' instead of 'any'. */,
     // "alwaysStrict": true /* Ensure 'use strict' is always emitted. */,
     "noUnusedLocals": true /* Enable error reporting when a local variables aren't read. */,
     // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read */
@@ -114,4 +117,11 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "noErrorTruncation": true
   }
+  // https://github.com/TypeStrong/ts-node/issues/2070
+  // "ts-node": {
+  // "swc": true,
+  //   "files": true,
+  //   "transpileOnly": true,
+  //   "require": ["tsconfig-paths/register"]
+  // }
 }

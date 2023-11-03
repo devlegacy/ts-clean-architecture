@@ -14,7 +14,7 @@
     "loose": true
   },
   "module": {
-    "type": "commonjs",
+    "type": "nodenext",
     "strict": true,
     "strictMode": true,
     "lazy": false,

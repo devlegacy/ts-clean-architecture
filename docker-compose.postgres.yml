@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    restart: unless-stopped
+    command: ["postgres", "-c", "wal_level=logical", "-c", "max_wal_senders=1" , "-c", "max_replication_slots=1", "-c", "listen_addresses=*"]
+    environment:
+      - POSTGRES_DB=postgres # mooc
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data
+    ports:
+      # HOST:CONTAINER
+      - "5432:5432"
+    # Bind Mounts
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
+      # - ./.docker/postgres/create_databases.sql:/docker-entrypoint-initdb.d/create_databases.sql
+    networks:
+      - app-network
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@postgres.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_LISTEN_PORT: 80
+      PGADMIN_LISTEN_ADDRESS: "[::]"
+    ports:
+      # HOST:CONTAINER
+      # ${PGADMIN_PORT:-8080}
+      - 8080:80
+    volumes:
+      - ./.data/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external: true
