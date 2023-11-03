@@ -1,5 +1,5 @@
-import { BackofficeCoursesResponse } from '@/Contexts/Backoffice/Courses/application'
-import { BackofficeCourse } from '@/Contexts/Backoffice/Courses/domain'
+import { BackofficeCoursesResponse } from '@/Contexts/Backoffice/Courses/application/index.js'
+import { BackofficeCourse } from '@/Contexts/Backoffice/Courses/domain/index.js'
 
 export class SearchAllCoursesResponseMother {
   static create(courses: BackofficeCourse[]) {

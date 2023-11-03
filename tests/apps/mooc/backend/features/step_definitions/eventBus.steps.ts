@@ -1,10 +1,13 @@
 import { When } from '@cucumber/cucumber'
 
-import { container } from '@/apps/mooc/modules'
-import { DomainEventDeserializer, DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
-import { wait } from '@/tests/Contexts/Shared/domain'
+import { container } from '@/apps/mooc/modules/index.js'
+import {
+  DomainEventDeserializer,
+  DomainEventSubscriberResolver,
+} from '@/Contexts/Shared/infrastructure/EventBus/index.js'
+import { wait } from '@/tests/Contexts/Shared/domain/index.js'
 
-import { eventBus } from './hooks.steps'
+import { eventBus } from './hooks.steps.js'
 
 const deserializer = buildDeserializer()
 

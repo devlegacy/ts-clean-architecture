@@ -1,1 +1,1 @@
-export * from './EventBusMock'
+export * from './EventBusMock.js'

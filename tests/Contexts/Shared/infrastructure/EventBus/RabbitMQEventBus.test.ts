@@ -1,4 +1,4 @@
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
 import {
   DomainEventDeserializer,
   DomainEventSubscriberResolver,
@@ -8,16 +8,16 @@ import {
   RabbitMQConsumer,
   RabbitMQEventBus,
   RabbitMQQueueFormatter,
-} from '@/Contexts/Shared/infrastructure/EventBus'
-import { CoursesCounterIncrementedDomainEventMother } from '@/tests/Contexts/Mooc/CoursesCounter/domain'
+} from '@/Contexts/Shared/infrastructure/EventBus/index.js'
+import { CoursesCounterIncrementedDomainEventMother } from '@/tests/Contexts/Mooc/CoursesCounter/domain/index.js'
 
-import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger'
-import { DomainEventDummyMother, DomainEventSubscriberDummy } from './__mocks__'
+import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger.js'
+import { DomainEventDummyMother, DomainEventSubscriberDummy } from './__mocks__/index.js'
 import {
   DomainEventFailoverPublisherMother,
   RabbitMQConnectionMother,
   RabbitMQMikroOrmMongoClientMother,
-} from './__mother__'
+} from './__mother__/index.js'
 
 // jest.useFakeTimers()
 jest.setTimeout(5000 + 60000)

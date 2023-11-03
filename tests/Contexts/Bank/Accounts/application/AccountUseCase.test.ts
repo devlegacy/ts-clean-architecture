@@ -1,9 +1,9 @@
-import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
-import { EURRatioService } from '@/Contexts/Bank/Accounts/domain'
-import { FileAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure'
-import { InvalidArgumentError, Money } from '@/Contexts/Shared/domain'
-import { EventBusFactory } from '@/Contexts/Shared/infrastructure'
-import { TestUtil, UuidMother } from '@/tests/Contexts/Shared/domain'
+import { AccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
+import { EURRatioService } from '@/Contexts/Bank/Accounts/domain/index.js'
+import { FileAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure/index.js'
+import { InvalidArgumentError, Money } from '@/Contexts/Shared/domain/index.js'
+import { EventBusFactory } from '@/Contexts/Shared/infrastructure/index.js'
+import { TestUtil, UuidMother } from '@/tests/Contexts/Shared/domain/index.js'
 
 describe(`Bank use case, ${TestUtil.getPackagePath(__dirname)}`, () => {
   describe('Bank TestAdapter', () => {

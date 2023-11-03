@@ -3,9 +3,9 @@
 import assert from 'node:assert'
 
 import { Then, When } from '@cucumber/cucumber'
-import { Response, Test } from 'supertest'
+import type { Response, Test } from 'supertest'
 
-import { api } from './hooks.steps'
+import { api } from './hooks.steps.js'
 
 let request: Test
 let response: Response

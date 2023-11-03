@@ -3,11 +3,11 @@ import {
   BackofficeCourseDuration,
   BackofficeCourseId,
   BackofficeCourseName,
-} from '@/Contexts/Backoffice/Courses/domain'
+} from '@/Contexts/Backoffice/Courses/domain/index.js'
 
-import { BackofficeCourseDurationMother } from './BackofficeCourseDurationMother'
-import { BackofficeCourseIdMother } from './BackofficeCourseIdMother'
-import { BackofficeCourseNameMother } from './BackofficeCourseNameMother'
+import { BackofficeCourseDurationMother } from './BackofficeCourseDurationMother.js'
+import { BackofficeCourseIdMother } from './BackofficeCourseIdMother.js'
+import { BackofficeCourseNameMother } from './BackofficeCourseNameMother.js'
 
 export class BackofficeCourseMother {
   static create(

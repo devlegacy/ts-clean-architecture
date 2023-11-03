@@ -1,4 +1,4 @@
-import { CoursesCounter, CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
+import { CoursesCounter, CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 
 export class CoursesCounterRepositoryMock implements CoursesCounterRepository {
   #saveMock: jest.Mock<
@@ -40,9 +40,9 @@ export class CoursesCounterRepositoryMock implements CoursesCounterRepository {
     } = this.#saveMock
     const lastIndex = calls.length - 1
 
-    const [lastCoursesCounter] = calls[Number(lastIndex)]
+    const [lastCoursesCounter] = calls[Number(lastIndex)]!
     const { id: _firstId, ...counterPrimitives } = counter.toPrimitives()
-    const { id: _secondId, ...lastSavedPrimitives } = lastCoursesCounter.toPrimitives()
+    const { id: _secondId, ...lastSavedPrimitives } = lastCoursesCounter?.toPrimitives() || {}
 
     expect(lastCoursesCounter).toBeInstanceOf(CoursesCounter)
     expect(lastSavedPrimitives).toEqual(counterPrimitives)

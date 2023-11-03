@@ -1,5 +1,5 @@
-import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
-import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
+import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain/index.js'
+import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
 
 export class BackofficeCourseRepositoryMock implements BackofficeCourseRepository {
   #allMock: jest.Mock<

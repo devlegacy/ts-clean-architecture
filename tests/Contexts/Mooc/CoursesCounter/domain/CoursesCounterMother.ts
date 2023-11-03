@@ -1,9 +1,9 @@
-import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
-import { Repeater } from '@/tests/Contexts/Shared/domain'
+import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import { Repeater } from '@/tests/Contexts/Shared/domain/index.js'
 
-import { CourseIdMother } from '../../Shared/domain/Courses'
-import { CoursesCounterTotalMother } from './CoursesCounterTotalMother'
+import { CourseIdMother } from '../../Shared/domain/Courses/index.js'
+import { CoursesCounterTotalMother } from './CoursesCounterTotalMother.js'
 
 export class CoursesCounterMother {
   static random() {

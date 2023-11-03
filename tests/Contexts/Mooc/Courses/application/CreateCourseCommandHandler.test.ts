@@ -1,10 +1,10 @@
-import { CourseCreator, CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application'
-import { CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain'
+import { CourseCreator, CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application/index.js'
+import { CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain/index.js'
 
-import { EventBusMock } from '../../Shared'
-import { CourseRepositoryMock } from '../__mocks__'
-import { CourseCreatedDomainEventMother, CourseMother } from '../domain'
-import { CreateCourseCommandMother } from './CreateCourseCommandMother'
+import { EventBusMock } from '../../Shared/index.js'
+import { CourseRepositoryMock } from '../__mocks__/index.js'
+import { CourseCreatedDomainEventMother, CourseMother } from '../domain/index.js'
+import { CreateCourseCommandMother } from './CreateCourseCommandMother.js'
 
 let repository: CourseRepositoryMock
 let creator: CourseCreator

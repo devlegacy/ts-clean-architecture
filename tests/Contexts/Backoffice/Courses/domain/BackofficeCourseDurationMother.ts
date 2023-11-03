@@ -1,5 +1,5 @@
-import { BackofficeCourseDuration } from '@/Contexts/Backoffice/Courses/domain'
-import { WordMother } from '@/tests/Contexts/Shared/domain'
+import { BackofficeCourseDuration } from '@/Contexts/Backoffice/Courses/domain/index.js'
+import { WordMother } from '@/tests/Contexts/Shared/domain/index.js'
 
 export class BackofficeCourseDurationMother {
   static create(value: string): BackofficeCourseDuration {

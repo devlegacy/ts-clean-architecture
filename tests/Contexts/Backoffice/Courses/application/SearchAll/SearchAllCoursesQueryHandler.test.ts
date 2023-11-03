@@ -2,10 +2,10 @@ import {
   BackofficeCoursesFinder,
   SearchAllBackofficeCoursesQuery,
   SearchAllBackofficeCoursesQueryHandler,
-} from '@/Contexts/Backoffice/Courses/application'
+} from '@/Contexts/Backoffice/Courses/application/index.js'
 
-import { BackofficeCourseRepositoryMock } from '../../__mocks__'
-import { BackofficeCourseMother, SearchAllCoursesResponseMother } from '../../domain'
+import { BackofficeCourseRepositoryMock } from '../../__mocks__/index.js'
+import { BackofficeCourseMother, SearchAllCoursesResponseMother } from '../../domain/index.js'
 
 describe('SearchAllCourses QueryHandler', () => {
   let repository: BackofficeCourseRepositoryMock

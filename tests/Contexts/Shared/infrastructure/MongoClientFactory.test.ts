@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence'
+import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
 
 describe('MongoClientFactory', () => {
   const factory = MongoClientFactory

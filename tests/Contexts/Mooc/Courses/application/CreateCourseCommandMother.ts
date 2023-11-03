@@ -1,8 +1,8 @@
-import { CourseDuration, CourseName, CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
+import { CourseDuration, CourseName, CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain/index.js'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
 
-import { CourseIdMother } from '../../Shared/domain'
-import { CourseDurationMother, CourseNameMother } from '../domain'
+import { CourseIdMother } from '../../Shared/domain/index.js'
+import { CourseDurationMother, CourseNameMother } from '../domain/index.js'
 
 export class CreateCourseCommandMother {
   static create(id: CourseId, name: CourseName, duration: CourseDuration): CreateCourseCommand {

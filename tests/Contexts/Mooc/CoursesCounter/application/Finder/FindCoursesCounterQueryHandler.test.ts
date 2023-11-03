@@ -2,11 +2,11 @@ import {
   CoursesCounterFinder,
   FindCoursesCounterQuery,
   FindCoursesCounterQueryHandler,
-} from '@/Contexts/Mooc/CoursesCounter/application'
-import { CoursesCounterNotExist } from '@/Contexts/Mooc/CoursesCounter/domain'
+} from '@/Contexts/Mooc/CoursesCounter/application/index.js'
+import { CoursesCounterNotExist } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 
-import { CoursesCounterRepositoryMock } from '../../__mocks__'
-import { CoursesCounterMother } from '../../domain'
+import { CoursesCounterRepositoryMock } from '../../__mocks__/index.js'
+import { CoursesCounterMother } from '../../domain/index.js'
 
 describe('FindCoursesCounterQueryHandler', () => {
   let repository: CoursesCounterRepositoryMock

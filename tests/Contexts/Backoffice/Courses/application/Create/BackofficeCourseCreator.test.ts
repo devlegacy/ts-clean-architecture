@@ -1,7 +1,7 @@
-import { BackofficeCourseCreator } from '@/Contexts/Backoffice/Courses/application'
+import { BackofficeCourseCreator } from '@/Contexts/Backoffice/Courses/application/index.js'
 
-import { BackofficeCourseRepositoryMock } from '../../__mocks__'
-import { BackofficeCourseMother } from '../../domain'
+import { BackofficeCourseRepositoryMock } from '../../__mocks__/index.js'
+import { BackofficeCourseMother } from '../../domain/index.js'
 
 describe('BackofficeCourseCreator', () => {
   it('creates a backoffice course', async () => {

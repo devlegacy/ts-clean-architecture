@@ -1,1 +1,1 @@
-export * from './BackofficeCourseRepositoryMock'
+export * from './BackofficeCourseRepositoryMock.js'

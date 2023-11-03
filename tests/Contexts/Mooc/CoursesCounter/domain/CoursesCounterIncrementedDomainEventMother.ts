@@ -1,7 +1,7 @@
-import { CoursesCounter, CoursesCounterIncrementedDomainEvent } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { CoursesCounter, CoursesCounterIncrementedDomainEvent } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
+import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
 
-import { CoursesCounterMother } from './CoursesCounterMother'
+import { CoursesCounterMother } from './CoursesCounterMother.js'
 
 export class CoursesCounterIncrementedDomainEventMother {
   static create(): DomainEvent {

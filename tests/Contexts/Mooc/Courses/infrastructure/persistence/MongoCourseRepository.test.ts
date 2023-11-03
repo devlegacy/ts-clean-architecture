@@ -1,8 +1,8 @@
-import { container } from '@/apps/mooc/modules'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { container } from '@/apps/mooc/modules/index.js'
+import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { CourseMother } from '../../domain'
+import { CourseMother } from '../../domain/index.js'
 
 // Por qué lo importamos a través del inyector?
 const repository = container.get(CourseRepository)

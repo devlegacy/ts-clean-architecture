@@ -1,8 +1,8 @@
-import { container } from '@/apps/mooc/modules'
-import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { container } from '@/apps/mooc/modules/index.js'
+import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { CoursesCounterMother } from '../domain'
+import { CoursesCounterMother } from '../domain/index.js'
 
 const repository: CoursesCounterRepository = container.get(CoursesCounterRepository)
 const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)

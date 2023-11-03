@@ -1,9 +1,9 @@
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher'
+import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
 
-import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger'
-import { DomainEventDummyMother } from './__mocks__'
-import { DomainEventDeserializerMother } from './__mother__/DomainEventDeserializerMother'
-import { RabbitMQMikroOrmMongoClientMother } from './__mother__/RabbitMQMikroOrmMongoClientMother'
+import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger.js'
+import { DomainEventDummyMother } from './__mocks__/index.js'
+import { DomainEventDeserializerMother } from './__mother__/DomainEventDeserializerMother.js'
+import { RabbitMQMikroOrmMongoClientMother } from './__mother__/RabbitMQMikroOrmMongoClientMother.js'
 
 jest.setTimeout(5000 + 60000)
 

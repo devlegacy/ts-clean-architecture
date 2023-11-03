@@ -1,5 +1,5 @@
-import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain'
-import { Criteria } from '@/Contexts/Shared/domain'
+import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
+import { Criteria } from '@/Contexts/Shared/domain/index.js'
 
 export class CourseRepositoryMock implements CourseRepository {
   // One var mock for each method
@@ -36,9 +36,9 @@ export class CourseRepositoryMock implements CourseRepository {
     } = this.#saveMock
 
     const lastIndex = calls.length - 1
-    const [lastCourseSaved] = calls[Number(lastIndex)]
+    const [lastCourseSaved] = calls[Number(lastIndex)]!
     expect(lastCourseSaved).toBeInstanceOf(Course)
-    expect(lastCourseSaved.toPrimitives()).toEqual(expected.toPrimitives())
+    expect(lastCourseSaved?.toPrimitives()).toEqual(expected.toPrimitives())
   }
 
   assertSaveHaveBeenCalledWith(expected: Course): void {

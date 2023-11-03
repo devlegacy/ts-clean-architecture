@@ -1,12 +1,12 @@
 import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
-import supertest, { SuperTest, Test } from 'supertest'
+import supertest, { type SuperTest, type Test } from 'supertest'
 
-import { ConfigureRabbitMQCommand } from '@/apps/mooc/backend/command/ConfigureRabbitMQCommand'
-import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp'
-import { container } from '@/apps/mooc/modules'
-import { EventBus } from '@/Contexts/Shared/domain'
-import { wait } from '@/tests/Contexts/Shared/domain'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { ConfigureRabbitMQCommand } from '@/apps/mooc/backend/command/ConfigureRabbitMQCommand.js'
+import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp.js'
+import { container } from '@/apps/mooc/modules/index.js'
+import { EventBus } from '@/Contexts/Shared/domain/index.js'
+import { wait } from '@/tests/Contexts/Shared/domain/index.js'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
 const application = new MoocBackendApp()
 

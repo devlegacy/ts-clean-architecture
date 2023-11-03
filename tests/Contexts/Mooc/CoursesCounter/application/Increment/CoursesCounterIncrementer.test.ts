@@ -1,10 +1,10 @@
-import { CoursesCounterIncrementer } from '@/Contexts/Mooc/CoursesCounter/application'
-import { CoursesCounter } from '@/Contexts/Mooc/CoursesCounter/domain'
+import { CoursesCounterIncrementer } from '@/Contexts/Mooc/CoursesCounter/application/index.js'
+import { CoursesCounter } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 
-import { EventBusMock } from '../../../Shared'
-import { CourseIdMother } from '../../../Shared/domain'
-import { CoursesCounterRepositoryMock } from '../../__mocks__'
-import { CoursesCounterIncrementedDomainEventMother, CoursesCounterMother } from '../../domain'
+import { CourseIdMother } from '../../../Shared/domain/index.js'
+import { EventBusMock } from '../../../Shared/index.js'
+import { CoursesCounterRepositoryMock } from '../../__mocks__/index.js'
+import { CoursesCounterIncrementedDomainEventMother, CoursesCounterMother } from '../../domain/index.js'
 
 describe('CoursesCounter Incrementer', () => {
   let incrementer: CoursesCounterIncrementer
@@ -51,7 +51,7 @@ describe('CoursesCounter Incrementer', () => {
     repository.returnOnSearch(existingCounter)
     const [courseId] = existingCounter.existingCourses
 
-    await incrementer.run(courseId)
+    await incrementer.run(courseId!)
 
     repository.assertNotSave()
   })

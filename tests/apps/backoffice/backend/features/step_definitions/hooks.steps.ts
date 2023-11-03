@@ -1,14 +1,14 @@
 // /// <reference types="../../../../../../types"/>
 
 import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
-import supertest, { SuperTest, Test } from 'supertest'
+import supertest, { type SuperTest, type Test } from 'supertest'
 
-import { BackofficeBackendApp } from '@/apps/backoffice/backend/BackofficeBackendApp'
-import { ConfigureRabbitMQCommand } from '@/apps/backoffice/backend/command/ConfigureRabbitMQCommand'
-import { container } from '@/apps/backoffice/modules'
-import { EventBus } from '@/Contexts/Shared/domain'
-import { wait } from '@/tests/Contexts/Shared/domain'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { BackofficeBackendApp } from '@/apps/backoffice/backend/BackofficeBackendApp.js'
+import { ConfigureRabbitMQCommand } from '@/apps/backoffice/backend/command/ConfigureRabbitMQCommand.js'
+import { container } from '@/apps/backoffice/modules/index.js'
+import { EventBus } from '@/Contexts/Shared/domain/index.js'
+import { wait } from '@/tests/Contexts/Shared/domain/index.js'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
 const application = new BackofficeBackendApp()
 // const moocBackendApp = new MoocBackendApp()

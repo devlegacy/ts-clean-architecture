@@ -1,5 +1,5 @@
-import { DomainEvent, EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus'
+import { DomainEvent, EventBus } from '@/Contexts/Shared/domain/index.js'
+import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
 export class EventBusMock implements EventBus {
   private publishSpy: jest.Mock<ReturnType<typeof EventBusMock.prototype.publish>, DomainEvent[][], EventBusMock> =
@@ -13,14 +13,14 @@ export class EventBusMock implements EventBus {
 
   assertLastPublishedEventIs(expectedEvent: DomainEvent) {
     const publishSpyCalls = this.publishSpy.mock.calls
-
     expect(publishSpyCalls.length).toBeGreaterThan(0)
 
-    const lastPublishSpyCall = publishSpyCalls[publishSpyCalls.length - 1]
-    const [[lastPublishedEvent]] = lastPublishSpyCall //[0][0]
+    const lastPublishSpyCall = publishSpyCalls[publishSpyCalls.length - 1]!
+
+    const lastPublishedEvent = lastPublishSpyCall?.[0]?.[0]
 
     const expected = this.getDataFromDomainEvent(expectedEvent)
-    const published = this.getDataFromDomainEvent(lastPublishedEvent)
+    const published = this.getDataFromDomainEvent(lastPublishedEvent!)
 
     expect(expected).toMatchObject(published)
   }

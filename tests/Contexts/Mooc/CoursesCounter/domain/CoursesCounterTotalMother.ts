@@ -1,5 +1,5 @@
-import { CoursesCounterTotal } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { IntegerMother } from '@/tests/Contexts/Shared/domain'
+import { CoursesCounterTotal } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
+import { IntegerMother } from '@/tests/Contexts/Shared/domain/index.js'
 
 export class CoursesCounterTotalMother {
   static random() {

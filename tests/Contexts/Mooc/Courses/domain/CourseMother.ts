@@ -2,14 +2,14 @@ import {
   Course,
   CourseDuration,
   CourseName,
-  CoursePrimitiveType,
+  type CoursePrimitiveType,
   CreateCourseCommand,
-} from '@/Contexts/Mooc/Courses/domain'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain'
+} from '@/Contexts/Mooc/Courses/domain/index.js'
+import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
 
-import { CourseIdMother } from '../../Shared/domain/Courses'
-import { CourseDurationMother } from './CourseDurationMother'
-import { CourseNameMother } from './CourseNameMother'
+import { CourseIdMother } from '../../Shared/domain/Courses/index.js'
+import { CourseDurationMother } from './CourseDurationMother.js'
+import { CourseNameMother } from './CourseNameMother.js'
 
 export class CourseMother {
   static create(id: CourseId, name: CourseName, duration?: CourseDuration): Course {

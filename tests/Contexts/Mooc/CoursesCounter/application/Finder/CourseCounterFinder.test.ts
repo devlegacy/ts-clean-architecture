@@ -1,8 +1,8 @@
-import { CoursesCounterFinder } from '@/Contexts/Mooc/CoursesCounter/application'
-import { CoursesCounterNotExist } from '@/Contexts/Mooc/CoursesCounter/domain'
+import { CoursesCounterFinder } from '@/Contexts/Mooc/CoursesCounter/application/index.js'
+import { CoursesCounterNotExist } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 
-import { CoursesCounterRepositoryMock } from '../../__mocks__'
-import { CoursesCounterMother } from '../../domain'
+import { CoursesCounterRepositoryMock } from '../../__mocks__/index.js'
+import { CoursesCounterMother } from '../../domain/index.js'
 
 describe('CourseCounterFinder', () => {
   let repository: CoursesCounterRepositoryMock

@@ -1,8 +1,8 @@
-import { container } from '@/apps/backoffice/modules'
-import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { container } from '@/apps/backoffice/modules/index.js'
+import { BackofficeCourse, BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain/index.js'
+import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { BackofficeCourseMother } from '../../domain'
+import { BackofficeCourseMother } from '../../domain/index.js'
 
 const repository: BackofficeCourseRepository = container.get(BackofficeCourseRepository)
 const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)

@@ -1,7 +1,7 @@
 import { MikroORM } from '@mikro-orm/core'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
 
-import { MikroOrmPostgresClientFactory } from '@/Contexts/Shared/infrastructure/Persistence'
+import { MikroOrmPostgresClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
 
 const config = {
   database: 'mooc-test',

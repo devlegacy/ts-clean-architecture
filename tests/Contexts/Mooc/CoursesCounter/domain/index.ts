@@ -1,3 +1,3 @@
-export * from './CoursesCounterIncrementedDomainEventMother'
-export * from './CoursesCounterMother'
-export * from './CoursesCounterTotalMother'
+export * from './CoursesCounterIncrementedDomainEventMother.js'
+export * from './CoursesCounterMother.js'
+export * from './CoursesCounterTotalMother.js'
