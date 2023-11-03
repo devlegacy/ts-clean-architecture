@@ -6,13 +6,12 @@ import {
   GetPaginatedBackofficeCoursesQuery,
   SearchAllBackofficeCoursesQuery,
   SearchBackofficeCoursesByCriteriaQuery,
-} from '@/Contexts/Backoffice/Courses/application'
+} from '@/Contexts/Backoffice/Courses/application/index.js'
 import {
   CreateBackofficeCourseCommand,
   DeleteBackofficeCourseCommand,
   UpdateBackofficeCourseCommand,
-} from '@/Contexts/Backoffice/Courses/domain'
-import { CommandBus, Filter, FilterPrimitiveType, Monitoring, Operator, QueryBus } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Backoffice/Courses/domain/index.js'
 import {
   Body,
   Controller,
@@ -24,12 +23,22 @@ import {
   Post,
   Put,
   Query,
-} from '@/Contexts/Shared/domain/Common'
-import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
-import { ObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
-import { FiltersPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/FiltersPipe'
+} from '@/Contexts/Shared/domain/Common/index.js'
+import {
+  CommandBus,
+  Filter,
+  type FilterPrimitiveType,
+  Monitoring,
+  Operator,
+  QueryBus,
+} from '@/Contexts/Shared/domain/index.js'
+import { error, info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  JoiFiltersPipe,
+  JoiObjectIdPipe,
+} from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
-import { CourseRequestSchema } from './validation'
+import { CourseRequestSchema } from './validation/index.js'
 
 @Controller('courses')
 export class CourseController {
@@ -42,7 +51,7 @@ export class CourseController {
 
   @Get()
   async index(
-    @Query('filters', FiltersPipe) filters?: FilterPrimitiveType[],
+    @Query('filters', JoiFiltersPipe) filters?: FilterPrimitiveType[],
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
     @Query('orderBy') orderBy?: string,
@@ -58,7 +67,9 @@ export class CourseController {
     // const query = new SearchAllCoursesQuery()
 
     const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
-
+    // const { reviews } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
+    // const { starts } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
+    // Promise.all([]) with an special response
     return courses
   }
 
@@ -72,7 +83,7 @@ export class CourseController {
 
   @Get('pagination')
   async pagination(
-    @Query('filters', FiltersPipe) filtersDto?: FilterPrimitiveType[],
+    @Query('filters', JoiFiltersPipe) filtersDto?: FilterPrimitiveType[],
     @Query('limit') limit?: number,
     @Query('page') page?: number,
     @Query('orderBy') _orderBy?: string,
@@ -86,7 +97,7 @@ export class CourseController {
   }
 
   @Get(':courseId')
-  async show(@Param('courseId', ObjectIdPipe) courseId: string) {
+  async show(@Param('courseId', JoiObjectIdPipe) courseId: string) {
     const filters = Filter.parse([
       {
         field: 'id',
@@ -117,14 +128,14 @@ export class CourseController {
   }
 
   @Put(':courseId')
-  async update(@Param('courseId', ObjectIdPipe) courseId: string, @Body() course: CourseRequestSchema) {
+  async update(@Param('courseId', JoiObjectIdPipe) courseId: string, @Body() course: CourseRequestSchema) {
     const command = new UpdateBackofficeCourseCommand(course)
     await this.commandBus.dispatch(command)
     return course
   }
 
   @Delete(':courseId')
-  async delete(@Param('courseId', ObjectIdPipe) courseId: string) {
+  async delete(@Param('courseId', JoiObjectIdPipe) courseId: string) {
     const filter = { id: courseId }
     const command = new DeleteBackofficeCourseCommand({ id: courseId })
     await this.commandBus.dispatch(command)

@@ -1,4 +1,4 @@
-import Redis from 'ioredis'
+import { Redis } from 'ioredis'
 import { Kafka } from 'kafkajs'
 
 const kafka = new Kafka({

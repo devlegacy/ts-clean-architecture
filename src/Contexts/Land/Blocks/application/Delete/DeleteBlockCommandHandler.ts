@@ -1,9 +1,9 @@
-import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { BlockId } from '@/Contexts/Land/Shared/domain/index.js'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import type { CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BlockDeleter } from './BlockDeleter'
-import { DeleteBlockCommand } from './DeleteBlockCommand'
+import { BlockDeleter } from './BlockDeleter.js'
+import { DeleteBlockCommand } from './DeleteBlockCommand.js'
 
 @CommandHandlerSubscriber(DeleteBlockCommand)
 export class DeleteBlockCommandHandler implements CommandHandler<DeleteBlockCommand> {

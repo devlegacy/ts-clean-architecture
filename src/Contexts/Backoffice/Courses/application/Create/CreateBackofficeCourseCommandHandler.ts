@@ -1,13 +1,13 @@
-import { CommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import type { CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
 import {
   BackofficeCourseDuration,
   BackofficeCourseId,
   BackofficeCourseName,
   CreateBackofficeCourseCommand,
-} from '../../domain'
-import { BackofficeCourseCreator } from './BackofficeCourseCreator'
+} from '../../domain/index.js'
+import { BackofficeCourseCreator } from './BackofficeCourseCreator.js'
 
 @CommandHandlerSubscriber(CreateBackofficeCourseCommand)
 export class CreateBackofficeCourseCommandHandler implements CommandHandler<CreateBackofficeCourseCommand> {

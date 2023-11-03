@@ -1,7 +1,7 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { BlockRepository } from '../../domain'
-import { BlocksResponse } from '../BlocksReponse'
+import { BlockRepository } from '../../domain/index.js'
+import { BlocksResponse } from '../BlocksReponse.js'
 
 @UseCase()
 export class BlockSearcher {

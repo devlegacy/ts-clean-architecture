@@ -1,7 +1,7 @@
-import { CreatePriceCommand } from '@/Contexts/Land/Prices/application'
-import { PriceRequestDto } from '@/Contexts/Land/Prices/infrastructure'
-import { CommandBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Post } from '@/Contexts/Shared/domain/Common'
+import { CreatePriceCommand } from '@/Contexts/Land/Prices/application/index.js'
+import { PriceRequestDto } from '@/Contexts/Land/Prices/infrastructure/index.js'
+import { Body, Controller, Post } from '@/Contexts/Shared/domain/Common/index.js'
+import { CommandBus } from '@/Contexts/Shared/domain/index.js'
 
 @Controller('prices')
 export class PriceController {

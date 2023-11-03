@@ -1,11 +1,11 @@
-import { Filters, Order } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { Filters, Order } from '@/Contexts/Shared/domain/index.js'
 
 import {
   BackofficeCourse,
   BackofficeCourseRepository,
   BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
-} from '../../domain'
+} from '../../domain/index.js'
 
 // Knows - Repository - Aggregate
 

@@ -9,9 +9,9 @@ import {
   LotId,
   LotLot,
   LotUpdatedAt,
-} from '@/Contexts/Land/Lots/domain'
-import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
+} from '@/Contexts/Land/Lots/domain/index.js'
+import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain/index.js'
+import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
 export const LotEntity = new EntitySchema<Lot>({
   name: 'Lot',

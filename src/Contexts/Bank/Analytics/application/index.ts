@@ -1,2 +1,2 @@
-export * from './AnalyticAccountTrackerUseCase'
-export * from './TrackAnalyticAccountOnAccountCreated'
+export * from './AnalyticAccountTrackerUseCase.js'
+export * from './TrackAnalyticAccountOnAccountCreated.js'

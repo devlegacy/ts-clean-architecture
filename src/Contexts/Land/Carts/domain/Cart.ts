@@ -1,16 +1,16 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
 
-import { CartId, OrderId, UserId } from '../../Shared/domain'
-import { CartAlreadyCheckoutError } from './CartAlreadyCheckoutError'
-import { CartCheckedOutDomainEvent } from './CartCheckedOutDomainEvent'
-import { CartCreatedDomainEvent } from './CartCreatedDomainEvent'
-import { CartIsEmptyError } from './CartIsEmptyError'
-import { CartItem } from './CartItem'
-import { CartItemAddedDomainEvent } from './CartItemAddedDomainEvent'
-import { CartItemIsNotInCartError } from './CartItemIsNotInCartError'
-import { CartItems } from './CartItems'
-import { CartItemSubtractedDomainEvent } from './CartItemSubtractedEvent'
-import { CartCheckout } from './ValueObjects'
+import { CartId, OrderId, UserId } from '../../Shared/domain/index.js'
+import { CartAlreadyCheckoutError } from './CartAlreadyCheckoutError.js'
+import { CartCheckedOutDomainEvent } from './CartCheckedOutDomainEvent.js'
+import { CartCreatedDomainEvent } from './CartCreatedDomainEvent.js'
+import { CartIsEmptyError } from './CartIsEmptyError.js'
+import { CartItem } from './CartItem.js'
+import { CartItemAddedDomainEvent } from './CartItemAddedDomainEvent.js'
+import { CartItemIsNotInCartError } from './CartItemIsNotInCartError.js'
+import { CartItems } from './CartItems.js'
+import { CartItemSubtractedDomainEvent } from './CartItemSubtractedEvent.js'
+import { CartCheckout } from './ValueObjects/index.js'
 
 export type CartEntityType = Entity<Cart>
 export type CartPrimitiveType = Primitives<Cart>

@@ -1,9 +1,10 @@
 import { injectable } from 'tsyringe'
 
-import { CartId, UserId } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { CartId, UserId } from '@/Contexts/Land/Shared/domain/index.js'
+import { Command, type CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { CartCreator, CreateCartCommand } from '.'
+import type { CartCreator } from './CartCreator.js'
+import { CreateCartCommand } from './CreateCartCommand.js'
 
 @injectable()
 export class CreateCartCommandHandler implements CommandHandler<CreateCartCommand> {

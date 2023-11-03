@@ -1,2 +1,2 @@
-export * from './LongCourses'
-export * from './TopCourses'
+export * from './LongCourses.js'
+export * from './TopCourses.js'

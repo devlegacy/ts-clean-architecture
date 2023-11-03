@@ -1,1 +1,1 @@
-export * from './CourseRequestSchema'
+export * from './CourseRequestSchema.js'

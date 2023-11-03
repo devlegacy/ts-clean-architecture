@@ -1,9 +1,9 @@
-import { Filters, OffsetPaginator, QueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import { Filters, OffsetPaginator, type QueryHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCoursesPaginatedResponse } from '../BackofficeCoursesPaginatedResponse'
-import { BackofficeCoursesPaginator } from './BackofficeCoursesPaginator'
-import { GetPaginatedBackofficeCoursesQuery } from './GetPaginatedBackofficeCoursesQuery'
+import { BackofficeCoursesPaginatedResponse } from '../BackofficeCoursesPaginatedResponse.js'
+import { BackofficeCoursesPaginator } from './BackofficeCoursesPaginator.js'
+import { GetPaginatedBackofficeCoursesQuery } from './GetPaginatedBackofficeCoursesQuery.js'
 
 @QueryHandlerSubscriber(GetPaginatedBackofficeCoursesQuery)
 export class GetPaginatedBackofficeCoursesQueryHandler

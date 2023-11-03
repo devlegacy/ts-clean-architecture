@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 
-import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { container } from '../modules'
-import { BackofficeBackendApp } from './BackofficeBackendApp'
+import { container } from '../modules/index.js'
+import { BackofficeBackendApp } from './BackofficeBackendApp.js'
 
 const fatalErrorHandler = container.get(FatalErrorHandler)
 

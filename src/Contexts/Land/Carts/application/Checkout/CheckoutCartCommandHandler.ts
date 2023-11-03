@@ -1,8 +1,8 @@
-import { CartId, OrderId } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { CartId, OrderId } from '@/Contexts/Land/Shared/domain/index.js'
+import { Command, type CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { CartCheckout } from './CartCheckout'
-import { CheckoutCartCommand } from './CheckoutCartCommand'
+import { CartCheckout } from './CartCheckout.js'
+import { CheckoutCartCommand } from './CheckoutCartCommand.js'
 
 export class CheckoutCartCommandHandler implements CommandHandler<CheckoutCartCommand> {
   constructor(private readonly checkout: CartCheckout) {}

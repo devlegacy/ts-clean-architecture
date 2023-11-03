@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
+import { Joi } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 const id = Joi.string()
   .trim()

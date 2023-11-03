@@ -1,9 +1,9 @@
-import { CartId } from '@/Contexts/Land/Shared/domain'
-import { EventBus, QueryBus } from '@/Contexts/Shared/domain'
+import { CartId } from '@/Contexts/Land/Shared/domain/index.js'
+import { EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
 
-import { Cart, CartItem } from '../../domain'
-import { CartResponse } from '../CartResponse'
-import { FindCartQuery } from '../Finder'
+import { Cart, CartItem } from '../../domain/index.js'
+import { CartResponse } from '../CartResponse.js'
+import { FindCartQuery } from '../Finder/index.js'
 
 export class CartItemAdder {
   constructor(

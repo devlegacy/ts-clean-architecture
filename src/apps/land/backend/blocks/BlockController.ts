@@ -1,11 +1,15 @@
-import { BlockResponse, CreateBlockCommand, FindBlockQuery } from '@/Contexts/Land/Blocks/application'
-import { DeleteBlockCommand } from '@/Contexts/Land/Blocks/application/Delete'
-import { BlockSearcher } from '@/Contexts/Land/Blocks/application/Search/BlockSearcher'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@/Contexts/Shared/domain/Common'
-import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
+import {
+  BlockResponse,
+  BlockSearcher,
+  CreateBlockCommand,
+  DeleteBlockCommand,
+  FindBlockQuery,
+} from '@/Contexts/Land/Blocks/application/index.js'
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@/Contexts/Shared/domain/Common/index.js'
+import { CommandBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
+import { JoiUuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
-import { BlockRequestSchema } from './BlockRequestSchema'
+import { BlockRequestSchema } from './BlockRequestSchema.js'
 
 @Controller('blocks')
 export class BlockController {
@@ -22,7 +26,7 @@ export class BlockController {
   }
 
   @Get(':id')
-  async show(@Param('id', UuidPipe) id: string) {
+  async show(@Param('id', JoiUuidPipe) id: string) {
     const query = new FindBlockQuery(id)
     const block = await this.queryBus.ask<BlockResponse>(query)
     return block
@@ -53,7 +57,7 @@ export class BlockController {
   }
 
   @Delete(':id')
-  async delete(@Param('id', UuidPipe) id: string) {
+  async delete(@Param('id', JoiUuidPipe) id: string) {
     const command = new DeleteBlockCommand(id)
     await this.commandBus.dispatch(command)
 

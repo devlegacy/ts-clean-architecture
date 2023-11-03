@@ -1,9 +1,9 @@
-import { CreateLotCommand, FindLotQuery, LotResponse } from '@/Contexts/Land/Lots/application'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain'
-import { Body, Controller, Get, Param, Post } from '@/Contexts/Shared/domain/Common'
-import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
+import { CreateLotCommand, FindLotQuery, LotResponse } from '@/Contexts/Land/Lots/application/index.js'
+import { Body, Controller, Get, Param, Post } from '@/Contexts/Shared/domain/Common/index.js'
+import { CommandBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
+import { JoiUuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
-import { LotRequestSchema } from './LotRequestSchema'
+import { LotRequestSchema } from './LotRequestSchema.js'
 
 @Controller('blocks/:block/lots')
 export class LotController {
@@ -13,7 +13,7 @@ export class LotController {
   ) {}
 
   @Get(':id')
-  async show(@Param('id', UuidPipe) id: string) {
+  async show(@Param('id', JoiUuidPipe) id: string) {
     const query = new FindLotQuery(id)
     const lot = await this.queryBus.ask<LotResponse>(query)
     return lot

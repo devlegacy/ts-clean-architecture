@@ -1,1 +1,1 @@
-export * from './BlockId'
+export * from './BlockId.js'

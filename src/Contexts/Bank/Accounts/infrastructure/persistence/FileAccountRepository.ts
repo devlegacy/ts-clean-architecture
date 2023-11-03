@@ -2,7 +2,7 @@ import { deserialize, serialize } from 'bson'
 import { existsSync, mkdirSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 
-import { Account, AccountRepository } from '../../domain'
+import { Account, type AccountRepository } from '../../domain/index.js'
 
 export class FileAccountRepository implements AccountRepository {
   private FILE_PATH = `${__dirname}/Accounts`

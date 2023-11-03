@@ -1,4 +1,4 @@
-import { Post } from './Post'
+import { Post } from './Post.js'
 
 export class PostCollection extends Array<Post> {
   get posts() {

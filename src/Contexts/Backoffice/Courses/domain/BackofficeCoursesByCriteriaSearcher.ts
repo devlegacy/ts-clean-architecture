@@ -1,8 +1,8 @@
-import { Criteria, Filters, Order } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { Criteria, Filters, Order } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse } from './BackofficeCourse'
-import { BackofficeCourseRepository } from './BackofficeCourseRepository'
+import { BackofficeCourse } from './BackofficeCourse.js'
+import { BackofficeCourseRepository } from './BackofficeCourseRepository.js'
 
 @UseCase()
 export class BackofficeCoursesByCriteriaSearcher {

@@ -3,8 +3,8 @@ import type { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { ContainerBuilder } from 'diod'
 import { Redis } from 'ioredis'
 
-import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure'
-import config from '@/Contexts/Land/Shared/infrastructure/config'
+import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
+import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure/index.js'
 import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory'
 import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory'
 import {
@@ -18,7 +18,7 @@ import {
   QueryBus,
   QueryHandler,
   Response,
-} from '@/Contexts/Shared/domain'
+} from '@/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   FatalErrorHandler,
@@ -29,8 +29,8 @@ import {
   QueryHandlers,
   RedisClientFactory,
   SentryModule,
-} from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 import { TAGS } from '../tags'
 

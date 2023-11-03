@@ -11,8 +11,8 @@ import {
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   SentryConfigFactory,
-} from '@/Contexts/Backoffice/Shared/infrastructure'
-import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
+import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
 import {
   ElasticClientFactory,
   FatalErrorHandler,
@@ -25,8 +25,8 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryModule,
-} from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 import { TYPES } from './types'
 

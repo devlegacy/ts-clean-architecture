@@ -1,10 +1,10 @@
-import { Filter, Filters, Operator } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
-import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities.js'
+import { Filter, Filters, Operator } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse } from './BackofficeCourse'
-import { BackofficeCourseRepository } from './BackofficeCourseRepository'
-import { BackofficeCourseNotFoundError } from './Errors'
+import { BackofficeCourse } from './BackofficeCourse.js'
+import { BackofficeCourseRepository } from './BackofficeCourseRepository.js'
+import { BackofficeCourseNotFoundError } from './Errors/index.js'
 
 /**
  * Domain service - Return a domain element

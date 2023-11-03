@@ -1,9 +1,9 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure'
+import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { Lot, LotRepository } from '../../../domain'
-import { LotEntity } from './postgres/LotEntity'
+import { Lot, LotRepository } from '../../../domain/index.js'
+import { LotEntity } from './postgres/LotEntity.js'
 
 export class MikroOrmPostgresLotRepository extends MikroOrmPostgresRepository<Lot> implements LotRepository {
   async all(): Promise<Lot[]> {

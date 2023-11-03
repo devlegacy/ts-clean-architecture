@@ -4,14 +4,14 @@ import {
   CreateBlockCommandHandler,
   DeleteBlockCommandHandler,
   FindBlockQueryHandler,
-} from '@/Contexts/Land/Blocks/application'
-import { BlockRepository } from '@/Contexts/Land/Blocks/domain'
+} from '@/Contexts/Land/Blocks/application/index.js'
+import { BlockRepository } from '@/Contexts/Land/Blocks/domain/index.js'
 import {
   MikroOrmPostgresBlockRepository,
   ProxyBlockRepository,
   RedisBlockRepository,
-} from '@/Contexts/Land/Blocks/infrastructure'
-import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Land/Blocks/infrastructure/index.js'
+import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain/index.js'
 
 import { TYPES } from '../types'
 

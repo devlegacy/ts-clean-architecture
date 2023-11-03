@@ -1,6 +1,6 @@
-import { Response } from '@/Contexts/Shared/domain'
+import { Response } from '@/Contexts/Shared/domain/index.js'
 
-import { Block, BlockPrimitiveType } from '../domain'
+import { Block, type BlockPrimitiveType } from '../domain/index.js'
 
 type ResponseType = BlockPrimitiveType
 

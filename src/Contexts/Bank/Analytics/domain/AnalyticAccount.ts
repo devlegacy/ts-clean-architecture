@@ -1,6 +1,6 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
 
-import { AnalyticAccountConnection } from './AnalyticAccountConnection'
+import { AnalyticAccountConnection } from './AnalyticAccountConnection.js'
 
 export class AnalyticAccount extends AggregateRoot {
   // account id relation

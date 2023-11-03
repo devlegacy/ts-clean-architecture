@@ -1,6 +1,6 @@
-import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/Persistence/memory'
+import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/Persistence/memory/index.js'
 
-import { Account, AccountRepository } from '../../domain'
+import { Account, type AccountRepository } from '../../domain/index.js'
 
 export class InMemoryAccountRepository extends InMemoryRepository<Account> implements AccountRepository {
   protected override parser = Account.fromPrimitives

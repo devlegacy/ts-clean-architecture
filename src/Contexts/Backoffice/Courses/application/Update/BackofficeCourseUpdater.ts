@@ -1,9 +1,9 @@
-import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse, BackofficeCourseEntityType, BackofficeCourseRepository } from '../../domain'
-import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
-import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
+import { BackofficeCourse, type BackofficeCourseEntityType, BackofficeCourseRepository } from '../../domain/index.js'
+import { BackofficeCourseResponse } from '../BackofficeCourseResponse.js'
+import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria/index.js'
 
 @UseCase()
 export class BackofficeCourseUpdater {

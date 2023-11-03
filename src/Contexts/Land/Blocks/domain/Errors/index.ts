@@ -1,2 +1,2 @@
-export * from './BlockBlockLengthExceeded'
-export * from './BlockStreetLengthExceeded'
+export * from './BlockBlockLengthExceeded.js'
+export * from './BlockStreetLengthExceeded.js'

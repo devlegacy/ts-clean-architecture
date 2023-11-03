@@ -5,10 +5,10 @@ import 'source-map-support/register'
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { container } from '../modules'
-// import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/logger'
+import { container } from '../modules/index.js'
+// import { fatalErrorHandler } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 import { LandBackendApp } from './LandBackendApp'
 
 const fatalErrorHandler = container.get(FatalErrorHandler)

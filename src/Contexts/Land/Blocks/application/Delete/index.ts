@@ -1,3 +1,3 @@
-export * from './BlockDeleter'
-export * from './DeleteBlockCommand'
-export * from './DeleteBlockCommandHandler'
+export * from './BlockDeleter.js'
+export * from './DeleteBlockCommand.js'
+export * from './DeleteBlockCommandHandler.js'

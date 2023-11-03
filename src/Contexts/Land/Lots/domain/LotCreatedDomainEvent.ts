@@ -1,4 +1,8 @@
-import { DomainEvent, DomainEventPrimitives, DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain'
+import {
+  DomainEvent,
+  type DomainEventPrimitives,
+  type DomainEventPrimitivesWithAttributes,
+} from '@/Contexts/Shared/domain/index.js'
 
 interface CreateLotDomainEventAttributes {
   blockId: string

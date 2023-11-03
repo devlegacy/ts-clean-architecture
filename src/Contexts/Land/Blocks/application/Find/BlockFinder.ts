@@ -1,7 +1,7 @@
-import { LandDescription, Type } from '@/Contexts/Land/LandDescriptions/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { LandDescription, Type } from '@/Contexts/Land/LandDescriptions/domain/index.js'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
 
-import { Block, BlockRepository } from '../../domain'
+import { Block, BlockRepository } from '../../domain/index.js'
 
 @UseCase()
 export class BlockFinder {

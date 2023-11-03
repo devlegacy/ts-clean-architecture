@@ -1,6 +1,6 @@
-import { Money, NumberValueObject } from '@/Contexts/Shared/domain'
+import { Money, NumberValueObject } from '@/Contexts/Shared/domain/index.js'
 
-import { ItemId } from '../../Shared/domain'
+import { ItemId } from '../../Shared/domain/index.js'
 
 // vo
 export class Amount extends NumberValueObject {

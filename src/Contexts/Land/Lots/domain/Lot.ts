@@ -1,10 +1,18 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
 
-import { BlockDeletedAt } from '../../Blocks/domain'
-import { LandDescription } from '../../LandDescriptions/domain'
-import { BlockId, Boundary } from '../../Shared/domain'
-import { LotCreatedDomainEvent } from './LotCreatedDomainEvent'
-import { LotArea, LotAvailability, LotCreatedAt, LotDeletedAt, LotId, LotLot, LotUpdatedAt } from './ValueObjects'
+import { BlockDeletedAt } from '../../Blocks/domain/index.js'
+import { LandDescription } from '../../LandDescriptions/domain/index.js'
+import { BlockId, Boundary } from '../../Shared/domain/index.js'
+import { LotCreatedDomainEvent } from './LotCreatedDomainEvent.js'
+import {
+  LotArea,
+  LotAvailability,
+  LotCreatedAt,
+  LotDeletedAt,
+  LotId,
+  LotLot,
+  LotUpdatedAt,
+} from './ValueObjects/index.js'
 
 export type LotEntityType = Entity<
   Omit<SetOptional<Lot, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>

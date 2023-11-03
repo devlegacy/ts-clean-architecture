@@ -9,10 +9,10 @@ import {
   SearchAllBackofficeCoursesQueryHandler,
   SearchBackofficeCoursesByCriteriaQueryHandler,
   UpdateBackofficeCourseCommandHandler,
-} from '@/Contexts/Backoffice/Courses/application'
-import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain'
-import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
-import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Backoffice/Courses/application/index.js'
+import { BackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/domain/index.js'
+import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/index.js'
+import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain/index.js'
 
 import { TYPES } from './types'
 

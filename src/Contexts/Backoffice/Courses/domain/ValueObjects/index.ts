@@ -1,3 +1,3 @@
-export * from './BackofficeCourseDuration'
-export * from './BackofficeCourseId'
-export * from './BackofficeCourseName'
+export * from './BackofficeCourseDuration.js'
+export * from './BackofficeCourseId.js'
+export * from './BackofficeCourseName.js'

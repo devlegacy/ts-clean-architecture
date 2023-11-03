@@ -1,6 +1,6 @@
 import { JoiSchema } from 'joi-class-decorators'
 
-import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
+import { CREATE, Joi, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 const boundary = Joi.string().trim()
 

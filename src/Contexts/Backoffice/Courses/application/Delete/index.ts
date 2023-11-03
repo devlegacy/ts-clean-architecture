@@ -1,2 +1,2 @@
-export * from './BackofficeCourseDeleter'
-export * from './DeleteBackofficeCourseCommandHandler'
+export * from './BackofficeCourseDeleter.js'
+export * from './DeleteBackofficeCourseCommandHandler.js'

@@ -5,10 +5,10 @@ import {
   CreateCartCommand,
   FindCartQuery,
   SubtractCartItemCommand,
-} from '@/Contexts/Land/Carts/application'
-import { CartItemRequestDto, CartRequestDto } from '@/Contexts/Land/Carts/infrastructure'
-import { CommandBus, QueryBus, Uuid } from '@/Contexts/Shared/domain'
-import { Body, Controller, Get, Param, Post, Put } from '@/Contexts/Shared/domain/Common'
+} from '@/Contexts/Land/Carts/application/index.js'
+import { CartItemRequestDto, CartRequestDto } from '@/Contexts/Land/Carts/infrastructure/index.js'
+import { Body, Controller, Get, Param, Post, Put } from '@/Contexts/Shared/domain/Common/index.js'
+import { CommandBus, QueryBus, Uuid } from '@/Contexts/Shared/domain/index.js'
 import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
 
 @Controller('carts')

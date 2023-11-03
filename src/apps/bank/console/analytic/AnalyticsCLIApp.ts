@@ -1,18 +1,18 @@
 import {
   AnalyticAccountTrackerUseCase,
   TrackAnalyticAccountOnAccountCreated,
-} from '@/Contexts/Bank/Analytics/application'
-import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure'
-import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
-import { RabbitMQConfigFactory, RabbitMQEventBusFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ'
+} from '@/Contexts/Bank/Analytics/application/index.js'
+import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure/index.js'
+import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory.js'
+import { RabbitMQConfigFactory, RabbitMQEventBusFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ/index.js'
 import {
   MongoDomainEventFailoverPublisher,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-} from '@/Contexts/Shared/infrastructure'
-import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/mongo/MongoClientFactory'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/mongo/MongoClientFactory.js'
 
-import { AnalyticCLI } from './AnalyticCLI'
+import { AnalyticCLI } from './AnalyticCLI.js'
 
 const context = 'bank'
 const mongoConfig = MongoConfigFactory.createConfig()

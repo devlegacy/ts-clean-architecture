@@ -1,5 +1,5 @@
-import { Post } from './Post'
-import { PostCollection } from './PostCollection'
+import { Post } from './Post.js'
+import { PostCollection } from './PostCollection.js'
 
 export interface PostRepository {
   save(post: Post): Promise<void>

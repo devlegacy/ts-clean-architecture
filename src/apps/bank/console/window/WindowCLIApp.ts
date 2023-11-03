@@ -1,25 +1,25 @@
-import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
-import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain'
+import { AccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
+import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain/index.js'
 import {
   MongoAccountEventStore,
   MongoAccountRepository,
   ProxyAccountRepository,
-} from '@/Contexts/Bank/Accounts/infrastructure/persistence'
+} from '@/Contexts/Bank/Accounts/infrastructure/persistence/index.js'
 import {
   AnalyticAccountTrackerUseCase,
   TrackAnalyticAccountOnAccountCreated,
-} from '@/Contexts/Bank/Analytics/application'
-import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure'
-import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
-import { RabbitMQConfigFactory, RabbitMQEventBusFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ'
+} from '@/Contexts/Bank/Analytics/application/index.js'
+import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure/index.js'
+import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory.js'
+import { RabbitMQConfigFactory, RabbitMQEventBusFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ/index.js'
 import {
   MongoDomainEventFailoverPublisher,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-} from '@/Contexts/Shared/infrastructure'
-import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/mongo/MongoClientFactory'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { MongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/mongo/MongoClientFactory.js'
 
-import { WindowCLI } from './WindowCLI'
+import { WindowCLI } from './WindowCLI.js'
 
 const context = 'bank'
 const mongoConfig = MongoConfigFactory.createConfig()

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
+import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand.js'
 
 ConfigureRabbitMQCommand.run()
   .then(() => {

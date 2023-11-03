@@ -1,6 +1,6 @@
-import { MongoRepository } from '@/Contexts/Shared/infrastructure'
+import { MongoRepository } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { Account, AccountRepository } from '../../domain'
+import { Account, type AccountRepository } from '../../domain/index.js'
 
 interface AccountDocument {
   _id: string

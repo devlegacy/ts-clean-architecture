@@ -1,7 +1,7 @@
-import { DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import type { DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
 
-import { AccountCreatedDomainEvent } from '../../Accounts/domain'
-import { AnalyticAccountTrackerUseCase } from './AnalyticAccountTrackerUseCase'
+import { AccountCreatedDomainEvent } from '../../Accounts/domain/index.js'
+import { AnalyticAccountTrackerUseCase } from './AnalyticAccountTrackerUseCase.js'
 
 // DomainEventSubscriber | Subscriptor | EventHandler
 export class TrackAnalyticAccountOnAccountCreated implements DomainEventSubscriber<AccountCreatedDomainEvent> {

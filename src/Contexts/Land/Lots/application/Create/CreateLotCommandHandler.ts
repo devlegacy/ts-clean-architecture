@@ -1,10 +1,10 @@
-import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain/index.js'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import type { CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { LotArea, LotAvailability, LotCreatedAt, LotId, LotLot, LotUpdatedAt } from '../../domain'
-import { CreateLotCommand } from './CreateLotCommand'
-import { LotCreator } from './LotCreator'
+import { LotArea, LotAvailability, LotCreatedAt, LotId, LotLot, LotUpdatedAt } from '../../domain/index.js'
+import { CreateLotCommand } from './CreateLotCommand.js'
+import { LotCreator } from './LotCreator.js'
 
 @CommandHandlerSubscriber(CreateLotCommand)
 export class CreateLotCommandHandler implements CommandHandler<CreateLotCommand> {

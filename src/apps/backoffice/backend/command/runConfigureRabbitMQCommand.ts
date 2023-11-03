@@ -1,10 +1,10 @@
 import 'reflect-metadata'
 
-import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure'
-import { error, info } from '@/Contexts/Shared/infrastructure/Logger'
+import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure/index.js'
+import { error, info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { container } from '../../modules'
-import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand'
+import { container } from '../../modules/index.js'
+import { ConfigureRabbitMQCommand } from './ConfigureRabbitMQCommand.js'
 
 const fatalErrorHandler = container.get(FatalErrorHandler)
 

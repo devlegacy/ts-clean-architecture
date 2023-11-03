@@ -1,3 +1,3 @@
-export * from './BackofficeCourseCreator'
-export * from './CreateBackofficeCourseCommandHandler'
-export * from './CreateBackofficeCourseOnCourseCreated'
+export * from './BackofficeCourseCreator.js'
+export * from './CreateBackofficeCourseCommandHandler.js'
+export * from './CreateBackofficeCourseOnCourseCreated.js'

@@ -1,11 +1,11 @@
 import { EntitySchema, wrap } from '@mikro-orm/core'
 import { Service } from 'diod'
 
-import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence'
+import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
+import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
-import { BackofficeCourseEntity } from './mikroorm/mongo/BackofficeCourseEntity'
+import { BackofficeCourse, BackofficeCourseRepository } from '../../domain/index.js'
+import { BackofficeCourseEntity } from './mikroorm/mongo/BackofficeCourseEntity.js'
 
 @Service()
 export class MikroOrmMongoBackofficeCourseRepository
@@ -62,8 +62,9 @@ export class MikroOrmMongoBackofficeCourseRepository
       },
       { convertCustomTypes: true }
     )
+    if (!current) return
 
-    await repository.persistAndFlush(current!)
+    await repository.persistAndFlush(current)
   }
 
   async delete(id: BackofficeCourse['id']): Promise<void> {

@@ -1,6 +1,6 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './ValueObjects'
+import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from './ValueObjects/index.js'
 
 export type BackofficeCourseEntityType = Entity<BackofficeCourse>
 export type BackofficeCoursePrimitiveType = Primitives<BackofficeCourse>

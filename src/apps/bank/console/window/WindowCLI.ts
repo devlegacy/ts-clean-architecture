@@ -1,8 +1,8 @@
 import * as readline from 'readline-sync'
 
-import { AccountUseCase } from '@/Contexts/Bank/Accounts/application'
-import { Account } from '@/Contexts/Bank/Accounts/domain'
-import { DomainError, Uuid } from '@/Contexts/Shared/domain'
+import { AccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
+import { Account } from '@/Contexts/Bank/Accounts/domain/index.js'
+import { DomainError, Uuid } from '@/Contexts/Shared/domain/index.js'
 
 type onSuccess = () => void
 type onError = (err: Error) => void

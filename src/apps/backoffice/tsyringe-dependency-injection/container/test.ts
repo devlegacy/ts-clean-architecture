@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 
-import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
 import { TYPES } from '../types'
 

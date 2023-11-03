@@ -1,10 +1,10 @@
-const { MongoConfigFactory, RabbitMQConfigFactory } = require('@/Contexts/Mooc/Shared/infrastructure')
+const { MongoConfigFactory, RabbitMQConfigFactory } = require('@/Contexts/Mooc/Shared/infrastructure/index.js')
 const {
   RabbitMQConnection,
   RabbitMQConfigurer,
   RabbitMQQueueFormatter
-} = require('@/Contexts/Shared/infrastructure/EventBus')
-const { MikroORMMongoClientFactory } = require('@/Contexts/Shared/infrastructure/Persistence')
+} = require('@/Contexts/Shared/infrastructure/EventBus/index.js')
+const { MikroORMMongoClientFactory } = require('@/Contexts/Shared/infrastructure/Persistence/index.js')
 const { TYPES } = require('./types')
 
 const mongoConfig = MongoConfigFactory.createConfig()

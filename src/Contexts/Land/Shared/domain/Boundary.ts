@@ -1,6 +1,6 @@
-import { StringValueObject } from '@/Contexts/Shared/domain'
+import { StringValueObject } from '@/Contexts/Shared/domain/index.js'
 
-import { BoundaryLengthExceeded } from './BoundaryLengthExceeded'
+import { BoundaryLengthExceeded } from './BoundaryLengthExceeded.js'
 
 // [Entity]_[Type]_[PROP]
 // export const BOUNDARY_MAX_LENGTH = 160

@@ -1,2 +1,2 @@
 export * from './dtos'
-export * from './persistence'
+export * from './persistence/index.js'

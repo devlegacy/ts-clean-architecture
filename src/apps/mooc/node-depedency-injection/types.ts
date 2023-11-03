@@ -10,7 +10,7 @@ export const TYPES = {
   TypeOrmClient: 'TypeOrmClient',
   DataSource: 'DataSource',
   // EvenBus
-  EventBus: 'EventBus',
+  EventBus: 'EventBus/index.js',
   // Rabbit
   RabbitMQConfig: 'RabbitMQConfig',
   RabbitMQConnection: 'RabbitMQConnection',

@@ -1,7 +1,11 @@
-import { RabbitMQConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
-import { DomainEventSubscriberResolver, RabbitMQConfigurer, RabbitMQConnection } from '@/Contexts/Shared/infrastructure'
+import { RabbitMQConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
+import {
+  DomainEventSubscriberResolver,
+  RabbitMQConfigurer,
+  RabbitMQConnection,
+} from '@/Contexts/Shared/infrastructure/index.js'
 
-import { container } from '../../modules'
+import { container } from '../../modules/index.js'
 
 export class ConfigureRabbitMQCommand {
   static async run() {

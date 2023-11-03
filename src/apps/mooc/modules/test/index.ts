@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { ContainerBuilder } from 'diod'
 
-import { registeredModules } from '@/Contexts/Shared/domain/Common'
+import { registeredModules } from '@/Contexts/Shared/domain/Common/index.js'
 
 import { CourseModule } from './CourseModule'
 import { CoursesCounterModule } from './CoursesCounterModule'

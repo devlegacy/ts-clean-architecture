@@ -1,7 +1,7 @@
-import { Money } from '@/Contexts/Shared/domain'
-import { MongoEventStore } from '@/Contexts/Shared/infrastructure'
+import { Money } from '@/Contexts/Shared/domain/index.js'
+import { MongoEventStore } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { Account, AccountRepository } from '../../domain'
+import { Account, type AccountRepository } from '../../domain/index.js'
 
 interface AccountDocument {
   _id: string
@@ -35,9 +35,12 @@ export class MongoAccountEventStore extends MongoEventStore<Account> implements 
       .sort((e1, e2) => e1.occurredOn.getTime() - e2.occurredOn.getTime())
       .forEach((event) => {
         const domainEventClass = this.events.get(event.eventName)
+        if (!domainEventClass) {
+          return
+        }
         const { _id: eventId, aggregateId, occurredOn, eventName: _eventName, ...document } = event
         // console.log(domainEventClass!.fromPrimitives, document)
-        const domainEvent = domainEventClass!.fromPrimitives({
+        const domainEvent = domainEventClass.fromPrimitives({
           eventId,
           aggregateId,
           occurredOn,

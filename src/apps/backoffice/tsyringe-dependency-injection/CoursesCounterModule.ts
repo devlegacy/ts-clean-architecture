@@ -1,7 +1,7 @@
 import { container } from 'tsyringe'
 
-import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain'
-import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure'
+import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
+import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure/index.js'
 
 import { TYPES } from './types'
 

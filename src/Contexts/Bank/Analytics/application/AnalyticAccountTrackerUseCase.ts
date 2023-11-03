@@ -1,6 +1,6 @@
-import { EntityNotFoundError } from '@/Contexts/Shared/domain'
+import { EntityNotFoundError } from '@/Contexts/Shared/domain/index.js'
 
-import { AnalyticAccount, AnalyticAccountRepository } from '../domain'
+import { AnalyticAccount, AnalyticAccountRepository } from '../domain/index.js'
 
 export class AnalyticAccountTrackerUseCase {
   constructor(private readonly analyticRepository: AnalyticAccountRepository) {}

@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain'
+import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
 export class BlockStreetLengthExceeded extends InvalidArgumentError {
   constructor(street: string, limit: number) {

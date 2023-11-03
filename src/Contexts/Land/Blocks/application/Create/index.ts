@@ -1,3 +1,3 @@
-export * from './BlockCreator'
-export * from './CreateBlockCommand'
-export * from './CreateBlockCommandHandler'
+export * from './BlockCreator.js'
+export * from './CreateBlockCommand.js'
+export * from './CreateBlockCommandHandler.js'

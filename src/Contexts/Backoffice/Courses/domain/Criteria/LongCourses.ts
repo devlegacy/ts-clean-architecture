@@ -10,7 +10,7 @@ import {
   OrderBy,
   OrderType,
   OrderTypes,
-} from '@/Contexts/Shared/domain'
+} from '@/Contexts/Shared/domain/index.js'
 
 /**
  * Criteria patter -> converts to -> Specification patter when we can express [ business language | domain language ]

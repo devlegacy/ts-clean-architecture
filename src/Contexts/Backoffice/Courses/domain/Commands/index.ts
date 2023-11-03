@@ -1,3 +1,3 @@
-export * from './CreateBackofficeCourseCommand'
-export * from './DeleteBackofficeCourseCommand'
-export * from './UpdateBackofficeCourseCommand'
+export * from './CreateBackofficeCourseCommand.js'
+export * from './DeleteBackofficeCourseCommand.js'
+export * from './UpdateBackofficeCourseCommand.js'

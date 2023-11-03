@@ -12,8 +12,8 @@ import {
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   SentryConfigFactory,
-} from '@/Contexts/Backoffice/Shared/infrastructure'
-import { CommandBus, EventBus, Logger, Monitoring, QueryBus } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
+import { CommandBus, EventBus, Logger, Monitoring, QueryBus } from '@/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   ElasticClientFactory,
@@ -27,11 +27,11 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryModule,
-} from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
-import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { TAGS } from '../tags'
+import { TAGS } from '../tags.js'
 
 const context = 'backoffice'
 const mongoConfig = MongoConfigFactory.createConfig()

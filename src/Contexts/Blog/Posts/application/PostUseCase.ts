@@ -1,4 +1,4 @@
-import { Post, PostRepository } from '../domain'
+import { Post, type PostRepository } from '../domain/index.js'
 
 export class PostUseCase {
   constructor(private readonly repository: PostRepository) {}

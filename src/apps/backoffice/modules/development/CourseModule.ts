@@ -18,21 +18,21 @@ import {
   SearchBackofficeCoursesByCriteriaQueryHandler,
   TopCoursesFinder,
   UpdateBackofficeCourseCommandHandler,
-} from '@/Contexts/Backoffice/Courses/application'
+} from '@/Contexts/Backoffice/Courses/application/index.js'
 import {
   BackofficeCourseFinder,
   BackofficeCourseRepository,
   BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
-} from '@/Contexts/Backoffice/Courses/domain'
+} from '@/Contexts/Backoffice/Courses/domain/index.js'
 import {
   ElasticBackofficeCourseRepository,
   MikroOrmMongoBackofficeCourseRepository,
-} from '@/Contexts/Backoffice/Courses/infrastructure'
-import { ProxyBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/persistence/ProxyBackofficeCourseRepository'
-import { ElasticConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure'
+} from '@/Contexts/Backoffice/Courses/infrastructure/index.js'
+import { ProxyBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/persistence/ProxyBackofficeCourseRepository.js'
+import { ElasticConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
 
-import { CourseController } from '../../backend/controllers/Courses/CourseController'
-import { TAGS } from '../tags'
+import { CourseController } from '../../backend/controllers/Courses/CourseController.js'
+import { TAGS } from '../tags.js'
 
 const elasticConfig = ElasticConfigFactory.createConfig()
 

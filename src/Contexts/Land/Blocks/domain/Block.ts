@@ -1,9 +1,9 @@
-import { AggregateRoot, isNil } from '@/Contexts/Shared/domain'
+import { AggregateRoot, isNil } from '@/Contexts/Shared/domain/index.js'
 
-import { LandDescription } from '../../LandDescriptions/domain'
-import { BlockId, Boundary } from '../../Shared/domain'
-import { BlockCreatedDomainEvent } from './BlockCreatedDomainEvent'
-import { BlockDeletedDomainEvent } from './BlockDeletedDomainEvent'
+import { LandDescription } from '../../LandDescriptions/domain/index.js'
+import { BlockId, Boundary } from '../../Shared/domain/index.js'
+import { BlockCreatedDomainEvent } from './BlockCreatedDomainEvent.js'
+import { BlockDeletedDomainEvent } from './BlockDeletedDomainEvent.js'
 import {
   BlockArea,
   BlockAvailability,
@@ -12,7 +12,7 @@ import {
   BlockDeletedAt,
   BlockStreet,
   BlockUpdatedAt,
-} from './ValueObjects'
+} from './ValueObjects/index.js'
 
 export type BlockEntityType = Entity<
   Omit<SetOptional<Block, 'createdAt' | 'updatedAt'>, 'fullDescription' | 'shortDescription'>

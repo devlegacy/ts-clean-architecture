@@ -1,8 +1,8 @@
 import * as readline from 'readline-sync'
 
-import { AtmAccountUseCase } from '@/Contexts/Bank/Accounts/application'
-import { Account } from '@/Contexts/Bank/Accounts/domain'
-import { DomainError } from '@/Contexts/Shared/domain'
+import { AtmAccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
+import { Account } from '@/Contexts/Bank/Accounts/domain/index.js'
+import { DomainError } from '@/Contexts/Shared/domain/index.js'
 
 type Callback = (onSuccess: () => void, onError: (err: Error) => void) => void
 

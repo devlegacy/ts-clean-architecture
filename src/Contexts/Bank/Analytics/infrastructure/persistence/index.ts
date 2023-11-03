@@ -1,2 +1,2 @@
-export * from './InMemoryAnalyticAccountRepository'
-export * from './MongoAnalyticAccountRepository'
+export * from './InMemoryAnalyticAccountRepository.js'
+export * from './MongoAnalyticAccountRepository.js'

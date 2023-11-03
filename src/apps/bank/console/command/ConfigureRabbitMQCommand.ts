@@ -1,16 +1,16 @@
 import {
   AnalyticAccountTrackerUseCase,
   TrackAnalyticAccountOnAccountCreated,
-} from '@/Contexts/Bank/Analytics/application'
-import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure/persistence'
-import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory'
-import { RabbitMQConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ'
+} from '@/Contexts/Bank/Analytics/application/index.js'
+import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure/persistence/index.js'
+import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory.js'
+import { RabbitMQConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ/index.js'
 import {
   MongoClientFactory,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-} from '@/Contexts/Shared/infrastructure'
+} from '@/Contexts/Shared/infrastructure/index.js'
 
 export class ConfigureRabbitMQCommand {
   static async run() {

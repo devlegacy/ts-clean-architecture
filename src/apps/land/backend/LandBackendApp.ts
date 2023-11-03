@@ -1,12 +1,12 @@
 import { Server as SocketServer, Socket } from 'socket.io'
 
-import config from '@/Contexts/Land/Shared/infrastructure/config'
-import { EventBus } from '@/Contexts/Shared/domain'
-import { DomainEventSubscriberResolver, InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure'
-import { info } from '@/Contexts/Shared/infrastructure/Logger'
+import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
+import { EventBus } from '@/Contexts/Shared/domain/index.js'
+import { DomainEventSubscriberResolver, InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure/index.js'
+import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { container } from '../modules'
-import { Server } from './Server'
+import { container } from '../modules/index.js'
+import { Server } from './Server.js'
 
 export class LandBackendApp {
   #server?: Server

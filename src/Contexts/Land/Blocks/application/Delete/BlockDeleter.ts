@@ -1,8 +1,8 @@
-import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { EntityNotFoundError, EventBus } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { BlockId } from '@/Contexts/Land/Shared/domain/index.js'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { EntityNotFoundError, EventBus } from '@/Contexts/Shared/domain/index.js'
 
-import { BlockRepository } from '../../domain'
+import { BlockRepository } from '../../domain/index.js'
 
 @UseCase()
 export class BlockDeleter {

@@ -1,9 +1,9 @@
 import { injectable } from 'tsyringe'
 
-import { CartId, ItemId } from '@/Contexts/Land/Shared/domain'
-import { Command, CommandHandler, Money } from '@/Contexts/Shared/domain'
+import { CartId, ItemId } from '@/Contexts/Land/Shared/domain/index.js'
+import { Command, CommandHandler, Money } from '@/Contexts/Shared/domain/index.js'
 
-import { CartItem } from '../../domain'
+import { CartItem } from '../../domain/index.js'
 import { AddCartItemCommand } from './AddCartItemCommand'
 import { CartItemAdder } from './CartItemAdder'
 

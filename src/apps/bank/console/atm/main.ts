@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { AtmCLIApp } from './AtmCLIApp'
+import { AtmCLIApp } from './AtmCLIApp.js'
 
 new AtmCLIApp().start()
 

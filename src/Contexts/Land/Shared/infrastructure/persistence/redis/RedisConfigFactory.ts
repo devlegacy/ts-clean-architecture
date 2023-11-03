@@ -1,6 +1,6 @@
-import { RedisConfig } from '@/Contexts/Shared/infrastructure'
+import { RedisConfig } from '@/Contexts/Shared/infrastructure/index.js'
 
-import config from '../../config'
+import config from '../../config/index.js'
 
 const redisConfig: RedisConfig = {
   host: config.get('redis.host'),

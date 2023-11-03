@@ -1,4 +1,4 @@
-import { Cart } from './Cart'
+import { Cart } from './Cart.js'
 
 export interface CartRepository {
   save(cart: Cart): Promise<void>

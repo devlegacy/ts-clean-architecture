@@ -1,9 +1,9 @@
 import { Service } from 'diod'
 import { Redis } from 'ioredis'
 
-import { BlockId } from '@/Contexts/Land/Shared/domain'
+import { BlockId } from '@/Contexts/Land/Shared/domain/index.js'
 
-import { Block, BlockPrimitiveType, BlockRepository } from '../../domain'
+import { Block, type BlockPrimitiveType, BlockRepository } from '../../domain/index.js'
 
 @Service()
 export class RedisBlockRepository implements BlockRepository {

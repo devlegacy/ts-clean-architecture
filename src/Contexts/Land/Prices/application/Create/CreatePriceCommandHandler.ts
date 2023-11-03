@@ -1,4 +1,4 @@
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
+import { Command, CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
 import { CreatePriceCommand } from './CreatePriceCommand'
 

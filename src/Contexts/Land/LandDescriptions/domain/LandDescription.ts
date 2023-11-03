@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain'
+import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
 
 import {
   LandDescriptionDescription,

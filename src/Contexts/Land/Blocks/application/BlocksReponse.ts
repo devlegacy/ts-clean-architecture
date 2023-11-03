@@ -1,7 +1,7 @@
-import { Response } from '@/Contexts/Shared/domain'
+import { Response } from '@/Contexts/Shared/domain/index.js'
 
-import { Lot, LotPrimitiveType } from '../../Lots/domain'
-import { Block, BlockPrimitiveType } from '../domain'
+import { Lot, type LotPrimitiveType } from '../../Lots/domain/index.js'
+import { Block, type BlockPrimitiveType } from '../domain/index.js'
 
 type ResponseType = (BlockPrimitiveType & { lots?: LotPrimitiveType[] })[]
 

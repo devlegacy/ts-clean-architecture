@@ -2,7 +2,7 @@ import { EntitySchema } from '@mikro-orm/core'
 
 import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/MikroOrmPostgresRepository'
 
-import { Cart, CartRepository } from '../../domain'
+import { Cart, CartRepository } from '../../domain/index.js'
 import { CartEntity } from './mikroorm/postgres/CartEntity'
 
 export class MikroOrmPostgresCartRepository extends MikroOrmPostgresRepository<Cart> implements CartRepository {

@@ -1,4 +1,4 @@
-import { AnalyticAccount } from './AnalyticAccount'
+import { AnalyticAccount } from './AnalyticAccount.js'
 
 export interface AnalyticAccountRepository {
   find(id: AnalyticAccount['id']): Promise<Nullable<AnalyticAccount>>

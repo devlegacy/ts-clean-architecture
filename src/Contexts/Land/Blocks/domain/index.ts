@@ -1,3 +1,3 @@
-export * from './Block'
-export * from './BlockRepository'
-export * from './ValueObjects'
+export * from './Block.js'
+export * from './BlockRepository.js'
+export * from './ValueObjects/index.js'

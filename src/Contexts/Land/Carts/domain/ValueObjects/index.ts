@@ -1,1 +1,1 @@
-export * from './CartCheckout'
+export * from './CartCheckout.js'

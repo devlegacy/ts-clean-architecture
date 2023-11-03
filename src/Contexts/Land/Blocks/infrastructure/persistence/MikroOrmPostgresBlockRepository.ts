@@ -1,9 +1,9 @@
 import { EntitySchema } from '@mikro-orm/core'
 
-import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure'
+import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/index.js'
 
-import { Block, BlockRepository } from '../../domain'
-import { BlockEntity } from './mikroorm/postgres/BlockEntity'
+import { Block, BlockRepository } from '../../domain/index.js'
+import { BlockEntity } from './mikroorm/postgres/BlockEntity.js'
 
 export class MikroOrmPostgresBlockRepository extends MikroOrmPostgresRepository<Block> implements BlockRepository {
   async all(): Promise<Block[]> {

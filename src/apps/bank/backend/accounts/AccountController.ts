@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@/Contexts/Shared/domain/Common'
+import { Body, Controller, Get, Post } from '@/Contexts/Shared/domain/Common/index.js'
 
 @Controller('accounts')
 export class AccountController {

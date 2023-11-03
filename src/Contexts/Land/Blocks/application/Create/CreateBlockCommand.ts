@@ -1,4 +1,4 @@
-import { Command } from '@/Contexts/Shared/domain'
+import { Command } from '@/Contexts/Shared/domain/index.js'
 
 export class CreateBlockCommand extends Command {
   constructor(

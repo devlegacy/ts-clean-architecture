@@ -6,11 +6,11 @@ import http from 'http'
 import { resolve } from 'path'
 import qs from 'qs'
 
-import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify'
-import { error } from '@/Contexts/Shared/infrastructure/Logger'
-import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
+import { TsyringeControllerResolver } from '@/Contexts/Shared/infrastructure/Common/index.js'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+import { error } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/index.js'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 type Options = {
   port?: number

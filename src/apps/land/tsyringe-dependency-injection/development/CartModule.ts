@@ -4,10 +4,10 @@ import {
   AddCartItemCommandHandler,
   CreateCartCommandHandler,
   FindCartQueryHandler,
-} from '@/Contexts/Land/Carts/application'
-import { CartRepository } from '@/Contexts/Land/Carts/domain'
-import { MikroOrmPostgresCartRepository } from '@/Contexts/Land/Carts/infrastructure'
-import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain'
+} from '@/Contexts/Land/Carts/application/index.js'
+import { CartRepository } from '@/Contexts/Land/Carts/domain/index.js'
+import { MikroOrmPostgresCartRepository } from '@/Contexts/Land/Carts/infrastructure/index.js'
+import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain/index.js'
 
 import { TYPES } from '../types'
 

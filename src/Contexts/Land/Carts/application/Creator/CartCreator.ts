@@ -1,7 +1,7 @@
-import { CartId, UserId } from '@/Contexts/Land/Shared/domain'
-import { EventBus } from '@/Contexts/Shared/domain'
+import { CartId, UserId } from '@/Contexts/Land/Shared/domain/index.js'
+import { EventBus } from '@/Contexts/Shared/domain/index.js'
 
-import { Cart, CartRepository } from '../../domain'
+import { Cart, CartRepository } from '../../domain/index.js'
 
 export class CartCreator {
   constructor(

@@ -9,9 +9,9 @@ import {
   BlockDeletedAt,
   BlockStreet,
   BlockUpdatedAt,
-} from '@/Contexts/Land/Blocks/domain'
-import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
+} from '@/Contexts/Land/Blocks/domain/index.js'
+import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain/index.js'
+import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
 export const BlockEntity = new EntitySchema<Block>({
   name: 'Block',

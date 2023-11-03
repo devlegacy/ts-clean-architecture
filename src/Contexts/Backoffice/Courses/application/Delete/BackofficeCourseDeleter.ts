@@ -1,8 +1,8 @@
-import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { Filter, Operator, QueryBus } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse, BackofficeCourseRepository } from '../../domain'
-import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria'
+import { BackofficeCourse, BackofficeCourseRepository } from '../../domain/index.js'
+import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria/index.js'
 
 // Casos de uso no inyectan command bus
 // Casos de uso pueden inyectar query bus

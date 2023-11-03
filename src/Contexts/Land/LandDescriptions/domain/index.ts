@@ -1,2 +1,2 @@
-export * from './LandDescription'
-export * from './ValueObjects'
+export * from './LandDescription.js'
+export * from './ValueObjects/index.js'

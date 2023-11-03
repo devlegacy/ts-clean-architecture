@@ -8,13 +8,13 @@ import {
   CreateBlockCommandHandler,
   DeleteBlockCommandHandler,
   FindBlockQueryHandler,
-} from '@/Contexts/Land/Blocks/application'
-import { BlockRepository } from '@/Contexts/Land/Blocks/domain'
+} from '@/Contexts/Land/Blocks/application/index.js'
+import { BlockRepository } from '@/Contexts/Land/Blocks/domain/index.js'
 import {
   MikroOrmPostgresBlockRepository,
   ProxyBlockRepository,
   RedisBlockRepository,
-} from '@/Contexts/Land/Blocks/infrastructure'
+} from '@/Contexts/Land/Blocks/infrastructure/index.js'
 
 import { BlockController } from '../../backend/blocks/BlockController'
 import { TAGS } from '../tags'

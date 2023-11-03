@@ -1,10 +1,17 @@
-import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain'
-import { CommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { BlockId, Boundary } from '@/Contexts/Land/Shared/domain/index.js'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import type { CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BlockArea, BlockAvailability, BlockBlock, BlockCreatedAt, BlockStreet, BlockUpdatedAt } from '../../domain'
-import { BlockCreator } from './BlockCreator'
-import { CreateBlockCommand } from './CreateBlockCommand'
+import {
+  BlockArea,
+  BlockAvailability,
+  BlockBlock,
+  BlockCreatedAt,
+  BlockStreet,
+  BlockUpdatedAt,
+} from '../../domain/index.js'
+import { BlockCreator } from './BlockCreator.js'
+import { CreateBlockCommand } from './CreateBlockCommand.js'
 
 @CommandHandlerSubscriber(CreateBlockCommand)
 export class CreateBlockCommandHandler implements CommandHandler<CreateBlockCommand> {

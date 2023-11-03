@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { BankBackendApp } from './BankBackendApp'
+import { BankBackendApp } from './BankBackendApp.js'
 
 process.on('uncaughtException', (e, origin) => console.log(e, origin)).on('unhandledRejection', (e) => console.log(e))
 

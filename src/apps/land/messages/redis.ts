@@ -1,4 +1,4 @@
-import Redis from 'ioredis'
+import { Redis } from 'ioredis'
 
 const client = new Redis({
   host: '127.0.0.1',

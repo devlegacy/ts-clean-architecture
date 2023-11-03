@@ -1,2 +1,2 @@
-export * from './FilePostRepository'
-export * from './InMemoryPostRepository'
+export * from './FilePostRepository.js'
+export * from './InMemoryPostRepository.js'

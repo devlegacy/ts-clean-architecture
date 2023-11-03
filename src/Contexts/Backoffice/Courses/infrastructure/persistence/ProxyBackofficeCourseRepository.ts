@@ -1,8 +1,8 @@
 import { Service } from 'diod'
 
-import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain'
+import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain/index.js'
 
 @Service()
 export class ProxyBackofficeCourseRepository implements BackofficeCourseRepository {

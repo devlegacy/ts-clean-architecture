@@ -1,6 +1,6 @@
-import { Criteria, OffsetPaginator, Pagination } from '@/Contexts/Shared/domain'
+import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse } from './BackofficeCourse'
+import { BackofficeCourse } from './BackofficeCourse.js'
 
 export abstract class BackofficeCourseRepository {
   abstract all(): Promise<BackofficeCourse[]>

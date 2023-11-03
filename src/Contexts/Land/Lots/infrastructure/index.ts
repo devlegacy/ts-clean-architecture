@@ -1,1 +1,1 @@
-export * from './persistence/mikroorm/MikroOrmPostgresLotRepository'
+export * from './persistence/mikroorm/MikroOrmPostgresLotRepository.js'

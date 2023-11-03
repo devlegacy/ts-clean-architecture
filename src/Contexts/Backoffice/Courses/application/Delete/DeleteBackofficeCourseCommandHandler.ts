@@ -1,8 +1,8 @@
-import { Command, CommandHandler } from '@/Contexts/Shared/domain'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import { Command, type CommandHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourseId, DeleteBackofficeCourseCommand } from '../../domain'
-import { BackofficeCourseDeleter } from './BackofficeCourseDeleter'
+import { BackofficeCourseId, DeleteBackofficeCourseCommand } from '../../domain/index.js'
+import { BackofficeCourseDeleter } from './BackofficeCourseDeleter.js'
 
 @CommandHandlerSubscriber(BackofficeCourseDeleter)
 export class DeleteBackofficeCourseCommandHandler implements CommandHandler<DeleteBackofficeCourseCommand> {

@@ -1,6 +1,6 @@
-import { EntityNotFoundError, EventBus, Money } from '@/Contexts/Shared/domain'
+import { EntityNotFoundError, EventBus, Money } from '@/Contexts/Shared/domain/index.js'
 
-import { Account, AccountRepository, EURRatioService } from '../domain'
+import { Account, AccountRepository, EURRatioService } from '../domain/index.js'
 
 export class AccountUseCase {
   constructor(

@@ -1,6 +1,6 @@
-import { Command } from '@/Contexts/Shared/domain'
+import { Command } from '@/Contexts/Shared/domain/index.js'
 
-import { CartPrimitiveType } from '../../domain'
+import type { CartPrimitiveType } from '../../domain/index.js'
 
 type Params = Omit<CartPrimitiveType, 'checkout'>
 

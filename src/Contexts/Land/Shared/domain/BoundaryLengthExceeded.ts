@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain'
+import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
 export class BoundaryLengthExceeded extends InvalidArgumentError {
   constructor(value: string, limit: number) {

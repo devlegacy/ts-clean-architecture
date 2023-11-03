@@ -17,16 +17,16 @@ import {
   SearchBackofficeCoursesByCriteriaQueryHandler,
   TopCoursesFinder,
   UpdateBackofficeCourseCommandHandler,
-} from '@/Contexts/Backoffice/Courses/application'
+} from '@/Contexts/Backoffice/Courses/application/index.js'
 import {
   BackofficeCourseFinder,
   BackofficeCourseRepository,
   BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
-} from '@/Contexts/Backoffice/Courses/domain'
-import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure'
+} from '@/Contexts/Backoffice/Courses/domain/index.js'
+import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/index.js'
 
-import { CourseController } from '../../backend/controllers/Courses/CourseController'
-import { TAGS } from '../tags'
+import { CourseController } from '../../backend/controllers/Courses/CourseController.js'
+import { TAGS } from '../tags.js'
 
 export const CourseModule = (builder: ContainerBuilder) => {
   builder.registerAndUse(CourseController).addTag(TAGS.Controller)

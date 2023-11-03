@@ -1,3 +1,3 @@
-export * from './BlockFinder'
-export * from './FindBlockQuery'
-export * from './FindBlockQueryHandler'
+export * from './BlockFinder.js'
+export * from './FindBlockQuery.js'
+export * from './FindBlockQueryHandler.js'

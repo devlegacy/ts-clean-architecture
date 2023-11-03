@@ -1,4 +1,4 @@
-import { BackofficeCourse, BackofficeCoursePrimitiveType } from '../domain'
+import { BackofficeCourse, type BackofficeCoursePrimitiveType } from '../domain/index.js'
 
 type Response = BackofficeCoursePrimitiveType
 

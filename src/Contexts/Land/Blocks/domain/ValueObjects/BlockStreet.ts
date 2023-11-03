@@ -1,6 +1,6 @@
-import { StringValueObject } from '@/Contexts/Shared/domain'
+import { StringValueObject } from '@/Contexts/Shared/domain/index.js'
 
-import { BlockStreetLengthExceeded } from '../Errors/BlockStreetLengthExceeded'
+import { BlockStreetLengthExceeded } from '../Errors/index.js'
 
 const MAX_CHARACTER_LIMIT = 100
 

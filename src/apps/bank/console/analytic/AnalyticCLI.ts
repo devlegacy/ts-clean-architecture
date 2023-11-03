@@ -1,8 +1,8 @@
 import * as readline from 'readline-sync'
 
-import { AnalyticAccountTrackerUseCase } from '@/Contexts/Bank/Analytics/application'
-import { AnalyticAccount } from '@/Contexts/Bank/Analytics/domain'
-import { DomainError } from '@/Contexts/Shared/domain'
+import { AnalyticAccountTrackerUseCase } from '@/Contexts/Bank/Analytics/application/index.js'
+import { AnalyticAccount } from '@/Contexts/Bank/Analytics/domain/index.js'
+import { DomainError } from '@/Contexts/Shared/domain/index.js'
 
 type onSuccess = () => void
 type onError = (err: Error) => void

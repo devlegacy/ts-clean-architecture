@@ -1,3 +1,3 @@
-export * from './BackofficeCoursesByCriteriaSearcher'
-export * from './SearchBackofficeCoursesByCriteriaQuery'
-export * from './SearchBackofficeCoursesByCriteriaQueryHandler'
+export * from './BackofficeCoursesByCriteriaSearcher.js'
+export * from './SearchBackofficeCoursesByCriteriaQuery.js'
+export * from './SearchBackofficeCoursesByCriteriaQueryHandler.js'

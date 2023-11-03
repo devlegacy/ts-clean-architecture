@@ -9,14 +9,14 @@ import http from 'http'
 import { Logger as PinoLoggerType } from 'pino'
 import qs from 'qs'
 
-import { Logger, Monitoring } from '@/Contexts/Shared/domain'
-import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify'
-import { error } from '@/Contexts/Shared/infrastructure/Logger'
-import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi'
+import { Logger, Monitoring } from '@/Contexts/Shared/domain/index.js'
+import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common/index.js'
+import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+import { error } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/index.js'
+import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
-import { container } from '../modules'
+import { container } from '../modules/index.js'
 import { TAGS } from '../modules/tags'
 
 type Options = {

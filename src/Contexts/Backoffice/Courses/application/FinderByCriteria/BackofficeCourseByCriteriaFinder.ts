@@ -1,9 +1,9 @@
-import { Filters } from '@/Contexts/Shared/domain'
-import { UseCase } from '@/Contexts/Shared/domain/Common'
-import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities'
+import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities.js'
+import { Filters } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourseNotFoundError, BackofficeCourseRepository } from '../../domain'
-import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
+import { BackofficeCourseNotFoundError, BackofficeCourseRepository } from '../../domain/index.js'
+import { BackofficeCourseResponse } from '../BackofficeCourseResponse.js'
 
 // Knows - Repository - Aggregate
 

@@ -1,10 +1,10 @@
-import { BlockId } from '@/Contexts/Land/Shared/domain'
-import { EntityNotFoundError, QueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { BlockId } from '@/Contexts/Land/Shared/domain/index.js'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import { EntityNotFoundError, type QueryHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BlockResponse } from '../BlockResponse'
-import { BlockFinder } from './BlockFinder'
-import { FindBlockQuery } from './FindBlockQuery'
+import { BlockResponse } from '../BlockResponse.js'
+import { BlockFinder } from './BlockFinder.js'
+import { FindBlockQuery } from './FindBlockQuery.js'
 
 @QueryHandlerSubscriber(FindBlockQuery)
 export class FindBlockQueryHandler implements QueryHandler<FindBlockQuery, BlockResponse> {

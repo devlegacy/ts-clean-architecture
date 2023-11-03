@@ -1,3 +1,3 @@
-export * from './persistence/MikroOrmPostgresBlockRepository'
-export * from './persistence/ProxyBlockRepository'
-export * from './persistence/RedisBlockRepository'
+export * from './persistence/MikroOrmPostgresBlockRepository.js'
+export * from './persistence/ProxyBlockRepository.js'
+export * from './persistence/RedisBlockRepository.js'

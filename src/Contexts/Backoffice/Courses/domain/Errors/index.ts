@@ -1,1 +1,1 @@
-export * from './BackofficeCourseNotFoundError'
+export * from './BackofficeCourseNotFoundError.js'

@@ -2,7 +2,7 @@ import { deserialize, serialize } from 'bson'
 import { existsSync, mkdirSync, readdirSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 
-import { Post, PostCollection, PostRepository } from '../../domain'
+import { Post, PostCollection, type PostRepository } from '../../domain/index.js'
 
 export class FilePostRepository implements PostRepository {
   private FILE_PATH = `${__dirname}/Posts`

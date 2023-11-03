@@ -1,6 +1,6 @@
-import config from '@/Contexts/Bank/Shared/infrastructure/config'
+import config from '@/Contexts/Bank/Shared/infrastructure/config/index.js'
 
-import { Server } from './Server'
+import { Server } from './Server.js'
 
 export class BankBackendApp {
   #server?: Server

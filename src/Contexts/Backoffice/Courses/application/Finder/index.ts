@@ -1,1 +1,1 @@
-export * from './BackofficeCourseFinder'
+export * from './BackofficeCourseFinder.js'

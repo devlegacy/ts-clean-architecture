@@ -1,6 +1,6 @@
-import { Command } from '@/Contexts/Shared/domain'
+import { Command } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCoursePrimitiveType } from '../BackofficeCourse'
+import type { BackofficeCoursePrimitiveType } from '../BackofficeCourse.js'
 
 type Params = BackofficeCoursePrimitiveType
 

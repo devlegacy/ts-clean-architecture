@@ -1,6 +1,6 @@
-import { BlockId } from '@/Contexts/Land/Shared/domain'
+import { BlockId } from '@/Contexts/Land/Shared/domain/index.js'
 
-import { Block, BlockRepository } from '../../domain'
+import { Block, BlockRepository } from '../../domain/index.js'
 
 export class ProxyBlockRepository implements BlockRepository {
   constructor(

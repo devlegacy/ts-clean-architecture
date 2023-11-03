@@ -1,8 +1,8 @@
 import * as readline from 'readline-sync'
 
-import { PostUseCase } from '@/Contexts/Blog/Posts/application'
-import { Post, PostCollection } from '@/Contexts/Blog/Posts/domain'
-import { Uuid } from '@/Contexts/Shared/domain'
+import { PostUseCase } from '@/Contexts/Blog/Posts/application/index.js'
+import { Post, PostCollection } from '@/Contexts/Blog/Posts/domain/index.js'
+import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
 type Callback = (onSuccess: () => void, onError: (err: Error) => void) => void
 

@@ -1,4 +1,4 @@
-import { DomainEvent } from '@/Contexts/Shared/domain'
+import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
 
 type DeleteBlockDomainEventAttributes = {
   readonly block: string

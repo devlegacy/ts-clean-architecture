@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 
-import { CreateCartViewOnCartCreated } from '@/Contexts/Land/CartViews/application'
+import { CreateCartViewOnCartCreated } from '@/Contexts/Land/CartViews/application/index.js'
 
 import { TYPES } from '../types'
 

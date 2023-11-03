@@ -1,8 +1,8 @@
-import { AggregateRoot, DomainEvent, InvalidArgumentError, Money } from '@/Contexts/Shared/domain'
+import { AggregateRoot, DomainEvent, InvalidArgumentError, Money } from '@/Contexts/Shared/domain/index.js'
 
-import { DepositEvent, WithdrawalEvent } from '../../Shared/domain'
-import { AccountCreatedDomainEvent } from './AccountCreatedDomainEvent'
-import { EURRatioService } from './EURRatioService'
+import { DepositEvent, WithdrawalEvent } from '../../Shared/domain/index.js'
+import { AccountCreatedDomainEvent } from './AccountCreatedDomainEvent.js'
+import { EURRatioService } from './EURRatioService.js'
 
 export type AccountEntityType = Entity<Account>
 export type AccountPrimitiveType = Primitives<Account>

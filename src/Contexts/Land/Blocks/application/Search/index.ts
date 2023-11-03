@@ -1,1 +1,1 @@
-export * from './BlockSearcher'
+export * from './BlockSearcher.js'

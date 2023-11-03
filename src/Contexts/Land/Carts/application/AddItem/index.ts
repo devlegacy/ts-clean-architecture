@@ -1,3 +1,3 @@
-export * from './AddCartItemCommand'
-export * from './AddCartItemCommandHandler'
-export * from './CartItemAdder'
+export * from './AddCartItemCommand.js'
+export * from './AddCartItemCommandHandler.js'
+export * from './CartItemAdder.js'

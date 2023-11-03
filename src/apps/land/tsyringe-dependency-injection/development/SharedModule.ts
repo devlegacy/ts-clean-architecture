@@ -3,11 +3,11 @@ import type { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { Redis } from 'ioredis'
 import { container, Lifecycle } from 'tsyringe'
 
-import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure'
-import config from '@/Contexts/Land/Shared/infrastructure/config'
+import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
+import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure/index.js'
 import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory'
 import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory'
-import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain'
+import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
 import {
   FatalErrorHandler,
   InMemoryAsyncEventBus,
@@ -18,8 +18,8 @@ import {
   RedisClientFactory,
   RedisConfig,
   SentryModule,
-} from '@/Contexts/Shared/infrastructure'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger'
+} from '@/Contexts/Shared/infrastructure/index.js'
+import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 import { TYPES } from '../types'
 

@@ -1,7 +1,7 @@
-import { Money } from '@/Contexts/Shared/domain'
+import { Money } from '@/Contexts/Shared/domain/index.js'
 
-import { ItemId } from '../../Shared/domain'
-import { Amount, CartItem } from './CartItem'
+import { ItemId } from '../../Shared/domain/index.js'
+import { Amount, CartItem } from './CartItem.js'
 
 export class CartItems extends Map<CartItem, Amount> {
   add(cartItem: CartItem, quantity: number) {

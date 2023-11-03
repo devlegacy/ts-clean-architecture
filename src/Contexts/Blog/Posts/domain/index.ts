@@ -1,3 +1,3 @@
-export * from './Post'
-export * from './PostCollection'
-export * from './PostRepository'
+export * from './Post.js'
+export * from './PostCollection.js'
+export * from './PostRepository.js'

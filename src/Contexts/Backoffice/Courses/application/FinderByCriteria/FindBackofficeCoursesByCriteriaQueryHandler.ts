@@ -1,9 +1,9 @@
-import { Filters, QueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import { Filters, type QueryHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourseResponse } from '../BackofficeCourseResponse'
-import { BackofficeCourseByCriteriaFinder } from './BackofficeCourseByCriteriaFinder'
-import { FindBackofficeCourseByCriteriaQuery } from './FindBackofficeCourseByCriteriaQuery'
+import { BackofficeCourseResponse } from '../BackofficeCourseResponse.js'
+import { BackofficeCourseByCriteriaFinder } from './BackofficeCourseByCriteriaFinder.js'
+import { FindBackofficeCourseByCriteriaQuery } from './FindBackofficeCourseByCriteriaQuery.js'
 
 // Injectable and Taggable TYPES.QueryHandler
 @QueryHandlerSubscriber(FindBackofficeCourseByCriteriaQuery)

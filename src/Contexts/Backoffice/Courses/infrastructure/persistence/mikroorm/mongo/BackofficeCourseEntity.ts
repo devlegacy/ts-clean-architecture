@@ -6,14 +6,14 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm'
+} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
 import {
   BackofficeCourse,
   BackofficeCourseDuration,
   BackofficeCourseId,
   BackofficeCourseName,
-} from '../../../../domain'
+} from '../../../../domain/index.js'
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   name: 'BackofficeCourse',

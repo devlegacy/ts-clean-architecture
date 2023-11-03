@@ -1,6 +1,6 @@
-import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/Persistence/memory'
+import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/Persistence/memory/index.js'
 
-import { AnalyticAccount, AnalyticAccountRepository } from '../../domain'
+import { AnalyticAccount, type AnalyticAccountRepository } from '../../domain/index.js'
 
 export class InMemoryAnalyticAccountRepository
   extends InMemoryRepository<AnalyticAccount>

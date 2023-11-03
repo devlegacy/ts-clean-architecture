@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe'
 
-import { CartId } from '@/Contexts/Land/Shared/domain'
-import { Query, QueryHandler } from '@/Contexts/Shared/domain'
+import { CartId } from '@/Contexts/Land/Shared/domain/index.js'
+import { Query, QueryHandler } from '@/Contexts/Shared/domain/index.js'
 
 import { CartResponse } from '../CartResponse'
 import { CartFinder } from './CartFinder'

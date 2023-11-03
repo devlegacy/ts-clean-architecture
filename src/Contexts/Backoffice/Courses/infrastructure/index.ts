@@ -1,2 +1,2 @@
-export * from './persistence/ElasticBackofficeCourseRepository'
-export * from './persistence/MikroOrmMongoBackofficeCourseRepository'
+export * from './persistence/ElasticBackofficeCourseRepository.js'
+export * from './persistence/MikroOrmMongoBackofficeCourseRepository.js'

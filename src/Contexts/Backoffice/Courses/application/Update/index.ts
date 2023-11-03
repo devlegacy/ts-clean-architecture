@@ -1,2 +1,2 @@
-export * from './BackofficeCourseUpdater'
-export * from './UpdateBackofficeCourseCommandHandler'
+export * from './BackofficeCourseUpdater.js'
+export * from './UpdateBackofficeCourseCommandHandler.js'

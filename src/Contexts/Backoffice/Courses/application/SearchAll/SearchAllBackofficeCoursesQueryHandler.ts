@@ -1,9 +1,9 @@
-import { QueryHandler } from '@/Contexts/Shared/domain'
-import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common'
+import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
+import type { QueryHandler } from '@/Contexts/Shared/domain/index.js'
 
-import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse'
-import { BackofficeCoursesFinder } from './BackofficeCoursesFinder'
-import { SearchAllBackofficeCoursesQuery } from './SearchAllBackofficeCoursesQuery'
+import { BackofficeCoursesResponse } from '../BackofficeCoursesResponse.js'
+import { BackofficeCoursesFinder } from './BackofficeCoursesFinder.js'
+import { SearchAllBackofficeCoursesQuery } from './SearchAllBackofficeCoursesQuery.js'
 
 @QueryHandlerSubscriber(SearchAllBackofficeCoursesQuery)
 export class SearchAllBackofficeCoursesQueryHandler
