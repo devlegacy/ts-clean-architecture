@@ -1,6 +1,6 @@
 import { Kafka } from 'kafkajs'
 
-import { ConnectionSettings } from './ConnectionSettings'
+import type { ConnectionSettings } from './ConnectionSettings.js'
 
 export class KafkaConnection {
   protected connectionSettings: ConnectionSettings

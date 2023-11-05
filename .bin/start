@@ -1,0 +1,10 @@
+chcp 65001
+set "dir_back=C:\ggtech\api-es"
+set "dir_front=C:\ggtech\front-university-esports-es"
+set port_front=3100
+set "dir_gts=C:\ggtech\gts-es"
+set port_gts=3200
+
+wt -d %dir_back% -p "Command Prompt" --title Backend --tabColor "#03fca9" cmd /k "npm run dev:debug"; \
+new-tab -d %dir_front% -p "Command Prompt" --title Client --tabColor "#2c852f" cmd /k "meteor run --port %port_front%"; \
+new-tab -d %dir_gts% -p "Command Prompt" --title Gts --tabColor "#175219" cmd /k "meteor run --port %port_gts%" \

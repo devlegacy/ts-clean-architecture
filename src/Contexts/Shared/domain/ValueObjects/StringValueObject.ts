@@ -6,7 +6,8 @@ import { ValueObject } from './ValueObject.js'
 
 const { window } = new JSDOM('')
 const purify = DOMPurify(window)
-export abstract class StringValueObject extends ValueObject<string> {
+// export abstract class StringValueObject extends ValueObject<string> {
+export class StringValueObject extends ValueObject<string> {
   // readonly value: string
 
   constructor(value: string) {

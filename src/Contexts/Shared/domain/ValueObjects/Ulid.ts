@@ -20,6 +20,6 @@ export class Ulid extends ValueObject<string> {
   }
 }
 
-console.log(Ulid.random().value)
-console.log(Ulid.random().value)
-console.log(Ulid.random().value)
+// console.log(Ulid.random().value)
+// console.log(Ulid.random().value)
+// console.log(Ulid.random().value)

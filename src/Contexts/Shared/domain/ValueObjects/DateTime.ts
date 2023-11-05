@@ -50,7 +50,9 @@ export class DateTime extends ValueObject<Date> {
 
   // 1970, 00:00:00 UTC
   #ensureIsValidDate(value: Date): void {
-    if (!(value instanceof Date)) {
+    const date = new Date(value)
+    // Avoid invalid date === Date
+    if (isNaN(date.getTime())) {
       throw new Error(`<${value}> is not a valid date`)
     }
   }

@@ -1,4 +1,4 @@
-import { SASLOptions } from 'kafkajs'
+import type { SASLOptions } from 'kafkajs'
 
 export type ConnectionSettings = {
   clientId: string

@@ -1,10 +1,10 @@
-import { ConsumeMessage } from 'amqplib'
+import type { ConsumeMessage } from 'amqplib'
 
-import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, type DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
 
-import { info } from '../../Logger'
-import { DomainEventDeserializer } from '../DomainEventDeserializer'
-import { RabbitMQConnection } from './RabbitMQConnection'
+import { info } from '../../Logger/index.js'
+import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
+import { RabbitMQConnection } from './RabbitMQConnection.js'
 
 export class RabbitMQConsumer {
   private subscriber: DomainEventSubscriber<DomainEvent>
@@ -34,7 +34,7 @@ export class RabbitMQConsumer {
   async onMessage(message: ConsumeMessage) {
     const content = message.content.toString()
     const domainEvent = this.deserializer.deserialize(content)
-    info(`[consume 📥 ]: ${domainEvent.eventName}`)
+    info(`[consume - on 📥 ]: ${domainEvent.eventName}`)
     try {
       await this.subscriber.on(domainEvent)
     } catch (error) {

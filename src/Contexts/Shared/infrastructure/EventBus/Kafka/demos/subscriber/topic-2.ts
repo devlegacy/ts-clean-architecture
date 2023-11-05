@@ -1,4 +1,4 @@
-// npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/Kafka/demos/subscriber/topic.ts
+// npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/Kafka/demos/subscriber/topic-2.ts
 
 import { type Consumer, type EachMessagePayload, Kafka, logLevel } from 'kafkajs'
 
@@ -11,10 +11,10 @@ const KAFKA_ENDPOINT = 'romantic-killdeer-7848-us1-kafka.upstash.io:9092' // '12
 const KAFKA_USERNAME = 'cm9tYW50aWMta2lsbGRlZXItNzg0OCQU_bQFtTZbPd9kaUtqe_PFZnIy9hjHOPU'
 const KAFKA_PASSWORD = '8b88867a968842d9a2909e93a64fcd11'
 // const KAFKA_GROUP_ID = 'coliseum'
-const KAFKA_GROUP_ID = 'tmp-auth'
+const KAFKA_GROUP_ID = 'tmp-auth-1'
 const kafkaClient = new Kafka({
   clientId: KAFKA_APP_ID,
-  brokers: [KAFKA_ENDPOINT], // Coloca aquí la lista de brokers de Kafka
+  brokers: [KAFKA_ENDPOINT],
   logLevel: logLevel.ERROR,
   sasl: {
     mechanism: 'scram-sha-256',

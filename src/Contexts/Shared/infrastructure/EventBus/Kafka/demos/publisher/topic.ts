@@ -1,9 +1,9 @@
 // npx tsnd --transpile-only -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/Kafka/demos/publisher/topic.ts
-import { Kafka, logLevel, ProducerRecord } from 'kafkajs'
+import { Kafka, logLevel, type ProducerRecord } from 'kafkajs'
 
-import { Uuid } from '@/Contexts/Shared/domain'
+import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
-import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils'
+import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils.js'
 
 const queueName = process.env.QUEUE || 'hello'
 

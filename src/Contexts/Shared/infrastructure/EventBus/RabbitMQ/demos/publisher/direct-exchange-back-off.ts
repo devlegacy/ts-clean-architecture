@@ -1,8 +1,8 @@
-import amqplib, { Channel, Connection } from 'amqplib'
+import amqplib, { type Channel, type Connection } from 'amqplib'
 
-import { Uuid } from '@/Contexts/Shared/domain'
+import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
-import { backOff } from '../utils'
+import { backOff } from '../utils.js'
 
 const exchangeName = process.env.EXCHANGE || 'my-direct'
 const routingKey = process.env.ROUTING_KEY || ''

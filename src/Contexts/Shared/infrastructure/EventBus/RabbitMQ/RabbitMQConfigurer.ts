@@ -1,8 +1,13 @@
-import { DomainEvent, DomainEventClass, DomainEventSubscriber, EVENTS_HANDLER_METADATA } from '@/Contexts/Shared/domain'
+import {
+  DomainEvent,
+  type DomainEventClass,
+  type DomainEventSubscriber,
+  EVENTS_HANDLER_METADATA,
+} from '@/Contexts/Shared/domain/index.js'
 
-import { RabbitMQConnection } from './RabbitMQConnection'
-import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter'
-import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter'
+import { RabbitMQConnection } from './RabbitMQConnection.js'
+import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter.js'
+import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter.js'
 
 export class RabbitMQConfigurer {
   #connection: RabbitMQConnection
@@ -22,9 +27,11 @@ export class RabbitMQConfigurer {
     await this.#connection.exchange({ name: retryExchange })
     await this.#connection.exchange({ name: deadLetterExchange })
 
+    const queues: Promise<void>[] = []
     for (const subscriber of params.subscribers) {
-      await this.#addQueue(subscriber, params.exchange)
+      queues.push(this.#addQueue(subscriber, params.exchange))
     }
+    await Promise.all(queues)
   }
 
   async #addQueue(subscriber: DomainEventSubscriber<DomainEvent>, exchange: string) {

@@ -5,7 +5,7 @@ import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
 const VALID_EMAIL_REGEXP = /\S+@\S+\.\S+/
 const gravatarUrl = new URL('https://s.gravatar.com/avatar')
-const defaultQualyAvatar = new URL('https://s3.eu-west-1.amazonaws.com/cdn.ggtech.global/assets/default')
+const defaultAvatar = new URL(process.env.DEFAULT_AVATAR_URL!)
 
 export class Gravatar {
   readonly value: string
@@ -24,7 +24,7 @@ export class Gravatar {
     const hash = createHash('md5').update(trimmedEmail).digest('hex')
     gravatarUrl.searchParams.set('s', '480') // size
     gravatarUrl.searchParams.set('r', 'pg') // rating
-    gravatarUrl.searchParams.set('d', defaultQualyAvatar.toString()) // default
+    gravatarUrl.searchParams.set('d', defaultAvatar.toString()) // default
     gravatarUrl.pathname += `/${hash}`
 
     return gravatarUrl.toString()
@@ -37,4 +37,4 @@ export class Gravatar {
   }
 }
 
-console.log(new Gravatar('srojas@ggtech.es'))
+// console.log(new Gravatar('srojas@domain.com'))

@@ -1,8 +1,8 @@
 import amqplib from 'amqplib'
 
-import { Uuid } from '@/Contexts/Shared/domain'
+import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
-import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils'
+import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils.js'
 
 const queueName = process.env.QUEUE || 'hello'
 

@@ -1,17 +1,17 @@
-import { Options } from 'amqplib'
+import type { Options } from 'amqplib'
 
-import { DomainEvent, DomainEventSubscribers, EventBus } from '@/Contexts/Shared/domain'
+import { DomainEvent, type DomainEventSubscribers, EventBus } from '@/Contexts/Shared/domain/index.js'
 
-import { info } from '../../Logger'
-import { DomainEventDeserializer } from '../DomainEventDeserializer'
+import { info } from '../../Logger/index.js'
+import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
 import {
   MikroOrmMongoDomainEventFailoverPublisher,
   MongoDomainEventFailoverPublisher,
-} from '../DomainEventFailoverPublisher'
-import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer'
-import { RabbitMQConnection } from './RabbitMQConnection'
-import { RabbitMQConsumerFactory } from './RabbitMQConsumerFactory'
-import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter'
+} from '../DomainEventFailoverPublisher/index.js'
+import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer.js'
+import { RabbitMQConnection } from './RabbitMQConnection.js'
+import { RabbitMQConsumerFactory } from './RabbitMQConsumerFactory.js'
+import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter.js'
 
 export class RabbitMQEventBus implements EventBus {
   #failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher
@@ -35,16 +35,18 @@ export class RabbitMQEventBus implements EventBus {
     this.#queueNameFormatter = queueNameFormatter
   }
 
+  // DEBT: Typing trick Promise<void> is a subtype of void
   async addSubscribers(subscribers: DomainEventSubscribers): Promise<void> {
     const deserializer = DomainEventDeserializer.configure(subscribers)
     const consumerFactory = new RabbitMQConsumerFactory(deserializer, this.#connection, this.#maxRetries)
 
+    const consumers: Promise<void>[] = []
     for (const subscriber of subscribers.items) {
       const queueName = this.#queueNameFormatter.format(subscriber)
       const rabbitMQConsumer = consumerFactory.build(subscriber, this.#exchange, queueName)
-
-      await this.#connection.consume(queueName, rabbitMQConsumer.onMessage.bind(rabbitMQConsumer))
+      consumers.push(this.#connection.consume(queueName, rabbitMQConsumer.onMessage.bind(rabbitMQConsumer)))
     }
+    await Promise.all(consumers)
   }
 
   async publish(events: DomainEvent[]): Promise<void> {

@@ -1,10 +1,10 @@
-import amqplib, { ConfirmChannel, Connection, ConsumeMessage, Options } from 'amqplib'
+import amqplib, { type ConfirmChannel, type Connection, type ConsumeMessage, type Options, type Replies } from 'amqplib'
 import { Service } from 'diod'
 
-import { info } from '../../Logger'
-import { ConnectionSettings } from './ConnectionSettings'
-import { ExchangeSetting } from './ExchangeSetting'
-import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter'
+import { info } from '../../Logger/index.js'
+import type { ConnectionSettings } from './ConnectionSettings.js'
+import type { ExchangeSetting } from './ExchangeSetting.js'
+import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter.js'
 
 @Service()
 export class RabbitMQConnection {
@@ -52,13 +52,16 @@ export class RabbitMQConnection {
       arguments: args,
     })
 
+    const channels: Promise<Replies.Empty>[] = []
     for (const routingKey of params.routingKeys) {
-      await this.channel!.bindQueue(params.name, params.exchange, routingKey)
+      channels.push(this.channel!.bindQueue(params.name, params.exchange, routingKey))
     }
+    await Promise.all(channels)
   }
 
   async deleteQueue(queue: string) {
-    return await this.channel!.deleteQueue(queue)
+    const response = await this.channel!.deleteQueue(queue)
+    return response
   }
 
   async publish(params: { exchange: string; routingKey: string; content: Buffer; options: Options.Publish }) {
@@ -189,10 +192,10 @@ export class RabbitMQConnection {
 
     connection
       .on('error', (err: unknown) => {
-        info(err, 'Connection error')
+        info(err, '🐇 Connection error')
         Promise.reject(err)
       })
-      .on('close', (err: unknown) => info(err, 'Connection close'))
+      .on('close', (err: unknown) => info(err, '🐇 Connection close'))
 
     return connection
   }
@@ -200,8 +203,8 @@ export class RabbitMQConnection {
   async #amqpChannel(): Promise<ConfirmChannel> {
     const channel = await this.connection!.createConfirmChannel()
     channel
-      .on('error', (err: unknown) => info(err, 'Channel error'))
-      .on('close', (err: unknown) => info(err, 'Channel close'))
+      .on('error', (err: unknown) => info(err, '🐇 Channel error'))
+      .on('close', (err: unknown) => info(err, '🐇 Channel close'))
 
     await channel.prefetch(1)
 

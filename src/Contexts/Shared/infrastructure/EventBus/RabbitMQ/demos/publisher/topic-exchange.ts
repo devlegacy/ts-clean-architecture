@@ -1,8 +1,8 @@
 import amqplib from 'amqplib'
 
-import { Uuid } from '@/Contexts/Shared/domain'
+import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
-import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils'
+import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils.js'
 
 const exchangeName = process.env.EXCHANGE || 'my-topic'
 const routingKey = process.env.ROUTING_KEY || ''

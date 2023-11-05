@@ -1,6 +1,6 @@
 import amqplib from 'amqplib'
 
-import { intensiveOperation } from '../utils'
+import { intensiveOperation } from '../utils.js'
 
 const queueName = process.env.QUEUE || 'hello'
 const exchangeName = process.env.EXCHANGE || 'my-direct'

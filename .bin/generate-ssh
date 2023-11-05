@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ssh-keygen -f  ~/.ssh/ggtech -t rsa -b 2048 -C "srojas@ggtech.gg"
+cat ~/.ssh/ggtech.pub
+
+cat ~/.ssh/ggtech.pub | clip.exe

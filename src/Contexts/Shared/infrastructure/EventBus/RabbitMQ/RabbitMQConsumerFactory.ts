@@ -1,8 +1,8 @@
-import { DomainEvent, DomainEventSubscriber } from '@/Contexts/Shared/domain'
+import { DomainEvent, type DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
 
-import { DomainEventDeserializer } from '../DomainEventDeserializer'
-import { RabbitMQConnection } from './RabbitMQConnection'
-import { RabbitMQConsumer } from './RabbitMQConsumer'
+import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
+import { RabbitMQConnection } from './RabbitMQConnection.js'
+import { RabbitMQConsumer } from './RabbitMQConsumer.js'
 
 export class RabbitMQConsumerFactory {
   constructor(

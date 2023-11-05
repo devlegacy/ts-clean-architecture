@@ -37,6 +37,8 @@ export abstract class ValueObject<T extends Exclude<PrimitiveTypes, undefined | 
 
   // integrity restriction
   #ensureValueIsDefined(value: Optional<T>) {
-    if (isNil(value)) throw new InvalidArgumentError(`Value of <${this.constructor.name}> must be defined`)
+    if (isNil(value)) {
+      throw new InvalidArgumentError(`Value of <${this.constructor.name}> must be defined`)
+    }
   }
 }
