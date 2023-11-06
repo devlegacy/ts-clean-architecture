@@ -392,3 +392,8 @@ $RECYCLE.BIN/
 .temp/*
 .tmp/*
 src/**/*.repo
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
