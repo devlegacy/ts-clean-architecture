@@ -31,6 +31,8 @@
 
 <h3 align="center">Commit convention</h3>
 
+- [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
 ```sh
   # 🛠️ tools: commitizen + @commitlint/config-conventional
   git cz
