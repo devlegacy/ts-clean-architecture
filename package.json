@@ -52,7 +52,8 @@
     "package:update:interactive": "ncu --interactive",
     "snyk": "snyk test && snyk fix",
     "snyk:monitor": "snyk monitor",
-    "snyk:code": "snyk code test"
+    "snyk:code": "snyk code test",
+    "release": "release-it"
   },
   "keywords": [],
   "author": "",
@@ -197,6 +198,7 @@
     "lint-staged": "15.0.2",
     "prettier": "3.0.3",
     "regenerator-runtime": "0.14.0",
+    "release-it": "16.2.1",
     "resolve-tspaths": "0.8.17",
     "supertest": "6.3.3",
     "ts-jest": "29.1.1",
