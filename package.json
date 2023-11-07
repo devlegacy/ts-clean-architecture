@@ -1,6 +1,6 @@
 {
   "name": "ts-clean-architecture",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "",
   "type": "module",
   "scripts": {
@@ -216,7 +216,7 @@
     "depcheck": "1.4.7",
     "eslint-nibble": "8.1.0",
     "npm-check-updates": "16.14.6",
-    "snyk": "1.1239.0"
+    "snyk": "1.1240.0"
   },
   "engines": {
     "node": ">=16.15.0 <=21.1.0",
