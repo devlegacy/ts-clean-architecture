@@ -1,6 +1,6 @@
 {
-  "src": {
-    "commitMessage": "chore(release): %s"
+  "git": {
+    "commitMessage": "chore(release): v${version}"
   },
   "github": {
     "release": true
