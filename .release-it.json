@@ -1,4 +1,7 @@
 {
+  "src": {
+    "commitMessage": "chore(release): %s"
+  },
   "github": {
     "release": true
   }
