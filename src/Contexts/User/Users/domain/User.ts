@@ -120,6 +120,7 @@ export class User extends AggregateRoot {
       // age: this.age?.value,
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt.value,
+      deletedAt: this.deletedAt?.value,
     }
     return user
   }

@@ -9,6 +9,7 @@
   "exclude": [
     "**/*.js",
     "**/*.cjs",
+    "**/*.mjs",
     "**/*.test.ts",
     "**/*spec.ts",
     "**/*test.ts", // especial container test files
@@ -24,13 +25,11 @@
     "./src/apps/bank",
     "./src/apps/blog",
     "./src/apps/land",
-    "./src/apps/mooc",
     "./src/Contexts/Backoffice",
     "./src/Contexts/Bank",
     "./src/Contexts/BankAtm",
     "./src/Contexts/BankBranch",
     "./src/Contexts/Blog",
-    "./src/Contexts/Land",
-    "./src/Contexts/Mooc"
+    "./src/Contexts/Land"
   ]
 }
