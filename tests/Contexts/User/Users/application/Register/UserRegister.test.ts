@@ -54,6 +54,8 @@ describe('UserRegistrar', () => {
       birthdate: user.birthdate.value,
       // jobExperiences: validJobExperience,
       jobExperiences: user.jobExperiences.toPrimitives(),
+      createdAt: user.createdAt.value,
+      updatedAt: user.updatedAt.value,
     })
 
     // expect(repositorySave).toHaveBeenCalledWith(

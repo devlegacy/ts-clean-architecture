@@ -5,7 +5,7 @@ import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
 
 const VALID_EMAIL_REGEXP = /\S+@\S+\.\S+/
 const gravatarUrl = new URL('https://s.gravatar.com/avatar')
-const defaultAvatar = new URL(process.env.DEFAULT_AVATAR_URL!)
+const defaultAvatar = new URL(process.env.DEFAULT_AVATAR_URL || 'http://www.gravatar.com/avatar/?d=identicon')
 
 export class Gravatar {
   readonly value: string

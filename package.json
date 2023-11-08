@@ -31,7 +31,7 @@
     "lint:fix": "npm run lint -- --fix",
     "nibble": "eslint-nibble ./src/",
     "test": "npm run test:unit && npm run test:features",
-    "test:node": "node --loader tsx --test ./tests/Contexts/User/Users/**/**/*.test.ts",
+    "test:node": "node --import tsx --test ./tests/Contexts/User/Users/**/**/*.test.ts",
     "test:unit": "cross-env APP_ENV=test jest --config=./jest.config.cjs --runInBand --detectOpenHandles",
     "test:features": "npm run test:mooc:backend:features && npm run test:backoffice:backend:features",
     "test:mooc:backend:features": "cross-env APP_ENV=test cucumber-js -p mooc_backend",
