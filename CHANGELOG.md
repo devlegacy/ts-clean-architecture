@@ -1,5 +1,12 @@
 
 
+## [0.0.2](https://github.com/devlegacy/ts-clean-architecture/compare/0.0.1...0.0.2) (2023-11-08)
+
+
+### Features
+
+* **general:** add changes ([4986e3b](https://github.com/devlegacy/ts-clean-architecture/commit/4986e3b299563eeb2d9b6caa04e0b4ba538face6))
+
 ## 0.0.1 (2023-11-08)
 
 
