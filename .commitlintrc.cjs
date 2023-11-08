@@ -8,8 +8,8 @@ module.exports = {
       'always',
       [
         ...typeEnums,
-        'imp',
-        'update',
+        // 'imp',
+        // 'update',
         'wip'
       ]
     ]
