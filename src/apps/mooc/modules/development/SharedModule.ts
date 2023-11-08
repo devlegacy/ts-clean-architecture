@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
@@ -40,10 +41,11 @@ import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
 import { TAGS } from '../tags.js'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MikroOrmMongoClientFactory.createClient(
+const connectionClient = await MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
   resolve(`${__dirname}/../../../../Contexts/Mooc`)
@@ -53,7 +55,7 @@ const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
 const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
-const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient)
+const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient as any)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
@@ -62,9 +64,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
 )
 
 export const SharedModule = (builder: ContainerBuilder) => {
-  builder.register<Promise<MikroORM<MongoDriver>>>(MikroORM<MongoDriver> as any).useFactory(() => {
-    return connectionClient
-  })
+  builder.register<MikroORM<MongoDriver>>(MikroORM<MongoDriver>).useFactory(() => connectionClient)
   builder.register(RabbitMQConnection).useFactory(() => {
     return rabbitConnection
   })

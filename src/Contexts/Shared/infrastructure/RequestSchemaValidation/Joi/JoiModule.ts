@@ -1,6 +1,7 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import type { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema.js'
-import * as joi from 'joi'
+import type { AnySchema, ValidationError, ValidationErrorItem, ValidationOptions, ValidationResult } from 'joi'
+import joi from 'joi'
 import { DEFAULT, getClassSchema } from 'joi-class-decorators'
 import { type Constructor, type JoiValidationGroup, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs.js'
 
@@ -9,7 +10,7 @@ import { HttpError, isFunction } from '@/Contexts/Shared/domain/index.js'
 
 import type { HttpValidationModule } from '../../Fastify/index.js'
 
-const defaultOptions: joi.ValidationOptions = {
+const defaultOptions: ValidationOptions = {
   convert: true,
   cache: true,
   abortEarly: false,
@@ -28,9 +29,9 @@ export const JoiValidationGroups = {
 } as const
 
 export class JoiModule
-  implements HttpValidationModule<joi.AnySchema, ((data: unknown) => joi.ValidationResult<unknown>) | void>
+  implements HttpValidationModule<AnySchema, ((data: unknown) => ValidationResult<unknown>) | void>
 {
-  validationCompiler({ schema }: FastifyRouteSchemaDef<joi.AnySchema>) {
+  validationCompiler({ schema }: FastifyRouteSchemaDef<AnySchema>) {
     if (!schema) return
     if (!joi.isSchema(schema)) return
 
@@ -89,9 +90,9 @@ export class JoiModule
     return isJoiSchema
   }
 
-  #format(validationError: joi.ValidationError) {
+  #format(validationError: ValidationError) {
     const errors = new Map<string, Record<string, unknown>[]>()
-    const details = validationError.details.reduce((errors, item: joi.ValidationErrorItem) => {
+    const details = validationError.details.reduce((errors, item: ValidationErrorItem) => {
       const key = item?.context?.key
       if (!key) return errors
       if (!errors.has(key)) errors.set(key, [])
