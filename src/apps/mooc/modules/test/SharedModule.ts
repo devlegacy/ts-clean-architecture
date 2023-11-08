@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
 import { MikroORM } from '@mikro-orm/core'
 import { MongoDriver } from '@mikro-orm/mongodb'
@@ -41,6 +42,7 @@ import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/C
 
 import { TAGS } from '../tags.js'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()

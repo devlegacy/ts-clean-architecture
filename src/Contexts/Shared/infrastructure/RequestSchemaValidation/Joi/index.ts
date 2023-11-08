@@ -1,11 +1,12 @@
-import * as joi from 'joi'
+import type { Extension, Root, StringSchema } from 'joi'
+import joi from 'joi'
 import { DEFAULT } from 'joi-class-decorators'
 import { ObjectId } from 'mongodb'
 import { validate } from 'uuid'
 
 import { JoiValidationGroups } from './JoiModule.js'
 
-interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
+interface ExtendedStringSchema<T = string> extends StringSchema<T> {
   objectId(): this
   slug(): this
   uuidv4(): this
@@ -15,13 +16,14 @@ interface ExtendedStringSchema<T = string> extends joi.StringSchema<T> {
 //   coerceZero(): this
 // }
 
-interface ExtendedJoi extends joi.Root {
+interface ExtendedJoi extends Root {
   string<T = string>(): ExtendedStringSchema<T>
   // number<T = number>(): ExtendedNumberSchema<T>
 }
 
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
-const stringObjectExtension: joi.Extension = {
+
+const stringObjectExtension: Extension = {
   type: 'string',
   base: joi.string(),
   messages: {

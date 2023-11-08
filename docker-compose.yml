@@ -23,4 +23,4 @@ networks:
   # .data/keycloak:
 
 # docker-compose up -d
-# user docker-compose -f docker-compose.yml -f docker-compose.mongo.yml up -d
+# user docker-compose -f docker-compose.yml -f docker-compose.mongo.yml -f docker-compose.rabbitmq.yml up -d

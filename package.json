@@ -34,7 +34,7 @@
     "test:node": "node --import tsx --test ./tests/Contexts/User/Users/**/**/*.test.ts",
     "test:unit": "cross-env APP_ENV=test jest --config=./jest.config.cjs --runInBand --detectOpenHandles",
     "test:features": "npm run test:mooc:backend:features && npm run test:backoffice:backend:features",
-    "test:mooc:backend:features": "cross-env APP_ENV=test cucumber-js -p mooc_backend",
+    "test:mooc:backend:features": "cross-env APP_ENV=test NODE_OPTIONS=\"--loader ts-paths-esm-loader/transpile-only\" cucumber-js -p mooc_backend",
     "test:backoffice:backend:features": "cross-env APP_ENV=test cucumber-js -p backoffice_backend",
     "test:mooc:backend:load": "autocannon http://127.0.0.1:8080/status/",
     "test:mooc:backend:load:https": "autocannon https://127.0.0.1:8080/status/",

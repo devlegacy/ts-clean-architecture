@@ -104,14 +104,6 @@ services:
     networks:
       - app-network
 
-  rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq:management-alpine
-    ports:
-      - 5672:5672
-      - 15672:15672
-    restart: always
-
   redis:
     container_name: redis
     # image: redis:alpine

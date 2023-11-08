@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { cwd } from 'node:process'
+import { fileURLToPath, URL } from 'node:url'
 
 import convict from 'convict'
 import convict_format_with_validator from 'convict-format-with-validator'
@@ -9,6 +10,7 @@ import { expand } from 'dotenv-expand'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const defaultPath = `../../../../../../.mooc.env`
 const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
 const envConfig = dotenv.config({
