@@ -1,5 +1,20 @@
 
 
+## [0.0.3](https://github.com/devlegacy/ts-clean-architecture/compare/0.0.2...0.0.3) (2023-11-09)
+
+
+### Code Refactoring
+
+* **docker:** add Elasticsearch and Kibana services to docker-compose.yml ([ab69b3c](https://github.com/devlegacy/ts-clean-architecture/commit/ab69b3cdc5617a8ff86e4bb0dce21fb88ee72a6f))
+* **settings:** update commitlintrc.cjs to include new commit ([db64a89](https://github.com/devlegacy/ts-clean-architecture/commit/db64a89e6b76e76565809654af5cc491483e2361))
+
+
+### Chores
+
+* **backoffice:** fix typos and update default port ([9bf5585](https://github.com/devlegacy/ts-clean-architecture/commit/9bf5585b92203d9d48d655ec437d39e2b3cb00ec))
+* **deps:** bump dependencies ([ac38867](https://github.com/devlegacy/ts-clean-architecture/commit/ac388675d7be277ec2ad51cb463c0b5ca2b603dd))
+* **mooc:** update http port in default config file ([2183014](https://github.com/devlegacy/ts-clean-architecture/commit/21830143f2117fb5fb42dcdb3d21e0e0e9d0e59a))
+
 ## [0.0.2](https://github.com/devlegacy/ts-clean-architecture/compare/0.0.1...0.0.2) (2023-11-08)
 
 
