@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
 import { Client as ElasticClient } from '@elastic/elasticsearch'
 import { MikroORM } from '@mikro-orm/core'
@@ -33,6 +34,7 @@ import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/C
 
 import { TAGS } from '../tags.js'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'backoffice'
 const mongoConfig = MongoConfigFactory.createConfig()
 export const connectionClient = MikroOrmMongoClientFactory.createClient(
