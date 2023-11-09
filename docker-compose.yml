@@ -1,5 +1,7 @@
 version: '3.9'
 
+services:
+
 networks:
   app-network:
     name: app-network
@@ -23,4 +25,7 @@ networks:
   # .data/keycloak:
 
 # docker-compose up -d
-# user docker-compose -f docker-compose.yml -f docker-compose.mongo.yml -f docker-compose.rabbitmq.yml up -d
+# docker network create app-network --driver bridge
+# user docker-compose -f docker-compose.yml up -d && docker-compose -f docker-compose.mongo.yml -f docker-compose.rabbitmq.yml -f docker-compose.elasticsearch.yml up -d
+
+# user docker-compose -f docker-compose.yml -f docker-compose.mongo.yml -f docker-compose.rabbitmq.yml -f docker-compose.elasticsearch.yml up -d
