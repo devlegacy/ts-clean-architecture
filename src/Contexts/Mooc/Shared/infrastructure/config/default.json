@@ -3,7 +3,7 @@
     "name": "MOOC Backend App"
   },
   "http": {
-    "port": 8085
+    "port": 8081
   },
   "rabbitmq": {
     "connectionSettings": {
