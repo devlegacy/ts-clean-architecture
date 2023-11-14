@@ -61,9 +61,9 @@
   "dependencies": {
     "@apollo/server": "4.9.5",
     "@as-integrations/fastify": "2.1.1",
-    "@aws-sdk/client-s3": "3.449.0",
-    "@aws-sdk/client-ses": "3.449.0",
-    "@aws-sdk/lib-storage": "3.449.0",
+    "@aws-sdk/client-s3": "3.450.0",
+    "@aws-sdk/client-ses": "3.450.0",
+    "@aws-sdk/lib-storage": "3.450.0",
     "@elastic/elasticsearch": "8.10.0",
     "@elastic/transport": "8.3.4",
     "@eventstore/db-client": "6.0.0",
@@ -86,7 +86,7 @@
     "@mikro-orm/mongodb": "5.9.3",
     "@mikro-orm/postgresql": "5.9.3",
     "@mikro-orm/sql-highlighter": "1.0.1",
-    "@sentry/node": "7.80.0",
+    "@sentry/node": "7.80.1",
     "@types/mime": "3.0.4",
     "ajv": "8.12.0",
     "amqplib": "0.10.3",
@@ -209,7 +209,7 @@
     "ts-prune": "0.10.3",
     "ts-unused-exports": "10.0.1",
     "tsconfig-paths": "4.2.0",
-    "tsx": "4.1.1",
+    "tsx": "4.1.2",
     "type-fest": "4.7.1",
     "typescript": "5.2.2"
   },
@@ -217,7 +217,7 @@
     "depcheck": "1.4.7",
     "eslint-nibble": "8.1.0",
     "npm-check-updates": "16.14.6",
-    "snyk": "1.1244.0"
+    "snyk": "1.1245.0"
   },
   "engines": {
     "node": ">=16.15.0 <=21.1.0",
