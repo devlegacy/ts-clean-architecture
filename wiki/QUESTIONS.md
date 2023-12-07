@@ -42,7 +42,7 @@
 
 Opinion
 - Mejorar la comunidad, aportes, comentarios, ayudas para no depender tanto de los autores de los cursos
-- Oportunidad de 1:1
+- Oportunidad de 1:1 para subscriptores premium
 - Gamificación
 - Mejorar UI/UX de la plataforma
   - Reproductor responsive a pantalla completa

@@ -15,25 +15,6 @@
   - guest
   - guest
 
-## Exchanges
-
-Es abstracción encima de las colas que se une a las colas por bindings
-
-- fanout 
-  - El patrón "fanout" implica que un mensaje enviado a un tópico será entregado a múltiples consumidores independientes. Cada consumidor recibirá una copia del mensaje y los consumidores actúan de manera independiente entre sí.
-    - El término "fanout" proviene del concepto de un ventilador o abanico, donde un flujo central de aire se divide en múltiples corrientes que se dispersan en diferentes direcciones. De manera similar, en el patrón "fanout" de mensajería, un mensaje central se distribuye hacia múltiples consumidores, creando una arquitectura de mensajes distribuidos.
-  - "distribución masiva" o "distribución múltiple" 
-  - similar a un PUT, secure/safe, se puede procesar dos veces con peticiones similares, idempotent 
-  - broadcast
-  - binding: no existe
-  - 
-- topic
-  - routing pattern (expresión regular)
-  - es.de.* (una palabra)
-  - us.# (multiples palabras)
-- direct ()
-- headers
-
 ## Topología
 
 - http://tryrabbitmq.com/
@@ -51,7 +32,49 @@ Es abstracción encima de las colas que se une a las colas por bindings
   npm run command:backoffice:rabbitmq
 ```
 
+## Producer
+
+- publish events
+  - to exchange `channel.publish(exchange, routingKey, content, options)`
+  - to queue directly `channel.sendToQueue(queue, content, options)`
+
+## Exchange
+
+- receive events and have logic to orchestrate
+- Es abstracción encima de las colas que se une a las colas por bindings
+
+- fanout
+  - El patrón "fanout" implica que un mensaje enviado a un tópico será entregado a múltiples consumidores independientes. Cada consumidor recibirá una copia del mensaje y los consumidores actúan de manera independiente entre sí.
+    - El término "fanout" proviene del concepto de un ventilador o abanico, donde un flujo central de aire se divide en múltiples corrientes que se dispersan en diferentes direcciones. De manera similar, en el patrón "fanout" de mensajería, un mensaje central se distribuye hacia múltiples consumidores, creando una arquitectura de mensajes distribuidos.
+    - multiplex
+  - "distribución masiva" o "distribución múltiple" 
+  - similar a un PUT, secure/safe, se puede procesar dos veces con peticiones similares, idempotent 
+  - broadcast
+  - binding: no existe
+  - 
+- topic
+  - routing pattern (expresión regular)
+  - es.de.* (una palabra)
+  - us.# (multiples palabras)
+- direct
+  - distribute messages to queues (similar to `channel.sendToQueue(queue, content, options)`)
+- headers
+- match
+
+## Binding
+
+- exchange to queue: routing key
+  - indicates to exchange which queue to send the message
+  - how is the message routed? depends on the exchange type
+- exchange to exchange: binding key
+
+- it doesn't exist if there isn't a exchange or queue
+
+## Binding key
+
 ## Routing key
+
+- event: routing key
 
 - [empresa].[context|bundled context].[version].[message type].[entity | aggregate roo].[action]
 - codely.mooc.1.event.course.published

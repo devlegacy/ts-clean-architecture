@@ -1,6 +1,7 @@
 # Node.js
 
 - [releases](https://nodejs.org/en/download/releases/)
+- [node green](https://node.green/)
 
 ## Memory footprint
 
@@ -33,6 +34,9 @@
   npm cache clean --force
 
   npm cache verify && npm cache clean --force
+
+  npm ls mongodb
+  npm view exceljs engines
 ```
 
 ## Don't 
