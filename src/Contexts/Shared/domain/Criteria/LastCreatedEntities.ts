@@ -15,7 +15,7 @@ export class LastCreatedEntities extends Criteria {
       ]),
       Order.createdAt(),
       limit,
-      offset
+      offset,
     )
   }
 }

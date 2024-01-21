@@ -1,10 +1,10 @@
-// to have /
 import { URL } from 'node:url'
 
 import { type CompleteMultipartUploadCommandOutput, S3Client } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 
-import { FileUploader, type RemoteFile, type UploadedFile } from '../../domain/index.js'
+import { type RemoteFile, type UploadedFile } from '../../domain/index.js'
+import { FileUploader } from '../../domain/index.js'
 import { createProfilePicture } from '../canvas.js'
 import { BaseFileUploader } from './BaseFileUploader.js'
 import { createFileRequest } from './createRequestFile.js'
@@ -18,7 +18,7 @@ export class AwsFileUploader extends BaseFileUploader implements FileUploader {
   }
 
   async upload(
-    files: RemoteFile | RemoteFile[] | Record<string, RemoteFile> | Record<string, RemoteFile[]>
+    files: RemoteFile | RemoteFile[] | Record<string, RemoteFile> | Record<string, RemoteFile[]>,
   ): Promise<
     UploadedFile | UploadedFile[] | Record<string, UploadedFile> | Record<string, UploadedFile[]> | undefined
   > {
@@ -93,11 +93,11 @@ export class AwsFileUploader extends BaseFileUploader implements FileUploader {
 
     // if (response && response.$metadata.httpStatusCode >= 200 && response.$metadata.httpStatusCode < 300) {}
 
-    if (process.env.CDN_URL) {
-      const url = new URL(process.env.CDN_URL)
-      url.pathname += `/${fileKey}`
-      return url.href
-    }
+    // if (process.env.CDN_URL) {
+    //   const url = new URL(process.env.CDN_URL)
+    //   url.pathname += `/${fileKey}`
+    //   return url.href
+    // }
     try {
       // NOTE: Location !== Object URL
       // Object URL: https://[bucket].s3.[region].amazonaws.com/[fileKey | object]
@@ -116,15 +116,15 @@ export class AwsFileUploader extends BaseFileUploader implements FileUploader {
 
 const buffer = createProfilePicture('sr')
 
-const uploader = new AwsFileUploader(
+const uploader: FileUploader = new AwsFileUploader(
   new S3Client({
     region: process.env.AWS_DEFAULT_REGION!,
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
     },
-    forcePathStyle: true,
-  })
+    forcePathStyle: <boolean>(process.env.AWS_USE_PATH_STYLE_ENDPOINT! || false),
+  }),
 )
 
 // eslint-disable-next-line max-lines-per-function
@@ -153,7 +153,7 @@ const bootstrap = async () => {
     'single record',
     await uploader.upload({
       picture,
-    })
+    }),
   )
 
   picture = await createFileRequest({
@@ -177,7 +177,7 @@ const bootstrap = async () => {
     await uploader.upload({
       pictures: [picture, secondPicture],
       photos: [photo, secondPhoto],
-    })
+    }),
   )
 }
 

@@ -6,7 +6,7 @@ export class AnalyticAccountConnection {
   }
 
   static fromPrimitives(
-    data: ReturnType<typeof AnalyticAccountConnection.prototype.toPrimitives>
+    data: ReturnType<typeof AnalyticAccountConnection.prototype.toPrimitives>,
   ): AnalyticAccountConnection {
     const connection = new AnalyticAccountConnection()
     connection.startedAt = new Date(data.startedAt)

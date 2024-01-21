@@ -34,7 +34,7 @@ export class UserEmailUpdater {
       oldUser.jobExperiences.toPrimitives(),
       // oldUser.age?.value,
       oldUser.createdAt.value,
-      new Date()
+      new Date(),
     )
     await this.repository.update(userUpdated)
 

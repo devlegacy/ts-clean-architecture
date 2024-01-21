@@ -8,7 +8,7 @@ export abstract class BackofficeCourseRepository {
   abstract count(criteria: Criteria): Promise<number>
   abstract paginate(
     criteria: Criteria,
-    pagination: OffsetPaginator
+    pagination: OffsetPaginator,
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }>
 
   abstract update(course: BackofficeCourse): Promise<void>

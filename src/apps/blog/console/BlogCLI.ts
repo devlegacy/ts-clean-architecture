@@ -58,8 +58,8 @@ export class BlogCLI {
           ${post.author} said:
           ${post.date.toISOString()}
           ${post.content}
-        `)
-        )
+        `),
+        ),
       )
       .catch(onError)
       .finally(onSuccess)

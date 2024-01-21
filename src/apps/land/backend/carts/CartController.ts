@@ -9,17 +9,17 @@ import {
 import { CartItemRequestDto, CartRequestDto } from '@/Contexts/Land/Carts/infrastructure/index.js'
 import { Body, Controller, Get, Param, Post, Put } from '@/Contexts/Shared/domain/Common/index.js'
 import { CommandBus, QueryBus, Uuid } from '@/Contexts/Shared/domain/index.js'
-import { UuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes'
+import { JoiUuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
 @Controller('carts')
 export class CartController {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Get(':cartId')
-  async show(@Param('cartId', UuidPipe) cartId: string) {
+  async show(@Param('cartId', JoiUuidPipe) cartId: string) {
     const query = new FindCartQuery(cartId)
     const { cart } = await this.queryBus.ask<CartResponse>(query)
 
@@ -53,7 +53,7 @@ export class CartController {
   }
 
   @Post(':cartId/checkout')
-  async checkout(@Param('cartId', UuidPipe) cartId: string) {
+  async checkout(@Param('cartId', JoiUuidPipe) cartId: string) {
     const orderId = Uuid.random().toString()
     const command = new CheckoutCartCommand({
       cartId,

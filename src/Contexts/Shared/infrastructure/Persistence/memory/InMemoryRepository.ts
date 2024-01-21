@@ -47,7 +47,7 @@ export abstract class InMemoryRepository<
     DataStore.splice(
       DataStore.findIndex((a) => a.id === id),
       1,
-      aggregate
+      aggregate,
     )
   }
 

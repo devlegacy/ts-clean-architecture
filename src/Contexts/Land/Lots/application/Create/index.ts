@@ -1,3 +1,3 @@
-export * from './CreateLotCommand'
-export * from './CreateLotCommandHandler'
-export * from './LotCreator'
+export * from './CreateLotCommand.js'
+export * from './CreateLotCommandHandler.js'
+export * from './LotCreator.js'

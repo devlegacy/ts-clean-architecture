@@ -1,35 +1,55 @@
-import amqplib from 'amqplib'
+// Broadcasts
 
-import { intensiveOperation } from '../utils.js'
+import { rabbitConnection, rabbitGetQueueBindings } from '../utils.js'
 
-const queueName = process.env.QUEUE || 'hello'
-const exchangeName = process.env.EXCHANGE || 'my-fanout'
+const queue = process.env.QUEUE || 'hello'
+const exchange = process.env.EXCHANGE || 'my-fanout'
 const exchangeType = 'fanout'
 
 console.log({
-  exchangeName,
-  queueName,
+  exchange,
+  queue,
 })
 
+// first subscribe queue to exchange before publish to exchange
 const subscriber = async () => {
-  const connection = await amqplib.connect('amqp://localhost')
-  const channel = await connection.createChannel()
+  const { channel, onMessage } = await rabbitConnection()
 
-  const queue = await channel.assertQueue(queueName, {})
-  console.log(queue)
-  await channel.assertExchange(exchangeName, exchangeType, {})
-  await channel.bindQueue(queueName, exchangeName, '')
-  await channel.consume(queueName, (message) => {
-    if (!message) return
-    const content = JSON.parse(message.content.toString())
-    intensiveOperation()
-    // con el noAck pueden haber duplicados
-    console.log(`Received message from <${queueName}> queue`, content)
-    channel.ack(message)
+  const assertQueue = await channel.assertQueue(queue, {
+    durable: true, // default: true
+    exclusive: false,
+    autoDelete: false,
   })
+  console.log(assertQueue)
+  await channel.assertExchange(exchange, exchangeType, {
+    durable: true,
+  })
+
+  await channel.bindQueue(queue, exchange, '') // pattern ignored
+  console.log('Queue bindings', await rabbitGetQueueBindings(queue))
+  // console.log('Exchange info', await getExchangeInfo(exchange))
+  // console.log('Exchange bindings', await getExchangeBindings(exchange))
+
+  await channel.consume(
+    queue,
+    (message) => {
+      if (!message) return
+      onMessage(message, queue)
+    },
+    {},
+  )
 }
 
-subscriber().catch((err) => {
-  console.log(err)
+// subscriber().catch((err) => {
+//   console.log(err)
+//   process.exit(1)
+// })
+
+try {
+  await subscriber()
+} catch (err) {
+  console.error(err)
   process.exit(1)
-})
+} finally {
+  console.log('finally')
+}

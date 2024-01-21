@@ -5,7 +5,7 @@ export class Post {
     readonly id: string,
     readonly author: string,
     readonly content: string,
-    date: number = new Date().getTime()
+    date: number = new Date().getTime(),
   ) {
     this.date = new Date(date)
   }

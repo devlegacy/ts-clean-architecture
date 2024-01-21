@@ -19,7 +19,7 @@ export const Schema = (schema: SchemaType, code = HttpStatus.UNPROCESSABLE_ENTIT
         method,
         code,
       },
-      descriptor.value
+      descriptor.value,
     )
 
     return descriptor

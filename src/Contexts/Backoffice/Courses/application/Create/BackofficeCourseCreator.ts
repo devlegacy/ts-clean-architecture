@@ -7,7 +7,7 @@ export class BackofficeCourseCreator {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(
-    params: BackofficeCourseEntityType
+    params: BackofficeCourseEntityType,
     // {
     //   id: BackofficeCourseId
     //   name: BackofficeCourseName
@@ -22,7 +22,7 @@ export class BackofficeCourseCreator {
       params.name,
       params.duration,
       params.createdAt,
-      params.updatedAt
+      params.updatedAt,
       // deletedAt
     )
 

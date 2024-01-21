@@ -1,12 +1,12 @@
 import { EntityNotFoundError, EventBus, Money } from '@/Contexts/Shared/domain/index.js'
 
-import { Account, AccountRepository, EURRatioService } from '../domain/index.js'
+import { Account, type AccountRepository, EURRatioService } from '../domain/index.js'
 
 export class AtmAccountUseCase {
   constructor(
     private readonly accountRepository: AccountRepository,
     private readonly ratioService: EURRatioService,
-    private readonly eventBus: EventBus
+    private readonly eventBus: EventBus,
   ) {}
 
   async find(id: string): Promise<Account> {

@@ -8,7 +8,7 @@ import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../.
 export class CoursesCounterIncrementer {
   constructor(
     private readonly repository: CoursesCounterRepository,
-    private readonly bus: EventBus
+    private readonly bus: EventBus,
   ) {}
 
   async run(courseId: Course['id']) {

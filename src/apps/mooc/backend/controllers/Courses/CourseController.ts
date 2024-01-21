@@ -17,7 +17,7 @@ export class CourseController {
   // collaboration using DI
   constructor(
     // private readonly courseCreator: CourseCreator // class (implementation) coupling - interface extraction isn't needed, desacoplar por desacoplar a veces no tiene razón de ser
-    private readonly commandBus: CommandBus // decoupling with an interface
+    private readonly commandBus: CommandBus, // decoupling with an interface
   ) {}
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)

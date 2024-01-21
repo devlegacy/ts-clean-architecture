@@ -7,7 +7,7 @@ const pipeBuilder = (
   req: any,
   type: Paramtype,
   data?: ParamData,
-  pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+  pipes?: (Constructor<PipeTransform> | PipeTransform)[],
 ) => {
   if (!(data && pipes && Array.isArray(pipes))) return
 
@@ -37,7 +37,7 @@ class QueryParamExtractor implements ParamExtractor {
     req: any,
     res: any,
     data: ParamData | undefined,
-    pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+    pipes?: (Constructor<PipeTransform> | PipeTransform)[],
   ): unknown {
     pipeBuilder(req, 'query', data, pipes)
     return data ? req.query[`${data}`] : req.query
@@ -49,7 +49,7 @@ class ParamParamExtractor implements ParamExtractor {
     req: any,
     res: any,
     data: ParamData | undefined,
-    pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+    pipes?: (Constructor<PipeTransform> | PipeTransform)[],
   ): unknown {
     pipeBuilder(req, 'params', data, pipes)
     return data ? req.params[`${data}`] : req.params
@@ -61,7 +61,7 @@ class BodyParamExtractor implements ParamExtractor {
     req: any,
     res: any,
     data: ParamData | undefined,
-    pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+    pipes?: (Constructor<PipeTransform> | PipeTransform)[],
   ): unknown {
     pipeBuilder(req, 'body', data, pipes)
     return data ? req.body[`${data}`] : req.body
@@ -73,7 +73,7 @@ class HeaderParamExtractor implements ParamExtractor {
     req: any,
     res: any,
     data: ParamData | undefined,
-    pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+    pipes?: (Constructor<PipeTransform> | PipeTransform)[],
   ): unknown {
     pipeBuilder(req, 'headers', data, pipes)
     return data ? req.headers[`${data}`] : req.headers

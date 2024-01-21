@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 import { pathToFileURL } from 'node:url'
 
-import type { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
+import type { FastifyInstance, FastifyRequest, FastifySchema, HTTPMethods } from 'fastify'
 
 import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
@@ -166,7 +166,7 @@ const DEFAULT_METADATA = {
 const getParams = (
   req: any,
   res: any,
-  params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>
+  params: Record<string, RouteParamMetadata & { pipes?: (Constructor<PipeTransform> | PipeTransform)[] }>,
 ): unknown[] => {
   // HttpRequest | HttpResponse | unknown
   const routeParams: unknown[] = []
@@ -187,7 +187,7 @@ const getParams = (
 const buildSchema = (
   schema: FastifySchema,
   method: RequestMethod,
-  builders?: HttpValidationModule<unknown>[]
+  builders?: HttpValidationModule<unknown>[],
 ): FastifySchema | undefined => {
   // Quién me da el esquema?
   if (!builders || !builders.length) return
@@ -208,7 +208,7 @@ const buildSchemaWithParams = (
   schema: { schema: FastifySchema; code: number },
   method: RequestMethod,
   args: (() => unknown)[] = [],
-  validations: HttpValidationModule<unknown>[] = []
+  validations: HttpValidationModule<unknown>[] = [],
 ): void => {
   if (Object.keys(schema.schema).length > 0) {
     // schema.schema = getSchema(schema.schema, method, validations)
@@ -240,7 +240,7 @@ const buildSchemaWithParams = (
 const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown>, props: RouteRegisterProps) => {
   const { instance, instanceConstructor, instancePrototype, classMethodNames, controllerPath } = getControllerMetadata(
     controller,
-    props.resolver
+    props.resolver,
   )
   for (const methodName of classMethodNames) {
     if (methodName === 'constructor') continue // ignore constructor method reflect metadata
@@ -252,7 +252,7 @@ const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown
     const params: Record<string, RouteParamMetadata> = Reflect.getMetadata(
       ROUTE_ARGS_METADATA,
       instanceConstructor,
-      methodName
+      methodName,
     )
     if (params) {
       const args: (() => unknown)[] = Reflect.getMetadata('design:paramtypes', instancePrototype, methodName) || []
@@ -275,7 +275,7 @@ const routeBuilder = (adapterInstance: FastifyAdapter, controller: Class<unknown
 const clusterServer = (
   fastify: FastifyInstance,
   { method, schema, url, httpCode, params, instance, methodName }: Route,
-  isProduction = false
+  isProduction = false,
 ) => {
   // eslint-disable-next-line no-constant-condition
   if (cluster.isPrimary && isProduction && false) {
@@ -307,7 +307,7 @@ const clusterServer = (
       // errorHandler: (error, request, response) => {
       //   fastify.errorHandler(error, request, response)
       // },
-      handler: (req, res) => {
+      handler: (req: FastifyRequest<{ Body: unknown }>, res) => {
         res.status(httpCode)
         // if (req.validationError) {
         //   const err = req.validationError
@@ -325,7 +325,7 @@ const clusterServer = (
         // instance[methodName]
         const response: Promise<unknown> | unknown = instance.constructor.prototype[String(methodName)].apply(
           instance,
-          routeParams.length ? routeParams : [req, res]
+          routeParams.length ? routeParams : [req, res],
         )
         return response
       },

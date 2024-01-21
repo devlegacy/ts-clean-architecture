@@ -89,7 +89,7 @@ try {
   info(users)
 
   await userUpdater.run(
-    updateUserRequest
+    updateUserRequest,
     // {
     // ...users[users.length - 1].toPrimitives(),
     // ...updateUserRequest,

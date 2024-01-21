@@ -10,7 +10,7 @@ export class MongoDomainEventFailoverPublisher {
 
   constructor(
     private readonly _client: Promise<MongoClient>,
-    private readonly deserializer?: DomainEventDeserializer
+    private readonly deserializer?: DomainEventDeserializer,
   ) {}
 
   async publish(event: DomainEvent): Promise<void> {

@@ -20,7 +20,7 @@ export class CourseName extends StringValueObject {
     if (value.length > MAX_COURSE_NAME_CHARACTER_LIMIT) {
       //  CourseNameLengthExceeded.build`The course name <${value}> has more than ${MAX_COURSE_NAME_CHARACTER_LIMIT} characters`
       throw new CourseNameLengthExceeded(
-        `The course name <${value}> has more than ${MAX_COURSE_NAME_CHARACTER_LIMIT} characters`
+        `The course name <${value}> has more than ${MAX_COURSE_NAME_CHARACTER_LIMIT} characters`,
       )
     }
   }

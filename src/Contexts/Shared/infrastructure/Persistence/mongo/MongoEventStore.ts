@@ -59,7 +59,7 @@ export abstract class MongoEventStore<T extends AggregateRoot> {
           },
           $set: document,
         },
-        { upsert: true }
+        { upsert: true },
       )
       return
     })

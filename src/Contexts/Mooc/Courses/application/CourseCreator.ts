@@ -7,14 +7,14 @@ import type { CourseCreatorRequest } from './CourseCreatorRequest.js'
 export class CourseCreator {
   constructor(
     private readonly repository: CourseRepository,
-    private readonly eventBus: EventBus
+    private readonly eventBus: EventBus,
   ) {}
 
   async run(request: CourseCreatorRequest) {
     const course = Course.create(
       new CourseId(request.id),
       new CourseName(request.name),
-      request.duration ? new CourseDuration(request.duration) : undefined
+      request.duration ? new CourseDuration(request.duration) : undefined,
     )
     const events = course.pullDomainEvents()
 

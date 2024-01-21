@@ -70,7 +70,7 @@ export class LotCreatedDomainEvent extends DomainEvent implements CreateLotDomai
   }
 
   static override fromPrimitives(
-    props: DomainEventPrimitivesWithAttributes<LotCreatedDomainEvent>
+    props: DomainEventPrimitivesWithAttributes<LotCreatedDomainEvent>,
   ): LotCreatedDomainEvent {
     const {
       eventId,

@@ -7,7 +7,7 @@ import { DomainErrorHandler, Logger, Monitoring } from '../domain/index.js'
 export class FatalErrorHandler {
   constructor(
     private readonly logger: Logger,
-    private readonly monitoring?: Monitoring
+    private readonly monitoring?: Monitoring,
   ) {}
 
   capture(err: Error, ..._args: unknown[]): void {

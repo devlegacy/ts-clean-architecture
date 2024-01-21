@@ -7,7 +7,7 @@ import {
   ElasticConfigFactory,
   LoggerConfigFactory,
   MongoConfigFactory,
-  RabbitMQConfig,
+  type RabbitMQConfig,
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   SentryConfigFactory,
@@ -20,7 +20,7 @@ import {
   InMemoryQueryBus,
   MikroOrmMongoClientFactory,
   MikroOrmMongoDomainEventFailoverPublisher,
-  MongoConfig,
+  type MongoConfig,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
@@ -28,7 +28,7 @@ import {
 } from '@/Contexts/Shared/infrastructure/index.js'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TYPES } from './types'
+import { TYPES } from './types.js'
 
 const context = 'backoffice'
 
@@ -43,9 +43,9 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
   rabbitFormatter,
-  rabbitConfig
+  rabbitConfig,
 )
-const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+const monitoring = new SentryModule(SentryConfigFactory.createConfig())
 const logger = new PinoLogger(LoggerConfigFactory.createConfig())
 const elasticConfig = ElasticConfigFactory.createConfig()
 const elasticClient = ElasticClientFactory.createClient(context, elasticConfig)

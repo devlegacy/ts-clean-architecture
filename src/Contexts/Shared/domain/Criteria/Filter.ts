@@ -31,7 +31,7 @@ export class Filter {
       new FilterField(field.toString()),
       // DEBT: Fix operator values and fromValues type
       FilterOperator.fromValue(operator as FilterOperatorKeys),
-      new FilterValue(value)
+      new FilterValue(value),
     )
 
     return filter

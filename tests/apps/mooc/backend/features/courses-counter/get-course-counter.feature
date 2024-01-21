@@ -10,7 +10,7 @@ Feature: Obtain the total number of courses
       "data": {
         "id": "62d9536e487ee76ccf7f7a6e",
         "type": "course.created",
-        "occurred_on": "2019-08-08T08:37:32+00:00",
+        "occurredOn": "2019-08-08T08:37:32+00:00",
         "aggregateId": "62d9536e09897ed9fa89e490",
         "attributes": {
           "name": "DDD en PHP!",
@@ -39,7 +39,7 @@ Feature: Obtain the total number of courses
       "data": {
         "id": "62d9536e487ee76ccf7f7a6e",
         "type": "course.created",
-        "occurred_on": "2019-08-08T08:37:32+00:00",
+        "occurredOn": "2019-08-08T08:37:32+00:00",
         "aggregateId": "62d9536e09897ed9fa89e490",
         "attributes": {
           "name": "DDD en PHP!",
@@ -57,7 +57,7 @@ Feature: Obtain the total number of courses
       "data": {
         "id": "62d9536e487ee76ccf7f7a6f",
         "type": "course.created",
-        "occurred_on": "2019-08-09T08:36:32+00:00",
+        "occurredOn": "2019-08-09T08:36:32+00:00",
         "aggregateId": "62d9536e487ee76ccf7f7a6f",
         "attributes": {
           "name": "DDD en Java!",
@@ -75,7 +75,7 @@ Feature: Obtain the total number of courses
       "data": {
         "id": "62d9536e487ee76ccf7f7a6f",
         "type": "course.created",
-        "occurred_on": "2019-08-09T08:36:32+00:00",
+        "occurredOn": "2019-08-09T08:36:32+00:00",
         "aggregateId": "62d9536e487ee76ccf7f7a6f",
         "attributes": {
           "name": "DDD en Java!",

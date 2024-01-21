@@ -47,7 +47,7 @@ export abstract class MongoRepository<T extends AggregateRoot> {
         },
         $set: document,
       },
-      { upsert: true }
+      { upsert: true },
     )
   }
 

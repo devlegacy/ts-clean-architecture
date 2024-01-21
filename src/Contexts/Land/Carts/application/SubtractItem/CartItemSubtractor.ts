@@ -2,13 +2,13 @@ import { CartId } from '@/Contexts/Land/Shared/domain/index.js'
 import { EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
 
 import { Cart, CartItem } from '../../domain/index.js'
-import { CartResponse } from '../CartResponse'
-import { FindCartQuery } from '../Finder'
+import { CartResponse } from '../CartResponse.js'
+import { FindCartQuery } from '../Finder/index.js'
 
 export class CartItemSubtractor {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly eventBus: EventBus
+    private readonly eventBus: EventBus,
   ) {}
 
   async run(id: CartId, item: CartItem, quantity: number) {

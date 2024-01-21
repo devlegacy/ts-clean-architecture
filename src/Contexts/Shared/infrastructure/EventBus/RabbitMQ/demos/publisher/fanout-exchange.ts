@@ -1,8 +1,8 @@
-import amqplib from 'amqplib'
+// Broadcasts
 
 import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
-import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils.js'
+import { exitAfterSend, MESSAGES_COUNTER, rabbitConnection, waitLoop } from '../utils.js'
 
 const exchangeName = process.env.EXCHANGE || 'my-fanout'
 const exchangeType = 'fanout'
@@ -13,10 +13,10 @@ console.log({
 })
 
 const publisher = async () => {
-  const connection = await amqplib.connect('amqp://localhost')
-  const channel = await connection.createChannel()
-
-  await channel.assertExchange(exchangeName, exchangeType, {})
+  const { channel } = await rabbitConnection()
+  await channel.assertExchange(exchangeName, exchangeType, {
+    durable: true,
+  })
 
   await waitLoop(MESSAGES_COUNTER, () => {
     const message = {
@@ -27,6 +27,10 @@ const publisher = async () => {
 
     const sent = channel.publish(exchangeName, '', buffer, {
       persistent: true, // + durable: true
+      // deliveryMode: 2, // no needed when persistent is true
+      messageId: message.id,
+      contentType: 'application/json',
+      contentEncoding: 'utf-8',
     })
 
     const responseStatus = sent
@@ -36,11 +40,19 @@ const publisher = async () => {
   })
 }
 
-publisher()
-  .catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
-  .finally(() => {
-    exitAfterSend()
-  })
+// publisher()
+//   .catch((err) => {
+//     console.error(err)
+//     process.exit(1)
+//   })
+//   .finally(() => {
+//     exitAfterSend()
+//   })
+try {
+  await publisher()
+} catch (err) {
+  console.error(err)
+  process.exit(1)
+} finally {
+  exitAfterSend()
+}

@@ -16,7 +16,7 @@ export class BlockController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly searcher: BlockSearcher
+    private readonly searcher: BlockSearcher,
   ) {}
 
   @Get()
@@ -48,7 +48,7 @@ export class BlockController {
       block.westBoundary,
       block.northwestBoundary,
       block.createdAt,
-      block.updatedAt
+      block.updatedAt,
     )
 
     await this.commandBus.dispatch(command)

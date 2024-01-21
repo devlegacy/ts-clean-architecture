@@ -34,7 +34,7 @@ export class MongoAnalyticAccountRepository
       AnalyticAccount.fromPrimitives({
         ...document,
         id: _id.toString(),
-      })
+      }),
     )
 
     return accounts

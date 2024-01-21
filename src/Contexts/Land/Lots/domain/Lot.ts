@@ -74,7 +74,7 @@ export class Lot extends AggregateRoot {
     westBoundary: Boundary,
     northwestBoundary: Boundary,
     createdAt?: LotCreatedAt,
-    updatedAt?: LotUpdatedAt
+    updatedAt?: LotUpdatedAt,
   ) {
     super()
     this.id = id
@@ -112,7 +112,7 @@ export class Lot extends AggregateRoot {
       data.southBoundary,
       data.southwestBoundary,
       data.westBoundary,
-      data.northwestBoundary
+      data.northwestBoundary,
     )
     const event = new LotCreatedDomainEvent({
       aggregateId: data.id.value,
@@ -150,7 +150,7 @@ export class Lot extends AggregateRoot {
       new Boundary(data.westBoundary),
       new Boundary(data.northwestBoundary),
       data.createdAt ? new LotCreatedAt(data.createdAt) : undefined,
-      data.updatedAt ? new LotUpdatedAt(data.updatedAt) : undefined
+      data.updatedAt ? new LotUpdatedAt(data.updatedAt) : undefined,
     )
 
     return lot

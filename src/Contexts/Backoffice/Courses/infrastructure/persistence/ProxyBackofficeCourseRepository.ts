@@ -8,7 +8,7 @@ import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from
 export class ProxyBackofficeCourseRepository implements BackofficeCourseRepository {
   constructor(
     private readonly currentRepository: BackofficeCourseRepository,
-    private readonly targetRepository: BackofficeCourseRepository
+    private readonly targetRepository: BackofficeCourseRepository,
   ) {}
 
   async all(): Promise<BackofficeCourse[]> {
@@ -25,7 +25,7 @@ export class ProxyBackofficeCourseRepository implements BackofficeCourseReposito
 
   async paginate(
     _criteria: Criteria,
-    _pagination: OffsetPaginator
+    _pagination: OffsetPaginator,
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
     throw new Error('Method not implemented.')
   }

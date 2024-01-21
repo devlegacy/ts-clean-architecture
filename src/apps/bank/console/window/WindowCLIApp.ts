@@ -1,5 +1,5 @@
 import { AccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
-import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain/index.js'
+import { type AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain/index.js'
 import {
   MongoAccountEventStore,
   MongoAccountRepository,
@@ -32,7 +32,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
   rabbitFormatter,
-  rabbitConfig
+  rabbitConfig,
 )
 
 const container: {

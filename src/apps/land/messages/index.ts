@@ -81,7 +81,7 @@ const run = async () => {
             JSON.stringify({
               ...payload.after,
               lots: [],
-            })
+            }),
           )
           const stored: any = await client.call('JSON.GET', table)
           console.log(JSON.parse(stored))

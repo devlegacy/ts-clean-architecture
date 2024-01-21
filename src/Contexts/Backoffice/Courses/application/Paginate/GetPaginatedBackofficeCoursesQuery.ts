@@ -7,7 +7,7 @@ export class GetPaginatedBackofficeCoursesQuery extends Query {
   constructor(
     readonly filters: FilterValueType[],
     readonly limit?: number,
-    readonly page?: number
+    readonly page?: number,
   ) {
     super()
     // this.filters = filters

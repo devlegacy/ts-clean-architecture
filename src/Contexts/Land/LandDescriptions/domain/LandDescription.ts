@@ -6,7 +6,7 @@ import {
   LandDescriptionId,
   LandDescriptionShort,
   LandDescriptionType,
-} from './ValueObjects'
+} from './ValueObjects/index.js'
 
 export type LandDescriptionEntityType = Entity<LandDescription>
 export type LandDescriptionPrimitiveType = Primitives<LandDescription>
@@ -23,7 +23,7 @@ export class LandDescription extends AggregateRoot {
     description: LandDescriptionDescription,
     full: LandDescriptionFull,
     short: LandDescriptionShort,
-    type: LandDescriptionType
+    type: LandDescriptionType,
   ) {
     super()
     this.id = id
@@ -39,7 +39,7 @@ export class LandDescription extends AggregateRoot {
       new LandDescriptionDescription(data.description),
       new LandDescriptionFull(data.full),
       new LandDescriptionShort(data.short),
-      new LandDescriptionType(data.type)
+      new LandDescriptionType(data.type),
     )
     // const event = new LandDescriptionCreatedDomainEvent({})
 
@@ -53,7 +53,7 @@ export class LandDescription extends AggregateRoot {
       new LandDescriptionDescription(data.description),
       new LandDescriptionFull(data.full),
       new LandDescriptionShort(data.short),
-      new LandDescriptionType(data.type)
+      new LandDescriptionType(data.type),
     )
 
     return landDescription

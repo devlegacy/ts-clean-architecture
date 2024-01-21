@@ -27,7 +27,7 @@ export class CourseRequestSchema {
     [CREATE],
     Joi.date()
       .optional()
-      .default(() => new Date())
+      .default(() => new Date()),
   )
   readonly createdAt!: Date
 
@@ -35,13 +35,13 @@ export class CourseRequestSchema {
     [CREATE],
     Joi.date()
       .optional()
-      .default(() => new Date())
+      .default(() => new Date()),
   )
   @JoiSchema(
     [UPDATE],
     Joi.date()
       .optional()
-      .default(() => new Date())
+      .default(() => new Date()),
   )
   readonly updatedAt!: Date
 }

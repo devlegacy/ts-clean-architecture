@@ -60,7 +60,7 @@ export class User extends AggregateRoot {
     jobExperiences: JobExperiencePrimitiveType[],
     // age?: number,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
   ) {
     super()
     this.id = new UserId(id)
@@ -96,7 +96,7 @@ export class User extends AggregateRoot {
       data.jobExperiences,
       // isNil(data.age) ? undefined : data.age,
       data.createdAt,
-      data.updatedAt
+      data.updatedAt,
     )
     return user
   }

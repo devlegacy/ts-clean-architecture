@@ -1,4 +1,4 @@
-import { Boundary } from './Boundary'
+import { Boundary } from './Boundary.js'
 
 export type BoundariesEntityType = Entity<Boundaries>
 export type BoundariesPrimitiveType = Primitives<Boundaries>
@@ -21,7 +21,7 @@ export class Boundaries {
     south: Boundary,
     southwest: Boundary,
     west: Boundary,
-    northwest: Boundary
+    northwest: Boundary,
   ) {
     this.north = north
     this.northeast = northeast

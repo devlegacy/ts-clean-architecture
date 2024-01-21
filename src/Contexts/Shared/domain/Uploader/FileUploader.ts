@@ -7,6 +7,6 @@ export abstract class FileUploader {
 
   // upload: (files: File[]) => Promise<UploadedFile[] | undefined>
   abstract upload(
-    files: RemoteFile | RemoteFile[] | Record<string, RemoteFile> | Record<string, RemoteFile[]>
+    files: RemoteFile | RemoteFile[] | Record<string, RemoteFile> | Record<string, RemoteFile[]>,
   ): Promise<UploadedFile | UploadedFile[] | Record<string, UploadedFile> | Record<string, UploadedFile[]> | undefined>
 }

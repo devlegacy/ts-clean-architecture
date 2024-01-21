@@ -36,7 +36,7 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
   }
 
   static override fromPrimitives(
-    props: DomainEventPrimitivesWithAttributes<CourseCreatedDomainEvent>
+    props: DomainEventPrimitivesWithAttributes<CourseCreatedDomainEvent>,
   ): CourseCreatedDomainEvent {
     const {
       eventId,

@@ -1,12 +1,12 @@
 import { CartId, UserId } from '@/Contexts/Land/Shared/domain/index.js'
 import { EventBus } from '@/Contexts/Shared/domain/index.js'
 
-import { Cart, CartRepository } from '../../domain/index.js'
+import { Cart, type CartRepository } from '../../domain/index.js'
 
 export class CartCreator {
   constructor(
     private readonly repository: CartRepository,
-    private readonly bus: EventBus
+    private readonly bus: EventBus,
   ) {}
 
   async run(id: CartId, userId: UserId) {

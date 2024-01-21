@@ -46,7 +46,7 @@ export class CourseController {
     // private readonly courseCreator: CourseCreator,
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
-    private readonly monitoring: Monitoring
+    private readonly monitoring: Monitoring,
   ) {}
 
   @Get()
@@ -55,14 +55,14 @@ export class CourseController {
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
     @Query('orderBy') orderBy?: string,
-    @Query('orderType') orderType?: string
+    @Query('orderType') orderType?: string,
   ) {
     const query = new SearchBackofficeCoursesByCriteriaQuery(
       Filter.parse(filters ?? []),
       orderBy,
       orderType,
       limit, // ? limit : undefined,
-      offset //? offset : undefined
+      offset, //? offset : undefined
     )
     // const query = new SearchAllCoursesQuery()
 
@@ -87,7 +87,7 @@ export class CourseController {
     @Query('limit') limit?: number,
     @Query('page') page?: number,
     @Query('orderBy') _orderBy?: string,
-    @Query('orderType') _orderType?: string
+    @Query('orderType') _orderType?: string,
   ) {
     const filters = Filter.parse(filtersDto ?? [])
 

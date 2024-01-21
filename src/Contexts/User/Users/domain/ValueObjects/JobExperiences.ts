@@ -65,7 +65,7 @@ export class JobExperiences extends Array<JobExperience> {
             currentExperience.company.value
           } from ${currentExperience.startDate.toString()} to ${currentExperience.endDate.toString()} overlaps with the job experience at ${
             nextExperience.company.value
-          } from ${nextExperience.startDate.toString()} to ${nextExperience.endDate?.toString() ?? ''}`
+          } from ${nextExperience.startDate.toString()} to ${nextExperience.endDate?.toString() ?? ''}`,
         )
       }
     }

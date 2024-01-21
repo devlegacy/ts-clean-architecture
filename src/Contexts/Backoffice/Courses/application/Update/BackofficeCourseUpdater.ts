@@ -9,7 +9,7 @@ import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria/index.j
 export class BackofficeCourseUpdater {
   constructor(
     private readonly repository: BackofficeCourseRepository,
-    private readonly bus: QueryBus
+    private readonly bus: QueryBus,
   ) {}
 
   async run(params: BackofficeCourseEntityType): Promise<void> {
@@ -20,7 +20,7 @@ export class BackofficeCourseUpdater {
       params.name,
       params.duration,
       params.createdAt,
-      params.updatedAt ?? new Date()
+      params.updatedAt ?? new Date(),
     )
 
     await this.repository.update(course)

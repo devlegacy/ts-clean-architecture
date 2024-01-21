@@ -12,7 +12,7 @@ export class SearchBackofficeCoursesByCriteriaQuery extends Query {
     readonly orderBy?: string,
     readonly orderType?: string,
     readonly limit?: number,
-    readonly offset?: number
+    readonly offset?: number,
   ) {
     super()
     // this.filters = filters

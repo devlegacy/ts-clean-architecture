@@ -8,7 +8,7 @@ import { FindCartQuery } from '../Finder/index.js'
 export class CartCheckout {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly eventBus: EventBus
+    private readonly eventBus: EventBus,
   ) {}
 
   async run(id: CartId, orderId: OrderId) {

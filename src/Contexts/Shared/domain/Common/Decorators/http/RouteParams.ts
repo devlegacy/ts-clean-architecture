@@ -47,7 +47,7 @@ function createRouteParamDecorator(paramtype: RouteParamtypes) {
         ROUTE_ARGS_METADATA,
         assignMetadata<RouteParamtypes, Record<number, RouteParamMetadata>>(args, paramtype, index, data),
         target.constructor,
-        key
+        key,
       )
     }
 }
@@ -78,7 +78,7 @@ const createPipesRouteParamDecorator =
       ROUTE_ARGS_METADATA,
       assignMetadata(args, paramtype, index, paramData, ...paramPipes),
       target.constructor,
-      key
+      key,
     )
   }
 

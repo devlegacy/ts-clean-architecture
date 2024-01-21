@@ -15,7 +15,7 @@ export class CreateBlockCommand extends Command {
     readonly westBoundary: string,
     readonly northwestBoundary: string,
     readonly createdAt?: Date,
-    readonly updatedAt?: Date
+    readonly updatedAt?: Date,
   ) {
     super()
   }

@@ -27,7 +27,7 @@ export class CloudinaryFileUploader extends BaseFileUploader implements FileUplo
   }
 
   async upload(
-    files: RemoteFile | RemoteFile[] | Record<string, RemoteFile> | Record<string, RemoteFile[]>
+    files: RemoteFile | RemoteFile[] | Record<string, RemoteFile> | Record<string, RemoteFile[]>,
   ): Promise<
     UploadedFile | UploadedFile[] | Record<string, UploadedFile> | Record<string, UploadedFile[]> | undefined
   > {
@@ -88,7 +88,7 @@ export class CloudinaryFileUploader extends BaseFileUploader implements FileUplo
             reject(err)
           }
           resolve(result!.secure_url)
-        }
+        },
       )
       uploadStream.on('finish', () => {
         console.log('finished', uploadStream)

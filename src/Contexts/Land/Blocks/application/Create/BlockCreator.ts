@@ -7,7 +7,7 @@ import { Block, type BlockEntityType, BlockRepository } from '../../domain/index
 export class BlockCreator {
   constructor(
     private readonly repository: BlockRepository,
-    private readonly bus: EventBus
+    private readonly bus: EventBus,
   ) {}
 
   async run(request: BlockEntityType) {

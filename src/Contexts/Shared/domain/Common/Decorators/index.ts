@@ -106,7 +106,7 @@ export const DomainEventSubscribers = (...events: DomainEventClass[]) => {
     Reflect.defineMetadata(
       EVENTS_HANDLER_METADATA,
       Reflect.getMetadata(EVENTS_HANDLER_METADATA, target).concat(events),
-      target
+      target,
     )
 
     return target

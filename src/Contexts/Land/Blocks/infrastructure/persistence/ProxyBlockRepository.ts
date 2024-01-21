@@ -6,7 +6,7 @@ export class ProxyBlockRepository implements BlockRepository {
   constructor(
     private readonly currentRepository: BlockRepository,
 
-    private readonly targetRepository: BlockRepository
+    private readonly targetRepository: BlockRepository,
   ) {}
 
   async all(): Promise<Block[]> {

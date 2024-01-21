@@ -25,7 +25,7 @@ export class BackofficeCourseFinder {
                 operator: Operator.EQUAL,
                 value: courseId,
               },
-            ])
+            ]),
           )
         : courseId
     const criteria = new LastCreatedEntities(filters)

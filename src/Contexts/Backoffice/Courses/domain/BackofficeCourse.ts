@@ -18,7 +18,7 @@ export class BackofficeCourse extends AggregateRoot {
     name: BackofficeCourseName,
     duration?: BackofficeCourseDuration,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
     // deletedAt?: Date
   ) {
     super()
@@ -35,7 +35,7 @@ export class BackofficeCourse extends AggregateRoot {
     name: BackofficeCourseName,
     duration: BackofficeCourseDuration,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
     // ,deletedAt?: Date
   ): BackofficeCourse {
     const course = new BackofficeCourse(
@@ -43,7 +43,7 @@ export class BackofficeCourse extends AggregateRoot {
       name,
       duration,
       createdAt,
-      updatedAt
+      updatedAt,
       //  ,deletedAt
     )
 
@@ -56,7 +56,7 @@ export class BackofficeCourse extends AggregateRoot {
       new BackofficeCourseName(data.name),
       data.duration ? new BackofficeCourseDuration(data.duration) : undefined,
       data.createdAt ? data.createdAt : undefined,
-      data.updatedAt ? data.updatedAt : undefined
+      data.updatedAt ? data.updatedAt : undefined,
       // data.deletedAt ? data.deletedAt : undefined
     )
   }

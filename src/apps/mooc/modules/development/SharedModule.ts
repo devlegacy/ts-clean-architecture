@@ -48,7 +48,7 @@ const mongoConfig = MongoConfigFactory.createConfig()
 const connectionClient = await MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
-  resolve(`${__dirname}/../../../../Contexts/Mooc`)
+  resolve(`${__dirname}/../../../../Contexts/Mooc`),
 )
 
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
@@ -60,7 +60,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
   rabbitFormatter,
-  rabbitConfig
+  rabbitConfig,
 )
 
 export const SharedModule = (builder: ContainerBuilder) => {
@@ -78,7 +78,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     .register(CommandBus)
     .useFactory((container) => {
       const commands = (container.findTaggedServiceIdentifiers<CommandHandler<Command>>(TAGS.CommandHandler) ?? []).map(
-        (identifier) => container.get(identifier)
+        (identifier) => container.get(identifier),
       )
 
       const handlers = new CommandHandlers(commands)

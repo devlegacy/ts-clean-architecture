@@ -8,7 +8,7 @@ export class RabbitMQConsumerFactory {
   constructor(
     private deserializer: DomainEventDeserializer,
     private connection: RabbitMQConnection,
-    private maxRetries: number
+    private maxRetries: number,
   ) {}
 
   build(subscriber: DomainEventSubscriber<DomainEvent>, exchange: string, queueName: string) {

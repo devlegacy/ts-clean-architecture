@@ -11,7 +11,7 @@ import { FindBackofficeCourseByCriteriaQuery } from '../FinderByCriteria/index.j
 export class BackofficeCourseDeleter {
   constructor(
     private readonly repository: BackofficeCourseRepository,
-    private readonly bus: QueryBus
+    private readonly bus: QueryBus,
   ) {}
 
   async run(courseId: BackofficeCourse['id']): Promise<void> {

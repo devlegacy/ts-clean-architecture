@@ -2,15 +2,15 @@ import amqplib from 'amqplib'
 
 import { intensiveOperation } from '../utils.js'
 
-const queueName = process.env.QUEUE || 'hello'
-const exchangeName = process.env.EXCHANGE || 'my-direct'
+const queue = process.env.QUEUE || 'hello'
+const exchange = process.env.EXCHANGE || 'my-direct'
 // const routingKey = process.env.ROUTING_KEY || ''
 const pattern = process.env.PATTERN || ''
 const exchangeType = 'direct'
 
 console.log({
-  queueName,
-  exchangeName,
+  queue,
+  exchange,
   // routingKey === pattern,
   pattern,
 })
@@ -19,16 +19,16 @@ const subscriber = async () => {
   const connection = await amqplib.connect('amqp://localhost')
   const channel = await connection.createChannel()
 
-  const queue = await channel.assertQueue(queueName, {})
-  console.log(queue)
-  await channel.assertExchange(exchangeName, exchangeType, {})
-  await channel.bindQueue(queueName, exchangeName, pattern)
-  await channel.consume(queueName, (message) => {
+  const assertQueue = await channel.assertQueue(queue, {})
+  console.log(assertQueue)
+  await channel.assertExchange(exchange, exchangeType, {})
+  await channel.bindQueue(queue, exchange, pattern)
+  await channel.consume(queue, (message) => {
     if (!message) return
     const content = JSON.parse(message.content.toString())
     intensiveOperation()
     // con el noAck pueden haber duplicados
-    console.log(`Received message from <${queueName}> queue`, content)
+    console.log(`Received message from <${queue}> queue`, content)
     channel.ack(message)
   })
 }

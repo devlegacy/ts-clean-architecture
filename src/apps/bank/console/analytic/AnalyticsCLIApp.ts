@@ -25,7 +25,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
   rabbitFormatter,
-  rabbitConfig
+  rabbitConfig,
 )
 
 const container: {

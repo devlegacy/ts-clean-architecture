@@ -15,7 +15,7 @@ export class JoiFiltersPipe implements PipeTransform {
             field,
             operator,
             value,
-          })
+          }),
         )
         .optional(),
     })

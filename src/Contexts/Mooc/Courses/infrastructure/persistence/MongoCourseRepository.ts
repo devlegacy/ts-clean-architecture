@@ -30,7 +30,7 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
         name: document.name,
         duration: document.duration,
         id: document._id,
-      })
+      }),
     )
   }
 

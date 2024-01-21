@@ -35,7 +35,7 @@ export class DateRange {
     //
     if (startDate.isAfter(endDate)) {
       throw new InvalidArgumentError(
-        `<${startDate.toString()}-${endDate.toString()}> is not a valid <${this.constructor.name}>`
+        `<${startDate.toString()}-${endDate.toString()}> is not a valid <${this.constructor.name}>`,
       )
     }
   }

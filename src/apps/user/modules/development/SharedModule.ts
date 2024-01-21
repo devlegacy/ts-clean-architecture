@@ -17,7 +17,7 @@ const mongoConfig = MongoConfigFactory.createConfig()
 const connectionClient = await MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
-  resolve(`${__dirname}/../../../../Contexts/User`)
+  resolve(`${__dirname}/../../../../Contexts/User`),
 )
 const monitoring = {} as Monitoring //new SentryModule({ options: SentryConfigFactory.createConfig() })
 const logger = new PinoLogger({

@@ -9,7 +9,7 @@ import { LotRequestSchema } from './LotRequestSchema.js'
 export class LotController {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Get(':id')
@@ -35,7 +35,7 @@ export class LotController {
       lot.westBoundary,
       lot.northwestBoundary,
       lot.createdAt,
-      lot.updatedAt
+      lot.updatedAt,
     )
 
     await this.commandBus.dispatch(command)

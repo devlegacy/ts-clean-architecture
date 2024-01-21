@@ -96,7 +96,7 @@ export class StatusController {
     @Param() params: Record<string, unknown>,
     @Body() body: UserRequestSchema,
     @Body('name') name: string,
-    @Headers() headers: IndexRequestHeadersSchema
+    @Headers() headers: IndexRequestHeadersSchema,
   ) {
     const hostname = req.hostname ?? 'no hostname'
 
@@ -119,7 +119,7 @@ export class StatusController {
   helpers(
     @Query('limit') limit: number,
     @Query('page', JoiPageNumberPipe) page: number,
-    @Headers('x-context-account', JoiObjectIdPipe) account: string
+    @Headers('x-context-account', JoiObjectIdPipe) account: string,
   ) {
     return {
       page,

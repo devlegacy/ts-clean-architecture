@@ -20,14 +20,14 @@ export class PriceRequestDto {
     [CREATE],
     Joi.date()
       .optional()
-      .default(() => new Date())
+      .default(() => new Date()),
   )
   readonly createdAt!: Date
 
   @JoiSchema(
     Joi.date()
       .optional()
-      .default(() => new Date())
+      .default(() => new Date()),
   )
   readonly updatedAt!: Date
 }

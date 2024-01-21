@@ -74,7 +74,7 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
       return response.hits.hits.map((hit) =>
         unserializer({
           ...(hit._source as D),
-        })
+        }),
       )
     } catch (e) {
       if (this.isNotFoundError(e)) {

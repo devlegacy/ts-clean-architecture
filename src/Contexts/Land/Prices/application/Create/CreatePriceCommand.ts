@@ -6,7 +6,7 @@ export class CreatePriceCommand extends Command {
     readonly downPayment: number,
     readonly payment: number,
     readonly createdAt: Date,
-    readonly updatedAt: Date
+    readonly updatedAt: Date,
   ) {
     super()
   }

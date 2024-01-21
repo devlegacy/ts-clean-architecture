@@ -40,7 +40,7 @@ const mongoConfig = MongoConfigFactory.createConfig()
 export const connectionClient = MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
-  resolve(`${__dirname}/../../../../Contexts/Backoffice`)
+  resolve(`${__dirname}/../../../../Contexts/Backoffice`),
 )
 
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
@@ -52,7 +52,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
   rabbitFormatter,
-  rabbitConfig
+  rabbitConfig,
 )
 
 const elasticConfig = ElasticConfigFactory.createConfig()
@@ -78,7 +78,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     .register(CommandBus)
     .useFactory((container) => {
       const commands = ((container.findTaggedServiceIdentifiers(TAGS.CommandHandler) as any[]) ?? []).map(
-        (identifier) => container.get(identifier)
+        (identifier) => container.get(identifier),
       )
 
       const handler = new CommandHandlers(commands as any[])
@@ -89,7 +89,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     .register(QueryBus)
     .useFactory((container) => {
       const queries = ((container.findTaggedServiceIdentifiers(TAGS.QueryHandler) as any[]) ?? []).map((identifier) =>
-        container.get(identifier)
+        container.get(identifier),
       )
       const handler = new QueryHandlers(queries as any[])
       return new InMemoryQueryBus(handler)

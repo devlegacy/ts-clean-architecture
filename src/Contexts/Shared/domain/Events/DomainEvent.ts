@@ -50,7 +50,7 @@ export abstract class DomainEvent {
    */
   static fromPrimitives: (
     data: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
-    DomainEventPrimitivesWithAttributes<any>
+    DomainEventPrimitivesWithAttributes<any>,
   ) => DomainEvent
   // static fromPrimitives: (props: any) => DomainEvent
   // static fromPrimitives: (props: {
@@ -87,7 +87,7 @@ export type DomainEventClass = {
   EVENT_NAME: string
   fromPrimitives(
     data: // | { eventId: string; occurredOn: Date; aggregateId: string; attributes: DomainEventAttributes }
-    DomainEventPrimitivesWithAttributes<any>
+    DomainEventPrimitivesWithAttributes<any>,
   ): DomainEvent
   // fromPrimitives(props: any): DomainEvent
   // fromPrimitives(props: {

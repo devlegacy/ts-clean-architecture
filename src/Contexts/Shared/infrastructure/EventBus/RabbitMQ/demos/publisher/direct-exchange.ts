@@ -1,8 +1,6 @@
-import amqplib from 'amqplib'
-
 import { Uuid } from '@/Contexts/Shared/domain/index.js'
 
-import { exitAfterSend, MESSAGES_COUNTER, waitLoop } from '../utils.js'
+import { exitAfterSend, MESSAGES_COUNTER, rabbitConnection, waitLoop } from '../utils.js'
 
 const exchangeName = process.env.EXCHANGE || 'my-direct'
 const routingKey = process.env.ROUTING_KEY || ''
@@ -15,10 +13,11 @@ console.log({
 })
 
 const publisher = async () => {
-  const connection = await amqplib.connect('amqp://localhost')
-  const channel = await connection.createChannel()
+  const { channel } = await rabbitConnection()
 
-  await channel.assertExchange(exchangeName, exchangeType, {})
+  await channel.assertExchange(exchangeName, exchangeType, {
+    durable: true,
+  })
 
   await waitLoop(MESSAGES_COUNTER, () => {
     const message = {
@@ -29,6 +28,9 @@ const publisher = async () => {
 
     const sent = channel.publish(exchangeName, routingKey, buffer, {
       persistent: true, // + durable: true
+      messageId: message.id,
+      contentType: 'application/json',
+      contentEncoding: 'utf-8',
     })
 
     const responseStatus = sent

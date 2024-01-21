@@ -41,7 +41,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
   rabbitConnection,
   rabbitFormatter,
-  rabbitConfig
+  rabbitConfig,
 )
 const monitoring = new SentryModule(SentryConfigFactory.createConfig())
 const logger = new PinoLogger(LoggerConfigFactory.createConfig())

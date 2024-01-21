@@ -176,7 +176,7 @@ export class FastifyAdapter {
 
   register<TRegister extends Parameters<FastifyRegister<FastifyInstance>>>(
     plugin: TRegister['0'],
-    opts?: TRegister['1']
+    opts?: TRegister['1'],
   ) {
     return this.#instance.register(plugin, opts)
   }

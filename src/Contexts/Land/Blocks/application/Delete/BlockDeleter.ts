@@ -8,7 +8,7 @@ import { BlockRepository } from '../../domain/index.js'
 export class BlockDeleter {
   constructor(
     private readonly repository: BlockRepository,
-    private readonly bus: EventBus
+    private readonly bus: EventBus,
   ) {}
 
   async run(request: BlockId) {

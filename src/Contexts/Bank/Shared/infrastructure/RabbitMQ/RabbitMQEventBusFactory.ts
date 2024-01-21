@@ -15,7 +15,7 @@ export class RabbitMQEventBusFactory {
     failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher,
     connection: RabbitMQConnection,
     queueNameFormatter: RabbitMQQueueFormatter,
-    config: RabbitMQConfig
+    config: RabbitMQConfig,
   ): RabbitMQEventBus {
     return new RabbitMQEventBus({
       failoverPublisher,

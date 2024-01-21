@@ -23,7 +23,7 @@ export class CoursesCounterIncrementedDomainEvent
   }
 
   static override fromPrimitives(
-    params: DomainEventPrimitivesWithAttributes<CoursesCounterIncrementedDomainEventAttributes>
+    params: DomainEventPrimitivesWithAttributes<CoursesCounterIncrementedDomainEventAttributes>,
   ) {
     const { eventId, occurredOn, aggregateId, attributes } = params
     return new CoursesCounterIncrementedDomainEvent({

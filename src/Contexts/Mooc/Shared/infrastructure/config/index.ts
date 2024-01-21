@@ -285,7 +285,7 @@ const config = convict(
         default: '',
       },
     },
-  }
+  },
   // {
   // env: {
   // APP_PORT: '8085',
@@ -302,7 +302,7 @@ const config = convict(
 // }
 
 const filePaths = [resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${config.get('app.env')}.json`)].filter(
-  (path) => existsSync(path)
+  (path) => existsSync(path),
 )
 
 config.loadFile(filePaths).validate()

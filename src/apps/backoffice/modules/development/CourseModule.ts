@@ -64,7 +64,7 @@ export const CourseModule = (builder: ContainerBuilder) => {
   builder.register(BackofficeCourseRepository).useFactory((container) => {
     return new ProxyBackofficeCourseRepository(
       container.get(MikroOrmMongoBackofficeCourseRepository),
-      container.get(ElasticBackofficeCourseRepository)
+      container.get(ElasticBackofficeCourseRepository),
     )
   })
 }

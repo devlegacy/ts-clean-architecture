@@ -3,7 +3,7 @@ export abstract class EnumValueObject<T> {
 
   constructor(
     value: T,
-    readonly values: T[]
+    readonly values: T[],
   ) {
     this.value = value
     this.isValid(value)

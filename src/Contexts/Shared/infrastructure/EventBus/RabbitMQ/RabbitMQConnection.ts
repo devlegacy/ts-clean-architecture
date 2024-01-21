@@ -68,7 +68,7 @@ export class RabbitMQConnection {
     const { routingKey, content, options, exchange } = params
     return new Promise((resolve: (value?: unknown) => void, reject: (reason?: unknown) => void) => {
       this.channel!.publish(exchange, routingKey, content, options, (error: unknown) =>
-        error ? reject(error) : resolve()
+        error ? reject(error) : resolve(),
       )
     })
   }

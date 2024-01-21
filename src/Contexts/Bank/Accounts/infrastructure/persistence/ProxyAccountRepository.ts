@@ -3,7 +3,7 @@ import { Account, type AccountRepository } from '../../domain/index.js'
 export class ProxyAccountRepository implements AccountRepository {
   constructor(
     private readonly currentRepository: AccountRepository,
-    private readonly targetRepository: AccountRepository
+    private readonly targetRepository: AccountRepository,
   ) {}
 
   async save(account: Account): Promise<void> {

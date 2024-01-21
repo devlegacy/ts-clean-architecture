@@ -9,7 +9,7 @@ import { QueryBus } from '@/Contexts/Shared/domain/index.js'
 export class CoursesCounterController {
   constructor(
     // private readonly coursesCounterFinder: CoursesCounterFinder,
-    private readonly queryBus: QueryBus
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Get()

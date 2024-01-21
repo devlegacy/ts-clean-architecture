@@ -10,7 +10,7 @@ export interface ZodDto<TOutput = any, TDef extends ZodTypeDef = ZodTypeDef, TIn
 }
 
 export function createZodDto<TOutput = any, TDef extends ZodTypeDef = ZodTypeDef, TInput = TOutput>(
-  schema: ZodSchema<TOutput, TDef, TInput>
+  schema: ZodSchema<TOutput, TDef, TInput>,
 ) {
   class AugmentedZodDto {
     static isZodDto = true

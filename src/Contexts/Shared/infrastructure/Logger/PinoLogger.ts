@@ -20,7 +20,7 @@ export class PinoLogger implements Logger<pino.Logger> {
         messageKey: MESSAGE_KEY,
         base: null,
       },
-      pino.multistream(streams)
+      pino.multistream(streams),
     )
   }
 
@@ -59,7 +59,7 @@ export class PinoLogger implements Logger<pino.Logger> {
         showHidden: false,
         depth: null,
         colors: true,
-      })
+      }),
     )
   }
 }
@@ -75,7 +75,7 @@ export const deepLog = (data: object) =>
       showHidden: false,
       depth: null,
       colors: true,
-    })
+    }),
   )
 
 export const configure = (config: pino.LoggerOptions) => {

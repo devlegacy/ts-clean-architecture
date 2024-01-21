@@ -6,6 +6,6 @@ export interface ParamExtractor {
     req: any,
     res: any,
     data: ParamData | undefined,
-    pipes?: (Constructor<PipeTransform> | PipeTransform)[]
+    pipes?: (Constructor<PipeTransform> | PipeTransform)[],
   ): unknown
 }

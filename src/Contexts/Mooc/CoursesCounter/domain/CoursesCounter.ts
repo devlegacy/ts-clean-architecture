@@ -35,7 +35,7 @@ export class CoursesCounter extends AggregateRoot {
     return new CoursesCounter(
       new CoursesCounterId(data.id),
       new CoursesCounterTotal(data.total),
-      data.existingCourses.map((entry) => new CourseId(entry))
+      data.existingCourses.map((entry) => new CourseId(entry)),
     )
   }
 

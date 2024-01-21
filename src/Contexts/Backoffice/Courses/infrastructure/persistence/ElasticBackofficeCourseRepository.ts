@@ -21,7 +21,7 @@ export class ElasticBackofficeCourseRepository
 
   async paginate(
     _criteria: Criteria,
-    _pagination: OffsetPaginator
+    _pagination: OffsetPaginator,
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
     throw new Error('Method not implemented.')
   }

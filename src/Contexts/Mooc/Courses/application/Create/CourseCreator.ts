@@ -20,7 +20,7 @@ export class CourseCreator {
   // Conventions | Convenciones -> Verb as Action [Creator]
   constructor(
     private readonly repository: CourseRepository,
-    private readonly bus: EventBus
+    private readonly bus: EventBus,
   ) {}
 
   // async run(request: CoursePrimitiveProps) {
@@ -39,5 +39,8 @@ export class CourseCreator {
 
     await this.repository.save(course)
     await this.bus.publish(course.pullDomainEvents())
+
+    const allCourses = await this.repository.all()
+    console.log('allCourses', allCourses)
   }
 }

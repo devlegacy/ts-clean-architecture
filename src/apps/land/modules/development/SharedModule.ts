@@ -5,18 +5,18 @@ import { Redis } from 'ioredis'
 
 import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
 import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure/index.js'
-import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory'
-import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory'
+import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory.js'
+import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory.js'
 import {
   Command,
   CommandBus,
-  CommandHandler,
+  type CommandHandler,
   EventBus,
   Logger,
   Monitoring,
   Query,
   QueryBus,
-  QueryHandler,
+  type QueryHandler,
   Response,
 } from '@/Contexts/Shared/domain/index.js'
 import {
@@ -32,7 +32,7 @@ import {
 } from '@/Contexts/Shared/infrastructure/index.js'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TAGS } from '../tags'
+import { TAGS } from '../tags.js'
 
 const context = 'land'
 const postgresConfig = PostgresConfigFactory.createConfig()
@@ -51,7 +51,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     .register(CommandBus)
     .useFactory((container) => {
       const commands = (container.findTaggedServiceIdentifiers<CommandHandler<Command>>(TAGS.CommandHandler) ?? []).map(
-        (identifier) => container.get(identifier)
+        (identifier) => container.get(identifier),
       )
 
       const handler = new CommandHandlers(commands)

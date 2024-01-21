@@ -92,7 +92,7 @@ const stringObjectExtension: Extension = {
 // }
 
 const Joi = joi.extend(
-  stringObjectExtension
+  stringObjectExtension,
   //  numberObjectExtension
 ) as ExtendedJoi
 

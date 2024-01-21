@@ -84,7 +84,7 @@ export class Block extends AggregateRoot {
     westBoundary: Boundary,
     northwestBoundary: Boundary,
     createdAt?: BlockCreatedAt,
-    updatedAt?: BlockUpdatedAt
+    updatedAt?: BlockUpdatedAt,
   ) {
     super()
     this.id = id
@@ -122,7 +122,7 @@ export class Block extends AggregateRoot {
       data.southBoundary,
       data.southwestBoundary,
       data.westBoundary,
-      data.northwestBoundary
+      data.northwestBoundary,
     )
     const event = new BlockCreatedDomainEvent({
       aggregateId: data.id.value,
@@ -165,7 +165,7 @@ export class Block extends AggregateRoot {
       new Boundary(data.westBoundary),
       new Boundary(data.northwestBoundary),
       !isNil(data.createdAt) ? new BlockCreatedAt(data.createdAt) : undefined,
-      !isNil(data.updatedAt) ? new BlockUpdatedAt(data.updatedAt) : undefined
+      !isNil(data.updatedAt) ? new BlockUpdatedAt(data.updatedAt) : undefined,
     )
 
     return block

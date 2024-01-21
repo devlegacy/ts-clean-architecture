@@ -20,7 +20,7 @@ export class Product {
     name: string,
     price: { amount: number; currency: string },
     imageUrls: string[],
-    reviews: ProductReviewPrimitiveType[]
+    reviews: ProductReviewPrimitiveType[],
   ) {
     this.id = new ProductId(id)
     this.name = new ProductName(name)

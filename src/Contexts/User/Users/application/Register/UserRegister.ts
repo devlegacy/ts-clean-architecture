@@ -15,7 +15,7 @@ export class UserRegister {
       request.jobExperiences,
       // request.age
       request.createdAt,
-      request.updatedAt
+      request.updatedAt,
     )
     if (user.isMillennial()) {
       // do something

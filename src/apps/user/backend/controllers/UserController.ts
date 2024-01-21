@@ -11,7 +11,7 @@ export class UserController {
     private readonly userCreator: UserCreator,
     private readonly userUpdater: UserUpdater,
     private readonly userDeleter: UserDeleter,
-    private readonly userFinder: UserFinder
+    private readonly userFinder: UserFinder,
   ) {}
 
   @Get()
@@ -50,7 +50,7 @@ export class UserController {
         birthdate: Date
         jobExperiences: any[]
       }
-    }>
+    }>,
     // @Res() res: Response
   ) {
     const user = req.body
@@ -70,7 +70,7 @@ export class UserController {
     req: Request<{
       Body: { id?: string; username: string; age: number; name: string }
       Params: { id: string }
-    }>
+    }>,
   ) {
     // const userUpdater = new UserUpdater(userRepository)
     const { id } = req.params
