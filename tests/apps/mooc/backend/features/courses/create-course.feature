@@ -1,3 +1,4 @@
+# Comportamiento visible para el cliente (front, otra api, mobile, etc)
 Feature: Create a new course
   In order to have courses in the platform
   As an user with admin permissions

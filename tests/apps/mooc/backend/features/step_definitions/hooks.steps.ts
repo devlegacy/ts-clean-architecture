@@ -1,5 +1,6 @@
 import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
-import supertest, { type SuperTest, type Test } from 'supertest'
+import supertest, { type Test } from 'supertest'
+import type TestAgent from 'supertest/lib/agent.js'
 
 import { ConfigureRabbitMQCommand } from '@/apps/mooc/backend/command/ConfigureRabbitMQCommand.js'
 import { MoocBackendApp } from '@/apps/mooc/backend/MoocBackendApp.js'
@@ -10,7 +11,7 @@ import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/inde
 
 const application = new MoocBackendApp()
 
-let api: SuperTest<Test>
+let api: TestAgent<Test>
 const environmentArranger = container.get(EnvironmentArranger)
 const eventBus = container.get(EventBus)
 setDefaultTimeout(60 * 1000)
@@ -19,7 +20,7 @@ BeforeAll(async () => {
   await ConfigureRabbitMQCommand.run()
 
   await application.start()
-  api = supertest(application.httpServer)
+  api = supertest(application.httpServer!)
   await wait(1000)
   await environmentArranger.arrange()
 })
