@@ -22,7 +22,7 @@ import {
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-  SentryModule,
+  SentryMonitoring,
 } from '@/Contexts/Shared/infrastructure/index.js'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
@@ -43,7 +43,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
   rabbitFormatter,
   rabbitConfig,
 )
-const monitoring = new SentryModule(SentryConfigFactory.createConfig())
+const monitoring = new SentryMonitoring(SentryConfigFactory.createConfig())
 const logger = new PinoLogger(LoggerConfigFactory.createConfig())
 
 // Infrastructure layer

@@ -5,8 +5,8 @@ import { container, Lifecycle } from 'tsyringe'
 
 import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
 import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure/index.js'
-import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory'
-import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory'
+import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory.js'
+import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory.js'
 import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
 import {
   FatalErrorHandler,
@@ -17,7 +17,7 @@ import {
   PostgresConfig,
   RedisClientFactory,
   RedisConfig,
-  SentryModule,
+  SentryMonitoring,
 } from '@/Contexts/Shared/infrastructure/index.js'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
@@ -31,7 +31,7 @@ const postgresClient = MikroOrmPostgresClientFactory.createClient(context, postg
 const redisConfig = RedisConfigFactory.createConfig()
 const redisClient = RedisClientFactory.createClient(context, redisConfig)
 
-const monitoring = new SentryModule({ options: SentryConfigFactory.createConfig() })
+const monitoring = new SentryMonitoring(SentryConfigFactory.createConfig())
 const logger = new PinoLogger({
   name: config.get('app.name'),
   level: config.get('log.level'),

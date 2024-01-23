@@ -1,8 +1,7 @@
 import { type AddressInfo } from 'node:net'
 
-import fastifyCompress from '@fastify/compress'
-import fastifyCookie from '@fastify/cookie'
-import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors'
+// import fastifyCompress from '@fastify/compress'
+import { type FastifyCorsOptions } from '@fastify/cors'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, {
@@ -84,13 +83,13 @@ export class FastifyAdapter {
     this.#instance
       // NOTE: This package could cause conflict with GraphQL
       // .register(fastifyHelmet)
-      .register(fastifyCompress)
+      .register(import('@fastify/compress'))
       // .register(fastifyRateLimit)
-      .register(fastifyCookie)
+      .register(import('@fastify/cookie'))
   }
 
   enableCors(options: FastifyCorsOptions = {}) {
-    this.#instance.register(fastifyCors, options)
+    this.#instance.register(import('@fastify/cors'), options)
   }
 
   setValidationModule<T = unknown>(validationModule: HttpValidationModule<T>) {

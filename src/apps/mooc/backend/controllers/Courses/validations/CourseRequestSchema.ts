@@ -25,6 +25,7 @@ export class CourseRequestSchema {
   readonly duration?: string
 
   @JoiSchema([CREATE], date.optional().default(() => new Date()))
+  @JoiSchema([UPDATE], date.optional().default(() => new Date()))
   readonly createdAt!: Date
 
   @JoiSchema([CREATE], date.optional().default(() => new Date()))

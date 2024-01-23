@@ -25,7 +25,7 @@ export class MikroOrmMongoBackofficeCourseRepository
 
   async paginate(
     criteria: Criteria,
-    pagination: OffsetPaginator
+    pagination: OffsetPaginator,
   ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }> {
     return this.offsetPagination(criteria, pagination)
   }
@@ -49,7 +49,7 @@ export class MikroOrmMongoBackofficeCourseRepository
         // @ts-expect-error
         _id: course.id,
       },
-      { convertCustomTypes: true }
+      { convertCustomTypes: true },
     )
     const { id, ...primitives } = course.toPrimitives()
 
@@ -60,7 +60,7 @@ export class MikroOrmMongoBackofficeCourseRepository
         // @ts-expect-error
         _id: id,
       },
-      { convertCustomTypes: true }
+      { convertCustomTypes: true },
     )
     if (!current) return
 
@@ -76,7 +76,7 @@ export class MikroOrmMongoBackofficeCourseRepository
         _id: id,
       },
       { deletedAt: new Date() },
-      { convertCustomTypes: true }
+      { convertCustomTypes: true },
     )
   }
 

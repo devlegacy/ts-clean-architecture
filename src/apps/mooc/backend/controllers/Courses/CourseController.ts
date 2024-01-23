@@ -22,7 +22,7 @@ export class CourseController {
 
   // @Schema(UpdateRequestSchema, HttpStatus.UNPROCESSABLE_ENTITY)
   @HttpCode(HttpStatus.CREATED)
-  @Put(':id')
+  @Put(':course')
   async update(@Body() course: CourseRequestSchema) {
     // async update(req: Request<{ Body: CourseRequestDto }>) {
     // const { id, name, duration } = course

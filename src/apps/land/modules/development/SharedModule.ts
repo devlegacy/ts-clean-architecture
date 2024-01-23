@@ -28,7 +28,7 @@ import {
   MikroOrmPostgresClientFactory,
   QueryHandlers,
   RedisClientFactory,
-  SentryModule,
+  SentryMonitoring,
 } from '@/Contexts/Shared/infrastructure/index.js'
 import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
 
@@ -74,7 +74,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     })
     .asSingleton()
   builder.register(Monitoring).useFactory(() => {
-    const monitoring = new SentryModule(SentryConfigFactory.createConfig())
+    const monitoring = new SentryMonitoring(SentryConfigFactory.createConfig())
 
     return monitoring
   })
