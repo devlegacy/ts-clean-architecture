@@ -26,7 +26,7 @@ describe('UserEmailUpdater', () => {
     const oldEmail = 'oldemail@gmail.com'
     const newEmail = 'newemail@gmail.com'
     await repository.save(
-      new User(validId, validName, validUsername, oldEmail, validBirthdate, [], timestamp, timestamp)
+      new User(validId, validName, validUsername, oldEmail, validBirthdate, [], timestamp, timestamp),
     )
 
     // const repositorySave = mock.fn(repository, 'save')
@@ -47,7 +47,7 @@ describe('UserEmailUpdater', () => {
     assert.equal(repositorySave.mock.calls.length, 1)
     assert.deepEqual(
       repositorySave.mock.calls[0]!.arguments[0],
-      new User(validId, validName, validUsername, newEmail, validBirthdate, [], timestamp, timestamp)
+      new User(validId, validName, validUsername, newEmail, validBirthdate, [], timestamp, timestamp),
     )
   })
 

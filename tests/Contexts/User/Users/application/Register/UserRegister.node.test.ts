@@ -69,7 +69,7 @@ describe('UserRegistrar', () => {
     //     user.jobExperiences.toPrimitives()
     //   )
     // )
-    assert.deepEqual(
+    assert.deepStrictEqual(
       repositorySave.mock.calls[0]!.arguments[0],
       new User(
         user.id.value,
@@ -79,8 +79,8 @@ describe('UserRegistrar', () => {
         user.birthdate.value,
         user.jobExperiences.toPrimitives(),
         user.createdAt.value,
-        user.updatedAt.value
-      )
+        user.updatedAt.value,
+      ),
     )
   })
 
@@ -105,7 +105,7 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user with an invalid email', async () => {
@@ -129,7 +129,7 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user with an invalid email domain', async () => {
@@ -154,7 +154,7 @@ describe('UserRegistrar', () => {
     await assert.rejects(register, InvalidArgumentError)
 
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user older than 110 years', async () => {
@@ -181,7 +181,7 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when registering a user younger than 18 years', async () => {
@@ -216,7 +216,7 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it(`throws an error when registering a user with a job experience that has a startDate later than the current Date`, async () => {
@@ -251,7 +251,7 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it(`throws an error when registering a user with a job experience with an end date that is earlier than the start date`, async () => {
@@ -287,7 +287,7 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 
   it('throws an error when two job experiences overlap', async () => {
@@ -328,6 +328,6 @@ describe('UserRegistrar', () => {
     // await expect(register).rejects.toThrow(InvalidArgumentError)
     await assert.rejects(register, InvalidArgumentError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0)
+    assert.strictEqual(repositorySave.mock.calls.length, 0)
   })
 })

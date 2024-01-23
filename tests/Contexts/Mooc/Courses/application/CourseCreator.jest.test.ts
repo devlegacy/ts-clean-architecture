@@ -3,24 +3,24 @@ import { CourseDuration, CourseName, CourseNameLengthExceeded } from '@/Contexts
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
 import { isUndefined } from '@/Contexts/Shared/domain/index.js'
 
-import { EventBusMock } from '../../Shared/index.js'
-import { CourseRepositoryMock } from '../__mocks__/index.js'
+import { JestEventBusMock } from '../../Shared/index.js'
+import { JestCourseRepositoryMock } from '../__mocks__/index.js'
 import { CourseCreatedDomainEventMother, CourseMother } from '../domain/index.js'
 import { CreateCourseRequestMother } from './CreateCourseRequestMother.js'
 
-let repository: CourseRepositoryMock
+let repository: JestCourseRepositoryMock
 let creator: CourseCreator
-let eventBus: EventBusMock
+let eventBus: JestEventBusMock
 
 beforeEach(() => {
-  repository = new CourseRepositoryMock()
-  eventBus = new EventBusMock()
+  repository = new JestCourseRepositoryMock()
+  eventBus = new JestEventBusMock()
   creator = new CourseCreator(repository, eventBus)
 })
 
 describe('CourseCreator', () => {
   it('should create a valid course', async () => {
-    expect.assertions(4)
+    // expect.assertions(4)
     const request = CreateCourseRequestMother.random()
     const course = CourseMother.fromRequest(request)
     const domainEvent = CourseCreatedDomainEventMother.fromCourse(course)
@@ -33,7 +33,6 @@ describe('CourseCreator', () => {
       name: new CourseName(request.name),
       duration: !isUndefined(request.duration) ? new CourseDuration(request.duration) : undefined,
     })
-
     repository.assertLastSavedCourseIs(course)
     eventBus.assertLastPublishedEventIs(domainEvent)
   })

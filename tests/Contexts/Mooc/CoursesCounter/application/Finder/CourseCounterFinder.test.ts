@@ -1,3 +1,5 @@
+import { beforeEach, describe } from 'node:test'
+
 import { CoursesCounterFinder } from '@/Contexts/Mooc/CoursesCounter/application/index.js'
 import { CoursesCounterNotExist } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 

@@ -1,10 +1,12 @@
+import { jest } from '@jest/globals'
+
 import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
 import { Criteria } from '@/Contexts/Shared/domain/index.js'
 
-export class CourseRepositoryMock implements CourseRepository {
+export class JestCourseRepositoryMock implements CourseRepository {
   // One var mock for each method
-  #saveMock: jest.Mock<ReturnType<typeof CourseRepositoryMock.prototype.save>, Course[], CourseRepositoryMock>
-  #searchAllMock: jest.Mock<ReturnType<typeof CourseRepositoryMock.prototype.all>, Course[], CourseRepositoryMock>
+  #saveMock: any //Mock<ReturnType<typeof JestCourseRepositoryMock.prototype.save>, Course[], JestCourseRepositoryMock>
+  #searchAllMock: any //Mock<ReturnType<typeof JestCourseRepositoryMock.prototype.all>, Course[], JestCourseRepositoryMock>
   #courses: Course[] = []
 
   constructor() {

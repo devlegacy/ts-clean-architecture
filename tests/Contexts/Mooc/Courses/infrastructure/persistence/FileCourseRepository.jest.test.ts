@@ -1,5 +1,3 @@
-// import { Uuid } from '@/Contexts/Shared/domain/ValueObjects/Uuid'
-
 import { Course, CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/domain/index.js'
 import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/index.js'
 import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'

@@ -2,17 +2,17 @@ import { CoursesCounterIncrementer } from '@/Contexts/Mooc/CoursesCounter/applic
 import { CoursesCounter } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 
 import { CourseIdMother } from '../../../Shared/domain/index.js'
-import { EventBusMock } from '../../../Shared/index.js'
+import { NodeEventBusMock } from '../../../Shared/index.js'
 import { CoursesCounterRepositoryMock } from '../../__mocks__/index.js'
 import { CoursesCounterIncrementedDomainEventMother, CoursesCounterMother } from '../../domain/index.js'
 
 describe('CoursesCounter Incrementer', () => {
   let incrementer: CoursesCounterIncrementer
-  let eventBus: EventBusMock
+  let eventBus: NodeEventBusMock
   let repository: CoursesCounterRepositoryMock
 
   beforeEach(() => {
-    eventBus = new EventBusMock()
+    eventBus = new NodeEventBusMock()
     repository = new CoursesCounterRepositoryMock()
     incrementer = new CoursesCounterIncrementer(repository, eventBus)
   })

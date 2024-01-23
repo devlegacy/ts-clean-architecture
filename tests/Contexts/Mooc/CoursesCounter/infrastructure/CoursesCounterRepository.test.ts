@@ -1,3 +1,5 @@
+import { afterAll, beforeEach, describe, it, jest } from '@jest/globals'
+
 import { container } from '@/apps/mooc/modules/index.js'
 import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
 import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'

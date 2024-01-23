@@ -1,9 +1,10 @@
+import { jest } from '@jest/globals'
+
 import { DomainEvent, EventBus } from '@/Contexts/Shared/domain/index.js'
 import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
 
-export class EventBusMock implements EventBus {
-  private publishSpy: jest.Mock<ReturnType<typeof EventBusMock.prototype.publish>, DomainEvent[][], EventBusMock> =
-    jest.fn()
+export class JestEventBusMock implements EventBus {
+  private publishSpy: any = jest.fn() //jest.Mock<ReturnType<typeof EventBusMock.prototype.publish>, DomainEvent[][], EventBusMock>
 
   async publish(events: DomainEvent[]): Promise<void> {
     this.publishSpy(events)
@@ -20,7 +21,7 @@ export class EventBusMock implements EventBus {
     const lastPublishedEvent = lastPublishSpyCall?.[0]?.[0]
 
     const expected = this.getDataFromDomainEvent(expectedEvent)
-    const published = this.getDataFromDomainEvent(lastPublishedEvent!)
+    const published = this.getDataFromDomainEvent(lastPublishedEvent)
 
     expect(expected).toMatchObject(published)
   }

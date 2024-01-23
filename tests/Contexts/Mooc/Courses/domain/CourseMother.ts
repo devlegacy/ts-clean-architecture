@@ -21,7 +21,7 @@ export class CourseMother {
     const course = CourseMother.create(
       CourseIdMother.create(command.id),
       CourseNameMother.create(command.name),
-      command.duration ? CourseDurationMother.create(command.duration) : undefined
+      command.duration ? CourseDurationMother.create(command.duration) : undefined,
     )
     return course
   }
@@ -30,7 +30,7 @@ export class CourseMother {
     const course = CourseMother.create(
       new CourseId(request.id),
       new CourseName(request.name),
-      request.duration ? new CourseDuration(request.duration) : undefined
+      request.duration ? new CourseDuration(request.duration) : undefined,
     )
     return course
   }
@@ -39,7 +39,7 @@ export class CourseMother {
     const course = CourseMother.create(
       CourseIdMother.random(),
       CourseNameMother.random(),
-      CourseDurationMother.random()
+      CourseDurationMother.random(),
     )
     return course
   }
