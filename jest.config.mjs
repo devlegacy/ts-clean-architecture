@@ -1,19 +1,18 @@
-// import('ts-jest/dist/types').InitialOptionsTsJest
-
-// import type { Config } from 'jest'
-const fs = require('node:fs')
-const JSON5 = require('json5')
-
-const { pathsToModuleNameMapper } = require('ts-jest')
-const { compilerOptions } = JSON5.parse(fs.readFileSync('./tsconfig.json', 'utf8'))
-console.log(compilerOptions.baseUrl)
-console.log(pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }))
-/*
- * For a detailed explanation regarding each configuration property and type check, visit:
+/**
+ * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
+// https://stackoverflow.com/questions/73038879/use-jest-with-typescript-esm-and-aliases
+// const fs = require('node:fs')
+// const JSON5 = require('json5')
 
-module.exports = {
+// const { pathsToModuleNameMapper } = require('ts-jest')
+// const { compilerOptions } = JSON5.parse(fs.readFileSync('./tsconfig.json', 'utf8'))
+// console.log(compilerOptions.baseUrl)
+// console.log(pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }))
+
+/** @type {import('jest').Config} */
+const config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -36,7 +35,7 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\'],
+  coveragePathIgnorePatterns: ['/node_modules/'],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
@@ -94,14 +93,14 @@ module.exports = {
     //   "json",
     //   "node"
   ],
-  modulePaths: [compilerOptions.baseUrl],
+
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     // https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
     '@/apps/(.*)\\.js$': ['<rootDir>/src/apps/$1'],
     '@/Contexts/(.*)\\.js$': ['<rootDir>/src/Contexts/$1'],
     '@/tests/(.*)\\.js$': ['<rootDir>/tests/$1'],
-    // '^(\\.{1,2}/.*)$': '$1',
+    // jest esm
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 
@@ -115,8 +114,7 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: 'ts-jest',
-
+  // preset: 'ts-jest/presets/default-esm',
   // Run tests from one or more projects
   // projects: undefined,
 
@@ -139,11 +137,7 @@ module.exports = {
   // rootDir: undefined,
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: [
-    //'<rootDir>/src',
-    // '<rootDir>/tests',
-    '<rootDir>',
-  ],
+  roots: ['<rootDir>'],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -152,7 +146,7 @@ module.exports = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.mjs'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -161,7 +155,6 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-node",
   testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
@@ -175,11 +168,10 @@ module.exports = {
   //   "**/__tests__/**/*.[jt]s?(x)",
   //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
-  // (ts|tsx|js)
-  testMatch: ['**/__tests__/**/*.+(ts)', '**/?(*.)+(spec|test).+(ts)'],
+  testMatch: ['**/?(*.)+(jest).+(test).+(ts)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  testPathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\'], // '\\\\__mocks__\\\\'
+  testPathIgnorePatterns: ['/node_modules/'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
@@ -192,62 +184,32 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   extensionsToTreatAsEsm: ['.ts'],
-  transform: {
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        tsconfig: 'tsconfig.json',
-        // isolatedModules: true,
-        // module: 'NodeNext',
-        useESM: true,
-      },
-    ],
-  },
-
+  // transform: {
+  //   '^.+\\.m?[tj]sx?$': [
+  //     'ts-jest',
+  //     {
+  //       diagnostics: true,
+  //       tsconfig: 'tsconfig.json',
+  //       // isolatedModules: true,
+  //       // module: 'NodeNext',
+  //       useESM: true,
+  //       compiler: 'typescript',
+  //     },
+  //   ],
+  // },
   // TODO: Read about @swc/jest and MikroORM
   // TODO: Read about jest-junit
-  // transform: {
-  //   '^.+\\.(ts|tsx|js)$': [
-  //     '@swc/jest',
-  //     {
-  //       jsc: {
-  //         parser: {
-  //           syntax: 'typescript',
-  //           // tsx: false,
-  //           decorators: true
-  //           // decoratorsBeforeExport: true,
-  //           // dynamicImport: true,
-  //           // importMeta: true,
-  //           // functionBind: true
-  //         },
-  //         transform: {
-  //           legacyDecorator: true,
-  //           decoratorMetadata: true
-  //         },
-  //         target: 'es2022'
-  //         // externalHelpers: true,
-  //         // keepClassNames: true,
-  //         // loose: true
-  //       }
-  //       // module: {
-  //       //   type: 'commonjs',
-  //       //   strict: false,
-  //       //   strictMode: false,
-  //       //   lazy: false,
-  //       //   noInterop: true
-  //       // }
-  //     }
-  //   ]
-  // },
-
+  transform: {
+    '^.+\\.ts$': '@swc/jest',
+  },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['\\\\node_modules\\\\', '\\\\cypress\\\\', '\\.pnp\\.[^\\\\]+$'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
 
   // Indicates whether each individual test should be reported during the run
-  // verbose: undefined,
+  verbose: true,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],
@@ -255,3 +217,5 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 }
+
+export default config

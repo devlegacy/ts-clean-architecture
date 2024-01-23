@@ -1,3 +1,5 @@
+// const pluginSecurity = require('eslint-plugin-security')
+
 // /** @type {import('eslint').Linter.Config} */
 module.exports = {
   root: true,
@@ -7,12 +9,12 @@ module.exports = {
     jest: true,
   },
   // Read more on: https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser#configuration
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
     sourceType: 'module',
+    parser: '@typescript-eslint/parser',
   },
   plugins: [
     '@typescript-eslint',
@@ -28,7 +30,7 @@ module.exports = {
     // 'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'plugin:security/recommended',
+    'plugin:security/recommended-legacy',
     // "plugin:editorconfig/all",
     // "plugin:editorconfig/noconflict"
   ],

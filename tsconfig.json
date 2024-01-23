@@ -45,7 +45,7 @@
     "types": [
       "jest",
       "node",
-      "reflect-metadata"
+      // "reflect-metadata"
       // "./node_modules/type-fest",
       // "type-fest",
     ] /* Specify type package names to be included without being referenced in a source file. */,
@@ -116,12 +116,12 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "noErrorTruncation": true
-  }
+  },
   // https://github.com/TypeStrong/ts-node/issues/2070
-  // "ts-node": {
-  // "swc": true,
-  //   "files": true,
-  //   "transpileOnly": true,
-  //   "require": ["tsconfig-paths/register"]
-  // }
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "transpileOnly": true,
+    "require": ["tsconfig-paths/register"]
+  }
 }

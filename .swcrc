@@ -1,24 +1,19 @@
 {
+  "exclude": "node_modules/",
   "jsc": {
     "parser": {
       "syntax": "typescript",
       "decorators": true,
-      "dynamicImport": true
+      "dynamicImport": true,
+      "topLevelAwait": true
     },
     "transform": {
-      "legacyDecorator": true,
       "decoratorMetadata": true
     },
-    "target": "es2022",
-    "keepClassNames": true,
-    "loose": true
+    "target": "esnext"
   },
   "module": {
-    "type": "nodenext",
-    "strict": true,
-    "strictMode": true,
-    "lazy": false,
-    "noInterop": true
+    "type": "nodenext"
   },
-  "sourceMaps": "inline"
+  "sourceMaps": true
 }
