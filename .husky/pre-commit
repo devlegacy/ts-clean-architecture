@@ -1,27 +1,32 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# TODO: improve CLI util on windows or gitbash
-# exec < /dev/tty && git cz --hook || true
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+
 
 is_commit_available="$(git rev-list -n 1 --all)"
 if [[ "$is_commit_available" ]]; then
   # Validate branch name
   # Read more on: https://www.devwithimagination.com/2020/04/13/git-commit-hooks-for-branch-naming-using-husky/
   local_branch_name="$(git rev-parse --abbrev-ref HEAD)"
-  recommend_branch_name_regexp='^((fix|feat|imp|develop)\/[a-zA-Z0-9\-]+)$'
+  recommend_branch_name='^((fix|feat|imp|hotfix)\/[a-zA-Z0-9\-]+)$'
 
   if [[ ! $local_branch_name =~ $recommend_branch_name ]]; then
-      message="There is something wrong with your branch name. Branch names in this project must adhere to this contract: $recommend_branch_name_regexp. Your commit will be rejected. You should rename your branch to a valid name and try again."
-
-      echo $message
+      echo "${RED}There is something wrong with your branch name <${YELLOW}$local_branch_name${RED}>. Branch names in this project must adhere to this contract: <${GREEN}$recommend_branch_name${RED}>. Your commit will be rejected. You should rename your branch to a valid name and try again.${NO_COLOR}"
       exit 1
   fi
 fi
 
 # npm test
 
+echo "${YELLOW}Starting lint, please wait ⏳ :)${NO_COLOR}"
 # Run lint files on staged files
-echo "Starting lint, please wait :)"
-npx --no -- lint-staged --quiet --config ./.lintstagedrc.json
-echo "Lint task end, you can do your push 🚀"
+if npx --no -- lint-staged --quiet --config ./.lintstagedrc.json; then
+  echo "${GREEN}Lint task ended successfully, you can do your push 🚀${NO_COLOR}"
+else
+  echo "${RED}Lint task failed, please fix the errors before pushing.${NO_COLOR}"
+  exit 1
+fi

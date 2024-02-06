@@ -1,13 +1,28 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+
 commit_message="$(cat $1)"
 # kheops message proposal
 recommend_commit_message='^(\+|\-|\*){1}[[:space:]].*'
 
+echo "${YELLOW}Validating commit message 💬...${NO_COLOR}"
+
 if [[ ! $commit_message =~ $recommend_commit_message ]]; then
+  echo "${RED}There is something wrong with your commit message. Your commit message must adhere to this contract: <${GREEN}$recommend_commit_message${RED}>. Your commit will be rejected. You should rename your commit message to a valid name and try again.${NO_COLOR}"
   # This commit message should be validate whit commitlint
-  npx --no -- commitlint --edit "${1}"
+  if npx --no -- commitlint --edit "${1}"; then
+    echo "${GREEN}✅ Commit message passed checks.${NO_COLOR}"
+  else
+    echo "${RED}❌ Commit message failed. Please revise your commit message according to the project's commit message guidelines.${NO_COLOR}"
+    exit 1
+  fi
+else
+echo "${GREEN}✅ Commit message ended successfully, you can do your commit 🚀${NO_COLOR}"
 fi
 
 # Recommend install and use: https://git-scm.com/downloads
