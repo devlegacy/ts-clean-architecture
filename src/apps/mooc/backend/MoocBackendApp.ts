@@ -1,11 +1,13 @@
 import { config } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
 import { EventBus } from '@/Contexts/Shared/domain/index.js'
-import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/index.js'
+import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventSubscriberResolver.js'
+import { RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus/RabbitMQ/index.js'
 
 import { container } from '../modules/index.js'
 import { Server } from './Server.js'
 
 const rabbitMQConnection = container.get(RabbitMQConnection)
+const eventBus = container.get(EventBus)
 
 // Backend App - API - Coordinator (http server, subscribers)
 export class MoocBackendApp {
@@ -17,7 +19,7 @@ export class MoocBackendApp {
   }
 
   async start() {
-    await this.#startHttp()
+    await this.#startHttpServer()
     await this.#startSubscribers()
   }
 
@@ -26,7 +28,7 @@ export class MoocBackendApp {
     this.#server?.stop()
   }
 
-  async #startHttp() {
+  async #startHttpServer() {
     const options = {
       ...config.get('app'),
       ...config.get('http'),
@@ -41,7 +43,6 @@ export class MoocBackendApp {
 
   async #configureEventBus() {
     await rabbitMQConnection.connect()
-    const eventBus = container.get(EventBus)
     const subscribers = DomainEventSubscriberResolver.fromContainer(container)
     eventBus.addSubscribers(subscribers)
   }
