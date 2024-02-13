@@ -33,7 +33,7 @@ export class Server {
   #app?: FastifyInstance
   #httpServer?: http.Server
 
-  constructor(port = 8080) {
+  constructor(port = 8081) {
     this.#port = port
 
     const adapter = new FastifyAdapter()
