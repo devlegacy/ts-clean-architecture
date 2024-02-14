@@ -1,4 +1,6 @@
-const typeEnums = require('@commitlint/config-conventional').rules['type-enum'][2]
+const config = require('@commitlint/config-conventional')
+
+const typeEnums = config.rules['type-enum']?.[2] || []
 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -10,8 +12,8 @@ module.exports = {
         ...typeEnums,
         // 'imp',
         // 'update',
-        'wip'
-      ]
-    ]
-  }
+        'wip',
+      ],
+    ],
+  },
 }
