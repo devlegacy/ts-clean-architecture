@@ -1,30 +1,16 @@
-import {
-  fileURLToPath,
-} from 'node:url'
+import { fileURLToPath, } from 'node:url'
 
 import fastifyFormbody from '@fastify/formbody'
-import type {
-  FastifyInstance,
-} from 'fastify'
+import type { FastifyInstance, } from 'fastify'
 import http from 'http'
-import type {
-  AddressInfo,
-} from 'net'
-import {
-  resolve,
-} from 'path'
+import type { AddressInfo, } from 'net'
+import { resolve, } from 'path'
 import qs from 'qs'
 
-import {
-  DiodControllerResolver,
-} from '@/Contexts/Shared/infrastructure/Common/index.js'
-import {
-  FastifyAdapter,
-} from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+import { DiodControllerResolver, } from '@/Contexts/Shared/infrastructure/Common/index.js'
+import { FastifyAdapter, } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
 
-import {
-  container,
-} from '../modules/index.js'
+import { container, } from '../modules/index.js'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export class Server {
@@ -33,7 +19,7 @@ export class Server {
   #app?: FastifyInstance
   #httpServer?: http.Server
 
-  constructor(port = 8080) {
+  constructor(port = 8081) {
     this.#port = port
 
     const adapter = new FastifyAdapter()
