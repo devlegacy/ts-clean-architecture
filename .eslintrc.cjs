@@ -60,7 +60,7 @@ module.exports = {
     '@stylistic/dot-location': ['error', 'property'],
     '@stylistic/eol-last': ['error', 'always'],
     '@stylistic/function-call-argument-newline': ['error', 'consistent'],
-    '@stylistic/function-call-spacing': ['error', 'never'],
+    '@stylistic/function-call-spacing': ['error', 'never'], // default
     '@stylistic/function-paren-newline': ['error', 'multiline-arguments'],
     '@stylistic/key-spacing': 'error',
     '@stylistic/keyword-spacing': 'error',
@@ -72,6 +72,7 @@ module.exports = {
     '@stylistic/no-mixed-operators': 'error',
     '@stylistic/no-multiple-empty-lines': ['error'],
     '@stylistic/no-multi-spaces': ['error'],
+    '@stylistic/no-trailing-spaces': ['error'],
     '@stylistic/operator-linebreak': ['error', 'before'], // DEBT: "overrides": { "?": "before", ":": "before", "&&": "before", "||": "before" } }
     '@stylistic/space-infix-ops': 'error',
     '@stylistic/space-unary-ops': 'error',
@@ -86,18 +87,19 @@ module.exports = {
       {
         ObjectExpression: { minProperties: 2, multiline: true, consistent: true },
         ObjectPattern: { minProperties: 2, multiline: true, consistent: true },
-        ImportDeclaration: 'never',
+        ImportDeclaration: { multiline: true, minProperties: 1, consistent: true },
         ExportDeclaration: { minProperties: 2, multiline: true, consistent: true },
       },
     ],
     '@stylistic/object-curly-spacing': ['error', 'always'],
     '@stylistic/object-property-newline': ['error'],
-    // tabWidth: 2 useTabs: false printWidth: 120
+    // tabWidth: 2 useTabs: false printWidth: 100
     '@stylistic/indent': ['error', 2],
     '@stylistic/no-tabs': ['error'],
     '@stylistic/no-mixed-spaces-and-tabs': ['error'],
-    '@stylistic/max-len': ['error', { tabWidth: 2, code: 120, ignorePattern: '^import .*', ignoreComments: true }],
+    '@stylistic/max-len': ['error', { tabWidth: 2, code: 100, ignoreComments: true }], //, ignorePattern: '^import .*'
     // quoteProps: 'as-needed'
+    // '@stylistic/max-statements-per-line': ['error', { max: 1 }],
     '@stylistic/quote-props': ['error', 'as-needed'],
     // trailingComma: 'all'
     '@stylistic/comma-dangle': [

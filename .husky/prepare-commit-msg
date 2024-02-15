@@ -1,7 +1,8 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
 
 # TODO: improve CLI util on windows or gitbash
 # exec < /dev/tty && git cz --hook || true
-
-exec < /dev/tty && node_modules/.bin/cz --hook || true
+# TIP: git config --global core.editor "code --wait"
+# Follow: https://github.com/commitizen/cz-cli/issues/934
+# exec < /dev/tty && npx cz --hook || true
+# Avoid because of bug

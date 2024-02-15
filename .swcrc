@@ -1,6 +1,6 @@
 {
-  "exclude": "node_modules/",
   "jsc": {
+    "target": "esnext",
     "parser": {
       "syntax": "typescript",
       "decorators": true,
@@ -8,12 +8,16 @@
       "topLevelAwait": true
     },
     "transform": {
-      "decoratorMetadata": true
+      "decoratorMetadata": true,
+      "legacyDecorator": true
     },
-    "target": "esnext"
+    "keepClassNames": true,
+    "externalHelpers": true,
+    "loose": true
   },
   "module": {
     "type": "nodenext"
   },
-  "sourceMaps": true
+  "sourceMaps": true,
+  "exclude": "node_modules/"
 }
