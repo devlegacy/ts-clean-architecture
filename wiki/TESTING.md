@@ -1,5 +1,7 @@
 # Testing
 
+- Los test deben dar confianza.
+
 ## Mocks
 
 - Doblan en tiempo de test, elementos de infraestructura, estrategia para no acoplarnos a una implementación en concreto.
@@ -34,3 +36,15 @@
     - Note: Se usan mocks
     - ❌ Fail
     - ✅ Success
+
+## Node
+
+node --loader ts-node/esm ./tests/Contexts/User/Users/**/**/*.test.ts
+node --import tsx --watch --inspect=0.0.0.0:0 --env-file=.mooc.env ./src/apps/mooc/backend/main.ts
+  - bug diod
+
+"test:node": "node --import tsx --test ./tests/Contexts/User/Users/**/**/*.test.ts",
+"test:node": "node --loader ts-paths-esm-loader/transpile-only --test ./tests/Contexts/User/Users/**/**/*.test.ts",
+APP_ENV=test npx glob tests/Contexts/Mooc/Courses/**/*.test.ts -c "node --test --loader=ts-paths-esm-loader/transpile-only"
+
+ NODE_OPTIONS="--experimental-vm-modules" npx jest --config ./jest.config.mjs ./tests/

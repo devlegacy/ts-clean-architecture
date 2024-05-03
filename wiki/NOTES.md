@@ -1,9 +1,9 @@
 # Notes 
 
-Rigor (Excesiva y escrupulosa severidad).
-Criterio.
-Priorizar.
-Delegar.
+- Rigor (Excesiva y escrupulosa severidad).
+- Criterio.
+- Priorizar.
+- Delegar.
 
 
 > El pensamiento es una representación de la realidad. La realidad es aquello que se puede describir con el lenguaje, por eso los límites de mi lenguaje son los límites de mi mundo.
@@ -18,7 +18,7 @@ The limits of my language mean the limits of my world.
   tree -L 4 src
 ```
 
-📂 `project-root/`     
+📂 `project-root/` (files and folders are indirection levels)   
 ├─ 📂 `.bin` Binary and helper files     
 ├─ 📂 `.cache/`     
 ├─ 📂 `.data/`      

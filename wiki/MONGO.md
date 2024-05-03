@@ -2,9 +2,24 @@
 
 ## Atlas
 
+- [Consulting]()
 - [Perform advisor](https://cloud.mongodb.com/v2/61ba10a74465e17aa31e97cf#metrics/replicaSet/61ba12eaa5284b193982b5de/advisor)
-- [Profiler -> examined:return ratio](https://cloud.mongodb.com/v2/61ba10a74465e17aa31e97cf#metrics/replicaSet/61ba12eaa5284b193982b5de/profiler)
 - [Metrics: +Document metrics](https://cloud.mongodb.com/v2/61ba10a74465e17aa31e97cf#host/replicaSet/61ba12eaa5284b193982b5de)
+
+## Profiler
+
+---
+- [Profiler -> examined:return ratio](https://cloud.mongodb.com/v2/61ba10a74465e17aa31e97cf#metrics/replicaSet/61ba12eaa5284b193982b5de/profiler)
+---
+- **Orange** ![#f68a1e](https://via.placeholder.com/15/f68a1e/000000?text=+): Indicates queries that are taking longer than expected, suggesting optimization is needed.
+- **Blue** ![#0498EC](https://via.placeholder.com/15/0498EC/000000?text=+): Usually represents read operations, with variations indicating different execution time ranges.
+- **Salmon** ![#f38183](https://via.placeholder.com/15/f38183/000000?text=+): May indicate write or update operations, helping to distinguish different types of database operations.
+- **Green** ![#00ED64](https://via.placeholder.com/15/00ED64/000000?text=+): Often associated with queries that execute quickly and are considered efficient.
+- **Yellow** ![#fbb129](https://via.placeholder.com/15/fbb129/000000?text=+): Used to highlight operations that require attention but are not as critical as those marked in orange.
+- **Gray** ![#889397](https://via.placeholder.com/15/889397/000000?text=+): Commands or operations that are neutral, do not fit into specific performance categories, or have failed due to specific errors, such as index creation failures or duplicate key errors.
+- **Red** ![#FF0000](https://via.placeholder.com/15/FF0000/000000?text=+): Often indicates critical issues or errors that require immediate attention.
+- **Purple** ![#800080](https://via.placeholder.com/15/800080/000000?text=+): Can indicate specific types of operations or metrics, depending on the context.
+
 
 ## Index
 

@@ -16,6 +16,8 @@
 - [ ] ¿Eliminar los eventos en las colas después de los test?
 - [ ] ¿Default sort de los elementos?
 
+- [ ] UUID v4 vs UUID v7 vs ULID vs ID autoincremental
+
 ## Aggregates
 
 -  En el contexto de DDD, Arquitectura Hexagonal, SOLID y buenas practicas, como se gestionan los datos virtuales en lectura y escritura en los Aggregate Root?
