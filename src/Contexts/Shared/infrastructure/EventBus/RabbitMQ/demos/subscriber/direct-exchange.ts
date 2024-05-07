@@ -1,39 +1,54 @@
-import amqplib from 'amqplib'
+import {
+  rabbitConnection,
+} from '../utils.js'
 
-import { intensiveOperation } from '../utils.js'
-
-const queue = process.env.QUEUE || 'hello'
-const exchange = process.env.EXCHANGE || 'my-direct'
+const queueName = process.env.QUEUE || 'hello'
+const exchangeName = process.env.EXCHANGE || 'my-direct'
 // const routingKey = process.env.ROUTING_KEY || ''
 const pattern = process.env.PATTERN || ''
 const exchangeType = 'direct'
 
 console.log({
-  queue,
-  exchange,
+  queueName,
+  exchangeName,
   // routingKey === pattern,
   pattern,
 })
 
 const subscriber = async () => {
-  const connection = await amqplib.connect('amqp://localhost')
-  const channel = await connection.createChannel()
+  const {
+    channel,
+    onMessage,
+  } = await rabbitConnection()
 
-  const assertQueue = await channel.assertQueue(queue, {})
-  console.log(assertQueue)
-  await channel.assertExchange(exchange, exchangeType, {})
-  await channel.bindQueue(queue, exchange, pattern)
-  await channel.consume(queue, (message) => {
-    if (!message) return
-    const content = JSON.parse(message.content.toString())
-    intensiveOperation()
-    // con el noAck pueden haber duplicados
-    console.log(`Received message from <${queue}> queue`, content)
-    channel.ack(message)
+  const queue = await channel.assertQueue(queueName, {})
+  console.log({
+    queue,
   })
+  const exchange = await channel.assertExchange(exchangeName, exchangeType, {})
+  console.log({
+    exchange,
+  })
+  const bind = await channel.bindQueue(queueName, exchangeName, pattern)
+  console.log({
+    bind,
+  })
+  await channel.consume(queueName, (message) => onMessage(message, queueName, exchangeName))
 }
 
-subscriber().catch((err) => {
-  console.log(err)
+try {
+  await subscriber()
+}
+catch (err) {
+  console.error(err)
   process.exit(1)
-})
+}
+finally {
+  console.log('finally 🔚')
+}
+
+// subscriber().catch((err) => {
+//   console.log(err)
+//   process.exit(1)
+// })
+// PATTERN= bun --watch ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/direct-exchange.ts

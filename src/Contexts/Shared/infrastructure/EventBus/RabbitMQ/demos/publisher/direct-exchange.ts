@@ -1,6 +1,10 @@
-import { Uuid } from '@/Contexts/Shared/domain/index.js'
+import {
+  v4,
+} from 'uuid'
 
-import { exitAfterSend, MESSAGES_COUNTER, rabbitConnection, waitLoop } from '../utils.js'
+import {
+  MESSAGES_COUNTER, rabbitConnection, waitLoop,
+} from '../utils.js'
 
 const exchangeName = process.env.EXCHANGE || 'my-direct'
 const routingKey = process.env.ROUTING_KEY || ''
@@ -13,38 +17,69 @@ console.log({
 })
 
 const publisher = async () => {
-  const { channel } = await rabbitConnection()
+  const {
+    channel,
+  } = await rabbitConnection()
 
-  await channel.assertExchange(exchangeName, exchangeType, {
+  const exchange = await channel.assertExchange(exchangeName, exchangeType, {
     durable: true,
   })
+  console.log({
+    exchange,
+  })
 
-  await waitLoop(MESSAGES_COUNTER, () => {
+  await waitLoop(MESSAGES_COUNTER, async () => {
     const message = {
-      id: Uuid.random().toString(),
+      id: v4(),
       text: `Hello world! ${new Date().toISOString()}`,
     }
-    const buffer = Buffer.from(JSON.stringify(message))
-
-    const sent = channel.publish(exchangeName, routingKey, buffer, {
-      persistent: true, // + durable: true
-      messageId: message.id,
-      contentType: 'application/json',
-      contentEncoding: 'utf-8',
+    const content = Buffer.from(JSON.stringify(message))
+    const publish = new Promise((resolve, reject) => {
+      const sent = channel.publish(exchangeName, routingKey, content, {
+        persistent: true, // + durable: true
+        messageId: message.id,
+        contentType: 'application/json',
+        contentEncoding: 'utf-8',
+      }, (error, ok) => {
+        error
+          ? reject(error)
+          : resolve({
+            sent,
+            ok,
+          })
+      })
     })
-
+    const sent = await publish
     const responseStatus = sent
-      ? `Sent message to <${exchangeName}> exchange`
-      : `Fails sending message to <${exchangeName}> exchange`
-    console.log(responseStatus, message)
+      ? `✅ Successfully sent 📤 message 💬 to <${exchangeName}> 🔶 exchange`
+      : `❌ Failed to send 📤 sending message 💬 to <${exchangeName}> 🔶 exchange`
+    console.log({
+      responseStatus,
+      event: message,
+      sent,
+    })
   })
 }
 
-publisher()
-  .catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
-  .finally(() => {
-    exitAfterSend()
-  })
+try {
+  await publisher()
+}
+catch (err) {
+  console.error(err)
+  process.exit(1)
+}
+finally {
+  console.log('finally 🔚')
+  // exitAfterSend()
+}
+
+// publisher()
+//   .catch((err) => {
+//     console.error(err)
+//     process.exit(1)
+//   })
+//   .finally(() => {
+//     exitAfterSend()
+//   })
+
+// ROUTING_KEY= bun --watch ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/publisher/direct-exchange.ts
