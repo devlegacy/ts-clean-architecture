@@ -1,6 +1,6 @@
-import amqplib from 'amqplib'
-
-import { intensiveOperation } from '../utils.js'
+import {
+  rabbitConnection,
+} from '../utils.js'
 
 const queueName = process.env.QUEUE || 'hello'
 const exchangeName = process.env.EXCHANGE || 'my-topic'
@@ -11,29 +11,58 @@ const exchangeType = 'topic'
 console.log({
   queueName,
   exchangeName,
-  // routingKey === pattern,
+  exchangeType,
   pattern,
 })
 
 const subscriber = async () => {
-  const connection = await amqplib.connect('amqp://localhost')
-  const channel = await connection.createChannel()
+  const {
+    channel,
+    onMessage,
+  } = await rabbitConnection()
 
-  const queue = await channel.assertQueue(queueName, {})
-  console.log(queue)
-  await channel.assertExchange(exchangeName, exchangeType, {})
-  await channel.bindQueue(queueName, exchangeName, pattern)
-  await channel.consume(queueName, (message) => {
-    if (!message) return
-    const content = JSON.parse(message.content.toString())
-    intensiveOperation()
-    // con el noAck pueden haber duplicados
-    console.log(`Received message from <${queueName}> queue`, content)
-    channel.ack(message)
+  const queue = await channel.assertQueue(queueName, {
+    exclusive: false, // can be consumed by one or more than one
+    durable: true,
+    autoDelete: false,
+  })
+  console.log({
+    queue,
+  })
+  const exchange = await channel.assertExchange(exchangeName, exchangeType, {
+    durable: true,
+  })
+  console.log({
+    exchange,
+  })
+  const bind = await channel.bindQueue(queueName, exchangeName, pattern)
+  console.log({
+    bind,
+  })
+  const consume = await channel.consume(queueName, (message) => onMessage(message, queueName, exchangeName))
+  console.log({
+    consume,
   })
 }
 
-subscriber().catch((err) => {
-  console.log(err)
+try {
+  await subscriber()
+}
+catch (err) {
+  console.error(err)
   process.exit(1)
-})
+}
+finally {
+  console.log('finally 🔚')
+}
+
+// subscriber().catch((err) => {
+//   console.log(err)
+//   process.exit(1)
+// })
+
+// bun --watch ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/topic-exchange.ts
+
+// PATTERN=user.* EXCHANGE=domain_events QUEUE=user_events bun --watch ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/topic-exchange.ts
+
+// PATTERN=log.* QUEUE=hello bun --watch ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/subscriber/topic-exchange.ts
