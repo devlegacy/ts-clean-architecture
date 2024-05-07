@@ -1,40 +1,76 @@
-import { Uuid } from '@/Contexts/Shared/domain/index.js'
+import {
+  EVENT, MESSAGES_COUNTER, rabbitConnection, waitLoop,
+} from '../utils.js'
 
-import { MESSAGES_COUNTER, rabbitConnection, waitLoop } from '../utils.js'
-
-const queue = process.env.QUEUE || 'hello'
+// user_events
+const queueName = process.env.QUEUE || 'hello'
+const eventName = (process.env.EVENT_NAME || 'message.created') as keyof typeof EVENT
 
 console.log({
-  queue,
+  queueName,
+  eventName,
 })
 
 const publisher = async () => {
-  const { channel } = await rabbitConnection()
-  const assertQueue = await channel.assertQueue(queue, {
+  const {
+    channel,
+  } = await rabbitConnection()
+  const queue = await channel.assertQueue(queueName, {
     durable: true, // default: true
     exclusive: false,
     autoDelete: false,
   })
-  console.log(assertQueue)
+  console.log({
+    queue,
+  })
 
-  await waitLoop(MESSAGES_COUNTER, () => {
-    const message = {
-      id: Uuid.random().toString(),
-      text: `Hello world! ${new Date().toISOString()}`,
-    }
-    const content = Buffer.from(JSON.stringify(message))
+  await waitLoop(MESSAGES_COUNTER, async () => {
+    const event = EVENT[`${eventName}`]()
+    const content = Buffer.from(JSON.stringify(event))
 
-    // skip routing, send directly to queue
-    const sent = channel.sendToQueue(queue, content, {
-      persistent: true, // + durable: true
-      messageId: message.id,
-      contentType: 'application/json',
-      contentEncoding: 'utf-8',
+    // skip routing, send directly to queue, bypass
+    const publish = new Promise((resolve, reject) => {
+      const sent = channel.sendToQueue(queue.queue, content, {
+        persistent: true, // + durable: true
+        contentType: 'application/json',
+        contentEncoding: 'utf-8',
+        messageId: event.data.id,
+        timestamp: new Date(event.data.occurredOn).getTime(),
+      // type: 'message.created', // event name from aggregate user.created
+      // mandatory // if no queue is bound to the exchange, the message is returned, obligatorio
+      }, (error, ok) => {
+        error
+          ? reject(error)
+          : resolve({
+            sent,
+            ok,
+          })
+      })
     })
 
-    const responseStatus = sent ? `Sent message to <${queue}> queue` : `Fails sending message to <${queue}> queue`
-    console.log(responseStatus, message)
+    const sent = await publish
+
+    const responseStatus = sent
+      ? `✅ Successfully sent 📤 message 💬 to <${queue.queue}> 🟦 queue`
+      : `❌ Failed to send 📤 sending message 💬 to <${queue.queue}> 🟦 queue`
+    console.log({
+      responseStatus,
+      // message | event | content
+      event,
+      sent,
+    })
   })
+}
+
+try {
+  await publisher()
+}
+catch (err) {
+  console.error(err)
+  process.exit(1)
+}
+finally {
+  console.log('finally 🔚')
 }
 
 // publisher()
@@ -45,12 +81,7 @@ const publisher = async () => {
 //   .finally(() => {
 //     exitAfterSend()
 //   })
-try {
-  await publisher()
-} catch (err) {
-  console.error(err)
-  process.exit(1)
-} finally {
-  console.log('finally')
-}
+
 // node --watch --loader ts-paths-esm-loader/transpile-only ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/publisher/queues.ts
+
+// bun --watch ./src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/demos/publisher/queues.ts
