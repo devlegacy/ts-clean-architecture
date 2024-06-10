@@ -14,10 +14,7 @@ import {
 } from 'mongodb'
 
 import {
-  AggregateRoot,
-  Criteria,
-  OffsetPaginator,
-  type Pagination,
+  AggregateRoot, Criteria, OffsetPaginator, type Pagination,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 import {
@@ -26,13 +23,13 @@ import {
 
 @Service()
 export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
-  #client: Promise<MikroORM<MongoDriver>>
+  #client: MikroORM<MongoDriver>
   // private readonly criteriaConverter: MongoCriteriaConverter
   #criteria = new MongoCriteriaConverter()
   // Diod
   constructor(client: MikroORM<MongoDriver>) {
     // this.criteriaConverter = new MongoCriteriaConverter()
-    this.#client = client as any
+    this.#client = client
   }
 
   // tsyringe
@@ -46,7 +43,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   // }
 
   protected async counter(criteria: Criteria) {
-    const collection = await this.repository()
+    const collection = this.repository()
     const query = this.#criteria.convert(criteria)
 
     const count = await collection.count(
@@ -65,7 +62,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     criteria: Criteria,
     offsetPagination: OffsetPaginator,
   ): Promise<{ data: T[], pagination?: Pagination }> {
-    const collection = await this.repository()
+    const collection = this.repository()
     const query = this.#criteria.convert(criteria)
 
     const countDocuments = collection.count(
@@ -104,12 +101,12 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     }
   }
 
-  protected async client(): Promise<MikroORM<MongoDriver>> {
+  protected client(): MikroORM<MongoDriver> {
     return this.#client
   }
 
-  protected async repository(): Promise<EntityRepository<T>> {
-    const client = await this.#client
+  protected repository(): EntityRepository<T> {
+    const client = this.#client
     const repository = client.em.fork().getRepository(this.entitySchema())
     return repository
   }
@@ -120,54 +117,40 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     // commit transaction
     // end transaction
     // rollback transaction if error and clean events
-    // const repository = this.repository()
-    const client = await this.#client
-    const manager = client.em
-
-    // const primitives = {
-    //   _id: CourseId.random().toString(),
-    //   ...aggregateRoot.toPrimitives()
-    // }
-
-    // delete primitives.id
-
-    // repository.nativeInsert(aggregateRoot)
-    // const primitives = aggregateRoot.toPrimitives()
-
+    const repository = this.repository()
+    // const client = this.#client
+    // const manager = client.em
     try {
-      // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez
+      // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez, is not defined in Course but in Schema as ObjectId, add extends of ObjectId as Domain value object
       if (!aggregateRoot._id || !(aggregateRoot._id instanceof ObjectId)) {
         // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez
-        aggregateRoot._id = new ObjectId(aggregateRoot.id.value)
+        aggregateRoot._id = new ObjectId(aggregateRoot.id.value as string)
       }
-      // new CoursesCounterId(aggregateRoot.id.value)
-      // new ObjectId(aggregateRoot.id.value)
-      // { ...aggregateRoot.id }
-      await manager.upsert(
-        this.entitySchema(),
-        aggregateRoot,
-        // {
-        //   ...primitives,
-        //   _id: primitives.id,
-        // },
-        {
-          // convertCustomTypes: true,
-          //   upsert: true,
-        },
-      )
-      // await manager.persistAndFlush(aggregateRoot)
       // eslint-disable-next-line no-console
       console.log(aggregateRoot)
+      await repository.upsert(aggregateRoot)
+      await repository.getEntityManager().flush()
+
+      const created = await repository
+        .getEntityManager()
+        .findOne<any>(
+          this.entitySchema(),
+          {
+            _id: (aggregateRoot as any)._id,
+          } as any,
+        )
+      // eslint-disable-next-line no-console
+      console.log(created)
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.log(e)
+      console.error(e)
     }
   }
 
   protected async matching(criteria: Criteria): Promise<T[]> {
     const query = this.#criteria.convert(criteria)
 
-    const collection = await this.repository()
+    const collection = this.repository()
 
     const documents = await collection.find(
       {

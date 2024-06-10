@@ -62,7 +62,7 @@ const __dirname = fileURLToPath(new URL(
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = await MikroOrmMongoClientFactory.createClient(
+const connectionClient = MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
   resolve(`${__dirname}/../../../../Contexts/Mooc`),
@@ -85,7 +85,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
 )
 
 export const SharedModule = (builder: ContainerBuilder) => {
-  builder.register<MikroORM<MongoDriver>>(MikroORM<MongoDriver>).useFactory(() => connectionClient)
+  builder.register<Promise<MikroORM<MongoDriver>>>(MikroORM<MongoDriver> as any).useFactory(() => connectionClient)
   builder.register(RabbitMQConnection).useFactory(() => {
     return rabbitConnection
   })
@@ -124,6 +124,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
 
     return monitoring
   })
+    .asSingleton()
   builder.register(Logger).useFactory(() => {
     const logger = new PinoLogger(LoggerConfigFactory.createConfig())
     return logger

@@ -1,7 +1,13 @@
-import type { Container } from 'diod'
-import { container } from 'tsyringe'
+import type {
+  Container,
+} from 'diod'
+import {
+  container,
+} from 'tsyringe'
 
-import { TAGS } from '@/apps/mooc/modules/tags.js'
+import {
+  TAGS,
+} from '#@/src/apps/mooc/modules/tags.js'
 
 import {
   DomainEvent,
@@ -30,6 +36,7 @@ export class DomainEventSubscriberResolver implements DomainEventSubscribers {
     const subscriber = new DomainEventSubscriberResolver(subscribers)
     return subscriber
   }
+
   /**
    * HACK: To retrieve and resolve DomainEvent subscribers tokens from container
    */

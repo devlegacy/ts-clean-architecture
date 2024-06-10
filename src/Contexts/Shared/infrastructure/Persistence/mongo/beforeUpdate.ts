@@ -1,0 +1,15 @@
+import type {
+  EventArgs,
+} from '@mikro-orm/core'
+
+export const beforeUpdate = (args: EventArgs<any>) => {
+  // console.log(args)
+  // console.log(args.entity._id)
+
+  // args.entity._id = args.entity.id
+  // args.entity._id.value = new ObjectId(args.entity._id.value)
+  // args.entity.id.value = args.entity._id.value
+
+  // eslint-disable-next-line no-console
+  console.log(args)
+}

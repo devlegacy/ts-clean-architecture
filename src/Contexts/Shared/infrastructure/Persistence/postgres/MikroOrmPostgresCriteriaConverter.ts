@@ -29,7 +29,7 @@ type TransformerFunction<T, K> = {
   (value: T): K
 }
 
-export class MongoCriteriaConverter {
+export class MikroOrmPostgresCriteriaConverter {
   private filterTransformers: Map<Operator, TransformerFunction<Filter, MongoFilter>>
 
   constructor() {
@@ -105,7 +105,9 @@ export class MongoCriteriaConverter {
   }
 
   private getFilterValue(filterValue: FilterValue) {
-    if (ObjectId.isValid(filterValue.value)) return new ObjectId(filterValue.value)
+    if (ObjectId.isValid(filterValue.value)) {
+      return new ObjectId(filterValue.value)
+    }
 
     return filterValue.value
   }

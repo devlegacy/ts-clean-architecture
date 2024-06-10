@@ -3,11 +3,17 @@ import {
   type DomainEventClass,
   type DomainEventSubscriber,
   EVENTS_HANDLER_METADATA,
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { RabbitMQConnection } from './RabbitMQConnection.js'
-import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter.js'
-import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter.js'
+import {
+  RabbitMQConnection,
+} from './RabbitMQConnection.js'
+import {
+  RabbitMQExchangeNameFormatter,
+} from './RabbitMQExchangeNameFormatter.js'
+import {
+  RabbitMQQueueFormatter,
+} from './RabbitMQQueueFormatter.js'
 
 export class RabbitMQConfigurer {
   #connection: RabbitMQConnection
@@ -19,17 +25,26 @@ export class RabbitMQConfigurer {
     this.#messageRetryTtl = messageRetryTtl
   }
 
-  async configure(params: { exchange: string; subscribers: DomainEventSubscriber<DomainEvent>[] }): Promise<void> {
+  async configure(params: { exchange: string, subscribers: DomainEventSubscriber<DomainEvent>[] }): Promise<void> {
     const retryExchange = RabbitMQExchangeNameFormatter.retry(params.exchange)
     const deadLetterExchange = RabbitMQExchangeNameFormatter.deadLetter(params.exchange)
 
-    await this.#connection.exchange({ name: params.exchange })
-    await this.#connection.exchange({ name: retryExchange })
-    await this.#connection.exchange({ name: deadLetterExchange })
+    await this.#connection.exchange({
+      name: params.exchange,
+    })
+    await this.#connection.exchange({
+      name: retryExchange,
+    })
+    await this.#connection.exchange({
+      name: deadLetterExchange,
+    })
 
     const queues: Promise<void>[] = []
     for (const subscriber of params.subscribers) {
-      queues.push(this.#addQueue(subscriber, params.exchange))
+      queues.push(this.#addQueue(
+        subscriber,
+        params.exchange,
+      ))
     }
     await Promise.all(queues)
   }
@@ -51,7 +66,9 @@ export class RabbitMQConfigurer {
         exchange,
       }),
       this.#connection.queue({
-        routingKeys: [queue],
+        routingKeys: [
+          queue,
+        ],
         name: retryQueue,
         exchange: retryExchange,
         messageTtl: this.#messageRetryTtl,
@@ -59,7 +76,9 @@ export class RabbitMQConfigurer {
         deadLetterQueue: queue,
       }),
       this.#connection.queue({
-        routingKeys: [queue],
+        routingKeys: [
+          queue,
+        ],
         name: deadLetterQueue,
         exchange: deadLetterExchange,
       }),
@@ -85,7 +104,10 @@ export class RabbitMQConfigurer {
   }
 
   #getRoutingKeysFor(subscriber: DomainEventSubscriber<DomainEvent>) {
-    const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
+    const events: DomainEventClass[] = Reflect.getMetadata(
+      EVENTS_HANDLER_METADATA,
+      subscriber.constructor,
+    ) ?? []
     const routingKeys = events.map((event) => event.EVENT_NAME)
 
     const queue = this.#queueNameFormatter.format(subscriber)

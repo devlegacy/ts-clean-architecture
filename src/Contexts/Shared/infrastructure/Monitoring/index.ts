@@ -1,1 +1,1 @@
-export * from './Sentry/index.js'
+export * from './Sentry/SentryMonitoring.js'

@@ -1,17 +1,35 @@
-import type { Options } from 'amqplib'
+import type {
+  Options,
+} from 'amqplib'
 
-import { DomainEvent, type DomainEventSubscribers, EventBus } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+  type DomainEventSubscribers,
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { info } from '../../Logger/index.js'
-import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
+import {
+  info,
+} from '../../Logger/index.js'
+import {
+  DomainEventDeserializer,
+} from '../DomainEventDeserializer.js'
 import {
   MikroOrmMongoDomainEventFailoverPublisher,
   MongoDomainEventFailoverPublisher,
 } from '../DomainEventFailoverPublisher/index.js'
-import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer.js'
-import { RabbitMQConnection } from './RabbitMQConnection.js'
-import { RabbitMQConsumerFactory } from './RabbitMQConsumerFactory.js'
-import { RabbitMQQueueFormatter } from './RabbitMQQueueFormatter.js'
+import {
+  DomainEventJsonSerializer,
+} from '../DomainEventJsonSerializer.js'
+import {
+  RabbitMQConnection,
+} from './RabbitMQConnection.js'
+import {
+  RabbitMQConsumerFactory,
+} from './RabbitMQConsumerFactory.js'
+import {
+  RabbitMQQueueFormatter,
+} from './RabbitMQQueueFormatter.js'
 
 export class RabbitMQEventBus implements EventBus {
   #failoverPublisher: MikroOrmMongoDomainEventFailoverPublisher | MongoDomainEventFailoverPublisher
@@ -27,7 +45,9 @@ export class RabbitMQEventBus implements EventBus {
     maxRetries: number
     queueNameFormatter: RabbitMQQueueFormatter
   }) {
-    const { failoverPublisher, connection, exchange, queueNameFormatter, maxRetries } = params
+    const {
+      failoverPublisher, connection, exchange, queueNameFormatter, maxRetries,
+    } = params
     this.#connection = connection
     this.#exchange = exchange ?? 'amq.topic'
     this.#failoverPublisher = failoverPublisher
@@ -38,13 +58,24 @@ export class RabbitMQEventBus implements EventBus {
   // DEBT: Typing trick Promise<void> is a subtype of void
   async addSubscribers(subscribers: DomainEventSubscribers): Promise<void> {
     const deserializer = DomainEventDeserializer.configure(subscribers)
-    const consumerFactory = new RabbitMQConsumerFactory(deserializer, this.#connection, this.#maxRetries)
+    const consumerFactory = new RabbitMQConsumerFactory(
+      deserializer,
+      this.#connection,
+      this.#maxRetries,
+    )
 
     const consumers: Promise<void>[] = []
     for (const subscriber of subscribers.items) {
       const queueName = this.#queueNameFormatter.format(subscriber)
-      const rabbitMQConsumer = consumerFactory.build(subscriber, this.#exchange, queueName)
-      consumers.push(this.#connection.consume(queueName, rabbitMQConsumer.onMessage.bind(rabbitMQConsumer)))
+      const rabbitMQConsumer = consumerFactory.build(
+        subscriber,
+        this.#exchange,
+        queueName,
+      )
+      consumers.push(this.#connection.consume(
+        queueName,
+        rabbitMQConsumer.onMessage.bind(rabbitMQConsumer),
+      ))
     }
     await Promise.all(consumers)
   }
@@ -63,7 +94,7 @@ export class RabbitMQEventBus implements EventBus {
           options,
           exchange: this.#exchange,
         })
-      } catch (error: unknown) {
+      } catch {
         await this.#failoverPublisher.publish(event)
       }
     }

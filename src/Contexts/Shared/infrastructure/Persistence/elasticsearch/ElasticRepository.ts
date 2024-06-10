@@ -1,13 +1,30 @@
-import { Client as ElasticClient } from '@elastic/elasticsearch'
-import { ResponseError } from '@elastic/transport/lib/errors.js'
-import bodybuilder, { type Bodybuilder } from 'bodybuilder'
-import { Service } from 'diod'
+import {
+  Client as ElasticClient,
+} from '@elastic/elasticsearch'
+import {
+  ResponseError,
+} from '@elastic/transport/lib/errors.js'
+import bodybuilder, {
+  type Bodybuilder,
+} from 'bodybuilder'
+import {
+  Service,
+} from 'diod'
 
-import { HttpStatus } from '@/Contexts/Shared/domain/Common/index.js'
-import { AggregateRoot, Criteria } from '@/Contexts/Shared/domain/index.js'
+import {
+  HttpStatus,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  AggregateRoot,
+  Criteria,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import type { ElasticConfig } from './ElasticConfig.js'
-import { ElasticCriteriaConverter } from './ElasticCriteriaConverter.js'
+import type {
+  ElasticConfig,
+} from './ElasticConfig.js'
+import {
+  ElasticCriteriaConverter,
+} from './ElasticCriteriaConverter.js'
 
 interface SearchResult<T> {
   hits: SearchHitsMetadata<T>
@@ -42,18 +59,26 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
   protected async searchAllInElastic<D>(unserializer: (data: D) => T): Promise<T[]> {
     const body = bodybuilder().query('match_all')
 
-    return this.searchInElasticWithBuilder(unserializer, body)
+    return this.searchInElasticWithBuilder(
+      unserializer,
+      body,
+    )
   }
 
   protected async matching(criteria: Criteria, unserializer: (data: any) => T): Promise<T[]> {
     const body = this.#criteriaConverter.convert(criteria)
 
-    return this.searchInElasticWithBuilder(unserializer, body)
+    return this.searchInElasticWithBuilder(
+      unserializer,
+      body,
+    )
   }
 
   protected async persist(id: string, aggregateRoot: T): Promise<void> {
     const client = await this.client()
-    const document = { ...aggregateRoot.toPrimitives() }
+    const document = {
+      ...aggregateRoot.toPrimitives(),
+    }
     await client.index({
       index: this.indexName(),
       id,
@@ -74,8 +99,7 @@ export abstract class ElasticRepository<T extends AggregateRoot> {
       return response.hits.hits.map((hit) =>
         unserializer({
           ...(hit._source as D),
-        }),
-      )
+        }))
     } catch (e) {
       if (this.isNotFoundError(e)) {
         return []

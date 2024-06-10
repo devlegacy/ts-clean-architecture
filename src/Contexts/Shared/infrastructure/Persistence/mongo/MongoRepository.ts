@@ -1,9 +1,17 @@
-import { Collection, type Document, MongoClient, ObjectId, type WithId } from 'mongodb'
-import { inject } from 'tsyringe'
+import {
+  Collection, type Document, MongoClient, ObjectId, type WithId,
+} from 'mongodb'
+import {
+  inject,
+} from 'tsyringe'
 
-import { AggregateRoot, Criteria, SHARED_TYPES } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot, Criteria, SHARED_TYPES,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { MongoCriteriaConverter } from './MongoCriteriaConverter.js'
+import {
+  MongoCriteriaConverter,
+} from './MongoCriteriaConverter.js'
 
 type EntityId = string | ObjectId
 
@@ -39,7 +47,9 @@ export abstract class MongoRepository<T extends AggregateRoot> {
      * al menos que se configure en la configuración para descartar al insertar
      */
     await collection.updateOne(
-      { _id },
+      {
+        _id,
+      },
       {
         $setOnInsert: {
           createdAt: new Date(),
@@ -47,7 +57,9 @@ export abstract class MongoRepository<T extends AggregateRoot> {
         },
         $set: document,
       },
-      { upsert: true },
+      {
+        upsert: true,
+      },
     )
   }
 

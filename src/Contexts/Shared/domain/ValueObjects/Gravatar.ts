@@ -1,7 +1,14 @@
-import { createHash } from 'node:crypto'
-import { URL } from 'node:url'
+import {
+  createHash,
+} from 'node:crypto'
+import process from 'node:process'
+import {
+  URL,
+} from 'node:url'
 
-import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 const VALID_EMAIL_REGEXP = /\S+@\S+\.\S+/
 const gravatarUrl = new URL('https://s.gravatar.com/avatar')
@@ -21,10 +28,20 @@ export class Gravatar {
 
   private gravatarFromEmail(email: string): string {
     const trimmedEmail = email.toLowerCase().trim()
-    const hash = createHash('md5').update(trimmedEmail).digest('hex')
-    gravatarUrl.searchParams.set('s', '480') // size
-    gravatarUrl.searchParams.set('r', 'pg') // rating
-    gravatarUrl.searchParams.set('d', defaultAvatar.toString()) // default
+    const hash = createHash('md5').update(trimmedEmail)
+      .digest('hex')
+    gravatarUrl.searchParams.set(
+      's',
+      '480',
+    ) // size
+    gravatarUrl.searchParams.set(
+      'r',
+      'pg',
+    ) // rating
+    gravatarUrl.searchParams.set(
+      'd',
+      defaultAvatar.toString(),
+    ) // default
     gravatarUrl.pathname += `/${hash}`
 
     return gravatarUrl.toString()

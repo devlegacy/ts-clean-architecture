@@ -1,7 +1,14 @@
-import type { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces/index.js'
+import type {
+  ArgumentMetadata,
+  PipeTransform,
+} from '#@/src/Contexts/Shared/domain/Common/interfaces/index.js'
 
-import { info } from '../../../Logger/index.js'
-import { Joi } from '../index.js'
+import {
+  info,
+} from '../../../Logger/index.js'
+import {
+  Joi,
+} from '../index.js'
 
 export class JoiObjectIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
@@ -9,13 +16,18 @@ export class JoiObjectIdPipe implements PipeTransform {
     info(`${value} ${metadata}`)
     const schema = Joi.object({
       // metadata key: value
-      value: Joi.string().objectId().required(),
+      value: Joi.string().objectId()
+        .required(),
     })
 
     const {
       error,
-      value: { value: data },
-    } = schema.validate({ value })
+      value: {
+        value: data,
+      },
+    } = schema.validate({
+      value,
+    })
 
     if (error) {
       throw error

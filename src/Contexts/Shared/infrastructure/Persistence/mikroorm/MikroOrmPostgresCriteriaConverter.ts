@@ -1,6 +1,10 @@
-import { ObjectId } from 'mongodb'
+import {
+  ObjectId,
+} from 'mongodb'
 
-import { Criteria, Filter, Filters, FilterValue, Operator, Order } from '@/Contexts/Shared/domain/index.js'
+import {
+  Criteria, Filter, Filters, FilterValue, Operator, Order,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type MongoFilterOperator = '$eq' | '$ne' | '$gt' | '$lt' | '$regex' | '$exists'
 type MongoFilterValue = boolean | string | number | ObjectId
@@ -25,20 +29,45 @@ export class MikroOrmPostgresCriteriaConverter {
 
   constructor() {
     this.filterTransformers = new Map<Operator, TransformerFunction<Filter, MongoFilter>>([
-      [Operator.EQUAL, this.equalFilter],
-      [Operator.NOT_EQUAL, this.notEqualFilter],
-      [Operator.GT, this.greaterThanFilter],
-      [Operator.LT, this.lowerThanFilter],
-      [Operator.CONTAINS, this.containsFilter],
-      [Operator.NOT_CONTAINS, this.notContainsFilter],
-      [Operator.EXISTS, this.existsFilter],
+      [
+        Operator.EQUAL,
+        this.equalFilter,
+      ],
+      [
+        Operator.NOT_EQUAL,
+        this.notEqualFilter,
+      ],
+      [
+        Operator.GT,
+        this.greaterThanFilter,
+      ],
+      [
+        Operator.LT,
+        this.lowerThanFilter,
+      ],
+      [
+        Operator.CONTAINS,
+        this.containsFilter,
+      ],
+      [
+        Operator.NOT_CONTAINS,
+        this.notContainsFilter,
+      ],
+      [
+        Operator.EXISTS,
+        this.existsFilter,
+      ],
     ])
   }
 
   convert(criteria: Criteria): MongoQuery {
     return {
       filter: criteria.hasFilters() ? this.generateFilter(criteria.filters) : {},
-      sort: criteria.order.hasOrder() ? this.generateSort(criteria.order) : { _id: -1 },
+      sort: criteria.order.hasOrder()
+        ? this.generateSort(criteria.order)
+        : {
+            _id: -1,
+          },
       skip: criteria.offset || 0,
       limit: criteria.limit || 0,
     }
@@ -52,10 +81,16 @@ export class MikroOrmPostgresCriteriaConverter {
         throw Error(`Unexpected operator value <${filter.operator.value}>`)
       }
 
-      return transformer.call(this, filter)
+      return transformer.call(
+        this,
+        filter,
+      )
     })
 
-    return Object.assign({}, ...filter)
+    return Object.assign(
+      {},
+      ...filter,
+    )
   }
 
   protected generateSort(order: Order): MongoSort {
@@ -73,30 +108,60 @@ export class MikroOrmPostgresCriteriaConverter {
   }
 
   private equalFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $eq: this.getFilterValue(filter.value) } }
+    return {
+      [filter.field.value]: {
+        $eq: this.getFilterValue(filter.value),
+      },
+    }
   }
 
   private notEqualFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $ne: this.getFilterValue(filter.value) } }
+    return {
+      [filter.field.value]: {
+        $ne: this.getFilterValue(filter.value),
+      },
+    }
   }
 
   private greaterThanFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $gt: this.getFilterValue(filter.value) } }
+    return {
+      [filter.field.value]: {
+        $gt: this.getFilterValue(filter.value),
+      },
+    }
   }
 
   private lowerThanFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $lt: this.getFilterValue(filter.value) } }
+    return {
+      [filter.field.value]: {
+        $lt: this.getFilterValue(filter.value),
+      },
+    }
   }
 
   private containsFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $regex: this.getFilterValue(filter.value) } }
+    return {
+      [filter.field.value]: {
+        $regex: this.getFilterValue(filter.value),
+      },
+    }
   }
 
   private notContainsFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $not: { $regex: this.getFilterValue(filter.value) } } }
+    return {
+      [filter.field.value]: {
+        $not: {
+          $regex: this.getFilterValue(filter.value),
+        },
+      },
+    }
   }
 
   private existsFilter(filter: Filter): MongoFilter {
-    return { [filter.field.value]: { $exists: this.getFilterValue(filter.value) === 'true' } }
+    return {
+      [filter.field.value]: {
+        $exists: this.getFilterValue(filter.value) === 'true',
+      },
+    }
   }
 }

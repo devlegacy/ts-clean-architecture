@@ -1,4 +1,7 @@
-import { DomainEvent, type DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+  type DomainEventSubscriber,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class RabbitMQQueueFormatter {
   constructor(private moduleName: string) {}

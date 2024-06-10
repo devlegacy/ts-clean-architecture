@@ -1,7 +1,13 @@
-import { Collection, type Document, MongoClient, ObjectId } from 'mongodb'
-import { inject } from 'tsyringe'
+import {
+  Collection, type Document, MongoClient, ObjectId,
+} from 'mongodb'
+import {
+  inject,
+} from 'tsyringe'
 
-import { AggregateRoot, type DomainEventClass, SHARED_TYPES } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot, type DomainEventClass, SHARED_TYPES,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export abstract class MongoEventStore<T extends AggregateRoot> {
   protected readonly events: Map<string, DomainEventClass>
@@ -20,6 +26,7 @@ export abstract class MongoEventStore<T extends AggregateRoot> {
   async clear() {
     return
   }
+
   protected client(): Promise<MongoClient> {
     return this._client
   }
@@ -34,7 +41,10 @@ export abstract class MongoEventStore<T extends AggregateRoot> {
     const collection = await this.collection()
 
     const events = aggregateRoot.domainEvents.map(async (event) => {
-      this.events.set(event.eventName, event.constructor as unknown as DomainEventClass)
+      this.events.set(
+        event.eventName,
+        event.constructor as unknown as DomainEventClass,
+      )
 
       const id = event.eventId
       const _id = (ObjectId.isValid(id) ? new ObjectId(id) : id) as ObjectId
@@ -51,7 +61,9 @@ export abstract class MongoEventStore<T extends AggregateRoot> {
 
       // const query =
       await collection.updateOne(
-        { _id },
+        {
+          _id,
+        },
         {
           $setOnInsert: {
             createdAt: new Date(),
@@ -59,7 +71,9 @@ export abstract class MongoEventStore<T extends AggregateRoot> {
           },
           $set: document,
         },
-        { upsert: true },
+        {
+          upsert: true,
+        },
       )
       return
     })

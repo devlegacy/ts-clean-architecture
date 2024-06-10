@@ -1,8 +1,16 @@
-import { error, info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  error, info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { Command } from '../../Commands/index.js'
-import type { DomainEventClass } from '../../Events/index.js'
-import { Query } from '../../Queries/index.js'
+import {
+  Command,
+} from '../../Commands/index.js'
+import type {
+  DomainEventClass,
+} from '../../Events/index.js'
+import {
+  Query,
+} from '../../Queries/index.js'
 import {
   COMMAND_HANDLER_METADATA,
   EVENTS_HANDLER_METADATA,
@@ -21,9 +29,15 @@ export function Catch(): MethodDecorator {
       // setTimeout(async () => {
       try {
         if (decoratedMethod.constructor.name === 'AsyncFunction') {
-          await decoratedMethod.apply(this, args)
+          await decoratedMethod.apply(
+            this,
+            args,
+          )
         } else {
-          decoratedMethod.apply(this, args)
+          decoratedMethod.apply(
+            this,
+            args,
+          )
         }
       } catch (e) {
         error(e)
@@ -41,20 +55,29 @@ export function Wait(ms = 6000): MethodDecorator {
     descriptor.value = async function (...args: unknown[]) {
       info('Start wait')
       const start = performance.now()
-      setTimeout(async () => {
-        try {
-          if (decoratedMethod.constructor.name === 'AsyncFunction') {
-            await decoratedMethod.apply(this, args)
-          } else {
-            decoratedMethod.apply(this, args)
+      setTimeout(
+        async () => {
+          try {
+            if (decoratedMethod.constructor.name === 'AsyncFunction') {
+              await decoratedMethod.apply(
+                this,
+                args,
+              )
+            } else {
+              decoratedMethod.apply(
+                this,
+                args,
+              )
+            }
+          } catch (e) {
+            error(e)
           }
-        } catch (e) {
-          error(e)
-        }
-        Promise.resolve()
-        const end = performance.now()
-        info(`End wait ${end - start}`)
-      }, ms)
+          Promise.resolve()
+          const end = performance.now()
+          info(`End wait ${end - start}`)
+        },
+        ms,
+      )
     }
     return descriptor
   }
@@ -66,12 +89,18 @@ export function AsyncWait(ms = 6000): MethodDecorator {
     descriptor.value = async function (...args: unknown[]) {
       info('Start wait')
       const start = performance.now()
-      setTimeout(async () => {
-        await decoratedMethod.apply(this, args)
+      setTimeout(
+        async () => {
+          await decoratedMethod.apply(
+            this,
+            args,
+          )
 
-        const end = performance.now()
-        info(`End wait ${end - start}`)
-      }, ms)
+          const end = performance.now()
+          info(`End wait ${end - start}`)
+        },
+        ms,
+      )
     }
     return descriptor
   }
@@ -80,7 +109,10 @@ export function AsyncWait(ms = 6000): MethodDecorator {
 export const registeredModules = new Map<keyof typeof SHARED_TAGS, Set<object>>()
 
 const registerModule = (tag: keyof typeof SHARED_TAGS, target: object) => {
-  if (!registeredModules.has(tag)) registeredModules.set(tag, new Set())
+  if (!registeredModules.has(tag)) registeredModules.set(
+    tag,
+    new Set(),
+  )
 
   const mapping = registeredModules.get(tag)
   if (!mapping?.has(target)) mapping?.add(target)
@@ -88,7 +120,10 @@ const registerModule = (tag: keyof typeof SHARED_TAGS, target: object) => {
 
 export const UseCase = () => {
   return (target: object): any => {
-    registerModule(SHARED_TAGS.UseCase, target)
+    registerModule(
+      SHARED_TAGS.UseCase,
+      target,
+    )
     return target
   }
 }
@@ -96,16 +131,29 @@ export const UseCase = () => {
 export const DomainEventSubscribers = (...events: DomainEventClass[]) => {
   return (target: object): any => {
     if (!registeredModules.has(SHARED_TAGS.DomainEventSubscriber))
-      registeredModules.set(SHARED_TAGS.DomainEventSubscriber, new Set())
+      registeredModules.set(
+        SHARED_TAGS.DomainEventSubscriber,
+        new Set(),
+      )
     if (!registeredModules.get(SHARED_TAGS.DomainEventSubscriber)?.has(target))
       registeredModules.get(SHARED_TAGS.DomainEventSubscriber)?.add(target)
 
-    if (!Reflect.hasMetadata(EVENTS_HANDLER_METADATA, target))
-      Reflect.defineMetadata(EVENTS_HANDLER_METADATA, [], target)
+    if (!Reflect.hasMetadata(
+      EVENTS_HANDLER_METADATA,
+      target,
+    ))
+      Reflect.defineMetadata(
+        EVENTS_HANDLER_METADATA,
+        [],
+        target,
+      )
 
     Reflect.defineMetadata(
       EVENTS_HANDLER_METADATA,
-      Reflect.getMetadata(EVENTS_HANDLER_METADATA, target).concat(events),
+      Reflect.getMetadata(
+        EVENTS_HANDLER_METADATA,
+        target,
+      ).concat(events),
       target,
     )
 
@@ -115,8 +163,15 @@ export const DomainEventSubscribers = (...events: DomainEventClass[]) => {
 
 export const CommandHandlerSubscriber = (command: Command | Constructor<Command>): ClassDecorator => {
   return (target: object): any => {
-    registerModule(SHARED_TAGS.CommandHandler, target)
-    Reflect.defineMetadata(COMMAND_HANDLER_METADATA, command, target)
+    registerModule(
+      SHARED_TAGS.CommandHandler,
+      target,
+    )
+    Reflect.defineMetadata(
+      COMMAND_HANDLER_METADATA,
+      command,
+      target,
+    )
 
     return target
   }
@@ -124,8 +179,15 @@ export const CommandHandlerSubscriber = (command: Command | Constructor<Command>
 
 export const QueryHandlerSubscriber = (query: Query): ClassDecorator => {
   return (target: object): any => {
-    registerModule(SHARED_TAGS.QueryHandler, target)
-    Reflect.defineMetadata(QUERY_HANDLER_METADATA, query, target)
+    registerModule(
+      SHARED_TAGS.QueryHandler,
+      target,
+    )
+    Reflect.defineMetadata(
+      QUERY_HANDLER_METADATA,
+      query,
+      target,
+    )
 
     return target
   }

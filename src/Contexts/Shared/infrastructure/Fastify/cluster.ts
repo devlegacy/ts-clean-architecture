@@ -1,6 +1,10 @@
-import type { Cluster } from 'node:cluster'
+import type {
+  Cluster,
+} from 'node:cluster'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
 export class Primary {
   private cluster: Cluster
@@ -14,6 +18,9 @@ export class Primary {
   }
 
   loadStoppedWorker() {
-    setTimeout(() => this.loadWorker(), 300)
+    setTimeout(
+      () => this.loadWorker(),
+      300,
+    )
   }
 }

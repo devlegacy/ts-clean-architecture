@@ -1,9 +1,20 @@
-import { MikroORM } from '@mikro-orm/core'
-import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
-import type { MongoDriver, Options } from '@mikro-orm/mongodb'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoHighlighter,
+} from '@mikro-orm/mongo-highlighter'
+import {
+  MongoDriver,
+  type Options,
+} from '@mikro-orm/mongodb'
 
-import { info } from '../../Logger/index.js'
-import type { MongoConfig } from '../mongo/MongoConfig.js'
+import {
+  info,
+} from '../../Logger/index.js'
+import type {
+  MongoConfig,
+} from '../mongo/MongoConfig.js'
 
 export abstract class MikroOrmMongoClientFactory {
   static readonly #clients: Record<string, MikroORM<MongoDriver>> = {}
@@ -11,13 +22,20 @@ export abstract class MikroOrmMongoClientFactory {
   static async createClient(
     contextName: string,
     config: MongoConfig,
-    contextPath?: string
+    contextPath?: string,
   ): Promise<MikroORM<MongoDriver>> {
     let client = MikroOrmMongoClientFactory.#getClient(contextName)
     if (!client) {
-      client = await MikroOrmMongoClientFactory.#createAndConnectClient(contextName, config, contextPath)
+      client = await MikroOrmMongoClientFactory.#createAndConnectClient(
+        contextName,
+        config,
+        contextPath,
+      )
 
-      MikroOrmMongoClientFactory.#registerClient(contextName, client)
+      MikroOrmMongoClientFactory.#registerClient(
+        contextName,
+        client,
+      )
     }
 
     return client
@@ -30,28 +48,37 @@ export abstract class MikroOrmMongoClientFactory {
   static async #createAndConnectClient(
     contextName: string,
     config: MongoConfig,
-    contextPath?: string
+    contextPath?: string,
   ): Promise<MikroORM<MongoDriver>> {
     const from = config.url.lastIndexOf('/') + 1
     const to = config.url.lastIndexOf('?')
-    const dbName = config.url.substring(from, to < 0 ? config.url.length : to)
+    const dbName = config.url.substring(
+      from,
+      to < 0 ? config.url.length : to,
+    )
 
     const entities = contextPath
-      ? [`${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`]
+      ? [
+          `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.js`,
+        ]
       : undefined
+    const entitiesTs = [
+      `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.ts`,
+    ]
     // : [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`] // DEBT: Convert as env variable
 
     const options: Options = {
       discovery: {
-        warnWhenNoEntities: !!entities,
+        warnWhenNoEntities: false,
       },
       // connect: true,
       dbName,
-      // tsNode: true,
+      tsNode: true,
       clientUrl: config.url,
       entities,
+      entitiesTs,
       logger: info,
-      type: 'mongo',
+      // type: 'mongo',
       forceUndefined: true,
       highlighter: new MongoHighlighter(),
       debug: true,
@@ -61,14 +88,15 @@ export abstract class MikroOrmMongoClientFactory {
       // implicitTransactions: true, // defaults to false
       implicitTransactions: false, // defaults to false
       ensureIndexes: true,
-      driverOptions: {
-        useUnifiedTopology: true,
-        //   monitorCommands: true,
-        // ignoreUndefined: true
-        //   loggerLevel: 'debug'
-      },
+      driver: MongoDriver,
+      // driverOptions: {
+      // useUnifiedTopology: true,
+      //   monitorCommands: true,
+      // ignoreUndefined: true
+      //   loggerLevel: 'debug'
+      // },
     }
-    const client = await MikroORM.init<MongoDriver>(options, true)
+    const client = await MikroORM.init<MongoDriver>(options)
     await client.getSchemaGenerator().createSchema()
 
     return client

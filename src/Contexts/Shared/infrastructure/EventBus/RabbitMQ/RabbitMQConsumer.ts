@@ -1,10 +1,21 @@
-import type { ConsumeMessage } from 'amqplib'
+import type {
+  ConsumeMessage,
+} from 'amqplib'
 
-import { DomainEvent, type DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+  type DomainEventSubscriber,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { info } from '../../Logger/index.js'
-import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
-import { RabbitMQConnection } from './RabbitMQConnection.js'
+import {
+  info,
+} from '../../Logger/index.js'
+import {
+  DomainEventDeserializer,
+} from '../DomainEventDeserializer.js'
+import {
+  RabbitMQConnection,
+} from './RabbitMQConnection.js'
 
 export class RabbitMQConsumer {
   private subscriber: DomainEventSubscriber<DomainEvent>
@@ -22,7 +33,9 @@ export class RabbitMQConsumer {
     exchange: string
     maxRetries: number
   }) {
-    const { subscriber, deserializer, connection, maxRetries, queueName, exchange } = params
+    const {
+      subscriber, deserializer, connection, maxRetries, queueName, exchange,
+    } = params
     this.subscriber = subscriber
     this.deserializer = deserializer
     this.connection = connection
@@ -37,7 +50,7 @@ export class RabbitMQConsumer {
     info(`[consume - on 📥 ]: ${domainEvent.eventName}`)
     try {
       await this.subscriber.on(domainEvent)
-    } catch (error) {
+    } catch {
       await this.#handleError(message)
     } finally {
       this.connection.ack(message)
@@ -53,22 +66,30 @@ export class RabbitMQConsumer {
   }
 
   async #retry(message: ConsumeMessage) {
-    await this.connection.retry(message, this.queueName, this.exchange)
+    await this.connection.retry(
+      message,
+      this.queueName,
+      this.exchange,
+    )
   }
 
   async #deadLetter(message: ConsumeMessage) {
-    await this.connection.deadLetter(message, this.queueName, this.exchange)
+    await this.connection.deadLetter(
+      message,
+      this.queueName,
+      this.exchange,
+    )
   }
 
   #hasBeenRedeliveredTooMuch(message: ConsumeMessage) {
     if (this.#hasBeenRedelivered(message)) {
-      const count = parseInt(message.properties.headers['redelivery_count'])
+      const count = parseInt(message.properties.headers?.['redelivery_count'])
       return count >= this.maxRetries
     }
     return false
   }
 
   #hasBeenRedelivered(message: ConsumeMessage) {
-    return message.properties.headers['redelivery_count'] !== undefined
+    return message.properties.headers?.['redelivery_count'] !== undefined
   }
 }

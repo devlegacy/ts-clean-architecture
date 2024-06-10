@@ -1,9 +1,20 @@
-import { Collection, MongoClient, type UpdateFilter, type UpdateOptions } from 'mongodb'
+import {
+  Collection,
+  MongoClient,
+  type UpdateFilter,
+  type UpdateOptions,
+} from 'mongodb'
 
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
-import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer.js'
+import {
+  DomainEventDeserializer,
+} from '../DomainEventDeserializer.js'
+import {
+  DomainEventJsonSerializer,
+} from '../DomainEventJsonSerializer.js'
 
 export class MongoDomainEventFailoverPublisher {
   static collectionName = 'DomainEvents'
@@ -17,7 +28,9 @@ export class MongoDomainEventFailoverPublisher {
     const collection = await this.collection()
 
     const eventSerialized = DomainEventJsonSerializer.serialize(event)
-    const options: UpdateOptions = { upsert: true }
+    const options: UpdateOptions = {
+      upsert: true,
+    }
     const update: UpdateFilter<DomainEvent> = {
       $set: {
         eventId: event.eventId,
@@ -25,12 +38,20 @@ export class MongoDomainEventFailoverPublisher {
       },
     }
 
-    await collection.updateOne({ eventId: event.eventId }, update, options)
+    await collection.updateOne(
+      {
+        eventId: event.eventId,
+      },
+      // @ts-expect-error update is not a valid type
+      update,
+      options,
+    )
   }
 
   async consume(): Promise<DomainEvent[]> {
     const collection = await this.collection()
-    const documents = await collection.find().limit(200).toArray()
+    const documents = await collection.find().limit(200)
+      .toArray()
 
     const events = documents.map((document) => this.deserializer!.deserialize(document.event))
 

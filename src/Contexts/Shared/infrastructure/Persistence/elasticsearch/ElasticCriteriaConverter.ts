@@ -1,15 +1,19 @@
-import bodybuilder, { type Bodybuilder } from 'bodybuilder'
+import bodybuilder, {
+  type Bodybuilder,
+} from 'bodybuilder'
 
-import { Criteria, Filter, Filters, Operator } from '@/Contexts/Shared/domain/index.js'
+import {
+  Criteria, Filter, Filters, Operator,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum TypeQueryEnum {
   TERMS = 'terms',
   MATCH_ALL = 'match_all',
   RANGE = 'range',
-  WILDCARD = 'wildcard',
+  WILDCARD = 'wildcard'
 }
 
-type QueryObject = { type: TypeQueryEnum; field: string; value: string | object }
+type QueryObject = { type: TypeQueryEnum, field: string, value: string | object }
 
 interface TransformerFunction<T, K> {
   (value: T): K
@@ -20,12 +24,30 @@ export class ElasticCriteriaConverter {
 
   constructor() {
     this.queryTransformers = new Map<Operator, TransformerFunction<Filter, QueryObject>>([
-      [Operator.EQUAL, this.termsQuery],
-      [Operator.NOT_EQUAL, this.termsQuery],
-      [Operator.GT, this.greaterThanQuery],
-      [Operator.LT, this.lowerThanQuery],
-      [Operator.CONTAINS, this.wildcardQuery],
-      [Operator.NOT_CONTAINS, this.wildcardQuery],
+      [
+        Operator.EQUAL,
+        this.termsQuery,
+      ],
+      [
+        Operator.NOT_EQUAL,
+        this.termsQuery,
+      ],
+      [
+        Operator.GT,
+        this.greaterThanQuery,
+      ],
+      [
+        Operator.LT,
+        this.lowerThanQuery,
+      ],
+      [
+        Operator.CONTAINS,
+        this.wildcardQuery,
+      ],
+      [
+        Operator.NOT_CONTAINS,
+        this.wildcardQuery,
+      ],
     ])
   }
 
@@ -36,11 +58,17 @@ export class ElasticCriteriaConverter {
     body.size(criteria.limit || 1000)
 
     if (criteria.order.hasOrder()) {
-      body.sort(criteria.order.orderBy.value, criteria.order.orderType.value)
+      body.sort(
+        criteria.order.orderBy.value,
+        criteria.order.orderType.value,
+      )
     }
 
     if (criteria.hasFilters()) {
-      body = this.generateQuery(body, criteria.filters)
+      body = this.generateQuery(
+        body,
+        criteria.filters,
+      )
     }
 
     return body
@@ -48,12 +76,22 @@ export class ElasticCriteriaConverter {
 
   protected generateQuery(body: Bodybuilder, filters: Filters): Bodybuilder {
     filters.filters.map((filter) => {
-      const { type, value, field } = this.queryForFilter(filter)
+      const {
+        type, value, field,
+      } = this.queryForFilter(filter)
 
       if (filter.operator.isPositive()) {
-        body.query(type, field, value)
+        body.query(
+          type,
+          field,
+          value,
+        )
       } else {
-        body.notQuery(type, field, value)
+        body.notQuery(
+          type,
+          field,
+          value,
+        )
       }
     })
 
@@ -74,7 +112,9 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.TERMS,
       field: filter.field.value,
-      value: [filter.value.value],
+      value: [
+        filter.value.value,
+      ],
     }
   }
 
@@ -82,7 +122,9 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.RANGE,
       field: filter.field.value,
-      value: { gt: filter.value.value },
+      value: {
+        gt: filter.value.value,
+      },
     }
   }
 
@@ -90,7 +132,9 @@ export class ElasticCriteriaConverter {
     return {
       type: TypeQueryEnum.RANGE,
       field: filter.field.value,
-      value: { lt: filter.value.value },
+      value: {
+        lt: filter.value.value,
+      },
     }
   }
 

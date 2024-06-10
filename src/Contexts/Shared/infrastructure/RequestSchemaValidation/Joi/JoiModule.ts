@@ -1,14 +1,42 @@
-import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import type { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema.js'
-import type { AnySchema, ValidationError, ValidationErrorItem, ValidationOptions, ValidationResult } from 'joi'
+import type {
+  FastifyError,
+  FastifyReply,
+  FastifyRequest,
+} from 'fastify'
+import type {
+  FastifyRouteSchemaDef,
+  FastifySchema,
+} from 'fastify/types/schema.js'
+import type {
+  AnySchema,
+  ValidationError,
+  ValidationErrorItem,
+  ValidationOptions,
+  ValidationResult,
+} from 'joi'
 import joi from 'joi'
-import { DEFAULT, getClassSchema } from 'joi-class-decorators'
-import { type Constructor, type JoiValidationGroup, SCHEMA_PROTO_KEY } from 'joi-class-decorators/internal/defs.js'
+import {
+  DEFAULT,
+  getClassSchema,
+} from 'joi-class-decorators'
+import {
+  type Constructor,
+  type JoiValidationGroup,
+  SCHEMA_PROTO_KEY,
+} from 'joi-class-decorators/internal/defs.js'
 
-import { HttpStatus, RequestMethod } from '@/Contexts/Shared/domain/Common/index.js'
-import { HttpError, isFunction } from '@/Contexts/Shared/domain/index.js'
+import {
+  HttpStatus,
+  RequestMethod,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  HttpError,
+  isFunction,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import type { HttpValidationModule } from '../../Fastify/index.js'
+import type {
+  HttpValidationModule,
+} from '../../Fastify/index.js'
 
 const defaultOptions: ValidationOptions = {
   convert: true,
@@ -28,15 +56,18 @@ export const JoiValidationGroups = {
   UPDATE: 'UPDATE',
 } as const
 
-export class JoiModule
-  implements HttpValidationModule<AnySchema, ((data: unknown) => ValidationResult<unknown>) | void>
-{
-  validationCompiler({ schema }: FastifyRouteSchemaDef<AnySchema>) {
+export class JoiModule implements HttpValidationModule<AnySchema, ((data: unknown) => ValidationResult<unknown>) | void> {
+  validationCompiler({
+    schema,
+  }: FastifyRouteSchemaDef<AnySchema>) {
     if (!schema) return
     if (!joi.isSchema(schema)) return
 
     return (data: unknown) => {
-      const validation = schema.validate(data, defaultOptions)
+      const validation = schema.validate(
+        data,
+        defaultOptions,
+      )
       return validation
     }
   }
@@ -65,7 +96,10 @@ export class JoiModule
     if (joi.isSchema(objectSchema)) return // Avoid transform if is already a Joi schema
     if (!this.#isJoiSchema(objectSchema)) return
 
-    const joiSchema = getClassSchema(objectSchema, group)
+    const joiSchema = getClassSchema(
+      objectSchema,
+      group,
+    )
     if (!joi.isSchema(joiSchema)) return
 
     schema[`${key}`] = joiSchema satisfies unknown
@@ -73,11 +107,20 @@ export class JoiModule
 
   #getMethodGroup(group: RequestMethod): { group: JoiValidationGroup } | undefined {
     if (group === RequestMethod.POST) {
-      return { group: JoiValidationGroups.CREATE } as const
+      return {
+        group: JoiValidationGroups.CREATE,
+      } as const
     } else if (group === RequestMethod.DELETE) {
-      return { group: 'DELETE' } as const
-    } else if ([RequestMethod.PUT, RequestMethod.PATCH].includes(group)) {
-      return { group: JoiValidationGroups.UPDATE } as const
+      return {
+        group: 'DELETE',
+      } as const
+    } else if ([
+      RequestMethod.PUT,
+      RequestMethod.PATCH,
+    ].includes(group)) {
+      return {
+        group: JoiValidationGroups.UPDATE,
+      } as const
     }
     return undefined
   }
@@ -92,19 +135,25 @@ export class JoiModule
 
   #format(validationError: ValidationError) {
     const errors = new Map<string, Record<string, unknown>[]>()
-    const details = validationError.details.reduce((errors, item: ValidationErrorItem) => {
-      const key = item?.context?.key
-      if (!key) return errors
-      if (!errors.has(key)) errors.set(key, [])
-      const message = {
-        message: item.message,
-        field: key,
-        type: item.type,
-      }
-      errors.get(key)?.push(message)
+    const details = validationError.details.reduce(
+      (errors, item: ValidationErrorItem) => {
+        const key = item?.context?.key
+        if (!key) return errors
+        if (!errors.has(key)) errors.set(
+          key,
+          [],
+        )
+        const message = {
+          message: item.message,
+          field: key,
+          type: item.type,
+        }
+        errors.get(key)?.push(message)
 
-      return errors
-    }, errors)
+        return errors
+      },
+      errors,
+    )
     const entries = Object.fromEntries(details)
     return entries
   }

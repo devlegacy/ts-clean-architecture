@@ -1,12 +1,28 @@
-import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
-import type { Document } from 'bson'
-import { Collection, type UpdateFilter, type UpdateOptions } from 'mongodb'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoDriver,
+} from '@mikro-orm/mongodb'
+import type {
+  Document,
+} from 'bson'
+import {
+  Collection,
+  type UpdateFilter,
+  type UpdateOptions,
+} from 'mongodb'
 
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { DomainEventDeserializer } from '../DomainEventDeserializer.js'
-import { DomainEventJsonSerializer } from '../DomainEventJsonSerializer.js'
+import {
+  DomainEventDeserializer,
+} from '../DomainEventDeserializer.js'
+import {
+  DomainEventJsonSerializer,
+} from '../DomainEventJsonSerializer.js'
 
 /**
  * NOTE: Infrastructure to Infrastructure coupling
@@ -28,7 +44,9 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
 
     const eventSerialized = DomainEventJsonSerializer.serialize(event)
     // avoid duplications with $set update
-    const options: UpdateOptions = { upsert: true }
+    const options: UpdateOptions = {
+      upsert: true,
+    }
     const update: UpdateFilter<DomainEvent> = {
       $set: {
         eventId: event.eventId,
@@ -36,12 +54,20 @@ export class MikroOrmMongoDomainEventFailoverPublisher {
       },
     }
 
-    await collection.updateOne({ eventId: event.eventId }, update, options)
+    await collection.updateOne(
+      {
+        eventId: event.eventId,
+      },
+      // @ts-expect-error update is not a valid type
+      update,
+      options,
+    )
   }
 
   async consume(): Promise<DomainEvent[]> {
     const collection = await this.collection()
-    const documents = await collection.find().limit(200).toArray()
+    const documents = await collection.find().limit(200)
+      .toArray()
 
     const events = documents.map((document) => this.#deserializer!.deserialize(document.event))
 

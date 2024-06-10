@@ -1,9 +1,18 @@
-import { ObjectId } from 'mongodb'
-import { z } from 'zod'
+import {
+  ObjectId,
+} from 'mongodb'
+import {
+  z,
+} from 'zod'
 
-import type { ArgumentMetadata, PipeTransform } from '@/Contexts/Shared/domain/Common/interfaces/index.js'
+import type {
+  ArgumentMetadata,
+  PipeTransform,
+} from '#@/src/Contexts/Shared/domain/Common/interfaces/index.js'
 
-import { info } from '../../../Logger/index.js'
+import {
+  info,
+} from '../../../Logger/index.js'
 
 export class ZodObjectIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
@@ -16,7 +25,9 @@ export class ZodObjectIdPipe implements PipeTransform {
       value: z.string().refine((value) => ObjectId.isValid(value)),
     })
 
-    schema.parse({ value })
+    schema.parse({
+      value,
+    })
 
     // if (error) {
     //   throw error
