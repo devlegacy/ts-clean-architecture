@@ -18,15 +18,16 @@ type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symb
 type ValueObjectValue<T> = T extends PrimitiveTypes
   ? T
   : T extends { value: infer U }
-  ? U
-  : T extends { value: infer U }[]
-  ? U[]
-  : T extends (infer U)[]
-  ? ValueObjectValue<U>[]
-  : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  T extends { [K in keyof Entity<T>]: infer U }
-  ? { [K in keyof Entity<T>]: ValueObjectValue<Entity<T>[K]> }
-  : never
+    ? U
+    : T extends { value: infer U }[]
+      ? U[]
+      : T extends (infer U)[]
+        ? ValueObjectValue<U>[]
+        :
+        // eslint-disable-next-line unused-imports/no-unused-vars
+        T extends { [K in keyof Entity<T>]: infer U }
+          ? { [K in keyof Entity<T>]: ValueObjectValue<Entity<T>[K]> }
+          : never
 
 type Primitives<Type> = Simplify<
   Writable<{
