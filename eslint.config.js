@@ -80,7 +80,6 @@ const eslintRules = {
     16,
   ],
   'no-console': 'error',
-  'no-use-before-define': 'error',
   'no-var': 'error',
   'no-whitespace-before-property': 'error',
   'object-shorthand': 'error',
@@ -95,6 +94,8 @@ const typescriptRules = {
   '@typescript-eslint/array-type': 'warn',
   '@typescript-eslint/no-explicit-any': 'warn',
   '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+  'no-use-before-define': 'off',
+  '@typescript-eslint/no-use-before-define': 'error',
 }
 
 const stylisticCustomConfig = stylistic.configs.customize({
@@ -115,10 +116,10 @@ const stylisticRules = {
     'always',
   ],
   // REVIEW: Assess the usefulness of this rule with the current configuration.
-  '@stylistic/function-call-argument-newline': [
-    'error',
-    'always',
-  ],
+  // '@stylistic/function-call-argument-newline': [
+  //   'error',
+  //   'always',
+  // ],
   '@stylistic/function-call-spacing': [
     'error',
     'never',
