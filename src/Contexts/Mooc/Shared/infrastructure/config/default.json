@@ -7,13 +7,13 @@
   },
   "rabbitmq": {
     "connectionSettings": {
-      "username": "inrfebcy",
-      "password": "fW-2oZftiwGmxyznJLP-pF2k01m7_DXw",
-      "vhost": "inrfebcy",
+      "username": "guest",
+      "password": "guest",
+      "vhost": "/",
       "connection": {
-        "secure": true,
-        "hostname": "beaver.rmq.cloudamqp.com",
-        "port": 5671
+        "secure": false,
+        "hostname": "localhost",
+        "port": 5672
       }
     },
     "exchangeSettings": {

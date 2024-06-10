@@ -1,6 +1,10 @@
-import type { AwsConfig } from '@/Contexts/Shared/infrastructure/index.js'
+import type {
+  AwsConfig,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { config } from '../config/index.js'
+import {
+  config,
+} from '../config/index.js'
 
 const awsConfig: AwsConfig = {
   region: config.get('aws.client.region'),

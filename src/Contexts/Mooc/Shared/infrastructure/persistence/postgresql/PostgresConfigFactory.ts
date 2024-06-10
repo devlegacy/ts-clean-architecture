@@ -1,6 +1,10 @@
-import type { PostgresConfig } from '@/Contexts/Shared/infrastructure/index.js'
+import type {
+  PostgresConfig,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { config } from '../../config/index.js'
+import {
+  config,
+} from '../../config/index.js'
 
 const postgresConfig: PostgresConfig = {
   host: config.get('postgres.host'),
