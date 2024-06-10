@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import process from 'process'
+import process from 'node:process'
 
 import {
   FatalErrorHandler,
