@@ -1,9 +1,19 @@
-import { EntitySchema } from 'typeorm'
+import {
+  EntitySchema,
+} from 'typeorm'
 
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
-import { ValueObjectTransformer } from '@/Contexts/Shared/infrastructure/Persistence/typeorm/ValueObjectTransformer.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
+import {
+  ValueObjectTransformer,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/typeorm/ValueObjectTransformer.js'
 
-import { Course, CourseDuration, CourseName } from '../../../../domain/index.js'
+import {
+  Course,
+  CourseDuration,
+  CourseName,
+} from '../../../../domain/index.js'
 
 export const CourseEntity = new EntitySchema<Course>({
   name: 'Course',

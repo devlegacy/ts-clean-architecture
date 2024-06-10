@@ -1,7 +1,13 @@
-import { Criteria } from '@/Contexts/Shared/domain/index.js'
-import { MongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
+import {
+  Criteria,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  MongoRepository,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
-import { Course, CourseRepository } from '../../domain/index.js'
+import {
+  Course, CourseRepository,
+} from '../../domain/index.js'
 
 interface CourseDocument {
   _id: string
@@ -13,12 +19,16 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
   async all(): Promise<Course[]> {
     return []
   }
+
   async search(_criteria: Criteria): Promise<Course[]> {
     return []
   }
 
   save(course: Course): Promise<void> {
-    return this.persist(course.id.value, course)
+    return this.persist(
+      course.id.value,
+      course,
+    )
   }
 
   async searchAll(): Promise<Course[]> {
@@ -30,8 +40,7 @@ export class MongoCourseRepository extends MongoRepository<Course> implements Co
         name: document.name,
         duration: document.duration,
         id: document._id,
-      }),
-    )
+      }))
   }
 
   // async search(id: CourseId): Promise<Nullable<Course>> {

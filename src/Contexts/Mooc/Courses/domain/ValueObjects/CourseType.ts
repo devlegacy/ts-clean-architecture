@@ -1,15 +1,20 @@
-import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EnumValueObject, InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum Type {
   FREE = 0,
-  PREMIUM = 1,
+  PREMIUM = 1
 }
 
 export class CourseType extends EnumValueObject<Type> {
   constructor(value: Type) {
     // NOTE: Se asume casting de datos
     // Object.values(Type).filter((t) => !isNaN(t as number)) as Type[]
-    super(value, Object.values(Type) as Type[])
+    super(
+      value,
+      Object.values(Type) as Type[],
+    )
   }
 
   static fromValue(value: string | number): CourseType {

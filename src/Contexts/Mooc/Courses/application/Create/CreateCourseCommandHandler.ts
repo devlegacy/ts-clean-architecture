@@ -1,9 +1,21 @@
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
-import { type CommandHandler, isNil } from '@/Contexts/Shared/domain/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
+import {
+  CommandHandlerSubscriber,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  type CommandHandler, isNil,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CourseDuration, CourseName, CreateCourseCommand } from '../../domain/index.js'
-import { CourseCreator } from './CourseCreator.js'
+import {
+  CourseDuration,
+  CourseName,
+  CreateCourseCommand,
+} from '../../domain/index.js'
+import {
+  CourseCreator,
+} from './CourseCreator.js'
 
 @CommandHandlerSubscriber(CreateCourseCommand)
 export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCommand> {

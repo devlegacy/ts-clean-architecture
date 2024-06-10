@@ -1,6 +1,11 @@
-import { Response } from '@/Contexts/Shared/domain/index.js'
+import {
+  Response,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Course, type CoursePrimitiveType } from '../../domain/index.js'
+import {
+  Course,
+  type CoursePrimitiveType,
+} from '../../domain/index.js'
 
 export class CoursesResponse extends Response {
   readonly courses: CoursePrimitiveType[]

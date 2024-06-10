@@ -8,10 +8,16 @@
  *  - Si cambiamos algo de infraestructura (no hay que modificar) no se afecta el comportamiento del dominio
  */
 
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Course, type CourseEntityType, CourseRepository } from '../../domain/index.js'
+import {
+  Course, type CourseEntityType, CourseRepository,
+} from '../../domain/index.js'
 
 // NOTE: Complejidad asumida
 // NOTE: Collaborator
@@ -35,12 +41,20 @@ export class CourseCreator {
   // }
 
   async run(request: CourseEntityType) {
-    const course = Course.create(request.id, request.name, request.duration)
+    const course = Course.create(
+      request.id,
+      request.name,
+      request.duration,
+    )
 
     await this.repository.save(course)
     await this.bus.publish(course.pullDomainEvents())
 
     const allCourses = await this.repository.all()
-    console.log('allCourses', allCourses)
+    // eslint-disable-next-line no-console
+    console.log(
+      'allCourses',
+      allCourses,
+    )
   }
 }

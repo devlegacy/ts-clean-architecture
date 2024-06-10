@@ -2,7 +2,7 @@ import {
   DomainEvent,
   type DomainEventPrimitives,
   type DomainEventPrimitivesWithAttributes,
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 interface CreateCourseDomainEventAttributes {
   readonly name: string // should be readonly
@@ -42,7 +42,9 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
       eventId,
       occurredOn,
       aggregateId,
-      attributes: { name, duration },
+      attributes: {
+        name, duration,
+      },
     } = props
 
     const event = new CourseCreatedDomainEvent({

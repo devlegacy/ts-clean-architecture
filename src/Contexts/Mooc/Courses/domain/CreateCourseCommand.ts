@@ -1,6 +1,10 @@
-import { Command } from '@/Contexts/Shared/domain/index.js'
+import {
+  Command,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import type { CoursePrimitiveType } from './Course.js'
+import type {
+  CoursePrimitiveType,
+} from './Course.js'
 
 // alt CommandRequest
 type Request = CoursePrimitiveType
@@ -11,7 +15,9 @@ export class CreateCourseCommand extends Command {
   readonly name: string
   readonly duration?: string
 
-  constructor({ id, name, duration }: Request) {
+  constructor({
+    id, name, duration,
+  }: Request) {
     super()
     this.id = id
     this.name = name

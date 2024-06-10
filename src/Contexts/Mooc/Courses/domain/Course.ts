@@ -1,8 +1,16 @@
-import { AggregateRoot, isUndefined } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot, isUndefined,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CourseId } from '../../Shared/domain/index.js'
-import { CourseCreatedDomainEvent } from './CourseCreatedDomainEvent.js'
-import { CourseDuration, CourseName } from './ValueObjects/index.js'
+import {
+  CourseId,
+} from '../../Shared/domain/index.js'
+import {
+  CourseCreatedDomainEvent,
+} from './CourseCreatedDomainEvent.js'
+import {
+  CourseDuration, CourseName,
+} from './ValueObjects/index.js'
 
 export type CourseEntityType = Entity<Course>
 export type CoursePrimitiveType = Primitives<Course>
@@ -37,7 +45,11 @@ export class Course extends AggregateRoot {
   }
 
   static create(id: CourseId, name: CourseName, duration?: CourseDuration) {
-    const course = new Course(id, name, duration)
+    const course = new Course(
+      id,
+      name,
+      duration,
+    )
 
     const event = new CourseCreatedDomainEvent({
       aggregateId: id.value,

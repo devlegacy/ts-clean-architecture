@@ -1,10 +1,22 @@
-import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
-import type { QueryHandler } from '@/Contexts/Shared/domain/index.js'
+import {
+  QueryHandlerSubscriber,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import type {
+  QueryHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CreateCourseCommand } from '../../domain/index.js'
-import { CoursesFinder } from './CoursesFinder.js'
-import { CoursesResponse } from './CoursesResponse.js'
-import { SearchAllCoursesQuery } from './SearchAllCoursesQuery.js'
+import {
+  CreateCourseCommand,
+} from '../../domain/index.js'
+import {
+  CoursesFinder,
+} from './CoursesFinder.js'
+import {
+  CoursesResponse,
+} from './CoursesResponse.js'
+import {
+  SearchAllCoursesQuery,
+} from './SearchAllCoursesQuery.js'
 
 @QueryHandlerSubscriber(SearchAllCoursesQuery)
 export class SearchAllCoursesQueryHandler implements QueryHandler<CreateCourseCommand, CoursesResponse> {

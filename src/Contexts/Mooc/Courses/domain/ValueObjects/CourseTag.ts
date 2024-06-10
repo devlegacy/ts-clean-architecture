@@ -1,13 +1,18 @@
-import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EnumValueObject, InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum Tag {
   NEW_RELEASE = 'new_release',
-  DEPRECATED = 'deprecated',
+  DEPRECATED = 'deprecated'
 }
 
 export class CourseTag extends EnumValueObject<Tag> {
   constructor(value: Tag) {
-    super(value, Object.values(Tag))
+    super(
+      value,
+      Object.values(Tag),
+    )
   }
 
   static fromValue(value: string): CourseTag {

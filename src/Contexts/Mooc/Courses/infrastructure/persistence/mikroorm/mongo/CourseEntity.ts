@@ -1,15 +1,21 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
-import { Course, CourseDuration, CourseName } from '../../../../domain/index.js'
+import {
+  Course, CourseDuration, CourseName,
+} from '../../../../domain/index.js'
 
 // https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CourseEntity = new EntitySchema<Course>({
@@ -18,14 +24,26 @@ export const CourseEntity = new EntitySchema<Course>({
   tableName: 'courses',
   class: Course,
   hooks: {
-    onLoad: [onLoad],
-    beforeCreate: [beforeCreate],
-    beforeUpdate: [beforeUpdate],
-    beforeUpsert: [beforeUpsert],
+    onLoad: [
+      onLoad,
+    ],
+    beforeCreate: [
+      beforeCreate,
+    ],
+    beforeUpdate: [
+      beforeUpdate,
+    ],
+    beforeUpsert: [
+      beforeUpsert,
+    ],
   },
   properties: {
+    // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
     _id: {
-      customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
+      type: new ValueObjectTransformer(
+        CourseId,
+        'ObjectId',
+      ),
       // type: 'ObjectId',
       primary: true,
       // hidden: true,
@@ -34,13 +52,19 @@ export const CourseEntity = new EntitySchema<Course>({
       type: 'string',
       // customType: new ValueObjectTransformer(CourseId, 'string'),
       // persist: false,
-      serializedPrimaryKey: true,
+      // serializedPrimaryKey: true,
     },
     name: {
-      customType: new ValueObjectTransformer(CourseName, 'string'),
+      type: new ValueObjectTransformer(
+        CourseName,
+        'string',
+      ),
     },
     duration: {
-      customType: new ValueObjectTransformer(CourseDuration, 'string'),
+      type: new ValueObjectTransformer(
+        CourseDuration,
+        'string',
+      ),
     },
     // createdAt: {
     //   type: 'Date',
@@ -55,4 +79,4 @@ export const CourseEntity = new EntitySchema<Course>({
     //   nullable: true
     // }
   },
-}) //.addSerializedPrimaryKey()
+}) // .addSerializedPrimaryKey()

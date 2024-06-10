@@ -1,9 +1,11 @@
 import {
   StringValueObject,
   // ValueObject
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CourseNameLengthExceeded } from '../Errors/index.js'
+import {
+  CourseNameLengthExceeded,
+} from '../Errors/index.js'
 
 const MAX_COURSE_NAME_CHARACTER_LIMIT = 30
 
