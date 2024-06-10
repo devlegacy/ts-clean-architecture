@@ -1,22 +1,32 @@
-import { RabbitMQConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
+import {
+  RabbitMQConfigFactory,
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
 import {
   DomainEventSubscriberResolver,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/DomainEventSubscriberResolver.js'
+import {
   RabbitMQConfigurer,
   RabbitMQConnection,
-} from '@/Contexts/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/index.js'
 
-import { container } from '../../modules/index.js'
+import {
+  container,
+} from '../../modules/index.js'
 
 export class ConfigureRabbitMQCommand {
   static async run() {
     const connection = container.get(RabbitMQConnection)
     const {
-      exchangeSettings: { name: exchange },
+      exchangeSettings: {
+        name: exchange,
+      },
     } = RabbitMQConfigFactory.createConfig()
     await connection.connect()
 
     const configurer = container.get(RabbitMQConfigurer)
-    const { items: subscribers } = DomainEventSubscriberResolver.fromContainer(container)
+    const {
+      items: subscribers,
+    } = DomainEventSubscriberResolver.fromContainer(container)
 
     await configurer.configure({
       exchange,
