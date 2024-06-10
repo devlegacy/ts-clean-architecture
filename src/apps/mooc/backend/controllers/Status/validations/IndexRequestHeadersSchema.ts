@@ -1,12 +1,20 @@
-import { Joi, JoiSchema, JoiSchemaOptions } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
+import {
+  Joi,
+  JoiSchema,
+  JoiSchemaOptions,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 @JoiSchemaOptions({
   allowUnknown: false,
 })
 export class IndexRequestHeadersSchema {
-  @JoiSchema(Joi.string().trim().objectId().required())
+  @JoiSchema(Joi.string().trim()
+    .objectId()
+    .required())
   'x-context-user'!: string
 
-  @JoiSchema(Joi.string().trim().objectId().required())
+  @JoiSchema(Joi.string().trim()
+    .objectId()
+    .required())
   'x-context-account'!: string
 }

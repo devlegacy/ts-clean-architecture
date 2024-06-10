@@ -1,8 +1,18 @@
-import { ObjectId } from 'mongodb'
+import {
+  ObjectId,
+} from 'mongodb'
 
-import { CreateCourseCommand } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { Controller, Get, Post } from '@/Contexts/Shared/domain/Common/index.js'
-import { CommandBus } from '@/Contexts/Shared/domain/index.js'
+import {
+  CreateCourseCommand,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  Controller,
+  Get,
+  Post,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  CommandBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 @Controller('Errors/index.js')
 export class ErrorController {

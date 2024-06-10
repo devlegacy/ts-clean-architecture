@@ -1,10 +1,22 @@
-import { config } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
-import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventSubscriberResolver.js'
-import { RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus/RabbitMQ/index.js'
+import {
+  config,
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  DomainEventSubscriberResolver,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/DomainEventSubscriberResolver.js'
+import {
+  RabbitMQConnection,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/index.js'
 
-import { container } from '../modules/index.js'
-import { Server } from './Server.js'
+import {
+  container,
+} from '../modules/index.js'
+import {
+  Server,
+} from './Server.js'
 
 const rabbitMQConnection = container.get(RabbitMQConnection)
 const eventBus = container.get(EventBus)

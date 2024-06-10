@@ -2,19 +2,39 @@ import http from 'node:http'
 
 // import fastifySwagger, { JSONObject } from '@fastify/swagger'
 // import fastifySwaggerUi from '@fastify/swagger-ui'
-import type { Logger as PinoLoggerType } from 'pino'
+import type {
+  Logger as PinoLoggerType,
+} from 'pino'
 import qs from 'qs'
 
-import { Logger, Monitoring } from '@/Contexts/Shared/domain/index.js'
-import { DiodControllerResolver } from '@/Contexts/Shared/infrastructure/Common/index.js'
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
-import { error } from '@/Contexts/Shared/infrastructure/Logger/index.js'
-import { DefaultHttpErrorHandler } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/index.js'
-import { JoiModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
-import { ZodModule } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/index.js'
+import {
+  Logger, Monitoring,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  DiodControllerResolver,
+} from '#@/src/Contexts/Shared/infrastructure/Common/index.js'
+import {
+  FastifyAdapter,
+} from '#@/src/Contexts/Shared/infrastructure/Fastify/index.js'
+import {
+  error,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  DefaultHttpErrorHandler,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/index.js'
+import {
+  JoiModule,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
+import {
+  ZodModule,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/index.js'
 
-import { container } from '../modules/index.js'
-import { TAGS } from '../modules/tags.js'
+import {
+  container,
+} from '../modules/index.js'
+import {
+  TAGS,
+} from '../modules/tags.js'
 
 type Options = {
   port?: number
@@ -24,14 +44,19 @@ type Options = {
   name?: string
 }
 
-const { logger } = container.get<Logger<PinoLoggerType>>(Logger)
+const {
+  logger,
+} = container.get<Logger<PinoLoggerType>>(Logger)
 const monitoring = container.get(Monitoring)
 
 export class Server {
   readonly #options?: Options
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
-  readonly #adapter = new FastifyAdapter({ logger })
+  readonly #adapter = new FastifyAdapter({
+    logger,
+  })
+
   #httpServer?: http.Server
 
   get httpServer() {
@@ -46,7 +71,6 @@ export class Server {
       .setErrorHandler(new DefaultHttpErrorHandler())
   }
 
-  // eslint-disable-next-line max-lines-per-function
   async listen() {
     await this.#adapter.bootstrap({
       controller: container.findTaggedServiceIdentifiers(TAGS.Controller) as Class<unknown>[],
@@ -56,13 +80,17 @@ export class Server {
       this.#adapter.enableCors()
       this.#adapter.setMonitoringModule(monitoring)
       await this.#adapter
-        .register(import('@fastify/formbody') as any, { parser: (str: string) => qs.parse(str) })
+        .register(import('@fastify/formbody') as any, {
+          parser: (str: string) => qs.parse(str),
+        })
         .register(import('fastify-qs'))
         .register(import('@fastify/helmet'), {
           xssFilter: true,
           noSniff: true,
           hidePoweredBy: true,
-          frameguard: { action: 'deny' },
+          frameguard: {
+            action: 'deny',
+          },
         })
         .register(import('@fastify/rate-limit'))
     }

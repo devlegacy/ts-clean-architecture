@@ -1,9 +1,14 @@
 import {
   FindCoursesCounterQuery,
   FindCoursesCounterResponse,
-} from '@/Contexts/Mooc/CoursesCounter/application/index.js'
-import { Controller, Get } from '@/Contexts/Shared/domain/Common/index.js'
-import { QueryBus } from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Mooc/CoursesCounter/application/index.js'
+import {
+  Controller,
+  Get,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 @Controller('courses-counter')
 export class CoursesCounterController {

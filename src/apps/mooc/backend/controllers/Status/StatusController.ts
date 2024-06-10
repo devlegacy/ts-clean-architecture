@@ -1,4 +1,6 @@
-import { config } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
+import {
+  config,
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
 import {
   Body,
   Controller,
@@ -11,20 +13,26 @@ import {
   Query,
   Req,
   Res,
-} from '@/Contexts/Shared/domain/Common/index.js'
-import type { Request, Response } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import type {
+  Request, Response,
+} from '#@/src/Contexts/Shared/infrastructure/Fastify/index.js'
 import {
   JoiObjectIdPipe,
   JoiPageNumberPipe,
-} from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
-import { ZodObjectIdPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/Pipes/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
+import {
+  ZodObjectIdPipe,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Zod/Pipes/index.js'
 
 import {
   JoiCourseRequestSchema,
   JoiCoursesRequestSchema,
   ZodRequestCourseSchema,
 } from '../Courses/validations/index.js'
-import { IndexQueryRequestSchema, IndexRequestHeadersSchema, UserRequestSchema } from './validations/index.js'
+import {
+  IndexQueryRequestSchema, IndexRequestHeadersSchema, UserRequestSchema,
+} from './validations/index.js'
 
 // Los controllers regresan promesas<any> sin excepciones, los errores se propagan hasta el Server que instancia los controllers
 
@@ -33,6 +41,7 @@ export class StatusController {
   @HttpCode(HttpStatus.OK)
   @Get()
   index() {
+    // No DB connection
     return {}
   }
 
@@ -64,12 +73,16 @@ export class StatusController {
 
   @Post('joi/pipe/:mongoId')
   mongoPipe(@Param('mongoId', JoiObjectIdPipe) mongoId: string) {
-    return { mongoId }
+    return {
+      mongoId,
+    }
   }
 
   @Post('zod/pipe/:mongoId')
   zodPipe(@Param('mongoId', ZodObjectIdPipe) mongoId: string) {
-    return { mongoId }
+    return {
+      mongoId,
+    }
   }
 
   @Post('joi')

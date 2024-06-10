@@ -1,4 +1,8 @@
-import { Joi, JoiSchema, JoiSchemaOptions } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
+import {
+  Joi,
+  JoiSchema,
+  JoiSchemaOptions,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 @JoiSchemaOptions({
   allowUnknown: false,
