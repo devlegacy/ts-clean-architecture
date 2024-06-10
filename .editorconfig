@@ -6,7 +6,7 @@ root = true
 
 [*]
 indent_style = space
-max_line_length = 120
+max_line_length = 100
 indent_size = 2
 end_of_line = lf
 charset = utf-8
@@ -23,3 +23,7 @@ indent_size = 2
 
 [CHANGELOG.md]
 indent_size = false
+
+[{Makefile,*.mk}]
+indent_style = tab
+# indent_size = 4

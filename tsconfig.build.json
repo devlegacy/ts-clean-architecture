@@ -1,7 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
+    "outDir": "./dist",
     "noEmit": false,
     "pretty": false,
     "removeComments": true

@@ -1,6 +1,10 @@
 const engine = require('cz-conventional-changelog/engine')
-const { types } = require('conventional-commit-types')
-const { configLoader } = require('commitizen')
+const {
+  types,
+} = require('conventional-commit-types')
+const {
+  configLoader,
+} = require('commitizen')
 
 const config = configLoader.load() || {}
 const options = {

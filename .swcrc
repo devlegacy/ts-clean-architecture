@@ -1,23 +1,28 @@
 {
+  "$schema": "https://json.schemastore.org/swcrc",
   "jsc": {
     "target": "esnext",
     "parser": {
-      "syntax": "typescript",
       "decorators": true,
       "dynamicImport": true,
-      "topLevelAwait": true
+      "syntax": "typescript"
     },
     "transform": {
       "decoratorMetadata": true,
       "legacyDecorator": true
     },
-    "keepClassNames": true,
     "externalHelpers": true,
-    "loose": true
+    "keepClassNames": true,
+    "loose": true,
+    "minify": {
+      "compress": true,
+      "mangle": true
+    }
   },
   "module": {
-    "type": "nodenext"
+    "type": "es6"
   },
   "sourceMaps": true,
-  "exclude": "node_modules/"
+  "exclude": ["node_modules", "dist"],
+  "minify": true
 }

@@ -97,9 +97,9 @@ const config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     // https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
-    '@/apps/(.*)\\.js$': ['<rootDir>/src/apps/$1'],
-    '@/Contexts/(.*)\\.js$': ['<rootDir>/src/Contexts/$1'],
-    '@/tests/(.*)\\.js$': ['<rootDir>/tests/$1'],
+    '^@/apps/(.*)\\.js$': ['<rootDir>/src/apps/$1'],
+    '^@/Contexts/(.*)\\.js$': ['<rootDir>/src/Contexts/$1'],
+    '^@/tests/(.*)\\.js$': ['<rootDir>/tests/$1'],
     // jest esm
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },

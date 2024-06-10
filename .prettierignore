@@ -1,11 +1,4 @@
-!**/.eslintrc*
-.gitignore
-.hooks/*
-.husky/*
-*.ico
-*.lock
-*.log
-*.md
-*.svg
-dist
-node_modules*
+dist/*
+node_modules/*
+*.mjs
+*.js
