@@ -22,7 +22,7 @@
     "start:user:console:debug": "node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 --env-file=.user.env ./src/apps/user/console/main.ts",
     "start:user:api:debug": "node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 --env-file=.user.env ./src/apps/user/backend/main.ts",
     "start:user:graph:debug": "node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 ./src/apps/user/graphql/main.ts",
-    "start:mooc:api:debug": "node --import @swc-node/register/esm-register --watch --inspect=0.0.0.0:0 --env-file=.mooc.env ./src/apps/mooc/backend/main.ts",
+    "start:mooc:api:debug": "node --env-file=.mooc.env --import @swc-node/register/esm-register --loader ts-node/esm --watch --inspect=0.0.0.0:0 ./src/apps/mooc/backend/main.ts",
     "start:backoffice:api:debug": "cross-env DEBUG=* node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 --env-file=.backoffice.env ./src/apps/backoffice/backend/main.ts",
     "start:land:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/land/backend/main.ts",
     "start:bank:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/bank/backend/main.ts",
@@ -246,7 +246,7 @@
     "tsx": "4.15.1",
     "type-fest": "4.20.0",
     "typescript": "5.5.1-rc",
-    "typescript-eslint": "8.0.0-alpha.29"
+    "typescript-eslint": "8.0.0-alpha.30"
   },
   "optionalDependencies": {
     "depcheck": "1.4.7",
@@ -257,10 +257,10 @@
   "engines": {
     "node": ">=16.15.0 <=22.2.0",
     "npm": ">=9.8.0 <=10.8.1",
-    "pnpm": ">=9.2.0"
+    "pnpm": ">=9.3.0"
   },
   "os": [],
   "cpu": [],
   "engineStrict": true,
-  "packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
+  "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
 }
