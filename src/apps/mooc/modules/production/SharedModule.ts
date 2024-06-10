@@ -1,6 +1,12 @@
-import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
-import { ContainerBuilder } from 'diod'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoDriver,
+} from '@mikro-orm/mongodb'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 import {
   LoggerConfigFactory,
@@ -8,7 +14,7 @@ import {
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   SentryConfigFactory,
-} from '@/Contexts/Mooc/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
 import {
   Command,
   CommandBus,
@@ -20,7 +26,7 @@ import {
   QueryBus,
   type QueryHandler,
   Response,
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   FatalErrorHandler,
@@ -33,20 +39,31 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryMonitoring,
-} from '@/Contexts/Shared/infrastructure/index.js'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  PinoLogger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TAGS } from '../tags.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = MikroOrmMongoClientFactory.createClient(context, mongoConfig)
+const connectionClient = MikroOrmMongoClientFactory.createClient(
+  context,
+  mongoConfig,
+)
 
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
-const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
+const rabbitConfigurer = new RabbitMQConfigurer(
+  rabbitConnection,
+  rabbitFormatter,
+  50,
+)
 const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,

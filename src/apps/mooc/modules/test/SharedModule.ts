@@ -1,17 +1,29 @@
-import { resolve } from 'node:path'
-import { fileURLToPath, URL } from 'node:url'
+import {
+  resolve,
+} from 'node:path'
+import {
+  fileURLToPath, URL,
+} from 'node:url'
 
-import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
-import { ContainerBuilder } from 'diod'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoDriver,
+} from '@mikro-orm/mongodb'
+import {
+  ContainerBuilder,
+} from 'diod'
 
-import { RabbitMQEventBusFactory } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
+import {
+  RabbitMQEventBusFactory,
+} from '#@/src/Contexts/Backoffice/Shared/infrastructure/index.js'
 import {
   LoggerConfigFactory,
   MongoConfigFactory,
   RabbitMQConfigFactory,
   SentryConfigFactory,
-} from '@/Contexts/Mooc/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
 import {
   Command,
   CommandBus,
@@ -23,7 +35,7 @@ import {
   QueryBus,
   type QueryHandler,
   Response,
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   FatalErrorHandler,
@@ -36,13 +48,23 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryMonitoring,
-} from '@/Contexts/Shared/infrastructure/index.js'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
-import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  PinoLogger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  EnvironmentArranger,
+  MikroOrmMongoEnvironmentArranger,
+} from '#@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { TAGS } from '../tags.js'
+import {
+  TAGS,
+} from '../tags.js'
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const __dirname = fileURLToPath(new URL(
+  '.',
+  import.meta.url,
+))
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
@@ -55,7 +77,11 @@ const connectionClient = await MikroOrmMongoClientFactory.createClient(
 const rabbitConfig = RabbitMQConfigFactory.createConfig()
 const rabbitConnection = new RabbitMQConnection(rabbitConfig)
 const rabbitFormatter = new RabbitMQQueueFormatter(context)
-const rabbitConfigurer = new RabbitMQConfigurer(rabbitConnection, rabbitFormatter, 50)
+const rabbitConfigurer = new RabbitMQConfigurer(
+  rabbitConnection,
+  rabbitFormatter,
+  50,
+)
 const DomainEventFailoverPublisher = new MikroOrmMongoDomainEventFailoverPublisher(connectionClient as any)
 const rabbitEventBus = RabbitMQEventBusFactory.create(
   DomainEventFailoverPublisher,
@@ -114,6 +140,8 @@ export const SharedModule = (builder: ContainerBuilder) => {
       return logger
     })
     .asSingleton()
-  builder.register(FatalErrorHandler).use(FatalErrorHandler).asSingleton()
-  builder.register(EnvironmentArranger).use(MikroOrmMongoEnvironmentArranger).asSingleton()
+  builder.register(FatalErrorHandler).use(FatalErrorHandler)
+    .asSingleton()
+  builder.register(EnvironmentArranger).use(MikroOrmMongoEnvironmentArranger)
+    .asSingleton()
 }

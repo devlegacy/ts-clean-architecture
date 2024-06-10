@@ -1,6 +1,8 @@
 import 'reflect-metadata'
 
-import { ContainerBuilder } from 'diod'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 export const modules: any[] = []
 export const builder = new ContainerBuilder()
