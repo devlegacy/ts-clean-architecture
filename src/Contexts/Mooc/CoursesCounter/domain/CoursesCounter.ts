@@ -1,8 +1,17 @@
-import { AggregateRoot, ObjectId } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot, ObjectId,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CourseId } from '../../Shared/domain/index.js'
-import { CoursesCounterIncrementedDomainEvent } from './CoursesCounterIncrementedDomainEvent.js'
-import { CoursesCounterId, CoursesCounterTotal } from './ValueObjects/index.js'
+import {
+  CourseId,
+} from '../../Shared/domain/index.js'
+import {
+  CoursesCounterIncrementedDomainEvent,
+} from './CoursesCounterIncrementedDomainEvent.js'
+import {
+  CoursesCounterId,
+  CoursesCounterTotal,
+} from './ValueObjects/index.js'
 
 export type CoursesCounterEntityDto = Entity<CoursesCounter>
 export type CoursesCounterPrimitiveDto = Primitives<CoursesCounter>
@@ -28,7 +37,10 @@ export class CoursesCounter extends AggregateRoot {
   }
 
   static initialize(id: ObjectId): CoursesCounter {
-    return new CoursesCounter(id, CoursesCounterTotal.initialize())
+    return new CoursesCounter(
+      id,
+      CoursesCounterTotal.initialize(),
+    )
   }
 
   static override fromPrimitives(data: CoursesCounterPrimitiveDto): CoursesCounter {

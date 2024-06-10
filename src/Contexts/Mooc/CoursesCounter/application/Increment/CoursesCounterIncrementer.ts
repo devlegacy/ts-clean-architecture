@@ -1,8 +1,18 @@
-import { Course } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
+import {
+  Course,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CoursesCounter, CoursesCounterId, CoursesCounterRepository } from '../../domain/index.js'
+import {
+  CoursesCounter,
+  CoursesCounterId,
+  CoursesCounterRepository,
+} from '../../domain/index.js'
 
 @UseCase()
 export class CoursesCounterIncrementer {

@@ -1,15 +1,21 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
-import { CoursesCounter, CoursesCounterId, CoursesCounterTotal } from '../../../../domain/index.js'
+import {
+  CoursesCounter, CoursesCounterId, CoursesCounterTotal,
+} from '../../../../domain/index.js'
 
 // https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
@@ -18,15 +24,27 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
   tableName: 'courses_counter',
   class: CoursesCounter,
   hooks: {
-    onLoad: [onLoad],
-    beforeCreate: [beforeCreate],
-    beforeUpdate: [beforeUpdate],
-    beforeUpsert: [beforeUpsert],
+    onLoad: [
+      onLoad,
+    ],
+    beforeCreate: [
+      beforeCreate,
+    ],
+    beforeUpdate: [
+      beforeUpdate,
+    ],
+    beforeUpsert: [
+      beforeUpsert,
+    ],
   },
   properties: {
+    // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
     _id: {
       // customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
-      customType: new ValueObjectTransformer(CoursesCounterId, 'ObjectId'),
+      type: new ValueObjectTransformer(
+        CoursesCounterId,
+        'ObjectId',
+      ),
       // type: 'ObjectId',
       primary: true,
       // hidden: true,
@@ -35,13 +53,19 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
       type: 'string',
       // customType: new ValueObjectTransformer(CoursesCounterId, 'string'),
       // persist: false,
-      serializedPrimaryKey: true,
+      // serializedPrimaryKey: true,
     },
     total: {
-      customType: new ValueObjectTransformer(CoursesCounterTotal, 'number'),
+      type: new ValueObjectTransformer(
+        CoursesCounterTotal,
+        'number',
+      ),
     },
     existingCourses: {
-      customType: new ValueObjectTransformer(CourseId, 'ObjectId[]'),
+      type: new ValueObjectTransformer(
+        CourseId,
+        'ObjectId[]',
+      ),
     },
   },
 })

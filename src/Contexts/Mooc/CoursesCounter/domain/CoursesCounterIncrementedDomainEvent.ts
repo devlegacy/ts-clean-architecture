@@ -1,4 +1,7 @@
-import { DomainEvent, type DomainEventPrimitivesWithAttributes } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+  type DomainEventPrimitivesWithAttributes,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 interface CoursesCounterIncrementedDomainEventAttributes {
   readonly total: number
@@ -6,13 +9,14 @@ interface CoursesCounterIncrementedDomainEventAttributes {
 
 export class CoursesCounterIncrementedDomainEvent
   extends DomainEvent
-  implements CoursesCounterIncrementedDomainEventAttributes
-{
+  implements CoursesCounterIncrementedDomainEventAttributes {
   static override readonly EVENT_NAME = 'courses_counter.incremented'
   readonly total: number
 
-  constructor(data: { aggregateId: string; total: number; eventId?: string; occurredOn?: Date }) {
-    const { aggregateId, eventId, occurredOn } = data
+  constructor(data: { aggregateId: string, total: number, eventId?: string, occurredOn?: Date }) {
+    const {
+      aggregateId, eventId, occurredOn,
+    } = data
     super({
       eventName: CoursesCounterIncrementedDomainEvent.EVENT_NAME,
       aggregateId,
@@ -25,7 +29,12 @@ export class CoursesCounterIncrementedDomainEvent
   static override fromPrimitives(
     params: DomainEventPrimitivesWithAttributes<CoursesCounterIncrementedDomainEventAttributes>,
   ) {
-    const { eventId, occurredOn, aggregateId, attributes } = params
+    const {
+      eventId,
+      occurredOn,
+      aggregateId,
+      attributes,
+    } = params
     return new CoursesCounterIncrementedDomainEvent({
       aggregateId,
       total: attributes.total,

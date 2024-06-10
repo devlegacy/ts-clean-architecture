@@ -1,20 +1,36 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
+import {
+  MikroOrmMongoRepository,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { CoursesCounter, CoursesCounterRepository } from '../../domain/index.js'
-import { CoursesCounterEntity } from './mikroorm/mongo/CoursesCounterEntity.js'
+import {
+  CoursesCounter, CoursesCounterRepository,
+} from '../../domain/index.js'
+import {
+  CoursesCounterEntity,
+} from './mikroorm/mongo/CoursesCounterEntity.js'
 
 export class MikroOrmMongoCoursesCounterRepository
   extends MikroOrmMongoRepository<CoursesCounter>
-  implements CoursesCounterRepository
-{
+  implements CoursesCounterRepository {
   async search(): Promise<Nullable<CoursesCounter>> {
     const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const courseCounter = await repository.findOne({ total: { $exists: true } }, { convertCustomTypes: false }) // false because we are using a custom filter
+    const courseCounter = await repository.findOne(
+      {
+        total: {
+          $exists: true,
+        },
+      },
+      {
+        convertCustomTypes: false,
+      },
+    ) // false because we are using a custom filter
     return courseCounter
   }
 
