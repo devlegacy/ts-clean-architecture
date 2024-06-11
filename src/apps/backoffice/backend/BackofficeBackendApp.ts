@@ -1,9 +1,20 @@
-import { config } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
-import { DomainEventSubscriberResolver, RabbitMQConnection } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
+import {
+  config,
+} from '#@/src/Contexts/Backoffice/Shared/infrastructure/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  DomainEventSubscriberResolver,
+  RabbitMQConnection,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/index.js'
 
-import { container } from '../modules/index.js'
-import { Server } from './Server.js'
+import {
+  container,
+} from '../modules/index.js'
+import {
+  Server,
+} from './Server.js'
 
 const rabbitMQConnection = container.get(RabbitMQConnection)
 

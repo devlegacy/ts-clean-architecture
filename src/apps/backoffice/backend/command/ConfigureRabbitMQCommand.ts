@@ -1,17 +1,23 @@
-import { RabbitMQConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
+import {
+  RabbitMQConfigFactory,
+} from '#@/src/Contexts/Backoffice/Shared/infrastructure/index.js'
 import {
   DomainEventSubscriberResolver,
   RabbitMQConfigurer,
   RabbitMQConnection,
-} from '@/Contexts/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { container } from '../../modules/index.js'
+import {
+  container,
+} from '../../modules/index.js'
 
 export class ConfigureRabbitMQCommand {
   static async run() {
     const connection = container.get(RabbitMQConnection)
     const {
-      exchangeSettings: { name: exchange },
+      exchangeSettings: {
+        name: exchange,
+      },
     } = RabbitMQConfigFactory.createConfig()
     await connection.connect()
 

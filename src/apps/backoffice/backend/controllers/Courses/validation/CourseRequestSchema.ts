@@ -1,4 +1,9 @@
-import { CREATE, Joi, JoiSchema, UPDATE } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
+import {
+  CREATE,
+  Joi,
+  JoiSchema,
+  UPDATE,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 /**
  * NOTE: Validaciones a nivel de protocolo de comunicación (transporte de esta capa / Ruta - Controlador)
@@ -11,20 +16,34 @@ import { CREATE, Joi, JoiSchema, UPDATE } from '@/Contexts/Shared/infrastructure
  */
 
 export class CourseRequestSchema {
-  @JoiSchema([CREATE], Joi.string().required())
-  @JoiSchema([UPDATE], Joi.string().required())
+  @JoiSchema([
+    CREATE,
+  ], Joi.string().required())
+  @JoiSchema([
+    UPDATE,
+  ], Joi.string().required())
   readonly id!: string
 
-  @JoiSchema([CREATE], Joi.string().required())
-  @JoiSchema([UPDATE], Joi.string().optional())
+  @JoiSchema([
+    CREATE,
+  ], Joi.string().required())
+  @JoiSchema([
+    UPDATE,
+  ], Joi.string().optional())
   readonly name!: string
 
-  @JoiSchema([CREATE], Joi.string().optional())
-  @JoiSchema([UPDATE], Joi.string().optional())
+  @JoiSchema([
+    CREATE,
+  ], Joi.string().optional())
+  @JoiSchema([
+    UPDATE,
+  ], Joi.string().optional())
   readonly duration?: string
 
   @JoiSchema(
-    [CREATE],
+    [
+      CREATE,
+    ],
     Joi.date()
       .optional()
       .default(() => new Date()),
@@ -32,13 +51,17 @@ export class CourseRequestSchema {
   readonly createdAt!: Date
 
   @JoiSchema(
-    [CREATE],
+    [
+      CREATE,
+    ],
     Joi.date()
       .optional()
       .default(() => new Date()),
   )
   @JoiSchema(
-    [UPDATE],
+    [
+      UPDATE,
+    ],
     Joi.date()
       .optional()
       .default(() => new Date()),

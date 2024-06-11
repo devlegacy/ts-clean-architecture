@@ -6,12 +6,12 @@ import {
   GetPaginatedBackofficeCoursesQuery,
   SearchAllBackofficeCoursesQuery,
   SearchBackofficeCoursesByCriteriaQuery,
-} from '@/Contexts/Backoffice/Courses/application/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/application/index.js'
 import {
   CreateBackofficeCourseCommand,
   DeleteBackofficeCourseCommand,
   UpdateBackofficeCourseCommand,
-} from '@/Contexts/Backoffice/Courses/domain/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
 import {
   Body,
   Controller,
@@ -23,7 +23,7 @@ import {
   Post,
   Put,
   Query,
-} from '@/Contexts/Shared/domain/Common/index.js'
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
   CommandBus,
   Filter,
@@ -31,14 +31,18 @@ import {
   Monitoring,
   Operator,
   QueryBus,
-} from '@/Contexts/Shared/domain/index.js'
-import { error, info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  error, info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 import {
   JoiFiltersPipe,
   JoiObjectIdPipe,
-} from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
-import { CourseRequestSchema } from './validation/index.js'
+import {
+  CourseRequestSchema,
+} from './validation/index.js'
 
 @Controller('courses')
 export class CourseController {
@@ -62,11 +66,13 @@ export class CourseController {
       orderBy,
       orderType,
       limit, // ? limit : undefined,
-      offset, //? offset : undefined
+      offset, // ? offset : undefined
     )
     // const query = new SearchAllCoursesQuery()
 
-    const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
+    const {
+      courses,
+    } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
     // const { reviews } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
     // const { starts } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
     // Promise.all([]) with an special response
@@ -76,7 +82,9 @@ export class CourseController {
   @Get('all')
   async all() {
     const query = new SearchAllBackofficeCoursesQuery()
-    const { courses } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
+    const {
+      courses,
+    } = await this.queryBus.ask<BackofficeCoursesResponse>(query)
 
     return courses
   }
@@ -107,7 +115,9 @@ export class CourseController {
     ])
 
     const query = new FindBackofficeCourseByCriteriaQuery(filters)
-    const { course } = await this.queryBus.ask<BackofficeCourseResponse>(query)
+    const {
+      course,
+    } = await this.queryBus.ask<BackofficeCourseResponse>(query)
 
     return course
   }
@@ -136,8 +146,12 @@ export class CourseController {
 
   @Delete(':courseId')
   async delete(@Param('courseId', JoiObjectIdPipe) courseId: string) {
-    const filter = { id: courseId }
-    const command = new DeleteBackofficeCourseCommand({ id: courseId })
+    const filter = {
+      id: courseId,
+    }
+    const command = new DeleteBackofficeCourseCommand({
+      id: courseId,
+    })
     await this.commandBus.dispatch(command)
 
     return filter

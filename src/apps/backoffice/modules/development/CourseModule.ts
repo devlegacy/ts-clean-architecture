@@ -1,5 +1,9 @@
-import { Client as ElasticClient } from '@elastic/elasticsearch'
-import { ContainerBuilder } from 'diod'
+import {
+  Client as ElasticClient,
+} from '@elastic/elasticsearch'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 import {
   BackofficeCourseByCriteriaFinder,
@@ -18,21 +22,29 @@ import {
   SearchBackofficeCoursesByCriteriaQueryHandler,
   TopCoursesFinder,
   UpdateBackofficeCourseCommandHandler,
-} from '@/Contexts/Backoffice/Courses/application/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/application/index.js'
 import {
   BackofficeCourseFinder,
   BackofficeCourseRepository,
   BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
-} from '@/Contexts/Backoffice/Courses/domain/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
 import {
   ElasticBackofficeCourseRepository,
   MikroOrmMongoBackofficeCourseRepository,
-} from '@/Contexts/Backoffice/Courses/infrastructure/index.js'
-import { ProxyBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/persistence/ProxyBackofficeCourseRepository.js'
-import { ElasticConfigFactory } from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/infrastructure/index.js'
+import {
+  ProxyBackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/infrastructure/persistence/ProxyBackofficeCourseRepository.js'
+import {
+  ElasticConfigFactory,
+} from '#@/src/Contexts/Backoffice/Shared/infrastructure/index.js'
 
-import { CourseController } from '../../backend/controllers/Courses/CourseController.js'
-import { TAGS } from '../tags.js'
+import {
+  CourseController,
+} from '../../backend/controllers/Courses/CourseController.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 const elasticConfig = ElasticConfigFactory.createConfig()
 

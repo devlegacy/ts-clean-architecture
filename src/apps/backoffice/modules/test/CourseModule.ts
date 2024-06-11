@@ -1,4 +1,6 @@
-import { ContainerBuilder } from 'diod'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 import {
   BackofficeCourseByCriteriaFinder,
@@ -17,16 +19,22 @@ import {
   SearchBackofficeCoursesByCriteriaQueryHandler,
   TopCoursesFinder,
   UpdateBackofficeCourseCommandHandler,
-} from '@/Contexts/Backoffice/Courses/application/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/application/index.js'
 import {
   BackofficeCourseFinder,
   BackofficeCourseRepository,
   BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
-} from '@/Contexts/Backoffice/Courses/domain/index.js'
-import { MikroOrmMongoBackofficeCourseRepository } from '@/Contexts/Backoffice/Courses/infrastructure/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
+  MikroOrmMongoBackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/infrastructure/index.js'
 
-import { CourseController } from '../../backend/controllers/Courses/CourseController.js'
-import { TAGS } from '../tags.js'
+import {
+  CourseController,
+} from '../../backend/controllers/Courses/CourseController.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 export const CourseModule = (builder: ContainerBuilder) => {
   builder.registerAndUse(CourseController).addTag(TAGS.Controller)

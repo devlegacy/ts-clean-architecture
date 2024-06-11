@@ -1,10 +1,23 @@
-import { resolve } from 'node:path'
-import { fileURLToPath, URL } from 'node:url'
+import {
+  resolve,
+} from 'node:path'
+import {
+  fileURLToPath,
+  URL,
+} from 'node:url'
 
-import { Client as ElasticClient } from '@elastic/elasticsearch'
-import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
-import { ContainerBuilder } from 'diod'
+import {
+  Client as ElasticClient,
+} from '@elastic/elasticsearch'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoDriver,
+} from '@mikro-orm/mongodb'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 import {
   ElasticConfigFactory,
@@ -13,8 +26,14 @@ import {
   RabbitMQConfigFactory,
   RabbitMQEventBusFactory,
   SentryConfigFactory,
-} from '@/Contexts/Backoffice/Shared/infrastructure/index.js'
-import { CommandBus, EventBus, Logger, Monitoring, QueryBus } from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Backoffice/Shared/infrastructure/index.js'
+import {
+  CommandBus,
+  EventBus,
+  Logger,
+  Monitoring,
+  QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   ElasticClientFactory,
@@ -28,11 +47,15 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryMonitoring,
-} from '@/Contexts/Shared/infrastructure/index.js'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  PinoLogger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-// import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
-import { TAGS } from '../tags.js'
+// import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '#@/src/tests/Contexts/Shared/infrastructure/index.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'backoffice'
@@ -89,8 +112,7 @@ export const SharedModule = (builder: ContainerBuilder) => {
     .register(QueryBus)
     .useFactory((container) => {
       const queries = ((container.findTaggedServiceIdentifiers(TAGS.QueryHandler) as any[]) ?? []).map((identifier) =>
-        container.get(identifier),
-      )
+        container.get(identifier))
       const handler = new QueryHandlers(queries as any[])
       return new InMemoryQueryBus(handler)
     })
