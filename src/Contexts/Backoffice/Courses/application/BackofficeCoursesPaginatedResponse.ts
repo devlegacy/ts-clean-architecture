@@ -1,6 +1,13 @@
-import { OffsetPaginator, type Pagination, Response } from '@/Contexts/Shared/domain/index.js'
+import {
+  OffsetPaginator,
+  type Pagination,
+  Response,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse, type BackofficeCoursePrimitiveType } from '../domain/index.js'
+import {
+  BackofficeCourse,
+  type BackofficeCoursePrimitiveType,
+} from '../domain/index.js'
 
 // This could be different
 type ResponseType = {

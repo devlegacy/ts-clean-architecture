@@ -1,10 +1,24 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
-import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities.js'
-import { Filter, Filters, Operator } from '@/Contexts/Shared/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  LastCreatedEntities,
+} from '#@/src/Contexts/Shared/domain/Criteria/LastCreatedEntities.js'
+import {
+  Filter,
+  Filters,
+  Operator,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse } from './BackofficeCourse.js'
-import { BackofficeCourseRepository } from './BackofficeCourseRepository.js'
-import { BackofficeCourseNotFoundError } from './Errors/index.js'
+import {
+  BackofficeCourse,
+} from './BackofficeCourse.js'
+import {
+  BackofficeCourseRepository,
+} from './BackofficeCourseRepository.js'
+import {
+  BackofficeCourseNotFoundError,
+} from './Errors/index.js'
 
 /**
  * Domain service - Return a domain element
@@ -16,17 +30,17 @@ export class BackofficeCourseFinder {
   constructor(private readonly repository: BackofficeCourseRepository) {}
 
   async run(courseId: string | Filters): Promise<BackofficeCourse> {
-    const filters =
-      typeof courseId === 'string'
+    const filters
+      = typeof courseId === 'string'
         ? Filters.fromValues(
-            Filter.parse([
-              {
-                field: 'id',
-                operator: Operator.EQUAL,
-                value: courseId,
-              },
-            ]),
-          )
+          Filter.parse([
+            {
+              field: 'id',
+              operator: Operator.EQUAL,
+              value: courseId,
+            },
+          ]),
+        )
         : courseId
     const criteria = new LastCreatedEntities(filters)
     const courses = await this.repository.search(criteria)

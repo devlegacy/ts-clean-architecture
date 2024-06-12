@@ -1,17 +1,32 @@
-import { EntitySchema, wrap } from '@mikro-orm/core'
-import { Service } from 'diod'
+import {
+  EntitySchema,
+  wrap,
+} from '@mikro-orm/core'
+import {
+  Service,
+} from 'diod'
 
-import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
+import {
+  Criteria,
+  OffsetPaginator,
+  type Pagination,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  MikroOrmMongoRepository,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { BackofficeCourse, BackofficeCourseRepository } from '../../domain/index.js'
-import { BackofficeCourseEntity } from './mikroorm/mongo/BackofficeCourseEntity.js'
+import {
+  BackofficeCourse,
+  BackofficeCourseRepository,
+} from '../../domain/index.js'
+import {
+  BackofficeCourseEntity,
+} from './mikroorm/mongo/BackofficeCourseEntity.js'
 
 @Service()
 export class MikroOrmMongoBackofficeCourseRepository
   extends MikroOrmMongoRepository<BackofficeCourse>
-  implements BackofficeCourseRepository
-{
+  implements BackofficeCourseRepository {
   // constructor(
   //   @inject(SHARED_TYPES.MongoClient) client: Promise<MikroORM<MongoDriver>>,
   //   @inject(SHARED_TYPES.QueryBus) private readonly queryBus: QueryBus
@@ -26,8 +41,11 @@ export class MikroOrmMongoBackofficeCourseRepository
   async paginate(
     criteria: Criteria,
     pagination: OffsetPaginator,
-  ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination }> {
-    return this.offsetPagination(criteria, pagination)
+  ): Promise<{ data: BackofficeCourse[], pagination?: Pagination }> {
+    return this.offsetPagination(
+      criteria,
+      pagination,
+    )
   }
 
   async search(criteria: Criteria): Promise<BackofficeCourse[]> {
@@ -49,10 +67,14 @@ export class MikroOrmMongoBackofficeCourseRepository
         // @ts-expect-error
         _id: course.id,
       },
-      { convertCustomTypes: true },
+      {
+        convertCustomTypes: true,
+      },
     )
-    const { id, ...primitives } = course.toPrimitives()
-
+    const {
+      id, ...primitives
+    } = course.toPrimitives()
+    if (!current) return
     wrap(current).assign(
       {
         ...primitives,
@@ -60,11 +82,13 @@ export class MikroOrmMongoBackofficeCourseRepository
         // @ts-expect-error
         _id: id,
       },
-      { convertCustomTypes: true },
+      {
+        convertCustomTypes: true,
+      },
     )
     if (!current) return
 
-    await repository.persistAndFlush(current)
+    await repository.getEntityManager().persistAndFlush(current)
   }
 
   async delete(id: BackofficeCourse['id']): Promise<void> {
@@ -75,8 +99,12 @@ export class MikroOrmMongoBackofficeCourseRepository
         // @ts-expect-error
         _id: id,
       },
-      { deletedAt: new Date() },
-      { convertCustomTypes: true },
+      {
+        deletedAt: new Date(),
+      },
+      {
+        convertCustomTypes: true,
+      },
     )
   }
 

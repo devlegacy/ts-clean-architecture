@@ -1,4 +1,6 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
 import {
   beforeCreate,
@@ -6,7 +8,7 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
 
 import {
   BackofficeCourse,
@@ -20,14 +22,26 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   tableName: 'courses',
   class: BackofficeCourse,
   hooks: {
-    onLoad: [onLoad],
-    beforeCreate: [beforeCreate],
-    beforeUpdate: [beforeUpdate],
-    beforeUpsert: [beforeUpsert],
+    onLoad: [
+      onLoad,
+    ],
+    beforeCreate: [
+      beforeCreate,
+    ],
+    beforeUpdate: [
+      beforeUpdate,
+    ],
+    beforeUpsert: [
+      beforeUpsert,
+    ],
   },
   properties: {
+    // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
     _id: {
-      customType: new ValueObjectTransformer(BackofficeCourseId, 'ObjectId'),
+      type: new ValueObjectTransformer(
+        BackofficeCourseId,
+        'ObjectId',
+      ),
       // type: 'ObjectId',
       primary: true,
       // hidden: true,
@@ -36,13 +50,19 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
       type: 'string',
       // customType: new ValueObjectTransformer(BackofficeCourseId, 'string'),
       // persist: false,
-      serializedPrimaryKey: true,
+      // serializedPrimaryKey: true,
     },
     name: {
-      customType: new ValueObjectTransformer(BackofficeCourseName, 'string'),
+      type: new ValueObjectTransformer(
+        BackofficeCourseName,
+        'string',
+      ),
     },
     duration: {
-      customType: new ValueObjectTransformer(BackofficeCourseDuration, 'string'),
+      type: new ValueObjectTransformer(
+        BackofficeCourseDuration,
+        'string',
+      ),
       nullable: true,
     },
     createdAt: {

@@ -1,18 +1,30 @@
-import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
-import { ElasticRepository } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  Criteria,
+  OffsetPaginator,
+  type Pagination,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  ElasticRepository,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain/index.js'
+import {
+  BackofficeCourse,
+  BackofficeCourseId,
+  BackofficeCourseRepository,
+} from '../../domain/index.js'
 
 export class ElasticBackofficeCourseRepository
   extends ElasticRepository<BackofficeCourse>
-  implements BackofficeCourseRepository
-{
+  implements BackofficeCourseRepository {
   async all(): Promise<BackofficeCourse[]> {
     return this.searchAllInElastic(BackofficeCourse.fromPrimitives)
   }
 
   async search(criteria: Criteria): Promise<BackofficeCourse[]> {
-    return this.matching(criteria, BackofficeCourse.fromPrimitives)
+    return this.matching(
+      criteria,
+      BackofficeCourse.fromPrimitives,
+    )
   }
 
   count(_criteria: Criteria): Promise<number> {
@@ -22,7 +34,7 @@ export class ElasticBackofficeCourseRepository
   async paginate(
     _criteria: Criteria,
     _pagination: OffsetPaginator,
-  ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
+  ): Promise<{ data: BackofficeCourse[], pagination?: Pagination | undefined }> {
     throw new Error('Method not implemented.')
   }
 
@@ -35,6 +47,9 @@ export class ElasticBackofficeCourseRepository
   }
 
   async save(course: BackofficeCourse): Promise<void> {
-    return this.persist(course.id.value, course)
+    return this.persist(
+      course.id.value,
+      course,
+    )
   }
 }

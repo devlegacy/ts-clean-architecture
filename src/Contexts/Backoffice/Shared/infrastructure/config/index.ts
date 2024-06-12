@@ -1,16 +1,32 @@
-import { existsSync } from 'node:fs'
-import { resolve } from 'node:path'
-import { cwd } from 'node:process'
-import { fileURLToPath, URL } from 'node:url'
+import {
+  existsSync,
+} from 'node:fs'
+import {
+  resolve,
+} from 'node:path'
+import {
+  cwd,
+} from 'node:process'
+import {
+  fileURLToPath,
+  URL,
+} from 'node:url'
 
 import convict from 'convict'
 import convict_format_with_validator from 'convict-format-with-validator'
 import dotenv from 'dotenv'
-import { expand } from 'dotenv-expand'
+import {
+  expand,
+} from 'dotenv-expand'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const __dirname = fileURLToPath(new URL(
+  '.',
+  import.meta.url,
+))
 const defaultPath = `${cwd()}/.backoffice.env`
 const path = existsSync(defaultPath) ? defaultPath : `${cwd()}/.env`
 const envConfig = dotenv.config({
@@ -26,7 +42,10 @@ const config = convict(
     app: {
       debug: {
         doc: 'The application debug mode.',
-        format: [true, false],
+        format: [
+          true,
+          false,
+        ],
         default: true,
         env: 'APP_DEBUG',
       },
@@ -38,7 +57,12 @@ const config = convict(
       },
       env: {
         doc: 'The application environment.',
-        format: ['production', 'development', 'staging', 'test'],
+        format: [
+          'production',
+          'development',
+          'staging',
+          'test',
+        ],
         default: 'development' as 'production' | 'development' | 'staging' | 'test',
         env: 'APP_ENV',
       },
@@ -61,7 +85,14 @@ const config = convict(
     log: {
       level: {
         doc: 'The application log level.',
-        format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
+        format: [
+          'fatal',
+          'error',
+          'warn',
+          'info',
+          'debug',
+          'trace',
+        ],
         default: 'info' as 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace',
         env: 'LOG_LEVEL',
       },
@@ -197,12 +228,20 @@ const config = convict(
   // }
 )
 
-const filePaths = [resolve(`${__dirname}/default.json`), resolve(`${__dirname}/${config.get('app.env')}.json`)].filter(
+const filePaths = [
+  resolve(`${__dirname}/default.json`),
+  resolve(`${__dirname}/${config.get('app.env')}.json`),
+].filter(
   (path) => existsSync(path),
 )
 
 config.loadFile(filePaths).validate()
 
-info(JSON.parse(config.toString()), 'backoffice config')
+info(
+  JSON.parse(config.toString()),
+  'backoffice config',
+)
 
-export { config }
+export {
+  config
+}

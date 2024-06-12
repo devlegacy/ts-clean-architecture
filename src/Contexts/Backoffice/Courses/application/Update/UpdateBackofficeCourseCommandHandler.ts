@@ -1,5 +1,9 @@
-import { CommandHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
-import type { CommandHandler } from '@/Contexts/Shared/domain/index.js'
+import {
+  CommandHandlerSubscriber,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import type {
+  CommandHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 import {
   BackofficeCourseDuration,
@@ -7,7 +11,9 @@ import {
   BackofficeCourseName,
   UpdateBackofficeCourseCommand,
 } from '../../domain/index.js'
-import { BackofficeCourseUpdater } from './BackofficeCourseUpdater.js'
+import {
+  BackofficeCourseUpdater,
+} from './BackofficeCourseUpdater.js'
 
 @CommandHandlerSubscriber(UpdateBackofficeCourseCommand)
 export class UpdateBackofficeCourseCommandHandler implements CommandHandler<UpdateBackofficeCourseCommand> {
@@ -18,7 +24,9 @@ export class UpdateBackofficeCourseCommandHandler implements CommandHandler<Upda
   // }
 
   async handle(command: UpdateBackofficeCourseCommand): Promise<void> {
-    const { updatedAt } = command
+    const {
+      updatedAt,
+    } = command
     const id = new BackofficeCourseId(command.id)
     const name = new BackofficeCourseName(command.name)
     const duration = command.duration ? new BackofficeCourseDuration(command.duration) : undefined

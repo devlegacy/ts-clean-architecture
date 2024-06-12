@@ -1,4 +1,6 @@
-import { EntityNotFoundError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EntityNotFoundError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class BackofficeCourseNotFoundError extends EntityNotFoundError {
   constructor() {

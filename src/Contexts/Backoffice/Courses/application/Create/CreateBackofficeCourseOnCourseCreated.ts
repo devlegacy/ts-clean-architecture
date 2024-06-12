@@ -1,9 +1,21 @@
-import { CourseCreatedDomainEvent } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common/index.js'
-import type { DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
+import {
+  CourseCreatedDomainEvent,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  DomainEventSubscribers,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import type {
+  DomainEventSubscriber,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourseDuration, BackofficeCourseId, BackofficeCourseName } from '../../domain/index.js'
-import { BackofficeCourseCreator } from './BackofficeCourseCreator.js'
+import {
+  BackofficeCourseDuration,
+  BackofficeCourseId,
+  BackofficeCourseName,
+} from '../../domain/index.js'
+import {
+  BackofficeCourseCreator,
+} from './BackofficeCourseCreator.js'
 
 @DomainEventSubscribers(CourseCreatedDomainEvent)
 export class CreateBackofficeCourseOnCourseCreated implements DomainEventSubscriber<CourseCreatedDomainEvent> {

@@ -1,8 +1,18 @@
-import { Service } from 'diod'
+import {
+  Service,
+} from 'diod'
 
-import { Criteria, OffsetPaginator, type Pagination } from '@/Contexts/Shared/domain/index.js'
+import {
+  Criteria,
+  OffsetPaginator,
+  type Pagination,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourse, BackofficeCourseId, BackofficeCourseRepository } from '../../domain/index.js'
+import {
+  BackofficeCourse,
+  BackofficeCourseId,
+  BackofficeCourseRepository,
+} from '../../domain/index.js'
 
 @Service()
 export class ProxyBackofficeCourseRepository implements BackofficeCourseRepository {
@@ -26,7 +36,7 @@ export class ProxyBackofficeCourseRepository implements BackofficeCourseReposito
   async paginate(
     _criteria: Criteria,
     _pagination: OffsetPaginator,
-  ): Promise<{ data: BackofficeCourse[]; pagination?: Pagination | undefined }> {
+  ): Promise<{ data: BackofficeCourse[], pagination?: Pagination | undefined }> {
     throw new Error('Method not implemented.')
   }
 

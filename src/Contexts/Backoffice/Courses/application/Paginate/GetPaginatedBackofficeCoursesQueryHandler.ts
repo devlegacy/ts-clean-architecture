@@ -1,14 +1,25 @@
-import { QueryHandlerSubscriber } from '@/Contexts/Shared/domain/Common/index.js'
-import { Filters, OffsetPaginator, type QueryHandler } from '@/Contexts/Shared/domain/index.js'
+import {
+  QueryHandlerSubscriber,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  Filters,
+  OffsetPaginator,
+  type QueryHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BackofficeCoursesPaginatedResponse } from '../BackofficeCoursesPaginatedResponse.js'
-import { BackofficeCoursesPaginator } from './BackofficeCoursesPaginator.js'
-import { GetPaginatedBackofficeCoursesQuery } from './GetPaginatedBackofficeCoursesQuery.js'
+import {
+  BackofficeCoursesPaginatedResponse,
+} from '../BackofficeCoursesPaginatedResponse.js'
+import {
+  BackofficeCoursesPaginator,
+} from './BackofficeCoursesPaginator.js'
+import {
+  GetPaginatedBackofficeCoursesQuery,
+} from './GetPaginatedBackofficeCoursesQuery.js'
 
 @QueryHandlerSubscriber(GetPaginatedBackofficeCoursesQuery)
 export class GetPaginatedBackofficeCoursesQueryHandler
-  implements QueryHandler<GetPaginatedBackofficeCoursesQuery, BackofficeCoursesPaginatedResponse>
-{
+implements QueryHandler<GetPaginatedBackofficeCoursesQuery, BackofficeCoursesPaginatedResponse> {
   constructor(private readonly paginator: BackofficeCoursesPaginator) {}
 
   // subscribedTo(): Query {
@@ -18,11 +29,23 @@ export class GetPaginatedBackofficeCoursesQueryHandler
   async handle(query: GetPaginatedBackofficeCoursesQuery): Promise<BackofficeCoursesPaginatedResponse> {
     const filters = Filters.fromValues(query.filters)
 
-    const paginate = new OffsetPaginator(query.page, query.limit)
-    const { courses, total } = await this.paginator.run(filters, query.limit, paginate.offset)
+    const paginate = new OffsetPaginator(
+      query.page,
+      query.limit,
+    )
+    const {
+      courses, total,
+    } = await this.paginator.run(
+      filters,
+      query.limit,
+      paginate.offset,
+    )
     paginate.calculatePageNumbersBy(total)
 
-    const response = new BackofficeCoursesPaginatedResponse(courses, paginate)
+    const response = new BackofficeCoursesPaginatedResponse(
+      courses,
+      paginate,
+    )
 
     return response
   }

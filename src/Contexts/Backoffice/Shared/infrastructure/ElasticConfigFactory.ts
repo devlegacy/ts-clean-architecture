@@ -1,6 +1,10 @@
-import type { ElasticConfig } from '@/Contexts/Shared/infrastructure/Persistence/elasticsearch/ElasticConfig.js'
+import type {
+  ElasticConfig,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/elasticsearch/ElasticConfig.js'
 
-import { config } from './config/index.js'
+import {
+  config,
+} from './config/index.js'
 
 export class ElasticConfigFactory {
   static createConfig(): ElasticConfig {

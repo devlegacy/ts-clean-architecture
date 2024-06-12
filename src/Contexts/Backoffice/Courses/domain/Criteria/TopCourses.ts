@@ -1,4 +1,11 @@
-import { Criteria, Filters, Order, OrderBy, OrderType, OrderTypes } from '@/Contexts/Shared/domain/index.js'
+import {
+  Criteria,
+  Filters,
+  Order,
+  OrderBy,
+  OrderType,
+  OrderTypes,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 /**
  * Criteria patter -> converts to -> Specification patter when we can express [ business language | domain language ]
@@ -7,6 +14,13 @@ import { Criteria, Filters, Order, OrderBy, OrderType, OrderTypes } from '@/Cont
  */
 export class TopCourses extends Criteria {
   constructor(top: number) {
-    super(new Filters([]), new Order(new OrderBy('views'), new OrderType(OrderTypes.ASC)), top)
+    super(
+      new Filters([]),
+      new Order(
+        new OrderBy('views'),
+        new OrderType(OrderTypes.ASC),
+      ),
+      top,
+    )
   }
 }

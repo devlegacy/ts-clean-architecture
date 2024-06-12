@@ -1,6 +1,10 @@
-import { Command } from '@/Contexts/Shared/domain/index.js'
+import {
+  Command,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import type { BackofficeCoursePrimitiveType } from '../BackofficeCourse.js'
+import type {
+  BackofficeCoursePrimitiveType,
+} from '../BackofficeCourse.js'
 
 type Params = BackofficeCoursePrimitiveType
 
@@ -12,7 +16,9 @@ export class CreateBackofficeCourseCommand extends Command {
   readonly name: string
   readonly duration?: string
 
-  constructor({ id, name, duration }: Params) {
+  constructor({
+    id, name, duration,
+  }: Params) {
     super()
     this.id = id
     this.name = name

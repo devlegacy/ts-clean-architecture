@@ -1,9 +1,20 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
-import { LastCreatedEntities } from '@/Contexts/Shared/domain/Criteria/LastCreatedEntities.js'
-import { Filters } from '@/Contexts/Shared/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  LastCreatedEntities,
+} from '#@/src/Contexts/Shared/domain/Criteria/LastCreatedEntities.js'
+import {
+  Filters,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BackofficeCourseNotFoundError, BackofficeCourseRepository } from '../../domain/index.js'
-import { BackofficeCourseResponse } from '../BackofficeCourseResponse.js'
+import {
+  BackofficeCourseNotFoundError,
+  BackofficeCourseRepository,
+} from '../../domain/index.js'
+import {
+  BackofficeCourseResponse,
+} from '../BackofficeCourseResponse.js'
 
 // Knows - Repository - Aggregate
 

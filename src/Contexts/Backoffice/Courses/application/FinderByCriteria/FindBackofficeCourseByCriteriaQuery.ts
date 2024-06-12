@@ -1,4 +1,7 @@
-import { type FilterValueType, Query } from '@/Contexts/Shared/domain/index.js'
+import {
+  type FilterValueType,
+  Query,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class FindBackofficeCourseByCriteriaQuery extends Query {
   // readonly filters: Map<string, string>[]
