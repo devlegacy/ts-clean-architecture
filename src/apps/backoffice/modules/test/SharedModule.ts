@@ -52,7 +52,8 @@ import {
   PinoLogger,
 } from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 import {
-  EnvironmentArranger, MikroOrmMongoEnvironmentArranger,
+  EnvironmentArranger,
+  MikroOrmMongoEnvironmentArranger,
 } from '#@/tests/Contexts/Shared/infrastructure/index.js'
 
 import {
