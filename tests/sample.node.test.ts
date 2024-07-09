@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict'
-import { describe, it } from 'node:test'
+import {
+  describe,
+  it,
+} from 'node:test'
 
 describe('Sample', () => {
   it('should resolve first sample test', () => {
@@ -7,4 +10,5 @@ describe('Sample', () => {
     assert.equal(true, true)
   })
 })
-// node --test --loader=ts-paths-esm-loader/transpile-only ./tests/sample.test.ts
+// node --test --loader=ts-paths-esm-loader/transpile-only ./tests/sample.node.test.ts
+// node --import @swc-node/register/esm-register --test ./tests/sample.node.test.ts

@@ -1,0 +1,6 @@
+{
+  "reporter": ["text", "html"],
+  "report-dir": "coverage/unit",
+  "include": ["src/"],
+  "clean": true
+}
