@@ -1,3 +1,9 @@
+import {
+  describe,
+  expect,
+  it,
+} from '@jest/globals'
+
 describe('Sample', () => {
   it('Should resolve first sample test', () => {
     expect(true).toBeTruthy()

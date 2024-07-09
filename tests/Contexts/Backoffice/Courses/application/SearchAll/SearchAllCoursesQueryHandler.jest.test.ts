@@ -1,22 +1,29 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from '@jest/globals'
+
+import {
   BackofficeCoursesFinder,
   SearchAllBackofficeCoursesQuery,
   SearchAllBackofficeCoursesQueryHandler,
 } from '#@/src/Contexts/Backoffice/Courses/application/index.js'
 
 import {
-  BackofficeCourseRepositoryMock,
-} from '../../__mocks__/index.js'
+  JestBackofficeCourseRepositoryMock,
+} from '../../__mocks__/JestBackofficeCourseRepositoryMock.js'
 import {
   BackofficeCourseMother,
   SearchAllCoursesResponseMother,
 } from '../../domain/index.js'
 
 describe('SearchAllCourses QueryHandler', () => {
-  let repository: BackofficeCourseRepositoryMock
+  let repository: JestBackofficeCourseRepositoryMock
 
   beforeEach(() => {
-    repository = new BackofficeCourseRepositoryMock()
+    repository = new JestBackofficeCourseRepositoryMock()
   })
 
   it('should find an existing courses counter', async () => {

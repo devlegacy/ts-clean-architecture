@@ -2,14 +2,18 @@ import {
   expect,
   jest,
 } from '@jest/globals'
+import type {
+  Mock,
+} from 'jest-mock'
 
 import {
-  CoursesCounter, CoursesCounterRepository,
+  CoursesCounter,
+  CoursesCounterRepository,
 } from '#@/src/Contexts/Mooc/CoursesCounter/domain/index.js'
 
-export class CoursesCounterRepositoryMock implements CoursesCounterRepository {
-  #saveMock: jest.Mock = jest.fn()
-  #searchMock: jest.Mock = jest.fn()
+export class JestCoursesCounterRepositoryMock implements CoursesCounterRepository {
+  #saveMock: Mock<typeof JestCoursesCounterRepositoryMock.prototype.save> = jest.fn()
+  #searchMock: Mock<typeof JestCoursesCounterRepositoryMock.prototype.search> = jest.fn()
   #coursesCounter: Nullable<CoursesCounter> = null
 
   async search(): Promise<Nullable<CoursesCounter>> {
@@ -48,9 +52,7 @@ export class CoursesCounterRepositoryMock implements CoursesCounterRepository {
       id: _firstId, ...counterPrimitives
     } = counter.toPrimitives()
     const {
-      id: _secondId,
-      ...lastSavedPrimitives
-      // @ts-expect-error error
+      id: _secondId, ...lastSavedPrimitives
     } = lastCoursesCounter?.toPrimitives() || {}
 
     expect(lastCoursesCounter).toBeInstanceOf(CoursesCounter)

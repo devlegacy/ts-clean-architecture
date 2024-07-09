@@ -1,13 +1,26 @@
 // npx cross-env APP_ENV=test node --test --loader=ts-paths-esm-loader/transpile-only ./tests/Contexts/Mooc/Courses/infrastructure/persistence/MongoCourseRepository.test.ts
 import 'reflect-metadata'
 
-import { afterEach, beforeEach, describe, it } from 'node:test'
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  it,
+} from 'node:test'
 
-import { container } from '@/apps/mooc/modules/index.js'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
+import {
+  container,
+} from '#@/src/apps/mooc/modules/index.js'
+import {
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  EnvironmentArranger,
+} from '#@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { CourseMother } from '../../domain/index.js'
+import {
+  CourseMother,
+} from '../../domain/index.js'
 
 // Por qué lo importamos a través del inyector?
 const repository = container.get(CourseRepository)

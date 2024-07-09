@@ -1,8 +1,19 @@
-import { CourseDuration, CourseName, type CoursePrimitiveType } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import {
+  CourseDuration,
+  CourseName,
+  type CoursePrimitiveType,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 
-import { CourseIdMother } from '../../Shared/domain/index.js'
-import { CourseDurationMother, CourseNameMother } from '../domain/index.js'
+import {
+  CourseIdMother,
+} from '../../Shared/domain/index.js'
+import {
+  CourseDurationMother,
+  CourseNameMother,
+} from '../domain/index.js'
 
 export class CreateCourseRequestMother {
   // CreateCourseRequest

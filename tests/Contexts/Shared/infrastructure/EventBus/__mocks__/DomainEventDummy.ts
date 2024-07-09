@@ -1,12 +1,18 @@
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { ObjectIdMother } from '../../../domain/index.js'
+import {
+  ObjectIdMother,
+} from '../../../domain/index.js'
 
 export class DomainEventDummy extends DomainEvent {
   static override readonly EVENT_NAME = 'dummy'
 
-  constructor(data: { aggregateId: string; eventId?: string; occurredOn?: Date }) {
-    const { aggregateId, eventId, occurredOn } = data
+  constructor(data: { aggregateId: string, eventId?: string, occurredOn?: Date }) {
+    const {
+      aggregateId, eventId, occurredOn,
+    } = data
     super({
       eventName: DomainEventDummy.EVENT_NAME,
       aggregateId,
@@ -21,7 +27,9 @@ export class DomainEventDummy extends DomainEvent {
     eventId: string
     occurredOn: Date
   }) {
-    const { aggregateId, eventId, occurredOn } = params
+    const {
+      aggregateId, eventId, occurredOn,
+    } = params
     return new DomainEventDummy({
       aggregateId,
       eventId,

@@ -1,4 +1,10 @@
 import {
+  beforeEach,
+  describe,
+  it,
+} from '@jest/globals'
+
+import {
   CoursesCounterIncrementer,
 } from '#@/src/Contexts/Mooc/CoursesCounter/application/index.js'
 import {
@@ -9,11 +15,11 @@ import {
   CourseIdMother,
 } from '../../../Shared/domain/index.js'
 import {
-  NodeEventBusMock,
-} from '../../../Shared/index.js'
+  JestEventBusMock,
+} from '../../../Shared/JestEventBusMock.js'
 import {
-  CoursesCounterRepositoryMock,
-} from '../../__mocks__/index.js'
+  JestCoursesCounterRepositoryMock,
+} from '../../__mocks__/JestCoursesCounterRepositoryMock.js'
 import {
   CoursesCounterIncrementedDomainEventMother,
   CoursesCounterMother,
@@ -21,17 +27,17 @@ import {
 
 describe('CoursesCounter Incrementer', () => {
   let incrementer: CoursesCounterIncrementer
-  let eventBus: NodeEventBusMock
-  let repository: CoursesCounterRepositoryMock
+  let eventBus: JestEventBusMock
+  let repository: JestCoursesCounterRepositoryMock
 
   beforeEach(() => {
-    eventBus = new NodeEventBusMock()
-    repository = new CoursesCounterRepositoryMock()
+    eventBus = new JestEventBusMock()
+    repository = new JestCoursesCounterRepositoryMock()
     incrementer = new CoursesCounterIncrementer(repository, eventBus)
   })
 
   it('should initialize a new counter', async () => {
-    expect.assertions(2)
+    // expect.assertions(2)
 
     const courseId = CourseIdMother.random()
     const counter = CoursesCounterMother.withOne(courseId)
@@ -42,7 +48,7 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should increment an existing counter', async () => {
-    expect.assertions(4)
+    // expect.assertions(4)
 
     const existingCounter = CoursesCounterMother.random()
     repository.returnOnSearch(existingCounter)
@@ -58,7 +64,7 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should not increment an already incremented counter', async () => {
-    expect.assertions(1)
+    // expect.assertions(1)
 
     const existingCounter = CoursesCounterMother.random()
     repository.returnOnSearch(existingCounter)

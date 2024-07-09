@@ -1,3 +1,9 @@
+import assert from 'node:assert/strict'
+import {
+  type Mock,
+  mock,
+} from 'node:test'
+
 import {
   BackofficeCourse,
   BackofficeCourseRepository,
@@ -8,19 +14,9 @@ import {
   type Pagination,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-export class BackofficeCourseRepositoryMock implements BackofficeCourseRepository {
-  #allMock: jest.Mock<
-    ReturnType<typeof BackofficeCourseRepositoryMock.prototype.all>,
-    BackofficeCourse[],
-    BackofficeCourseRepository
-  > = jest.fn()
-
-  #saveMock: jest.Mock<
-    ReturnType<typeof BackofficeCourseRepositoryMock.prototype.save>,
-    BackofficeCourse[],
-    BackofficeCourseRepository
-  > = jest.fn()
-
+export class NodeBackofficeCourseRepositoryMock implements BackofficeCourseRepository {
+  #allMock: Mock<typeof NodeBackofficeCourseRepositoryMock.prototype.all> = mock.fn()
+  #saveMock: Mock<typeof NodeBackofficeCourseRepositoryMock.prototype.save> = mock.fn()
   #courses: BackofficeCourse[] = []
 
   async search(_criteria: Criteria): Promise<BackofficeCourse[]> {
@@ -54,7 +50,7 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
   }
 
   assertSearchAll() {
-    expect(this.#allMock).toHaveBeenCalled()
+    assert.strictEqual(this.#allMock.mock.callCount() > 0, true)
   }
 
   async save(course: BackofficeCourse): Promise<void> {
@@ -62,6 +58,7 @@ export class BackofficeCourseRepositoryMock implements BackofficeCourseRepositor
   }
 
   assertSaveHasBeenCalledWith(course: BackofficeCourse) {
-    expect(this.#saveMock).toHaveBeenCalledWith(course)
+    const calledWith = this.#saveMock.mock.calls.some((call) => call.arguments[0] === course)
+    assert.strictEqual(calledWith, true, 'Expected saveMock to have been called with the provided course')
   }
 }

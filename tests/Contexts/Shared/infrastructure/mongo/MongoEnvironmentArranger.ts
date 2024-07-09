@@ -1,6 +1,10 @@
-import { MongoClient } from 'mongodb'
+import {
+  MongoClient,
+} from 'mongodb'
 
-import { EnvironmentArranger } from '../arranger/EnvironmentArranger.js'
+import {
+  EnvironmentArranger,
+} from '../arranger/EnvironmentArranger.js'
 
 export class MongoEnvironmentArranger extends EnvironmentArranger {
   constructor(private _client: Promise<MongoClient>) {
@@ -20,7 +24,8 @@ export class MongoEnvironmentArranger extends EnvironmentArranger {
     const client = await this.client()
 
     for (const collection of collections) {
-      await client.db().collection(collection).deleteMany({})
+      await client.db().collection(collection)
+        .deleteMany({})
     }
   }
 
@@ -30,7 +35,10 @@ export class MongoEnvironmentArranger extends EnvironmentArranger {
 
   private async collections(): Promise<string[]> {
     const client = await this.client()
-    const collections = await client.db().listCollections(undefined, { nameOnly: true }).toArray()
+    const collections = await client.db().listCollections(undefined, {
+      nameOnly: true,
+    })
+      .toArray()
 
     return collections.map((collection) => collection.name)
   }

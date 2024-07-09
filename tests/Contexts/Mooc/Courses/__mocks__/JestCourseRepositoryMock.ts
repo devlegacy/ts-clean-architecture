@@ -1,12 +1,19 @@
-import { jest } from '@jest/globals'
+import {
+  jest,
+} from '@jest/globals'
 
-import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { Criteria } from '@/Contexts/Shared/domain/index.js'
+import {
+  Course,
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  Criteria,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class JestCourseRepositoryMock implements CourseRepository {
   // One var mock for each method
-  #saveMock: any //Mock<ReturnType<typeof JestCourseRepositoryMock.prototype.save>, Course[], JestCourseRepositoryMock>
-  #searchAllMock: any //Mock<ReturnType<typeof JestCourseRepositoryMock.prototype.all>, Course[], JestCourseRepositoryMock>
+  #saveMock: any // Mock<ReturnType<typeof JestCourseRepositoryMock.prototype.save>, Course[], JestCourseRepositoryMock>
+  #searchAllMock: any // Mock<ReturnType<typeof JestCourseRepositoryMock.prototype.all>, Course[], JestCourseRepositoryMock>
   #courses: Course[] = []
 
   constructor() {
@@ -34,11 +41,15 @@ export class JestCourseRepositoryMock implements CourseRepository {
 
   assertLastSavedCourseIs(expected: Course): void {
     const {
-      mock: { calls },
+      mock: {
+        calls,
+      },
     } = this.#saveMock
 
     const lastIndex = calls.length - 1
-    const [lastCourseSaved] = calls[Number(lastIndex)]!
+    const [
+      lastCourseSaved,
+    ] = calls[Number(lastIndex)]!
     expect(lastCourseSaved).toBeInstanceOf(Course)
     expect(lastCourseSaved?.toPrimitives()).toEqual(expected.toPrimitives())
   }

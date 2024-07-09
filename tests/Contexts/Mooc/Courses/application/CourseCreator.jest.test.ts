@@ -1,12 +1,31 @@
-import { CourseCreator } from '@/Contexts/Mooc/Courses/application/index.js'
-import { CourseDuration, CourseName, CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
-import { isUndefined } from '@/Contexts/Shared/domain/index.js'
+import {
+  CourseCreator,
+} from '#@/src/Contexts/Mooc/Courses/application/index.js'
+import {
+  CourseDuration,
+  CourseName,
+  CourseNameLengthExceeded,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
+import {
+  isUndefined,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { JestEventBusMock } from '../../Shared/index.js'
-import { JestCourseRepositoryMock } from '../__mocks__/index.js'
-import { CourseCreatedDomainEventMother, CourseMother } from '../domain/index.js'
-import { CreateCourseRequestMother } from './CreateCourseRequestMother.js'
+import {
+  JestEventBusMock,
+} from '../../Shared/index.js'
+import {
+  JestCourseRepositoryMock,
+} from '../__mocks__/index.js'
+import {
+  CourseCreatedDomainEventMother,
+  CourseMother,
+} from '../domain/index.js'
+import {
+  CreateCourseRequestMother,
+} from './CreateCourseRequestMother.js'
 
 let repository: JestCourseRepositoryMock
 let creator: CourseCreator

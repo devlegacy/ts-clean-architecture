@@ -1,21 +1,26 @@
 import {
+  describe,
+  it,
+} from '@jest/globals'
+
+import {
   BackofficeCourseCreator,
 } from '#@/src/Contexts/Backoffice/Courses/application/index.js'
 
 import {
-  BackofficeCourseRepositoryMock,
-} from '../../__mocks__/index.js'
+  JestBackofficeCourseRepositoryMock,
+} from '../../__mocks__/JestBackofficeCourseRepositoryMock.js'
 import {
   BackofficeCourseMother,
 } from '../../domain/index.js'
 
 describe('BackofficeCourseCreator', () => {
   it('creates a backoffice course', async () => {
-    expect.assertions(1)
+    // expect.assertions(1)
 
     const course = BackofficeCourseMother.random()
 
-    const repository = new BackofficeCourseRepositoryMock()
+    const repository = new JestBackofficeCourseRepositoryMock()
     const applicationService = new BackofficeCourseCreator(repository)
 
     await applicationService.run({

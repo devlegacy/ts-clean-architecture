@@ -1,8 +1,16 @@
 import assert from 'node:assert/strict'
-import { type Mock, mock } from 'node:test'
+import {
+  type Mock,
+  mock,
+} from 'node:test'
 
-import { DomainEvent, EventBus } from '@/Contexts/Shared/domain/index.js'
-import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
+import {
+  DomainEvent,
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  DomainEventSubscriberResolver,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/index.js'
 
 export class NodeEventBusMock implements EventBus {
   private publishSpy: Mock<typeof NodeEventBusMock.prototype.publish> = mock.fn()
@@ -28,7 +36,9 @@ export class NodeEventBusMock implements EventBus {
   }
 
   private getDataFromDomainEvent(event: DomainEvent) {
-    const { eventId: _eventId, occurredOn: _occurredOn, ...attributes } = event
+    const {
+      eventId: _eventId, occurredOn: _occurredOn, ...attributes
+    } = event
 
     return attributes
   }

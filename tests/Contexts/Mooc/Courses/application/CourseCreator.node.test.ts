@@ -2,17 +2,40 @@
 import 'reflect-metadata'
 
 import assert from 'node:assert/strict'
-import { beforeEach, describe, it } from 'node:test'
+import {
+  beforeEach,
+  describe,
+  it,
+} from 'node:test'
 
-import { CourseCreator } from '@/Contexts/Mooc/Courses/application/index.js'
-import { CourseDuration, CourseName, CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
-import { isUndefined } from '@/Contexts/Shared/domain/index.js'
+import {
+  CourseCreator,
+} from '#@/src/Contexts/Mooc/Courses/application/index.js'
+import {
+  CourseDuration,
+  CourseName,
+  CourseNameLengthExceeded,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
+import {
+  isUndefined,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { NodeEventBusMock } from '../../Shared/NodeEventBusMock.js'
-import { NodeCourseRepositoryMock } from '../__mocks__/NodeCourseRepositoryMock.js'
-import { CourseCreatedDomainEventMother, CourseMother } from '../domain/index.js'
-import { CreateCourseRequestMother } from './CreateCourseRequestMother.js'
+import {
+  NodeEventBusMock,
+} from '../../Shared/NodeEventBusMock.js'
+import {
+  NodeCourseRepositoryMock,
+} from '../__mocks__/NodeCourseRepositoryMock.js'
+import {
+  CourseCreatedDomainEventMother,
+  CourseMother,
+} from '../domain/index.js'
+import {
+  CreateCourseRequestMother,
+} from './CreateCourseRequestMother.js'
 
 let repository: NodeCourseRepositoryMock
 let creator: CourseCreator

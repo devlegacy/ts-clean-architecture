@@ -1,5 +1,9 @@
 import {
-  afterAll, beforeEach, describe, it, jest,
+  afterAll,
+  beforeEach,
+  describe,
+  it,
+  jest,
 } from '@jest/globals'
 
 import {
@@ -17,23 +21,23 @@ import {
 } from '../domain/index.js'
 
 const repository: CoursesCounterRepository = container.get(CoursesCounterRepository)
-const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)
+const arranger: EnvironmentArranger = container.get(EnvironmentArranger)
 
 jest.setTimeout(5000 + 600000)
 
 beforeEach(async () => {
-  await environmentArranger.arrange()
+  await arranger.arrange()
 })
 
 afterAll(async () => {
-  await environmentArranger.arrange()
-  await environmentArranger.close()
+  await arranger.arrange()
+  await arranger.close()
 })
 
 describe('CoursesCounterRepository', () => {
   describe('#save', () => {
     it('should save a courses counter', async () => {
-      expect.assertions(0)
+      // expect.assertions(0)
 
       const course = CoursesCounterMother.random()
 

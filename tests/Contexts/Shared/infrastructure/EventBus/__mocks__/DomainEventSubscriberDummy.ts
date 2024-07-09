@@ -1,7 +1,13 @@
-import { DomainEventSubscribers } from '@/Contexts/Shared/domain/Common/index.js'
-import { DomainEvent, type DomainEventSubscriber } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEventSubscribers,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  DomainEvent, type DomainEventSubscriber,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { DomainEventDummy } from './DomainEventDummy.js'
+import {
+  DomainEventDummy,
+} from './DomainEventDummy.js'
 
 @DomainEventSubscribers(DomainEventDummy)
 export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainEventDummy> {
@@ -10,7 +16,7 @@ export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainE
   private alwaysFails = false
   private alreadyFailed = false
 
-  constructor(params?: { failsFirstTime?: boolean; alwaysFails?: boolean }) {
+  constructor(params?: { failsFirstTime?: boolean, alwaysFails?: boolean }) {
     if (params?.failsFirstTime) {
       this.failsFirstTime = true
     }
@@ -22,11 +28,15 @@ export class DomainEventSubscriberDummy implements DomainEventSubscriber<DomainE
   }
 
   static failsFirstTime() {
-    return new DomainEventSubscriberDummy({ failsFirstTime: true })
+    return new DomainEventSubscriberDummy({
+      failsFirstTime: true,
+    })
   }
 
   static alwaysFails() {
-    return new DomainEventSubscriberDummy({ alwaysFails: true })
+    return new DomainEventSubscriberDummy({
+      alwaysFails: true,
+    })
   }
 
   // subscribedTo(): DomainEventClass[] {

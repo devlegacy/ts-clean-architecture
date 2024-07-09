@@ -1,26 +1,21 @@
 import {
-  BackofficeCourse,
-  BackofficeCourseRepository,
+  expect,
+  jest,
+} from '@jest/globals'
+import type {
+  Mock,
+} from 'jest-mock'
+
+import {
+  BackofficeCourse, BackofficeCourseRepository,
 } from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
 import {
-  Criteria,
-  OffsetPaginator,
-  type Pagination,
+  Criteria, OffsetPaginator, type Pagination,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-export class BackofficeCourseRepositoryMock implements BackofficeCourseRepository {
-  #allMock: jest.Mock<
-    ReturnType<typeof BackofficeCourseRepositoryMock.prototype.all>,
-    BackofficeCourse[],
-    BackofficeCourseRepository
-  > = jest.fn()
-
-  #saveMock: jest.Mock<
-    ReturnType<typeof BackofficeCourseRepositoryMock.prototype.save>,
-    BackofficeCourse[],
-    BackofficeCourseRepository
-  > = jest.fn()
-
+export class JestBackofficeCourseRepositoryMock implements BackofficeCourseRepository {
+  #allMock: Mock<typeof JestBackofficeCourseRepositoryMock.prototype.all> = jest.fn()
+  #saveMock: Mock<typeof JestBackofficeCourseRepositoryMock.prototype.save> = jest.fn()
   #courses: BackofficeCourse[] = []
 
   async search(_criteria: Criteria): Promise<BackofficeCourse[]> {

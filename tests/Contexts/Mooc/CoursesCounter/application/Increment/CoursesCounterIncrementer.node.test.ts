@@ -1,3 +1,11 @@
+import 'reflect-metadata'
+
+import {
+  beforeEach,
+  describe,
+  it,
+} from 'node:test'
+
 import {
   CoursesCounterIncrementer,
 } from '#@/src/Contexts/Mooc/CoursesCounter/application/index.js'
@@ -10,10 +18,10 @@ import {
 } from '../../../Shared/domain/index.js'
 import {
   NodeEventBusMock,
-} from '../../../Shared/index.js'
+} from '../../../Shared/NodeEventBusMock.js'
 import {
-  CoursesCounterRepositoryMock,
-} from '../../__mocks__/index.js'
+  NodeCoursesCounterRepositoryMock,
+} from '../../__mocks__/NodeCoursesCounterRepositoryMock.js'
 import {
   CoursesCounterIncrementedDomainEventMother,
   CoursesCounterMother,
@@ -22,17 +30,15 @@ import {
 describe('CoursesCounter Incrementer', () => {
   let incrementer: CoursesCounterIncrementer
   let eventBus: NodeEventBusMock
-  let repository: CoursesCounterRepositoryMock
+  let repository: NodeCoursesCounterRepositoryMock
 
   beforeEach(() => {
     eventBus = new NodeEventBusMock()
-    repository = new CoursesCounterRepositoryMock()
+    repository = new NodeCoursesCounterRepositoryMock()
     incrementer = new CoursesCounterIncrementer(repository, eventBus)
   })
 
   it('should initialize a new counter', async () => {
-    expect.assertions(2)
-
     const courseId = CourseIdMother.random()
     const counter = CoursesCounterMother.withOne(courseId)
 
@@ -42,8 +48,6 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should increment an existing counter', async () => {
-    expect.assertions(4)
-
     const existingCounter = CoursesCounterMother.random()
     repository.returnOnSearch(existingCounter)
     const courseId = CourseIdMother.random()
@@ -58,8 +62,6 @@ describe('CoursesCounter Incrementer', () => {
   })
 
   it('should not increment an already incremented counter', async () => {
-    expect.assertions(1)
-
     const existingCounter = CoursesCounterMother.random()
     repository.returnOnSearch(existingCounter)
     const [

@@ -1,10 +1,17 @@
-import { jest } from '@jest/globals'
+import {
+  jest,
+} from '@jest/globals'
 
-import { DomainEvent, EventBus } from '@/Contexts/Shared/domain/index.js'
-import { DomainEventSubscriberResolver } from '@/Contexts/Shared/infrastructure/EventBus/index.js'
+import {
+  DomainEvent,
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  DomainEventSubscriberResolver,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/index.js'
 
 export class JestEventBusMock implements EventBus {
-  private publishSpy: any = jest.fn() //jest.Mock<ReturnType<typeof EventBusMock.prototype.publish>, DomainEvent[][], EventBusMock>
+  private publishSpy: any = jest.fn() // jest.Mock<ReturnType<typeof EventBusMock.prototype.publish>, DomainEvent[][], EventBusMock>
 
   async publish(events: DomainEvent[]): Promise<void> {
     this.publishSpy(events)
@@ -27,7 +34,9 @@ export class JestEventBusMock implements EventBus {
   }
 
   private getDataFromDomainEvent(event: DomainEvent) {
-    const { eventId: _eventId, occurredOn: _occurredOn, ...attributes } = event
+    const {
+      eventId: _eventId, occurredOn: _occurredOn, ...attributes
+    } = event
 
     return attributes
   }

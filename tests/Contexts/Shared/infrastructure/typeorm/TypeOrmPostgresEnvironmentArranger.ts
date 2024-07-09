@@ -1,6 +1,10 @@
-import { DataSource, EntityMetadata } from 'typeorm'
+import {
+  DataSource, EntityMetadata,
+} from 'typeorm'
 
-import { EnvironmentArranger } from '../arranger/EnvironmentArranger.js'
+import {
+  EnvironmentArranger,
+} from '../arranger/EnvironmentArranger.js'
 
 export class TypeOrmPostgresEnvironmentArranger extends EnvironmentArranger {
   constructor(private readonly _client: Promise<DataSource>) {

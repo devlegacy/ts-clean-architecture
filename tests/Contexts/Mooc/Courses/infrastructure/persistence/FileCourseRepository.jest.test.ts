@@ -1,6 +1,14 @@
-import { Course, CourseDuration, CourseName } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { FileCourseRepository } from '@/Contexts/Mooc/Courses/infrastructure/index.js'
-import { CourseId } from '@/Contexts/Mooc/Shared/domain/index.js'
+import {
+  Course,
+  CourseDuration,
+  CourseName,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  FileCourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/infrastructure/index.js'
+import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 
 describe('FileCourseRepository', () => {
   it('should save a course', async () => {

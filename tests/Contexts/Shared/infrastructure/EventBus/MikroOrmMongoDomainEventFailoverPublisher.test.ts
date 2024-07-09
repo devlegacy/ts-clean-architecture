@@ -1,9 +1,19 @@
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
+import {
+  MikroOrmMongoDomainEventFailoverPublisher,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
 
-import { MikroOrmMongoEnvironmentArranger } from '../mikroorm/MikroOrmMongoEnvironmentArranger.js'
-import { DomainEventDummyMother } from './__mocks__/index.js'
-import { DomainEventDeserializerMother } from './__mother__/DomainEventDeserializerMother.js'
-import { RabbitMQMikroOrmMongoClientMother } from './__mother__/RabbitMQMikroOrmMongoClientMother.js'
+import {
+  MikroOrmMongoEnvironmentArranger,
+} from '../mikroorm/MikroOrmMongoEnvironmentArranger.js'
+import {
+  DomainEventDummyMother,
+} from './__mocks__/index.js'
+import {
+  DomainEventDeserializerMother,
+} from './__mother__/DomainEventDeserializerMother.js'
+import {
+  RabbitMQMikroOrmMongoClientMother,
+} from './__mother__/RabbitMQMikroOrmMongoClientMother.js'
 
 jest.setTimeout(5000 + 60000)
 
@@ -13,7 +23,7 @@ describe('DomainEventFailoverPublisher test', () => {
   const deserializer = DomainEventDeserializerMother.create()
 
   beforeAll(async () => {
-    arranger = new MikroOrmMongoEnvironmentArranger(mongoClient)
+    arranger = new MikroOrmMongoEnvironmentArranger(mongoClient as unknown as Awaited<typeof mongoClient>)
   })
 
   beforeEach(async () => {
@@ -31,6 +41,8 @@ describe('DomainEventFailoverPublisher test', () => {
 
     await eventBus.publish(event)
 
-    expect(await eventBus.consume()).toEqual([event])
+    expect(await eventBus.consume()).toEqual([
+      event,
+    ])
   })
 })

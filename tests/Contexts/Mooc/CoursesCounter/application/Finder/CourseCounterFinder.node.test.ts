@@ -1,5 +1,10 @@
+import 'reflect-metadata'
+
+import assert from 'node:assert/strict'
 import {
-  beforeEach, describe,
+  beforeEach,
+  describe,
+  it,
 } from 'node:test'
 
 import {
@@ -10,17 +15,17 @@ import {
 } from '#@/src/Contexts/Mooc/CoursesCounter/domain/index.js'
 
 import {
-  CoursesCounterRepositoryMock,
-} from '../../__mocks__/index.js'
+  NodeCoursesCounterRepositoryMock,
+} from '../../__mocks__/NodeCoursesCounterRepositoryMock.js'
 import {
   CoursesCounterMother,
 } from '../../domain/index.js'
 
 describe('CourseCounterFinder', () => {
-  let repository: CoursesCounterRepositoryMock
+  let repository: NodeCoursesCounterRepositoryMock
 
   beforeEach(() => {
-    repository = new CoursesCounterRepositoryMock()
+    repository = new NodeCoursesCounterRepositoryMock()
   })
 
   it('should find an existing courses counter', async () => {
@@ -31,12 +36,14 @@ describe('CourseCounterFinder', () => {
     const response = await finder.run()
 
     repository.assertSearch()
-    expect(counter.total.value).toEqual(response)
+    // expect(counter.total.value).toEqual(response)
+    assert.strictEqual(counter.total.value, response)
   })
 
   it('should throw an exception when courses counter does not exists', async () => {
     const finder = new CoursesCounterFinder(repository)
 
-    await expect(finder.run()).rejects.toBeInstanceOf(CoursesCounterNotExist)
+    // await expect(finder.run()).rejects.toBeInstanceOf(CoursesCounterNotExist)
+    await assert.rejects(finder.run(), CoursesCounterNotExist)
   })
 })

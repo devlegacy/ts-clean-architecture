@@ -1,6 +1,10 @@
+import assert from 'node:assert/strict'
 import {
-  afterAll, beforeEach, describe, it, jest,
-} from '@jest/globals'
+  after,
+  beforeEach,
+  describe,
+  it,
+} from 'node:test'
 
 import {
   container,
@@ -17,24 +21,31 @@ import {
 } from '../domain/index.js'
 
 const repository: CoursesCounterRepository = container.get(CoursesCounterRepository)
-const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)
-
-jest.setTimeout(5000 + 600000)
+const arranger: EnvironmentArranger = container.get(EnvironmentArranger)
 
 beforeEach(async () => {
-  await environmentArranger.arrange()
+  await arranger.arrange()
 })
 
-afterAll(async () => {
-  await environmentArranger.arrange()
-  await environmentArranger.close()
-})
+// afterAll(async () => {
+//   await environmentArranger.arrange()
+//   await environmentArranger.close()
+// })
+// afterEach(async () => {
+//   await arranger.arrange()
+//   await arranger.close()
+// })
+
+// process.on('exit', async () => {
+//   console.log('exit')
+//   await arranger.arrange()
+//   await arranger.close()
+//   process.exit(0)
+// })
 
 describe('CoursesCounterRepository', () => {
   describe('#save', () => {
     it('should save a courses counter', async () => {
-      expect.assertions(0)
-
       const course = CoursesCounterMother.random()
 
       await repository.save(course)
@@ -48,12 +59,19 @@ describe('CoursesCounterRepository', () => {
 
       const counter = await repository.search()
 
-      expect(expectedCounter.toPrimitives()).toEqual(counter?.toPrimitives())
+      // expect(expectedCounter.toPrimitives()).toEqual(counter?.toPrimitives())
+      assert.deepEqual(expectedCounter.toPrimitives(), counter?.toPrimitives())
     })
 
     it('should not return null if there is no courses counter', async () => {
       const search = await repository.search()
-      expect(search).toBeFalsy()
+      // expect(search).toBeFalsy()
+      assert.strictEqual(search, null)
     })
+  })
+
+  after(async () => {
+    await arranger.arrange()
+    await arranger.close()
   })
 })

@@ -1,4 +1,6 @@
-import { Faker, faker } from '@faker-js/faker'
+import {
+  Faker, faker,
+} from '@faker-js/faker'
 
 export class MotherCreator {
   static random(): Faker {
@@ -28,7 +30,10 @@ export class MotherCreator {
     return word || 'word'
   }
 
-  static email(providers: string[] = ['gmail.com', 'hotmail.com']): string {
+  static email(providers: string[] = [
+    'gmail.com',
+    'hotmail.com',
+  ]): string {
     const randomProvider = providers[Math.floor(Math.random() * providers.length)]
     return faker.internet.email({
       firstName: faker.person.firstName(),

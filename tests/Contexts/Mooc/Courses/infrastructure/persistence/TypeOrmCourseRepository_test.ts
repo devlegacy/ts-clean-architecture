@@ -1,15 +1,21 @@
-import '@/apps/mooc/tsyringe-dependency-injection'
+import '#@/src/apps/mooc/tsyringe-dependency-injection/index.js'
 
-import { container } from 'tsyringe'
+import {
+  container,
+} from 'tsyringe'
 
 // import { DataSource } from 'typeorm'
-import { CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
+import {
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
 import {
   EnvironmentArranger,
   //  TypeOrmEnvironmentArranger
-} from '@/tests/Contexts/Shared/infrastructure/index.js'
+} from '#@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { CourseMother } from '../../domain/index.js'
+import {
+  CourseMother,
+} from '../../domain/index.js'
 
 // container.register<EnvironmentArranger>('EnvironmentArranger', {
 //   useValue: new TypeOrmEnvironmentArranger(container.resolve<Promise<DataSource>>('TypeOrmClient'))

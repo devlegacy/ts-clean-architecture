@@ -1,4 +1,11 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from '@jest/globals'
+
+import {
   CoursesCounterFinder,
   FindCoursesCounterQuery,
   FindCoursesCounterQueryHandler,
@@ -8,17 +15,17 @@ import {
 } from '#@/src/Contexts/Mooc/CoursesCounter/domain/index.js'
 
 import {
-  CoursesCounterRepositoryMock,
-} from '../../__mocks__/index.js'
+  JestCoursesCounterRepositoryMock,
+} from '../../__mocks__/JestCoursesCounterRepositoryMock.js'
 import {
   CoursesCounterMother,
 } from '../../domain/index.js'
 
 describe('FindCoursesCounterQueryHandler', () => {
-  let repository: CoursesCounterRepositoryMock
+  let repository: JestCoursesCounterRepositoryMock
 
   beforeEach(() => {
-    repository = new CoursesCounterRepositoryMock()
+    repository = new JestCoursesCounterRepositoryMock()
   })
 
   it('should find an existing courses counter', async () => {

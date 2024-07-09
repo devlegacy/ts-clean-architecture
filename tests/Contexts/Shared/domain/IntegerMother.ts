@@ -1,4 +1,6 @@
-import { MotherCreator } from './MotherCreator.js'
+import {
+  MotherCreator,
+} from './MotherCreator.js'
 
 export class IntegerMother {
   static random(max?: number): number {

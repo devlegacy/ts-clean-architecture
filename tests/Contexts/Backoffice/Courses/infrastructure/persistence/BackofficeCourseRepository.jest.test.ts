@@ -1,8 +1,18 @@
 import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from '@jest/globals'
+
+import {
   container,
 } from '#@/src/apps/backoffice/modules/index.js'
 import {
-  BackofficeCourse, BackofficeCourseRepository,
+  BackofficeCourse,
+  BackofficeCourseRepository,
 } from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
 import {
   EnvironmentArranger,
@@ -13,18 +23,18 @@ import {
 } from '../../domain/index.js'
 
 const repository: BackofficeCourseRepository = container.get(BackofficeCourseRepository)
-const environmentArranger: EnvironmentArranger = container.get(EnvironmentArranger)
+const arranger: EnvironmentArranger = container.get(EnvironmentArranger)
 
 beforeEach(async () => {
-  await environmentArranger.arrange()
+  await arranger.arrange()
 })
 
 afterEach(async () => {
-  await environmentArranger.arrange()
+  await arranger.arrange()
 })
 
 afterAll(async () => {
-  await environmentArranger.close()
+  await arranger.close()
 })
 
 function sort(firstBackofficeCourse: BackofficeCourse, secondBackofficeCourse: BackofficeCourse): number {

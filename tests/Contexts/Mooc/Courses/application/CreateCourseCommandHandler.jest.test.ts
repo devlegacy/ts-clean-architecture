@@ -1,10 +1,24 @@
-import { CourseCreator, CreateCourseCommandHandler } from '@/Contexts/Mooc/Courses/application/index.js'
-import { CourseNameLengthExceeded } from '@/Contexts/Mooc/Courses/domain/index.js'
+import {
+  CourseCreator,
+  CreateCourseCommandHandler,
+} from '#@/src/Contexts/Mooc/Courses/application/index.js'
+import {
+  CourseNameLengthExceeded,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
 
-import { JestEventBusMock } from '../../Shared/JestEventBusMock.js'
-import { JestCourseRepositoryMock } from '../__mocks__/JestCourseRepositoryMock.js'
-import { CourseCreatedDomainEventMother, CourseMother } from '../domain/index.js'
-import { CreateCourseCommandMother } from './CreateCourseCommandMother.js'
+import {
+  JestEventBusMock,
+} from '../../Shared/JestEventBusMock.js'
+import {
+  JestCourseRepositoryMock,
+} from '../__mocks__/JestCourseRepositoryMock.js'
+import {
+  CourseCreatedDomainEventMother,
+  CourseMother,
+} from '../domain/index.js'
+import {
+  CreateCourseCommandMother,
+} from './CreateCourseCommandMother.js'
 
 let repository: JestCourseRepositoryMock
 let creator: CourseCreator

@@ -1,4 +1,6 @@
-import { Course, CourseCreatedDomainEvent } from '@/Contexts/Mooc/Courses/domain/index.js'
+import {
+  Course, CourseCreatedDomainEvent,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
 
 export class CourseCreatedDomainEventMother {
   static create({

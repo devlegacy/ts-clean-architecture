@@ -1,7 +1,13 @@
-import { MikroORM } from '@mikro-orm/core'
-import { PostgreSqlDriver } from '@mikro-orm/postgresql'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  PostgreSqlDriver,
+} from '@mikro-orm/postgresql'
 
-import { MikroOrmPostgresClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
+import {
+  MikroOrmPostgresClientFactory,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
 const config = {
   database: 'mooc-test',
@@ -18,7 +24,9 @@ describe('MikroOrmPostgresClientFactory', () => {
   let client: MikroORM<PostgreSqlDriver>
 
   beforeEach(async () => {
-    client = await factory.createClient('test', { ...config })
+    client = await factory.createClient('test', {
+      ...config,
+    })
   })
 
   afterEach(async () => {
@@ -41,7 +49,9 @@ describe('MikroOrmPostgresClientFactory', () => {
   })
 
   it('should returns a client if it already exists', async () => {
-    const newClient = await factory.createClient('test', { ...config })
+    const newClient = await factory.createClient('test', {
+      ...config,
+    })
 
     expect(newClient).toBe(client)
 

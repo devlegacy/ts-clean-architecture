@@ -1,8 +1,16 @@
 import assert from 'node:assert/strict'
-import { type Mock, mock } from 'node:test'
+import {
+  type Mock,
+  mock,
+} from 'node:test'
 
-import { Course, CourseRepository } from '@/Contexts/Mooc/Courses/domain/index.js'
-import { Criteria } from '@/Contexts/Shared/domain/index.js'
+import {
+  Course,
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
+  Criteria,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class NodeCourseRepositoryMock implements CourseRepository {
   // One var mock for each method
