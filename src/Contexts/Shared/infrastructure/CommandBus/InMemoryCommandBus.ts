@@ -1,7 +1,14 @@
-import { Service } from 'diod'
+import {
+  Service,
+} from 'diod'
 
-import { Command, CommandBus } from '../../domain/index.js'
-import { CommandHandlers } from './CommandHandlers.js'
+import {
+  Command,
+  CommandBus,
+} from '../../domain/index.js'
+import {
+  CommandHandlers,
+} from './CommandHandlers.js'
 
 // Alternative -> EventEmitter
 

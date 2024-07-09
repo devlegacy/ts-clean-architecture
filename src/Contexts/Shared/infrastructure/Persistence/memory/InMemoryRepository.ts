@@ -1,4 +1,7 @@
-import { clearDataStore, DataStore } from './DataStore.js'
+import {
+  clearDataStore,
+  DataStore,
+} from './DataStore.js'
 
 type Query<T> = { [key in keyof T]?: T[key] }
 
@@ -7,7 +10,7 @@ export abstract class InMemoryRepository<
     // id: string
     toPrimitives: () => any
     // fromPrimitives:
-  },
+  }
 > {
   protected parser!: (...props: any[]) => T
 

@@ -1,5 +1,7 @@
 import {
-  container, injectable, Lifecycle,
+  container,
+  injectable,
+  Lifecycle,
 } from 'tsyringe'
 
 import type {

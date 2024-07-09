@@ -1,4 +1,8 @@
-import { type DomainEventClass, type DomainEventSubscribers, EVENTS_HANDLER_METADATA } from '../../domain/index.js'
+import {
+  type DomainEventClass,
+  type DomainEventSubscribers,
+  EVENTS_HANDLER_METADATA,
+} from '../../domain/index.js'
 
 type DomainEventJSON = {
   id: string // eventId
@@ -22,7 +26,13 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
 
   deserialize(event: string) {
     const eventData = JSON.parse(event).data as DomainEventJSON
-    const { id: eventId, type, occurredOn, aggregateId, attributes } = eventData
+    const {
+      id: eventId,
+      type,
+      occurredOn,
+      aggregateId,
+      attributes,
+    } = eventData
     const eventClass = super.get(type)
 
     if (!eventClass) throw Error(`DomainEvent mapping not found for event <${type}>`)

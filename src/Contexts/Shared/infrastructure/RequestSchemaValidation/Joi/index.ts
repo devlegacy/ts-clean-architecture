@@ -1,10 +1,22 @@
-import type { Extension, Root, StringSchema } from 'joi'
+import type {
+  Extension,
+  Root,
+  StringSchema,
+} from 'joi'
 import joi from 'joi'
-import { DEFAULT } from 'joi-class-decorators'
-import { ObjectId } from 'mongodb'
-import { validate } from 'uuid'
+import {
+  DEFAULT,
+} from 'joi-class-decorators'
+import {
+  ObjectId,
+} from 'mongodb'
+import {
+  validate,
+} from 'uuid'
 
-import { JoiValidationGroups } from './JoiModule.js'
+import {
+  JoiValidationGroups,
+} from './JoiModule.js'
 
 interface ExtendedStringSchema<T = string> extends StringSchema<T> {
   objectId(): this
@@ -97,11 +109,21 @@ const Joi = joi.extend(
 ) as ExtendedJoi
 
 // Convenient & consistency export
-export { DEFAULT }
+export {
+  DEFAULT
+}
 export * from './JoiModule.js'
 
-export const { CREATE } = JoiValidationGroups
-export const { UPDATE } = JoiValidationGroups
-export { JoiSchema, JoiSchemaOptions } from 'joi-class-decorators'
+export const {
+  CREATE,
+} = JoiValidationGroups
+export const {
+  UPDATE,
+} = JoiValidationGroups
+export {
+  JoiSchema, JoiSchemaOptions
+} from 'joi-class-decorators'
 
-export { Joi }
+export {
+  Joi
+}

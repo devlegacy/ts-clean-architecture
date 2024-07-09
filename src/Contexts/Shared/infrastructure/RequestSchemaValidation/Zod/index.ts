@@ -1,4 +1,7 @@
-import { ZodSchema, type ZodTypeDef } from 'zod'
+import {
+  ZodSchema,
+  type ZodTypeDef,
+} from 'zod'
 
 export * from './ZodModule.js'
 

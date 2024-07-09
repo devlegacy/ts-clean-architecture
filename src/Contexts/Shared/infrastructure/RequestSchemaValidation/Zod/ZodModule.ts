@@ -1,16 +1,36 @@
-import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
-import type { FastifyRouteSchemaDef, FastifySchema } from 'fastify/types/schema.js'
-import { ZodError, ZodObject } from 'zod'
+import type {
+  FastifyError,
+  FastifyReply,
+  FastifyRequest,
+} from 'fastify'
+import type {
+  FastifyRouteSchemaDef,
+  FastifySchema,
+} from 'fastify/types/schema.js'
+import {
+  ZodError,
+  ZodObject,
+} from 'zod'
 
-import { HttpStatus } from '@/Contexts/Shared/domain/Common/index.js'
-import { HttpError } from '@/Contexts/Shared/domain/index.js'
+import {
+  HttpStatus,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  HttpError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import type { HttpValidationModule } from '../../Fastify/index.js'
-import { isZodDto } from './index.js'
+import type {
+  HttpValidationModule,
+} from '../../Fastify/index.js'
+import {
+  isZodDto,
+} from './index.js'
 
 // Inspired: https://github.com/risenforces/nestjs-zod/blob/main/src/dto.ts
 export class ZodModule implements HttpValidationModule<ZodObject<any>> {
-  validationCompiler({ schema }: FastifyRouteSchemaDef<ZodObject<any>>) {
+  validationCompiler({
+    schema,
+  }: FastifyRouteSchemaDef<ZodObject<any>>) {
     if (schema instanceof ZodObject)
       return (data: unknown) => {
         return schema.parse(data)
@@ -29,6 +49,7 @@ export class ZodModule implements HttpValidationModule<ZodObject<any>> {
     // Is Zod
     const statusCode = HttpStatus.UNPROCESSABLE_ENTITY
     const response = new HttpError({
+      // @ts-expect-error statusCode is a number
       error: HttpStatus[+statusCode] ?? HttpStatus[422],
       statusCode,
       message: err.message,

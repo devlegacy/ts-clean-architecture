@@ -1,19 +1,33 @@
 import util from 'node:util'
 
-// import { type Logger as PinoLoggerType, type LoggerOptions, pino } from 'pino'
-import pino from 'pino'
+import pino,
+{
+  type Logger as PinoLoggerType,
+  type LoggerOptions,
+} from 'pino'
 
-import { Logger, type LogLevel, type LogMessage } from '../../domain/index.js'
-import { MESSAGE_KEY, streams } from './helpers.js'
+import {
+  Logger,
+  type LogLevel,
+  type LogMessage,
+} from '../../domain/index.js'
+import {
+  MESSAGE_KEY,
+  streams,
+} from './helpers.js'
 
-export class PinoLogger implements Logger<pino.Logger> {
+export class PinoLogger implements Logger<PinoLoggerType> {
   #logger: pino.Logger
 
   get logger() {
     return this.#logger
   }
 
-  constructor(options: { name?: string; enabled?: boolean; level?: LogLevel } = { level: 'info' }) {
+  constructor(options: { name?: string
+    enabled?: boolean
+    level?: LogLevel } = {
+ level: 'info',
+}) {
     this.#logger = pino.pino(
       {
         ...options,
@@ -69,7 +83,7 @@ export class PinoLogger implements Logger<pino.Logger> {
  */
 export let logger = () => new PinoLogger().logger
 
-export const deepLog = (data: object) =>
+export const deepLog = (data: any) =>
   logger().info(
     util.inspect(data, {
       showHidden: false,
@@ -78,7 +92,7 @@ export const deepLog = (data: object) =>
     }),
   )
 
-export const configure = (config: pino.LoggerOptions) => {
+export const configure = (config: LoggerOptions) => {
   logger = () => new PinoLogger(config as any).logger
 }
 

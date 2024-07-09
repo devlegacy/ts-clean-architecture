@@ -1,9 +1,17 @@
-import { EventEmitter } from 'node:events'
+import {
+  EventEmitter,
+} from 'node:events'
 
-import { Service } from 'diod'
-import { Server as SocketServer } from 'socket.io'
+import {
+  Service,
+} from 'diod'
+import {
+  Server as SocketServer,
+} from 'socket.io'
 
-import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
 import {
   DomainEvent,
@@ -24,17 +32,29 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   async publish(events: DomainEvent[]): Promise<void> {
     events.forEach((event) => {
       info(`[emit 📤 ]: ${event.eventName}`)
-      this.emit(event.eventName, event)
-      this.io?.emit(event.eventName, event.toPrimitives())
+      this.emit(
+        event.eventName,
+        event,
+      )
+      this.io?.emit(
+        event.eventName,
+        event.toPrimitives(),
+      )
     })
   }
 
   addSubscribers(subscribers: DomainEventSubscribers): void {
     subscribers.items.forEach((subscriber) => {
-      const events: DomainEventClass[] = Reflect.getMetadata(EVENTS_HANDLER_METADATA, subscriber.constructor) ?? []
+      const events: DomainEventClass[] = Reflect.getMetadata(
+        EVENTS_HANDLER_METADATA,
+        subscriber.constructor,
+      ) ?? []
       events.forEach((event) => {
         info(`[on 📥 ]: ${event.EVENT_NAME}`)
-        this.on(event.EVENT_NAME, subscriber.on.bind(subscriber))
+        this.on(
+          event.EVENT_NAME,
+          subscriber.on.bind(subscriber),
+        )
       })
     })
   }

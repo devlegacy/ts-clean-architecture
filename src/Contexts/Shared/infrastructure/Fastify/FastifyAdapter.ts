@@ -1,7 +1,11 @@
-import { type AddressInfo } from 'node:net'
+import {
+  type AddressInfo,
+} from 'node:net'
 
 // import fastifyCompress from '@fastify/compress'
-import { type FastifyCorsOptions } from '@fastify/cors'
+import {
+  type FastifyCorsOptions,
+} from '@fastify/cors'
 // import fastifyHelmet from '@fastify/helmet'
 // import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, {
@@ -14,12 +18,26 @@ import Fastify, {
   type PrintRoutesOptions,
 } from 'fastify' // commonjs module
 
-import { type ControllerResolver, HttpStatus } from '../../domain/Common/index.js'
-import { DomainErrorHandler, HttpError, Monitoring } from '../../domain/index.js'
-import { type HttpErrorHandler, type HttpValidationModule } from './interfaces/index.js'
-import { routeRegister } from './routeRegister.js'
+import {
+  type ControllerResolver,
+  HttpStatus,
+} from '../../domain/Common/index.js'
+import {
+  DomainErrorHandler,
+  HttpError,
+  Monitoring,
+} from '../../domain/index.js'
+import {
+  type HttpErrorHandler,
+  type HttpValidationModule,
+} from './interfaces/index.js'
+import {
+  routeRegister,
+} from './routeRegister.js'
 
-const { errorCodes } = Fastify
+const {
+  errorCodes,
+} = Fastify
 const printConfig: PrintRoutesOptions = {
   commonPrefix: false,
   includeHooks: true,
@@ -110,7 +128,7 @@ export class FastifyAdapter {
     return this
   }
 
-  async bootstrap(props: { controller: string | Class<unknown>[]; resolver: ControllerResolver; prefix?: string }) {
+  async bootstrap(props: { controller: string | Class<unknown>[], resolver: ControllerResolver, prefix?: string }) {
     this.#instance.setValidatorCompiler<unknown>((schemaDefinition) => {
       for (const m of this.validations) {
         if (m.validationCompiler(schemaDefinition)) {
@@ -132,15 +150,22 @@ export class FastifyAdapter {
         error: HttpStatus[404] ?? HttpStatus[404],
         path: `Route ${req.raw.method}:${req.raw.url}`,
       })
-      this.#monitoring?.capture(new Error(HttpStatus[404]), { req })
+      this.#monitoring?.capture(new Error(HttpStatus[404]), {
+        req,
+      })
 
       res.status(404).send(response)
     })
     // https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler
     this.#instance.setErrorHandler((err: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-      this.#monitoring?.capture(err, { req })
+      this.#monitoring?.capture(err, {
+        req,
+      })
       let statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR
-      const errorHandlers = [...this.validations, ...this.errorHandlers]
+      const errorHandlers = [
+        ...this.validations,
+        ...this.errorHandlers,
+      ]
       for (const m of errorHandlers) {
         if (res.sent) break
         m.errorHandler(err, req, res)
@@ -148,8 +173,8 @@ export class FastifyAdapter {
       if (res.sent) return
 
       if (
-        (err instanceof errorCodes.FST_ERR_BAD_STATUS_CODE || err instanceof errorCodes.FST_ERR_CTP_EMPTY_JSON_BODY) &&
-        err.statusCode
+        (err instanceof errorCodes.FST_ERR_BAD_STATUS_CODE || err instanceof errorCodes.FST_ERR_CTP_EMPTY_JSON_BODY)
+        && err.statusCode
       ) {
         statusCode = +err.statusCode
       } else if (DomainErrorHandler.isDomainError(err)) {
@@ -159,6 +184,7 @@ export class FastifyAdapter {
       // DEBT: Remove leak data
       const response = new HttpError({
         statusCode,
+        // @ts-expect-error - This is a valid configuration
         error: HttpStatus[+statusCode] ?? HttpStatus[500],
         // GeneralRequestValidation[errorHandler]: Unhandled error
         message: `${err.message}`,

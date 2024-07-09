@@ -1,6 +1,12 @@
-import { Service } from 'diod'
+import {
+  Service,
+} from 'diod'
 
-import { DomainErrorHandler, Logger, Monitoring } from '../domain/index.js'
+import {
+  DomainErrorHandler,
+  Logger,
+  Monitoring,
+} from '../domain/index.js'
 
 // DEBT: Domain (?)
 @Service()

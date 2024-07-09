@@ -1,6 +1,10 @@
-import { Client as ElasticClient } from '@elastic/elasticsearch'
+import {
+  Client as ElasticClient,
+} from '@elastic/elasticsearch'
 
-import type { ElasticConfig } from './ElasticConfig.js'
+import type {
+  ElasticConfig,
+} from './ElasticConfig.js'
 
 export class ElasticClientFactory {
   private static clients: { [key: string]: ElasticClient } = {}
@@ -24,7 +28,9 @@ export class ElasticClientFactory {
   }
 
   private static async createAndConnectClient(config: ElasticConfig): Promise<ElasticClient> {
-    const client = new ElasticClient({ node: config.url })
+    const client = new ElasticClient({
+      node: config.url,
+    })
 
     return client
   }
@@ -34,7 +40,9 @@ export class ElasticClientFactory {
   }
 
   private static async createIndexWithSettingsIfNotExists(client: ElasticClient, config: ElasticConfig): Promise<void> {
-    const exists = await client.indices.exists({ index: config.indexName })
+    const exists = await client.indices.exists({
+      index: config.indexName,
+    })
 
     if (exists) return
 

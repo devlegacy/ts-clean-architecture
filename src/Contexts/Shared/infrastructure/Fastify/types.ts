@@ -1,4 +1,8 @@
-import type { FastifyReply, FastifyRequest, RouteGenericInterface } from 'fastify'
+import type {
+  FastifyReply,
+  FastifyRequest,
+  RouteGenericInterface,
+} from 'fastify'
 
 export type Request<
   RouteGeneric extends RouteGenericInterface = {
@@ -6,7 +10,7 @@ export type Request<
     Headers: Record<string, any>
     Params: Record<string, any>
     Querystring: Record<string, any>
-  },
+  }
 > = FastifyRequest<RouteGeneric>
 
 export type Response = FastifyReply

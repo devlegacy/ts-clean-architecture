@@ -3,7 +3,10 @@ import bodybuilder, {
 } from 'bodybuilder'
 
 import {
-  Criteria, Filter, Filters, Operator,
+  Criteria,
+  Filter,
+  Filters,
+  Operator,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum TypeQueryEnum {

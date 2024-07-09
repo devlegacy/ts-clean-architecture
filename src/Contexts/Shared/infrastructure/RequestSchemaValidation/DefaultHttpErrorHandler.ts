@@ -1,8 +1,20 @@
-import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
+import type {
+  FastifyError,
+  FastifyReply,
+  FastifyRequest,
+} from 'fastify'
 
-import { HttpStatus } from '../../domain/Common/index.js'
-import { EntityNotFoundError, HttpError, InvalidArgumentError } from '../../domain/index.js'
-import type { HttpErrorHandler } from '../Fastify/index.js'
+import {
+  HttpStatus,
+} from '../../domain/Common/index.js'
+import {
+  EntityNotFoundError,
+  HttpError,
+  InvalidArgumentError,
+} from '../../domain/index.js'
+import type {
+  HttpErrorHandler,
+} from '../Fastify/index.js'
 
 export class DefaultHttpErrorHandler implements HttpErrorHandler {
   // validationCompiler(_schemaDefinition: FastifyRouteSchemaDef<unknown>): void {
@@ -20,6 +32,7 @@ export class DefaultHttpErrorHandler implements HttpErrorHandler {
     if (statusCode) {
       const response = new HttpError({
         statusCode,
+        // @ts-expect-error statusCode is a number
         error: HttpStatus[+statusCode] ?? '',
         message: err.message,
         path: req.raw.url,
