@@ -1,10 +1,10 @@
 import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
+import {
   AggregateRoot, ObjectId,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  CourseId,
-} from '../../Shared/domain/index.js'
 import {
   CoursesCounterIncrementedDomainEvent,
 } from './CoursesCounterIncrementedDomainEvent.js'

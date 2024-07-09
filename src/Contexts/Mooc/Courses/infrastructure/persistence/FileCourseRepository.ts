@@ -1,8 +1,10 @@
 import {
-  readFile, writeFile,
+  readFile,
+  writeFile,
 } from 'node:fs/promises'
 import {
-  fileURLToPath, URL,
+  fileURLToPath,
+  URL,
 } from 'node:url'
 
 import {
@@ -11,12 +13,13 @@ import {
 } from 'bson'
 
 import {
+  Course,
+  type CoursePrimitiveType,
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   Criteria,
 } from '#@/src/Contexts/Shared/domain/index.js'
-
-import {
-  Course, type CoursePrimitiveType, CourseRepository,
-} from '../../domain/index.js'
 
 const __dirname = fileURLToPath(new URL(
   '.',

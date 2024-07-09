@@ -1,5 +1,6 @@
 import type {
-  ConnectionSettings, ExchangeSetting,
+  ConnectionSettings,
+  ExchangeSetting,
 } from '#@/src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/index.js'
 
 import {

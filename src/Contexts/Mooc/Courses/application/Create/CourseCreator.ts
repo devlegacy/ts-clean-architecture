@@ -49,12 +49,5 @@ export class CourseCreator {
 
     await this.repository.save(course)
     await this.bus.publish(course.pullDomainEvents())
-
-    const allCourses = await this.repository.all()
-    // eslint-disable-next-line no-console
-    console.log(
-      'allCourses',
-      allCourses,
-    )
   }
 }

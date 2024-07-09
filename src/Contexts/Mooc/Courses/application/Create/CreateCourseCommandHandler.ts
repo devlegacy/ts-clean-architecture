@@ -1,18 +1,19 @@
 import {
+  CourseDuration,
+  CourseName,
+  CreateCourseCommand,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   CourseId,
 } from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 import {
   CommandHandlerSubscriber,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
-  type CommandHandler, isNil,
+  type CommandHandler,
+  isNil,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  CourseDuration,
-  CourseName,
-  CreateCourseCommand,
-} from '../../domain/index.js'
 import {
   CourseCreator,
 } from './CourseCreator.js'

@@ -3,15 +3,16 @@ import {
 } from 'typeorm'
 
 import {
+  Course,
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   Criteria,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   TypeOrmPostgresRepository,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import {
-  Course, CourseRepository,
-} from '../../domain/index.js'
 import {
   CourseEntity,
 } from './typeorm/postgres/CourseEntity.js'

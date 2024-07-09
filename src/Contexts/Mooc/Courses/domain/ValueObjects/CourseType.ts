@@ -1,5 +1,6 @@
 import {
-  EnumValueObject, InvalidArgumentError,
+  EnumValueObject,
+  InvalidArgumentError,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum Type {

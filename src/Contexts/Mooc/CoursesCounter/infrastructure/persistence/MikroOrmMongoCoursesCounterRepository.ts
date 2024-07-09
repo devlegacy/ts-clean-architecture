@@ -3,12 +3,13 @@ import {
 } from '@mikro-orm/core'
 
 import {
+  CoursesCounter,
+  CoursesCounterRepository,
+} from '#@/src/Contexts/Mooc/CoursesCounter/domain/index.js'
+import {
   MikroOrmMongoRepository,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import {
-  CoursesCounter, CoursesCounterRepository,
-} from '../../domain/index.js'
 import {
   CoursesCounterEntity,
 } from './mikroorm/mongo/CoursesCounterEntity.js'

@@ -3,6 +3,11 @@ import {
 } from '@mikro-orm/core'
 
 import {
+  Course,
+  CourseDuration,
+  CourseName,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   CourseId,
 } from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 import {
@@ -12,10 +17,6 @@ import {
   onLoad,
   ValueObjectTransformer,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
-
-import {
-  Course, CourseDuration, CourseName,
-} from '../../../../domain/index.js'
 
 // https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CourseEntity = new EntitySchema<Course>({

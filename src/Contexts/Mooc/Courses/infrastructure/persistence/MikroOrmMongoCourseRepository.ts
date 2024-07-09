@@ -3,15 +3,16 @@ import {
 } from '@mikro-orm/core'
 
 import {
+  Course,
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   Criteria,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   MikroOrmMongoRepository,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import {
-  Course, CourseRepository,
-} from '../../domain/index.js'
 import {
   CourseEntity,
 } from './mikroorm/mongo/CourseEntity.js'

@@ -1,13 +1,13 @@
 import {
+  Course,
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   Criteria,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   MongoRepository,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
-
-import {
-  Course, CourseRepository,
-} from '../../domain/index.js'
 
 interface CourseDocument {
   _id: string

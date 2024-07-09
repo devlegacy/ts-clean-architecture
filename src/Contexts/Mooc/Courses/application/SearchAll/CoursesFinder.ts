@@ -1,10 +1,9 @@
 import {
+  CourseRepository,
+} from '#@/src/Contexts/Mooc/Courses/domain/index.js'
+import {
   UseCase,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
-
-import {
-  CourseRepository,
-} from '../../domain/index.js'
 
 @UseCase()
 export class CoursesFinder {

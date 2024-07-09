@@ -1,5 +1,6 @@
 import {
-  AggregateRoot, isUndefined,
+  AggregateRoot,
+  isUndefined,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 import {
@@ -9,7 +10,8 @@ import {
   CourseCreatedDomainEvent,
 } from './CourseCreatedDomainEvent.js'
 import {
-  CourseDuration, CourseName,
+  CourseDuration,
+  CourseName,
 } from './ValueObjects/index.js'
 
 export type CourseEntityType = Entity<Course>

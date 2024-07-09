@@ -1,10 +1,10 @@
 import {
+  CourseId,
+} from '#@/src/Contexts/Mooc/Shared/domain/index.js'
+import {
   EventBus,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  CourseId,
-} from '../../Shared/domain/index.js'
 import {
   Course,
   CourseDuration,
