@@ -1,4 +1,3 @@
-# current-work-directory:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 dest="./.vscode"
 src="./.etc/.vscode"
 define vscode
@@ -19,5 +18,3 @@ define vscode
 		cp "$$file" "$$dest_ln"; \
 	done
 endef
-# $(call print_message, "🔗 adding new symbolic hard link for $$filename"); \
-# ln "$$file" "$$dest_ln"; \

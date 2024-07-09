@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[0;36m'

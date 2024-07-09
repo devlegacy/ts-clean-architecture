@@ -1,0 +1,26 @@
+#!/bin/bash
+
+DOCKER_COMPOSE_PATH=$(which docker-compose)
+MONGO_USERNAME="srojas"
+MONGO_PASSWORD="e2OGndJLYvcvzq8h"
+MONGO_HOST="ggtech-drlff.mongodb.net"
+
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+PROJECT_NAME=$(basename $PROJECT_PATH)
+DATE=$(date +"%Y-%m-%d %T")
+
+echo "[${DATE}] Running start"
+
+echo "[${DATE}] mongodump"
+# docker run --rm -v ~/Downloads:/tmp/backup mongo mongodump --uri "mongodb+srv://srojas:e2OGndJLYvcvzq8h@ggtech-drlff.mongodb.net/ecms-dev?replicaSet=GGTECH-shard-0&readPreference=primary&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-1" --archive=/tmp/backup/mongodb.dump
+# docker run --rm -v ~/Downloads:/tmp/backup mongo mongodump --uri "mongodb+srv://srojas:C69aYw8cV6NvqV01@ecms-production.rde8j.mongodb.net/esports-cms?retryWrites=true&w=majority" --archive=/tmp/backup/mongodb.dump
+# mongodb+srv://srojas:C69aYw8cV6NvqV01@ecms-production.rde8j.mongodb.net/esports-cms?retryWrites=true&w=majority
+# docker run --rm -v ~/Downloads:/tmp/backup mongo mongodump --uri "mongodb+srv://srojas:e2OGndJLYvcvzq8h@ggtech-drlff.mongodb.net/esports-cms?replicaSet=GGTECH-shard-0&readPreference=primary&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-1" --archive=/tmp/backup/mongodb.dump --collection=users
+
+echo "[${DATE}] mongorestore"
+docker run --rm -v ~/Downloads:/tmp/backup mongo mongorestore --uri "mongodb+srv://srojas:e2OGndJLYvcvzq8h@ggtech-drlff.mongodb.net/ecms-dev-clone?replicaSet=GGTECH-shard-0&readPreference=primary&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-1" --archive=/tmp/backup/mongodb.dump --nsInclude='ecms-dev.*'
+# mongorestore --archive=./mongodb.dump
+# docker run --rm -v ~/Downloads:/tmp/backup mongo mongorestore --uri "mongodb+srv://srojas:e2OGndJLYvcvzq8h@ggtech-drlff.mongodb.net/apex-dev?replicaSet=GGTECH-shard-0&readPreference=primary&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-1" --archive=/tmp/backup/mongodb.dump --nsInclude='apex-dev.*'
+
+mongorestore --host localhost --port 27017 ./restore-6644329d2489074755814ff2
+mongorestore --uri "mongodb://localhost:27017" ./restore-6644329d2489074755814ff2 --nsInclude='*.*'

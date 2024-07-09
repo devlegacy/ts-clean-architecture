@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+COLORS_PATH=$(dirname "$0")/../.bin/colors.sh
+[ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
+
+# Obtén el nombre de la rama actual
+branch=$(git branch --show-current)
+
+# Comprueba si la rama actual es master o develop
+if [ "$branch" = "master" ] || [ "$branch" = "develop" ]; then
+  echo "🚫 ${COLOR_RED}You can't push directly to <${branch}> branch. Please create a new branch and try again.${COLOR_RESET}"
+  exit 1
+fi
+
+# pnpm run build
+# pnpm run test

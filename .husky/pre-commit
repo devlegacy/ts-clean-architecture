@@ -1,9 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NO_COLOR='\033[0m'
+COLORS_PATH=$(dirname "$0")/../.bin/colors.sh
+[ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
 
 is_commit_available="$(git rev-list -n 1 --all)"
 if [[ "$is_commit_available" ]]; then
@@ -13,18 +11,18 @@ if [[ "$is_commit_available" ]]; then
   recommend_branch_name='^((fix|feat|imp|hotfix)\/[a-zA-Z0-9\-]+)$'
 
   if [[ ! $local_branch_name =~ $recommend_branch_name ]]; then
-      echo "${RED}There is something wrong with your branch name <${YELLOW}$local_branch_name${RED}>. Branch names in this project must adhere to this contract: <${GREEN}$recommend_branch_name${RED}>. Your commit will be rejected. You should rename your branch to a valid name and try again.${NO_COLOR}"
+      echo "${COLOR_RED}There is something wrong with your branch name <${COLOR_YELLOW}$local_branch_name${COLOR_RED}>. Branch names in this project must adhere to this contract: <${COLOR_GREEN}$recommend_branch_name${COLOR_RED}>. Your commit will be rejected. You should rename your branch to a valid name and try again.${COLOR_RESET}"
       exit 1
   fi
 fi
 
 # npm test
 
-echo "${YELLOW}Starting lint, please wait ⏳ :)${NO_COLOR}"
+echo "${COLOR_YELLOW}Starting 🔦 lint files, please wait ⏳ :)${COLOR_RESET}"
 # Run lint files on staged files
 if npx --no -- lint-staged --quiet --config ./.lintstagedrc.json; then
-  echo "${GREEN}Lint task ended successfully, you can do your push 🚀${NO_COLOR}"
+  echo "${COLOR_GREEN}Lint task ended successfully, you can do your push 🚀${COLOR_RESET}"
 else
-  echo "${RED}Lint task failed, please fix the errors before pushing.${NO_COLOR}"
+  echo "${COLOR_RED}Lint task failed, please fix the errors before pushing.${COLOR_RESET}"
   exit 1
 fi

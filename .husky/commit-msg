@@ -1,27 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NO_COLOR='\033[0m'
+COLORS_PATH=$(dirname "$0")/../.bin/colors.sh
+[ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
 
 commit_message="$(cat $1)"
-# kheops message proposal
-recommend_commit_message='^(\+|\-|\*){1}[[:space:]].*'
 
-echo "${YELLOW}Validating commit message 💬...${NO_COLOR}"
-
-if [[ ! $commit_message =~ $recommend_commit_message ]]; then
-  echo "${RED}There is something wrong with your commit message. Your commit message must adhere to this contract: <${GREEN}$recommend_commit_message${RED}>. Your commit will be rejected. You should rename your commit message to a valid name and try again.${NO_COLOR}"
-  # This commit message should be validate whit commitlint
-  if npx --no -- commitlint --edit "${1}"; then
-    echo "${GREEN}✅ Commit message passed checks.${NO_COLOR}"
-  else
-    echo "${RED}❌ Commit message failed. Please revise your commit message according to the project's commit message guidelines.${NO_COLOR}"
-    exit 1
-  fi
+echo "${COLOR_YELLOW}Validating commit message 💬...${COLOR_RESET}"
+if npx --no-install commitlint --edit "${1}"; then
+  echo "${COLOR_GREEN}✅ Commit message passed checks, you can do your commit 🚀.${COLOR_RESET}"
 else
-echo "${GREEN}✅ Commit message ended successfully, you can do your commit 🚀${NO_COLOR}"
+  echo "${COLOR_RED}❌ Commit message failed. Please revise your commit message according to the project's commit message guidelines.${COLOR_RESET}"
+  exit 1
 fi
 
 # Recommend install and use: https://git-scm.com/downloads
