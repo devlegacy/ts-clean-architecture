@@ -1,4 +1,9 @@
 import {
+  BackofficeCourse,
+  type BackofficeCourseEntityType,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   UseCase,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
@@ -7,11 +12,6 @@ import {
   QueryBus,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  BackofficeCourse,
-  type BackofficeCourseEntityType,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 import {
   BackofficeCourseResponse,
 } from '../BackofficeCourseResponse.js'

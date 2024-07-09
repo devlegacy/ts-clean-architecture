@@ -1,4 +1,9 @@
 import {
+  BackofficeCourseDuration,
+  BackofficeCourseId,
+  BackofficeCourseName,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   CourseCreatedDomainEvent,
 } from '#@/src/Contexts/Mooc/Courses/domain/index.js'
 import {
@@ -8,11 +13,6 @@ import type {
   DomainEventSubscriber,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  BackofficeCourseDuration,
-  BackofficeCourseId,
-  BackofficeCourseName,
-} from '../../domain/index.js'
 import {
   BackofficeCourseCreator,
 } from './BackofficeCourseCreator.js'

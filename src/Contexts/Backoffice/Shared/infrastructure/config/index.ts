@@ -58,10 +58,11 @@ const config = convict(
       env: {
         doc: 'The application environment.',
         format: [
-          'production',
+          'local',
           'development',
-          'staging',
           'test',
+          'staging',
+          'production',
         ],
         default: 'development' as 'production' | 'development' | 'staging' | 'test',
         env: 'APP_ENV',

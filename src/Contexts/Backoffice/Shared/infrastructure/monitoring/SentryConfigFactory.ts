@@ -1,6 +1,10 @@
-import type { NodeOptions } from '@sentry/node'
+import type {
+  NodeOptions,
+} from '@sentry/node'
 
-import { config } from '../config/index.js'
+import {
+  config,
+} from '../config/index.js'
 
 const sentryConfig: NodeOptions = {
   dsn: config.get('sentry.dsn'),

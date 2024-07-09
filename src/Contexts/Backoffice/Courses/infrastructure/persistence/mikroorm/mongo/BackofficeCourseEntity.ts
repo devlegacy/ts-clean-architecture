@@ -3,19 +3,18 @@ import {
 } from '@mikro-orm/core'
 
 import {
+  BackofficeCourse,
+  BackofficeCourseDuration,
+  BackofficeCourseId,
+  BackofficeCourseName,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
-
-import {
-  BackofficeCourse,
-  BackofficeCourseDuration,
-  BackofficeCourseId,
-  BackofficeCourseName,
-} from '../../../../domain/index.js'
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   name: 'BackofficeCourse',

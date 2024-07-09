@@ -1,4 +1,8 @@
 import {
+  BackofficeCourse,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   UseCase,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
@@ -7,10 +11,6 @@ import {
   QueryBus,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  BackofficeCourse,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 import {
   FindBackofficeCourseByCriteriaQuery,
 } from '../FinderByCriteria/index.js'

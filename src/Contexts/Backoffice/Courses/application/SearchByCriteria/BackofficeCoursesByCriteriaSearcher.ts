@@ -1,16 +1,15 @@
 import {
+  BackofficeCourse,
+  BackofficeCourseRepository,
+  BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   UseCase,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
   Filters,
   Order,
 } from '#@/src/Contexts/Shared/domain/index.js'
-
-import {
-  BackofficeCourse,
-  BackofficeCourseRepository,
-  BackofficeCoursesByCriteriaSearcher as DomainBackofficeCoursesByCriteriaSearcher,
-} from '../../domain/index.js'
 
 // Knows - Repository - Aggregate
 

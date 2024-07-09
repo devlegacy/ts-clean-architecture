@@ -7,6 +7,10 @@ import {
 } from 'diod'
 
 import {
+  BackofficeCourse,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   Criteria,
   OffsetPaginator,
   type Pagination,
@@ -15,10 +19,6 @@ import {
   MikroOrmMongoRepository,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import {
-  BackofficeCourse,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 import {
   BackofficeCourseEntity,
 } from './mikroorm/mongo/BackofficeCourseEntity.js'

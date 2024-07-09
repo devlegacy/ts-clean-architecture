@@ -1,14 +1,13 @@
 import {
+  BackofficeCourse,
+  BackofficeCourseId,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   Criteria,
   OffsetPaginator,
   type Pagination,
 } from '#@/src/Contexts/Shared/domain/index.js'
-
-import {
-  BackofficeCourse,
-  BackofficeCourseId,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 
 export class InMemoryCacheBackofficeCourseRepository implements BackofficeCourseRepository {
   constructor(readonly repository: BackofficeCourseRepository) {}

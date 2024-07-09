@@ -1,16 +1,16 @@
 import {
+  BackofficeCourseDuration,
+  BackofficeCourseId,
+  BackofficeCourseName,
+  CreateBackofficeCourseCommand,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   CommandHandlerSubscriber,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import type {
   CommandHandler,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  BackofficeCourseDuration,
-  BackofficeCourseId,
-  BackofficeCourseName,
-  CreateBackofficeCourseCommand,
-} from '../../domain/index.js'
 import {
   BackofficeCourseCreator,
 } from './BackofficeCourseCreator.js'

@@ -1,4 +1,8 @@
 import {
+  BackofficeCourse,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   UseCase,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
@@ -7,11 +11,6 @@ import {
 import {
   Filters,
 } from '#@/src/Contexts/Shared/domain/index.js'
-
-import {
-  BackofficeCourse,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 
 type Response = { courses: BackofficeCourse[], total: number }
 

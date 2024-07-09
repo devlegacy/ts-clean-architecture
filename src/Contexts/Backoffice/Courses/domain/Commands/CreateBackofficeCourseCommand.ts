@@ -1,10 +1,9 @@
 import {
+  type BackofficeCoursePrimitiveType,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   Command,
 } from '#@/src/Contexts/Shared/domain/index.js'
-
-import type {
-  BackofficeCoursePrimitiveType,
-} from '../BackofficeCourse.js'
 
 type Params = BackofficeCoursePrimitiveType
 

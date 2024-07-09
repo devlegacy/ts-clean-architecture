@@ -1,4 +1,9 @@
 import {
+  BackofficeCourse,
+  BackofficeCourseId,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   Criteria,
   OffsetPaginator,
   type Pagination,
@@ -6,12 +11,6 @@ import {
 import {
   ElasticRepository,
 } from '#@/src/Contexts/Shared/infrastructure/index.js'
-
-import {
-  BackofficeCourse,
-  BackofficeCourseId,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 
 export class ElasticBackofficeCourseRepository
   extends ElasticRepository<BackofficeCourse>

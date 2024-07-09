@@ -1,4 +1,7 @@
-import { BackofficeCourse, type BackofficeCoursePrimitiveType } from '../domain/index.js'
+import {
+  BackofficeCourse,
+  type BackofficeCoursePrimitiveType,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
 
 type Response = BackofficeCoursePrimitiveType
 
@@ -10,7 +13,7 @@ export class BackofficeCoursesResponse {
       const {
         // createdAt: _createdAt,
         // updatedAt: _updatedAt,
-        //, deletedAt: _deletedAt,
+        // , deletedAt: _deletedAt,
         ...primitives
       } = course.toPrimitives()
 

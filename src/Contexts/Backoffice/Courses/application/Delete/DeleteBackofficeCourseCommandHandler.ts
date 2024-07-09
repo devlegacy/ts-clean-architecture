@@ -1,4 +1,8 @@
 import {
+  BackofficeCourseId,
+  DeleteBackofficeCourseCommand,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   CommandHandlerSubscriber,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
@@ -6,10 +10,6 @@ import {
   type CommandHandler,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  BackofficeCourseId,
-  DeleteBackofficeCourseCommand,
-} from '../../domain/index.js'
 import {
   BackofficeCourseDeleter,
 } from './BackofficeCourseDeleter.js'

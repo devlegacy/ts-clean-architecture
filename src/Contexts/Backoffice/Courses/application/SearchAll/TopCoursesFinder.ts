@@ -1,11 +1,10 @@
 import {
-  UseCase,
-} from '#@/src/Contexts/Shared/domain/Common/index.js'
-
-import {
   BackofficeCourseRepository,
   TopCourses,
-} from '../../domain/index.js'
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 
 @UseCase()
 export class TopCoursesFinder {

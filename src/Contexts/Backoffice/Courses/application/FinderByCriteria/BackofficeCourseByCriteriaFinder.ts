@@ -1,4 +1,8 @@
 import {
+  BackofficeCourseNotFoundError,
+  BackofficeCourseRepository,
+} from '#@/src/Contexts/Backoffice/Courses/domain/index.js'
+import {
   UseCase,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
@@ -8,10 +12,6 @@ import {
   Filters,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  BackofficeCourseNotFoundError,
-  BackofficeCourseRepository,
-} from '../../domain/index.js'
 import {
   BackofficeCourseResponse,
 } from '../BackofficeCourseResponse.js'
