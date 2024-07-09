@@ -1,4 +1,4 @@
 // export * from '../apps'
-export * from '../CoursesCounterModule'
-export * from '../CoursesModule'
-export * from '../SharedModule'
+export * from '../CoursesCounterModule.js'
+export * from '../CoursesModule.js'
+export * from '../SharedModule.js'

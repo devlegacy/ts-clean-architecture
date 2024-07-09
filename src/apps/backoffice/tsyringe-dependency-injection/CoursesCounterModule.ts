@@ -1,21 +1,29 @@
-import { container } from 'tsyringe'
+import {
+  container,
+} from 'tsyringe'
 
-import { CoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/domain/index.js'
-import { MikroOrmMongoCoursesCounterRepository } from '@/Contexts/Mooc/CoursesCounter/infrastructure/index.js'
+import {
+  CoursesCounterRepository,
+} from '#@/src/Contexts/Mooc/CoursesCounter/domain/index.js'
+import {
+  MikroOrmMongoCoursesCounterRepository,
+} from '#@/src/Contexts/Mooc/CoursesCounter/infrastructure/index.js'
 
-import { TYPES } from './types'
+import {
+  TYPES,
+} from './types.js'
 
 // Application layer
 container
-  // 🚌 EventBus <-> EventSubscribers
-  // 🏷 Tags - Application
+// 🚌 EventBus <-> EventSubscribers
+// 🏷 Tags - Application
 
-  // 🚌 CommandBus <-> CommandHandlers
-  // 🏷 Tags - Application
-  // 🚌 QueryBus <-> QueryHandlers
-  // 🏷 Tags - Application
+// 🚌 CommandBus <-> CommandHandlers
+// 🏷 Tags - Application
+// 🚌 QueryBus <-> QueryHandlers
+// 🏷 Tags - Application
 
-  // Domain layer
+// Domain layer
 
   // Repositories - Mongo
   .register<CoursesCounterRepository>(TYPES.CoursesCounterRepository, MikroOrmMongoCoursesCounterRepository)
