@@ -236,6 +236,7 @@ Ambos términos se refieren al mismo concepto básico.
 - Focus on code not on developer
 - ask for (opinions|alternatives), not to give orders
 - answer comments
+- co-authors `git commit --author="John Doe <john@domain.com>"`
 
 ## TIPS
 

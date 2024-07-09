@@ -12,7 +12,7 @@
 ## Node Memory
 
 ```sh
-  node --max-old-space-size=1024 -env-file=.env
+  NODE_COMPILE_CACHE=/tmp/dir/name node --max-old-space-size=1024 -env-file=.env
 ```
 
 ## Crypto
@@ -55,3 +55,4 @@
 ## Flame graph
 
 - [Flame graph](https://github.com/davidmarkclements/0x)
+
