@@ -1,4 +1,6 @@
-import { DomainError } from './DomainError.js'
+import {
+  DomainError,
+} from './DomainError.js'
 // 422
 
 // TypeError

@@ -1,10 +1,14 @@
-import { InvalidArgumentError } from '../Errors/index.js'
-import { EnumValueObject } from '../ValueObjects/index.js'
+import {
+  InvalidArgumentError,
+} from '../Errors/index.js'
+import {
+  EnumValueObject,
+} from '../ValueObjects/index.js'
 
 export enum OrderTypes {
   ASC = 'asc',
   DESC = 'desc',
-  NONE = 'none',
+  NONE = 'none'
 }
 
 export type OrderTypeKeys = keyof typeof OrderTypes

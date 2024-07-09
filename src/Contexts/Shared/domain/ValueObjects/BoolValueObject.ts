@@ -1,5 +1,9 @@
-import { InvalidArgumentError } from '../index.js'
-import { ValueObject } from './ValueObject.js'
+import {
+  InvalidArgumentError,
+} from '../index.js'
+import {
+  ValueObject,
+} from './ValueObject.js'
 
 export abstract class BoolValueObject extends ValueObject<boolean> {
   constructor(value: boolean) {

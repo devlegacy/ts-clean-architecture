@@ -1,7 +1,13 @@
-import { isValid, ulid } from 'ulidx'
+import {
+  isValid, ulid,
+} from 'ulidx'
 
-import { InvalidArgumentError } from '../Errors/index.js'
-import { ValueObject } from './ValueObject.js'
+import {
+  InvalidArgumentError,
+} from '../Errors/index.js'
+import {
+  ValueObject,
+} from './ValueObject.js'
 
 export class Ulid extends ValueObject<string> {
   constructor(value: string) {

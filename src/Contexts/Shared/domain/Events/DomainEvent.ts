@@ -1,4 +1,7 @@
-import { ObjectId, Uuid } from '../ValueObjects/index.js'
+import {
+  ObjectId,
+  Uuid,
+} from '../ValueObjects/index.js'
 
 type DomainEventAttributes<T = any> = T
 export type DomainPrimitiveAttributes<T extends DomainEvent> = ReturnType<T['toPrimitives']>
@@ -65,10 +68,15 @@ export abstract class DomainEvent {
   readonly occurredOn: Date
   readonly eventName: string
 
-  // DEBT: props vs ctx vs params
+  // DEBT: props vs ctx vs params vs data
   // The event name is needed just here!
   constructor(data: DomainEventPrimitives<{ eventName: string }>) {
-    const { aggregateId, eventName, eventId, occurredOn } = data
+    const {
+      aggregateId,
+      eventName,
+      eventId,
+      occurredOn,
+    } = data
     this.eventId = eventId || Uuid.random().value || ObjectId.random().value
     this.occurredOn = occurredOn || new Date()
 

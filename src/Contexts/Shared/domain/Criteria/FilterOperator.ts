@@ -1,5 +1,9 @@
-import { InvalidArgumentError } from '../Errors/index.js'
-import { EnumValueObject } from '../ValueObjects/index.js'
+import {
+  InvalidArgumentError,
+} from '../Errors/index.js'
+import {
+  EnumValueObject,
+} from '../ValueObjects/index.js'
 
 export enum Operator {
   EQUAL = '=',
@@ -8,7 +12,7 @@ export enum Operator {
   LT = '<',
   CONTAINS = 'CONTAINS',
   NOT_CONTAINS = 'NOT_CONTAINS',
-  EXISTS = 'EXISTS',
+  EXISTS = 'EXISTS'
 }
 export type FilterOperatorKeys = keyof typeof Operator
 

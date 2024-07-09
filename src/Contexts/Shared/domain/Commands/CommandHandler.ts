@@ -1,4 +1,6 @@
-import { Command } from './Command.js'
+import {
+  Command,
+} from './Command.js'
 
 export interface CommandHandler<TCommand extends Command, R = void> {
   // subscribedTo(): Command

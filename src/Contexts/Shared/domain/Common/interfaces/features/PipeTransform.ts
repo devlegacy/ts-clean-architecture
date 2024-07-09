@@ -1,4 +1,6 @@
-import type { Paramtype } from './Paramtype.js'
+import type {
+  Paramtype,
+} from './Paramtype.js'
 
 export type Transform<T = any> = (value: T, metadata: ArgumentMetadata) => any
 

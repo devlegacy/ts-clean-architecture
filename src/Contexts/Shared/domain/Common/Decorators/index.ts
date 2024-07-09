@@ -1,5 +1,6 @@
 import {
-  error, info,
+  error,
+  info,
 } from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
 import {

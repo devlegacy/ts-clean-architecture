@@ -1,7 +1,17 @@
-import { isNil, isString } from '../../../shared.utils.js'
-import { RESPONSE_PASSTHROUGH_METADATA, ROUTE_ARGS_METADATA } from '../../constants.js'
-import { RouteParamtypes } from '../../enums/index.js'
-import type { PipeTransform } from '../../interfaces/index.js'
+import {
+  isNil,
+  isString,
+} from '../../../shared.utils.js'
+import {
+  RESPONSE_PASSTHROUGH_METADATA,
+  ROUTE_ARGS_METADATA,
+} from '../../constants.js'
+import {
+  RouteParamtypes,
+} from '../../enums/index.js'
+import type {
+  PipeTransform,
+} from '../../interfaces/index.js'
 
 class DefaultNumberTransformPipe {
   transform(value: unknown) {
@@ -52,40 +62,46 @@ function createRouteParamDecorator(paramtype: RouteParamtypes) {
     }
 }
 
-const createPipesRouteParamDecorator =
-  (paramtype: RouteParamtypes) =>
-  (data?: any, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
-  (target, key, index) => {
-    if (!key) return
-    const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
-    const types: any[] = Reflect.getMetadata('design:paramtypes', target.constructor.prototype, key) || []
+const createPipesRouteParamDecorator
+  = (paramtype: RouteParamtypes) =>
+    (data?: any, ...pipes: (Constructor<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
+      // eslint-disable-next-line complexity
+      (target, key, index) => {
+        if (!key) return
+        const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, target.constructor, key) || {}
+        const types: any[] = Reflect.getMetadata('design:paramtypes', target.constructor.prototype, key) || []
 
-    const hasParamData = isNil(data) || isString(data)
-    const paramData = (hasParamData ? data : undefined) as string
-    const paramPipes = hasParamData ? pipes : [data, ...pipes]
+        const hasParamData = isNil(data) || isString(data)
+        const paramData = (hasParamData ? data : undefined) as string
+        const paramPipes = hasParamData
+          ? pipes
+          : [
+              data,
+              ...pipes,
+            ]
 
-    // if (pipes.length) {
-    //   info(pipes)
-    // }
+        // if (pipes.length) {
+        //   info(pipes)
+        // }
 
-    if (!paramPipes.length && typeof types.at(index) === 'function') {
-      if (types.at(index)?.name === 'Number') {
-        paramPipes.push(DefaultNumberTransformPipe)
+        if (!paramPipes.length && typeof types.at(index) === 'function') {
+          if (types.at(index)?.name === 'Number') {
+            paramPipes.push(DefaultNumberTransformPipe)
+          }
+        }
+
+        Reflect.defineMetadata(
+          ROUTE_ARGS_METADATA,
+          assignMetadata(args, paramtype, index, paramData, ...paramPipes),
+          target.constructor,
+          key,
+        )
       }
-    }
-
-    Reflect.defineMetadata(
-      ROUTE_ARGS_METADATA,
-      assignMetadata(args, paramtype, index, paramData, ...paramPipes),
-      target.constructor,
-      key,
-    )
-  }
 
 const Request: () => ParameterDecorator = createRouteParamDecorator(RouteParamtypes.REQUEST)
 
-const Response: (options?: ResponseDecoratorOptions) => ParameterDecorator =
-  (options?: ResponseDecoratorOptions) => (target, key, index) => {
+const Response: (options?: ResponseDecoratorOptions) => ParameterDecorator
+  = (options?: ResponseDecoratorOptions) => (target, key, index) => {
     if (!key) return
     if (options?.passthrough) {
       Reflect.defineMetadata(RESPONSE_PASSTHROUGH_METADATA, options?.passthrough, target.constructor, key)

@@ -1,5 +1,9 @@
-import type { RemoteFile } from './RemoteFile.js'
-import type { UploadedFile } from './UploadedFile.js'
+import type {
+  RemoteFile,
+} from './RemoteFile.js'
+import type {
+  UploadedFile,
+} from './UploadedFile.js'
 
 export abstract class FileUploader {
   // upload(files: Record<string, File[]>) => Promise<Record<string, string> | undefined>

@@ -1,9 +1,25 @@
-import { existsSync, lstatSync, readFileSync, statSync, writeFileSync } from 'node:fs'
-import { EOL } from 'node:os'
-import { parse, relative, resolve } from 'node:path'
-import { cwd } from 'node:process'
+import {
+  existsSync,
+  lstatSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs'
+import {
+  EOL,
+} from 'node:os'
+import {
+  parse,
+  relative,
+  resolve,
+} from 'node:path'
+import {
+  cwd,
+} from 'node:process'
 
-import { globSync } from 'glob'
+import {
+  globSync,
+} from 'glob'
 
 export interface ParsedFile {
   isDir: boolean
@@ -31,7 +47,7 @@ export class File {
     return new File(path, context)
   }
 
-  static sync(pattern: string, opts?: { nodir?: boolean; cwd?: string; absolute?: boolean }) {
+  static sync(pattern: string, opts?: { nodir?: boolean, cwd?: string, absolute?: boolean }) {
     return globSync(pattern, opts)
   }
 
@@ -42,7 +58,7 @@ export class File {
   isDirectory() {
     try {
       return lstatSync(this.#absolutePath).isDirectory()
-    } catch (err) {
+    } catch {
       return false
     }
   }
@@ -50,7 +66,7 @@ export class File {
   isFile() {
     try {
       return statSync(this.#absolutePath).isFile()
-    } catch (err) {
+    } catch {
       return false
     }
   }
@@ -96,7 +112,9 @@ export class File {
   }
 
   private parse(): ParsedFile {
-    const { dir, base: file, name, ext } = parse(this.#absolutePath)
+    const {
+      dir, base: file, name, ext,
+    } = parse(this.#absolutePath)
     const isDir = this.isDirectory()
     const isFile = this.isFile()
     const path = this.#filePath

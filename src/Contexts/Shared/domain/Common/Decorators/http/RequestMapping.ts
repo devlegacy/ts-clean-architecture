@@ -1,5 +1,10 @@
-import { METHOD_METADATA, PATH_METADATA } from '../../constants.js'
-import { RequestMethod } from '../../enums/index.js'
+import {
+  METHOD_METADATA,
+  PATH_METADATA,
+} from '../../constants.js'
+import {
+  RequestMethod,
+} from '../../enums/index.js'
 
 export interface RequestMappingMetadata {
   path?: string | string[]
@@ -23,14 +28,14 @@ export const RequestMapping = (metadata: RequestMappingMetadata = defaultMetadat
   }
 }
 
-const createMappingDecorator =
-  (method: RequestMethod) =>
-  (path?: string | string[]): MethodDecorator => {
-    return RequestMapping({
-      [PATH_METADATA]: path,
-      [METHOD_METADATA]: method,
-    })
-  }
+const createMappingDecorator
+  = (method: RequestMethod) =>
+    (path?: string | string[]): MethodDecorator => {
+      return RequestMapping({
+        [PATH_METADATA]: path,
+        [METHOD_METADATA]: method,
+      })
+    }
 
 /**
  * Route handler (method) Decorator. Routes HTTP DELETE requests to the specified path.

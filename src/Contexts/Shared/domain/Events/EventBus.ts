@@ -1,5 +1,9 @@
-import { DomainEvent } from './DomainEvent.js'
-import type { DomainEventSubscribers } from './DomainEventSubscribers.js'
+import {
+  DomainEvent,
+} from './DomainEvent.js'
+import type {
+  DomainEventSubscribers,
+} from './DomainEventSubscribers.js'
 
 export abstract class EventBus {
   abstract publish(events: DomainEvent[]): Promise<void>

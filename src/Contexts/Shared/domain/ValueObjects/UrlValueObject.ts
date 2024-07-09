@@ -1,7 +1,13 @@
-import { URL } from 'node:url'
+import {
+  URL,
+} from 'node:url'
 
-import { InvalidArgumentError } from '../index.js'
-import { StringValueObject } from './StringValueObject.js'
+import {
+  InvalidArgumentError,
+} from '../index.js'
+import {
+  StringValueObject,
+} from './StringValueObject.js'
 
 export class UrlValueObject extends StringValueObject {
   constructor(value: string) {

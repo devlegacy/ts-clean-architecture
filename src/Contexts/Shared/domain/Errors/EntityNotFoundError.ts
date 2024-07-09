@@ -1,4 +1,6 @@
-import { DomainError } from './DomainError.js'
+import {
+  DomainError,
+} from './DomainError.js'
 
 // 404
 export class EntityNotFoundError extends DomainError {

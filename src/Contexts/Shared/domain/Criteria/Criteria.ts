@@ -1,5 +1,9 @@
-import { Filters } from './Filters.js'
-import { Order } from './Order.js'
+import {
+  Filters,
+} from './Filters.js'
+import {
+  Order,
+} from './Order.js'
 
 export class Criteria {
   readonly filters: Filters

@@ -1,5 +1,9 @@
-import { DomainEvent } from './Events/index.js'
-import { DomainError } from './index.js'
+import {
+  DomainEvent,
+} from './Events/index.js'
+import {
+  DomainError,
+} from './index.js'
 /**
  * A cluster of associated objects which act as a single unit for the purpose of data changes.
  * Each `Aggregate` has a single root and then a boundary which defines what the `Aggregate` is responsible for.

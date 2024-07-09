@@ -1,9 +1,15 @@
 // Consideramos algoritmos infraestructura?
-import { v4, validate, version } from 'uuid'
+import {
+  v4, validate, version,
+} from 'uuid'
 
 // import { ObjectId } from 'mongodb'
-import { InvalidArgumentError } from '../Errors/index.js'
-import { ValueObject } from './ValueObject.js'
+import {
+  InvalidArgumentError,
+} from '../Errors/index.js'
+import {
+  ValueObject,
+} from './ValueObject.js'
 
 // contener contaminación lo más que se pueda
 // abstract

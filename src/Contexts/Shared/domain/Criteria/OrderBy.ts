@@ -1,4 +1,6 @@
-import { StringValueObject } from '../ValueObjects/index.js'
+import {
+  StringValueObject,
+} from '../ValueObjects/index.js'
 
 export class OrderBy extends StringValueObject {
   constructor(value: string) {

@@ -1,7 +1,16 @@
-import { InvalidArgumentError } from '../Errors/index.js'
-import { FilterField } from './FilterField.js'
-import { FilterOperator, type FilterOperatorKeys } from './FilterOperator.js'
-import { FilterValue } from './FilterValue.js'
+import {
+  InvalidArgumentError,
+} from '../Errors/index.js'
+import {
+  FilterField,
+} from './FilterField.js'
+import {
+  FilterOperator,
+  type FilterOperatorKeys,
+} from './FilterOperator.js'
+import {
+  FilterValue,
+} from './FilterValue.js'
 
 export type FilterPrimitiveType = Primitives<Filter>
 type FilterPrimitiveTypeKeys = keyof FilterPrimitiveType
@@ -40,11 +49,22 @@ export class Filter {
   static parse(params: FilterPrimitiveType[]): FilterValueType[] {
     if (!params) return new Array<FilterValueType>()
 
-    const filters = params.map(({ field, value, operator }) => {
+    const filters = params.map(({
+      field, value, operator,
+    }) => {
       const filter = new Map<FilterPrimitiveTypeKeys, string | number>([
-        ['field', field],
-        ['operator', operator],
-        ['value', value],
+        [
+          'field',
+          field,
+        ],
+        [
+          'operator',
+          operator,
+        ],
+        [
+          'value',
+          value,
+        ],
       ])
 
       return filter

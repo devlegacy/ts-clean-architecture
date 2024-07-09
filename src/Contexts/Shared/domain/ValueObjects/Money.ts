@@ -1,4 +1,6 @@
-import { InvalidArgumentError } from '../Errors/index.js'
+import {
+  InvalidArgumentError,
+} from '../Errors/index.js'
 
 export class Money {
   static locales: Record<string, string> = {
@@ -6,6 +8,7 @@ export class Money {
     INR: 'en-IN',
     EUR: 'de-DE',
   }
+
   readonly amount: number
   readonly currency: string
   readonly format: string

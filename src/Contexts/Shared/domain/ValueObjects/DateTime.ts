@@ -1,4 +1,6 @@
-import { ValueObject } from './ValueObject.js'
+import {
+  ValueObject,
+} from './ValueObject.js'
 
 export class DateTime extends ValueObject<Date> {
   constructor(value: Date) {
@@ -34,7 +36,9 @@ export class DateTime extends ValueObject<Date> {
   }
 
   toISO8601() {
-    const [date] = this.value.toISOString().split('T')
+    const [
+      date,
+    ] = this.value.toISOString().split('T')
 
     return date
   }
