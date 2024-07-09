@@ -97,7 +97,6 @@ const typescriptRules = {
   'no-use-before-define': 'off',
   '@typescript-eslint/no-use-before-define': 'error',
 }
-
 const stylisticCustomConfig = stylistic.configs.customize({
   jsx: false,
   arrowParens: true,
@@ -264,6 +263,7 @@ const tseslintConfig = tseslint.config(
     ],
     rules: {
       '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 )
@@ -280,7 +280,7 @@ const stylisticConfig = [
     ],
     rules: {
       // REVIEW: Assess the usefulness of this rule with the current configuration.
-      '@stylistic/function-call-argument-newline': 'off',
+      // '@stylistic/function-call-argument-newline': 'off',
     },
   },
 ]

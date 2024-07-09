@@ -9,8 +9,8 @@ const {
 const config = configLoader.load() || {}
 const options = {
   ...config,
-  maxLineWidth: config.maxHeaderWidth || 100,
-  maxHeaderWidth: config.maxLineWidth || 100,
+  maxLineWidth: config.maxLineWidth || 100,
+  maxHeaderWidth: config.maxHeaderWidth || 100,
 }
 
 // TIP: type + scope + short description = 100
@@ -19,8 +19,8 @@ module.exports = engine({
   types: {
     ...types,
     wip: {
-      description: 'A word in progress feature',
-      title: 'Word in progress',
+      description: 'A work in progress feature',
+      title: 'Work in progress',
     },
   },
 })

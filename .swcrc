@@ -21,7 +21,9 @@
     }
   },
   "module": {
-    "type": "es6"
+    "type": "es6",
+    "strict": true,
+    "noInterop": false
   },
   "sourceMaps": true,
   "exclude": ["node_modules", "dist"],

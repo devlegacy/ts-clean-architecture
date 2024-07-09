@@ -29,13 +29,17 @@ const config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['<rootDir>/src/***/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/src/***/*.ts',
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['/node_modules/'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+  ],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
@@ -97,15 +101,23 @@ const config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     // https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
-    '^@/apps/(.*)\\.js$': ['<rootDir>/src/apps/$1'],
-    '^@/Contexts/(.*)\\.js$': ['<rootDir>/src/Contexts/$1'],
-    '^@/tests/(.*)\\.js$': ['<rootDir>/tests/$1'],
+    '^@/apps/(.*)\\.js$': [
+      '<rootDir>/src/apps/$1',
+    ],
+    '^@/Contexts/(.*)\\.js$': [
+      '<rootDir>/src/Contexts/$1',
+    ],
+    '^@/tests/(.*)\\.js$': [
+      '<rootDir>/tests/$1',
+    ],
     // jest esm
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: ['<rootDir>/.*/__mocks__'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/.*/__mocks__',
+  ],
 
   // Activates notifications for test results
   // notify: false,
@@ -137,7 +149,9 @@ const config = {
   // rootDir: undefined,
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ['<rootDir>'],
+  roots: [
+    '<rootDir>',
+  ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -146,7 +160,9 @@ const config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.mjs'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.mjs',
+  ],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -168,10 +184,14 @@ const config = {
   //   "**/__tests__/**/*.[jt]s?(x)",
   //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
-  testMatch: ['**/?(*.)+(jest).+(test).+(ts)'],
+  testMatch: [
+    '**/?(*.)+(jest).+(test).+(ts)',
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  testPathIgnorePatterns: ['/node_modules/'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+  ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
@@ -183,7 +203,9 @@ const config = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  extensionsToTreatAsEsm: ['.ts'],
+  extensionsToTreatAsEsm: [
+    '.ts',
+  ],
   // transform: {
   //   '^.+\\.m?[tj]sx?$': [
   //     'ts-jest',
@@ -203,7 +225,9 @@ const config = {
     '^.+\\.ts$': '@swc/jest',
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/',
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

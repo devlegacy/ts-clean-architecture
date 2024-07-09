@@ -12,8 +12,8 @@ export default {
       'always',
       [
         ...typeEnums,
-        // 'imp',
-        // 'update',
+        // 'imp', // REVIEW: Implement
+        // 'update', // REVIEW: Implement
         'wip',
       ],
     ],
