@@ -1,19 +1,36 @@
-// /// <reference types="../../../../../../types"/>
+import {
+  AfterAll,
+  BeforeAll,
+  setDefaultTimeout,
+} from '@cucumber/cucumber'
+import supertest, {
+  type Test,
+} from 'supertest'
+import type TestAgent from 'supertest/lib/agent.js'
 
-import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber'
-import supertest, { type SuperTest, type Test } from 'supertest'
-
-import { BackofficeBackendApp } from '@/apps/backoffice/backend/BackofficeBackendApp.js'
-import { ConfigureRabbitMQCommand } from '@/apps/backoffice/backend/command/ConfigureRabbitMQCommand.js'
-import { container } from '@/apps/backoffice/modules/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
-import { wait } from '@/tests/Contexts/Shared/domain/index.js'
-import { EnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
+import {
+  BackofficeBackendApp,
+} from '#@/src/apps/backoffice/backend/BackofficeBackendApp.js'
+import {
+  ConfigureRabbitMQCommand,
+} from '#@/src/apps/backoffice/backend/command/ConfigureRabbitMQCommand.js'
+import {
+  container,
+} from '#@/src/apps/backoffice/modules/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  wait,
+} from '#@/tests/Contexts/Shared/domain/index.js'
+import {
+  EnvironmentArranger,
+} from '#@/tests/Contexts/Shared/infrastructure/index.js'
 
 const application = new BackofficeBackendApp()
 // const moocBackendApp = new MoocBackendApp()
 
-let api: SuperTest<Test>
+let api: TestAgent<Test>
 const environmentArranger = container.get<EnvironmentArranger>(EnvironmentArranger)
 const eventBus = container.get<EventBus>(EventBus)
 setDefaultTimeout(60 * 1000)
@@ -27,10 +44,10 @@ BeforeAll(
 
     // await moocBackendApp.start()
     await application.start()
-    api = supertest(application.httpServer)
+    api = supertest(application.httpServer!)
     await wait(1000)
     await environmentArranger.arrange()
-  }
+  },
 )
 
 AfterAll(async () => {
@@ -47,4 +64,9 @@ AfterAll(async () => {
   }, 0)
 })
 
-export { api, application, environmentArranger, eventBus }
+export {
+  api,
+  application,
+  environmentArranger,
+  eventBus
+}

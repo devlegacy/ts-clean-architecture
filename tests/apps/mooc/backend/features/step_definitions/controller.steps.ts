@@ -1,11 +1,17 @@
-// /// <reference types="../../../../../../types"/>
+import assert from 'node:assert/strict'
 
-import assert from 'node:assert'
+import {
+  Then,
+  When,
+} from '@cucumber/cucumber'
+import type {
+  Response,
+  Test,
+} from 'supertest'
 
-import { Then, When } from '@cucumber/cucumber'
-import type { Response, Test } from 'supertest'
-
-import { api } from './hooks.steps.js'
+import {
+  api,
+} from './hooks.steps.js'
 
 let request: Test
 let response: Response
