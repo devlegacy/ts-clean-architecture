@@ -14,7 +14,7 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   name: 'BackofficeCourse',

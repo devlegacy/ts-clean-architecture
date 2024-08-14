@@ -16,7 +16,7 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
 // https://mikro-orm.io/docs/entity-schema#configuration-reference
 export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({

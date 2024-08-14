@@ -68,7 +68,7 @@ const __dirname = fileURLToPath(new URL(
 const context = 'mooc'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = await MikroOrmMongoClientFactory.createClient(
+const connectionClient = MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
   resolve(`${__dirname}/../../../../Contexts/Mooc`),
