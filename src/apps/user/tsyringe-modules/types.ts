@@ -1,4 +1,6 @@
-import { SHARED_TYPES } from '@/Contexts/Shared/domain/index.js'
+import {
+  SHARED_TYPES,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export const TYPES = {
   ...SHARED_TYPES,

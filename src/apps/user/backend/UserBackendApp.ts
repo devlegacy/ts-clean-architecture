@@ -14,7 +14,7 @@ export class UserBackendApp {
   async start() {
     const port = 8087
     this.#server = new Server(port)
-    return await this.#server.listen()
+    await this.#server.listen()
   }
 
   stop() {
