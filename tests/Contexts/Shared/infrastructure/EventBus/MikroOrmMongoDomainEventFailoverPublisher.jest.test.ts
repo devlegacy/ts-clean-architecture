@@ -1,4 +1,11 @@
 import {
+  describe,
+  expect,
+  it,
+  jest,
+} from '@jest/globals'
+
+import {
   MikroOrmMongoDomainEventFailoverPublisher,
 } from '#@/src/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
 
@@ -7,7 +14,7 @@ import {
 } from '../mikroorm/MikroOrmMongoEnvironmentArranger.js'
 import {
   DomainEventDummyMother,
-} from './__mocks__/index.js'
+} from './__mocks__/DomainEventDummyMother.js'
 import {
   DomainEventDeserializerMother,
 } from './__mother__/DomainEventDeserializerMother.js'

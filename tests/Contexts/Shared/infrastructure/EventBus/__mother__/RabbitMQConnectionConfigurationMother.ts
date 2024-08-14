@@ -11,7 +11,9 @@ export class RabbitMQConnectionConfigurationMother {
           port: 5672,
         },
       },
-      exchangeSettings: { name: '' },
+      exchangeSettings: {
+        name: '',
+      },
     }
   }
 }

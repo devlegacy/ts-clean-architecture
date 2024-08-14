@@ -1,15 +1,17 @@
 /**
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
+ * https://stackoverflow.com/questions/73038879/use-jest-with-typescript-esm-and-aliases
  */
-// https://stackoverflow.com/questions/73038879/use-jest-with-typescript-esm-and-aliases
-// const fs = require('node:fs')
-// const JSON5 = require('json5')
 
 // const { pathsToModuleNameMapper } = require('ts-jest')
 // const { compilerOptions } = JSON5.parse(fs.readFileSync('./tsconfig.json', 'utf8'))
 // console.log(compilerOptions.baseUrl)
 // console.log(pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }))
+
+const __dirname = new URL('.', import.meta.url).pathname
+
+// const swcConfig = JSON.parse(readFileSync(`${__dirname}/.swcrc`, 'utf-8'))
 
 /** @type {import('jest').Config} */
 const config = {
@@ -93,24 +95,15 @@ const config = {
     //   "cjs",
     //   "jsx",
     'ts',
-    //   "tsx",
-    //   "json",
-    //   "node"
+  //   "tsx",
+  //   "json",
+  //   "node"
   ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     // https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
-    '^@/apps/(.*)\\.js$': [
-      '<rootDir>/src/apps/$1',
-    ],
-    '^@/Contexts/(.*)\\.js$': [
-      '<rootDir>/src/Contexts/$1',
-    ],
-    '^@/tests/(.*)\\.js$': [
-      '<rootDir>/tests/$1',
-    ],
-    // jest esm
+    // jest esm support
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 
@@ -126,7 +119,8 @@ const config = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: 'ts-jest/presets/default-esm',
+  // preset: undefined,
+
   // Run tests from one or more projects
   // projects: undefined,
 
@@ -157,12 +151,12 @@ const config = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
-
-  // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: [
+  setupFiles: [
     '<rootDir>/jest.setup.mjs',
   ],
+
+  // A list of paths to modules that run some code to configure or set up the testing framework before each test
+  // setupFilesAfterEnv: [],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -180,14 +174,9 @@ const config = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
-  // ],
   testMatch: [
     '**/?(*.)+(jest).+(test).+(ts)',
   ],
-
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
     '/node_modules/',
@@ -201,32 +190,25 @@ const config = {
 
   // This option allows use of a custom test runner
   // testRunner: "jest-circus/runner",
-
-  // A map from regular expressions to paths to transformers
   extensionsToTreatAsEsm: [
     '.ts',
   ],
-  // transform: {
-  //   '^.+\\.m?[tj]sx?$': [
-  //     'ts-jest',
-  //     {
-  //       diagnostics: true,
-  //       tsconfig: 'tsconfig.json',
-  //       // isolatedModules: true,
-  //       // module: 'NodeNext',
-  //       useESM: true,
-  //       compiler: 'typescript',
-  //     },
-  //   ],
-  // },
+
+  // A map from regular expressions to paths to transformers
   // TODO: Read about @swc/jest and MikroORM
   // TODO: Read about jest-junit
   transform: {
-    '^.+\\.ts$': '@swc/jest',
+    '^.+\\.(t|j)s$': [
+      '@swc/jest',
+      {
+        // ...swcConfig,
+      },
+    ],
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
     '<rootDir>/node_modules/',
+    '\\.pnp\\.[^\\/]+$',
   ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them

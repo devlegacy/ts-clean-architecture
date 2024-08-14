@@ -1,15 +1,32 @@
 // import { jest } from '@jest/globals'
 // node --test --loader=ts-paths-esm-loader/transpile-only ./tests/Contexts/User/Users/application/Register/UserRegister.test.ts
+// NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" npx jest --config ./jest.config.mjs
 import assert from 'node:assert/strict'
-import { describe, it, mock } from 'node:test'
+import {
+  describe,
+  it,
+  mock,
+} from 'node:test'
 
-import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
-import { UserId } from '@/Contexts/User/Shared/domain/index.js'
-import { UserRegister } from '@/Contexts/User/Users/application/index.js'
-import { User } from '@/Contexts/User/Users/domain/index.js'
-import { InMemoryUserRepository } from '@/Contexts/User/Users/infrastructure/index.js'
+import {
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  UserId,
+} from '#@/src/Contexts/User/Shared/domain/index.js'
+import {
+  UserRegister,
+} from '#@/src/Contexts/User/Users/application/index.js'
+import {
+  User,
+} from '#@/src/Contexts/User/Users/domain/index.js'
+import {
+  InMemoryUserRepository,
+} from '#@/src/Contexts/User/Users/infrastructure/index.js'
 
-import { UserMother } from '../../domain/index.js'
+import {
+  UserMother,
+} from '../../domain/index.js'
 
 const validEmail = 'validemail@gmail.com'
 const validName = 'Samuel'
@@ -30,7 +47,6 @@ const validJobExperience = [
 ]
 
 // https://github.com/CodelyTV/value_objects-course/blob/main/03-value_objects_beyond/1-testing/3-with_all_object_mothers/tests/users/application/UserRegistrar.test.ts
-
 describe('UserRegistrar', () => {
   it('registers a user without throwing errors when all data is valid', async () => {
     const repository = new InMemoryUserRepository()

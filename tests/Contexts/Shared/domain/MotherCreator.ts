@@ -1,5 +1,6 @@
 import {
-  Faker, faker,
+  Faker,
+  faker,
 } from '@faker-js/faker'
 
 export class MotherCreator {

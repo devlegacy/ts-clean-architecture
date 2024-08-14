@@ -18,7 +18,7 @@ import {
 } from '../../Shared/index.js'
 import {
   JestCourseRepositoryMock,
-} from '../__mocks__/index.js'
+} from '../__mocks__/JestCourseRepositoryMock.js'
 import {
   CourseCreatedDomainEventMother,
   CourseMother,

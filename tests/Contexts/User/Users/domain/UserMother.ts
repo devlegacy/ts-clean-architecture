@@ -1,9 +1,19 @@
-import { User, type UserPrimitiveType } from '@/Contexts/User/Users/domain/index.js'
-import { MotherCreator } from '@/tests/Contexts/Shared/domain/index.js'
+import {
+  User, type UserPrimitiveType,
+} from '#@/src/Contexts/User/Users/domain/index.js'
+import {
+  MotherCreator,
+} from '#@/tests/Contexts/Shared/domain/index.js'
 
-import { UserBirthdateMother } from './UserBirthdateMother.js'
-import { UserEmailMother } from './UserEmailMother.js'
-import { UserIdMother } from './UserIdMother.js'
+import {
+  UserBirthdateMother,
+} from './UserBirthdateMother.js'
+import {
+  UserEmailMother,
+} from './UserEmailMother.js'
+import {
+  UserIdMother,
+} from './UserIdMother.js'
 
 /**
  * Factory to (instantiate responsibility) create (new objects) User entities
@@ -41,7 +51,7 @@ export class UserMother {
       defaultParams.username,
       defaultParams.email,
       defaultParams.birthdate,
-      defaultParams.jobExperiences
+      defaultParams.jobExperiences,
     )
   }
   // static genZ() { .... }

@@ -1,4 +1,11 @@
 import {
+  describe,
+  expect,
+  it,
+  jest,
+} from '@jest/globals'
+
+import {
   DomainEvent,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
@@ -19,8 +26,11 @@ import {
   MikroOrmMongoEnvironmentArranger,
 } from '../mikroorm/MikroOrmMongoEnvironmentArranger.js'
 import {
-  DomainEventDummyMother, DomainEventSubscriberDummy,
-} from './__mocks__/index.js'
+  DomainEventDummyMother,
+} from './__mocks__/DomainEventDummyMother.js'
+import {
+  DomainEventSubscriberDummy,
+} from './__mocks__/DomainEventSubscriberDummy.js'
 import {
   DomainEventFailoverPublisherMother,
   RabbitMQConnectionMother,

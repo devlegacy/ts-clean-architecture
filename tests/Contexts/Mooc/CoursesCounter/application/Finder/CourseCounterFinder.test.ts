@@ -11,7 +11,7 @@ import {
 
 import {
   CoursesCounterRepositoryMock,
-} from '../../__mocks__/index.js'
+} from '../../__mocks__/CoursesCounterRepositoryMock.js'
 import {
   CoursesCounterMother,
 } from '../../domain/index.js'

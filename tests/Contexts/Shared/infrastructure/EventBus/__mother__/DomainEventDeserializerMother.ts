@@ -1,14 +1,18 @@
 import {
   DomainEventDeserializer,
   DomainEventSubscriberResolver,
-} from '@/Contexts/Shared/infrastructure/EventBus/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/index.js'
 
-import { DomainEventSubscriberDummy } from '../__mocks__/index.js'
+import {
+  DomainEventSubscriberDummy,
+} from '../__mocks__/DomainEventSubscriberDummy.js'
 
 export class DomainEventDeserializerMother {
   static create() {
     const dummySubscriber = new DomainEventSubscriberDummy()
-    const subscribers = new DomainEventSubscriberResolver([dummySubscriber])
+    const subscribers = new DomainEventSubscriberResolver([
+      dummySubscriber,
+    ])
     return DomainEventDeserializer.configure(subscribers)
   }
 }

@@ -1,8 +1,16 @@
-import { MikroOrmMongoDomainEventFailoverPublisher } from '@/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
+import {
+  MikroOrmMongoDomainEventFailoverPublisher,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/DomainEventFailoverPublisher/index.js'
 
-import { DomainEventFailoverPublisherDouble } from '../__mocks__/index.js'
-import { DomainEventDeserializerMother } from './DomainEventDeserializerMother.js'
-import { RabbitMQMikroOrmMongoClientMother } from './RabbitMQMikroOrmMongoClientMother.js'
+import {
+  DomainEventFailoverPublisherDouble,
+} from '../__mocks__/DomainEventFailoverPublisherDouble.js'
+import {
+  DomainEventDeserializerMother,
+} from './DomainEventDeserializerMother.js'
+import {
+  RabbitMQMikroOrmMongoClientMother,
+} from './RabbitMQMikroOrmMongoClientMother.js'
 
 export class DomainEventFailoverPublisherMother {
   static create() {

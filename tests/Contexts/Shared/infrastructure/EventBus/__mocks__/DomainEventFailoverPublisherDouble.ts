@@ -1,4 +1,8 @@
 import {
+  jest,
+} from '@jest/globals'
+
+import {
   DomainEvent,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {

@@ -13,7 +13,7 @@ import {
 } from '../../../Shared/index.js'
 import {
   CoursesCounterRepositoryMock,
-} from '../../__mocks__/index.js'
+} from '../../__mocks__/CoursesCounterRepositoryMock.js'
 import {
   CoursesCounterIncrementedDomainEventMother,
   CoursesCounterMother,

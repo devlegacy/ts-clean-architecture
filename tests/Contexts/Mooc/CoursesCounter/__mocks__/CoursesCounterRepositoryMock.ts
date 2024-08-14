@@ -4,7 +4,8 @@ import {
 } from '@jest/globals'
 
 import {
-  CoursesCounter, CoursesCounterRepository,
+  CoursesCounter,
+  CoursesCounterRepository,
 } from '#@/src/Contexts/Mooc/CoursesCounter/domain/index.js'
 
 export class CoursesCounterRepositoryMock implements CoursesCounterRepository {

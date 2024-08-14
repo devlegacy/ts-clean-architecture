@@ -2,13 +2,25 @@
 
 // node --test --loader=ts-paths-esm-loader/transpile-only ./tests/Contexts/User/Users/application/Register/UserEmailUpdater.test.ts
 import assert from 'node:assert/strict'
-import { describe, it, mock } from 'node:test'
+import {
+  describe, it, mock,
+} from 'node:test'
 
-import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
-import { UserId } from '@/Contexts/User/Shared/domain/index.js'
-import { UserEmailUpdater } from '@/Contexts/User/Users/application/index.js'
-import { User, UserDoesNotExistError } from '@/Contexts/User/Users/domain/index.js'
-import { InMemoryUserRepository } from '@/Contexts/User/Users/infrastructure/index.js'
+import {
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  UserId,
+} from '#@/src/Contexts/User/Shared/domain/index.js'
+import {
+  UserEmailUpdater,
+} from '#@/src/Contexts/User/Users/application/index.js'
+import {
+  User, UserDoesNotExistError,
+} from '#@/src/Contexts/User/Users/domain/index.js'
+import {
+  InMemoryUserRepository,
+} from '#@/src/Contexts/User/Users/infrastructure/index.js'
 
 const validName = 'Samuel'
 const validUsername = 'jst.samuel'
@@ -63,7 +75,7 @@ describe('UserEmailUpdater', () => {
     // await expect(async () => await userEmailUpdater.run(oldEmail, newEmail)).rejects.toThrow(UserDoesNotExistError)
     await assert.rejects(async () => await userEmailUpdater.run(oldEmail, newEmail), UserDoesNotExistError)
     // expect(repositorySave).not.toHaveBeenCalled()
-    assert.equal(repositorySave.mock.calls.length, 0) //.not.toHaveBeenCalled()
+    assert.equal(repositorySave.mock.calls.length, 0) // .not.toHaveBeenCalled()
   })
 
   it('throws an error if the new email is invalid', async () => {

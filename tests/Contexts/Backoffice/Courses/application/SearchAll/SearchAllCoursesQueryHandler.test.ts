@@ -6,7 +6,7 @@ import {
 
 import {
   BackofficeCourseRepositoryMock,
-} from '../../__mocks__/index.js'
+} from '../../__mocks__/BackofficeCourseRepositoryMock.js'
 import {
   BackofficeCourseMother,
   SearchAllCoursesResponseMother,

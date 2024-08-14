@@ -2,10 +2,6 @@ import {
   DomainEvent,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-import {
-  ObjectIdMother,
-} from '../../../domain/index.js'
-
 export class DomainEventDummy extends DomainEvent {
   static override readonly EVENT_NAME = 'dummy'
 
@@ -39,15 +35,5 @@ export class DomainEventDummy extends DomainEvent {
 
   toPrimitives() {
     return {}
-  }
-}
-
-export class DomainEventDummyMother {
-  static random() {
-    return new DomainEventDummy({
-      aggregateId: ObjectIdMother.random(),
-      eventId: ObjectIdMother.random(),
-      occurredOn: new Date(),
-    })
   }
 }
