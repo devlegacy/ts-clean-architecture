@@ -1,6 +1,8 @@
 import '../modules/index.js'
 
-import { GraphQL } from './GraphQL.js'
+import {
+  GraphQL,
+} from './GraphQL.js'
 
 export class UserGraphQLApp {
   graphQL?: GraphQL

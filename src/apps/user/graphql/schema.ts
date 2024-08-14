@@ -1,8 +1,16 @@
-import { readdirSync, readFileSync } from 'node:fs'
-import { join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import {
+  readdirSync, readFileSync,
+} from 'node:fs'
+import {
+  join,
+} from 'node:path'
+import {
+  fileURLToPath,
+} from 'node:url'
 
-import { type IExecutableSchemaDefinition, makeExecutableSchema } from '@graphql-tools/schema'
+import {
+  type IExecutableSchemaDefinition, makeExecutableSchema,
+} from '@graphql-tools/schema'
 
 import resolvers from './resolvers/index.js'
 

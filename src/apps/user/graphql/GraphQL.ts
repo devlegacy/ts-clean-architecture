@@ -1,9 +1,19 @@
-import { ApolloServer, type BaseContext } from '@apollo/server'
-import fastifyApollo, { fastifyApolloDrainPlugin } from '@as-integrations/fastify'
-import type { FastifyInstance } from 'fastify'
-import type { AddressInfo } from 'net'
+import {
+  ApolloServer, type BaseContext,
+} from '@apollo/server'
+import fastifyApollo, {
+  fastifyApolloDrainPlugin,
+} from '@as-integrations/fastify'
+import type {
+  FastifyInstance,
+} from 'fastify'
+import type {
+  AddressInfo,
+} from 'net'
 
-import { FastifyAdapter } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
+import {
+  FastifyAdapter,
+} from '#@/src/Contexts/Shared/infrastructure/Fastify/index.js'
 
 import schema from './schema.js'
 
@@ -22,7 +32,9 @@ export class GraphQL {
 
     this.#apolloServer = new ApolloServer<BaseContext>({
       schema,
-      plugins: [fastifyApolloDrainPlugin(this.#app)],
+      plugins: [
+        fastifyApolloDrainPlugin(this.#app),
+      ],
     })
   }
 

@@ -1,8 +1,14 @@
 // import { container } from 'tsyringe'
 
-import { container } from '@/apps/user/modules/index.js'
-import { ObjectId } from '@/Contexts/Shared/domain/index.js'
-import { UserCreator } from '@/Contexts/User/Users/application/index.js'
+import {
+  container,
+} from '#@/src/apps/user/modules/index.js'
+import {
+  ObjectId,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  UserCreator,
+} from '#@/src/Contexts/User/Users/application/index.js'
 
 const userMutations = {
   createUser: async (_: any, args: any) => {
@@ -11,7 +17,9 @@ const userMutations = {
     const userCreator = container.get(UserCreator)
 
     const {
-      user: { username, age, name },
+      user: {
+        username, age, name,
+      },
     } = args
 
     const user = {

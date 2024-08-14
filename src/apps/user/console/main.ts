@@ -1,21 +1,35 @@
 import 'reflect-metadata'
 
-import { faker } from '@faker-js/faker'
-import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
+import {
+  faker,
+} from '@faker-js/faker'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoDriver,
+} from '@mikro-orm/mongodb'
 
 // import { container } from 'tsyringe'
-import { error, info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  error, info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 import {
   UserCreator,
   UserDeleter,
   UserEmailUpdater,
   UserSearcherAll,
   UserUpdater,
-} from '@/Contexts/User/Users/application/index.js'
-import { UserAlreadyExistsError, type UserPrimitiveType, UserRepository } from '@/Contexts/User/Users/domain/index.js'
+} from '#@/src/Contexts/User/Users/application/index.js'
+import {
+  UserAlreadyExistsError,
+  type UserPrimitiveType,
+  UserRepository,
+} from '#@/src/Contexts/User/Users/domain/index.js'
 
-import { container } from '../modules/index.js'
+import {
+  container,
+} from '../modules/index.js'
 
 // import { TYPES } from '../modules/types'
 
@@ -26,7 +40,7 @@ const userRequest: UserPrimitiveType = {
   id,
   // name: 'Samuel',
   name: faker.person.fullName(),
-  // username: 'jst.samuel'
+  // username: 'jstsamuel'
   username: faker.internet.userName(),
   // birthdate: faker.date.past({ years: 20 }),
   birthdate: faker.date.birthdate({
@@ -34,7 +48,9 @@ const userRequest: UserPrimitiveType = {
     min: 10,
     max: 110,
   }),
-  email: faker.internet.email({ provider: 'gmail.com' }),
+  email: faker.internet.email({
+    provider: 'gmail.com',
+  }),
   // jobExperiences: [],
   jobExperiences: [
     {
@@ -54,13 +70,17 @@ const patchUserRequest: Partial<UserPrimitiveType> = {
   // id: '63312922a9f759eabbb1a161',
   id,
   name: `Samuel ${new Date()}`,
-  email: faker.internet.email({ provider: 'gmail.com' }),
+  email: faker.internet.email({
+    provider: 'gmail.com',
+  }),
 }
 
 const updateUserRequest: UserPrimitiveType = {
   ...userRequest,
   name: `Samuel ${new Date().toISOString()}`,
-  email: faker.internet.email({ provider: 'gmail.com' }),
+  email: faker.internet.email({
+    provider: 'gmail.com',
+  }),
 }
 
 try {
@@ -108,6 +128,7 @@ try {
 
   await mongoClient.close()
 } catch (e) {
+  // eslint-disable-next-line no-console
   console.error(e)
 }
 // node --trace-warnings --watch --loader ts-paths-esm-loader/transpile-only ./src/

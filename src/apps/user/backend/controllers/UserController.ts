@@ -1,8 +1,28 @@
-import { Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Req } from '@/Contexts/Shared/domain/Common/index.js'
-import type { Request } from '@/Contexts/Shared/infrastructure/Fastify/index.js'
-import { UserId } from '@/Contexts/User/Shared/domain/index.js'
-import { UserCreator, UserDeleter, UserSearcherAll, UserUpdater } from '@/Contexts/User/Users/application/index.js'
-import { UserFinder } from '@/Contexts/User/Users/domain/index.js'
+import {
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Put,
+  Req,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import type {
+  Request,
+} from '#@/src/Contexts/Shared/infrastructure/Fastify/index.js'
+import {
+  UserId,
+} from '#@/src/Contexts/User/Shared/domain/index.js'
+import {
+  UserCreator,
+  UserDeleter,
+  UserSearcherAll,
+  UserUpdater,
+} from '#@/src/Contexts/User/Users/application/index.js'
+import {
+  UserFinder,
+} from '#@/src/Contexts/User/Users/domain/index.js'
 
 @Controller('users')
 export class UserController {
@@ -28,7 +48,9 @@ export class UserController {
 
   @Get(':id')
   async show(@Req() req: Request<{ Params: { id: string } }>) {
-    const { id } = req.params
+    const {
+      id,
+    } = req.params
     const user = await this.userFinder.run(id)
     // res.code(200)
     return {
@@ -68,12 +90,14 @@ export class UserController {
   async update(
     @Req()
     req: Request<{
-      Body: { id?: string; username: string; age: number; name: string }
+      Body: { id?: string, username: string, age: number, name: string }
       Params: { id: string }
     }>,
   ) {
     // const userUpdater = new UserUpdater(userRepository)
-    const { id } = req.params
+    const {
+      id,
+    } = req.params
 
     // res.code(HttpStatus.OK)
 
@@ -81,7 +105,7 @@ export class UserController {
       id,
       ...req.body,
     }
-    await this.userUpdater.run(user as any)
+    await this.userUpdater.run(user)
 
     return user
   }
@@ -89,7 +113,9 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @Delete(':id')
   async delete(@Req() req: Request<{ Params: { id: string } }>) {
-    const { id } = req.params
+    const {
+      id,
+    } = req.params
 
     // const userDeleter = new UserDeleter(userRepository)
 

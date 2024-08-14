@@ -1,9 +1,15 @@
 import 'reflect-metadata'
 
-import { FatalErrorHandler } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  FatalErrorHandler,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { container } from '../modules/index.js'
-import { UserBackendApp } from './UserBackendApp.js'
+import {
+  container,
+} from '../modules/index.js'
+import {
+  UserBackendApp,
+} from './UserBackendApp.js'
 
 // const { container } = await import('../modules/index.js')
 const fatalErrorHandler = container.get(FatalErrorHandler)

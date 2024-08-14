@@ -1,5 +1,9 @@
-import { container } from '@/apps/user/modules/index.js'
-import { UserSearcherAll } from '@/Contexts/User/Users/application/index.js'
+import {
+  container,
+} from '#@/src/apps/user/modules/index.js'
+import {
+  UserSearcherAll,
+} from '#@/src/Contexts/User/Users/application/index.js'
 
 const userQueries = {
   user: async (_: any, _args: any) => {

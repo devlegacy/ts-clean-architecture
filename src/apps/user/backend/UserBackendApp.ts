@@ -1,6 +1,8 @@
 import '../modules/index.js'
 
-import { Server } from './Server.js'
+import {
+  Server,
+} from './Server.js'
 
 export class UserBackendApp {
   #server?: Server
