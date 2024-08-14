@@ -1,6 +1,4 @@
-#!/usr/bin/env sh
-
-COLORS_PATH=$(dirname "$0")/../.bin/colors.sh
+COLORS_PATH=$(dirname "$0")/../.etc/bin/colors
 [ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
 
 is_commit_available="$(git rev-list -n 1 --all)"

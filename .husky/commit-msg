@@ -1,12 +1,9 @@
-#!/usr/bin/env sh
+COLORS_PATH=$(dirname "$0")/../.etc/bin/colors
 
-COLORS_PATH=$(dirname "$0")/../.bin/colors.sh
 [ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
 
-commit_message="$(cat $1)"
-
 echo "${COLOR_YELLOW}Validating commit message 💬...${COLOR_RESET}"
-if npx --no-install commitlint --edit "${1}"; then
+if npx --no -- commitlint --edit "${1}"; then
   echo "${COLOR_GREEN}✅ Commit message passed checks, you can do your commit 🚀.${COLOR_RESET}"
 else
   echo "${COLOR_RED}❌ Commit message failed. Please revise your commit message according to the project's commit message guidelines.${COLOR_RESET}"

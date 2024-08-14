@@ -1,6 +1,4 @@
-#!/usr/bin/env sh
-
-COLORS_PATH=$(dirname "$0")/../.bin/colors.sh
+COLORS_PATH=$(dirname "$0")/../.etc/bin/colors
 [ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
 
 # Obtén el nombre de la rama actual

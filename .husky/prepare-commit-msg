@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 #
 # https://github.com/commitizen/cz-cli/issues/934 ⚠️
 # exec < /dev/tty && npx --no-install git-cz --hook || true
