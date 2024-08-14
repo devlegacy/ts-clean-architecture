@@ -108,8 +108,9 @@ export abstract class MikroOrmMongoClientFactory {
 //   {
 //     url: 'mongodb://127.0.0.1:27017/mooc',
 //   },
-//   resolve(cwd(), './src/Contexts/User/')
+//   resolve(cwd(), './src/Contexts/User/'),
 // ).then(async (orm) => {
+//   // eslint-disable-next-line no-console
 //   console.log(orm)
 //   // const r = orm.em.fork().getRepository(CourseEntity)
 //   // console.log(r)
