@@ -1,7 +1,14 @@
-import { MongoClient, type MongoClientOptions } from 'mongodb'
+import {
+  MongoClient,
+  type MongoClientOptions,
+} from 'mongodb'
 
-import { info } from '../../Logger/index.js'
-import type { MongoConfig } from './MongoConfig.js'
+import {
+  info,
+} from '../../Logger/index.js'
+import type {
+  MongoConfig,
+} from './MongoConfig.js'
 
 export class MongoClientFactory {
   // poll connections
@@ -31,7 +38,10 @@ export class MongoClientFactory {
 
     // DEBT: Review
     // Read more on: https://www.mongodb.com/docs/drivers/node/current/fundamentals/logging/
-    client.on('commandStarted', info).on('commandSucceeded', info).on('commandFailed', info)
+    client
+      .on('commandStarted', info)
+      .on('commandSucceeded', info)
+      .on('commandFailed', info)
 
     await client.connect()
 

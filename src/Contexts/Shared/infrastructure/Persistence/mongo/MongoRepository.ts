@@ -1,12 +1,18 @@
 import {
-  Collection, type Document, MongoClient, ObjectId, type WithId,
+  Collection,
+  type Document,
+  MongoClient,
+  ObjectId,
+  type WithId,
 } from 'mongodb'
 import {
   inject,
 } from 'tsyringe'
 
 import {
-  AggregateRoot, Criteria, SHARED_TYPES,
+  AggregateRoot,
+  Criteria,
+  SHARED_TYPES,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 import {

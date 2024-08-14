@@ -1,12 +1,17 @@
 import {
-  Collection, type Document, MongoClient, ObjectId,
+  Collection,
+  type Document,
+  MongoClient,
+  ObjectId,
 } from 'mongodb'
 import {
   inject,
 } from 'tsyringe'
 
 import {
-  AggregateRoot, type DomainEventClass, SHARED_TYPES,
+  AggregateRoot,
+  type DomainEventClass,
+  SHARED_TYPES,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 export abstract class MongoEventStore<T extends AggregateRoot> {
@@ -40,7 +45,7 @@ export abstract class MongoEventStore<T extends AggregateRoot> {
   protected async persist(aggregateRoot: T): Promise<void> {
     const collection = await this.collection()
 
-    const events = aggregateRoot.domainEvents.map(async (event) => {
+    const events = aggregateRoot.getDomainEvents().map(async (event) => {
       this.events.set(
         event.eventName,
         event.constructor as unknown as DomainEventClass,

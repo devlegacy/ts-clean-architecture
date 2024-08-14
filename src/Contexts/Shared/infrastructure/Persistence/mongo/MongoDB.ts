@@ -1,4 +1,14 @@
-import { Db, MongoClient } from 'mongodb'
+import {
+  Db,
+  MongoClient,
+} from 'mongodb'
+
+const localhost = new Set([
+  'localhost',
+  '127.0.0.1',
+] as const)
+
+type LocalHost = SetType<typeof localhost>
 
 export class MongoDB {
   static client: MongoClient | null = null
@@ -8,6 +18,7 @@ export class MongoDB {
     // Private constructor
   }
 
+  // eslint-disable-next-line complexity
   static async getInstance(): Promise<Db> {
     if (!MongoDB.instance) {
       const {
@@ -17,7 +28,8 @@ export class MongoDB {
         DB_PASSWORD = '',
         DB_DATABASE = 'ts-clean-architecture',
       } = process.env
-      const isLocalHost = ['localhost', '127.0.0.1'].includes(DB_HOST)
+
+      const isLocalHost = localhost.has(DB_HOST as LocalHost)
 
       const USER = encodeURIComponent(DB_USERNAME) // (DB_USERNAME ?? '') // sample of ??
       const PASSWORD = encodeURIComponent(DB_PASSWORD)
