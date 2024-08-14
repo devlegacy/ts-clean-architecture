@@ -8,7 +8,7 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 import {
   UserId,
 } from '#@/src/Contexts/User/Shared/domain/index.js'

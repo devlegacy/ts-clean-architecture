@@ -7,7 +7,7 @@ import {
 
 import {
   MikroOrmMongoRepository,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
 import {
   User, UserEmail, UserRepository,

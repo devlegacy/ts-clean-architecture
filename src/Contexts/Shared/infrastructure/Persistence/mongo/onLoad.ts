@@ -3,10 +3,10 @@ import type {
 } from '@mikro-orm/core'
 
 export const onLoad = (args: EventArgs<any>) => {
-  if (args.entity._id && !args.entity.id?.value) {
-    // @ts-expect-error ValueObject
-    args.entity.id = new args.meta.properties.id.customType.ValueObject(args.entity._id.toString())
-  }
+  // if (args.entity._id && !args.entity.id?.value) {
+  //   // @ts-expect-error ValueObject
+  //   args.entity.id = new args.meta.properties.id.customType.ValueObject(args.entity._id.toString())
+  // }
   // eslint-disable-next-line no-console
   console.log(args)
   // console.log(args.entity._id)
