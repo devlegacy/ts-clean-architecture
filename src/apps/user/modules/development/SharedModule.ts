@@ -23,6 +23,7 @@ import {
 import {
   FatalErrorHandler,
   MikroOrmMongoClientFactory,
+  type MikroOrmMongoConnectionClient,
 } from '#@/src/Contexts/Shared/infrastructure/index.js'
 import {
   PinoLogger,
@@ -35,11 +36,12 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const context = 'user'
 
 const mongoConfig = MongoConfigFactory.createConfig()
-const connectionClient = await MikroOrmMongoClientFactory.createClient(
+const connectionClient = MikroOrmMongoClientFactory.createClient(
   context,
   mongoConfig,
   resolve(`${__dirname}/../../../../Contexts/User`),
 )
+
 const monitoring = {} as Monitoring // new SentryModule({ options: SentryConfigFactory.createConfig() })
 const logger = new PinoLogger({
   name: 'user',
@@ -47,7 +49,9 @@ const logger = new PinoLogger({
 })
 
 export const SharedModule = (builder: ContainerBuilder) => {
-  builder.register<MikroORM<MongoDriver>>(MikroORM<MongoDriver>).useFactory(() => connectionClient)
+  builder.register<MikroOrmMongoConnectionClient>(MikroORM<MongoDriver> as any).useFactory(() => {
+    return connectionClient
+  })
   builder
     .register(Monitoring)
     .useFactory(() => monitoring)

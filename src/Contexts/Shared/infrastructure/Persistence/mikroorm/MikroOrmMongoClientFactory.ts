@@ -1,3 +1,5 @@
+import process from 'node:process'
+
 import {
   MikroORM,
 } from '@mikro-orm/core'
@@ -15,6 +17,8 @@ import {
 import type {
   MongoConfig,
 } from '../mongo/MongoConfig.js'
+
+export type MikroOrmMongoConnectionClient = Promise<MikroORM<MongoDriver>>
 
 export abstract class MikroOrmMongoClientFactory {
   static readonly #clients: Record<string, MikroORM<MongoDriver>> = {}
@@ -50,51 +54,42 @@ export abstract class MikroOrmMongoClientFactory {
     config: MongoConfig,
     contextPath?: string,
   ): Promise<MikroORM<MongoDriver>> {
-    const from = config.url.lastIndexOf('/') + 1
-    const to = config.url.lastIndexOf('?')
-    const dbName = config.url.substring(
-      from,
-      to < 0 ? config.url.length : to,
-    )
+    const isProduction = process.env.APP_ENV === 'production'
+    const url = new URL(config.url)
+    const dbName = url.pathname.replace('/', '')
 
     const entities = contextPath
       ? [
           `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.js`,
         ]
       : undefined
-    const entitiesTs = [
-      `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.ts`,
-    ]
+    const entitiesTs = contextPath && !isProduction
+      ? [
+      `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.{.js,.ts}`,
+        ]
+      : undefined
     // : [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`] // DEBT: Convert as env variable
 
     const options: Options = {
       discovery: {
         warnWhenNoEntities: false,
       },
-      // connect: true,
+      connect: true,
       dbName,
-      tsNode: true,
+      tsNode: !!entitiesTs,
       clientUrl: config.url,
       entities,
       entitiesTs,
       logger: info,
-      // type: 'mongo',
       forceUndefined: true,
-      highlighter: new MongoHighlighter(),
-      debug: true,
+      highlighter: !isProduction ? new MongoHighlighter() : undefined,
+      debug: !isProduction,
       validate: true,
       contextName,
       strict: true,
-      // implicitTransactions: true, // defaults to false
-      implicitTransactions: false, // defaults to false
+      implicitTransactions: true, // defaults to false
       ensureIndexes: true,
       driver: MongoDriver,
-      // driverOptions: {
-      // useUnifiedTopology: true,
-      //   monitorCommands: true,
-      // ignoreUndefined: true
-      //   loggerLevel: 'debug'
-      // },
     }
     const client = await MikroORM.init<MongoDriver>(options)
     await client.getSchemaGenerator().createSchema()

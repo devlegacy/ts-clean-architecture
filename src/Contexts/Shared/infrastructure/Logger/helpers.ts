@@ -9,12 +9,11 @@ import {
 } from 'node:process'
 
 import {
-  default as PinoPretty,
+  PinoPretty,
 } from 'pino-pretty'
 
 export const MESSAGE_KEY = 'message'
 
-// @ts-expect-error - This is a valid configuration
 const stream = PinoPretty({
   colorize: true, // colorizes the log
   destination: 1,

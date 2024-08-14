@@ -26,8 +26,8 @@ export class PinoLogger implements Logger<PinoLoggerType> {
   constructor(options: { name?: string
     enabled?: boolean
     level?: LogLevel } = {
- level: 'info',
-}) {
+      level: 'info',
+    }) {
     this.#logger = pino.pino(
       {
         ...options,
