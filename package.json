@@ -140,7 +140,7 @@
     "fastify": "4.28.1",
     "fastify-keycloak-adapter": "2.1.10",
     "fastify-qs": "4.0.2",
-    "file-type": "19.4.0",
+    "file-type": "19.4.1",
     "glob": "11.0.0",
     "graphql": "16.9.0",
     "handlebars": "4.7.8",
