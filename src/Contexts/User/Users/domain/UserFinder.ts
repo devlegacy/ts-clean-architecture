@@ -1,9 +1,19 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 
-import { UserId } from '../../Shared/domain/index.js'
-import { UserNotFoundError } from './Errors/index.js'
-import { User, type UserPrimitiveType } from './User.js'
-import { UserRepository } from './UserRepository.js'
+import {
+  UserId,
+} from '../../Shared/domain/index.js'
+import {
+  UserNotFoundError,
+} from './Errors/index.js'
+import {
+  User, type UserPrimitiveType,
+} from './User.js'
+import {
+  UserRepository,
+} from './UserRepository.js'
 
 /**
  * Domain service
@@ -17,7 +27,7 @@ export class UserFinder {
   async run(userId: UserPrimitiveType['id']): Promise<User> {
     const user = await this.repository.searchById(new UserId(userId))
 
-    if (!user) throw new UserNotFoundError()
+    if (!user) throw new UserNotFoundError(userId)
 
     return user
   }

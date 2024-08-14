@@ -1,4 +1,6 @@
-import { User, UserEmail, UserRepository, UserUsername } from '@/Contexts/User/Users/domain/index.js'
+import {
+  User, UserEmail, UserRepository, UserUsername,
+} from '#@/src/Contexts/User/Users/domain/index.js'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
@@ -26,8 +28,14 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async softDelete(userId: string): Promise<void> {
-    const users = this.users.filter(({ id }) => id.value !== userId)
+    const users = this.users.filter(({
+      id,
+    }) => id.value !== userId)
     this.users = users
+  }
+
+  async search(..._data: any): Promise<User> {
+    throw new Error('Method not implemented.')
   }
 
   async getAll(): Promise<User[]> {
@@ -39,7 +47,9 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async update(user: User): Promise<void> {
-    const users = this.users.filter(({ id }) => id.value !== user.id.value)
+    const users = this.users.filter(({
+      id,
+    }) => id.value !== user.id.value)
     users.push(user)
     this.users = users
 
@@ -47,7 +57,9 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async remove(userId: string): Promise<void> {
-    const users = this.users.filter(({ id }) => id.value !== userId)
+    const users = this.users.filter(({
+      id,
+    }) => id.value !== userId)
     this.users = users
   }
 

@@ -1,6 +1,10 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 
-import { User, UserFinder, type UserPrimitiveType, UserRepository } from '../domain/index.js'
+import {
+  User, UserFinder, type UserPrimitiveType, UserRepository,
+} from '../domain/index.js'
 
 /** UserUpdaterUseCase */
 @UseCase()
@@ -13,7 +17,11 @@ export class UserUpdater {
 
   async run(request: UserPrimitiveType): Promise<void> {
     const user = await this.finder.run(request.id)
-    const userRequest = Object.assign({}, user.toPrimitives(), request)
+    const userRequest = Object.assign(
+      {},
+      user.toPrimitives(),
+      request,
+    )
     // NOTE: Alternative sample code:
     // const userRequest = User.fromPrimitives({
     //   ...user.toPrimitives(),

@@ -1,6 +1,11 @@
-import { AggregateRoot, isNil } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot,
+  isNil,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { UserId } from '../../Shared/domain/index.js'
+import {
+  UserId,
+} from '../../Shared/domain/index.js'
 import {
   Generation,
   GenerationName,
@@ -41,7 +46,8 @@ export class User extends AggregateRoot {
   readonly createdAt: UserCreatedAt
   readonly updatedAt: UserUpdatedAt
 
-  private deletedAt?: UserDeletedAt
+  /** @readonly */
+  deletedAt?: UserDeletedAt
   // NOTE: #email tiene ciertas restricciones que el ORM no puede cumplir
   // NOTE: _email tiene ciertas restricciones que el ORM no puede cumplir, todo lo asigna a email o las propiedades públicas descritas en el entity
 

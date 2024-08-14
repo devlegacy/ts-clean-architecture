@@ -1,6 +1,12 @@
-import { DateTime, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  DateTime,
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Generation, GenerationName } from './Generation.js'
+import {
+  Generation,
+  GenerationName,
+} from './Generation.js'
 
 // Date al menos que existan requerimientos de negocio que indiquen usar un tipo de dato personalizado como YYYY-MM-DD
 export class UserBirthdate extends DateTime {
@@ -22,8 +28,8 @@ export class UserBirthdate extends DateTime {
     const currentDate = new Date()
     const ageInYears = currentDate.getFullYear() - this.value.getFullYear()
     if (
-      currentDate.getMonth() < this.value.getMonth() ||
-      (currentDate.getMonth() === this.value.getMonth() && currentDate.getDate() < this.value.getDate())
+      currentDate.getMonth() < this.value.getMonth()
+      || (currentDate.getMonth() === this.value.getMonth() && currentDate.getDate() < this.value.getDate())
     ) {
       return ageInYears - 1
     }

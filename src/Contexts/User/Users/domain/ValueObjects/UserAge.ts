@@ -1,4 +1,7 @@
-import { InvalidArgumentError, NumberValueObject } from '@/Contexts/Shared/domain/index.js'
+import {
+  InvalidArgumentError,
+  NumberValueObject,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 const MIN_AGE = 0
 const MAX_AGE = 160

@@ -23,7 +23,7 @@ import {
 } from '#@/src/Contexts/User/Users/infrastructure/index.js'
 
 const validName = 'Samuel'
-const validUsername = 'jst.samuel'
+const validUsername = 'jstsamuel'
 const validId = UserId.random().toString()
 const currentDate = new Date()
 const validBirthdate = new Date(currentDate.getFullYear() - 50, currentDate.getMonth(), currentDate.getDate())

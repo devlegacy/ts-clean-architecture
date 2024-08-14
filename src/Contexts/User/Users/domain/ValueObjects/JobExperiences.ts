@@ -1,6 +1,11 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { JobExperience, type JobExperiencePrimitiveType } from './JobExperience.js'
+import {
+  JobExperience,
+  type JobExperiencePrimitiveType,
+} from './JobExperience.js'
 
 export type JobExperiencesPrimitiveType = Primitives<JobExperiences>
 export type JobExperiencesEntityType = Entity<JobExperiences>
@@ -57,8 +62,8 @@ export class JobExperiences extends Array<JobExperience> {
       }
 
       if (
-        nextExperience &&
-        (currentExperience.endDate()?.getTime() ?? new Date().getTime()) > nextExperience.startDate().getTime()
+        nextExperience
+        && (currentExperience.endDate()?.getTime() ?? new Date().getTime()) > nextExperience.startDate().getTime()
       ) {
         throw new InvalidArgumentError(
           `The job experience at ${

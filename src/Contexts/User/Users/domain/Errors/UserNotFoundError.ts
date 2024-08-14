@@ -1,7 +1,11 @@
-import { EntityNotFoundError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EntityNotFoundError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class UserNotFoundError extends EntityNotFoundError {
-  constructor() {
-    super("User doesn't exists")
+  constructor(userId: string) {
+    super(`User <${userId}> doesn't exists`)
+    // this.name = this.constructor.name
+    this.type = 'UserNotFoundError'
   }
 }

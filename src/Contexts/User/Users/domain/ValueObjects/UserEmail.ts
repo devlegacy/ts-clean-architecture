@@ -1,4 +1,7 @@
-import { InvalidArgumentError, StringValueObject } from '@/Contexts/Shared/domain/index.js'
+import {
+  InvalidArgumentError,
+  StringValueObject,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 // const USER_EMAIL_REGEXP = new RegExp(
 //   `^(?=.*[@](?:gmail\\.com|hotmail\\.com)$)` + // Verifica que el dominio sea gmail.com o hotmail.com

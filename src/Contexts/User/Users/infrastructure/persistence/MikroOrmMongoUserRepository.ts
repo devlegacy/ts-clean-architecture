@@ -1,17 +1,29 @@
-import { EntitySchema } from '@mikro-orm/core'
-import { ObjectId } from 'mongodb'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
+import {
+  ObjectId,
+} from 'mongodb'
 
-import { MikroOrmMongoRepository } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
+import {
+  MikroOrmMongoRepository,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
 
-import { User, UserEmail, UserRepository } from '../../domain/index.js'
-import { UserEntity } from './mikroorm/mongo/UserEntity.js'
+import {
+  User, UserEmail, UserRepository,
+} from '../../domain/index.js'
+import {
+  UserEntity,
+} from './mikroorm/mongo/UserEntity.js'
 
 export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> implements UserRepository {
   async searchAll(): Promise<User[]> {
-    const repository = this.repository()
+    const repository = await this.repository()
 
     const users = await repository.findAll({
-      orderBy: { createdAt: -1 },
+      orderBy: {
+        createdAt: -1,
+      },
     })
 
     return users
@@ -39,28 +51,48 @@ export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> i
   }
 
   async searchById(id: User['id']): Promise<Nullable<User>> {
-    const repository = this.repository()
+    const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    const user = await repository.findOne({ id: new ObjectId(id.value) })
+    const user = await repository.findOne({
+      id: new ObjectId(id.value),
+    })
     return user
   }
 
   async findByUsername(username: User['username']): Promise<Nullable<User>> {
-    const repository = this.repository()
-    const user = await repository.findOne({ username }, { convertCustomTypes: true })
+    const repository = await this.repository()
+    const user = await repository.findOne(
+      {
+        username,
+      },
+      {
+        convertCustomTypes: true,
+      },
+    )
     return user
   }
 
   async findByEmail(email: UserEmail): Promise<Nullable<User>> {
-    const repository = this.repository()
-    const user = await repository.findOne({ email }, { convertCustomTypes: true })
+    const repository = await this.repository()
+    const user = await repository.findOne(
+      {
+        email,
+      },
+      {
+        convertCustomTypes: true,
+      },
+    )
     return user
   }
 
+  async search(..._data: any): Promise<User> {
+    throw new Error('Method not implemented.')
+  }
+
   async update(user: User): Promise<void> {
-    // const repository = this.repository()
+    // const repository = await this.repository()
     // const primitives = userUpdated.toPrimitives()
     // wrap(user).assign(
     //   {
@@ -104,23 +136,26 @@ export class MikroOrmMongoUserRepository extends MikroOrmMongoRepository<User> i
     } else {
       await this.persist(user)
     }
-    console.log(user)
   }
 
   async remove(id: string): Promise<void> {
-    const repository = this.repository()
+    const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    await repository.nativeDelete({ id: new ObjectId(id) })
+    await repository.nativeDelete({
+      id: new ObjectId(id),
+    })
   }
 
   async softDelete(id: string): Promise<void> {
-    const repository = this.repository()
+    const repository = await this.repository()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    await repository.nativeDelete({ id: new ObjectId(id) })
+    await repository.nativeDelete({
+      id: new ObjectId(id),
+    })
   }
 
   protected entitySchema(): EntitySchema<User> {

@@ -1,4 +1,6 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
 import {
   beforeCreate,
@@ -6,8 +8,10 @@ import {
   beforeUpsert,
   onLoad,
   ValueObjectTransformer,
-} from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
-import { UserId } from '@/Contexts/User/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mikroorm/index.js'
+import {
+  UserId,
+} from '#@/src/Contexts/User/Shared/domain/index.js'
 import {
   JobExperiences,
   User,
@@ -18,7 +22,7 @@ import {
   UserName,
   UserUpdatedAt,
   UserUsername,
-} from '@/Contexts/User/Users/domain/index.js'
+} from '#@/src/Contexts/User/Users/domain/index.js'
 
 export const UserEntity = new EntitySchema<User>({
   name: 'User',
@@ -26,51 +30,82 @@ export const UserEntity = new EntitySchema<User>({
   class: User,
   // https://mikro-orm.io/docs/events
   hooks: {
-    onLoad: [onLoad],
-    beforeCreate: [beforeCreate],
-    beforeUpdate: [beforeUpdate],
-    beforeUpsert: [beforeUpsert],
+    onLoad: [
+      onLoad,
+    ],
+    beforeCreate: [
+      beforeCreate,
+    ],
+    beforeUpdate: [
+      beforeUpdate,
+    ],
+    beforeUpsert: [
+      beforeUpsert,
+    ],
   },
   properties: {
-    _id: {
-      customType: new ValueObjectTransformer(UserId, 'ObjectId'),
-      primary: true,
-      // hidden: true
-    },
     id: {
-      type: 'string',
-      serializedPrimaryKey: true,
+      type: new ValueObjectTransformer(
+        UserId,
+        'ObjectId',
+      ),
+      primary: true,
+      fieldName: '_id',
     },
     name: {
-      customType: new ValueObjectTransformer(UserName, 'string'),
+      type: new ValueObjectTransformer(
+        UserName,
+        'string',
+      ),
     },
     username: {
-      customType: new ValueObjectTransformer(UserUsername, 'string'),
+      type: new ValueObjectTransformer(
+        UserUsername,
+        'string',
+      ),
       unique: true,
     },
     email: {
-      customType: new ValueObjectTransformer(UserEmail, 'string'),
+      type: new ValueObjectTransformer(
+        UserEmail,
+        'string',
+      ),
     },
     birthdate: {
-      customType: new ValueObjectTransformer(UserBirthdate, 'Date'),
+      type: new ValueObjectTransformer(
+        UserBirthdate,
+        'Date',
+      ),
     },
     jobExperiences: {
-      customType: new ValueObjectTransformer(JobExperiences, '[]'),
+      type: new ValueObjectTransformer(
+        JobExperiences,
+        '[]',
+      ),
     },
     // age: {
-    //   customType: new ValueObjectTransformer(UserAge, 'number'),
+    //   type: new ValueObjectTransformer(UserAge, 'number'),
     // },
     createdAt: {
-      customType: new ValueObjectTransformer(UserCreatedAt, 'date'),
+      type: new ValueObjectTransformer(
+        UserCreatedAt,
+        'date',
+      ),
       // onCreate: () => new Date(),
     },
     updatedAt: {
-      customType: new ValueObjectTransformer(UserUpdatedAt, 'date'),
+      type: new ValueObjectTransformer(
+        UserUpdatedAt,
+        'date',
+      ),
       // onCreate: () => new Date(),
       // onUpdate: () => new Date(),
     },
     deletedAt: {
-      customType: new ValueObjectTransformer(UserDeletedAt, 'date'),
+      type: new ValueObjectTransformer(
+        UserDeletedAt,
+        'date',
+      ),
       nullable: true,
       default: undefined,
     },

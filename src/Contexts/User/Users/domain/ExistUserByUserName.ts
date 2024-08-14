@@ -1,4 +1,6 @@
-import { User, UserRepository } from '@/Contexts/User/Users/domain/index.js'
+import {
+  User, UserRepository,
+} from '#@/src/Contexts/User/Users/domain/index.js'
 
 /**
  * Domain service

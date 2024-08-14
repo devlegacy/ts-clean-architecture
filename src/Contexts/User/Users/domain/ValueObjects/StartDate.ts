@@ -1,4 +1,7 @@
-import { DateTime, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  DateTime,
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class StartDate extends DateTime {
   constructor(override readonly value: Date) {

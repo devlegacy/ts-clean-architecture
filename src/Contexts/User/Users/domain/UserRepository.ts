@@ -1,4 +1,6 @@
-import { User } from './User.js'
+import {
+  User,
+} from './User.js'
 
 // ¿Cómo definimos/extraemos las interfaces? -> Por los clientes que las implementan
 // Role interface - ✅ Role de User - Ser repositorio de Usuario - A bd, memoria, etc. - Agnóstico a implementación
@@ -24,7 +26,7 @@ export abstract class UserRepository {
   abstract searchAll(): Promise<User[]> // searchAll()
   // No genera excepciones o errores y devuelve nulos
   // Find - Search - Search existe como parte del modulo find
-  // abstract search(): Promise<User> // searchAll()
+  abstract search(...data: any): Promise<User> // searchAll()
   // header interface - coupling ❌ - leak de infrastructure (username: string) <-> (User[username]: string)
   abstract findByUsername(username: User['username']): Promise<Nullable<User>> // TODO: Convert to criteria pattern
   abstract findByEmail(email: User['email']): Promise<Nullable<User>> // TODO: Convert to criteria pattern

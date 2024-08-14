@@ -1,7 +1,13 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 
-import { ExistUserByUserName, User, UserAlreadyExistsError, UserRepository, UserUsername } from '../domain/index.js'
-import type { UserCreatorRequest } from './UserCreatorRequest.js'
+import {
+  ExistUserByUserName, User, UserAlreadyExistsError, UserRepository, UserUsername,
+} from '../domain/index.js'
+import type {
+  UserCreatorRequest,
+} from './UserCreatorRequest.js'
 
 /** UserCreatorUseCase */
 @UseCase()
