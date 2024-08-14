@@ -42,14 +42,17 @@
 
 ## Encuesta
 
+Feedback para mejorar el curso
+
 Opinion
-- Mejorar la comunidad, aportes, comentarios, ayudas para no depender tanto de los autores de los cursos
-- Oportunidad de 1:1 para subscriptores premium
+- Mejorar la comunidad, aportes, comentarios, ayudas para no depender tanto de los autores de los cursos, ni tener comentarios sin respuestas por largos periodos de tiempo.
+- Oportunidad de 1:1 para subscriptores
 - Gamificación
 - Mejorar UI/UX de la plataforma
   - Reproductor responsive a pantalla completa
 - Precios contemplando regiones
 - Transcripciones y añadir closed captions ayudaría mucho
+- Workshops
 
 Cursos: 
 - CQRS, agregados de datos, como hacer populado y joins de datos con CQRS
@@ -59,10 +62,12 @@ Cursos:
 - Control de las relaciones en DDD 1-1 1-N N-N
 - Cursor y Offset pagination con DDD
 - Actualizaciones atómicas y parciales en DDD 
-- Autentificación y autorización con DDD
+- Autentificación, autorización, roles y permisos con DDD
 - Event sourcing en TypeScript siguiendo el hilo de los primeros cursos actuales de arquitectura en TS
 - Documentación de eventos y arquitectura, que entregue valor a la empresa y al equipo, flujos de event storming
 - Convict, MongoDB avanzado y monitoring
+- Bash avanzado, tareas en background, seeds y creación de utilerias
 
 Algo que añadir
-- No pregunten cuantas horas le dedique al curso, es algo difícil de ponderar de manera personal
+- No pregunten cuantas horas le dedique al curso, es algo difícil de ponderar de manera personal, dado que a veces los vuelvo a ver, y no lleno la encuesta hasta que por fin siento que le entiendo al tema.
+- Cuando finalice un curso, que me recomiende el próximo a tomar con relación al tema, o bien que me lleve a mi home.

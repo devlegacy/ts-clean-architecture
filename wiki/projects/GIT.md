@@ -108,17 +108,30 @@ chore(deps): bump dependencies
   git commit --allow-empty -m "build(empty): trigger build"
 ```
 
+#### Diff
+
+```sh
+  git diff --name-status origin/master | grep "src/" | awk -F/ '{print $2}' | uniq
+```
+
 <h2 align="center">Branches</h2>
 
 💡 Samples:
 - `[keyword]/[description]` | `feature/course`
 - `feature[-task]/[description]` | `feature-32/course`
 - `feature/[task]-[description]` | `feature/32-course`
+  - feature/32-awesome-feature
+  - feature/wdt-3-awesome-feature
+
+  - `task-32/srojas/feature/awesome-feature`
+  - `task-32/srojas/hotfix/awesome-feature`
+
 
 📏 Rules: 
 - It should permit identify changes
 - It should be consistent along the project
 - It should permit identify the associated task
+- Prefixes: `feature`, `bug`, `bugfix`, `hotfix`, `support`, `release`, `fix`, `docs`
 
 Branch names: 
 - 🔑 key or principal branches
@@ -150,13 +163,28 @@ Branch names:
 - Require signed commits
 - Delete branches on merge
 
-Flows:
+Flows/Worflows:
 
 - Ship / Show / Ask
-- Git flow
-- Github flow
-- Gitlab flow
-- One Flow
+- Git flow/workflow
+- GitHub flow/workflow
+- GitLab flow/workflow
+- One flow/workflow
+- Trunk based flow/workflow
+  - Short lived branches
+---
+- Feature based flow/workflow
+- 
+
+- Branch naming convention
+- Branch protection rules
+- Commit convention
+- PR/MR convention
+
+- Feedback loop
+- Code review
+
+- ✅ Consistency
 
 <h2 align="center">Environments</h2>
 
