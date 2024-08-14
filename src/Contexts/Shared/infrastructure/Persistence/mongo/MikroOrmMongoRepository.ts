@@ -14,7 +14,10 @@ import {
 } from 'mongodb'
 
 import {
-  AggregateRoot, Criteria, OffsetPaginator, type Pagination,
+  AggregateRoot,
+  Criteria,
+  OffsetPaginator,
+  type Pagination,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 import {
@@ -23,13 +26,13 @@ import {
 
 @Service()
 export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
-  #client: MikroORM<MongoDriver>
+  #client: Promise<MikroORM<MongoDriver>>
   // private readonly criteriaConverter: MongoCriteriaConverter
   #criteria = new MongoCriteriaConverter()
   // Diod
   constructor(client: MikroORM<MongoDriver>) {
     // this.criteriaConverter = new MongoCriteriaConverter()
-    this.#client = client
+    this.#client = client as unknown as Promise<MikroORM<MongoDriver>>
   }
 
   // tsyringe
@@ -43,7 +46,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   // }
 
   protected async counter(criteria: Criteria) {
-    const collection = this.repository()
+    const collection = await this.repository()
     const query = this.#criteria.convert(criteria)
 
     const count = await collection.count(
@@ -62,7 +65,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     criteria: Criteria,
     offsetPagination: OffsetPaginator,
   ): Promise<{ data: T[], pagination?: Pagination }> {
-    const collection = this.repository()
+    const collection = await this.repository()
     const query = this.#criteria.convert(criteria)
 
     const countDocuments = collection.count(
@@ -101,12 +104,12 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     }
   }
 
-  protected client(): MikroORM<MongoDriver> {
-    return this.#client
+  protected async client(): Promise<MikroORM<MongoDriver>> {
+    return await this.#client
   }
 
-  protected repository(): EntityRepository<T> {
-    const client = this.#client
+  protected async repository(): Promise<EntityRepository<T>> {
+    const client = await this.#client
     const repository = client.em.fork().getRepository(this.entitySchema())
     return repository
   }
@@ -117,28 +120,41 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     // commit transaction
     // end transaction
     // rollback transaction if error and clean events
-    const repository = this.repository()
+    const repository = await this.repository()
     // const client = this.#client
     // const manager = client.em
     try {
+      const aggregateRootId = (aggregateRoot as any).id
       // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez, is not defined in Course but in Schema as ObjectId, add extends of ObjectId as Domain value object
-      if (!aggregateRoot._id || !(aggregateRoot._id instanceof ObjectId)) {
+      if ((!aggregateRoot.id || !(aggregateRoot.id instanceof ObjectId)) && (ObjectId.isValid((aggregateRoot.id?.value || aggregateRoot.id) as string))) {
         // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez
-        aggregateRoot._id = new ObjectId(aggregateRoot.id.value as string)
+        aggregateRoot.id = new ObjectId((aggregateRoot.id.value || aggregateRoot.id) as string)
       }
       // eslint-disable-next-line no-console
       console.log(aggregateRoot)
-      await repository.upsert(aggregateRoot)
-      await repository.getEntityManager().flush()
+      await repository.upsert(
+        aggregateRoot,
+        // {
+        //   ...primitives,
+        //   _id: primitives.id,
+        // },
+        {
+          // convertCustomTypes: true,
+          //   upsert: true,
+        },
+      )
+      if (aggregateRootId) (aggregateRoot as any).id = aggregateRootId
+      // await repository.getEntityManager().flush()
 
       const created = await repository
         .getEntityManager()
         .findOne<any>(
           this.entitySchema(),
           {
-            _id: (aggregateRoot as any)._id,
+            _id: (aggregateRoot as any).id,
           } as any,
         )
+
       // eslint-disable-next-line no-console
       console.log(created)
     } catch (e) {
@@ -150,7 +166,7 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
   protected async matching(criteria: Criteria): Promise<T[]> {
     const query = this.#criteria.convert(criteria)
 
-    const collection = this.repository()
+    const collection = await this.repository()
 
     const documents = await collection.find(
       {

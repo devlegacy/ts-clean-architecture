@@ -1,8 +1,12 @@
+import process from 'node:process'
+
+import {
+  MikroORM,
+} from '@mikro-orm/core'
 import {
   MongoHighlighter,
 } from '@mikro-orm/mongo-highlighter'
 import {
-  MikroORM,
   MongoDriver,
   type Options,
 } from '@mikro-orm/mongodb'
@@ -15,26 +19,34 @@ import type {
   MongoConfig,
 } from '../mongo/MongoConfig.js'
 
+export type MikroOrmMongoConnectionClient = Promise<MikroORM<MongoDriver>>
+
 export abstract class MikroOrmMongoClientFactory {
-  static readonly #clients: Record<string, MikroORM> = {}
+  static readonly #clients: Record<string, MikroORM<MongoDriver>> = {}
 
   static async createClient(
     contextName: string,
     config: MongoConfig,
     contextPath?: string,
-  ): Promise<MikroORM> {
+  ): Promise<MikroORM<MongoDriver>> {
     let client = MikroOrmMongoClientFactory.#getClient(contextName)
     if (!client) {
-      client = await MikroOrmMongoClientFactory
-        .#createAndConnectClient(contextName, config, contextPath)
+      client = await MikroOrmMongoClientFactory.#createAndConnectClient(
+        contextName,
+        config,
+        contextPath,
+      )
 
-      MikroOrmMongoClientFactory.#registerClient(contextName, client)
+      MikroOrmMongoClientFactory.#registerClient(
+        contextName,
+        client,
+      )
     }
 
     return client
   }
 
-  static #getClient(contextName: string): Nullable<MikroORM> {
+  static #getClient(contextName: string): Nullable<MikroORM<MongoDriver>> {
     return MikroOrmMongoClientFactory.#clients[`${contextName}`] || null
   }
 
@@ -42,15 +54,20 @@ export abstract class MikroOrmMongoClientFactory {
     contextName: string,
     config: MongoConfig,
     contextPath?: string,
-  ): Promise<MikroORM> {
-    // const from = config.url.lastIndexOf('/') + 1
-    // const to = config.url.lastIndexOf('?')
-    // const dbName = config.url.substring(from, to < 0 ? config.url.length : to)
-    const dbName = new URL(config.url).pathname.replace('/', '')
+  ): Promise<MikroORM<MongoDriver>> {
+    const isProduction = process.env.APP_ENV === 'production'
+    const url = new URL(config.url)
+    const dbName = url.pathname.replace('/', '')
+
     const entities = contextPath
       ? [
-          `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`,
-        ] // blob expression
+          `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.js`,
+        ]
+      : undefined
+    const entitiesTs = contextPath && !isProduction
+      ? [
+      `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`,
+        ]
       : undefined
     // : [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`] // DEBT: Convert as env variable
 
@@ -63,24 +80,20 @@ export abstract class MikroOrmMongoClientFactory {
       //   adapter: GeneratedCacheAdapter,
       //   options: { data: await import('./.tmp/metadata.json') },
       // },
-      // connect: true,
+      connect: true,
       dbName,
-      tsNode: process.env.APP_ENV !== 'production',
+      tsNode: !!entitiesTs,
       clientUrl: config.url,
       entities,
-      // entities: [`dist/**/*Entity.js`],
-      // entitiesTs: [`srs/**/**Entity.ts`],
+      entitiesTs,
       logger: info,
-      // type: 'mongo',
-      // driver: MongoDriver,
       forceUndefined: true,
-      highlighter: new MongoHighlighter(),
-      // metadataProvider: TsMorphMetadataProvider,
-      debug: true,
+      highlighter: !isProduction ? new MongoHighlighter() : undefined,
+      debug: !isProduction,
       validate: true,
       contextName,
       strict: true,
-      implicitTransactions: true,
+      implicitTransactions: false, // defaults to false
       ensureIndexes: true,
       driver: MongoDriver,
       // driverOptions: {
@@ -90,18 +103,37 @@ export abstract class MikroOrmMongoClientFactory {
       // loggerLevel: 'debug'
       // },
     }
-    // console.log(options)
-    const client = await MikroORM.init(options)
-    await client.schema.createSchema()
+    const client = await MikroORM.init<MongoDriver>(options)
+    await client.getSchemaGenerator().createSchema()
+    // await client.schema.createSchema()
+
     return client
   }
 
-  static #registerClient(contextName: string, client: MikroORM): void {
+  static #registerClient(contextName: string, client: MikroORM<MongoDriver>): void {
     MikroOrmMongoClientFactory.#clients[`${contextName}`] = client
   }
 }
 
 // Local test
+// MikroOrmMongoClientFactory.createClient(
+//   'mooc',
+//   {
+//     url: 'mongodb://127.0.0.1:27017/mooc',
+//   },
+//   resolve(cwd(), './src/Contexts/User/'),
+// ).then(async (orm) => {
+//   // eslint-disable-next-line no-console
+//   console.log(orm)
+//   // const r = orm.em.fork().getRepository(CourseEntity)
+//   // console.log(r)
+
+//   // const q = await r.find({}, { convertCustomTypes: true })
+//   // console.log(q)
+
+//   // console.log(em)
+// })
+
 // MikroOrmMongoClientFactory.createClient(
 //   'mooc',
 //   {

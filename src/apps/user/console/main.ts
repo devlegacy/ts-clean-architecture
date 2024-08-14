@@ -86,7 +86,7 @@ const updateUserRequest: UserPrimitiveType = {
 try {
   // const userRepository = new InMemoryUserRepository()
   const repository = container.get(UserRepository)
-  const mongoClient = container.get(MikroORM<MongoDriver>)
+  const mongoClient = container.get(MikroORM<MongoDriver>) as unknown as Promise<MikroORM<MongoDriver>>
 
   const userCreator = new UserCreator(repository)
   const userSearcherAll = new UserSearcherAll(repository)
@@ -126,7 +126,7 @@ try {
   users = await userSearcherAll.run()
   info(users)
 
-  await mongoClient.close()
+  await (await mongoClient).close()
 } catch (e) {
   // eslint-disable-next-line no-console
   console.error(e)

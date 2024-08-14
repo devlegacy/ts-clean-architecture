@@ -22,12 +22,14 @@ import {
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   FatalErrorHandler,
-  MikroOrmMongoClientFactory,
-  type MikroOrmMongoConnectionClient,
 } from '#@/src/Contexts/Shared/infrastructure/index.js'
 import {
   PinoLogger,
 } from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  MikroOrmMongoClientFactory,
+  type MikroOrmMongoConnectionClient,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 import {
   MongoConfigFactory,
 } from '#@/src/Contexts/User/Shared/infrastructure/index.js'
