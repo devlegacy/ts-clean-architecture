@@ -138,7 +138,7 @@
     "fast-equals": "5.0.1",
     "fast-jwt": "4.0.2",
     "fastify": "4.28.1",
-    "fastify-keycloak-adapter": "2.1.10",
+    "fastify-keycloak-adapter": "2.1.11",
     "fastify-qs": "4.0.2",
     "file-type": "19.4.1",
     "glob": "11.0.0",

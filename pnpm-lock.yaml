@@ -176,8 +176,8 @@ importers:
         specifier: 4.28.1
         version: 4.28.1
       fastify-keycloak-adapter:
-        specifier: 2.1.10
-        version: 2.1.10
+        specifier: 2.1.11
+        version: 2.1.11
       fastify-qs:
         specifier: 4.0.2
         version: 4.0.2
@@ -3116,8 +3116,8 @@ packages:
   avvio@8.3.2:
     resolution: {integrity: sha512-st8e519GWHa/azv8S87mcJvZs4WsgTBjOw/Ih1CP6u+8SZvcOeAYNG6JbsIrAUUJJ7JfmrnOkR8ipDS+u9SIRQ==}
 
-  axios-retry@4.4.0:
-    resolution: {integrity: sha512-yewTKjzl6jSgc+2M7FCJ3LxRGgL1iiXHcj+E6h6xie6H1mTHr7yqaUroWIvVXG1UKSPwGDXxV05YxtGvrD6Paw==}
+  axios-retry@4.5.0:
+    resolution: {integrity: sha512-aR99oXhpEDGo0UuAlYcn2iGRds30k366Zfa05XWScR9QaQD4JYiP3/1Qt1u7YlefUOK+cn0CcwoL1oefavQUlQ==}
     peerDependencies:
       axios: 0.x || 1.x
 
@@ -4469,8 +4469,8 @@ packages:
     resolution: {integrity: sha512-KH6p+Z8AKPXnmA7+Iz2Lh8ARCMr+8WNPVludm1LGkZoD2MjY6LVnRMtTKhkdzI+jr0RzQWXKzKyBJm1zoHEL4Q==}
     engines: {node: '>=0.10.0'}
 
-  fastify-keycloak-adapter@2.1.10:
-    resolution: {integrity: sha512-hGIPO/sfLKOfJvU+sOLZbM8DGcn8ZHUPrNP+rx2bNB92fXawyt0vc8Mp6BGJK24C371apZfLQsbwcvMPyQsdFA==}
+  fastify-keycloak-adapter@2.1.11:
+    resolution: {integrity: sha512-zn2YwK/aJLMn4KvCME4iC/y7ZwMPC+Hut8zrhmAOTgQ4nAfpM8Vh75WVr+R8Sw5N89ScgoOWZBrrki3pbn5m4A==}
 
   fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
@@ -4633,8 +4633,8 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
-  fp-ts@2.16.6:
-    resolution: {integrity: sha512-v7w209VPj4L6pPn/ftFRJu31Oa8QagwcVw7BZmLCUWU4AQoc954rX9ogSIahDf67Pg+GjPbkW/Kn9XWnlWJG0g==}
+  fp-ts@2.16.9:
+    resolution: {integrity: sha512-+I2+FnVB+tVaxcYyQkHUq7ZdKScaBlX53A41mxQtpIccsfyv8PzdzP7fzp2AY832T4aoK6UZ5WRX/ebGd8uZuQ==}
 
   fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
@@ -11936,7 +11936,7 @@ snapshots:
       '@fastify/error': 3.4.1
       fastq: 1.17.1
 
-  axios-retry@4.4.0(axios@1.7.4):
+  axios-retry@4.5.0(axios@1.7.4):
     dependencies:
       axios: 1.7.4
       is-retry-allowed: 2.2.0
@@ -13586,17 +13586,17 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
-  fastify-keycloak-adapter@2.1.10:
+  fastify-keycloak-adapter@2.1.11:
     dependencies:
       '@fastify/cookie': 9.4.0
       '@fastify/jwt': 7.2.4
       '@fastify/session': 10.9.0
       axios: 1.7.4
-      axios-retry: 4.4.0(axios@1.7.4)
+      axios-retry: 4.5.0(axios@1.7.4)
       fastify-plugin: 4.5.1
-      fp-ts: 2.16.6
+      fp-ts: 2.16.9
       grant: 5.4.22
-      io-ts: 2.2.21(fp-ts@2.16.6)
+      io-ts: 2.2.21(fp-ts@2.16.9)
       qs: 6.13.0
       wildcard-match: 5.1.3
     transitivePeerDependencies:
@@ -13811,7 +13811,7 @@ snapshots:
 
   forwarded@0.2.0: {}
 
-  fp-ts@2.16.6: {}
+  fp-ts@2.16.9: {}
 
   fresh@0.5.2: {}
 
@@ -14373,9 +14373,9 @@ snapshots:
 
   interpret@2.2.0: {}
 
-  io-ts@2.2.21(fp-ts@2.16.6):
+  io-ts@2.2.21(fp-ts@2.16.9):
     dependencies:
-      fp-ts: 2.16.6
+      fp-ts: 2.16.9
 
   ioredis@5.4.1:
     dependencies:
