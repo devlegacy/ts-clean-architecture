@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
 type PrimitiveTypes = String | string | number | Boolean | boolean | Date | symbol | bigint | undefined | null
 
 // type ValueObjectValue<T> = T extends PrimitiveTypes
