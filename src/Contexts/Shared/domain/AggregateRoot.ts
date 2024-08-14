@@ -1,9 +1,7 @@
 import {
   DomainEvent,
 } from './Events/index.js'
-import {
-  DomainError,
-} from './index.js'
+
 /**
  * A cluster of associated objects which act as a single unit for the purpose of data changes.
  * Each `Aggregate` has a single root and then a boundary which defines what the `Aggregate` is responsible for.
@@ -19,14 +17,10 @@ export abstract class AggregateRoot {
   // DEBT: por alguna razón si lo hago privado # los test se rompen
   private _domainEvents: DomainEvent[] = []
 
-  get domainEvents() {
-    return this._domainEvents
-  }
-
   constructor() {
     this._domainEvents = []
     if (!(this.constructor as typeof AggregateRoot).fromPrimitives)
-      throw new DomainError(`${this.constructor.name} fromPrimitives must be implemented`)
+      throw new Error(`${this.constructor.name} fromPrimitives must be implemented`)
   }
 
   pullDomainEvents(): DomainEvent[] {
@@ -52,6 +46,11 @@ export abstract class AggregateRoot {
 
   handleEvent(_event: DomainEvent) {
     return
+  }
+
+  // not a property with getter because it's mutable and cause conflict with type checking
+  getDomainEvents() {
+    return this._domainEvents
   }
 
   // deserializer and communicate with infrastructure

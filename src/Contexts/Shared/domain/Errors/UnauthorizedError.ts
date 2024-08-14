@@ -2,13 +2,11 @@ import {
   DomainError,
 } from './DomainError.js'
 
-// 409 Conflict
-export class ConflictError extends DomainError {
+export class UnauthorizedError extends DomainError {
   override type: string
   constructor(message: string) {
     super(message)
-    // can't use because it can changes in minification
     // this.name = this.constructor.name
-    this.type = 'ConflictError'
+    this.type = 'UnauthorizedError'
   }
 }
