@@ -1,4 +1,8 @@
 import {
+  setTimeout as wait,
+} from 'node:timers/promises'
+
+import {
   Given,
 } from '@cucumber/cucumber'
 
@@ -9,9 +13,6 @@ import {
   DomainEventDeserializer,
   DomainEventSubscriberResolver,
 } from '#@/src/Contexts/Shared/infrastructure/EventBus/index.js'
-import {
-  wait,
-} from '#@/tests/Contexts/Shared/domain/index.js'
 
 import {
   eventBus,
@@ -27,9 +28,9 @@ const deserializer = buildDeserializer()
 
 Given('the following event is received:', async (event: any) => {
   const domainEvent = deserializer.deserialize(event)
-
-  await eventBus.publish([
+  const events = [
     domainEvent,
-  ])
+  ]
+  await eventBus.publish(events)
   await wait()
 })

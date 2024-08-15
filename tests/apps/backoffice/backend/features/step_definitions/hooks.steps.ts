@@ -1,4 +1,8 @@
 import {
+  setTimeout as wait,
+} from 'node:timers/promises'
+
+import {
   AfterAll,
   BeforeAll,
   setDefaultTimeout,
@@ -19,10 +23,10 @@ import {
 } from '#@/src/apps/backoffice/modules/index.js'
 import {
   EventBus,
+  ONE_MINUTE_IN_MILLISECONDS,
+  ONE_SECOND_IN_MILLISECONDS,
+  TEN_SECONDS_IN_MILLISECONDS,
 } from '#@/src/Contexts/Shared/domain/index.js'
-import {
-  wait,
-} from '#@/tests/Contexts/Shared/domain/index.js'
 import {
   EnvironmentArranger,
 } from '#@/tests/Contexts/Shared/infrastructure/index.js'
@@ -33,11 +37,11 @@ const application = new BackofficeBackendApp()
 let api: TestAgent<Test>
 const environmentArranger = container.get<EnvironmentArranger>(EnvironmentArranger)
 const eventBus = container.get<EventBus>(EventBus)
-setDefaultTimeout(60 * 1000)
+setDefaultTimeout(ONE_MINUTE_IN_MILLISECONDS)
 
 BeforeAll(
   {
-    timeout: 2 * 5000,
+    timeout: TEN_SECONDS_IN_MILLISECONDS,
   },
   async () => {
     await ConfigureRabbitMQCommand.run()
@@ -45,7 +49,7 @@ BeforeAll(
     // await moocBackendApp.start()
     await application.start()
     api = supertest(application.httpServer!)
-    await wait(1000)
+    await wait(ONE_SECOND_IN_MILLISECONDS)
     await environmentArranger.arrange()
   },
 )
@@ -55,7 +59,7 @@ AfterAll(async () => {
   await environmentArranger.close()
 
   // await moocBackendApp.stop()
-  await wait(1000)
+  await wait(ONE_SECOND_IN_MILLISECONDS)
   await application.stop()
 
   // TODO: The exit process should be automatic

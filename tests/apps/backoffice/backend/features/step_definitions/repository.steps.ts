@@ -19,9 +19,16 @@ const courseRepository: BackofficeCourseRepository = container.get(BackofficeCou
 
 Given('there is the course:', async (course: any) => {
   const {
-    id, name, duration,
+    id,
+    name,
+    duration,
   } = JSON.parse(course)
-  await courseRepository.save(
-    new BackofficeCourse(new CourseId(id), new BackofficeCourseName(name), new BackofficeCourseDuration(duration)),
+
+  const backofficeCourse = new BackofficeCourse(
+    new CourseId(id),
+    new BackofficeCourseName(name),
+    new BackofficeCourseDuration(duration),
   )
+
+  await courseRepository.save(backofficeCourse)
 })

@@ -19,6 +19,9 @@ import {
 } from '#@/src/apps/mooc/modules/index.js'
 import {
   EventBus,
+  ONE_MINUTE_IN_MILLISECONDS,
+  ONE_SECOND_IN_MILLISECONDS,
+  TEN_SECONDS_IN_MILLISECONDS,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   wait,
@@ -32,14 +35,16 @@ const application = new MoocBackendApp()
 let api: TestAgent<Test>
 const environmentArranger = container.get(EnvironmentArranger)
 const eventBus = container.get(EventBus)
-setDefaultTimeout(60 * 1000)
+setDefaultTimeout(ONE_MINUTE_IN_MILLISECONDS)
 
-BeforeAll(async () => {
+BeforeAll({
+  timeout: TEN_SECONDS_IN_MILLISECONDS,
+}, async () => {
   await ConfigureRabbitMQCommand.run()
 
   await application.start()
   api = supertest(application.httpServer!)
-  await wait(1000)
+  await wait(ONE_SECOND_IN_MILLISECONDS)
   await environmentArranger.arrange()
 })
 
@@ -47,7 +52,7 @@ AfterAll(async () => {
   await environmentArranger.arrange()
   await environmentArranger.close()
 
-  await wait(1000)
+  await wait(ONE_SECOND_IN_MILLISECONDS)
   // await backofficeBackendApp.stop()
   await application.stop()
 
