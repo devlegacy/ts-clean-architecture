@@ -13,11 +13,7 @@
       "legacyDecorator": true
     },
     "externalHelpers": true,
-    "keepClassNames": true,
-    "paths": {
-      "#@/*": ["./*"]
-    },
-    "baseUrl": "./"
+    "keepClassNames": true
   },
   "module": {
     "type": "es6",

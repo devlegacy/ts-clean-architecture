@@ -4,6 +4,10 @@
  * https://stackoverflow.com/questions/73038879/use-jest-with-typescript-esm-and-aliases
  */
 
+import {
+  readFileSync,
+} from 'fs'
+
 // const { pathsToModuleNameMapper } = require('ts-jest')
 // const { compilerOptions } = JSON5.parse(fs.readFileSync('./tsconfig.json', 'utf8'))
 // console.log(compilerOptions.baseUrl)
@@ -11,7 +15,14 @@
 
 const __dirname = new URL('.', import.meta.url).pathname
 
-// const swcConfig = JSON.parse(readFileSync(`${__dirname}/.swcrc`, 'utf-8'))
+// add paths to swc config
+const swcConfig = JSON.parse(readFileSync(`${__dirname}/.swcrc`, 'utf-8'))
+swcConfig.jsc.paths = {
+  '#@/*': [
+    './*',
+  ],
+}
+swcConfig.jsc.baseUrl = './'
 
 /** @type {import('jest').Config} */
 const config = {
@@ -201,7 +212,7 @@ const config = {
     '^.+\\.(t|j)s$': [
       '@swc/jest',
       {
-        // ...swcConfig,
+        ...swcConfig,
       },
     ],
   },
