@@ -19,6 +19,7 @@ import {
  * Domain service
  * Reuse logic
  * Finder puede tener excepciones o errores
+ * Backoffice - Find user by identifier x
  */
 @UseCase()
 export class UserFinder {
@@ -27,7 +28,9 @@ export class UserFinder {
   async run(userId: UserPrimitiveType['id']): Promise<User> {
     const user = await this.repository.searchById(new UserId(userId))
 
-    if (!user) throw new UserNotFoundError(userId)
+    if (!user) {
+      throw new UserNotFoundError(userId)
+    }
 
     return user
   }

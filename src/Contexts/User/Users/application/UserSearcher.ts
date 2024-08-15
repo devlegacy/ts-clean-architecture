@@ -8,6 +8,10 @@ import {
   UserRepository,
 } from '../domain/UserRepository.js'
 
+/**
+ * Filters
+ * Searchers doesn't have pagination (?)
+ */
 export class UserSearcher {
   constructor(private readonly repository: UserRepository) {}
 
