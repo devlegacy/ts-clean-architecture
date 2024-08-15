@@ -45,8 +45,8 @@
     "verbatimModuleSyntax": true,
     // "isolatedDeclarations": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
     /* Type Checking */
     "strict": true,
     "useUnknownInCatchVariables": true,

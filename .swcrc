@@ -14,18 +14,16 @@
     },
     "externalHelpers": true,
     "keepClassNames": true,
-    "loose": true,
-    "minify": {
-      "compress": true,
-      "mangle": true
-    }
+    "paths": {
+      "#@/*": ["./*"]
+    },
+    "baseUrl": "./"
   },
   "module": {
     "type": "es6",
     "strict": true,
-    "noInterop": false
+    "noInterop": true
   },
   "sourceMaps": true,
-  "exclude": ["node_modules", "dist"],
-  "minify": true
+  "exclude": ["node_modules", "dist"]
 }
