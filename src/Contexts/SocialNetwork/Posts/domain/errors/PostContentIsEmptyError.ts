@@ -3,7 +3,7 @@ import {
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 export class PostContentIsEmptyError extends DomainError {
-  type = 'PostContentIsEmptyError'
+  override type = 'PostContentIsEmptyError'
 
   constructor() {
     super(`The post content can't be empty`)
