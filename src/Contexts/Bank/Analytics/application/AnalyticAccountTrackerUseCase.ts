@@ -1,12 +1,20 @@
-import { EntityNotFoundError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EntityNotFoundError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { AnalyticAccount, AnalyticAccountRepository } from '../domain/index.js'
+import {
+  AnalyticAccount,
+  type AnalyticAccountRepository,
+} from '../domain/index.js'
 
 export class AnalyticAccountTrackerUseCase {
   constructor(private readonly analyticRepository: AnalyticAccountRepository) {}
 
   async trackNewAccount(accountId: string, currency: string) {
-    const account = new AnalyticAccount(accountId, currency)
+    const account = new AnalyticAccount(
+      accountId,
+      currency,
+    )
     await this.analyticRepository.trackNewAccount(account)
   }
 

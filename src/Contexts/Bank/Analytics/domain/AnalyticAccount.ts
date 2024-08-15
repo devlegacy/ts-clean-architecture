@@ -1,6 +1,10 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { AnalyticAccountConnection } from './AnalyticAccountConnection.js'
+import {
+  AnalyticAccountConnection,
+} from './AnalyticAccountConnection.js'
 
 export class AnalyticAccount extends AggregateRoot {
   // account id relation
@@ -16,7 +20,10 @@ export class AnalyticAccount extends AggregateRoot {
   }
 
   static override fromPrimitives(data: ReturnType<typeof AnalyticAccount.prototype.toPrimitives>): AnalyticAccount {
-    const account = new AnalyticAccount(data.id, data.currency)
+    const account = new AnalyticAccount(
+      data.id,
+      data.currency,
+    )
     const connections = data.connections.map((connection) => AnalyticAccountConnection.fromPrimitives(connection))
     account.connections.push(...connections)
 

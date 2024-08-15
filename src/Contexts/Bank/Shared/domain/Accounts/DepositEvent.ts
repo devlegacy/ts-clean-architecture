@@ -1,4 +1,6 @@
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -44,7 +46,9 @@ export class DepositEvent extends DomainEvent {
       }
     }
   }): DomainEvent {
-    const { eventId, occurredOn, aggregateId, attributes } = params
+    const {
+      eventId, occurredOn, aggregateId, attributes,
+    } = params
     return new DepositEvent({
       eventId,
       occurredOn,

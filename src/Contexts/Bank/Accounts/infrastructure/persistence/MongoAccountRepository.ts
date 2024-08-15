@@ -1,6 +1,11 @@
-import { MongoRepository } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  MongoRepository,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { Account, type AccountRepository } from '../../domain/index.js'
+import {
+  Account,
+  type AccountRepository,
+} from '../../domain/index.js'
 
 interface AccountDocument {
   _id: string
@@ -13,19 +18,29 @@ interface AccountDocument {
 
 export class MongoAccountRepository extends MongoRepository<Account> implements AccountRepository {
   async save(account: Account): Promise<void> {
-    await this.persist(account.id, account)
+    await this.persist(
+      account.id,
+      account,
+    )
   }
 
   async update(account: Account): Promise<void> {
-    await this.persist(account.id, account)
+    await this.persist(
+      account.id,
+      account,
+    )
   }
 
   async find(id: Account['id']): Promise<Nullable<Account>> {
     const collection = await this.collection<AccountDocument>()
-    const result = await collection.findOne({ _id: id })
+    const result = await collection.findOne({
+      _id: id,
+    })
     if (!result) return null
 
-    const { _id, ...document } = result
+    const {
+      _id, ...document
+    } = result
     const account = Account.fromPrimitives({
       ...document,
       id: _id.toString(),

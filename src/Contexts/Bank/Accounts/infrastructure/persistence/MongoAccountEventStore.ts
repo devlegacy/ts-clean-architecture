@@ -1,7 +1,14 @@
-import { Money } from '@/Contexts/Shared/domain/index.js'
-import { MongoEventStore } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  Money,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  MongoEventStore,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { Account, type AccountRepository } from '../../domain/index.js'
+import {
+  Account,
+  type AccountRepository,
+} from '../../domain/index.js'
 
 interface AccountDocument {
   _id: string
@@ -26,11 +33,20 @@ export class MongoAccountEventStore extends MongoEventStore<Account> implements 
 
   async find(id: Account['id']): Promise<Nullable<Account>> {
     const collection = await this.collection<AccountDocument>()
-    const events = await collection.find({ aggregateId: id }).toArray()
+    const events = await collection.find({
+      aggregateId: id,
+    }).toArray()
 
     if (!events || !events.length || !events[0]) return null
 
-    const account = new Account(id, events[0].name, new Money(events[0].balance.amount, events[0].balance.currency))
+    const account = new Account(
+      id,
+      events[0].name,
+      new Money(
+        events[0].balance.amount,
+        events[0].balance.currency,
+      ),
+    )
     events
       .sort((e1, e2) => e1.occurredOn.getTime() - e2.occurredOn.getTime())
       .forEach((event) => {
@@ -38,7 +54,9 @@ export class MongoAccountEventStore extends MongoEventStore<Account> implements 
         if (!domainEventClass) {
           return
         }
-        const { _id: eventId, aggregateId, occurredOn, eventName: _eventName, ...document } = event
+        const {
+          _id: eventId, aggregateId, occurredOn, eventName: _eventName, ...document
+        } = event
         // console.log(domainEventClass!.fromPrimitives, document)
         const domainEvent = domainEventClass.fromPrimitives({
           eventId,

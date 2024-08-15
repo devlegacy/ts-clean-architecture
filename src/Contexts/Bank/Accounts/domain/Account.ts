@@ -1,8 +1,20 @@
-import { AggregateRoot, DomainEvent, InvalidArgumentError, Money } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot,
+  DomainEvent,
+  InvalidArgumentError,
+  Money,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { DepositEvent, WithdrawalEvent } from '../../Shared/domain/index.js'
-import { AccountCreatedDomainEvent } from './AccountCreatedDomainEvent.js'
-import { EURRatioService } from './EURRatioService.js'
+import {
+  DepositEvent,
+  WithdrawalEvent,
+} from '../../Shared/domain/index.js'
+import {
+  AccountCreatedDomainEvent,
+} from './AccountCreatedDomainEvent.js'
+import {
+  EURRatioService,
+} from './EURRatioService.js'
 
 export type AccountEntityType = Entity<Account>
 export type AccountPrimitiveType = Primitives<Account>
@@ -30,8 +42,15 @@ export class Account extends AggregateRoot {
   }
 
   static create(id: string, name: string, currency: string): Account {
-    const money = new Money(0, currency)
-    const account = new Account(id, name, money)
+    const money = new Money(
+      0,
+      currency,
+    )
+    const account = new Account(
+      id,
+      name,
+      money,
+    )
     const event = new AccountCreatedDomainEvent({
       aggregateId: account.id,
       name: account.name,
@@ -43,12 +62,19 @@ export class Account extends AggregateRoot {
   }
 
   static override fromPrimitives(data: ReturnType<typeof Account.prototype.toPrimitives>): Account {
-    return new Account(data.id, data.name, Money.fromPrimitives(data.balance))
+    return new Account(
+      data.id,
+      data.name,
+      Money.fromPrimitives(data.balance),
+    )
   }
 
   withdraw(amount: Money, ratioService: EURRatioService) {
     // this.ensureIsTheSameCurrency(amount)
-    this.ensureEnoughFunds(amount, ratioService)
+    this.ensureEnoughFunds(
+      amount,
+      ratioService,
+    )
 
     // this._balance = this._balance.subtract(amount)
     const event = new WithdrawalEvent({
@@ -99,32 +125,50 @@ export class Account extends AggregateRoot {
 
   private _create(event: AccountCreatedDomainEvent) {
     this._name = event.name
-    this._balance = new Money(event.balance.amount ?? 0, event.balance.currency)
+    this._balance = new Money(
+      event.balance.amount ?? 0,
+      event.balance.currency,
+    )
   }
 
   private _deposit(event: DepositEvent) {
-    const money = new Money(event.balance.amount, event.balance.currency)
+    const money = new Money(
+      event.balance.amount,
+      event.balance.currency,
+    )
     this._balance = this._balance.add(money)
   }
 
   private _withdraw(event: WithdrawalEvent) {
-    const money = new Money(event.balance.amount, event.balance.currency)
+    const money = new Money(
+      event.balance.amount,
+      event.balance.currency,
+    )
     this._balance = this.balance.subtract(money)
   }
 
   private ensureEnoughFunds(amount: Money, ratioService: EURRatioService) {
-    const maxAmountWithdrawable = this.getMaxAmountWithdrawable(amount, ratioService)
+    const maxAmountWithdrawable = this.getMaxAmountWithdrawable(
+      amount,
+      ratioService,
+    )
     if (!maxAmountWithdrawable.isGreaterOrEqualThan(amount)) throw new InvalidArgumentError('Insufficient funds')
   }
 
   private getMaxAmountWithdrawable(requested: Money, ratioService: EURRatioService) {
-    const maxCreditInRequestedCurrency = this.getMaxCreditInRequestedCurrency(requested, ratioService)
+    const maxCreditInRequestedCurrency = this.getMaxCreditInRequestedCurrency(
+      requested,
+      ratioService,
+    )
     return this.balance.add(maxCreditInRequestedCurrency)
   }
 
   private getMaxCreditInRequestedCurrency(requested: Money, ratioService: EURRatioService) {
     const ratioEurRequestedCurrency = ratioService.getEURRatioForCurrency(requested.currency)!
-    const money = new Money(Account.MAX_CREDIT_IN_EUROS * ratioEurRequestedCurrency, requested.currency)
+    const money = new Money(
+      Account.MAX_CREDIT_IN_EUROS * ratioEurRequestedCurrency,
+      requested.currency,
+    )
     return money
   }
 }

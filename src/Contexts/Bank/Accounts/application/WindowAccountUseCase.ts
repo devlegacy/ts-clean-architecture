@@ -1,6 +1,14 @@
-import { EntityNotFoundError, EventBus, Money } from '@/Contexts/Shared/domain/index.js'
+import {
+  EntityNotFoundError,
+  EventBus,
+  Money,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Account, type AccountRepository, EURRatioService } from '../domain/index.js'
+import {
+  Account,
+  type AccountRepository,
+  EURRatioService,
+} from '../domain/index.js'
 
 export class AccountUseCase {
   constructor(
@@ -10,7 +18,11 @@ export class AccountUseCase {
   ) {}
 
   async create(id: string, name: string, currency: string): Promise<string> {
-    const account = Account.create(id, name, currency)
+    const account = Account.create(
+      id,
+      name,
+      currency,
+    )
 
     await this.accountRepository.save(account)
 
@@ -29,7 +41,10 @@ export class AccountUseCase {
 
   async deposit(id: string, amount: number, currency: string): Promise<void> {
     const account = await this.find(id)
-    const money = new Money(amount, currency)
+    const money = new Money(
+      amount,
+      currency,
+    )
     account.deposit(money)
 
     await this.accountRepository.update(account)
@@ -40,9 +55,15 @@ export class AccountUseCase {
 
   async withdraw(id: string, amount: number, currency: string): Promise<void> {
     const account = await this.find(id)
-    const money = new Money(amount, currency)
+    const money = new Money(
+      amount,
+      currency,
+    )
 
-    account.withdraw(money, this.ratioService)
+    account.withdraw(
+      money,
+      this.ratioService,
+    )
 
     await this.accountRepository.update(account)
 

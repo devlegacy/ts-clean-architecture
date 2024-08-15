@@ -1,6 +1,11 @@
-import { InMemoryRepository } from '@/Contexts/Shared/infrastructure/Persistence/memory/index.js'
+import {
+  InMemoryRepository,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/memory/index.js'
 
-import { Account, type AccountRepository } from '../../domain/index.js'
+import {
+  Account,
+  type AccountRepository,
+} from '../../domain/index.js'
 
 export class InMemoryAccountRepository extends InMemoryRepository<Account> implements AccountRepository {
   protected override parser = Account.fromPrimitives
@@ -10,7 +15,10 @@ export class InMemoryAccountRepository extends InMemoryRepository<Account> imple
   }
 
   override async update(account: Account): Promise<void> {
-    await super.update(account.id, account)
+    await super.update(
+      account.id,
+      account,
+    )
   }
 
   override async find(id: Account['id']): Promise<Nullable<Account>> {
