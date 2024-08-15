@@ -1,4 +1,7 @@
-import { ProductReview, type ProductReviewPrimitiveType } from './ProductReview.js'
+import {
+  ProductReview,
+  type ProductReviewPrimitiveType,
+} from './ProductReview.js'
 
 export type ProductReviewsPrimitiveType = Primitives<ProductReviews>
 export type ProductReviewsEntityType = Entity<ProductReviews>

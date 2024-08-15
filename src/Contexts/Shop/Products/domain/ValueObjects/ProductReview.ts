@@ -1,5 +1,10 @@
-import { PositiveNumberValueObject, StringValueObject } from '@/Contexts/Shared/domain/index.js'
-import { UserId } from '@/Contexts/User/Shared/domain/index.js'
+import {
+  PositiveNumberValueObject,
+  StringValueObject,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  UserId,
+} from '#@/src/Contexts/User/Shared/domain/index.js'
 
 export type ProductReviewPrimitiveType = Primitives<ProductReview>
 export type ProductReviewEntityType = Entity<ProductReview>

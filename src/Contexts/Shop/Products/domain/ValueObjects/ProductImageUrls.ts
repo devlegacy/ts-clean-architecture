@@ -1,10 +1,13 @@
-import { UrlValueObject } from '@/Contexts/Shared/domain/index.js'
+import {
+  UrlValueObject,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class ProductImageUrls extends Array<UrlValueObject> {
   constructor(urls: string[]) {
     const images = urls.map((url) => new UrlValueObject(url))
     super(...images)
   }
+
   static get [Symbol.species]() {
     return Array
   }

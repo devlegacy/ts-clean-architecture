@@ -1,4 +1,6 @@
-import { Money } from '@/Contexts/Shared/domain/index.js'
+import {
+  Money,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 import {
   ProductId,
@@ -18,7 +20,7 @@ export class Product {
   constructor(
     id: string,
     name: string,
-    price: { amount: number; currency: string },
+    price: { amount: number, currency: string },
     imageUrls: string[],
     reviews: ProductReviewPrimitiveType[],
   ) {
