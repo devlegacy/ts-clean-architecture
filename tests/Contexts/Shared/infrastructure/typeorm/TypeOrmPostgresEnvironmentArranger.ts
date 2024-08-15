@@ -1,5 +1,6 @@
 import {
-  DataSource, EntityMetadata,
+  DataSource,
+  EntityMetadata,
 } from 'typeorm'
 
 import {

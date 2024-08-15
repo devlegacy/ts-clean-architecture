@@ -177,6 +177,7 @@ export class FastifyAdapter {
         && err.statusCode
       ) {
         statusCode = +err.statusCode
+        // TODO: Domain Error Converter
       } else if (DomainErrorHandler.isDomainError(err)) {
         statusCode = DomainErrorHandler.toHttpCode(err)
       }

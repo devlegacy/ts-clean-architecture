@@ -11,7 +11,7 @@ import {
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   TypeOrmPostgresRepository,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/postgres/index.js'
 
 import {
   CourseEntity,

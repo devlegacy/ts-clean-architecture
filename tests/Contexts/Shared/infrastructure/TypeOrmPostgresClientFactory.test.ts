@@ -4,7 +4,7 @@ import {
 
 import {
   TypeOrmPostgresClientFactory,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/postgres/index.js'
 
 const config = {
   database: 'mooc-test',

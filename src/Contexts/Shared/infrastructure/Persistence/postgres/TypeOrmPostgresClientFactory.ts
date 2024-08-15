@@ -1,7 +1,13 @@
-import { DataSource } from 'typeorm'
-import type { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions.js'
+import {
+  DataSource,
+} from 'typeorm'
+import type {
+  PostgresConnectionOptions,
+} from 'typeorm/driver/postgres/PostgresConnectionOptions.js'
 
-import type { PostgresConfig } from '../postgres/index.js'
+import type {
+  PostgresConfig,
+} from '../postgres/index.js'
 
 export class TypeOrmPostgresClientFactory {
   static #clients: Record<string, DataSource> = {}
@@ -36,7 +42,9 @@ export class TypeOrmPostgresClientFactory {
       database: config.database,
       synchronize: true, // DEBT: handle in prod (false) and dev (true)
       logging: true,
-      entities: [`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`],
+      entities: [
+`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`,
+      ],
       // subscribers: [],
       // migrations: []
     }

@@ -11,8 +11,8 @@ import {
   CourseId,
 } from '#@/src/Contexts/Mooc/Shared/domain/index.js'
 import {
-  ValueObjectTransformer,
-} from '#@/src/Contexts/Shared/infrastructure/Persistence/typeorm/ValueObjectTransformer.js'
+  TypeOrmValueObjectTransformer,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/postgres/TypeOrmValueObjectTransformer.js'
 
 export const CourseEntity = new EntitySchema<Course>({
   name: 'Course',
@@ -22,15 +22,15 @@ export const CourseEntity = new EntitySchema<Course>({
     id: {
       type: String,
       primary: true,
-      transformer: ValueObjectTransformer(CourseId),
+      transformer: TypeOrmValueObjectTransformer(CourseId),
     },
     name: {
       type: String,
-      transformer: ValueObjectTransformer(CourseName),
+      transformer: TypeOrmValueObjectTransformer(CourseName),
     },
     duration: {
       type: String,
-      transformer: ValueObjectTransformer(CourseDuration),
+      transformer: TypeOrmValueObjectTransformer(CourseDuration),
     },
   },
 })

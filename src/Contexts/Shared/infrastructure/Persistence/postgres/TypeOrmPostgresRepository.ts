@@ -8,7 +8,8 @@ import {
 } from 'typeorm'
 
 import {
-  AggregateRoot, SHARED_TYPES,
+  AggregateRoot,
+  SHARED_TYPES,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 // Template method

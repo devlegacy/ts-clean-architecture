@@ -1,5 +1,7 @@
 import {
-  EntityRepository, EntitySchema, MikroORM,
+  EntityRepository,
+  EntitySchema,
+  MikroORM,
 } from '@mikro-orm/core'
 import {
   PostgreSqlDriver,
@@ -32,9 +34,10 @@ export abstract class MikroOrmPostgresRepository<T extends AggregateRoot> {
 
   protected async persist(aggregateRoot: T): Promise<void> {
     const repository = await this.repository()
-    repository.upsert(aggregateRoot)
-    // await repository.flush()
-    await repository.getEntityManager().flush()
+    // @ts-expect-error MikroORM types are not correct
+    repository.persist(aggregateRoot)
+    // @ts-expect-error MikroORM types are not correct
+    await repository.flush()
   }
 
   protected abstract entitySchema(): EntitySchema<T>
