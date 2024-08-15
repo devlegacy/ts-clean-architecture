@@ -14,8 +14,8 @@ import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
+  MikroOrmValueObjectTransformer,
   onLoad,
-  ValueObjectTransformer,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
 // https://mikro-orm.io/docs/entity-schema#configuration-reference
@@ -42,7 +42,7 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
     // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
     _id: {
       // customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         CoursesCounterId,
         'ObjectId',
       ),
@@ -57,13 +57,13 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
       // serializedPrimaryKey: true,
     },
     total: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         CoursesCounterTotal,
         'number',
       ),
     },
     existingCourses: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         CourseId,
         'ObjectId[]',
       ),

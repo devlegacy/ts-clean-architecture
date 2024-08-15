@@ -6,8 +6,8 @@ import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
+  MikroOrmValueObjectTransformer,
   onLoad,
-  ValueObjectTransformer,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 import {
   UserId,
@@ -45,7 +45,7 @@ export const UserEntity = new EntitySchema<User>({
   },
   properties: {
     id: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserId,
         'ObjectId',
       ),
@@ -53,32 +53,32 @@ export const UserEntity = new EntitySchema<User>({
       fieldName: '_id',
     },
     name: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserName,
         'string',
       ),
     },
     username: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserUsername,
         'string',
       ),
       unique: true,
     },
     email: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserEmail,
         'string',
       ),
     },
     birthdate: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserBirthdate,
         'Date',
       ),
     },
     jobExperiences: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         JobExperiences,
         '[]',
       ),
@@ -87,14 +87,14 @@ export const UserEntity = new EntitySchema<User>({
     //   type: new ValueObjectTransformer(UserAge, 'number'),
     // },
     createdAt: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserCreatedAt,
         'date',
       ),
       // onCreate: () => new Date(),
     },
     updatedAt: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserUpdatedAt,
         'date',
       ),
@@ -102,7 +102,7 @@ export const UserEntity = new EntitySchema<User>({
       // onUpdate: () => new Date(),
     },
     deletedAt: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         UserDeletedAt,
         'date',
       ),

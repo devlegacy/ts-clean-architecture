@@ -12,8 +12,8 @@ import {
   beforeCreate,
   beforeUpdate,
   beforeUpsert,
+  MikroOrmValueObjectTransformer,
   onLoad,
-  ValueObjectTransformer,
 } from '#@/src/Contexts/Shared/infrastructure/Persistence/mongo/index.js'
 
 export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
@@ -37,7 +37,7 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
   properties: {
     // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
     _id: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         BackofficeCourseId,
         'ObjectId',
       ),
@@ -52,13 +52,13 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
       // serializedPrimaryKey: true,
     },
     name: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         BackofficeCourseName,
         'string',
       ),
     },
     duration: {
-      type: new ValueObjectTransformer(
+      type: new MikroOrmValueObjectTransformer(
         BackofficeCourseDuration,
         'string',
       ),

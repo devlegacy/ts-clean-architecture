@@ -19,7 +19,7 @@ import {
 /**
  * Convert ValueObject to primitive and vice versa
  */
-export class ValueObjectTransformer extends Type<any, any> {
+export class MikroOrmValueObjectTransformer extends Type<any, any> {
   constructor(
     private readonly ValueObject: Class<ValueObject<any> | EnumValueObject<any>> | Class<any[]>,
     private readonly type: 'string' | 'ObjectId' | 'UUID' | 'number' | (string & NonNullable<unknown>),
