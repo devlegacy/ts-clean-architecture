@@ -3,10 +3,9 @@ import {
 } from './DomainError.js'
 
 export class UnauthorizedError extends DomainError {
-  override type: string
+  override type = 'UnauthorizedError'
   constructor(message: string) {
     super(message)
     // this.name = this.constructor.name
-    this.type = 'UnauthorizedError'
   }
 }

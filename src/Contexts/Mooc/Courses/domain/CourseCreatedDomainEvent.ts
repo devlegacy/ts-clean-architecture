@@ -43,7 +43,8 @@ export class CourseCreatedDomainEvent extends DomainEvent implements CreateCours
       occurredOn,
       aggregateId,
       attributes: {
-        name, duration,
+        name,
+        duration,
       },
     } = props
 

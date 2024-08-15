@@ -28,8 +28,10 @@ export interface DomainEventPrimitivesWithAttributes<Attributes> {
 }
 
 // Base (?)
+// TODO: use Simplify utility type
 export type DomainEventPrimitives<Attributes> = Attributes & {
-  // eventName: string
+  // extends
+  eventName?: string
   eventId?: string
   occurredOn?: Date
   aggregateId: string
@@ -47,6 +49,7 @@ export type DomainEventPrimitives<Attributes> = Attributes & {
  */
 export abstract class DomainEvent {
   // tag event name: AsyncAPI compliant, it should use action on past
+  // TODO: EVENT_NAME vs eventName
   static EVENT_NAME: string
   /**
    * Event are designed to be transported, so there is a need to define a deserializer

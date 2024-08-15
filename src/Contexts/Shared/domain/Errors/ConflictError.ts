@@ -4,11 +4,11 @@ import {
 
 // 409 Conflict
 export class ConflictError extends DomainError {
-  override type: string
+  override type = 'ConflictError'
+
   constructor(message: string) {
     super(message)
     // can't use because it can changes in minification
     // this.name = this.constructor.name
-    this.type = 'ConflictError'
   }
 }

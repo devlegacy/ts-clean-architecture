@@ -5,10 +5,9 @@ import {
 
 // TypeError
 export class InvalidArgumentError extends DomainError {
-  override type: string
+  override type = 'InvalidArgumentError'
   constructor(message: string) {
     super(message)
     this.name = this.constructor.name
-    this.type = 'InvalidArgumentError'
   }
 }
