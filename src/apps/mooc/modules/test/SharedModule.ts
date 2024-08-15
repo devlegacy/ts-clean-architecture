@@ -91,7 +91,7 @@ const rabbitEventBus = RabbitMQEventBusFactory.create(
 )
 
 export const SharedModule = (builder: ContainerBuilder) => {
-  builder.register<MikroORM<MongoDriver>>(MikroORM<MongoDriver>).useFactory(() => connectionClient)
+  builder.register<Promise<MikroORM<MongoDriver>>>(MikroORM<MongoDriver> as any).useFactory(() => connectionClient)
   builder.register(RabbitMQConnection).useFactory(() => {
     return rabbitConnection
   })

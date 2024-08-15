@@ -57,7 +57,10 @@ import {
   TAGS,
 } from '../tags.js'
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const __dirname = fileURLToPath(new URL(
+  '.',
+  import.meta.url,
+))
 const context = 'backoffice'
 const mongoConfig = MongoConfigFactory.createConfig()
 export const connectionClient = MikroOrmMongoClientFactory.createClient(
