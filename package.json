@@ -86,9 +86,9 @@
   "dependencies": {
     "@apollo/server": "4.11.0",
     "@as-integrations/fastify": "2.1.1",
-    "@aws-sdk/client-s3": "3.631.0",
-    "@aws-sdk/client-ses": "3.631.0",
-    "@aws-sdk/lib-storage": "3.631.0",
+    "@aws-sdk/client-s3": "3.633.0",
+    "@aws-sdk/client-ses": "3.632.0",
+    "@aws-sdk/lib-storage": "3.633.0",
     "@elastic/elasticsearch": "8.15.0",
     "@elastic/transport": "8.7.0",
     "@eventstore/db-client": "6.2.1",
@@ -102,7 +102,7 @@
     "@fastify/session": "10.9.0",
     "@fastify/swagger": "8.15.0",
     "@fastify/swagger-ui": "4.1.0",
-    "@graphql-tools/schema": "10.0.5",
+    "@graphql-tools/schema": "10.0.6",
     "@json2csv/plainjs": "7.0.6",
     "@mailchimp/mailchimp_marketing": "3.0.80",
     "@mailchimp/mailchimp_transactional": "1.0.59",
@@ -138,7 +138,7 @@
     "fast-equals": "5.0.1",
     "fast-jwt": "4.0.2",
     "fastify": "4.28.1",
-    "fastify-keycloak-adapter": "2.1.11",
+    "fastify-keycloak-adapter": "2.1.12",
     "fastify-qs": "4.0.2",
     "file-type": "19.4.1",
     "glob": "11.0.0",
@@ -188,7 +188,7 @@
     "@faker-js/faker": "8.4.1",
     "@jest/globals": "29.7.0",
     "@release-it/conventional-changelog": "8.0.1",
-    "@stylistic/eslint-plugin": "2.6.2",
+    "@stylistic/eslint-plugin": "2.6.4",
     "@swc-node/register": "1.10.9",
     "@swc/cli": "0.4.0",
     "@swc/core": "1.7.11",
@@ -209,7 +209,7 @@
     "@types/mailchimp__mailchimp_marketing": "3.0.20",
     "@types/mailchimp__mailchimp_transactional": "1.0.10",
     "@types/module-alias": "2.0.4",
-    "@types/node": "22.3.0",
+    "@types/node": "22.4.0",
     "@types/nodemailer": "6.4.15",
     "@types/qs": "6.9.15",
     "@types/readline-sync": "1.4.8",
@@ -249,7 +249,7 @@
     "ts-unused-exports": "10.1.0",
     "tsconfig-paths": "4.2.0",
     "tsx": "4.17.0",
-    "type-fest": "4.24.0",
+    "type-fest": "4.25.0",
     "typescript": "5.5.4",
     "typescript-eslint": "8.1.0"
   },
@@ -272,7 +272,10 @@
     "overrides": {
       "ws@>=8.0.0 <8.17.1": ">=8.17.1",
       "undici@>=6.14.0 <6.19.2": ">=6.19.2",
-      "fast-xml-parser@<4.4.1": ">=4.4.1"
+      "fast-xml-parser@<4.4.1": ">=4.4.1",
+      "elliptic@>=4.0.0 <=6.5.6": ">=6.5.7",
+      "elliptic@>=2.0.0 <=6.5.6": ">=6.5.7",
+      "elliptic@>=5.2.1 <=6.5.6": ">=6.5.7"
     }
   }
 }
