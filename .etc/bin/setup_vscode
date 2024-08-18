@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# NOTE: Use this script without symlinks because it will link ./.etc/.vscode to ./.vscode allowing users to alter the original files
+
+. "$(dirname "$0")/print_message"
+
+src="./.etc/.vscode"
+dest="./.vscode"
+
+print_message "$current_work_directory"
+
+if [ ! -d "${dest}" ]; then
+  print_message  "creating .vscode directory"  "warn"
+  mkdir "${dest}"
+fi
+
+for file in "$src"/*; do
+  filename=$(basename "$file")
+  dest_ln="$dest/$filename"
+  if [ -e "$dest_ln" ]; then
+    print_message "🗑️  removing old symbolic link for $filename" "warn"
+    rm "$dest_ln"
+  fi
+  print_message "🔗 adding $filename"
+  cp "$file" "$dest_ln"
+done

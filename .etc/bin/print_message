@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+. "$(dirname "$0")/colors"
+. "$(dirname "$0")/timestamp"
+
+function print_message() {
+  message="$1"
+  type="$2"
+
+  if [ -z "$type" ]; then
+    type="success"
+  fi
+
+  case "$type" in
+    "error")
+      printf "${COLOR_RED}$(timestamp) %s${COLOR_RESET}\n" "$message"
+      ;;
+    "success")
+      printf "${COLOR_GREEN}$(timestamp) %s${COLOR_RESET}\n" "$message"
+      ;;
+    "warn")
+      printf "${COLOR_YELLOW}$(timestamp) %s${COLOR_RESET}\n" "$message"
+      ;;
+  esac
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+  print_message "$1" "$2"
+fi
+
+export -f print_message

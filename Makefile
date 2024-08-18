@@ -1,38 +1,44 @@
-current_work_directory := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+SHELL:=$(shell which bash)
+MAKEFLAGS+=-s
+
+current_work_directory:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
 include .env
 export $(shell sed 's/=.*//' .env)
+export current_work_directory
 
-include ./.bin/colors.sh
-include ./.bin/timestamp.mk
-include ./.bin/print_message.mk
-include ./.bin/vscode.mk
+include ./.etc/bin/colors
 
-.DEFAULT_GOAL := help
+print_message:=./.etc/bin/print_message
+setup_vscode:=./.etc/bin/setup_vscode
+DOCKER:=$(shell command -v docker)
+DOCKER_COMPOSE:=$(shell command -v docker-compose)
 
-SHELL := $(shell which bash)
+.DEFAULT_GOAL:=help
 
-DOCKER := $(shell command -v docker)
-DOCKER_COMPOSE := $(shell command -v docker-compose)
+.ONESHELL:
 
 .PHONY: help
-help: ## 📋 Display this help message with descriptions of all available commands.
-	@echo "Recommended usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@grep -E '^[a-zA-Z0-9\/_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "} {gsub(/^[^:]*:/, ""); gsub(/^ +| +$$/, "", $$1); printf "'${COLOR_GREEN}'%-10s'${COLOR_RESET}' : %s\n", $$1, $$2}'
+.SILENT: help
+help: ## 📋 Display help message with descriptions of all available commands.
+	echo "Recommended usage: make [target]"
+	echo ""
+	echo "Targets:"
+	grep -E '^[a-zA-Z0-9\/_ -]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "} {gsub(/^[^:]*:/, ""); gsub(/^ +| +$$/, "", $$1); printf "'${COLOR_GREEN}'%-10s'${COLOR_RESET}' : %s\n", $$1, $$2}'
 
-.PHONY: update
-update: ## ⬆️ Update all project dependencies to their latest versions.
-	@$(call print_message, "updating dependencies")
-	@ncu -u
-	@corepack up
-	@NODE_ENV= pnpm install
-	@NODE_ENV= pnpm audit --fix
+.PHONY: deps/update
+.SILENT: deps/update
+deps/update: ## ⬆️ Update all project dependencies to their latest versions.
+	$(print_message) "updating dependencies"
+	ncu -u && ncu --target minor -u && ncu --target patch -u
+	NODE_ENV= corepack up
+	NODE_ENV= pnpm install
+	NODE_ENV= pnpm audit --fix
 
 .PHONY: setup/git
+.SILENT: setup/git
 setup/git: ## ⚙️ Setup the Git repository.
-	@$(call print_message, "setting up git repository")
-	@echo "$(current_work_directory)"; \
+	$(print_message) "setting up git repository" \
 	git config --local user.name "$${GIT_NAME}"; \
 	git config --local user.email "$${GIT_EMAIL}"; \
 	git config --local user.signingkey "$${GIT_SIGNINGKEY}"; \
