@@ -1,4 +1,6 @@
 export * from './arranger/EnvironmentArranger.js'
 export * from './mikroorm/MikroOrmMongoEnvironmentArranger.js'
 // export * from './typeorm/TypeOrmEnvironmentArranger'
+export * from './MockClock.js'
+export * from './MockEventBus.js'
 export * from './mongo/MongoEnvironmentArranger.js'

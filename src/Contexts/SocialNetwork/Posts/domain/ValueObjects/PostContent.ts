@@ -1,12 +1,17 @@
 import {
+  StringValueObject,
+} from '#@/src/Contexts/Shared/domain/index.js'
+
+import {
   PostContentIsEmptyError,
   PostContentTooLongError,
 } from '../Errors/index.js'
 
-export class PostContent {
+export class PostContent extends StringValueObject {
   static readonly maxLength = 280
 
-  constructor(readonly value: string) {
+  constructor(value: string) {
+    super(value)
     if (value.length === 0) {
       throw new PostContentIsEmptyError()
     }

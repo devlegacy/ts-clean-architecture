@@ -13,7 +13,7 @@ import {
 } from './UserEmailUpdateDomainEvent.js'
 import {
   UserRegisteredDomainEvent,
-} from './UserRegisteedDomainEvent.js'
+} from './UserRegisteredDomainEvent.js'
 import {
   UserEmail,
   UserName,

@@ -1,5 +1,5 @@
 import {
-  ObjectId,
+  Uuid,
 } from '#@/src/Contexts/Shared/domain/index.js'
 
-export class UserId extends ObjectId {}
+export class UserId extends Uuid {}
