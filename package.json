@@ -90,7 +90,7 @@
     "@aws-sdk/client-ses": "3.635.0",
     "@aws-sdk/lib-storage": "3.635.0",
     "@elastic/elasticsearch": "8.15.0",
-    "@elastic/transport": "8.7.0",
+    "@elastic/transport": "8.7.1",
     "@eventstore/db-client": "6.2.1",
     "@fastify/compress": "7.0.3",
     "@fastify/cookie": "9.4.0",

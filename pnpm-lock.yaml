@@ -27,8 +27,8 @@ importers:
         specifier: 8.15.0
         version: 8.15.0
       '@elastic/transport':
-        specifier: 8.7.0
-        version: 8.7.0
+        specifier: 8.7.1
+        version: 8.7.1
       '@eventstore/db-client':
         specifier: 6.2.1
         version: 6.2.1
@@ -1107,8 +1107,8 @@ packages:
     resolution: {integrity: sha512-mG90EMdTDoT6GFSdqpUAhWK9LGuiJo6tOWqs0Usd/t15mPQDj7ZqHXfCBqNkASZpwPZpbAYVjd57S6nbUBINCg==}
     engines: {node: '>=18'}
 
-  '@elastic/transport@8.7.0':
-    resolution: {integrity: sha512-IqXT7a8DZPJtqP2qmX1I2QKmxYyN27kvSW4g6pInESE1SuGwZDp2FxHJ6W2kwmYOJwQdAt+2aWwzXO5jHo9l4A==}
+  '@elastic/transport@8.7.1':
+    resolution: {integrity: sha512-2eeMVkz57Ayxv+UAZkIKzzrUu7nm96jr3+N3kLfbBqALYe2jwDpLr9pR0jc/x9HyJKAM909YGaNlHFDZeb0+Mw==}
     engines: {node: '>=18'}
 
   '@emnapi/core@1.2.0':
@@ -9273,12 +9273,12 @@ snapshots:
 
   '@elastic/elasticsearch@8.15.0':
     dependencies:
-      '@elastic/transport': 8.7.0
+      '@elastic/transport': 8.7.1
       tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
 
-  '@elastic/transport@8.7.0':
+  '@elastic/transport@8.7.1':
     dependencies:
       '@opentelemetry/api': 1.9.0
       debug: 4.3.6(supports-color@8.1.1)
