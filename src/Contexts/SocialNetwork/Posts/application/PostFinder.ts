@@ -2,8 +2,8 @@ import {
   PostId,
 } from '../../Shared/domain/index.js'
 import {
-  PostDoesNotExist,
-} from '../domain/Errors/PostDoesNotExist.js'
+  PostDoesNotExistError,
+} from '../domain/Errors/PostDoesNotExistError.js'
 import {
   Post,
 } from '../domain/Post.js'
@@ -19,7 +19,7 @@ export class PostFinder {
     const post = await this.repository.search(new PostId(id))
 
     if (!post) {
-      throw new PostDoesNotExist(id)
+      throw new PostDoesNotExistError(id)
     }
 
     return post

@@ -2,7 +2,7 @@ import {
   UserId,
 } from '../../Shared/domain/index.js'
 import {
-  UserDoesNotExist,
+  UserDoesNotExistError,
 } from './Errors/index.js'
 import type {
   User,
@@ -14,13 +14,16 @@ import type {
 export class UserFinder {
   constructor(private readonly repository: UserRepository) {}
 
-  async find(id: string): Promise<User> {
+  async run(id: string): Promise<User> {
     const user = await this.repository.search(new UserId(id))
 
     if (user === null) {
-      throw new UserDoesNotExist(id)
+      throw new UserDoesNotExistError(id)
     }
 
     return user
   }
+}
+export {
+  UserFinder as DomainUserFinder
 }

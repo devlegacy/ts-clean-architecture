@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import {
+  beforeEach,
   describe,
   it,
 } from 'node:test'
@@ -36,13 +37,21 @@ import {
   MockPostRepository,
 } from '../infrastructure/MockPostRepository.js'
 
+let clock: MockClock
+let repository: MockPostRepository
+let eventBus: MockEventBus
+
+let postPublisher: PostPublisher
+
+beforeEach(() => {
+  clock = new MockClock()
+  repository = new MockPostRepository()
+  eventBus = new MockEventBus()
+
+  postPublisher = new PostPublisher(clock, repository, eventBus)
+})
+
 describe('PostPublisher should', () => {
-  const clock = new MockClock()
-  const repository = new MockPostRepository()
-  const eventBus = new MockEventBus()
-
-  const postPublisher = new PostPublisher(clock, repository, eventBus)
-
   it('throw an error publishing an empty post', async () => {
     const postId = PostIdMother.create()
     const userId = UserIdMother.create()

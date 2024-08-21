@@ -6,7 +6,8 @@ import type {
 } from '#@/src/Contexts/Shared/domain/Clock.js'
 
 import {
-  PostId, UserId,
+  PostId,
+  UserId,
 } from '../../Shared/domain/index.js'
 import {
   PostLikedDomainEvent,

@@ -21,6 +21,9 @@ import {
   UserStatus,
 } from './ValueObjects/index.js'
 
+export type UserEntityType = Entity<User>
+export type UserPrimitiveType = Primitives<User>
+
 export class User extends AggregateRoot {
   readonly id: UserId
   readonly name: UserName
@@ -57,7 +60,7 @@ export class User extends AggregateRoot {
     user.record(new UserRegisteredDomainEvent({
       id: user.id.value,
       name: user.name.value,
-      email: user.name.value,
+      email: user.email.value,
       profilePicture: user.profilePicture.value,
       status: user.status,
       aggregateId: user.id.value,

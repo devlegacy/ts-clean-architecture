@@ -1,4 +1,4 @@
-import type {
+import {
   Criteria,
 } from '#@/src/Contexts/Shared/domain/index.js'
 

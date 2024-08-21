@@ -1,1 +1,1 @@
-export * from './UserDoesNotExist.js'
+export * from './UserDoesNotExistError.js'
