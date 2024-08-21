@@ -209,7 +209,7 @@
     "@types/mailchimp__mailchimp_marketing": "3.0.20",
     "@types/mailchimp__mailchimp_transactional": "1.0.10",
     "@types/module-alias": "2.0.4",
-    "@types/node": "22.4.2",
+    "@types/node": "22.5.0",
     "@types/nodemailer": "6.4.15",
     "@types/qs": "6.9.15",
     "@types/readline-sync": "1.4.8",
@@ -256,7 +256,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.7",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "17.0.6",
+    "npm-check-updates": "17.1.0",
     "snyk": "1.1292.4"
   },
   "engines": {
