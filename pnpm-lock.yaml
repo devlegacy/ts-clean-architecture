@@ -18,8 +18,8 @@ importers:
         specifier: 3.635.0
         version: 3.635.0
       '@aws-sdk/client-ses':
-        specifier: 3.635.0
-        version: 3.635.0
+        specifier: 3.636.0
+        version: 3.636.0
       '@aws-sdk/lib-storage':
         specifier: 3.635.0
         version: 3.635.0(@aws-sdk/client-s3@3.635.0)
@@ -651,8 +651,8 @@ packages:
     resolution: {integrity: sha512-4RP+DJZWqUka1MW2aSEzTzntY3GrDzS26D8dHZvbt2I0x+dSmlnmXiJkCxLjmti2SDVYAGL9gX6e7mLS7W55jA==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/client-ses@3.635.0':
-    resolution: {integrity: sha512-Lk6n9CtcluKwFJq3JJmci4W+gNf4oj1c/BXlDdRcyO45qbpG1sQqY0Ss29U8tvhh6bH2A4PCBUq66N3v14m+5g==}
+  '@aws-sdk/client-ses@3.636.0':
+    resolution: {integrity: sha512-72LwrowWBR4W6ilkc1AIBJZV7UbA9YvmqfHyh+D+Ek7VK65cW9mskLE9rFX/uI4CzupCSxVvEy2d23M/6w+Saw==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/client-sso-oidc@3.635.0':
@@ -8392,7 +8392,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-ses@3.635.0':
+  '@aws-sdk/client-ses@3.636.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
