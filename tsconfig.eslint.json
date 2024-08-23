@@ -1,15 +1,7 @@
 // https://typescript-eslint.io/packages/parser#project
+// extend your base config so you don't have to redefine your compilerOptions
 {
-  // extend your base config so you don't have to redefine your compilerOptions
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
-  "include": [
-    "./**/*.ts",
-    "./**/*.mts",
-    "./**/*.js",
-    "./**/*.mjs",
-    "./**/*.cjs",
-    "./.*.mjs",
-    "./.*.cjs"
-  ]
+  "include": ["./**/*.ts", "./**/*.mts", "./**/*.js", "./**/*.mjs", "./**/*.cjs", "./.*.mjs"]
 }

@@ -1,3 +1,4 @@
 {
-  "path": "./cz.cjs"
+  "$schema": "https://cdn.jsdelivr.net/gh/Zhengqbbb/cz-git/docs/public/schema/cz-git.json",
+  "path": "cz-git"
 }

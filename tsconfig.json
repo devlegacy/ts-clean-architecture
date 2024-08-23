@@ -15,6 +15,9 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "baseUrl": "./",
+    "paths": {
+      "#@/*": ["${configDir}/*"]
+    },
     "typeRoots": [
       "${configDir}/node_modules/@types",
       "${configDir}/node_modules/reflect-metadata",
@@ -45,6 +48,7 @@
     "verbatimModuleSyntax": true,
     // "isolatedDeclarations": true,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     /* Type Checking */

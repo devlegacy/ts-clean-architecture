@@ -8,11 +8,16 @@ import {
   readFileSync,
 } from 'fs'
 
-// const { pathsToModuleNameMapper } = require('ts-jest')
-// const { compilerOptions } = JSON5.parse(fs.readFileSync('./tsconfig.json', 'utf8'))
-// console.log(compilerOptions.baseUrl)
-// console.log(pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }))
+// import JSON5 from 'json5'
+// import pkg from './package.json' with { type: 'json' }
 
+// const { pathsToModuleNameMapper } = require('ts-jest')
+// const {
+//   compilerOptions,
+// } = JSON5.parse(readFileSync('./tsconfig.json', 'utf8'))
+// console.log(compilerOptions.paths)
+// console.log(pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }))
+// console.log(pkg.imports)
 const __dirname = new URL('.', import.meta.url).pathname
 
 // add paths to swc config
