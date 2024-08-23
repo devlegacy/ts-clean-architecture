@@ -86,9 +86,9 @@
   "dependencies": {
     "@apollo/server": "4.11.0",
     "@as-integrations/fastify": "2.1.1",
-    "@aws-sdk/client-s3": "3.635.0",
-    "@aws-sdk/client-ses": "3.636.0",
-    "@aws-sdk/lib-storage": "3.635.0",
+    "@aws-sdk/client-s3": "3.637.0",
+    "@aws-sdk/client-ses": "3.637.0",
+    "@aws-sdk/lib-storage": "3.637.0",
     "@elastic/elasticsearch": "8.15.0",
     "@elastic/transport": "8.7.1",
     "@eventstore/db-client": "6.2.1",
@@ -118,7 +118,7 @@
     "ajv": "8.17.1",
     "amqplib": "0.10.4",
     "avsc": "5.7.7",
-    "axios": "1.7.4",
+    "axios": "1.7.5",
     "bcrypt": "5.1.1",
     "bodybuilder": "2.5.1",
     "bson": "6.8.0",
@@ -157,7 +157,7 @@
     "mime": "4.0.4",
     "module-alias": "2.2.3",
     "mongodb": "6.8.0",
-    "mongoose": "8.5.3",
+    "mongoose": "8.5.4",
     "node-dependency-injection": "3.1.2",
     "nodemailer": "6.9.14",
     "pg": "8.12.0",
@@ -241,7 +241,7 @@
     "release-it": "17.6.0",
     "resolve-tspaths": "0.8.19",
     "supertest": "7.0.0",
-    "ts-jest": "29.2.4",
+    "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "ts-paths-esm-loader": "1.4.3",
@@ -260,12 +260,17 @@
     "snyk": "1.1292.4"
   },
   "engines": {
-    "node": ">=22.6.0",
+    "node": ">=22.7.0",
     "npm": ">=10.8.2",
-    "pnpm": ">=9.7.1"
+    "pnpm": ">=9.8.0"
   },
   "os": [],
   "cpu": [],
   "engineStrict": true,
-  "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
+  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276",
+  "pnpm": {
+    "overrides": {
+      "micromatch@<4.0.8": ">=4.0.8"
+    }
+  }
 }
