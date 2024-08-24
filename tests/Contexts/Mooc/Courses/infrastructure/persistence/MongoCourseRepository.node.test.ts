@@ -46,7 +46,7 @@ afterEach(async () => {
 //   await arranger.close()
 // })
 
-// npx cross-env APP_ENV=test jest ./tests/Contexts/Mooc/Courses/infrastructure/persistence/MongoCourseRepository.test.ts
+// npx cross-env APP_ENV=test jest ./tests/Contexts/Mooc/Courses/infrastructure/persistence/MongoCourseRepository.test.js
 describe('CourseRepository', () => {
   describe('#save', () => {
     it('should save a course', async () => {

@@ -46,7 +46,7 @@ const validJobExperience = [
   },
 ]
 
-// https://github.com/CodelyTV/value_objects-course/blob/main/03-value_objects_beyond/1-testing/3-with_all_object_mothers/tests/users/application/UserRegistrar.test.ts
+// https://github.com/CodelyTV/value_objects-course/blob/main/03-value_objects_beyond/1-testing/3-with_all_object_mothers/tests/users/application/UserRegistrar.test.js
 describe('UserRegistrar', () => {
   it('registers a user without throwing errors when all data is valid', async () => {
     const repository = new InMemoryUserRepository()

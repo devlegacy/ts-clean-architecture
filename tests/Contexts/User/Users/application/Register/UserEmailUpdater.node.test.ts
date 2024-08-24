@@ -3,7 +3,9 @@
 // node --test --loader=ts-paths-esm-loader/transpile-only ./tests/Contexts/User/Users/application/Register/UserEmailUpdater.test.ts
 import assert from 'node:assert/strict'
 import {
-  describe, it, mock,
+  describe,
+  it,
+  mock,
 } from 'node:test'
 
 import {
@@ -16,7 +18,8 @@ import {
   UserEmailUpdater,
 } from '#@/src/Contexts/User/Users/application/index.js'
 import {
-  User, UserDoesNotExistError,
+  User,
+  UserDoesNotExistError,
 } from '#@/src/Contexts/User/Users/domain/index.js'
 import {
   InMemoryUserRepository,
