@@ -22,7 +22,7 @@
     "start:user:console:debug": "node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 --env-file=.user.env ./src/apps/user/console/main.ts",
     "start:user:api:debug": "node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 --env-file=.user.env ./src/apps/user/backend/main.ts",
     "start:user:graph:debug": "node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 ./src/apps/user/graphql/main.ts",
-    "start:mooc:api:debug": "node --env-file=.mooc.env --import @swc-node/register/esm-register --loader ts-node/esm --watch --inspect=0.0.0.0:0 ./src/apps/mooc/backend/main.ts",
+    "start:mooc:api:debug": "node --env-file=.mooc.env --import @swc-node/register/esm-register --watch --inspect=0.0.0.0:0 ./src/apps/mooc/backend/main.ts",
     "start:backoffice:api:debug": "cross-env DEBUG=* node --watch --loader ts-paths-esm-loader/transpile-only --inspect=0.0.0.0:0 --env-file=.backoffice.env ./src/apps/backoffice/backend/main.ts",
     "start:land:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/land/backend/main.ts",
     "start:bank:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/bank/backend/main.ts",
@@ -38,8 +38,9 @@
     "test": "echo \"implement a real strategy between jest and node test runner\" && exit 0",
     "test:jest": "npm run test:jest:unit && npm run test:features",
     "test:node": "npm run test:node:unit && npm run test:features",
-    "test:node:unit": "cross-env APP_ENV=test node --experimental-vm-modules --no-warnings=ExperimentalWarning --loader ts-paths-esm-loader/transpile-only --test \"./**/*.node.test.ts\"",
+    "test:node:unit": "cross-env APP_ENV=test node --experimental-vm-modules --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --test \"./tests/**/*.node.test.ts\"",
     "test:jest:unit": "cross-env APP_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --no-warnings=ExperimentalWarning\" jest --config=./jest.config.mjs --runInBand --detectOpenHandles",
+    "test:jest:unit:file": "cross-env APP_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --no-warnings=ExperimentalWarning\" jest --config=./jest.config.mjs --runInBand --detectOpenHandles ./tests/Contexts/Mooc/CoursesCounter/infrastructure/CoursesCounterRepository.jest.test.ts",
     "test:features": "npm run test:mooc:backend:features && npm run test:backoffice:backend:features",
     "test:mooc:backend:features": "cross-env APP_ENV=test DEBUG=* NODE_OPTIONS=\"--loader ts-paths-esm-loader/transpile-only\" cucumber-js -p mooc_backend",
     "test:backoffice:backend:features": "cross-env APP_ENV=test DEBUG=* cucumber-js -p backoffice_backend",
@@ -191,7 +192,7 @@
     "@stylistic/eslint-plugin": "2.6.4",
     "@swc-node/register": "1.10.9",
     "@swc/cli": "0.4.0",
-    "@swc/core": "1.7.14",
+    "@swc/core": "1.7.18",
     "@swc/helpers": "0.5.12",
     "@swc/jest": "0.2.36",
     "@types/amqplib": "0.10.5",
@@ -250,7 +251,7 @@
     "ts-prune": "0.10.3",
     "ts-unused-exports": "10.1.0",
     "tsconfig-paths": "4.2.0",
-    "tsx": "4.17.0",
+    "tsx": "4.18.0",
     "type-fest": "4.25.0",
     "typescript": "5.5.4",
     "typescript-eslint": "8.2.0"
@@ -269,10 +270,5 @@
   "os": [],
   "cpu": [],
   "engineStrict": true,
-  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276",
-  "pnpm": {
-    "overrides": {
-      "micromatch@<4.0.8": ">=4.0.8"
-    }
-  }
+  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276"
 }
