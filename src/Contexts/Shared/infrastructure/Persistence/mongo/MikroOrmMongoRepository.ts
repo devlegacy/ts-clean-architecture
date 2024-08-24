@@ -11,7 +11,12 @@ import {
 } from 'diod'
 import {
   ObjectId,
+  UUID,
 } from 'mongodb'
+import {
+  validate,
+  version,
+} from 'uuid'
 
 import {
   AggregateRoot,
@@ -114,6 +119,30 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
     return repository
   }
 
+  // eslint-disable-next-line complexity
+  protected async _persist(aggregateRoot: T): Promise<void> {
+    const repository = await this.repository()
+    const {
+      id,
+    } = aggregateRoot as any
+
+    if ((id?.value) && ObjectId.isValid((id?.value))) {
+      (aggregateRoot as any).id = new ObjectId(id.value as string)
+      // (aggregateRoot as any)._id = id
+    }
+
+    if ((id?.value) && validate((id?.value)) && version(id?.value) === 4) {
+      (aggregateRoot as any).id = new UUID(id.value as string)
+      // (aggregateRoot as any)._id = id
+    }
+
+    await repository.upsert(
+      aggregateRoot,
+    );
+
+    (aggregateRoot as any).id = id
+  }
+
   protected async persist(aggregateRoot: T): Promise<void> {
     // Nota: una forma de evitar las transacciones dentro de los repositorios es con publicación de eventos y retries
     // begin transaction
@@ -130,8 +159,8 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
         // @ts-expect-error add value on run time, esto debería funcionar automáticamente con los hooks tal vez
         aggregateRoot.id = new ObjectId((aggregateRoot.id.value || aggregateRoot.id) as string)
       }
-      // eslint-disable-next-line no-console
-      console.log(aggregateRoot)
+      // // eslint-disable-next-line no-console
+      // console.log(aggregateRoot)
       await repository.upsert(
         aggregateRoot,
         // {
@@ -146,17 +175,17 @@ export abstract class MikroOrmMongoRepository<T extends AggregateRoot> {
       if (aggregateRootId) (aggregateRoot as any).id = aggregateRootId
       // await repository.getEntityManager().flush()
 
-      const created = await repository
-        .getEntityManager()
-        .findOne<any>(
-          this.entitySchema(),
-          {
-            _id: (aggregateRoot as any).id,
-          } as any,
-        )
+      // const _created = await repository
+      //   .getEntityManager()
+      //   .findOne<any>(
+      //     this.entitySchema(),
+      //     {
+      //       _id: (aggregateRoot as any).id,
+      //     } as any,
+      //   )
 
-      // eslint-disable-next-line no-console
-      console.log(created)
+      // // eslint-disable-next-line no-console
+      // console.log(created)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e)

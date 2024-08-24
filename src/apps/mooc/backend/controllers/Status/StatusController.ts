@@ -15,7 +15,8 @@ import {
   Res,
 } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import type {
-  Request, Response,
+  Request,
+  Response,
 } from '#@/src/Contexts/Shared/infrastructure/Fastify/index.js'
 import {
   JoiObjectIdPipe,
@@ -31,7 +32,9 @@ import {
   ZodRequestCourseSchema,
 } from '../Courses/validations/index.js'
 import {
-  IndexQueryRequestSchema, IndexRequestHeadersSchema, UserRequestSchema,
+  IndexQueryRequestSchema,
+  IndexRequestHeadersSchema,
+  UserRequestSchema,
 } from './validations/index.js'
 
 // Los controllers regresan promesas<any> sin excepciones, los errores se propagan hasta el Server que instancia los controllers

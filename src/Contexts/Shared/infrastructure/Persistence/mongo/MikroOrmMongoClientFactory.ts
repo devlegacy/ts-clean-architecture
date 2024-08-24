@@ -100,7 +100,7 @@ export abstract class MikroOrmMongoClientFactory {
       driver: MongoDriver,
       forceUndefined: true,
       driverOptions: {
-        useUnifiedTopology: true,
+        // useUnifiedTopology: true,
         monitorCommands: true,
         ignoreUndefined: true,
       },

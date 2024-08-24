@@ -48,10 +48,10 @@ describe('CoursesCounterRepository', () => {
   describe('#search', () => {
     it('should return an existing course', async () => {
       const expectedCounter = CoursesCounterMother.random()
+
       await repository.save(expectedCounter)
 
       const counter = await repository.search()
-
       expect(expectedCounter.toPrimitives()).toEqual(counter?.toPrimitives())
     })
 

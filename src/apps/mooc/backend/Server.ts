@@ -2,8 +2,8 @@ import http from 'node:http'
 
 // import fastifySwagger, { JSONObject } from '@fastify/swagger'
 // import fastifySwaggerUi from '@fastify/swagger-ui'
-import type {
-  Logger as PinoLoggerType,
+import {
+  type Logger as PinoLoggerType,
 } from 'pino'
 import qs from 'qs'
 

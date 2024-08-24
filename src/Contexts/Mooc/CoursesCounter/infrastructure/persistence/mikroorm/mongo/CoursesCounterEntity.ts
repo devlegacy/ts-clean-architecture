@@ -39,22 +39,28 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
     ],
   },
   properties: {
-    // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
-    _id: {
-      // customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
+    // // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
+    // _id: {
+    //   // customType: new ValueObjectTransformer(CourseId, 'ObjectId'),
+    //   type: new MikroOrmValueObjectTransformer(
+    //     CoursesCounterId,
+    //     'ObjectId',
+    //   ),
+    //   // type: 'ObjectId',
+    //   primary: true,
+    //   // hidden: true,
+    // },
+    id: {
+      // type: 'string',
+      // type: new MikroOrmValueObjectTransformer(CoursesCounterId, 'string'),
+      // persist: false,
+      // serializedPrimaryKey: true,
       type: new MikroOrmValueObjectTransformer(
         CoursesCounterId,
         'ObjectId',
       ),
-      // type: 'ObjectId',
       primary: true,
-      // hidden: true,
-    },
-    id: {
-      type: 'string',
-      // customType: new ValueObjectTransformer(CoursesCounterId, 'string'),
-      // persist: false,
-      // serializedPrimaryKey: true,
+      fieldName: '_id',
     },
     total: {
       type: new MikroOrmValueObjectTransformer(
@@ -65,7 +71,7 @@ export const CoursesCounterEntity = new EntitySchema<CoursesCounter>({
     existingCourses: {
       type: new MikroOrmValueObjectTransformer(
         CourseId,
-        'ObjectId[]',
+        'ObjectId',
       ),
     },
   },

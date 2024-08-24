@@ -1,5 +1,4 @@
 import type {
-  EntityProperty,
   TransformContext,
 } from '@mikro-orm/core'
 import {
@@ -36,11 +35,11 @@ export class MikroOrmValueObjectTransformer extends Type<any, any> {
     if (this.type === 'UUID' && Array.isArray(value)) {
       return value.map((v) => new UUID(v.value as string))
     } else if (this.type === 'UUID') {
-      const objectId
+      const uuid
         = UUID.isValid(value.toString()) && value instanceof UUID
           ? value
           : new UUID(value.value as string)
-      return objectId
+      return uuid
     } else if (this.type === 'ObjectId' && Array.isArray(value)) {
       return value.map((v) => new ObjectId(v.value as string))
     } else if (this.type === 'ObjectId') {
@@ -84,19 +83,19 @@ export class MikroOrmValueObjectTransformer extends Type<any, any> {
     return vo
   }
 
-  // @ts-expect-error TODO: fix
-  getColumnType(_prop: EntityProperty, _platform: Platform): string {
-    return this.type
-  }
+  // // @ts-expect-error TODO: fix
+  // getColumnType(_prop: EntityProperty, _platform: Platform): string {
+  //   return this.type
+  // }
 
-  // toJSON(value: any, platform: Platform):any{}
-  // @ts-expect-error TODO: fix
-  compareAsType(): string {
-    return this.type
-  }
+  // // toJSON(value: any, platform: Platform):any{}
+  // // @ts-expect-error TODO: fix
+  // compareAsType(): string {
+  //   return this.type
+  // }
 
-  // @ts-expect-error TODO: fix
-  ensureComparable() {
-    return true
-  }
+  // // @ts-expect-error TODO: fix
+  // ensureComparable() {
+  //   return true
+  // }
 }

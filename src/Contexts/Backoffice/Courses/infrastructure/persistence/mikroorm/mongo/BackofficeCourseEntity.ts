@@ -35,21 +35,27 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
     ],
   },
   properties: {
-    // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
-    _id: {
+    // // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
+    // _id: {
+    //   type: new MikroOrmValueObjectTransformer(
+    //     BackofficeCourseId,
+    //     'ObjectId',
+    //   ),
+    //   // type: 'ObjectId',
+    //   primary: true,
+    //   // hidden: true,
+    // },
+    id: {
+      // type: 'string',
+      // customType: new ValueObjectTransformer(BackofficeCourseId, 'string'),
+      // persist: false,
+      // serializedPrimaryKey: true,
       type: new MikroOrmValueObjectTransformer(
         BackofficeCourseId,
         'ObjectId',
       ),
-      // type: 'ObjectId',
       primary: true,
-      // hidden: true,
-    },
-    id: {
-      type: 'string',
-      // customType: new ValueObjectTransformer(BackofficeCourseId, 'string'),
-      // persist: false,
-      // serializedPrimaryKey: true,
+      fieldName: '_id',
     },
     name: {
       type: new MikroOrmValueObjectTransformer(
@@ -72,9 +78,9 @@ export const BackofficeCourseEntity = new EntitySchema<BackofficeCourse>({
       type: 'Date',
       nullable: true,
     },
-    deletedAt: {
-      type: 'Date',
-      nullable: true,
-    },
+    // deletedAt: {
+    //   type: 'Date',
+    //   nullable: true,
+    // },
   },
 })

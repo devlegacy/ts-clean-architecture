@@ -20,7 +20,8 @@ process
   .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
 try {
-  new MoocBackendApp().start()
+  new MoocBackendApp()
+    .start()
     .catch((e) => fatalErrorHandler.capture(e as Error))
 } catch (e) {
   fatalErrorHandler.capture(e as Error)

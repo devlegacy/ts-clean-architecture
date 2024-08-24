@@ -18,10 +18,6 @@ import {
   expand,
 } from 'dotenv-expand'
 
-import {
-  info,
-} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
-
 const __dirname = fileURLToPath(new URL(
   '.',
   import.meta.url,
@@ -340,10 +336,10 @@ const filePaths = [
 
 config.loadFile(filePaths).validate()
 
-info(
-  JSON.parse(config.toString()),
-  'mooc config',
-)
+// info(
+//   JSON.parse(config.toString()),
+//   'mooc config',
+// )
 
 export {
   config

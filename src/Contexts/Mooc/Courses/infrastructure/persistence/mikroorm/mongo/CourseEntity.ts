@@ -24,6 +24,7 @@ export const CourseEntity = new EntitySchema<Course>({
   name: 'Course',
   tableName: 'courses',
   class: Course,
+  // https://mikro-orm.io/docs/events
   hooks: {
     onLoad: [
       onLoad,
@@ -39,21 +40,27 @@ export const CourseEntity = new EntitySchema<Course>({
     ],
   },
   properties: {
-    // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
-    _id: {
+    // // @ts-expect-error - _id is not defined in User but in Schema, prevent domain contamination
+    // _id: {
+    //   type: new MikroOrmValueObjectTransformer(
+    //     CourseId,
+    //     'ObjectId',
+    //   ),
+    //   // type: 'ObjectId',
+    //   primary: true,
+    //   // hidden: true,
+    // },
+    id: {
+      // type: 'string',
+      // customType: new ValueObjectTransformer(CourseId, 'string'),
+      // persist: false,
+      // serializedPrimaryKey: true,
       type: new MikroOrmValueObjectTransformer(
         CourseId,
         'ObjectId',
       ),
-      // type: 'ObjectId',
       primary: true,
-      // hidden: true,
-    },
-    id: {
-      type: 'string',
-      // customType: new ValueObjectTransformer(CourseId, 'string'),
-      // persist: false,
-      // serializedPrimaryKey: true,
+      fieldName: '_id',
     },
     name: {
       type: new MikroOrmValueObjectTransformer(

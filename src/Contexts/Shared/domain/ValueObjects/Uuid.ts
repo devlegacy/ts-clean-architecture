@@ -1,6 +1,8 @@
 // Consideramos algoritmos infraestructura?
 import {
-  v4, validate, version,
+  v4,
+  validate,
+  version,
 } from 'uuid'
 
 // import { ObjectId } from 'mongodb'

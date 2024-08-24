@@ -57,14 +57,14 @@ describe('CoursesCounterRepository', () => {
   describe('#search', () => {
     it('should return an existing course', async () => {
       const expectedCounter = CoursesCounterMother.random()
-      console.log('expectedCounter', expectedCounter)
+      // console.log('expectedCounter', expectedCounter)
       await repository.save(expectedCounter)
 
       const counter = await repository.search()
-      console.log('counter', counter)
+      // console.log('counter', counter)
       // // expect(expectedCounter.toPrimitives()).toEqual(counter?.toPrimitives())
-      // assert.deepEqual(expectedCounter.toPrimitives(), counter?.toPrimitives())
-      assert.strictEqual(1, 1)
+      assert.deepEqual(expectedCounter.toPrimitives(), counter?.toPrimitives())
+      // assert.strictEqual(1, 1)
     })
 
     it('should not return null if there is no courses counter', async () => {
