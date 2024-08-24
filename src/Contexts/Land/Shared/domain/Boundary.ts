@@ -1,6 +1,10 @@
-import { StringValueObject } from '@/Contexts/Shared/domain/index.js'
+import {
+  StringValueObject,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BoundaryLengthExceeded } from './BoundaryLengthExceeded.js'
+import {
+  BoundaryLengthExceeded,
+} from './BoundaryLengthExceeded.js'
 
 // [Entity]_[Type]_[PROP]
 // export const BOUNDARY_MAX_LENGTH = 160
@@ -16,7 +20,10 @@ export class Boundary extends StringValueObject {
 
   #ensureLengthIsLessThanLimit(value: string) {
     if (value.length > MAXIMUM_BOUNDARY_LENGTH) {
-      throw new BoundaryLengthExceeded(value, MAXIMUM_BOUNDARY_LENGTH)
+      throw new BoundaryLengthExceeded(
+        value,
+        MAXIMUM_BOUNDARY_LENGTH,
+      )
     }
   }
 }

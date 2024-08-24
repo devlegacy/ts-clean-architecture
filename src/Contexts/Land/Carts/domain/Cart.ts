@@ -1,16 +1,42 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CartId, OrderId, UserId } from '../../Shared/domain/index.js'
-import { CartAlreadyCheckoutError } from './CartAlreadyCheckoutError.js'
-import { CartCheckedOutDomainEvent } from './CartCheckedOutDomainEvent.js'
-import { CartCreatedDomainEvent } from './CartCreatedDomainEvent.js'
-import { CartIsEmptyError } from './CartIsEmptyError.js'
-import { CartItem } from './CartItem.js'
-import { CartItemAddedDomainEvent } from './CartItemAddedDomainEvent.js'
-import { CartItemIsNotInCartError } from './CartItemIsNotInCartError.js'
-import { CartItems } from './CartItems.js'
-import { CartItemSubtractedDomainEvent } from './CartItemSubtractedEvent.js'
-import { CartCheckout } from './ValueObjects/index.js'
+import {
+  CartId,
+  OrderId,
+  UserId,
+} from '../../Shared/domain/index.js'
+import {
+  CartAlreadyCheckoutError,
+} from './CartAlreadyCheckoutError.js'
+import {
+  CartCheckedOutDomainEvent,
+} from './CartCheckedOutDomainEvent.js'
+import {
+  CartCreatedDomainEvent,
+} from './CartCreatedDomainEvent.js'
+import {
+  CartIsEmptyError,
+} from './CartIsEmptyError.js'
+import {
+  CartItem,
+} from './CartItem.js'
+import {
+  CartItemAddedDomainEvent,
+} from './CartItemAddedDomainEvent.js'
+import {
+  CartItemIsNotInCartError,
+} from './CartItemIsNotInCartError.js'
+import {
+  CartItems,
+} from './CartItems.js'
+import {
+  CartItemSubtractedDomainEvent,
+} from './CartItemSubtractedEvent.js'
+import {
+  CartCheckout,
+} from './ValueObjects/index.js'
 
 export type CartEntityType = Entity<Cart>
 export type CartPrimitiveType = Primitives<Cart>
@@ -30,12 +56,20 @@ export class Cart extends AggregateRoot {
   }
 
   static override fromPrimitives(data: CartPrimitiveType) {
-    const cart = new Cart(new CartId(data.id), new UserId(data.userId), new CartCheckout(data.checkout))
+    const cart = new Cart(
+      new CartId(data.id),
+      new UserId(data.userId),
+      new CartCheckout(data.checkout),
+    )
     return cart
   }
 
   static create(id: CartId, userId: UserId, checkout?: CartCheckout) {
-    const cart = new Cart(id, userId, checkout)
+    const cart = new Cart(
+      id,
+      userId,
+      checkout,
+    )
     const event = new CartCreatedDomainEvent({
       aggregateId: cart.id.value,
       userId: cart.userId.value,

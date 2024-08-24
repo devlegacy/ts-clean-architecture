@@ -1,6 +1,10 @@
 import convict from 'convict'
-import { existsSync } from 'fs'
-import { resolve } from 'path'
+import {
+  existsSync,
+} from 'fs'
+import {
+  resolve,
+} from 'path'
 
 const landConfig = convict({
   // env: {
@@ -12,7 +16,10 @@ const landConfig = convict({
   app: {
     debug: {
       doc: 'The application debug mode.',
-      format: [true, false],
+      format: [
+        true,
+        false,
+      ],
       default: true,
       env: 'APP_DEBUG',
     },
@@ -24,7 +31,12 @@ const landConfig = convict({
     },
     env: {
       doc: 'The application environment.',
-      format: ['production', 'development', 'staging', 'test'],
+      format: [
+        'production',
+        'development',
+        'staging',
+        'test',
+      ],
       default: 'development' as 'production' | 'development' | 'staging' | 'test',
       env: 'APP_ENV',
     },
@@ -46,7 +58,14 @@ const landConfig = convict({
   },
   log: {
     level: {
-      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
+      format: [
+        'fatal',
+        'error',
+        'warn',
+        'info',
+        'debug',
+        'trace',
+      ],
       doc: 'The application log level.',
       default: 'info',
       env: 'LOG_LEVEL',

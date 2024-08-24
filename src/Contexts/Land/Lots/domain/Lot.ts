@@ -1,9 +1,20 @@
-import { AggregateRoot } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { BlockDeletedAt } from '../../Blocks/domain/index.js'
-import { LandDescription } from '../../LandDescriptions/domain/index.js'
-import { BlockId, Boundary } from '../../Shared/domain/index.js'
-import { LotCreatedDomainEvent } from './LotCreatedDomainEvent.js'
+import {
+  BlockDeletedAt,
+} from '../../Blocks/domain/index.js'
+import {
+  LandDescription,
+} from '../../LandDescriptions/domain/index.js'
+import {
+  BlockId,
+  Boundary,
+} from '../../Shared/domain/index.js'
+import {
+  LotCreatedDomainEvent,
+} from './LotCreatedDomainEvent.js'
 import {
   LotArea,
   LotAvailability,

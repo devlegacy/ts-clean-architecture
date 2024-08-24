@@ -1,11 +1,26 @@
-import { injectable } from 'tsyringe'
+import {
+  injectable,
+} from 'tsyringe'
 
-import { CartId, ItemId } from '@/Contexts/Land/Shared/domain/index.js'
-import { Command, CommandHandler, Money } from '@/Contexts/Shared/domain/index.js'
+import {
+  CartId,
+  ItemId,
+} from '#@/src/Contexts/Land/Shared/domain/index.js'
+import {
+  Command,
+  type CommandHandler,
+  Money,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CartItem } from '../../domain/index.js'
-import { CartItemSubtractor } from './CartItemSubtractor'
-import { SubtractCartItemCommand } from './SubtractCartItemCommand'
+import {
+  CartItem,
+} from '../../domain/index.js'
+import {
+  CartItemSubtractor,
+} from './CartItemSubtractor.js'
+import {
+  SubtractCartItemCommand,
+} from './SubtractCartItemCommand.js'
 
 @injectable()
 export class SubtractCartItemCommandHandler implements CommandHandler<SubtractCartItemCommand> {
@@ -16,9 +31,19 @@ export class SubtractCartItemCommandHandler implements CommandHandler<SubtractCa
   }
 
   async handle(command: SubtractCartItemCommand): Promise<void> {
-    const item = new CartItem(new ItemId(command.itemId), new Money(command.price, command.currency))
+    const item = new CartItem(
+      new ItemId(command.itemId),
+      new Money(
+        command.price,
+        command.currency,
+      ),
+    )
     const id = new CartId(command.id)
 
-    await this.subtractor.run(id, item, command.quantity)
+    await this.subtractor.run(
+      id,
+      item,
+      command.quantity,
+    )
   }
 }

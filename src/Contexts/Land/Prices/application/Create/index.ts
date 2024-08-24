@@ -1,1 +1,1 @@
-export * from './CreatePriceCommand'
+export * from './CreatePriceCommand.js'

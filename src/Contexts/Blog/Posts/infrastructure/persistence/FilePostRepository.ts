@@ -1,8 +1,22 @@
-import { deserialize, serialize } from 'bson'
-import { existsSync, mkdirSync, readdirSync } from 'fs'
-import { readFile, writeFile } from 'fs/promises'
+import {
+  deserialize,
+  serialize,
+} from 'bson'
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+} from 'fs'
+import {
+  readFile,
+  writeFile,
+} from 'fs/promises'
 
-import { Post, PostCollection, type PostRepository } from '../../domain/index.js'
+import {
+  Post,
+  PostCollection,
+  type PostRepository,
+} from '../../domain/index.js'
 
 export class FilePostRepository implements PostRepository {
   private FILE_PATH = `${__dirname}/Posts`
@@ -23,7 +37,9 @@ export class FilePostRepository implements PostRepository {
     for (let file of files) {
       file = this.path(file.replace(/\.repo$/, ''))
       const read = await readFile(file)
-      const { id, content, date, ...deserialized } = deserialize(read)
+      const {
+        id, content, date, ...deserialized
+      } = deserialize(read)
       if (deserialized.author !== author) continue
       collection.push(
         Post.fromPrimitives({
@@ -43,7 +59,9 @@ export class FilePostRepository implements PostRepository {
     if (existsSync(path)) {
       return true
     }
-    mkdirSync(path, { recursive: true })
+    mkdirSync(path, {
+      recursive: true,
+    })
   }
 
   private path(id: string) {

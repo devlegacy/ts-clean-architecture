@@ -1,4 +1,6 @@
-import { Boundary } from './Boundary.js'
+import {
+  Boundary,
+} from './Boundary.js'
 
 export type BoundariesEntityType = Entity<Boundaries>
 export type BoundariesPrimitiveType = Primitives<Boundaries>

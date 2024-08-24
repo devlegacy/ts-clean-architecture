@@ -1,1 +1,1 @@
-export * from './PriceRequestDto'
+export * from './PriceRequestDto.js'

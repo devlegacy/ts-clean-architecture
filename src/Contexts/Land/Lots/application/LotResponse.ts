@@ -1,6 +1,11 @@
-import { Response } from '@/Contexts/Shared/domain/index.js'
+import {
+  Response,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Lot, LotPrimitiveType } from '../domain/index.js'
+import {
+  Lot,
+  type LotPrimitiveType,
+} from '../domain/index.js'
 
 type ResponseDto = LotPrimitiveType
 

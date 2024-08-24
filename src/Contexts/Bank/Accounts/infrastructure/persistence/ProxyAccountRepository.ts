@@ -1,4 +1,7 @@
-import { Account, type AccountRepository } from '../../domain/index.js'
+import {
+  Account,
+  type AccountRepository,
+} from '../../domain/index.js'
 
 export class ProxyAccountRepository implements AccountRepository {
   constructor(

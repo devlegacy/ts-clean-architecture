@@ -1,4 +1,6 @@
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type CartItemAddedDomainEventAttributes = {
   itemId: string

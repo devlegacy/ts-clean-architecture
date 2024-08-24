@@ -1,9 +1,21 @@
-import { CartId, OrderId } from '@/Contexts/Land/Shared/domain/index.js'
-import { EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
+import {
+  CartId,
+  OrderId,
+} from '#@/src/Contexts/Land/Shared/domain/index.js'
+import {
+  EventBus,
+  QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Cart } from '../../domain/index.js'
-import { CartResponse } from '../CartResponse.js'
-import { FindCartQuery } from '../Finder/index.js'
+import {
+  Cart,
+} from '../../domain/index.js'
+import {
+  CartResponse,
+} from '../CartResponse.js'
+import {
+  FindCartQuery,
+} from '../Finder/index.js'
 
 export class CartCheckout {
   constructor(
@@ -19,7 +31,9 @@ export class CartCheckout {
 
   async existsCart(id: string) {
     const query = new FindCartQuery(id)
-    const { cart } = await this.queryBus.ask<CartResponse>(query)
+    const {
+      cart,
+    } = await this.queryBus.ask<CartResponse>(query)
     return Cart.fromPrimitives(cart)
   }
 }

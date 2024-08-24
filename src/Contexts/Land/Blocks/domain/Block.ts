@@ -1,9 +1,21 @@
-import { AggregateRoot, isNil } from '@/Contexts/Shared/domain/index.js'
+import {
+  AggregateRoot,
+  isNil,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { LandDescription } from '../../LandDescriptions/domain/index.js'
-import { BlockId, Boundary } from '../../Shared/domain/index.js'
-import { BlockCreatedDomainEvent } from './BlockCreatedDomainEvent.js'
-import { BlockDeletedDomainEvent } from './BlockDeletedDomainEvent.js'
+import {
+  LandDescription,
+} from '../../LandDescriptions/domain/index.js'
+import {
+  BlockId,
+  Boundary,
+} from '../../Shared/domain/index.js'
+import {
+  BlockCreatedDomainEvent,
+} from './BlockCreatedDomainEvent.js'
+import {
+  BlockDeletedDomainEvent,
+} from './BlockDeletedDomainEvent.js'
 import {
   BlockArea,
   BlockAvailability,
@@ -149,7 +161,7 @@ export class Block extends AggregateRoot {
    * @returns
    */
   static override fromPrimitives(data: ReturnType<typeof Block.prototype.toPrimitives>) {
-    //BlockPrimitiveDto
+    // BlockPrimitiveDto
     const block = new Block(
       new BlockId(data.id),
       new BlockBlock(data.block),

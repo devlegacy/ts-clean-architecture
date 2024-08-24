@@ -1,4 +1,6 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class LotLotLengthExceeded extends InvalidArgumentError {
   constructor(lot: string, limit: number) {

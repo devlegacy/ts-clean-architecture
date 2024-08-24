@@ -1,4 +1,6 @@
-import { PostgresConfig } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  type PostgresConfig,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
 import config from '../../config/index.js'
 

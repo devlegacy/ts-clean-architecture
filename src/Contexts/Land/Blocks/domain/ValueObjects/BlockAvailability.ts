@@ -1,9 +1,12 @@
-import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EnumValueObject,
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum Availability {
   AVAILABLE = 'available',
   NOT_AVAILABLE = 'not_available',
-  SOLD = 'sold',
+  SOLD = 'sold'
 }
 
 export type AvailabilityKeys =
@@ -14,12 +17,18 @@ export type AvailabilityKeys =
 
 export class BlockAvailability extends EnumValueObject<Availability> {
   constructor(value: Availability) {
-    super(value, Object.values(Availability))
+    super(
+      value,
+      Object.values(Availability),
+    )
   }
 
   static fromValue(value: AvailabilityKeys | Availability): BlockAvailability {
     const key = (value in Availability ? value : value.toUpperCase()) as Availability
-    console.log(value, key)
+    // console.log(
+    //   value,
+    //   key,
+    // )
     return new BlockAvailability(key)
   }
 

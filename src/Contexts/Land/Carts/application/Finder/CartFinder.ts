@@ -1,7 +1,14 @@
-import { CartId } from '@/Contexts/Land/Shared/domain/index.js'
-import { EntityNotFoundError } from '@/Contexts/Shared/domain/index.js'
+import {
+  CartId,
+} from '#@/src/Contexts/Land/Shared/domain/index.js'
+import {
+  EntityNotFoundError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Cart, CartRepository } from '../../domain/index.js'
+import {
+  Cart,
+  type CartRepository,
+} from '../../domain/index.js'
 
 export class CartFinder {
   constructor(private readonly repository: CartRepository) {}

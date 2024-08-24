@@ -1,10 +1,22 @@
-import { injectable } from 'tsyringe'
+import {
+  injectable,
+} from 'tsyringe'
 
-import { CartId, UserId } from '@/Contexts/Land/Shared/domain/index.js'
-import { Command, type CommandHandler } from '@/Contexts/Shared/domain/index.js'
+import {
+  CartId,
+  UserId,
+} from '#@/src/Contexts/Land/Shared/domain/index.js'
+import {
+  Command,
+  type CommandHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import type { CartCreator } from './CartCreator.js'
-import { CreateCartCommand } from './CreateCartCommand.js'
+import type {
+  CartCreator,
+} from './CartCreator.js'
+import {
+  CreateCartCommand,
+} from './CreateCartCommand.js'
 
 @injectable()
 export class CreateCartCommandHandler implements CommandHandler<CreateCartCommand> {
@@ -17,6 +29,9 @@ export class CreateCartCommandHandler implements CommandHandler<CreateCartComman
   async handle(command: CreateCartCommand): Promise<void> {
     const id = new CartId(command.id)
     const userId = new UserId(command.userId)
-    await this.creator.run(id, userId)
+    await this.creator.run(
+      id,
+      userId,
+    )
   }
 }

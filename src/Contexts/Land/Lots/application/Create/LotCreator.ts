@@ -1,6 +1,12 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 
-import { Lot, LotEntityType, LotRepository } from '../../domain/index.js'
+import {
+  Lot,
+  type LotEntityType,
+  LotRepository,
+} from '../../domain/index.js'
 
 @UseCase()
 export class LotCreator {

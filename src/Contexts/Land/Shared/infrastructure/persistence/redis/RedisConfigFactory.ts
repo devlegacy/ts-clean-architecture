@@ -1,4 +1,6 @@
-import { RedisConfig } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  type RedisConfig,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
 import config from '../../config/index.js'
 

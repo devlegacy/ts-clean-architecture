@@ -1,4 +1,8 @@
-import { Post, PostCollection, type PostRepository } from '../../domain/index.js'
+import {
+  Post,
+  PostCollection,
+  type PostRepository,
+} from '../../domain/index.js'
 
 export class InMemoryPostRepository implements PostRepository {
   private readonly posts = new PostCollection()

@@ -1,8 +1,20 @@
-import { deserialize, serialize } from 'bson'
-import { existsSync, mkdirSync } from 'fs'
-import { readFile, writeFile } from 'fs/promises'
+import {
+  deserialize,
+  serialize,
+} from 'bson'
+import {
+  existsSync,
+  mkdirSync,
+} from 'fs'
+import {
+  readFile,
+  writeFile,
+} from 'fs/promises'
 
-import { Account, type AccountRepository } from '../../domain/index.js'
+import {
+  Account,
+  type AccountRepository,
+} from '../../domain/index.js'
 
 export class FileAccountRepository implements AccountRepository {
   private FILE_PATH = `${__dirname}/Accounts`
@@ -21,7 +33,9 @@ export class FileAccountRepository implements AccountRepository {
 
   async find(accountId: string): Promise<Nullable<Account>> {
     const accountData = await readFile(this.path(accountId))
-    const { id, name, balance } = deserialize(accountData)
+    const {
+      id, name, balance,
+    } = deserialize(accountData)
 
     return Account.fromPrimitives({
       id,
@@ -35,7 +49,9 @@ export class FileAccountRepository implements AccountRepository {
     if (existsSync(path)) {
       return true
     }
-    mkdirSync(path, { recursive: true })
+    mkdirSync(path, {
+      recursive: true,
+    })
   }
 
   private path(id: string) {

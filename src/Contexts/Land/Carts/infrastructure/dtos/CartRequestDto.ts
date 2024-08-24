@@ -1,11 +1,17 @@
-import { JoiSchema } from 'joi-class-decorators'
+import {
+  JoiSchema,
+} from 'joi-class-decorators'
 
-import { Joi } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
+import {
+  Joi,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 const id = Joi.string()
   .trim()
   .guid({
-    version: ['uuidv4'],
+    version: [
+      'uuidv4',
+    ],
   })
 
 export class CartRequestDto {

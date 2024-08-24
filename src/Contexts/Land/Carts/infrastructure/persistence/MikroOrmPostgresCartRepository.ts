@@ -1,9 +1,18 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
-import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/Persistence/mikroorm/MikroOrmPostgresRepository'
+import {
+  MikroOrmPostgresRepository,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/postgres/index.js'
 
-import { Cart, CartRepository } from '../../domain/index.js'
-import { CartEntity } from './mikroorm/postgres/CartEntity'
+import {
+  Cart,
+  type CartRepository,
+} from '../../domain/index.js'
+import {
+  CartEntity,
+} from './mikroorm/postgres/CartEntity.js'
 
 export class MikroOrmPostgresCartRepository extends MikroOrmPostgresRepository<Cart> implements CartRepository {
   async save(cart: Cart): Promise<void> {
@@ -12,7 +21,9 @@ export class MikroOrmPostgresCartRepository extends MikroOrmPostgresRepository<C
 
   async find(id: Cart['id']): Promise<Nullable<Cart>> {
     const repository = await this.repository()
-    const cart = await repository.findOne({ id })
+    const cart = await repository.findOne({
+      id,
+    })
     if (!cart) return null
     return cart
   }

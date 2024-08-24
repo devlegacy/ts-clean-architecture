@@ -1,5 +1,10 @@
-import { CartId, UserId } from '@/Contexts/Land/Shared/domain/index.js'
-import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  CartId,
+  UserId,
+} from '#@/src/Contexts/Land/Shared/domain/index.js'
+import {
+  info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
 export class CartViewCreator {
   // constructor() {}

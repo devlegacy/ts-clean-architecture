@@ -1,4 +1,6 @@
-import { Command } from '@/Contexts/Shared/domain/index.js'
+import {
+  Command,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class CreatePriceCommand extends Command {
   constructor(

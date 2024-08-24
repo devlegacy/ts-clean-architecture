@@ -1,4 +1,6 @@
-import { Lot } from './Lot.js'
+import {
+  Lot,
+} from './Lot.js'
 
 export abstract class LotRepository {
   abstract all(): Promise<Lot[]>

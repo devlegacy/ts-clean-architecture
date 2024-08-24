@@ -1,4 +1,6 @@
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type CreateBlockDomainEventAttributes = {
   readonly block: string
@@ -92,7 +94,9 @@ export class BlockCreatedDomainEvent extends DomainEvent {
     eventId: string
     occurredOn: Date
   }): DomainEvent {
-    const { aggregateId, attributes, occurredOn, eventId } = params
+    const {
+      aggregateId, attributes, occurredOn, eventId,
+    } = params
     return new BlockCreatedDomainEvent({
       aggregateId,
       block: attributes.block,

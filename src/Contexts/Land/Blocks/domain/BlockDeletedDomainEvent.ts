@@ -1,4 +1,6 @@
-import { DomainEvent } from '@/Contexts/Shared/domain/index.js'
+import {
+  DomainEvent,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type DeleteBlockDomainEventAttributes = {
   readonly block: string
@@ -97,7 +99,9 @@ export class BlockDeletedDomainEvent extends DomainEvent {
     eventId: string
     occurredOn: Date
   }): DomainEvent {
-    const { aggregateId, attributes, occurredOn, eventId } = params
+    const {
+      aggregateId, attributes, occurredOn, eventId,
+    } = params
     return new BlockDeletedDomainEvent({
       aggregateId,
       block: attributes.block,

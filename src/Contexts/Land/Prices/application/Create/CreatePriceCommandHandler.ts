@@ -1,6 +1,11 @@
-import { Command, CommandHandler } from '@/Contexts/Shared/domain/index.js'
+import {
+  Command,
+  type CommandHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { CreatePriceCommand } from './CreatePriceCommand'
+import {
+  CreatePriceCommand,
+} from './CreatePriceCommand.js'
 
 export class CreatePriceCommandHandler implements CommandHandler<CreatePriceCommand> {
   subscribedTo(): Command {

@@ -1,4 +1,6 @@
-import { Command } from '@/Contexts/Shared/domain/index.js'
+import {
+  Command,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type Params = {
   id: string
@@ -15,7 +17,9 @@ export class SubtractCartItemCommand extends Command {
   readonly currency: string
   readonly quantity: number
 
-  constructor({ id, itemId, price, currency, quantity }: Params) {
+  constructor({
+    id, itemId, price, currency, quantity,
+  }: Params) {
     super()
     this.id = id
     this.itemId = itemId

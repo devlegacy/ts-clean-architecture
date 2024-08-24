@@ -1,16 +1,22 @@
-import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EnumValueObject,
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum Availability {
   available = 'available',
   not_available = 'not_available',
-  sold = 'sold',
+  sold = 'sold'
 }
 
 export type AvailabilityKeys = keyof typeof Availability
 
 export class LotAvailability extends EnumValueObject<Availability> {
   constructor(value: Availability) {
-    super(value, Object.values(Availability))
+    super(
+      value,
+      Object.values(Availability),
+    )
   }
 
   static fromValue(value: AvailabilityKeys | Availability): LotAvailability {

@@ -1,4 +1,6 @@
-import { Block } from './Block.js'
+import {
+  Block,
+} from './Block.js'
 
 export abstract class BlockRepository {
   abstract all(): Promise<Block[]>

@@ -1,15 +1,21 @@
-import { EnumValueObject, InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  EnumValueObject,
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export enum Type {
   BLOCK = 0,
-  LOT,
+  LOT
 }
 export type TypeKeys = keyof typeof Type
 // export type TypeValues = Type
 
 export class LandDescriptionType extends EnumValueObject<Type> {
   constructor(value: Type) {
-    super(value, Object.values<number>(Type as { [Key in TypeKeys]: number }))
+    super(
+      value,
+      Object.values<number>(Type as { [Key in TypeKeys]: number }),
+    )
   }
 
   static fromValue(value: TypeKeys | Type): LandDescriptionType {

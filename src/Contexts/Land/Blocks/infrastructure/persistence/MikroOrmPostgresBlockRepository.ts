@@ -1,9 +1,18 @@
-import { EntitySchema } from '@mikro-orm/core'
+import {
+  EntitySchema,
+} from '@mikro-orm/core'
 
-import { MikroOrmPostgresRepository } from '@/Contexts/Shared/infrastructure/index.js'
+import {
+  MikroOrmPostgresRepository,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
-import { Block, BlockRepository } from '../../domain/index.js'
-import { BlockEntity } from './mikroorm/postgres/BlockEntity.js'
+import {
+  Block,
+  BlockRepository,
+} from '../../domain/index.js'
+import {
+  BlockEntity,
+} from './mikroorm/postgres/BlockEntity.js'
 
 export class MikroOrmPostgresBlockRepository extends MikroOrmPostgresRepository<Block> implements BlockRepository {
   async all(): Promise<Block[]> {
@@ -15,7 +24,9 @@ export class MikroOrmPostgresBlockRepository extends MikroOrmPostgresRepository<
 
   async find(id: Block['id']): Promise<Nullable<Block>> {
     const repository = await this.repository()
-    const block = await repository.findOne({ id })
+    const block = await repository.findOne({
+      id,
+    })
 
     if (!block) return null
 

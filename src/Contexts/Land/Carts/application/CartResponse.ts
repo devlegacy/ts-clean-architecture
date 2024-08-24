@@ -1,6 +1,11 @@
-import { Response } from '@/Contexts/Shared/domain/index.js'
+import {
+  Response,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Cart, CartPrimitiveType } from '../domain/index.js'
+import {
+  Cart,
+  type CartPrimitiveType,
+} from '../domain/index.js'
 
 export class CartResponse implements Response {
   readonly cart: CartPrimitiveType

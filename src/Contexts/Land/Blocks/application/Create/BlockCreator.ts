@@ -1,7 +1,15 @@
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { Block, type BlockEntityType, BlockRepository } from '../../domain/index.js'
+import {
+  Block,
+  type BlockEntityType,
+  BlockRepository,
+} from '../../domain/index.js'
 
 @UseCase()
 export class BlockCreator {

@@ -1,4 +1,6 @@
-import { InvalidArgumentError } from '@/Contexts/Shared/domain/index.js'
+import {
+  InvalidArgumentError,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 export class BlockBlockLengthExceeded extends InvalidArgumentError {
   constructor(block: string, limit: number) {

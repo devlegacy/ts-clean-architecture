@@ -1,7 +1,15 @@
-import { LandDescription, Type } from '@/Contexts/Land/LandDescriptions/domain/index.js'
-import { UseCase } from '@/Contexts/Shared/domain/Common/index.js'
+import {
+  LandDescription,
+  Type,
+} from '#@/src/Contexts/Land/LandDescriptions/domain/index.js'
+import {
+  UseCase,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
 
-import { Lot, LotRepository } from '../../domain/index.js'
+import {
+  Lot,
+  LotRepository,
+} from '../../domain/index.js'
 
 @UseCase()
 export class LotFinder {

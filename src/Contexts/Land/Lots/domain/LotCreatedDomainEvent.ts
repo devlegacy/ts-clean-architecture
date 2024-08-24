@@ -2,7 +2,7 @@ import {
   DomainEvent,
   type DomainEventPrimitives,
   type DomainEventPrimitivesWithAttributes,
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 interface CreateLotDomainEventAttributes {
   blockId: string

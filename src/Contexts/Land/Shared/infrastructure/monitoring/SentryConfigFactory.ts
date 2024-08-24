@@ -1,4 +1,6 @@
-import { NodeOptions } from '@sentry/node'
+import {
+  type NodeOptions,
+} from '@sentry/node'
 
 import config from '../config/index.js'
 

@@ -1,4 +1,6 @@
-import { Account } from './Account.js'
+import {
+  Account,
+} from './Account.js'
 
 export interface AccountRepository {
   save(account: Account): Promise<void>

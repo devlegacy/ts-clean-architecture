@@ -1,18 +1,30 @@
 import convict from 'convict'
-import { existsSync } from 'fs'
-import { resolve } from 'path'
+import {
+  existsSync,
+} from 'fs'
+import {
+  resolve,
+} from 'path'
 
 const bankConfig = convict({
   env: {
     doc: 'The application environment.',
-    format: ['production', 'development', 'staging', 'test'],
+    format: [
+      'production',
+      'development',
+      'staging',
+      'test',
+    ],
     default: 'default',
     env: 'NODE_ENV',
   },
   app: {
     debug: {
       doc: 'The application debug mode.',
-      format: [true, false],
+      format: [
+        true,
+        false,
+      ],
       default: true,
       env: 'APP_DEBUG',
     },
@@ -24,7 +36,12 @@ const bankConfig = convict({
     },
     env: {
       doc: 'The application environment.',
-      format: ['production', 'development', 'staging', 'test'],
+      format: [
+        'production',
+        'development',
+        'staging',
+        'test',
+      ],
       default: 'development' as 'production' | 'development' | 'staging' | 'test',
       env: 'APP_ENV',
     },
@@ -47,7 +64,14 @@ const bankConfig = convict({
   log: {
     level: {
       doc: 'The application log level.',
-      format: ['fatal', 'error', 'warn', 'info', 'debug', 'trace'],
+      format: [
+        'fatal',
+        'error',
+        'warn',
+        'info',
+        'debug',
+        'trace',
+      ],
       default: 'info',
       env: 'LOG_LEVEL',
     },
