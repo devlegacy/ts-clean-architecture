@@ -1,13 +1,32 @@
-import { MikroORM } from '@mikro-orm/core'
-import type { PostgreSqlDriver } from '@mikro-orm/postgresql'
-import { Redis } from 'ioredis'
-import { container, Lifecycle } from 'tsyringe'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import type {
+  PostgreSqlDriver,
+} from '@mikro-orm/postgresql'
+import {
+  Redis,
+} from 'ioredis'
+import {
+  container,
+  Lifecycle,
+} from 'tsyringe'
 
-import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
-import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure/index.js'
-import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory.js'
-import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory.js'
-import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
+import config from '#@/src/Contexts/Land/Shared/infrastructure/config/index.js'
+import {
+  SentryConfigFactory,
+} from '#@/src/Contexts/Land/Shared/infrastructure/index.js'
+import {
+  PostgresConfigFactory,
+} from '#@/src/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory.js'
+import {
+  RedisConfigFactory,
+} from '#@/src/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory.js'
+import {
+  CommandBus,
+  EventBus,
+  QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 import {
   FatalErrorHandler,
   InMemoryAsyncEventBus,
@@ -18,10 +37,14 @@ import {
   RedisClientFactory,
   RedisConfig,
   SentryMonitoring,
-} from '@/Contexts/Shared/infrastructure/index.js'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  PinoLogger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TYPES } from '../types'
+import {
+  TYPES,
+} from '../types.js'
 
 // First data source
 // Could be write datasource | Could be read datasourse but this break the rule of one database peer service
@@ -41,20 +64,38 @@ container
   // Infrastructure layer
   // Bootstrap global dependencies
   // Database - PostgresClient
-  .register<PostgresConfig>(TYPES.PostgresConfig, { useValue: postgresConfig })
-  .register<Promise<MikroORM<PostgreSqlDriver>>>(TYPES.MikroOrmPostgresClient, { useValue: postgresClient })
-  .register<RedisConfig>(TYPES.RedisConfig, { useValue: redisConfig })
-  .register<Redis>(TYPES.RedisClient, { useValue: redisClient })
+  .register<PostgresConfig>(TYPES.PostgresConfig, {
+    useValue: postgresConfig,
+  })
+  .register<Promise<MikroORM<PostgreSqlDriver>>>(TYPES.MikroOrmPostgresClient, {
+    useValue: postgresClient,
+  })
+  .register<RedisConfig>(TYPES.RedisConfig, {
+    useValue: redisConfig,
+  })
+  .register<Redis>(TYPES.RedisClient, {
+    useValue: redisClient,
+  })
   // EventBus - InMemory - Infrastructure
-  .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
+  .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, {
+    lifecycle: Lifecycle.Singleton,
+  })
   // CommandBus - InMemory - Infrastructure
   // DEBT: Don't allow empty commands, needs at least once
-  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
+  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, {
+    lifecycle: Lifecycle.Singleton,
+  })
   // QueryBus - InMemory - Infrastructure
   // DEBT: Don't allow empty queries, needs at least once
-  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
+  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, {
+    lifecycle: Lifecycle.Singleton,
+  })
   // Monitoring
-  .register(TYPES.Monitoring, { useValue: monitoring })
+  .register(TYPES.Monitoring, {
+    useValue: monitoring,
+  })
   // Logger
-  .register(TYPES.Logger, { useValue: logger })
+  .register(TYPES.Logger, {
+    useValue: logger,
+  })
   .registerSingleton(FatalErrorHandler)

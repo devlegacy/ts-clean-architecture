@@ -1,8 +1,14 @@
-import { container } from 'tsyringe'
+import {
+  container,
+} from 'tsyringe'
 
-import { EnvironmentArranger, MikroOrmMongoEnvironmentArranger } from '@/tests/Contexts/Shared/infrastructure/index.js'
+import {
+  EnvironmentArranger, MikroOrmMongoEnvironmentArranger,
+} from '#@/tests/Contexts/Shared/infrastructure/index.js'
 
-import { TYPES } from '../types.js'
+import {
+  TYPES,
+} from '../types.js'
 
 export * from './container.js'
 

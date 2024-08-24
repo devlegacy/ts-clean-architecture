@@ -1,12 +1,25 @@
-import { Server as SocketServer, Socket } from 'socket.io'
+import {
+  Server as SocketServer,
+  Socket,
+} from 'socket.io'
 
-import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
-import { EventBus } from '@/Contexts/Shared/domain/index.js'
-import { DomainEventSubscriberResolver, InMemoryAsyncEventBus } from '@/Contexts/Shared/infrastructure/index.js'
-import { info } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+import config from '#@/src/Contexts/Land/Shared/infrastructure/config/index.js'
+import {
+  EventBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  DomainEventSubscriberResolver,
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  info,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { container } from '../modules/index.js'
-import { Server } from './Server.js'
+import {
+  container,
+} from '../modules/index.js'
+import {
+  Server,
+} from './Server.js'
 
 export class LandBackendApp {
   #server?: Server
@@ -34,7 +47,7 @@ export class LandBackendApp {
   }
 
   async configureEventBus() {
-    const eventBus = container.get(EventBus) as InMemoryAsyncEventBus
+    const eventBus = container.get(EventBus)
     // const rabbitMQConnection = container.get(RabbitMQConnection)
     // await rabbitMQConnection.connect()
 
@@ -55,7 +68,7 @@ export class LandBackendApp {
 
     const subscribers = DomainEventSubscriberResolver.fromContainer(container)
     eventBus.addSubscribers(subscribers)
-    eventBus.addSocketServer(io)
+    // eventBus.addSocketServer(io)
   }
 
   async stop() {

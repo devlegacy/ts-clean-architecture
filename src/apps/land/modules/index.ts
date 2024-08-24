@@ -1,8 +1,14 @@
-import { Container } from 'diod'
+import {
+  type Container,
+} from 'diod'
 
-import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
+import config from '#@/src/Contexts/Land/Shared/infrastructure/config/index.js'
 
-// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
-const { container } = require(`./${config.get('app.env')}/`) as { container: Container }
+const {
+  container,
+// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-require-imports
+} = require(`./${config.get('app.env')}/`) as { container: Container }
 
-export { container }
+export {
+  container
+}

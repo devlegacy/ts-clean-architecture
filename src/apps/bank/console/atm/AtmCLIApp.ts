@@ -1,9 +1,20 @@
-import { AtmAccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
-import { AccountRepository, EURRatioService } from '@/Contexts/Bank/Accounts/domain/index.js'
-import { InMemoryAccountRepository } from '@/Contexts/Bank/Accounts/infrastructure/index.js'
-import { EventBusFactory } from '@/Contexts/Shared/infrastructure/EventBus/EventBusFactory.js'
+import {
+  AtmAccountUseCase,
+} from '#@/src/Contexts/Bank/Accounts/application/index.js'
+import {
+  type AccountRepository,
+  EURRatioService,
+} from '#@/src/Contexts/Bank/Accounts/domain/index.js'
+import {
+  InMemoryAccountRepository,
+} from '#@/src/Contexts/Bank/Accounts/infrastructure/index.js'
+import {
+  EventBusFactory,
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/EventBusFactory.js'
 
-import { AtmCLI } from './AtmCLI.js'
+import {
+  AtmCLI,
+} from './AtmCLI.js'
 
 export class AtmCLIApp {
   private container: {

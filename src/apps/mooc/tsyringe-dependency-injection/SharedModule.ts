@@ -1,6 +1,12 @@
-import { MikroORM } from '@mikro-orm/core'
-import { MongoDriver } from '@mikro-orm/mongodb'
-import { container, Lifecycle } from 'tsyringe'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import {
+  MongoDriver,
+} from '@mikro-orm/mongodb'
+import {
+  container, Lifecycle,
+} from 'tsyringe'
 
 import {
   LoggerConfigFactory,
@@ -10,8 +16,10 @@ import {
   RabbitMQEventBusFactory,
   // , TypeOrmConfigFactory
   SentryConfigFactory,
-} from '@/Contexts/Mooc/Shared/infrastructure/index.js'
-import { CommandBus, EventBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
+import {
+  CommandBus, EventBus, QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
 import {
   FatalErrorHandler,
   InMemoryCommandBus,
@@ -23,10 +31,14 @@ import {
   RabbitMQConnection,
   RabbitMQQueueFormatter,
   SentryMonitoring,
-} from '@/Contexts/Shared/infrastructure/index.js'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  PinoLogger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TYPES } from './types.js'
+import {
+  TYPES,
+} from './types.js'
 
 const context = 'mooc'
 
@@ -51,8 +63,12 @@ container
   // Bootstrap global dependencies
   // .register<ConfigService>(TYPES.config, { useValue: config })
   // Database - MongoClient
-  .register<MongoConfig>(TYPES.MongoConfig, { useValue: mongoConfig })
-  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, { useValue: connectionClient })
+  .register<MongoConfig>(TYPES.MongoConfig, {
+    useValue: mongoConfig,
+  })
+  .register<Promise<MikroORM<MongoDriver>>>(TYPES.MongoClient, {
+    useValue: connectionClient,
+  })
   // .register<TypeOrmConfig>(TYPES.TypeOrmConfig, { useValue: TypeOrmConfigFactory.createConfig() })
   // .register<Promise<DataSource>>(TYPES.TypeOrmClient, {
   //   useValue: TypeOrmClientFactory.createClient(context, container.resolve<TypeOrmConfig>(TYPES.TypeOrmConfig))
@@ -60,15 +76,31 @@ container
   // EventBus - InMemory - Infrastructure
   // .register<EventBus>(TYPES.EventBus, InMemoryAsyncEventBus, { lifecycle: Lifecycle.Singleton })
   // RabbitMQ - EventBus
-  .register<RabbitMQConfig>(TYPES.RabbitMQConfig, { useValue: rabbitConfig })
-  .register<RabbitMQConnection>(TYPES.RabbitMQConnection, { useValue: rabbitConnection })
-  .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, { useValue: rabbitConfigurer })
-  .register<EventBus>(TYPES.EventBus, { useValue: rabbitEventBus })
+  .register<RabbitMQConfig>(TYPES.RabbitMQConfig, {
+    useValue: rabbitConfig,
+  })
+  .register<RabbitMQConnection>(TYPES.RabbitMQConnection, {
+    useValue: rabbitConnection,
+  })
+  .register<RabbitMQConfigurer>(TYPES.RabbitMQConfigurer, {
+    useValue: rabbitConfigurer,
+  })
+  .register<EventBus>(TYPES.EventBus, {
+    useValue: rabbitEventBus,
+  })
   // CommandBus - InMemory - Infrastructure
-  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, { lifecycle: Lifecycle.Singleton })
+  .register<CommandBus>(TYPES.CommandBus, InMemoryCommandBus, {
+    lifecycle: Lifecycle.Singleton,
+  })
   // QueryBus - InMemory - Infrastructure
-  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, { lifecycle: Lifecycle.Singleton })
+  .register<QueryBus>(TYPES.QueryBus, InMemoryQueryBus, {
+    lifecycle: Lifecycle.Singleton,
+  })
   // Monitoring
-  .register(TYPES.Monitoring, { useValue: monitoring })
-  .register(TYPES.Logger, { useValue: logger })
+  .register(TYPES.Monitoring, {
+    useValue: monitoring,
+  })
+  .register(TYPES.Logger, {
+    useValue: logger,
+  })
   .registerSingleton(FatalErrorHandler)

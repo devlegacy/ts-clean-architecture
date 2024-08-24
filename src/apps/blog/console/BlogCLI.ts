@@ -1,8 +1,15 @@
 import * as readline from 'readline-sync'
 
-import { PostUseCase } from '@/Contexts/Blog/Posts/application/index.js'
-import { Post, PostCollection } from '@/Contexts/Blog/Posts/domain/index.js'
-import { Uuid } from '@/Contexts/Shared/domain/index.js'
+import {
+  PostUseCase,
+} from '#@/src/Contexts/Blog/Posts/application/index.js'
+import {
+  Post,
+  PostCollection,
+} from '#@/src/Contexts/Blog/Posts/domain/index.js'
+import {
+  Uuid,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type Callback = (onSuccess: () => void, onError: (err: Error) => void) => void
 
@@ -10,7 +17,10 @@ export class BlogCLI {
   private readonly options: Callback[]
 
   constructor(private readonly useCase: PostUseCase) {
-    this.options = [this.publishPost.bind(this), this.readPost.bind(this)]
+    this.options = [
+      this.publishPost.bind(this),
+      this.readPost.bind(this),
+    ]
   }
 
   render() {
@@ -21,6 +31,7 @@ export class BlogCLI {
       Welcome to our CLI Blog!
       Please, choose an option:
       ${options}`
+    // eslint-disable-next-line no-console
     console.log(message)
 
     const optionSelected = Number(readline.question('Option: '))
@@ -31,7 +42,9 @@ export class BlogCLI {
   }
 
   private onError(err: Error) {
+    // eslint-disable-next-line no-console
     console.log('Something failed, please try again...')
+    // eslint-disable-next-line no-console
     console.error(err)
   }
 
@@ -42,6 +55,7 @@ export class BlogCLI {
     this.useCase
       .publishPost(Uuid.random().value, author, content, new Date())
       .then(() => {
+        // eslint-disable-next-line no-console
         console.log(`Congratulations ${author}. Your post was published!`)
       })
       .catch(onError)
@@ -54,13 +68,12 @@ export class BlogCLI {
       .readPost(author)
       .then((posts: PostCollection) =>
         posts.map((post: Post) =>
+        // eslint-disable-next-line no-console
           console.log(`
           ${post.author} said:
           ${post.date.toISOString()}
           ${post.content}
-        `),
-        ),
-      )
+        `)))
       .catch(onError)
       .finally(onSuccess)
   }

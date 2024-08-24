@@ -1,9 +1,15 @@
-import { Redis } from 'ioredis'
-import { Kafka } from 'kafkajs'
+import {
+  Redis,
+} from 'ioredis'
+import {
+  Kafka,
+} from 'kafkajs'
 
 const kafka = new Kafka({
   clientId: 'land',
-  brokers: ['127.0.0.1:9093'],
+  brokers: [
+    '127.0.0.1:9093',
+  ],
   // logLevel: 5,
 })
 
@@ -14,7 +20,9 @@ const client = new Redis({
 })
 
 // const producer = kafka.producer()
-const consumer = kafka.consumer({ groupId: 'group1' })
+const consumer = kafka.consumer({
+  groupId: 'group1',
+})
 
 // {
 //   "payload": {
@@ -45,11 +53,17 @@ const run = async () => {
   await consumer.connect()
 
   await consumer.run({
-    eachMessage: async ({ topic: _, partition, message }) => {
+    // eslint-disable-next-line complexity
+    eachMessage: async ({
+      topic: _, partition, message,
+    }) => {
       const event: Record<string, any> = JSON.parse(message?.value?.toString() || '{}')
-      const { payload } = event
+      const {
+        payload,
+      } = event
       const operation = payload.op as string
       const table = payload.source.table as string
+      // eslint-disable-next-line no-console
       console.log({
         partition,
         offset: message.offset,
@@ -59,7 +73,7 @@ const run = async () => {
       })
 
       if (operation === 'u') {
-        //update after
+        // update after
       } else if (operation === 'c') {
         if (table === 'blocks') {
           // JSON.DEL blocks
@@ -70,8 +84,10 @@ const run = async () => {
 
           const exists = await client.call('JSON.GET', 'blocks')
           if (!exists) await client.call('JSON.SET', 'blocks', '$', JSON.stringify([]))
-
-          console.log({ data: payload.after })
+          // eslint-disable-next-line no-console
+          console.log({
+            data: payload.after,
+          })
           // await client.set(`${table}2`, JSON.stringify(payload.after))
           // const stored: any = await client.get(`${table}2`)
           await client.call(
@@ -84,14 +100,19 @@ const run = async () => {
             }),
           )
           const stored: any = await client.call('JSON.GET', table)
+          // eslint-disable-next-line no-console
           console.log(JSON.parse(stored))
         } else if (table === 'lots') {
           const stored: any = await client.call('JSON.GET', 'blocks')
           const index = JSON.parse(stored).findIndex((block: any) => block.id === payload.after.block_id)
           // JSON.ARRAPPEND blocks $.lots {}
-          console.log({ data: payload.after })
+          // eslint-disable-next-line no-console
+          console.log({
+            data: payload.after,
+          })
           await client.call('JSON.ARRAPPEND', 'blocks', `$[${index}].lots`, JSON.stringify(payload.after))
           const stored2: any = await client.call('JSON.GET', 'blocks')
+          // eslint-disable-next-line no-console
           console.log(JSON.parse(stored2))
         }
       } else if (operation === 'd') {
@@ -100,6 +121,6 @@ const run = async () => {
     },
   })
 }
-
+// eslint-disable-next-line no-console
 run().catch(console.error)
 // npx tsnd -r ts-node/register/transpile-only -r tsconfig-paths/register ./src/apps/land/messages/index.ts

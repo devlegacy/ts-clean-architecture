@@ -1,18 +1,32 @@
-import { ContainerBuilder } from 'node-dependency-injection'
+import {
+  ContainerBuilder,
+} from 'node-dependency-injection'
 
-import { MongoConfigFactory, RabbitMQConfigFactory } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
-import { InMemoryCommandBus } from '@/Contexts/Shared/infrastructure/CommandBus/index.js'
+import {
+  MongoConfigFactory, RabbitMQConfigFactory,
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
+import {
+  InMemoryCommandBus,
+} from '#@/src/Contexts/Shared/infrastructure/CommandBus/index.js'
 import {
   InMemoryAsyncEventBus,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-} from '@/Contexts/Shared/infrastructure/EventBus/index.js'
-import { logger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
-import { MikroOrmMongoClientFactory } from '@/Contexts/Shared/infrastructure/Persistence/index.js'
-import { InMemoryQueryBus } from '@/Contexts/Shared/infrastructure/QueryBus/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/EventBus/index.js'
+import {
+  logger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
+import {
+  MikroOrmMongoClientFactory,
+} from '#@/src/Contexts/Shared/infrastructure/Persistence/index.js'
+import {
+  InMemoryQueryBus,
+} from '#@/src/Contexts/Shared/infrastructure/QueryBus/index.js'
 
-import { TYPES } from './types.js'
+import {
+  TYPES,
+} from './types.js'
 
 const container = new ContainerBuilder()
 container.logger = logger()

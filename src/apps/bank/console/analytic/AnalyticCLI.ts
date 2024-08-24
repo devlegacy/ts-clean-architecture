@@ -1,8 +1,14 @@
 import * as readline from 'readline-sync'
 
-import { AnalyticAccountTrackerUseCase } from '@/Contexts/Bank/Analytics/application/index.js'
-import { AnalyticAccount } from '@/Contexts/Bank/Analytics/domain/index.js'
-import { DomainError } from '@/Contexts/Shared/domain/index.js'
+import {
+  AnalyticAccountTrackerUseCase,
+} from '#@/src/Contexts/Bank/Analytics/application/index.js'
+import {
+  AnalyticAccount,
+} from '#@/src/Contexts/Bank/Analytics/domain/index.js'
+import {
+  DomainErrorHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type onSuccess = () => void
 type onError = (err: Error) => void
@@ -12,7 +18,9 @@ export class AnalyticCLI {
   private readonly options: Callback[]
 
   constructor(private readonly useCase: AnalyticAccountTrackerUseCase) {
-    this.options = [this.getAccountsPerCurrency.bind(this)]
+    this.options = [
+      this.getAccountsPerCurrency.bind(this),
+    ]
   }
 
   render() {
@@ -23,6 +31,7 @@ export class AnalyticCLI {
       Welcome to our Analytic CLI for EventBank!
       Please, choose an option:
       ${options}`
+    // eslint-disable-next-line no-console
     console.log(message)
 
     const optionSelected = Number(readline.question('Option:'))
@@ -33,10 +42,10 @@ export class AnalyticCLI {
   }
 
   private onError(err: Error) {
-    const message = DomainError?.isKnownError(err)
+    const message = DomainErrorHandler?.isDomainError(err)
       ? `[${err.constructor.name}]: : ${err.message}`
       : 'Something failed, please try again...'
-
+    // eslint-disable-next-line no-console
     console.log(message)
   }
 
@@ -47,6 +56,7 @@ export class AnalyticCLI {
       .findAccountsPerCurrency(currency)
       .then((accounts: AnalyticAccount[]) => {
         const accountSize = accounts.length
+        // eslint-disable-next-line no-console
         console.log(`There ${accountSize <= 1 ? 'is ' : 'are '}${accountSize} account(s) for currency ${currency}`)
       })
       .catch(onError)

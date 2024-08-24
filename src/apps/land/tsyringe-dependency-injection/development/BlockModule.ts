@@ -1,19 +1,31 @@
-import { container } from 'tsyringe'
+import {
+  container,
+} from 'tsyringe'
 
 import {
   CreateBlockCommandHandler,
   DeleteBlockCommandHandler,
   FindBlockQueryHandler,
-} from '@/Contexts/Land/Blocks/application/index.js'
-import { BlockRepository } from '@/Contexts/Land/Blocks/domain/index.js'
+} from '#@/src/Contexts/Land/Blocks/application/index.js'
+import {
+  BlockRepository,
+} from '#@/src/Contexts/Land/Blocks/domain/index.js'
 import {
   MikroOrmPostgresBlockRepository,
   ProxyBlockRepository,
   RedisBlockRepository,
-} from '@/Contexts/Land/Blocks/infrastructure/index.js'
-import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Land/Blocks/infrastructure/index.js'
+import {
+  Command,
+  type CommandHandler,
+  Query,
+  type QueryHandler,
+  Response,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { TYPES } from '../types'
+import {
+  TYPES,
+} from '../types.js'
 
 container
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateBlockCommandHandler)

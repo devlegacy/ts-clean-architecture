@@ -36,12 +36,12 @@ const containerBuilder = (registers: Class<unknown>[]) => {
 
   // key, registeredModule
   for (const [
-    key,
+    _key,
     registeredModule,
   ] of registeredModules) {
-    for (const element of registeredModule) {
-      // eslint-disable-next-line no-console
-      console.log(key, registeredModule, element)
+    for (const _element of registeredModule) {
+      // // eslint-disable-next-line no-console
+      // console.log(key, registeredModule, element)
       // builder.registerAndUse(element).addTag(key)
     }
   }

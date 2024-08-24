@@ -1,12 +1,26 @@
-import { MikroORM } from '@mikro-orm/core'
-import type { PostgreSqlDriver } from '@mikro-orm/postgresql'
-import { ContainerBuilder } from 'diod'
-import { Redis } from 'ioredis'
+import {
+  MikroORM,
+} from '@mikro-orm/core'
+import type {
+  PostgreSqlDriver,
+} from '@mikro-orm/postgresql'
+import {
+  ContainerBuilder,
+} from 'diod'
+import {
+  Redis,
+} from 'ioredis'
 
-import config from '@/Contexts/Land/Shared/infrastructure/config/index.js'
-import { SentryConfigFactory } from '@/Contexts/Land/Shared/infrastructure/index.js'
-import { PostgresConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory.js'
-import { RedisConfigFactory } from '@/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory.js'
+import config from '#@/src/Contexts/Land/Shared/infrastructure/config/index.js'
+import {
+  SentryConfigFactory,
+} from '#@/src/Contexts/Land/Shared/infrastructure/index.js'
+import {
+  PostgresConfigFactory,
+} from '#@/src/Contexts/Land/Shared/infrastructure/persistence/postgresql/PostgresConfigFactory.js'
+import {
+  RedisConfigFactory,
+} from '#@/src/Contexts/Land/Shared/infrastructure/persistence/redis/RedisConfigFactory.js'
 import {
   Command,
   CommandBus,
@@ -18,7 +32,7 @@ import {
   QueryBus,
   type QueryHandler,
   Response,
-} from '@/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/index.js'
 import {
   CommandHandlers,
   FatalErrorHandler,
@@ -29,10 +43,14 @@ import {
   QueryHandlers,
   RedisClientFactory,
   SentryMonitoring,
-} from '@/Contexts/Shared/infrastructure/index.js'
-import { PinoLogger } from '@/Contexts/Shared/infrastructure/Logger/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
+import {
+  PinoLogger,
+} from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
-import { TAGS } from '../tags.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 const context = 'land'
 const postgresConfig = PostgresConfigFactory.createConfig()

@@ -5,11 +5,27 @@ import {
   CreateCartCommand,
   FindCartQuery,
   SubtractCartItemCommand,
-} from '@/Contexts/Land/Carts/application/index.js'
-import { CartItemRequestDto, CartRequestDto } from '@/Contexts/Land/Carts/infrastructure/index.js'
-import { Body, Controller, Get, Param, Post, Put } from '@/Contexts/Shared/domain/Common/index.js'
-import { CommandBus, QueryBus, Uuid } from '@/Contexts/Shared/domain/index.js'
-import { JoiUuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
+} from '#@/src/Contexts/Land/Carts/application/index.js'
+import {
+  CartItemRequestDto,
+  CartRequestDto,
+} from '#@/src/Contexts/Land/Carts/infrastructure/index.js'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  CommandBus,
+  QueryBus,
+  Uuid,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  JoiUuidPipe,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
 @Controller('carts')
 export class CartController {
@@ -21,7 +37,9 @@ export class CartController {
   @Get(':cartId')
   async show(@Param('cartId', JoiUuidPipe) cartId: string) {
     const query = new FindCartQuery(cartId)
-    const { cart } = await this.queryBus.ask<CartResponse>(query)
+    const {
+      cart,
+    } = await this.queryBus.ask<CartResponse>(query)
 
     // TODO: Improve response methods on CartResponse class
     return {

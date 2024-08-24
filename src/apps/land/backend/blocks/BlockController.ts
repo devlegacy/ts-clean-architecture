@@ -4,12 +4,27 @@ import {
   CreateBlockCommand,
   DeleteBlockCommand,
   FindBlockQuery,
-} from '@/Contexts/Land/Blocks/application/index.js'
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@/Contexts/Shared/domain/Common/index.js'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
-import { JoiUuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
+} from '#@/src/Contexts/Land/Blocks/application/index.js'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  CommandBus,
+  QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  JoiUuidPipe,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
-import { BlockRequestSchema } from './BlockRequestSchema.js'
+import {
+  BlockRequestSchema,
+} from './BlockRequestSchema.js'
 
 @Controller('blocks')
 export class BlockController {
@@ -21,7 +36,9 @@ export class BlockController {
 
   @Get()
   async index(@Query('orderBy') _orderBy?: string, @Query('orderType') _orderType?: string) {
-    const { blocks } = await this.searcher.run()
+    const {
+      blocks,
+    } = await this.searcher.run()
     return blocks
   }
 

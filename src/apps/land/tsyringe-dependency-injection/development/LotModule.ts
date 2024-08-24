@@ -1,11 +1,28 @@
-import { container } from 'tsyringe'
+import {
+  container,
+} from 'tsyringe'
 
-import { CreateLotCommandHandler, FindLotQueryHandler } from '@/Contexts/Land/Lots/application/index.js'
-import { LotRepository } from '@/Contexts/Land/Lots/domain/index.js'
-import { MikroOrmPostgresLotRepository } from '@/Contexts/Land/Lots/infrastructure/index.js'
-import { Command, CommandHandler, Query, Response } from '@/Contexts/Shared/domain/index.js'
+import {
+  CreateLotCommandHandler,
+  FindLotQueryHandler,
+} from '#@/src/Contexts/Land/Lots/application/index.js'
+import {
+  LotRepository,
+} from '#@/src/Contexts/Land/Lots/domain/index.js'
+import {
+  MikroOrmPostgresLotRepository,
+} from '#@/src/Contexts/Land/Lots/infrastructure/index.js'
+import {
+  Command,
+  type CommandHandler,
+  Query,
+  type QueryHandler,
+  Response,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
-import { TYPES } from '../types'
+import {
+  TYPES,
+} from '../types.js'
 
 container
   .register<CommandHandler<Command>>(TYPES.CommandHandler, CreateLotCommandHandler)

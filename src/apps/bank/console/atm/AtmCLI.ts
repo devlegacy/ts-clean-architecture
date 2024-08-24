@@ -1,8 +1,14 @@
 import * as readline from 'readline-sync'
 
-import { AtmAccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
-import { Account } from '@/Contexts/Bank/Accounts/domain/index.js'
-import { DomainError } from '@/Contexts/Shared/domain/index.js'
+import {
+  AtmAccountUseCase,
+} from '#@/src/Contexts/Bank/Accounts/application/index.js'
+import {
+  Account,
+} from '#@/src/Contexts/Bank/Accounts/domain/index.js'
+import {
+  DomainErrorHandler,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type Callback = (onSuccess: () => void, onError: (err: Error) => void) => void
 
@@ -10,7 +16,11 @@ export class AtmCLI {
   private readonly options: Callback[]
 
   constructor(private readonly useCase: AtmAccountUseCase) {
-    this.options = [this.findAccount.bind(this), this.deposit.bind(this), this.withdraw.bind(this)]
+    this.options = [
+      this.findAccount.bind(this),
+      this.deposit.bind(this),
+      this.withdraw.bind(this),
+    ]
   }
 
   render() {
@@ -21,6 +31,7 @@ export class AtmCLI {
       Welcome to our ATM CLI Bank!
       Please, choose an option:
       ${options}`
+    // eslint-disable-next-line no-console
     console.log(message)
 
     const optionSelected = Number(readline.question('Option: '))
@@ -31,11 +42,12 @@ export class AtmCLI {
   }
 
   private onError(err: Error) {
-    const message = DomainError?.isKnownError(err)
+    const message = DomainErrorHandler?.isDomainError(err)
       ? `[${err.constructor.name}]: : ${err.message}`
       : 'Something failed, please try again...'
-
+    // eslint-disable-next-line no-console
     console.log(message)
+    // eslint-disable-next-line no-console
     console.log(err)
   }
 
@@ -44,8 +56,11 @@ export class AtmCLI {
     this.useCase
       .find(id)
       .then((account: Account) => {
+        // eslint-disable-next-line no-console
         console.log(`Account: ${account.id}`)
+        // eslint-disable-next-line no-console
         console.log(`Name: ${account.name}`)
+        // eslint-disable-next-line no-console
         console.log(`Balance: ${account.balance.amount} ${account.balance.currency}`)
       })
       .catch(onError)
@@ -59,6 +74,7 @@ export class AtmCLI {
     this.useCase
       .deposit(id, Number(amount), currency)
       .then(() => {
+        // eslint-disable-next-line no-console
         console.log('Your deposit was completed successfully!')
       })
       .catch(onError)
@@ -72,6 +88,7 @@ export class AtmCLI {
     this.useCase
       .withdraw(id, Number(amount), currency)
       .then(() => {
+        // eslint-disable-next-line no-console
         console.log('Your withdraw was completed successfully!')
       })
       .catch(onError)

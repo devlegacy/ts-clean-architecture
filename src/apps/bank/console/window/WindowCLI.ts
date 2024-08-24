@@ -1,8 +1,15 @@
 import * as readline from 'readline-sync'
 
-import { AccountUseCase } from '@/Contexts/Bank/Accounts/application/index.js'
-import { Account } from '@/Contexts/Bank/Accounts/domain/index.js'
-import { DomainError, Uuid } from '@/Contexts/Shared/domain/index.js'
+import {
+  AccountUseCase,
+} from '#@/src/Contexts/Bank/Accounts/application/index.js'
+import {
+  Account,
+} from '#@/src/Contexts/Bank/Accounts/domain/index.js'
+import {
+  DomainErrorHandler,
+  Uuid,
+} from '#@/src/Contexts/Shared/domain/index.js'
 
 type onSuccess = () => void
 type onError = (err: Error) => void
@@ -28,6 +35,7 @@ export class WindowCLI {
       Welcome to our Window CLI Bank!
       Please, choose an option:
       ${options}`
+    // eslint-disable-next-line no-console
     console.log(message)
 
     const optionSelected = Number(readline.question('Option: '))
@@ -38,11 +46,12 @@ export class WindowCLI {
   }
 
   private onError(err: Error) {
-    const message = DomainError?.isKnownError(err)
+    const message = DomainErrorHandler?.isDomainError(err)
       ? `[${err.constructor.name}]: : ${err.message}`
       : 'Something failed, please try again...'
-
+    // eslint-disable-next-line no-console
     console.log(message)
+    // eslint-disable-next-line no-console
     console.log(err)
   }
 
@@ -53,6 +62,7 @@ export class WindowCLI {
 
     this.useCase
       .create(Uuid.random().value, name, currency)
+    // eslint-disable-next-line no-console
       .then((id: string) => console.log(`Congratulations ${name}. Your account ${id} was created!`))
       .catch(onError)
       .finally(onSuccess)
@@ -63,8 +73,11 @@ export class WindowCLI {
     this.useCase
       .find(id)
       .then((account: Account) => {
+        // eslint-disable-next-line no-console
         console.log(`Account: ${account.id}`)
+        // eslint-disable-next-line no-console
         console.log(`Name: ${account.name}`)
+        // eslint-disable-next-line no-console
         console.log(`Balance: ${account.balance.amount} ${account.balance.currency}`)
       })
       .catch(onError)
@@ -78,6 +91,7 @@ export class WindowCLI {
     this.useCase
       .deposit(id, Number(amount), currency)
       .then(() => {
+        // eslint-disable-next-line no-console
         console.log('Your deposit was completed successfully!')
       })
       .catch(onError)
@@ -91,6 +105,7 @@ export class WindowCLI {
     this.useCase
       .withdraw(id, Number(amount), currency)
       .then(() => {
+        // eslint-disable-next-line no-console
         console.log('Your withdraw was completed successfully!')
       })
       .catch(onError)

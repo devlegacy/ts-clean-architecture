@@ -2,7 +2,7 @@ import {
   ContainerBuilder,
 } from 'diod'
 
-// import { registeredModules } from '@/Contexts/Shared/domain/Common/index.js'
+// import { registeredModules } from '#@/src/Contexts/Shared/domain/Common/index.js'
 import {
   SharedModule,
 } from './SharedModule.js'

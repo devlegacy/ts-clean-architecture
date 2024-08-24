@@ -1,6 +1,8 @@
 // let containerInstance: DependencyContainer | null = null
 
-import { config } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
+import {
+  config,
+} from '#@/src/Contexts/Mooc/Shared/infrastructure/index.js'
 
 // let isContainerInstanceLoaded = false
 // const containerBuilder = () => {
@@ -8,16 +10,16 @@ import { config } from '@/Contexts/Mooc/Shared/infrastructure/index.js'
 // !String(process.env.npm_lifecycle_event).includes('tests')
 
 // isContainerInstanceLoaded = true
-// eslint-disable-next-line security/detect-non-literal-require
-// require(`./container/${config.get('app.env')}.ts`)
+
+// require(`./container/${config.get('app.env')}.js`)
 
 // container.dispose()
 // containerInstance = container
 // return containerInstance
 // }
 
-// eslint-disable-next-line security/detect-non-literal-require
-require(`./container/${config.get('app.env')}.ts`)
+// eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-require-imports
+require(`./container/${config.get('app.env')}.js`)
 
 // Shared
 // const mongoConfig = MongoConfigFactory.createConfig()

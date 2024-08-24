@@ -1,16 +1,22 @@
 import {
   AnalyticAccountTrackerUseCase,
   TrackAnalyticAccountOnAccountCreated,
-} from '@/Contexts/Bank/Analytics/application/index.js'
-import { MongoAnalyticAccountRepository } from '@/Contexts/Bank/Analytics/infrastructure/persistence/index.js'
-import { MongoConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory.js'
-import { RabbitMQConfigFactory } from '@/Contexts/Bank/Shared/infrastructure/RabbitMQ/index.js'
+} from '#@/src/Contexts/Bank/Analytics/application/index.js'
+import {
+  MongoAnalyticAccountRepository,
+} from '#@/src/Contexts/Bank/Analytics/infrastructure/persistence/index.js'
+import {
+  MongoConfigFactory,
+} from '#@/src/Contexts/Bank/Shared/infrastructure/persistence/mongo/MongoConfigFactory.js'
+import {
+  RabbitMQConfigFactory,
+} from '#@/src/Contexts/Bank/Shared/infrastructure/RabbitMQ/index.js'
 import {
   MongoClientFactory,
   RabbitMQConfigurer,
   RabbitMQConnection,
   RabbitMQQueueFormatter,
-} from '@/Contexts/Shared/infrastructure/index.js'
+} from '#@/src/Contexts/Shared/infrastructure/index.js'
 
 export class ConfigureRabbitMQCommand {
   static async run() {
@@ -31,7 +37,9 @@ export class ConfigureRabbitMQCommand {
     // )
 
     const connection = rabbitConnection
-    const { name: exchange } = rabbitConfig.exchangeSettings
+    const {
+      name: exchange,
+    } = rabbitConfig.exchangeSettings
     await connection.connect()
 
     const configurer = rabbitConfigurer

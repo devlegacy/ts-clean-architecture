@@ -1,4 +1,6 @@
-import { ContainerBuilder } from 'diod'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 import {
   BlockCreator,
@@ -8,16 +10,22 @@ import {
   CreateBlockCommandHandler,
   DeleteBlockCommandHandler,
   FindBlockQueryHandler,
-} from '@/Contexts/Land/Blocks/application/index.js'
-import { BlockRepository } from '@/Contexts/Land/Blocks/domain/index.js'
+} from '#@/src/Contexts/Land/Blocks/application/index.js'
+import {
+  BlockRepository,
+} from '#@/src/Contexts/Land/Blocks/domain/index.js'
 import {
   MikroOrmPostgresBlockRepository,
   ProxyBlockRepository,
   RedisBlockRepository,
-} from '@/Contexts/Land/Blocks/infrastructure/index.js'
+} from '#@/src/Contexts/Land/Blocks/infrastructure/index.js'
 
-import { BlockController } from '../../backend/blocks/BlockController'
-import { TAGS } from '../tags'
+import {
+  BlockController,
+} from '../../backend/blocks/BlockController.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 export const BlockModule = (builder: ContainerBuilder) => {
   builder.registerAndUse(BlockController).addTag(TAGS.Controller)

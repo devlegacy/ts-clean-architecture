@@ -1,9 +1,26 @@
-import { CreateLotCommand, FindLotQuery, LotResponse } from '@/Contexts/Land/Lots/application/index.js'
-import { Body, Controller, Get, Param, Post } from '@/Contexts/Shared/domain/Common/index.js'
-import { CommandBus, QueryBus } from '@/Contexts/Shared/domain/index.js'
-import { JoiUuidPipe } from '@/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
+import {
+  CreateLotCommand,
+  FindLotQuery,
+  LotResponse,
+} from '#@/src/Contexts/Land/Lots/application/index.js'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+} from '#@/src/Contexts/Shared/domain/Common/index.js'
+import {
+  CommandBus,
+  QueryBus,
+} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  JoiUuidPipe,
+} from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/Pipes/index.js'
 
-import { LotRequestSchema } from './LotRequestSchema.js'
+import {
+  LotRequestSchema,
+} from './LotRequestSchema.js'
 
 @Controller('blocks/:block/lots')
 export class LotController {

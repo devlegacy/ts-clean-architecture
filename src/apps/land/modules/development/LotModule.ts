@@ -1,16 +1,26 @@
-import { ContainerBuilder } from 'diod'
+import {
+  ContainerBuilder,
+} from 'diod'
 
 import {
   CreateLotCommandHandler,
   FindLotQueryHandler,
   LotCreator,
   LotFinder,
-} from '@/Contexts/Land/Lots/application/index.js'
-import { LotRepository } from '@/Contexts/Land/Lots/domain/index.js'
-import { MikroOrmPostgresLotRepository } from '@/Contexts/Land/Lots/infrastructure/index.js'
+} from '#@/src/Contexts/Land/Lots/application/index.js'
+import {
+  LotRepository,
+} from '#@/src/Contexts/Land/Lots/domain/index.js'
+import {
+  MikroOrmPostgresLotRepository,
+} from '#@/src/Contexts/Land/Lots/infrastructure/index.js'
 
-import { LotController } from '../../backend/lots/LotController'
-import { TAGS } from '../tags'
+import {
+  LotController,
+} from '../../backend/lots/LotController.js'
+import {
+  TAGS,
+} from '../tags.js'
 
 export const LotModule = (builder: ContainerBuilder) => {
   builder.registerAndUse(LotController).addTag(TAGS.Controller)
