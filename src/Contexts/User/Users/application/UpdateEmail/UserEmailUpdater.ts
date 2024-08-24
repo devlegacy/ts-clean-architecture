@@ -13,7 +13,10 @@ export class UserEmailUpdater {
 
   async run(oldEmail: UserPrimitiveType['email'], newEmail: UserPrimitiveType['email']) {
     // Better search because we are trying to get a user by email (as a first validation)
-    const [oldUser, newUser] = await Promise.all([
+    const [
+      oldUser,
+      newUser,
+    ] = await Promise.all([
       this.repository.findByEmail(new UserEmail(oldEmail)),
       this.repository.findByEmail(new UserEmail(newEmail)),
     ])

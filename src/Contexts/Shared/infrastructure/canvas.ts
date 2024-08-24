@@ -1,9 +1,15 @@
-import { createCanvas } from 'canvas'
+import {
+  createCanvas,
+} from 'canvas'
 
 // registerFont(resolve(__dirname, './NotoSans-Regular.ttf'), { family: 'NotoSans' })
 
 export function createProfilePicture(text: string) {
-  text = text.trim().toUpperCase().slice(0, 2).toUpperCase()
+  text = text
+    .trim()
+    .toUpperCase()
+    .slice(0, 2)
+    .toUpperCase()
   const side = 120
   const canvas = createCanvas(side, side)
   const ctx = canvas.getContext('2d')

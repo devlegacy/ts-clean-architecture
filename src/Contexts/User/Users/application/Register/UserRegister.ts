@@ -1,4 +1,8 @@
-import { User, type UserPrimitiveType, UserRepository } from '../../domain/index.js'
+import {
+  User,
+  type UserPrimitiveType,
+  UserRepository,
+} from '../../domain/index.js'
 
 type Request = UserPrimitiveType
 

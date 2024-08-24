@@ -1,4 +1,6 @@
-import process from 'node:process'
+import {
+  env,
+} from 'node:process'
 
 import {
   MikroORM,
@@ -55,18 +57,19 @@ export abstract class MikroOrmMongoClientFactory {
     config: MongoConfig,
     contextPath?: string,
   ): Promise<MikroORM<MongoDriver>> {
-    const isProduction = process.env.APP_ENV === 'production'
+    const isProduction = env.APP_ENV === 'production'
     const url = new URL(config.url)
     const dbName = url.pathname.replace('/', '')
 
+    const basePath = `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo`
     const entities = contextPath
       ? [
-          `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity.js`,
+          `${basePath}/*Entity.js`,
         ]
       : undefined
     const entitiesTs = contextPath && !isProduction
       ? [
-      `${contextPath}/**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`,
+          `${basePath}/*Entity{.js,.ts}`,
         ]
       : undefined
     // : [`${__dirname}/../../../../**/**/infrastructure/persistence/mikroorm/mongo/*Entity{.js,.ts}`] // DEBT: Convert as env variable
@@ -87,7 +90,6 @@ export abstract class MikroOrmMongoClientFactory {
       entities,
       entitiesTs,
       logger: info,
-      forceUndefined: true,
       highlighter: !isProduction ? new MongoHighlighter() : undefined,
       debug: !isProduction,
       validate: true,
@@ -96,12 +98,12 @@ export abstract class MikroOrmMongoClientFactory {
       implicitTransactions: false, // defaults to false
       ensureIndexes: true,
       driver: MongoDriver,
-      // driverOptions: {
-      // useUnifiedTopology: true,
-      // monitorCommands: true,
-      // ignoreUndefined: true
-      // loggerLevel: 'debug'
-      // },
+      forceUndefined: true,
+      driverOptions: {
+        useUnifiedTopology: true,
+        monitorCommands: true,
+        ignoreUndefined: true,
+      },
     }
     const client = await MikroORM.init<MongoDriver>(options)
     await client.getSchemaGenerator().createSchema()
@@ -122,17 +124,21 @@ export abstract class MikroOrmMongoClientFactory {
 //     url: 'mongodb://127.0.0.1:27017/mooc',
 //   },
 //   resolve(cwd(), './src/Contexts/User/'),
-// ).then(async (orm) => {
+// )
+//   .then(async (orm) => {
 //   // eslint-disable-next-line no-console
-//   console.log(orm)
-//   // const r = orm.em.fork().getRepository(CourseEntity)
-//   // console.log(r)
+//     console.log(orm)
+//     // const r = orm.em.fork().getRepository(CourseEntity)
+//     // console.log(r)
 
-//   // const q = await r.find({}, { convertCustomTypes: true })
-//   // console.log(q)
+//     // const q = await r.find({}, { convertCustomTypes: true })
+//     // console.log(q)
 
 //   // console.log(em)
-// })
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   })
 
 // MikroOrmMongoClientFactory.createClient(
 //   'mooc',

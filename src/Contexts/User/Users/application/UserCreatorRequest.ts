@@ -1,6 +1,6 @@
 import type {
   JobExperiencePrimitiveType,
-  //UserPrimitiveType
+  // UserPrimitiveType
 } from '../domain/index.js'
 
 export interface UserCreatorRequest {

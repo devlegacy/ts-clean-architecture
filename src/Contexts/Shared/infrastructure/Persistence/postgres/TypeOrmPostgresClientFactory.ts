@@ -43,7 +43,7 @@ export class TypeOrmPostgresClientFactory {
       synchronize: true, // DEBT: handle in prod (false) and dev (true)
       logging: true,
       entities: [
-`${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`,
+        `${__dirname}/../../../../**/**/infrastructure/persistence/typeorm/*{.js,.ts}`,
       ],
       // subscribers: [],
       // migrations: []

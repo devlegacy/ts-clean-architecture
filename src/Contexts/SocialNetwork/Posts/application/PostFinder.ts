@@ -1,4 +1,8 @@
 import {
+  type Optional,
+} from '#@/src/Contexts/Shared/domain/Optional.js'
+
+import {
   PostId,
 } from '../../Shared/domain/index.js'
 import {
@@ -23,5 +27,11 @@ export class PostFinder {
     }
 
     return post
+  }
+
+  async runOptional(id: string): Promise<Optional<Post>> {
+    const post = await this.repository.searchWithOptional(new PostId(id))
+
+    return post.map((post) => post)
   }
 }

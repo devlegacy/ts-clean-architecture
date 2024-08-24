@@ -1,8 +1,12 @@
+import type {
+  IncomingMessage,
+} from 'node:http'
 import {
   resolve,
 } from 'node:path'
 import {
   cwd,
+  env,
 } from 'node:process'
 import {
   pathToFileURL,
@@ -31,14 +35,27 @@ const {
 })
 
 const options: Sentry.NodeOptions = {
-  debug: true,
-  environment: 'development',
+  debug: env.APP_ENV !== 'production',
+  environment: env.APP_ENV || 'development',
   release: packageJson.version,
   integrations: [
+    Sentry.httpIntegration(),
+    Sentry.fastifyIntegration(),
+    // Sentry.modulesIntegration(),
+    Sentry.functionToStringIntegration(),
     nodeProfilingIntegration(),
+    Sentry.onUncaughtExceptionIntegration(),
+    Sentry.onUnhandledRejectionIntegration(),
   ],
   tracesSampleRate: 1.0,
   profilesSampleRate: 1.0,
+}
+
+type HttpRequest<T extends IncomingMessage = IncomingMessage> = T & {
+  user: Record<string, any>
+  body: unknown
+  query: unknown
+  params: unknown
 }
 
 export class SentryMonitoring implements Monitoring {
@@ -53,13 +70,17 @@ export class SentryMonitoring implements Monitoring {
     Sentry.init(this.#options)
   }
 
-  capture(err: Error, config?: { req: any }) {
+  capture(err: Error, config?: { req: HttpRequest }) {
     // eslint-disable-next-line complexity
     Sentry.withScope((scope) => {
       // const transaction = Sentry.startTransaction({
       //   name: `Transaction ${Date.now()}`,
       //   op: this.#options.environment,
       // })
+      // scope.setTransactionName((err as any)?.type || err.message || 'unknown')
+      scope.setTag('name', err.name)
+      scope.setTag('type', (err as any)?.type)
+
       if (config?.req) {
         scope.setUser({
           id: config?.req?.user?.id,
@@ -113,6 +134,9 @@ export class SentryMonitoring implements Monitoring {
       // scope.setClient()
       // scope.setRequestSession({})
 
+      if ((err as any).type) {
+        err.name = (err as any).type
+      }
       Sentry.captureException(err)
       // transaction.finish()
     })

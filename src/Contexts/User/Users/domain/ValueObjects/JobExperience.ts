@@ -1,6 +1,13 @@
-import { Company } from './Company.js'
-import { DateRange, type DateRangePrimitiveType } from './DateRange.js'
-import { Title } from './Title.js'
+import {
+  Company,
+} from './Company.js'
+import {
+  DateRange,
+  type DateRangePrimitiveType,
+} from './DateRange.js'
+import {
+  Title,
+} from './Title.js'
 
 export type JobExperiencePrimitiveType = Primitives<JobExperience>
 export type JobExperienceEntityType = Entity<JobExperience>
