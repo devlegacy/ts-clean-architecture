@@ -47,3 +47,14 @@ setup/git: ## ⚙️ Setup the Git repository.
 	git config --local tag.gpgsign true; \
 	git config --local log.showSignature true; \
 	git config --local --list
+
+.PHONY: show/versions
+.SILENT: show/versions
+show/versions: ## 📊 Display dependency versions for the project.
+	$(print_message) "showing versions"
+	echo "$$(git --version)"
+	echo "node version $$(node -v)"
+	echo "npm version $$(npm -v)"
+	echo "pnpm version $$(pnpm -v)"
+	echo "corepack version $$(corepack -v)"
+	echo "bun version $$(bun -v )"
