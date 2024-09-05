@@ -1,32 +1,34 @@
-import process from 'node:process'
+import {
+  env,
+} from 'node:process'
 import {
   styleText,
 } from 'node:util'
 
-process.env.SWCRC = true
-process.env.TS_NODE_PROJECT = 'tsconfig.json'
+env.SWCRC = true
+env.TS_NODE_PROJECT = 'tsconfig.json'
+env.FASTIFY_AUTOLOAD_TYPESCRIPT ??= 1
 // process.env.NODE_OPTIONS = '--import @swc-node/register/esm-register'
 // process.env.NODE_OPTIONS = '--loader ts-node/esm'
-
-const env = {
-  // Node.js environment variables
-  NODE_ENV: process.env.NODE_ENV || null,
-  NODE_OPTIONS: process.env.NODE_OPTIONS || null,
-  TZ: process.env.TZ || null,
-
-  // TypeScript environment variables
-  SWCRC: process.env.SWCRC || null,
-  TS_NODE_PROJECT: process.env.TS_NODE_PROJECT || null,
-
-  // Custom environment variables
-  APP_ENV: process.env.APP_ENV || null,
-}
 
 // eslint-disable-next-line no-console
 console.log(styleText(
   'green',
   JSON.stringify(
-    env,
+    {
+      // Node.js environment variables
+      NODE_ENV: env.NODE_ENV || null,
+      NODE_OPTIONS: env.NODE_OPTIONS || null,
+      TZ: env.TZ || null,
+
+      // TypeScript environment variables
+      SWCRC: env.SWCRC || null,
+      TS_NODE_PROJECT: env.TS_NODE_PROJECT || null,
+      FASTIFY_AUTOLOAD_TYPESCRIPT: env.FASTIFY_AUTOLOAD_TYPESCRIPT || null,
+
+      // Custom environment variables
+      APP_ENV: env.APP_ENV || null,
+    },
     null,
     2,
   ),
