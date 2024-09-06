@@ -58,6 +58,10 @@ const connectionClient = MikroOrmPostgresClientFactory.createClient(context, pos
 const redisConfig = RedisConfigFactory.createConfig()
 const redisClient = RedisClientFactory.createClient(context, redisConfig)
 
+/**
+ * Shared | Common | Core | Global modules
+ * @param builder
+ */
 export const SharedModule = (builder: ContainerBuilder) => {
   builder.register<Promise<MikroORM<PostgreSqlDriver>>>(MikroORM<PostgreSqlDriver> as any).useFactory(() => {
     return connectionClient
