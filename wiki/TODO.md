@@ -15,7 +15,7 @@
 - [ ] Refactor LotLot and BlockBlock, join in one value object to extends
 
 - [ ] servicio de configuración centralizada para nodejs
-
+- [ ] [JSON Schema Store](https://www.schemastore.org/json/)
 ## Learning
 
 - el problema de la cena de los filósofos

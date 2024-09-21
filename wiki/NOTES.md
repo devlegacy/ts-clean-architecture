@@ -409,7 +409,7 @@ docker-compose -f ./docker-compose.yml up -d --build
 - download config files
 - settings.json
 - launch.json
-
+- [Configure Template | cz-git](https://cz-git.qbb.sh/config/#json-template)
 ```json
 {
   "config": {

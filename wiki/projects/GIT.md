@@ -32,6 +32,7 @@
 <h3 align="center">Commit convention</h3>
 
 - [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Configure Template | cz-git](https://cz-git.qbb.sh/config/#json-template)
 
 ```sh
   # 🛠️ tools: commitizen + @commitlint/config-conventional
@@ -112,6 +113,14 @@ chore(deps): bump dependencies
 
 ```sh
   git diff --name-status origin/master | grep "src/" | awk -F/ '{print $2}' | uniq
+```
+
+#### Log
+
+```sh
+  git log -p -S ""
+  git log -p -S "PublicApi.addRoute('verifyEmailUser/:token" | grep -E "commit|Author|Date|diff --git|index|@@|\+|\-" | grep -v "diff --git a"
+  git log -p -S "verifyEmailUser/:token" | grep -E "commit|Author|Date|diff --git|index|@@|\+verifyEmailUser\/\:token|\-verifyEmailUser\/\:token"
 ```
 
 <h2 align="center">Branches</h2>
@@ -265,6 +274,7 @@ Ambos términos se refieren al mismo concepto básico.
 - ask for (opinions|alternatives), not to give orders
 - answer comments
 - co-authors `git commit --author="John Doe <john@domain.com>"`
+  - `Co-authored-by: [Co-author Name] <[coauthor@example.com]>`
 
 ## TIPS
 

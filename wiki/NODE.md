@@ -18,6 +18,7 @@
 ## Crypto
 
 ```sh
+  openssl rand -base64 32
   crypto.randomBytes(16).toString('base64')
   require('crypto').randomBytes(16).toString('base64')
   crypto.randomBytes(16).toString('hex')
