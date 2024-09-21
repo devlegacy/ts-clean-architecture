@@ -30,8 +30,10 @@
       "request": "launch",
       "runtimeArgs": [
         // "--loader=ts-node/esm",
+        // "--loader=ts-paths-esm-loader/transpile-only"
         "--loader=ts-paths-esm-loader/transpile-only"
       ],
+      // "runtimeExecutable": "/Users/jstsamuel/.nvm/versions/node/v21.6.0/bin/node",
       "runtimeExecutable": "node",
       "skipFiles": [
         "<node_internals>/**",
@@ -42,10 +44,12 @@
       "type": "node",
       // https://github.com/pinojs/pino/issues/441
       "outputCapture": "std",
+      "envFile": "${workspaceFolder}/.env",
       "env": {
         "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
-        "APP_ENV": "test",
-        "TZ": "utc"
+        "APP_ENV": "test", // development, production, test, staging
+        "TZ": "utc",
+        "NODE_OPTIONS": "--no-warnings=ExperimentalWarning"
       }
     },
     {
@@ -133,7 +137,10 @@
         // "<node_internals>/internal/inspector_async_hook.js"
       ],
       "env": {
-        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+        "APP_ENV": "test",
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
+        "NODE_OPTIONS": "--experimental-vm-modules --no-warnings=ExperimentalWarning",
+        "SWCRC": "true"
       }
     },
     {

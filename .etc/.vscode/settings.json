@@ -120,9 +120,21 @@
   "typescript.tsserver.log": "verbose",
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "dotenv.enableAutocloaking": false,
-  "jest.autoRun": {
-    "watch": false,
-    "onSave": "test-file"
+  "nodejs-testing.include": ["./tests", "./src"],
+  "nodejs-testing.extensions": [
+    {
+      "extensions": ["ts"],
+      "parameters": ["--import", "@swc-node/register/esm-register"],
+      "filePatterns": ["**/*node.test.ts"]
+    }
+  ],
+  "nodejs-testing.env": {
+    "APP_ENV": "test"
   },
-  "jest.nodeEnv": { "APP_ENV": "test" }
+  // "jest.autoRun": {
+  //   "watch": false,
+  //   "onSave": "test-file"
+  // },
+  "jest.nodeEnv": { "APP_ENV": "test" },
+  "jest.rootPath": "./tests/"
 }
