@@ -8,7 +8,8 @@ import {
 import qs from 'qs'
 
 import {
-  Logger, Monitoring,
+  Logger,
+  Monitoring,
 } from '#@/src/Contexts/Shared/domain/index.js'
 import {
   DiodControllerResolver,
@@ -54,7 +55,7 @@ export class Server {
   // #app: FastifyInstance<http2.Http2SecureServer>
   // #httpServer?: http2.Http2SecureServer
   readonly #adapter = new FastifyAdapter({
-    logger,
+    loggerInstance: logger,
   })
 
   #httpServer?: http.Server

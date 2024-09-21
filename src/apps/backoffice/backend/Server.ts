@@ -53,7 +53,7 @@ const monitoring = container.get(Monitoring)
 export class Server {
   readonly #options?: Options
   readonly #adapter = new FastifyAdapter({
-    logger,
+    loggerInstance: logger,
   })
 
   #httpServer?: http.Server
