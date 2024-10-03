@@ -6,18 +6,18 @@ import {
 } from 'node:url'
 
 // backward compatibility ⚠️
-import {
-  fixupPluginRules,
-} from '@eslint/compat'
+// import {
+//   fixupPluginRules,
+// } from '@eslint/compat'
 // backward compatibility ⚠️
-import {
-  FlatCompat,
-} from '@eslint/eslintrc'
-import eslint from '@eslint/js'
+// import {
+//   FlatCompat,
+// } from '@eslint/eslintrc'
 // https://github.com/eslint-stylistic/eslint-stylistic
+import eslint from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
-// https://github.com/import-js/eslint-plugin-import/issues/2948 🔴
-// import eslintImport from 'eslint-plugin-import'
+// https://github.com/import-js/eslint-plugin-import
+import eslintImport from 'eslint-plugin-import'
 // https://github.com/eslint-community/eslint-plugin-security
 import security from 'eslint-plugin-security'
 // https://github.com/lydell/eslint-plugin-simple-import-sort
@@ -26,30 +26,29 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import unusedImports from 'eslint-plugin-unused-imports'
 // https://github.com/sindresorhus/globals
 import globals from 'globals'
-// https://github.com/typescript-eslint/typescript-eslint/issues/8211 🔴
-// https://www.npmjs.com/package/typescript-eslint?activeTab=versions 🔍
+// https://github.com/typescript-eslint/typescript-eslint
 import tseslint from 'typescript-eslint'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 // backward compatibility ⚠️
-const compat = new FlatCompat()
+// const compat = new FlatCompat()
 /**
  * backward compatibility ⚠️
  * @param {string} name the plugin name
  * @param {string} alias the plugin alias
  * @returns {import("eslint").ESLint.Plugin}
  */
-function legacyPlugin(name, alias = name) {
-  const plugin = compat.plugins(name)[0]?.plugins?.[alias]
+// function legacyPlugin(name, alias = name) {
+//   const plugin = compat.plugins(name)[0]?.plugins?.[alias]
 
-  if (!plugin) {
-    throw new Error(`Unable to resolve plugin ${name} and/or alias ${alias}`)
-  }
+//   if (!plugin) {
+//     throw new Error(`Unable to resolve plugin ${name} and/or alias ${alias}`)
+//   }
 
-  return fixupPluginRules(plugin)
-}
+//   return fixupPluginRules(plugin)
+// }
 
 /**
  * Read more on: https://eslint.org/docs/latest/rules/
@@ -203,7 +202,7 @@ const tseslintConfig = tseslint.config(
   {
     files: [
       '**/*.ts',
-      '**/*.mts',
+      // '**/*.mts',
       // '**/*.js',
       // '**/*.mjs',
       // '**/*.cjs',
@@ -219,13 +218,16 @@ const tseslintConfig = tseslint.config(
       parserOptions: {
         ecmaVersion: 'latest',
         projectService: {
-          allowDefaultProject: [
-            './*.js',
-            './*.cjs',
-            './*.mjs',
-          ],
+          // allowDefaultProject: [
+          // './src/**/*.ts',
+          // '**/*.mts',
+          // '**/*.js',
+          // '**/*.mjs',
+          // '**/*.cjs',
+          // ],
           defaultProject: './tsconfig.json',
         },
+        project: './tsconfig.json',
         sourceType: 'module',
         tsconfigDirName: import.meta.dirname,
         tsconfigRootDir: __dirname,
@@ -243,7 +245,7 @@ const tseslintConfig = tseslint.config(
   {
     files: [
       '**/*.js',
-      '**/*.cjs',
+      // '**/*.cjs',
       '**/*.mjs',
     ],
     ...tseslint.configs.disableTypeChecked,
@@ -257,15 +259,15 @@ const tseslintConfig = tseslint.config(
       ...eslintRules,
     },
   },
-  {
-    files: [
-      '**/*.cjs',
-    ],
-    rules: {
-      '@typescript-eslint/no-var-requires': 'off',
-      '@typescript-eslint/no-require-imports': 'off',
-    },
-  },
+  // {
+  //   files: [
+  //     '**/*.cjs',
+  //   ],
+  //   rules: {
+  //     '@typescript-eslint/no-var-requires': 'off',
+  //     '@typescript-eslint/no-require-imports': 'off',
+  //   },
+  // },
 )
 
 const stylisticConfig = [
@@ -297,10 +299,11 @@ const simpleImportConfig = {
 
 const importConfig = {
   plugins: {
-    import: legacyPlugin(
-      'eslint-plugin-import',
-      'import',
-    ),
+    import: eslintImport,
+    // legacyPlugin(
+    //   'eslint-plugin-import',
+    //   'import',
+    // ),
   },
   rules: {
     'import/first': 'error',

@@ -48,7 +48,7 @@
     "verbatimModuleSyntax": true,
     // "isolatedDeclarations": true,
     "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
+    // "allowImportingTsExtensions": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     /* Type Checking */
