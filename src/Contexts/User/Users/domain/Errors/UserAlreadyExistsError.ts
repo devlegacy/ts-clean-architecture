@@ -3,7 +3,7 @@ import {
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 export class UserAlreadyExistsError extends ConflictError {
-  override type = 'UserAlreadyExistsError'
+  override code = 'UserAlreadyExistsError'
   constructor() {
     super('User already exists. Duplicated entry')
   }

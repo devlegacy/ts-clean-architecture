@@ -3,7 +3,7 @@ import {
 } from '#@/src/Contexts/Shared/domain/index.js'
 
 export class UserDoesNotExistError extends EntityNotFoundError {
-  override type = 'UserDoesNotExistError'
+  override code = 'UserDoesNotExistError'
   constructor(id: string) {
     super(`The user <${id}> does not exist`)
   }

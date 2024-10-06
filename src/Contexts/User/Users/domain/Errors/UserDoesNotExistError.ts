@@ -4,7 +4,7 @@ import {
 
 export class UserDoesNotExistError extends EntityNotFoundError {
   // override message = `The user ${this.email ?? ''} does not exist`
-  override type = 'UserDoesNotExistError'
+  override code = 'UserDoesNotExistError'
 
   constructor(email: string) {
     const message = `The user ${email} does not exist`
