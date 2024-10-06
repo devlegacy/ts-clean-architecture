@@ -3,7 +3,7 @@ import {
 } from '@elastic/elasticsearch'
 import {
   ResponseError,
-} from '@elastic/transport/lib/errors.js'
+} from '@elastic/transport/errors'
 import bodybuilder, {
   type Bodybuilder,
 } from 'bodybuilder'

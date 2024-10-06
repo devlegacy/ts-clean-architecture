@@ -4,7 +4,7 @@ import {
 
 // 409 Conflict
 export class ConflictError extends DomainError {
-  override type = 'ConflictError'
+  override code = 'ConflictError'
 
   constructor(message: string) {
     super(message)

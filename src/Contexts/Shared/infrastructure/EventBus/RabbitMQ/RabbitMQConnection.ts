@@ -1,10 +1,26 @@
-import amqplib, { type ConfirmChannel, type Connection, type ConsumeMessage, type Options, type Replies } from 'amqplib'
-import { Service } from 'diod'
+import amqplib, {
+  type ConfirmChannel,
+  type Connection,
+  type ConsumeMessage,
+  type Options,
+  type Replies,
+} from 'amqplib'
+import {
+  Service,
+} from 'diod'
 
-import { info } from '../../Logger/index.js'
-import type { ConnectionSettings } from './ConnectionSettings.js'
-import type { ExchangeSetting } from './ExchangeSetting.js'
-import { RabbitMQExchangeNameFormatter } from './RabbitMQExchangeNameFormatter.js'
+import {
+  info,
+} from '../../Logger/index.js'
+import type {
+  ConnectionSettings,
+} from './ConnectionSettings.js'
+import type {
+  ExchangeSetting,
+} from './ExchangeSetting.js'
+import {
+  RabbitMQExchangeNameFormatter,
+} from './RabbitMQExchangeNameFormatter.js'
 
 @Service()
 export class RabbitMQConnection {
@@ -13,7 +29,7 @@ export class RabbitMQConnection {
   protected channel?: ConfirmChannel
   protected connection?: Connection
 
-  constructor(params: { connectionSettings: ConnectionSettings; exchangeSettings: ExchangeSetting }) {
+  constructor(params: { connectionSettings: ConnectionSettings, exchangeSettings: ExchangeSetting }) {
     this.connectionSettings = params.connectionSettings
   }
 
@@ -23,7 +39,9 @@ export class RabbitMQConnection {
   }
 
   async exchange(params: { name: string }) {
-    return await this.channel?.assertExchange(params.name, 'topic', { durable: true })
+    return await this.channel?.assertExchange(params.name, 'topic', {
+      durable: true,
+    })
   }
 
   async queue(params: {
@@ -64,12 +82,13 @@ export class RabbitMQConnection {
     return response
   }
 
-  async publish(params: { exchange: string; routingKey: string; content: Buffer; options: Options.Publish }) {
-    const { routingKey, content, options, exchange } = params
+  async publish(params: { exchange: string, routingKey: string, content: Buffer, options: Options.Publish }) {
+    const {
+      routingKey, content, options, exchange,
+    } = params
     return new Promise((resolve: (value?: unknown) => void, reject: (reason?: unknown) => void) => {
       this.channel!.publish(exchange, routingKey, content, options, (error: unknown) =>
-        error ? reject(error) : resolve(),
-      )
+        error ? reject(error) : resolve())
     })
   }
 
@@ -117,7 +136,9 @@ export class RabbitMQConnection {
   }
 
   #getMessageOptions(message: ConsumeMessage) {
-    const { messageId, contentType, contentEncoding, priority } = message.properties
+    const {
+      messageId, contentType, contentEncoding, priority,
+    } = message.properties
     const options = {
       messageId,
       headers: this.#incrementRedeliveryCount(message),
@@ -177,8 +198,12 @@ export class RabbitMQConnection {
   }
 
   async #amqpConnect() {
-    const { hostname, port, secure } = this.connectionSettings.connection
-    const { username, password, vhost } = this.connectionSettings
+    const {
+      hostname, port, secure,
+    } = this.connectionSettings.connection
+    const {
+      username, password, vhost,
+    } = this.connectionSettings
     const protocol = secure ? 'amqps' : 'amqp'
 
     const connection = await amqplib.connect({

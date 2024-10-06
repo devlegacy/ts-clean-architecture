@@ -1,5 +1,5 @@
-import type {
-  IncomingMessage,
+import {
+  type IncomingMessage,
 } from 'node:http'
 import {
   resolve,
@@ -26,6 +26,7 @@ const path = pathToFileURL(resolve(
   cwd(),
   './package.json',
 )).toString()
+
 const {
   default: packageJson,
 }: { default: Record<string, string> } = await import(path, {
@@ -77,10 +78,9 @@ export class SentryMonitoring implements Monitoring {
       //   name: `Transaction ${Date.now()}`,
       //   op: this.#options.environment,
       // })
-      // scope.setTransactionName((err as any)?.type || err.message || 'unknown')
-      scope.setTag('name', err.name)
-      scope.setTag('type', (err as any)?.type)
-
+      // scope.setTransactionName((err as any)?.code || err.message || 'unknown')
+      scope.setTag('code', (err as any)?.code || err?.name || 'unknown')
+      scope.setTag('name', (err as any)?.code || err?.name || 'unknown')
       if (config?.req) {
         scope.setUser({
           id: config?.req?.user?.id,
@@ -134,8 +134,9 @@ export class SentryMonitoring implements Monitoring {
       // scope.setClient()
       // scope.setRequestSession({})
 
-      if ((err as any).type) {
-        err.name = (err as any).type
+      // transform domain error name to type
+      if (err instanceof Error && err.name && (err as any).code) {
+        err.name = (err as any).code
       }
       Sentry.captureException(err)
       // transaction.finish()

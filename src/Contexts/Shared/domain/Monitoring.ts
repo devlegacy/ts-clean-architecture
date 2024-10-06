@@ -1,7 +1,6 @@
-import type {
-  IncomingMessage,
-} from 'node:http'
-
+// export abstract class Monitoring {
+//   abstract capture<R extends IncomingMessage = IncomingMessage>(err: Error, context?: { req?: R }): void
+// }
 export abstract class Monitoring {
-  abstract capture<R extends IncomingMessage = IncomingMessage>(err: Error, context?: { req?: R }): void
+  abstract capture(err: Error, context?: { req?: any }): void
 }
