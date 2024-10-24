@@ -34,7 +34,7 @@ deps/update: ## ⬆️ Update all project dependencies to their latest versions.
 	NODE_ENV= corepack up
 	NODE_ENV= pnpm install
 	NODE_ENV= pnpm audit --fix
-
+	NODE_ENV= pnpm dedupe
 .PHONY: setup/git
 .SILENT: setup/git
 setup/git: ## ⚙️ Setup the Git repository.
