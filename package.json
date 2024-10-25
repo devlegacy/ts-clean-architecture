@@ -171,7 +171,7 @@
     "qs": "6.13.0",
     "readline-sync": "1.4.10",
     "reflect-metadata": "0.2.2",
-    "socket.io": "4.8.0",
+    "socket.io": "4.8.1",
     "source-map-support": "0.5.21",
     "ts-toolbelt": "9.6.0",
     "tslib": "2.8.0",
@@ -261,7 +261,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.7",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "17.1.5",
+    "npm-check-updates": "17.1.6",
     "snyk": "1.1294.0"
   },
   "engines": {
