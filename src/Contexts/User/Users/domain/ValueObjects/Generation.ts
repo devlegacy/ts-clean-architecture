@@ -5,7 +5,7 @@ export enum GenerationName {
   Millennial,
   GenZ,
   GenAlpha,
-  Unknown,
+  Unknown
 }
 
 const generationConfig = [
