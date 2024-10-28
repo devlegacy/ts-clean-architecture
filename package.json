@@ -183,7 +183,7 @@
     "typeorm": "0.3.20",
     "ua-parser-js": "1.0.39",
     "ulidx": "2.4.1",
-    "uuid": "10.0.0",
+    "uuid": "11.0.1",
     "zod": "3.23.8"
   },
   "devDependencies": {
@@ -265,7 +265,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.7",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "17.1.6",
+    "npm-check-updates": "17.1.8",
     "snyk": "1.1294.0"
   },
   "engines": {
