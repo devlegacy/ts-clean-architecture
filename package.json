@@ -90,6 +90,7 @@
     "@as-integrations/fastify": "2.1.1",
     "@aws-sdk/client-cloudfront": "3.682.0",
     "@aws-sdk/client-s3": "3.682.0",
+    "@aws-sdk/client-secrets-manager": "3.682.0",
     "@aws-sdk/client-ses": "3.682.0",
     "@aws-sdk/cloudfront-signer": "3.679.0",
     "@aws-sdk/lib-storage": "3.682.0",
@@ -144,7 +145,7 @@
     "env-schema": "6.0.0",
     "fast-equals": "5.0.1",
     "fast-jwt": "4.0.5",
-    "fastify": "5.0.0",
+    "fastify": "5.1.0",
     "fastify-keycloak-adapter": "2.3.1",
     "fastify-qs": "5.0.0",
     "file-type": "19.6.0",
@@ -178,7 +179,7 @@
     "socket.io": "4.8.1",
     "source-map-support": "0.5.21",
     "ts-toolbelt": "9.6.0",
-    "tslib": "2.8.0",
+    "tslib": "2.8.1",
     "tsyringe": "4.8.0",
     "typeorm": "0.3.20",
     "ua-parser-js": "1.0.39",
@@ -195,7 +196,7 @@
     "@jest/globals": "29.7.0",
     "@playwright/test": "1.48.2",
     "@release-it/conventional-changelog": "9.0.2",
-    "@stylistic/eslint-plugin": "2.10.0",
+    "@stylistic/eslint-plugin": "2.10.1",
     "@swc-node/register": "1.10.9",
     "@swc/cli": "0.5.0",
     "@swc/core": "1.7.42",
@@ -216,7 +217,7 @@
     "@types/mailchimp__mailchimp_marketing": "3.0.20",
     "@types/mailchimp__mailchimp_transactional": "1.0.10",
     "@types/module-alias": "2.0.4",
-    "@types/node": "22.8.5",
+    "@types/node": "22.8.6",
     "@types/nodemailer": "6.4.16",
     "@types/qs": "6.9.16",
     "@types/readline-sync": "1.4.8",
@@ -279,9 +280,8 @@
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "pnpm": {
     "overrides": {
-      "cookie@<0.7.0": ">=0.7.0",
       "ws@>=8.0.0 <8.17.1": ">=8.17.1",
-      "elliptic@<6.6.0": ">=6.6.0"
+      "cookie@<0.7.0": ">=0.7.0"
     }
   }
 }
