@@ -37,6 +37,8 @@ export default {
   },
   prompt: {
     useEmoji: true,
+    useAI: false,
+    aiNumber: 5,
     types: [
       ...defaultConfig.types,
       {
