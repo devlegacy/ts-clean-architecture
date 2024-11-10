@@ -61,10 +61,11 @@ export class Block extends AggregateRoot {
   readonly westBoundary: Boundary
   readonly northwestBoundary: Boundary
 
-  readonly createdAt: BlockCreatedAt
-  readonly updatedAt: BlockUpdatedAt
+  createdAt: BlockCreatedAt
+  updatedAt: BlockUpdatedAt
 
-  private deletedAt?: BlockDeletedAt
+  // @readonly
+  deletedAt?: BlockDeletedAt
   private description?: LandDescription
 
   get fullDescription() {
@@ -97,6 +98,7 @@ export class Block extends AggregateRoot {
     northwestBoundary: Boundary,
     createdAt?: BlockCreatedAt,
     updatedAt?: BlockUpdatedAt,
+    deletedAt?: BlockDeletedAt,
   ) {
     super()
     this.id = id
@@ -117,7 +119,7 @@ export class Block extends AggregateRoot {
     this.createdAt = createdAt ?? BlockCreatedAt.now()
     this.updatedAt = updatedAt ?? BlockUpdatedAt.now()
 
-    this.deletedAt = undefined
+    this.deletedAt = deletedAt ?? undefined
   }
 
   static create(data: BlockEntityType) {

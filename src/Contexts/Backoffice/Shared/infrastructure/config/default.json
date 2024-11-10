@@ -4,13 +4,13 @@
   },
   "rabbitmq": {
     "connectionSettings": {
-      "username": "inrfebcy",
-      "password": "fW-2oZftiwGmxyznJLP-pF2k01m7_DXw",
-      "vhost": "inrfebcy",
+      "username": "guest",
+      "password": "guest",
+      "vhost": "/",
       "connection": {
-        "secure": true,
-        "hostname": "beaver.rmq.cloudamqp.com",
-        "port": 5671
+        "secure": false,
+        "hostname": "localhost",
+        "port": 5672
       }
     },
     "exchangeSettings": {
@@ -20,6 +20,6 @@
     "retryTtl": 1000
   },
   "sentry": {
-    "dsn": "https://63c75da4da6d4eb986d52394602515a4@o914008.ingest.sentry.io/4504036598284288"
+    "dsn": ""
   }
 }

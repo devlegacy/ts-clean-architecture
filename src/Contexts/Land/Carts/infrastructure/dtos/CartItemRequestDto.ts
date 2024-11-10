@@ -10,7 +10,7 @@ const id = Joi.string()
   .trim()
   .guid({
     version: [
-      'uuidv4',
+      'uuidv7',
     ],
   })
 

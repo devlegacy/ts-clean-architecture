@@ -1,6 +1,6 @@
 // Consideramos algoritmos infraestructura?
 import {
-  v4,
+  v7,
   validate,
   version,
 } from 'uuid'
@@ -31,7 +31,7 @@ export class Uuid extends ValueObject<string> {
   // Builder, Factory pattern
   static random(): Uuid {
     // return new Uuid(new ObjectId().toString())
-    return new Uuid(v4())
+    return new Uuid(v7())
   }
 
   // void -> efecto colateral

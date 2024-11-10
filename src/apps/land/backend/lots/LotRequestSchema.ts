@@ -11,7 +11,7 @@ import {
 const id = Joi
   .string()
   .uuid({
-    version: 'uuidv4',
+    version: 'uuidv7',
   })
   .trim()
 const boundary = Joi.string().trim()

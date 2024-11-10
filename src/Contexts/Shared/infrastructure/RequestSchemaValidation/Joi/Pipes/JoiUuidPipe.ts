@@ -20,7 +20,7 @@ export class JoiUuidPipe implements PipeTransform {
         .trim()
         .guid({
           version: [
-            'uuidv4',
+            'uuidv7',
           ],
         }),
     })

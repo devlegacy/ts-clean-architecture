@@ -9,7 +9,7 @@ import {
 } from '#@/src/Contexts/Shared/infrastructure/RequestSchemaValidation/Joi/index.js'
 
 const id = Joi.string().uuid({
-  version: 'uuidv4',
+  version: 'uuidv7',
 })
   .trim()
 

@@ -25,7 +25,7 @@ export class ObjectId extends ValueObject<string> {
   // Debería devolver valores en string
   static random(): ObjectId {
     return new ObjectId(new ObjectID().toString())
-    // return new Uuid(v4())
+    // return new Uuid(v7())
   }
 
   #isValidObjectId(id: string) {

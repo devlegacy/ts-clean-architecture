@@ -22,6 +22,7 @@ interface ExtendedStringSchema<T = string> extends StringSchema<T> {
   objectId(): this
   slug(): this
   uuidv4(): this
+  uuidv7(): this
 }
 
 // interface ExtendedNumberSchema<T = number> extends joi.NumberSchema<T> {
@@ -42,6 +43,7 @@ const stringObjectExtension: Extension = {
     'string.objectId': '{{#label}} must be a valid ID',
     'string.slug': '{{#label}} must be a valid slug',
     'string.uuidv4': '{{#label}} must be a valid ID',
+    'string.uuidv7': '{{#label}} must be a valid ID',
   },
   rules: {
     objectId: {
@@ -76,6 +78,18 @@ const stringObjectExtension: Extension = {
           return {
             value,
             errors: helpers.error('string.uuidv4'),
+          }
+        }
+        return value
+      },
+    },
+    uuidv7: {
+      validate: (value: string, helpers) => {
+        value = value.trim()
+        if (!validate(value)) {
+          return {
+            value,
+            errors: helpers.error('string.uuidv7'),
           }
         }
         return value
