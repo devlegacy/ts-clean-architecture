@@ -40,13 +40,13 @@ const options: Sentry.NodeOptions = {
   environment: env.APP_ENV || 'development',
   release: packageJson.version,
   integrations: [
-    Sentry.httpIntegration(),
-    Sentry.fastifyIntegration(),
+    // Sentry.httpIntegration(),
+    // Sentry.fastifyIntegration(),
     // Sentry.modulesIntegration(),
-    Sentry.functionToStringIntegration(),
+    // Sentry.functionToStringIntegration(),
     nodeProfilingIntegration(),
-    Sentry.onUncaughtExceptionIntegration(),
-    Sentry.onUnhandledRejectionIntegration(),
+    // Sentry.onUncaughtExceptionIntegration(),
+    // Sentry.onUnhandledRejectionIntegration(),
   ],
   tracesSampleRate: 1.0,
   profilesSampleRate: 1.0,
@@ -69,6 +69,9 @@ export class SentryMonitoring implements Monitoring {
     }
 
     Sentry.init(this.#options)
+
+    // TODO: Implement Fastify integration
+    // Sentry.setupFastifyErrorHandler(app)
   }
 
   capture(err: Error, config?: { req: HttpRequest }) {
