@@ -31,7 +31,9 @@ help: ## 📋 Display help message with descriptions of all available commands.
 deps/update: ## ⬆️ Update all project dependencies to their latest versions.
 	$(print_message) "updating dependencies"
 	ncu -u && ncu --target minor -u && ncu --target patch -u
+	corepack prepare pnpm@latest --activate
 	NODE_ENV= corepack up
+	NODE_ENV= pnpm up --recursive
 	NODE_ENV= pnpm install
 	NODE_ENV= pnpm audit --fix
 	NODE_ENV= pnpm dedupe
