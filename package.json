@@ -88,12 +88,12 @@
   "dependencies": {
     "@apollo/server": "4.11.2",
     "@as-integrations/fastify": "2.1.1",
-    "@aws-sdk/client-cloudfront": "3.691.0",
-    "@aws-sdk/client-s3": "3.691.0",
-    "@aws-sdk/client-secrets-manager": "3.691.0",
-    "@aws-sdk/client-ses": "3.691.0",
-    "@aws-sdk/cloudfront-signer": "3.686.0",
-    "@aws-sdk/lib-storage": "3.691.0",
+    "@aws-sdk/client-cloudfront": "3.693.0",
+    "@aws-sdk/client-s3": "3.693.0",
+    "@aws-sdk/client-secrets-manager": "3.693.0",
+    "@aws-sdk/client-ses": "3.693.0",
+    "@aws-sdk/cloudfront-signer": "3.693.0",
+    "@aws-sdk/lib-storage": "3.693.0",
     "@elastic/elasticsearch": "8.16.0",
     "@elastic/transport": "8.9.1",
     "@eventstore/db-client": "6.2.1",
@@ -260,7 +260,7 @@
     "ts-unused-exports": "10.1.0",
     "tsconfig-paths": "4.2.0",
     "tsx": "4.19.2",
-    "type-fest": "4.26.1",
+    "type-fest": "4.27.0",
     "typescript": "5.6.3",
     "typescript-eslint": "8.14.0"
   },
@@ -278,7 +278,7 @@
   "os": [],
   "cpu": [],
   "engineStrict": true,
-  "packageManager": "pnpm@9.13.1+sha512.5ac37545851c55ec58521b6c285db6f848f93ca70889beb4145f5b40fe234e4ea4faee4dad12ac5c139e494374c65d9c3a6ec9a25954378fa286a250e68d2f20",
+  "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a",
   "pnpm": {
     "overrides": {
       "ws@>=8.0.0 <8.17.1": ">=8.17.1",
