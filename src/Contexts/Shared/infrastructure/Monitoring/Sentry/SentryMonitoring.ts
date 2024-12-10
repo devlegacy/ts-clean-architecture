@@ -16,7 +16,9 @@ import * as Sentry from '@sentry/node'
 import {
   nodeProfilingIntegration,
 } from '@sentry/profiling-node'
-import UAParser from 'ua-parser-js'
+import {
+  UAParser,
+} from 'ua-parser-js'
 
 import {
   Monitoring,
