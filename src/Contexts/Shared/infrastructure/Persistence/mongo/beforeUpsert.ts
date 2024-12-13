@@ -2,7 +2,11 @@ import type {
   EventArgs,
 } from '@mikro-orm/core'
 
-export const beforeUpsert = (args: EventArgs<any>) => {
+import type {
+  AggregateRoot,
+} from '../../../domain/AggregateRoot.js'
+
+export const beforeUpsert = <T = AggregateRoot>(_args: EventArgs<T>) => {
   // TODO: Validate type on value
   // NOTE: El dominio esta separado de la base de datos :D, eso incluye el como se esta guardo e interpretando el ObjectId
   // args.entity._id = args.entity.id
@@ -14,7 +18,6 @@ export const beforeUpsert = (args: EventArgs<any>) => {
 
   // delete args.entity._id
 
-  // eslint-disable-next-line no-console
-  console.log(args)
+  // console.log(args)
   // console.log(args.entity._id)
 }

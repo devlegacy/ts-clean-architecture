@@ -2,7 +2,11 @@ import type {
   EventArgs,
 } from '@mikro-orm/core'
 
-export const beforeUpdate = (args: EventArgs<any>) => {
+import type {
+  AggregateRoot,
+} from '../../../domain/AggregateRoot.js'
+
+export const beforeUpdate = <T = AggregateRoot>(_args: EventArgs<T>) => {
   // console.log(args)
   // console.log(args.entity._id)
 
@@ -10,6 +14,5 @@ export const beforeUpdate = (args: EventArgs<any>) => {
   // args.entity._id.value = new ObjectId(args.entity._id.value)
   // args.entity.id.value = args.entity._id.value
 
-  // eslint-disable-next-line no-console
-  console.log(args)
+  // console.log(args)
 }
