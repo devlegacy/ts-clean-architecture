@@ -1,8 +1,8 @@
-import {
+import type {
   User,
 } from '../domain/User.js'
 import {
-  DomainUserFinder,
+  UserFinder as DomainUserFinder,
 } from '../domain/UserFinder.js'
 import {
   UserRepository,
@@ -16,6 +16,7 @@ export class UserFinder {
   }
 
   async run(id: string): Promise<User> {
-    return (await this.finder.run(id))// .toPrimitives()
+    const user = (await this.finder.run(id))// .toPrimitives()
+    return user
   }
 }

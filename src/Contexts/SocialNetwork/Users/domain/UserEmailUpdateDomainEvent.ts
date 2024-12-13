@@ -1,7 +1,7 @@
-import type {
-  DomainEventPrimitives,
-  DomainEventPrimitivesWithAttributes,
-} from '#@/src/Contexts/Shared/domain/index.js'
+import {
+  type DomainEventPrimitives,
+  type DomainEventPrimitivesWithAttributes,
+} from '#@/src/Contexts/Shared/domain/Events/DomainEvent.js'
 
 import {
   UserDomainEvent,

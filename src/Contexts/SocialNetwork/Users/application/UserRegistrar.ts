@@ -1,6 +1,6 @@
 import {
   EventBus,
-} from '#@/src/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/Events/EventBus.js'
 
 import {
   User,

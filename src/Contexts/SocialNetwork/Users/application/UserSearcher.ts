@@ -1,8 +1,8 @@
 import {
   UserId,
-} from '../../Shared/domain/index.js'
-import {
-  type UserPrimitiveType,
+} from '../../Shared/domain/Users/UserId.js'
+import type {
+  UserPrimitiveType,
 } from '../domain/User.js'
 import {
   UserRepository,

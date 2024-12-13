@@ -1,13 +1,13 @@
 import {
   UserId,
-} from '../../Shared/domain/index.js'
+} from '../../Shared/domain/Users/UserId.js'
 import {
   UserDoesNotExistError,
-} from './Errors/index.js'
-import type {
-  User,
+} from './Errors/UserDoesNotExistError.js'
+import {
+  type User,
 } from './User.js'
-import type {
+import {
   UserRepository,
 } from './UserRepository.js'
 
@@ -24,6 +24,7 @@ export class UserFinder {
     return user
   }
 }
-export {
-  UserFinder as DomainUserFinder
-}
+
+// export {
+//   UserFinder as DomainUserFinder
+// }

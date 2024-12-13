@@ -3,7 +3,7 @@ import {
 } from '#@/src/Contexts/Shared/domain/AggregateRoot.js'
 import {
   UserId,
-} from '#@/src/Contexts/SocialNetwork/Shared/domain/index.js'
+} from '#@/src/Contexts/SocialNetwork/Shared/domain/Users/UserId.js'
 
 import {
   UserArchivedDomainEvent,
@@ -16,10 +16,16 @@ import {
 } from './UserRegisteredDomainEvent.js'
 import {
   UserEmail,
+} from './ValueObjects/UserEmail.js'
+import {
   UserName,
+} from './ValueObjects/UserName.js'
+import {
   UserProfilePicture,
+} from './ValueObjects/UserProfilePicture.js'
+import {
   UserStatus,
-} from './ValueObjects/index.js'
+} from './ValueObjects/UserStatus.js'
 
 export type UserEntityType = Entity<User>
 export type UserPrimitiveType = Primitives<User>

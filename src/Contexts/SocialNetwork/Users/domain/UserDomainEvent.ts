@@ -2,7 +2,7 @@ import {
   DomainEvent,
   type DomainEventPrimitives,
   type DomainEventPrimitivesWithAttributes,
-} from '#@/src/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/Events/DomainEvent.js'
 
 export type UserDomainEventPrimitives = {
   id: string

@@ -1,6 +1,6 @@
 import {
   Criteria,
-} from '#@/src/Contexts/Shared/domain/index.js'
+} from '#@/src/Contexts/Shared/domain/Criteria/Criteria.js'
 
 import {
   User,
@@ -10,6 +10,5 @@ export abstract class UserRepository {
   abstract save(user: User): Promise<void>
 
   abstract search(id: User['id']): Promise<Nullable<User>>
-
   abstract matching(criteria: Criteria): Promise<User[]>
 }
