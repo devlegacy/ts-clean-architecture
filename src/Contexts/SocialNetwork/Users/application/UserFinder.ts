@@ -1,5 +1,5 @@
-import type {
-  User,
+import {
+  type User,
 } from '../domain/User.js'
 import {
   UserFinder as DomainUserFinder,
