@@ -6,7 +6,8 @@ import {
   FatalErrorHandler,
 } from '#@/src/Contexts/Shared/infrastructure/index.js'
 import {
-  error, info,
+  error,
+  info,
 } from '#@/src/Contexts/Shared/infrastructure/Logger/index.js'
 
 import {
@@ -22,12 +23,11 @@ process
   .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))
   .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
-ConfigureRabbitMQCommand.run()
-  .then(() => {
-    info('RabbitMQ Configuration success')
-    process.exit(0)
-  })
-  .catch((err) => {
-    error('RabbitMQ Configuration fail', err)
-    process.exit(1)
-  })
+try {
+  await ConfigureRabbitMQCommand.run()
+  info('RabbitMQ Configuration success')
+  process.exit(0)
+} catch (err) {
+  error('RabbitMQ Configuration fail', err)
+  process.exit(1)
+}

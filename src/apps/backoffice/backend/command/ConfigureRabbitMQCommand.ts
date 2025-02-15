@@ -21,7 +21,7 @@ export class ConfigureRabbitMQCommand {
     } = RabbitMQConfigFactory.createConfig()
     await connection.connect()
 
-    const configurer = container.get<RabbitMQConfigurer>(RabbitMQConfigurer)
+    const configurer = container.get(RabbitMQConfigurer)
     const subscribers = DomainEventSubscriberResolver.fromContainer(container).items
 
     await configurer.configure({
