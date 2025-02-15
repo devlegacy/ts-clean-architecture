@@ -23,12 +23,11 @@ process
   .on('uncaughtException', fatalErrorHandler.capture.bind(fatalErrorHandler))
   .on('unhandledRejection', fatalErrorHandler.capture.bind(fatalErrorHandler))
 
-ConfigureRabbitMQCommand.run()
-  .then(() => {
-    info('RabbitMQ Configuration success')
-    process.exit(0)
-  })
-  .catch((err) => {
-    error('RabbitMQ Configuration fail', err)
-    process.exit(1)
-  })
+try {
+  await ConfigureRabbitMQCommand.run()
+  info('RabbitMQ Configuration success')
+  process.exit(0)
+} catch (err) {
+  error('RabbitMQ Configuration fail', err)
+  process.exit(1)
+}
