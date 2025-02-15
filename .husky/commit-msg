@@ -1,6 +1,7 @@
 COLORS_PATH=$(dirname "$0")/../.etc/bin/colors
 
 [ -f "${COLORS_PATH}" ] && source "${COLORS_PATH}"
+# commit_message="$(cat $1)"
 
 echo "${COLOR_YELLOW}Validating commit message 💬...${COLOR_RESET}"
 if npx --no -- commitlint --edit "${1}"; then
