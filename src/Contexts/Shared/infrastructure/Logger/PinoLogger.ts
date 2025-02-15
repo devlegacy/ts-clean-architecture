@@ -2,13 +2,13 @@ import util from 'node:util'
 
 import pino,
 {
+  type Level,
   type Logger as PinoLoggerType,
   type LoggerOptions,
 } from 'pino'
 
 import {
   Logger,
-  type LogLevel,
   type LogMessage,
 } from '../../domain/index.js'
 import {
@@ -23,9 +23,7 @@ export class PinoLogger implements Logger<PinoLoggerType> {
     return this.#logger
   }
 
-  constructor(options: { name?: string
-    enabled?: boolean
-    level?: LogLevel } = {
+  constructor(options: LoggerOptions = {
       level: 'info',
     }) {
     this.#logger = pino.pino(
@@ -34,7 +32,12 @@ export class PinoLogger implements Logger<PinoLoggerType> {
         messageKey: MESSAGE_KEY,
         base: null,
       },
-      pino.multistream(streams),
+      // streams[0]?.stream,
+      // streams[1]?.stream,
+      pino.multistream(streams(options.level as Level), {
+        // levels: pino.levels.values,
+        // dedupe: true,
+      }),
     )
   }
 
@@ -67,7 +70,7 @@ export class PinoLogger implements Logger<PinoLoggerType> {
     this.#logger.error(message)
   }
 
-  deep(message: LogMessage) {
+  deep<T = LogMessage>(message: T) {
     this.#logger.info(
       util.inspect(message, {
         showHidden: false,
@@ -93,7 +96,7 @@ export const deepLog = (data: any) =>
   )
 
 export const configure = (config: LoggerOptions) => {
-  logger = () => new PinoLogger(config as any).logger
+  logger = () => new PinoLogger(config).logger
 }
 
 export const info = logger().info.bind(logger())
