@@ -254,7 +254,7 @@
     "release-it": "18.1.2",
     "resolve-tspaths": "0.8.23",
     "supertest": "7.0.0",
-    "ts-jest": "29.2.5",
+    "ts-jest": "29.2.6",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "ts-paths-esm-loader": "1.4.3",
@@ -269,7 +269,7 @@
   "optionalDependencies": {
     "depcheck": "1.4.7",
     "eslint-nibble": "8.1.0",
-    "npm-check-updates": "17.1.14",
+    "npm-check-updates": "17.1.15",
     "snyk": "1.1295.3"
   },
   "engines": {
