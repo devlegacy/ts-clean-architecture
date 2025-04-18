@@ -1,10 +1,9 @@
-version: '3.9'
-
 services:
   elasticsearch:
     container_name: elasticsearch
     # image: docker.elastic.co/elasticsearch/elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.2 # 8.5.3
+    # https://www.elastic.co/guide/en/elasticsearch/reference/8.x/docker.html#_start_a_single_node_cluster
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.0 # 8.5.3
     environment:
       - node.name=elasticsearch
       - discovery.type=single-node #Elasticsearch forms a single-node cluster
@@ -28,7 +27,7 @@ services:
   kibana:
     # image: docker.elastic.co/kibana/kibana
     container_name: kibana
-    image: docker.elastic.co/kibana/kibana:8.9.2
+    image: docker.elastic.co/kibana/kibana:8.18.0
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
@@ -43,4 +42,8 @@ services:
 
 networks:
   app-network:
-    external: true
+    name: app-network
+    driver: bridge
+    ipam:
+      driver: default
+# docker-compose -f docker-compose.elasticsearch.yml up -d
