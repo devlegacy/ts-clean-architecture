@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   mongo:
     container_name: mongo
@@ -19,3 +17,4 @@ services:
 networks:
   app-network:
     external: true
+# docker-compose -f docker-compose.mongo.yml up -d
