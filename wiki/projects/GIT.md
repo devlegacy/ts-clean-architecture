@@ -32,6 +32,7 @@
 <h3 align="center">Commit convention</h3>
 
 - [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Conventional Comments](https://conventionalcomments.org/)
 - [Configure Template | cz-git](https://cz-git.qbb.sh/config/#json-template)
 
 ```sh

@@ -9,7 +9,9 @@
 
 ## Documentation
 
-- https://jsonapi.org/
+- [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)
+- [JSON:API — A specification for building APIs in JSON](https://jsonapi.org/)
+- [Zalando RESTful API and Event Guidelines](https://opensource.zalando.com/restful-api-guidelines/)
 
 ## Notes
 

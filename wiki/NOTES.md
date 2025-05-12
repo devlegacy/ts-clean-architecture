@@ -44,7 +44,7 @@ The limits of my language mean the limits of my world.
 │  │  │  │  │  │  ├─ 📄 `SearchByCriteriaQuery.ts`    
 │  │  │  │  │  │  ├─ 📄 `SearchByCriteriaQueryHandler.ts`    
 │  │  │  │  │  │  ├─ 📄 `CourseFinder.ts`   use case 
-│  │  │  │  │  ├─ 📄 `CoursesUseCase.ts` Servicio | Servicio de aplicación | Caso de uso    
+│  │  │  │  │  ├─ 📄 `CoursesUseCase.ts` Servicio | Servicio de aplicación | Caso de uso | Interactors   
 │  │  │  │  │  ├─ 📄 `Course[UseCase].ts`   
 │  │  │  │  │  ├─ 📄 `CoursesResponse.ts `   
 │  │  │  │  ├─ 📂 `domain/` - ¿De qué tipo? (UserId, User, UserRepository)   
