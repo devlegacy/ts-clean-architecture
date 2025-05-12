@@ -3,7 +3,7 @@ services:
     container_name: elasticsearch
     # image: docker.elastic.co/elasticsearch/elasticsearch
     # https://www.elastic.co/guide/en/elasticsearch/reference/8.x/docker.html#_start_a_single_node_cluster
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.0 # 8.5.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.1 # 8.5.3
     environment:
       - node.name=elasticsearch
       - discovery.type=single-node #Elasticsearch forms a single-node cluster
@@ -27,7 +27,7 @@ services:
   kibana:
     # image: docker.elastic.co/kibana/kibana
     container_name: kibana
-    image: docker.elastic.co/kibana/kibana:8.18.0
+    image: docker.elastic.co/kibana/kibana:8.18.1
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
